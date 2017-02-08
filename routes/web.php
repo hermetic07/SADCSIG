@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/Service','ServiceControl@index');
+Route::post('/Service-Add','ServiceControl@add');
+Route::get('/Service-view', 'ServiceControl@view');
+Route::post('/Service-Update','ServiceControl@update');
+Route::post('Service-delete', 'ServiceControl@delete');
