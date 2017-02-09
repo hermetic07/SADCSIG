@@ -20,3 +20,9 @@ Route::post('/Service-Add','ServiceControl@add');
 Route::get('/Service-view', 'ServiceControl@view');
 Route::post('/Service-Update','ServiceControl@update');
 Route::post('Service-delete', 'ServiceControl@delete');
+
+Route::get('/Nature','NatureControl@index');
+Route::post('/Nature-Add','NatureControl@add');
+Route::get('/Nature-view', 'NatureControl@view');
+Route::post('/Nature-Update','NatureControl@update');
+Route::post('Nature-delete', 'NatureControl@delete');

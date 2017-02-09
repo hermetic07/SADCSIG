@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" href="plugins/images/favicon-16x16.png" sizes="16x16" />
 
   <!-- title -->
-  <title>Maintenance || Nature of business</title>
+  <title>Maintenance || @yield('Maintenance Title')</title>
 
   <!-- Bootstrap Core CSS -->
   <link href="{{asset('bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -100,24 +100,26 @@
               <ul class="nav nav-second-level">
                  <li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
                      <ul class="nav nav-third-level">
-                         <li> <a href="Services.html">Services</a> </li>
-                         <li> <a href="NatureOfBusiness.html">Nature of business</a></li>
+                         <li> <a href="{{url('/Service')}}">Services</a> </li>
+                         <li> <a href="{{url('/Nature')}}">Nature of business</a></li>
                      </ul>
                  </li>
                  <li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
                      <ul class="nav nav-third-level">
- 						<li> <a href="MilitaryServices.html">Military services</a></li>
-                         <li> <a href="Ranks.html">Rank</a></li>
- 						<li> <a href="BodyAttributes.html">Body attributes</a></li>
- 						<li> <a href="Leave.html">Leave</a></li>
- 						<li> <a href="#">Licences and clearances</a> </li>
+                          <li> <a href="#">Requirements</a></li>
+                          <li> <a href="#">Licences and clearances</a> </li>
+                          <li> <a href="#">Unit of Measurement</a></li>
+                          <li> <a href="#">Body attributes</a></li>
+                          <li> <a href="#">Military services</a></li>
+                          <li> <a href="#">Rank</a></li>
+                          <li> <a href="#">Role</a></li>
+               						<li> <a href="#">Leave</a></li>
                      </ul>
                  </li>
                  <li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
                      <ul class="nav nav-third-level">
-                         <li> <a href="#">Area</a> </li>
-                         <li> <a href="#">Unit of measurement</a> </li>
-                         <li> <a href="#">Requirements</a> </li>
+                         <li> <a href="#">Provinces</a></li>
+                         <li> <a href="#">Area</a></li>
                      </ul>
                  </li>
               </ul>
@@ -251,9 +253,9 @@
             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
               <thead>
                 <tr>
-                <th data-sort-initial="true" data-toggle="true">ID</th>
+                <th data-sort-initial="true" data-toggle="true" width="100px">ID</th>
                   @yield('theads')
-                  <th data-sort-ignore="true" width="150px">Actions</th>
+                  <th data-sort-ignore="true" width="100px">Actions</th>
                 </tr>
               </thead>
               	<div class="form-inline padding-bottom-15">
