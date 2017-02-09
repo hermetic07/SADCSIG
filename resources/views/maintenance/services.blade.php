@@ -14,20 +14,20 @@
     <div class="help-block with-errors"></div>
   </div>
   <label class="control-label  col-md-12">Description</label>
-  <div class="col-md-10">
-    <input type="text" class="form-control" id="description" name="description" required>
+  <div class="col-md-12">
+    <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
     <div class="help-block with-errors"></div>
   </div>
 </div>
 @endsection
 
 @section('mtitle') Services @endsection
-@section('mtitle2') Services @endsection
+@section('mtitle2')<a href="{{url('/Service')}}"> Services</a>@endsection
 
 @section('theads')
-    <th>Name</th>
+    <th>Service Name</th>
     <th>Description</th>
-    <th width="100px">Status</th>
+    <th data-sort-ignore=true width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -38,14 +38,28 @@
          <td>{!!$service->description!!}</td>
          <td>
            @if($service->status === "active")
-            <input type="checkbox" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
+           <div class="onoffswitch2">
+             <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox sw" id="IDngDataNato" checked>
+              <label class="onoffswitch2-label" for="IDngDataNato">
+                <span class="onoffswitch2-inner"></span>
+                <span class="onoffswitch2-switch"></span>
+              </label>
+            </div>
            @else
-             <input type="checkbox" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
+           <div class="onoffswitch2">
+             <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox sw" id="IDngDataNato" checked>
+              <label class="onoffswitch2-label" for="IDngDataNato">
+                <span class="onoffswitch2-inner"></span>
+                <span class="onoffswitch2-switch"></span>
+              </label>
+            </div>
            @endif
          </td>
          <td>
-             <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$service -> id!!}')" ><i class='fa fa-edit'></i></button>
-             <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$service -> id!!}')"><i class="fa fa-times"> </i></button>
+           <a class="mytooltip tooltip-effect-7">      <button type="button" class="btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$service -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-content2">Edit</span></a>
+  &nbsp;
+         <a class="mytooltip tooltip-effect-7">    <button type="button" class="btn btn-info btn-circle" onclick="fun_delete('{!!$service -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-content2">Delete</span></a>
+
          </td>
       </tr>
       @endforeach
@@ -79,6 +93,9 @@
 
 @section('ajaxscript')
 <script type="text/javascript">
+
+
+
   function fun_view(id)
   {
     var view_url = $("#hidden_view").val();
@@ -114,22 +131,32 @@
 
   function fun_delete(id)
     {
-      var conf = confirm("Are you sure want to delete??");
-      if(conf){
-        var delete_url = $("#hidden_delete").val();
-        $.ajax({
-          url: delete_url,
-          type:"POST",
-          data: {"id":id,_token: "{{ csrf_token() }}"},
-          success: function(response){
-            alert(response);
-            location.reload();
-          }
-        });
-      }
-      else{
-        return false;
-      }
+      swal({
+          title: "Are you sure?",
+          text: "Delete this item?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+      }, function(){
+        var delete_url = $("#hidden_delete").val();
+                $.ajax({
+                  url: delete_url,
+                  type:"POST",
+                  data: {"id":id,_token: "{{ csrf_token() }}"},
+                  success: function(){
+          swal({
+              title: "Deleted",
+              text: "This data has been successfully deleted",
+              type: "success"
+          },function() {
+              location.reload();
+          });
+                  }
+      });
+  });
+
     }
 </script>
 @endsection

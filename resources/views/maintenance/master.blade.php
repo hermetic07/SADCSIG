@@ -93,10 +93,10 @@
  			  <li class="user-pro2"> <a href="#" class="waves-effect"><img src="{{asset('plugins/images/users/logobg.png')}}" height="80" alt="user-img"> <span class="hide-menu"></span></span ></a></li>
            </span>
 
-           <li> <a href="index.html" class="waves-effect"><i class="fa fa-dashboard fa-4x fa-fw"></i> <span class="hide-menu"> Dashboard </span></a>
+           <li> <a href="index.html" class="waves-effect"><i class="fa fa-dashboard fa-3x fa-fw"></i> <span class="hide-menu"> Dashboard </span></a>
            </li>
 
-           <li> <a href="javascript:void(0);" class="waves-effect active"><i class="fa fa-wrench fa-4x fa-fw"></i> <span class="hide-menu"> Maintenance </a>
+           <li> <a href="javascript:void(0);" class="waves-effect active"><i class="fa fa-wrench fa-3x fa-fw"></i> <span class="hide-menu"> Maintenance </a>
               <ul class="nav nav-second-level">
                  <li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
                      <ul class="nav nav-third-level">
@@ -125,7 +125,7 @@
               </ul>
  		  </li>
 
-           <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users fa-4x fa-fw"></i> <span class="hide-menu"> Clients </a>
+           <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users fa-3x fa-fw"></i> <span class="hide-menu"> Clients </a>
               <ul class="nav nav-second-level">
                  <li> <a href="javascript:void(0)" class="waves-effect">Pending<span class="label label-rouded label-info pull-right">13</span></a>
                  </li>
@@ -134,7 +134,7 @@
               </ul>
  		  </li>
 
-           <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shield fa-4x fa-fw"></i> <span class="hide-menu"> Security guards </a>
+           <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shield fa-3x fa-fw"></i> <span class="hide-menu"> Security guards </a>
               <ul class="nav nav-second-level">
                  <li> <a href="javascript:void(0)" class="waves-effect">Guards<span class="label label-rouded label-info pull-right">13</span></a>
                  </li>
@@ -143,10 +143,10 @@
               </ul>
  		  </li>
 
- 		  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-truck fa-4x fa-fw"></i> <span class="hide-menu"> Delivery </a>
+ 		  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-truck fa-3x fa-fw"></i> <span class="hide-menu"> Delivery </a>
  		  </li>
 
- 	      <li><a href="javascript:void(0);" class="waves-effect"><i class="fa fa-exchange fa-4x fa-fw"></i> <span class="hide-menu">Manual deployment</a>
+ 	      <li><a href="javascript:void(0);" class="waves-effect"><i class="fa fa-exchange fa-3x fa-fw"></i> <span class="hide-menu">Manual deployment</a>
  			 <ul class="nav nav-second-level">
                  <li> <a href="javascript:void(0)" class="waves-effect">Deploy</a>
                  </li>
@@ -155,14 +155,14 @@
               </ul>
  	      </li>
 
-           <li> <a href="#" class="waves-effect"><i class="fa fa-file-text fa-4x fa-fw"></i> <span class="hide-menu">Reports<span class="fa arrow"></span></a>
+           <li> <a href="#" class="waves-effect"><i class="fa fa-file-text fa-3x fa-fw"></i> <span class="hide-menu">Reports<span class="fa arrow"></span></a>
              <ul class="nav nav-second-level">
                <li><a href="#">Guards</a></li>
                <li><a href="#">Client</a></li>
              </ul>
            </li>
 
-           <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-4x fa-fw"></i> <span class="hide-menu">Settings<span class="fa arrow"></span></span></a>
+           <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-3x fa-fw"></i> <span class="hide-menu">Settings<span class="fa arrow"></span></span></a>
              <ul class="nav nav-second-level">
                <li><a href="#">Account settings</a></li>
              </ul>
@@ -240,7 +240,7 @@
           <ol class="breadcrumb">
             <li><a href="index.html">Dashboard</a></li>
             <li class="active">Maintenance</li>
-			<li class="active"><a href="NatureOfBusiness.html">@yield('mtitle2')</a></li>
+			<li class="active">@yield('mtitle2')</li>
           </ol>
         </div>
       </div>
@@ -263,7 +263,6 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<button class="btn btn-warning btn-rounded waves-effect waves-light"  data-toggle="modal" data-target="#Add"  type="button" data-toggle="modal" data-target=".bs-example-modal-sm" class="model_img img-responsive"><span class="btn-label"><i class="fa fa-plus-circle"></i></span>Add</button>
-								<small>Add data to the table  </small>
 							</div>
 						</div>
                     	<div class="col-sm-6 text-right m-b-20">
@@ -322,7 +321,7 @@
 <script src="{{asset('js/footable-init.js')}}"></script>
 <!-- Sweet-Alert  -->
  <script src="{{asset('js/Alert/sweetalert.min.js')}}"></script>
-    <script src="{{asset('js/Alert/jquery-alertcustom.js')}}"></script>
+
 <!-- validation -->
 <script src="{{asset('js/validator.js')}}"></script>
 <!-- toast -->
@@ -332,7 +331,7 @@ $(document).ready(function() {
 
 
 
-      $(".switch").click(function(){
+      $(".sw").click(function(){
            $.toast({
             heading: 'Status change',
             position: 'top-right',
