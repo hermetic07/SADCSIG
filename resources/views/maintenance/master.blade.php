@@ -106,20 +106,20 @@
                  </li>
                  <li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
                      <ul class="nav nav-third-level">
-                          <li> <a href="#">Requirements</a></li>
-                          <li> <a href="#">Licences and clearances</a> </li>
-                          <li> <a href="#">Unit of Measurement</a></li>
-                          <li> <a href="#">Body attributes</a></li>
-                          <li> <a href="#">Military services</a></li>
-                          <li> <a href="#">Rank</a></li>
-                          <li> <a href="#">Role</a></li>
-               						<li> <a href="#">Leave</a></li>
+                          <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
+                          <li> <a href="{{url('/License')}}">Licences and clearances</a> </li>
+                          <li> <a href="{{url('/Measurement')}}">Unit of Measurement</a></li>
+                          <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
+                          <li> <a href="{{url('/Military')}}">Military services</a></li>
+                          <li> <a href="{{url('/Rank')}}">Rank</a></li>
+                          <li> <a href="{{url('/Role')}}">Role</a></li>
+               						<li> <a href="{{url('/Leave')}}">Leave</a></li>
                      </ul>
                  </li>
                  <li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
                      <ul class="nav nav-third-level">
-                         <li> <a href="#">Provinces</a></li>
-                         <li> <a href="#">Area</a></li>
+                         <li> <a href="{{url('/Province')}}">Provinces</a></li>
+                         <li> <a href="{{url('/Area')}}">Area</a></li>
                      </ul>
                  </li>
               </ul>
