@@ -284,7 +284,8 @@
               </tfoot>
         	</table>
           <input type="hidden" name="hidden_view" id="hidden_view" value=@yield('hiddenediturl')>
-          <input type="hidden" name="hidden_delete" id="hidden_delete" value=@yield('hiddenedeleteurl')">
+          <input type="hidden" name="hidden_delete" id="hidden_delete" value=@yield('hiddenedeleteurl')>
+          <input type="hidden" name="hidden_status" id="hidden_status" value=@yield('hiddenestatusurl')>
             <div class="text-right">
               <ul class="pagination">
               </ul>

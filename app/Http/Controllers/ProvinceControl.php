@@ -90,4 +90,22 @@ class ProvinceControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Provinces = Province::find($id);
+         if($Provinces->status==='active')
+         {
+            $Provinces->status = "inactive";
+         }
+         else{
+           $Provinces->status = "active";
+         }
+         $response  = $Provinces->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

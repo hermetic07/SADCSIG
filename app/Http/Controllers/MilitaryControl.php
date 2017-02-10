@@ -90,4 +90,22 @@ class MilitaryControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Militarys = Military::find($id);
+         if($Militarys->status==='active')
+         {
+            $Militarys->status = "inactive";
+         }
+         else{
+           $Militarys->status = "active";
+         }
+         $response  = $Militarys->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

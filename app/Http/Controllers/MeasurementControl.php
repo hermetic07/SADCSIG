@@ -90,4 +90,22 @@ class MeasurementControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $measurements = measurement::find($id);
+         if($measurements->status==='active')
+         {
+            $measurements->status = "inactive";
+         }
+         else{
+           $measurements->status = "active";
+         }
+         $response  = $measurements->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

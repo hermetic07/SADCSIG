@@ -90,4 +90,22 @@ class RequirementControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Requirements = Requirement::find($id);
+         if($Requirements->status==='active')
+         {
+            $Requirements->status = "inactive";
+         }
+         else{
+           $Requirements->status = "active";
+         }
+         $response  = $Requirements->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

@@ -95,4 +95,22 @@ class RankControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Ranks = Rank::find($id);
+         if($Ranks->status==='active')
+         {
+            $Ranks->status = "inactive";
+         }
+         else{
+           $Ranks->status = "active";
+         }
+         $response  = $Ranks->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

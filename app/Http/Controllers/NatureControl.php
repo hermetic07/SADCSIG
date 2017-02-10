@@ -90,4 +90,22 @@ class NatureControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Natures = Nature::find($id);
+         if($Natures->status==='active')
+         {
+            $Natures->status = "inactive";
+         }
+         else{
+           $Natures->status = "active";
+         }
+         $response  = $Natures->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

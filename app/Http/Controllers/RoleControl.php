@@ -92,4 +92,22 @@ class RoleControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Roles = Role::find($id);
+         if($Roles->status==='active')
+         {
+            $Roles->status = "inactive";
+         }
+         else{
+           $Roles->status = "active";
+         }
+         $response  = $Roles->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

@@ -90,4 +90,22 @@ class LicenseControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Licenses = License::find($id);
+         if($Licenses->status==='active')
+         {
+            $Licenses->status = "inactive";
+         }
+         else{
+           $Licenses->status = "active";
+         }
+         $response  = $Licenses->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

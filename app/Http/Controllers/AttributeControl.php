@@ -95,4 +95,22 @@ class AttributeControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Attributes = Attribute::find($id);
+         if($Attributes->status==='active')
+         {
+            $Attributes->status = "inactive";
+         }
+         else{
+           $Attributes->status = "active";
+         }
+         $response  = $Attributes->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

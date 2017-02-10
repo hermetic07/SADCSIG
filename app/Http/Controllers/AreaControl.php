@@ -95,4 +95,22 @@ class AreaControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Areas = Area::find($id);
+         if($Areas->status==='active')
+         {
+            $Areas->status = "inactive";
+         }
+         else{
+           $Areas->status = "active";
+         }
+         $response  = $Areas->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

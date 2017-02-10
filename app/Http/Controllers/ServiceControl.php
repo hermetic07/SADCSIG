@@ -92,4 +92,22 @@ class ServiceControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Services = Service::find($id);
+         if($Services->status==='active')
+         {
+            $Services->status = "inactive";
+         }
+         else{
+           $Services->status = "active";
+         }
+         $response  = $Services->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

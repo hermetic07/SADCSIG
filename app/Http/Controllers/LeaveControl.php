@@ -90,4 +90,22 @@ class LeaveControl extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+
+     public function status(Request $request)
+     {
+         $id = $request -> id;
+         $Leaves = Leave::find($id);
+         if($Leaves->status==='active')
+         {
+            $Leaves->status = "inactive";
+         }
+         else{
+           $Leaves->status = "active";
+         }
+         $response  = $Leaves->save();
+         if($response)
+             echo "Record's status successfully changed.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

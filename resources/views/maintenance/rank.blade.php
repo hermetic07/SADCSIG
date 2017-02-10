@@ -41,9 +41,9 @@
          <td>{!!$Rank->military_services->name!!}</td>
          <td>
            @if($Rank->status === "active")
-            <input type="checkbox" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
+            <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
            @else
-             <input type="checkbox" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
+             <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
            @endif
          </td>
          <td>
@@ -55,6 +55,7 @@
 @endsection
 @section('hiddenediturl')'/Rank-view'@endsection
 @section('hiddenedeleteurl')'/Rank-delete'@endsection
+@section('hiddenestatusurl')'/Rank-status'@endsection
 
 @section('tdcolspan')"5"@endsection
 
@@ -132,5 +133,18 @@
         return false;
       }
     }
+
+function fun_status(id)
+   {
+        var status_url = $("#hidden_status").val();
+        $.ajax({
+          url: status_url,
+          type:"POST",
+          data: {"id":id,_token: "{{ csrf_token() }}"},
+          success: function(response){
+          alert(response);
+          }
+        });
+   }
 </script>
 @endsection
