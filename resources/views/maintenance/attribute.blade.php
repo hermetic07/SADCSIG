@@ -13,7 +13,9 @@
       <label  class="control-label" >Choose Unit of measurement</label>
       <select class="form-control" id="Attribute_Unit" name="Attribute_Unit">
         @foreach($Measurements as $m)
-        <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @if($m->status === "active")
+            <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @endif
         @endforeach
       </select>
         <div class="help-block with-errors"></div>
@@ -93,7 +95,9 @@
       <label  class="control-label" >Choose Unit of measurement</label>
       <select class="form-control" id="edit_Attribute_Unit" name="edit_Attribute_Unit">
         @foreach($Measurements as $m)
-        <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @if($m->status === "active")
+            <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @endif
         @endforeach
       </select>
         <div class="help-block with-errors"></div>

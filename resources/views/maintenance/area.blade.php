@@ -13,7 +13,9 @@
       <label  class="control-label" >Choose Province</label>
       <select class="form-control" id="Area_Unit" name="Area_Unit">
         @foreach($Provinces as $m)
-        <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @if($m->status === "active")
+            <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @endif
         @endforeach
       </select>
         <div class="help-block with-errors"></div>
@@ -94,7 +96,9 @@
       <label  class="control-label" >Choose Province</label>
       <select class="form-control" id="edit_Area_Unit" name="edit_Area_Unit">
         @foreach($Provinces as $m)
-        <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @if($m->status === "active")
+            <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @endif
         @endforeach
       </select>
         <div class="help-block with-errors"></div>

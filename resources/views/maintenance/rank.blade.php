@@ -13,7 +13,9 @@
       <label  class="control-label" >Choose Type of military services</label>
       <select class="form-control" id="Rank_Unit" name="Rank_Unit">
         @foreach($Militaries as $m)
-        <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @if($m->status === "active")
+            <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @endif
         @endforeach
       </select>
         <div class="help-block with-errors"></div>
@@ -93,7 +95,9 @@
       <label  class="control-label" >Choose Type of military services</label>
       <select class="form-control" id="edit_Rank_Unit" name="edit_Rank_Unit">
         @foreach($Militaries as $m)
-        <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @if($m->status === "active")
+            <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+          @endif
         @endforeach
       </select>
         <div class="help-block with-errors"></div>
