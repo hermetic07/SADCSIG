@@ -14330,6 +14330,7 @@ a.mytooltip {
   cursor: default;
   pointer-events: none;
 }
+
 .tooltip-content2 i {
   opacity: 0;
 }
@@ -14338,6 +14339,7 @@ a.mytooltip {
   opacity: 1;
   font-size: 18px;
 }
+
 .tooltip-effect-6 .tooltip-content2 {
   -webkit-transform: translate3d(0, 10px, 0) rotate3d(1, 1, 1, 45deg);
   transform: translate3d(0, 10px, 0) rotate3d(1, 1, 1, 45deg);
@@ -14411,6 +14413,108 @@ a.mytooltip {
   background: url(../../plugins/images/tooltip/tooltip1.svg) no-repeat center center;
   background-size: 100%;
 }
+.tooltip-table {
+  position: absolute;
+      z-index: 9999;
+      width: 40px;
+      height: 40px;
+      padding-top: 13px;
+      left: 50%;
+      margin-left: -20px;
+      bottom: 100%;
+      border-radius: 50%;
+      text-align: center;
+      background: #424757;
+      color: #ffffff;
+      opacity: 0;
+      margin-bottom: 6px;
+      cursor: default;
+      pointer-events: none;
+}
+
+.tooltip-tabl i {
+  opacity: 0;
+}
+.mytooltip:hover .tooltip-table,
+.mytooltip:hover .tooltip-table i {
+  opacity: 1;
+  font-size: 11px;
+}
+
+.tooltip-effect-6 .table {
+  -webkit-transform: translate3d(0, 10px, 0) rotate3d(1, 1, 1, 45deg);
+  transform: translate3d(0, 10px, 0) rotate3d(1, 1, 1, 45deg);
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.tooltip-effect-6 .table i {
+  -webkit-transform: scale3d(0, 0, 1);
+  transform: scale3d(0, 0, 1);
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.tooltip-effect-7 .table {
+  -webkit-transform: translate3d(0, 10px, 0);
+  transform: translate3d(0, 10px, 0);
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.tooltip-effect-7 .table {
+  -webkit-transform: translate3d(0, 15px, 0);
+  transform: translate3d(0, 15px, 0);
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.tooltip-effect-8 .table{
+  -webkit-transform: translate3d(0, 10px, 0) rotate3d(0, 1, 0, 90deg);
+  transform: translate3d(0, 10px, 0) rotate3d(0, 1, 0, 90deg);
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.tooltip-effect-8 .tooltip-table i {
+  -webkit-transform: scale3d(0, 0, 1);
+  transform: scale3d(0, 0, 1);
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.tooltip-effect-9 .tooltip-table {
+  -webkit-transform: translate3d(0, -20px, 0);
+  transform: translate3d(0, -20px, 0);
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.tooltip-effect-9 .tooltip-table i {
+  -webkit-transform: translate3d(0, 20px, 0);
+  transform: translate3d(0, 20px, 0);
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.mytooltip:hover .tooltip-table,
+.mytooltip:hover .tooltip-table i {
+  pointer-events: auto;
+  -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+}
+.tooltip-effect-6:hover .tooltip-table i {
+  -webkit-transform: rotate3d(1, 1, 1, 0);
+  transform: rotate3d(1, 1, 1, 0);
+}
+.tooltip-table::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin: -7px 0 0 -15px;
+  width: 30px;
+  height: 20px;
+  background: url(../../plugins/images/tooltip/tooltip1.svg) no-repeat center center;
+  background-size: 100%;
+}
+
 /***********Bloated Tooltip ***********/
 .tooltip-content3 {
   position: absolute;

@@ -1,15 +1,15 @@
 @extends('maintenance.master')
 
-@section('Maintenance Title')Guard Requirements of Business @endsection
+@section('Maintenance Title')Requirements @endsection
 
 @section('addaction')"/Requirement-Add"@endsection
 
-@section('addmodaltitle') Add New Requirement @endsection
+@section('addmodaltitle') Add New requirement @endsection
 
 @section('addmodalbody')
 <div class="row">
-  <label class="control-label  col-md-12">Requirement Name</label>
-  <div class="col-md-5">
+  <label class="control-label  col-md-12">Requirement's Name</label>
+  <div class="col-md-12">
     <input type="text" class="form-control" id="Requirements_Name" name="Requirements_Name" required>
     <div class="help-block with-errors"></div>
   </div>
@@ -17,11 +17,11 @@
 @endsection
 
 @section('mtitle') Requirements @endsection
-@section('mtitle2') Requirements @endsection
+@section('mtitle2')<a href="{{url('/Requirement')}}"> Requirements</a> @endsection
 
 @section('theads')
-    <th>Name</th>
-    <th width="100px">Status</th>
+    <th>Requirement's name</th>
+    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -32,14 +32,27 @@
            <td>{!!$requirement->name!!}</td>
            <td>
              @if($requirement->status === "active")
-              <input type="checkbox" onchange="fun_status('{!!$requirement -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
+             <div class="onoffswitch2">
+    <input type="checkbox" onchange="fun_status('{!!$requirement -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$requirement -> id!!}" checked>
+    <label class="onoffswitch2-label" for="{!!$requirement -> id!!}">
+        <span class="onoffswitch2-inner"></span>
+        <span class="onoffswitch2-switch"></span>
+    </label>
+</div>
              @else
-               <input type="checkbox" onchange="fun_status('{!!$requirement -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
+             <div class="onoffswitch2">
+    <input type="checkbox" onchange="fun_status('{!!$requirement -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$requirement -> id!!}" >
+    <label class="onoffswitch2-label" for="{!!$requirement -> id!!}">
+        <span class="onoffswitch2-inner"></span>
+        <span class="onoffswitch2-switch"></span>
+    </label>
+</div>
              @endif
            </td>
            <td>
-               <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$requirement -> id!!}')" ><i class='fa fa-edit'></i></button>
-               <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$requirement -> id!!}')"><i class="fa fa-times"> </i></button>
+          <a class="mytooltip tooltip-effect-7" href="#">  <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$requirement -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
+&nbsp;
+        <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$requirement -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
            </td>
         </tr>
         @endif
@@ -56,8 +69,8 @@
 @section('editmodalcontent')
       <div class="form-group">
         <div class="row">
-         <div class="form-group col-sm-6">
-            <label class="control-label">Requirement</label>
+         <div class="form-group col-sm-12">
+            <label class="control-label">Requirement's name</label>
             <input type="text" class="form-control" id="edit_Requirements_name" name="edit_Requirements_name" required>
             <div class="help-block with-errors"></div>
          </div>
@@ -99,26 +112,42 @@
   }
 
   function fun_delete(id)
-    {
-      var conf = confirm("Are you sure want to delete??");
-      if(conf){
-        var delete_url = $("#hidden_delete").val();
-        $.ajax({
-          url: delete_url,
-          type:"POST",
-          data: {"id":id,_token: "{{ csrf_token() }}"},
-          success: function(response){
-            alert(response);
-            location.reload();
-          }
-        });
-      }
-      else{
-        return false;
-      }
-    }
+   {
 
-function fun_status(id)
+      swal({
+          title: "Are you sure?",
+          text: "Delete this item?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+      }, function(){
+        var delete_url = $("#hidden_delete").val();
+                $.ajax({
+                  url: delete_url,
+                  type:"POST",
+                  data: {"id":id,_token: "{{ csrf_token() }}"}
+                })
+        .done(function(data) {
+  swal({
+      title: "Deleted",
+      text: "This item has been successfully deleted",
+      type: "success"
+  },function() {
+      location.reload();
+  });
+})
+.error(function(data) {
+       swal("Oops", "We couldn't connect to the server!", "error");
+     });
+      });
+
+
+     
+   }
+
+  function fun_status(id)
    {
         var status_url = $("#hidden_status").val();
         $.ajax({
@@ -126,7 +155,17 @@ function fun_status(id)
           type:"POST",
           data: {"id":id,_token: "{{ csrf_token() }}"},
           success: function(response){
-          alert(response);
+
+  $(document).ready(function() {
+             $.toast({
+              heading: 'Status change',
+              position: 'top-right',
+              loaderBg:'#ff6849',
+              icon: 'success',
+              hideAfter: 3500,
+              stack: 6
+            });
+  });
           }
         });
    }

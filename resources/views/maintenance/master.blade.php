@@ -186,9 +186,9 @@
             	<div class="modal-body">
         <form action=@yield('addaction') method="POST" data-toggle="validator">
           {{ csrf_field() }}
-          <div class="form-group">
+
             @yield('addmodalbody')
-          </div>
+
             	</div>
              	<div class="modal-footer">
 					<button type="button" class="btn btn-default waves-effect" data-dismiss="modal" onclick="ClearFields();">Close</button>

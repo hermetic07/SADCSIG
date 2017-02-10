@@ -4,30 +4,36 @@
 
 @section('addaction')"/Service-Add"@endsection
 
-@section('addmodaltitle') Add Service @endsection
+@section('addmodaltitle') Add New Service @endsection
 
 @section('addmodalbody')
-<div class="row">
-  <label class="control-label  col-md-12">Name</label>
-  <div class="col-md-5">
-    <input type="text" class="form-control" id="Service_Name" name="Service_Name" required>
-    <div class="help-block with-errors"></div>
-  </div>
-  <label class="control-label  col-md-12">Description</label>
-  <div class="col-md-12">
-    <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
-    <div class="help-block with-errors"></div>
-  </div>
-</div>
+<div class="form-group">
+  <div class="row">
+    <label class="control-label  col-md-12">Service's Name</label>
+    <div class="col-md-5">
+      <input type="text" class="form-control" id="Service_Name" name="Service_Name" required>
+      <div class="help-block with-errors"></div>
+    </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label class="control-label  col-md-12">Description</label>
+            <div class="col-md-12">
+              <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+              <div class="help-block with-errors"></div>
+            </div>
+                  </div>
+                </div>
 @endsection
 
 @section('mtitle') Services @endsection
-@section('mtitle2')<a href="{{url('/Service')}}"> Services</a>@endsection
+@section('mtitle2')<a href="{{url('/Service')}}"> Services</a> @endsection
 
 @section('theads')
-    <th>Service Name</th>
-    <th>Description</th>
-    <th data-sort-ignore=true width="10px">Status</th>
+    <th>Service's Name</th>
+    <th data-hide="phone, tablet" >Description</th>
+    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -38,15 +44,29 @@
            <td>{!!$service->name!!}</td>
            <td>{!!$service->description!!}</td>
            <td>
+
              @if($service->status === "active")
-              <input type="checkbox" onchange="fun_status('{!!$service -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
+             <div class="onoffswitch2">
+    <input type="checkbox" onchange="fun_status('{!!$service -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$service -> id!!}" checked>
+    <label class="onoffswitch2-label" for="{!!$service -> id!!}">
+        <span class="onoffswitch2-inner"></span>
+        <span class="onoffswitch2-switch"></span>
+    </label>
+</div>
              @else
-               <input type="checkbox" onchange="fun_status('{!!$service -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
+             <div class="onoffswitch2">
+    <input type="checkbox" onchange="fun_status('{!!$service -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$service -> id!!}" >
+    <label class="onoffswitch2-label" for="{!!$service -> id!!}">
+        <span class="onoffswitch2-inner"></span>
+        <span class="onoffswitch2-switch"></span>
+    </label>
+</div>
              @endif
            </td>
            <td>
-          <button type="button" class="btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$service -> id!!}')" ><i class='fa fa-edit'></i></button>
-           <button type="button" class="btn btn-info btn-circle" onclick="fun_delete('{!!$service -> id!!}')"><i class="fa fa-times"> </i></button>
+        <a class="mytooltip tooltip-effect-7" href="#"><button type="button" class="btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$service -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
+&nbsp;
+        <a class="mytooltip tooltip-effect-7" href="#">     <button type="button" class="btn btn-info btn-circle" onclick="fun_delete('{!!$service -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
 
            </td>
         </tr>
@@ -62,23 +82,24 @@
 @section('editmodalurl')"{{ url('/Service-Update') }}"@endsection
 
 @section('editmodalcontent')
-      <div class="form-group">
-        <div class="row">
-         <div class="form-group col-sm-6">
-            <label class="control-label">Service Name</label>
-            <input type="text" class="form-control" id="edit_Service_name" name="edit_Service_name" required>
-            <div class="help-block with-errors"></div>
-         </div>
-       </div>
-       <div class="row">
-         <div class="form-group col-sm-12">
-            <label class="control-label">Service Description</label>
-            <input type="text" class="form-control" id="edit_Service_desc" name="edit_Service_desc" required>
-            <div class="help-block with-errors"></div>
-         </div>
-       </div>
-         <div class="help-block with-errors"></div>
-      </div>
+<div class="form-group">
+  <div class="row">
+    <label class="control-label  col-md-12">Service's Name</label>
+    <div class="col-md-12">
+      <input type="text" class="form-control" id="edit_Service_name" name="edit_Service_name" required>
+      <div class="help-block with-errors"></div>
+    </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label class="control-label  col-md-12">Description</label>
+            <div class="col-md-12">
+              <textarea class="form-control"  id="edit_Service_desc" name="edit_Service_desc" rows="5" required></textarea>
+              <div class="help-block with-errors"></div>
+            </div>
+                  </div>
+                </div>
 @endsection
 
 @section('ajaxscript')
@@ -114,29 +135,44 @@
         $("#edit_id").val(result.id);
         $("#edit_Service_name").val(result.name);
         $("#edit_Service_desc").val(result.description);
-
       }
     });
   }
 
   function fun_delete(id)
    {
-      var conf = confirm("Are you sure want to delete??");
-      if(conf){
-        var delete_url = $("#hidden_delete").val();
-        $.ajax({
-          url: delete_url,
-          type:"POST",
-          data: {"id":id,_token: "{{ csrf_token() }}"},
-          success: function(response){
-            alert(response);
-            location.reload();
-          }
-        });
-      }
-      else{
-        return false;
-      }
+
+      swal({
+          title: "Are you sure?",
+          text: "Delete this item?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+      }, function(){
+        var delete_url = $("#hidden_delete").val();
+                $.ajax({
+                  url: delete_url,
+                  type:"POST",
+                  data: {"id":id,_token: "{{ csrf_token() }}"}
+                })
+        .done(function(data) {
+  swal({
+      title: "Deleted",
+      text: "This item has been successfully deleted",
+      type: "success"
+  },function() {
+      location.reload();
+  });
+})
+.error(function(data) {
+       swal("Oops", "We couldn't connect to the server!", "error");
+     });
+      });
+
+
+     
    }
 
   function fun_status(id)
@@ -147,7 +183,17 @@
           type:"POST",
           data: {"id":id,_token: "{{ csrf_token() }}"},
           success: function(response){
-          alert(response);
+
+  $(document).ready(function() {
+             $.toast({
+              heading: 'Status change',
+              position: 'top-right',
+              loaderBg:'#ff6849',
+              icon: 'success',
+              hideAfter: 3500,
+              stack: 6
+            });
+  });
           }
         });
    }

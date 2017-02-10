@@ -4,33 +4,42 @@
 
 @section('addaction')"/Rank-Add"@endsection
 
-@section('addmodaltitle') Add Rank @endsection
+@section('addmodaltitle') Add new rank for military service @endsection
 
 @section('addmodalbody')
-<div class="row">
-  <label class="control-label  col-md-12">Rank</label>
-  <div class="col-md-5">
+<div class="form-group">
+  <div class="row">
+    <div class="col-md-12">
+      <label  class="control-label" >Choose Type of military services</label>
+      <select class="form-control" id="Rank_Unit" name="Rank_Unit">
+        @foreach($Militaries as $m)
+        <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+        @endforeach
+      </select>
+        <div class="help-block with-errors"></div>
+    </div>
+          </div>
+        </div>
+<div class="form-group">
+  <div class="row">
+    <label class="control-label  col-md-12">Rank</label>
+    <div class="col-md-12">
     <input type="text" class="form-control" id="Rank_Name" name="Rank_Name" required>
-    <div class="help-block with-errors"></div>
-  </div>
-  <label class="control-abel col-md-12">Type of Military Service</label>
-  <div class="col-md-5">
-    <select class="form-control" id="Rank_Unit" name="Rank_Unit">
-      @foreach($Militaries as $m)
-      <option value="{!!$m->name!!}">{!!$m->name!!}</option>
-      @endforeach
-    </select>
-  </div>
-</div>
+      <div class="help-block with-errors"></div>
+              </div>
+          </div>
+
+        </div>
+
 @endsection
 
 @section('mtitle') Rank @endsection
-@section('mtitle2') Rank @endsection
+@section('mtitle2')<a href="{{url('/Rank')}}">Rank</a> @endsection
 
 @section('theads')
     <th>Name</th>
-    <th>Type of Military Service</th>
-    <th width="100px">Status</th>
+    <th width="200px">Type of Military Service</th>
+    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -42,15 +51,29 @@
            <td>{!!$Rank->military_services->name!!}</td>
            <td>
              @if($Rank->status === "active")
-              <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
+             <div class="onoffswitch2">
+    <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Rank -> id!!}" checked>
+    <label class="onoffswitch2-label" for="{!!$Rank -> id!!}">
+        <span class="onoffswitch2-inner"></span>
+        <span class="onoffswitch2-switch"></span>
+    </label>
+</div>
+
              @else
-               <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
+             <div class="onoffswitch2">
+    <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Rank -> id!!}">
+    <label class="onoffswitch2-label" for="{!!$Rank -> id!!}">
+        <span class="onoffswitch2-inner"></span>
+        <span class="onoffswitch2-switch"></span>
+    </label>
+</div>
              @endif
            </td>
            <td>
-               <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Rank -> id!!}')" ><i class='fa fa-edit'></i></button>
-               <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$Rank -> id!!}')"><i class="fa fa-times"> </i></button>
-           </td>
+          <a class="mytooltip tooltip-effect-7" href="#">  <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Rank -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
+&nbsp;
+        <a class="mytooltip tooltip-effect-7" href="#">         <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$Rank -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
+           </td><span class="tooltip-table">Delete</span></a>
         </tr>
         @endif
       @endforeach
@@ -64,24 +87,30 @@
 @section('editmodalurl')"{{ url('/Rank-Update') }}"@endsection
 
 @section('editmodalcontent')
-      <div class="form-group">
-        <div class="row">
-         <div class="form-group col-sm-6">
-            <label class="control-label">Rank</label>
+<div class="form-group">
+  <div class="row">
+    <div class="col-md-12">
+      <label  class="control-label" >Choose Type of military services</label>
+      <select class="form-control" id="edit_Rank_Unit" name="edit_Rank_Unit">
+        @foreach($Militaries as $m)
+        <option value="{!!$m->name!!}">{!!$m->name!!}</option>
+        @endforeach
+      </select>
+        <div class="help-block with-errors"></div>
+    </div>
+          </div>
+        </div>
+<div class="form-group">
+  <div class="row">
+    <label class="control-label  col-md-12">Rank</label>
+    <div class="col-md-12">
             <input type="text" class="form-control" id="edit_Rank_name" name="edit_Rank_name" required>
-            <div class="help-block with-errors"></div>
-         </div>
-         <label class="control-abel col-md-12">Type Military Service</label>
-         <div class="col-md-6">
-           <select class="form-control" id="edit_Rank_Unit" name="edit_Rank_Unit">
-             @foreach($Militaries as $m)
-             <option value="{!!$m->name!!}">{!!$m->name!!}</option>
-             @endforeach
-           </select>
-         </div>
-       </div>
-         <div class="help-block with-errors"></div>
-      </div>
+      <div class="help-block with-errors"></div>
+              </div>
+          </div>
+
+        </div>
+
 @endsection
 
 @section('ajaxscript')
@@ -117,26 +146,42 @@
   }
 
   function fun_delete(id)
-    {
-      var conf = confirm("Are you sure want to delete??");
-      if(conf){
-        var delete_url = $("#hidden_delete").val();
-        $.ajax({
-          url: delete_url,
-          type:"POST",
-          data: {"id":id,_token: "{{ csrf_token() }}"},
-          success: function(response){
-            alert(response);
-            location.reload();
-          }
-        });
-      }
-      else{
-        return false;
-      }
-    }
+   {
 
-function fun_status(id)
+      swal({
+          title: "Are you sure?",
+          text: "Delete this item?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+      }, function(){
+        var delete_url = $("#hidden_delete").val();
+                $.ajax({
+                  url: delete_url,
+                  type:"POST",
+                  data: {"id":id,_token: "{{ csrf_token() }}"}
+                })
+        .done(function(data) {
+  swal({
+      title: "Deleted",
+      text: "This item has been successfully deleted",
+      type: "success"
+  },function() {
+      location.reload();
+  });
+})
+.error(function(data) {
+       swal("Oops", "We couldn't connect to the server!", "error");
+     });
+      });
+
+
+     
+   }
+
+  function fun_status(id)
    {
         var status_url = $("#hidden_status").val();
         $.ajax({
@@ -144,7 +189,17 @@ function fun_status(id)
           type:"POST",
           data: {"id":id,_token: "{{ csrf_token() }}"},
           success: function(response){
-          alert(response);
+
+  $(document).ready(function() {
+             $.toast({
+              heading: 'Status change',
+              position: 'top-right',
+              loaderBg:'#ff6849',
+              icon: 'success',
+              hideAfter: 3500,
+              stack: 6
+            });
+  });
           }
         });
    }
