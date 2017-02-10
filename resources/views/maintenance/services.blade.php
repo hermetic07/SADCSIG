@@ -38,33 +38,14 @@
          <td>{!!$service->description!!}</td>
          <td>
            @if($service->status === "active")
-<<<<<<< HEAD
             <input type="checkbox" onchange="fun_status('{!!$service -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
            @else
              <input type="checkbox" onchange="fun_status('{!!$service -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
-=======
-           <div class="onoffswitch2">
-             <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox sw" id="IDngDataNato" checked>
-              <label class="onoffswitch2-label" for="IDngDataNato">
-                <span class="onoffswitch2-inner"></span>
-                <span class="onoffswitch2-switch"></span>
-              </label>
-            </div>
-           @else
-           <div class="onoffswitch2">
-             <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox sw" id="IDngDataNato" checked>
-              <label class="onoffswitch2-label" for="IDngDataNato">
-                <span class="onoffswitch2-inner"></span>
-                <span class="onoffswitch2-switch"></span>
-              </label>
-            </div>
->>>>>>> origin/master
            @endif
          </td>
          <td>
-           <a class="mytooltip tooltip-effect-7">      <button type="button" class="btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$service -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-content2">Edit</span></a>
-  &nbsp;
-         <a class="mytooltip tooltip-effect-7">    <button type="button" class="btn btn-info btn-circle" onclick="fun_delete('{!!$service -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-content2">Delete</span></a>
+        <button type="button" class="btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$service -> id!!}')" ><i class='fa fa-edit'></i></button>
+         <button type="button" class="btn btn-info btn-circle" onclick="fun_delete('{!!$service -> id!!}')"><i class="fa fa-times"> </i></button>
 
          </td>
       </tr>
@@ -137,7 +118,6 @@
   }
 
   function fun_delete(id)
-<<<<<<< HEAD
    {
       var conf = confirm("Are you sure want to delete??");
       if(conf){
@@ -169,35 +149,5 @@
           }
         });
    }
-=======
-    {
-      swal({
-          title: "Are you sure?",
-          text: "Delete this item?",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#DD6B55",
-          confirmButtonText: "Yes, delete it!",
-          closeOnConfirm: false
-      }, function(){
-        var delete_url = $("#hidden_delete").val();
-                $.ajax({
-                  url: delete_url,
-                  type:"POST",
-                  data: {"id":id,_token: "{{ csrf_token() }}"},
-                  success: function(){
-          swal({
-              title: "Deleted",
-              text: "This data has been successfully deleted",
-              type: "success"
-          },function() {
-              location.reload();
-          });
-                  }
-      });
-  });
-
-    }
->>>>>>> origin/master
 </script>
 @endsection
