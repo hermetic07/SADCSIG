@@ -84,7 +84,8 @@ class MilitaryControl extends Controller
      {
          $id = $request -> id;
          $data = Military::find($id);
-         $response = $data -> delete();
+         $data->status = "deleted";
+         $response = $data -> save();
          if($response)
              echo "Record Deleted successfully.";
          else

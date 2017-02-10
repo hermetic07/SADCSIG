@@ -89,7 +89,8 @@ class AttributeControl extends Controller
      {
          $id = $request -> id;
          $data = Attribute::find($id);
-         $response = $data -> delete();
+         $data->status = "deleted";
+         $response = $data -> save();
          if($response)
              echo "Record Deleted successfully.";
          else

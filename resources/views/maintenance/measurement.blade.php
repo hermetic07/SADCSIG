@@ -26,21 +26,23 @@
 
 @section('tbodies')
       @foreach($measurements as $measurement)
-      <tr>
-         <td>{!!$measurement->id!!}</td>
-         <td>{!!$measurement->name!!}</td>
-         <td>
-           @if($measurement->status === "active")
-            <input type="checkbox" onchange="fun_status('{!!$measurement -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
-           @else
-             <input type="checkbox" onchange="fun_status('{!!$measurement -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
-           @endif
-         </td>
-         <td>
-             <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$measurement -> id!!}')" ><i class='fa fa-edit'></i></button>
-             <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$measurement -> id!!}')"><i class="fa fa-times"> </i></button>
-         </td>
-      </tr>
+        @if($measurement->status !== "deleted")
+        <tr>
+           <td>{!!$measurement->id!!}</td>
+           <td>{!!$measurement->name!!}</td>
+           <td>
+             @if($measurement->status === "active")
+              <input type="checkbox" onchange="fun_status('{!!$measurement -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
+             @else
+               <input type="checkbox" onchange="fun_status('{!!$measurement -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
+             @endif
+           </td>
+           <td>
+               <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$measurement -> id!!}')" ><i class='fa fa-edit'></i></button>
+               <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$measurement -> id!!}')"><i class="fa fa-times"> </i></button>
+           </td>
+        </tr>
+        @endif
       @endforeach
 @endsection
 @section('hiddenediturl')'/measurement-view'@endsection

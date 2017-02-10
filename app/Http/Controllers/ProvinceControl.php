@@ -84,7 +84,8 @@ class ProvinceControl extends Controller
      {
          $id = $request -> id;
          $data = Province::find($id);
-         $response = $data -> delete();
+         $data->status = "deleted";
+         $response = $data -> save();
          if($response)
              echo "Record Deleted successfully.";
          else

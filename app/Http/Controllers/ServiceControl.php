@@ -86,7 +86,8 @@ class ServiceControl extends Controller
      {
          $id = $request -> id;
          $data = Service::find($id);
-         $response = $data -> delete();
+         $data->status = "deleted";
+         $response = $data -> save();
          if($response)
              echo "Record Deleted successfully.";
          else

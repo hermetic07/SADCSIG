@@ -26,6 +26,7 @@
 
 @section('tbodies')
       @foreach($natures as $nature)
+      @if($nature->status !== "deleted")
       <tr>
          <td>{!!$nature->id!!}</td>
          <td>{!!$nature->name!!}</td>
@@ -41,6 +42,7 @@
              <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$nature -> id!!}')"><i class="fa fa-times"> </i></button>
          </td>
       </tr>
+      @endif
       @endforeach
 @endsection
 @section('hiddenediturl')'/Nature-view'@endsection

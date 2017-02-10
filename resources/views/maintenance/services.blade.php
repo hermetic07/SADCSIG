@@ -32,23 +32,25 @@
 
 @section('tbodies')
       @foreach($services as $service)
-      <tr>
-         <td>{!!$service->id!!}</td>
-         <td>{!!$service->name!!}</td>
-         <td>{!!$service->description!!}</td>
-         <td>
-           @if($service->status === "active")
-            <input type="checkbox" onchange="fun_status('{!!$service -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
-           @else
-             <input type="checkbox" onchange="fun_status('{!!$service -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
-           @endif
-         </td>
-         <td>
-        <button type="button" class="btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$service -> id!!}')" ><i class='fa fa-edit'></i></button>
-         <button type="button" class="btn btn-info btn-circle" onclick="fun_delete('{!!$service -> id!!}')"><i class="fa fa-times"> </i></button>
+        @if($service->status !== "deleted")
+        <tr>
+           <td>{!!$service->id!!}</td>
+           <td>{!!$service->name!!}</td>
+           <td>{!!$service->description!!}</td>
+           <td>
+             @if($service->status === "active")
+              <input type="checkbox" onchange="fun_status('{!!$service -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
+             @else
+               <input type="checkbox" onchange="fun_status('{!!$service -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
+             @endif
+           </td>
+           <td>
+          <button type="button" class="btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$service -> id!!}')" ><i class='fa fa-edit'></i></button>
+           <button type="button" class="btn btn-info btn-circle" onclick="fun_delete('{!!$service -> id!!}')"><i class="fa fa-times"> </i></button>
 
-         </td>
-      </tr>
+           </td>
+        </tr>
+        @endif
       @endforeach
 @endsection
 @section('hiddenediturl')'/Service-view'@endsection

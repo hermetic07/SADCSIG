@@ -86,7 +86,8 @@ class RoleControl extends Controller
      {
          $id = $request -> id;
          $data = Role::find($id);
-         $response = $data -> delete();
+         $data->status = "deleted";
+         $response = $data -> save();
          if($response)
              echo "Record Deleted successfully.";
          else

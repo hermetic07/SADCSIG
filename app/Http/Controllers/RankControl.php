@@ -89,7 +89,8 @@ class RankControl extends Controller
      {
          $id = $request -> id;
          $data = Rank::find($id);
-         $response = $data -> delete();
+         $data->status = "deleted";
+         $response = $data -> save();
          if($response)
              echo "Record Deleted successfully.";
          else

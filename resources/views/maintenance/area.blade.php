@@ -35,22 +35,24 @@
 
 @section('tbodies')
       @foreach($Areas as $Area)
-      <tr>
-         <td>{!!$Area->id!!}</td>
-         <td>{!!$Area->name!!}</td>
-         <td>{!!$Area->provinces->name!!}</td>
-         <td>
-           @if($Area->status === "active")
-            <input type="checkbox" onchange="fun_status('{!!$Area -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
-           @else
-             <input type="checkbox" onchange="fun_status('{!!$Area -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
-           @endif
-         </td>
-         <td>
-             <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Area -> id!!}')" ><i class='fa fa-edit'></i></button>
-             <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$Area -> id!!}')"><i class="fa fa-times"> </i></button>
-         </td>
-      </tr>
+        @if($Area->status !== "deleted")
+        <tr>
+           <td>{!!$Area->id!!}</td>
+           <td>{!!$Area->name!!}</td>
+           <td>{!!$Area->provinces->name!!}</td>
+           <td>
+             @if($Area->status === "active")
+              <input type="checkbox" onchange="fun_status('{!!$Area -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
+             @else
+               <input type="checkbox" onchange="fun_status('{!!$Area -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
+             @endif
+           </td>
+           <td>
+               <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Area -> id!!}')" ><i class='fa fa-edit'></i></button>
+               <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$Area -> id!!}')"><i class="fa fa-times"> </i></button>
+           </td>
+        </tr>
+        @endif
       @endforeach
 @endsection
 @section('hiddenediturl')'/Area-view'@endsection

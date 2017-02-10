@@ -35,22 +35,24 @@
 
 @section('tbodies')
       @foreach($Ranks as $Rank)
-      <tr>
-         <td>{!!$Rank->id!!}</td>
-         <td>{!!$Rank->name!!}</td>
-         <td>{!!$Rank->military_services->name!!}</td>
-         <td>
-           @if($Rank->status === "active")
-            <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
-           @else
-             <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
-           @endif
-         </td>
-         <td>
-             <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Rank -> id!!}')" ><i class='fa fa-edit'></i></button>
-             <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$Rank -> id!!}')"><i class="fa fa-times"> </i></button>
-         </td>
-      </tr>
+        @if($Rank->status !== "deleted")
+        <tr>
+           <td>{!!$Rank->id!!}</td>
+           <td>{!!$Rank->name!!}</td>
+           <td>{!!$Rank->military_services->name!!}</td>
+           <td>
+             @if($Rank->status === "active")
+              <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181" checked=""/>
+             @else
+               <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')" class="js-switch"  data-color="#DF4747" data-secondary-color="#818181"/>
+             @endif
+           </td>
+           <td>
+               <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Rank -> id!!}')" ><i class='fa fa-edit'></i></button>
+               <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$Rank -> id!!}')"><i class="fa fa-times"> </i></button>
+           </td>
+        </tr>
+        @endif
       @endforeach
 @endsection
 @section('hiddenediturl')'/Rank-view'@endsection

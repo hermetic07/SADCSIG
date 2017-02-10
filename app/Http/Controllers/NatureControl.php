@@ -84,7 +84,8 @@ class NatureControl extends Controller
      {
          $id = $request -> id;
          $data = Nature::find($id);
-         $response = $data -> delete();
+         $data->status = "deleted";
+         $response = $data -> save();
          if($response)
              echo "Record Deleted successfully.";
          else

@@ -89,7 +89,8 @@ class AreaControl extends Controller
      {
          $id = $request -> id;
          $data = Area::find($id);
-         $response = $data -> delete();
+         $data->status = "deleted";
+         $response = $data -> save();
          if($response)
              echo "Record Deleted successfully.";
          else

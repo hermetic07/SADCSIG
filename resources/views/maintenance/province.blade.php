@@ -26,6 +26,7 @@
 
 @section('tbodies')
       @foreach($Provinces as $Province)
+      @if($Province->status !== "deleted")
       <tr>
          <td>{!!$Province->id!!}</td>
          <td>{!!$Province->name!!}</td>
@@ -41,6 +42,7 @@
              <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$Province -> id!!}')"><i class="fa fa-times"> </i></button>
          </td>
       </tr>
+      @endif
       @endforeach
 @endsection
 @section('hiddenediturl')'/Province-view'@endsection
