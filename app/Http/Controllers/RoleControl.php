@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Role;
-
+use Exception;
 class RoleControl extends Controller
 {
     /**
@@ -31,13 +31,27 @@ class RoleControl extends Controller
      */
     public function add(Request $request)
     {
-      $Roles = new Role;
-      $Roles->name = $request->Role_Name;
-      $Roles->description = $request->Role_desc;
-      $Roles->status = "active";
-      $Roles->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Roles = new Role;
+        $Roles->name = $request->Role_Name;
+        $Roles->description = $request->Role_desc;
+        $Roles->status = "active";
+        $Roles->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Role::where('name',$request->Role_Name)->value('id');
+        $data = Role::find($s);
+        if($data->status === "deleted"){
+          $data->description = $request->Role_desc;
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.role_error');
+        }
+      }
+
     }
 
     /**
@@ -66,14 +80,28 @@ class RoleControl extends Controller
      */
     public function update(Request $request)
     {
-      $id = $request -> edit_id;
-      $Roles = Role::find($id);
+      try {
+        $id = $request -> edit_id;
+        $Roles = Role::find($id);
 
-      $Roles->name = $request->edit_Role_name;
-      $Roles->description = $request->edit_Role_desc;
-      $Roles->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+        $Roles->name = $request->edit_Role_name;
+        $Roles->description = $request->edit_Role_desc;
+        $Roles->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Role::where('name',$request->edit_Role_name)->value('id');
+        $data = Role::find($s);
+        if($data->status === "deleted"){
+          $data->description = $request->edit_Role_desc;
+          $data->status = "active";
+          $data->save();
+          return view('maintenance.role_error');
+        }
+        else {
+          return view('maintenance.role_error');
+        }
+      }
+
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Province;
-
+use Exception;
 class ProvinceControl extends Controller
 {
     /**
@@ -31,12 +31,25 @@ class ProvinceControl extends Controller
      */
     public function add(Request $request)
     {
-      $Provinces = new Province;
-      $Provinces->name = $request->Province_Name;
-      $Provinces->status = "active";
-      $Provinces->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Provinces = new Province;
+        $Provinces->name = $request->Province_Name;
+        $Provinces->status = "active";
+        $Provinces->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Province::where('name',$request->Province_Name)->value('id');
+        $data = Province::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.province_error');
+        }
+      }
+
     }
 
     /**
@@ -65,13 +78,26 @@ class ProvinceControl extends Controller
      */
     public function update(Request $request)
     {
-      $id = $request -> edit_id;
-      $Provinces = Province::find($id);
+      try {
+        $id = $request -> edit_id;
+        $Provinces = Province::find($id);
 
-      $Provinces->name = $request->edit_Province_name;
-      $Provinces->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+        $Provinces->name = $request->edit_Province_name;
+        $Provinces->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Province::where('name',$request->edit_Province_name)->value('id');
+        $data = Province::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return view('maintenance.province_error');
+        }
+        else {
+          return view('maintenance.province_error');
+        }
+      }
+
     }
 
     /**

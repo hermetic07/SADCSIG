@@ -7,11 +7,13 @@
 @section('addmodaltitle') Add new license or clearance @endsection
 
 @section('addmodalbody')
-<div class="row">
-  <label class="control-label  col-md-12">License or Clearance</label>
-  <div class="col-md-12">
-    <input type="text" class="form-control" id="License_Name" name="License_Name" required>
-    <div class="help-block with-errors"></div>
+<div class="form-group">
+  <div class="row">
+    <label class="control-label  col-md-12">License or Clearance</label>
+    <div class="col-md-12">
+      <input type="text" required class="form-control" id="License_Name" name="License_Name">
+      <div class="help-block with-errors"></div>
+    </div>
   </div>
 </div>
 @endsection

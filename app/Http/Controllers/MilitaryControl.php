@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Military;
-
+use Exception;
 class MilitaryControl extends Controller
 {
     /**
@@ -31,12 +31,25 @@ class MilitaryControl extends Controller
      */
     public function add(Request $request)
     {
-      $Militarys = new Military;
-      $Militarys->name = $request->Military_Name;
-      $Militarys->status = "active";
-      $Militarys->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Militarys = new Military;
+        $Militarys->name = $request->Military_Name;
+        $Militarys->status = "active";
+        $Militarys->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Military::where('name',$request->Military_Name)->value('id');
+        $data = Military::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.military_error');
+        }
+      }
+
     }
 
     /**
@@ -65,13 +78,26 @@ class MilitaryControl extends Controller
      */
     public function update(Request $request)
     {
-      $id = $request -> edit_id;
-      $Militarys = Military::find($id);
+      try {
+        $id = $request -> edit_id;
+        $Militarys = Military::find($id);
 
-      $Militarys->name = $request->edit_Military_name;
-      $Militarys->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+        $Militarys->name = $request->edit_Military_name;
+        $Militarys->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Military::where('name',$request->edit_Military_name)->value('id');
+        $data = Military::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return view('maintenance.military_error');
+        }
+        else {
+          return view('maintenance.military_error');
+        }
+      }
+
     }
 
     /**

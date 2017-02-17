@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Nature;
-
+use Exception;
 class NatureControl extends Controller
 {
     /**
@@ -31,12 +31,25 @@ class NatureControl extends Controller
      */
     public function add(Request $request)
     {
-      $Natures = new Nature;
-      $Natures->name = $request->Nature_Name;
-      $Natures->status = "active";
-      $Natures->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Natures = new Nature;
+        $Natures->name = $request->Nature_Name;
+        $Natures->status = "active";
+        $Natures->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Nature::where('name',$request->Nature_Name)->value('id');
+        $data = Nature::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.nature_error');
+        }
+      }
+
     }
 
     /**
@@ -65,13 +78,26 @@ class NatureControl extends Controller
      */
     public function update(Request $request)
     {
-      $id = $request -> edit_id;
-      $Natures = Nature::find($id);
+      try {
+        $id = $request -> edit_id;
+        $Natures = Nature::find($id);
 
-      $Natures->name = $request->edit_Nature_name;
-      $Natures->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+        $Natures->name = $request->edit_Nature_name;
+        $Natures->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Nature::where('name',$request->edit_Nature_name)->value('id');
+        $data = Nature::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return view('maintenance.nature_error');
+        }
+        else {
+          return view('maintenance.nature_error');
+        }
+      }
+
     }
 
     /**

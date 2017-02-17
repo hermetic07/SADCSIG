@@ -11,7 +11,8 @@
   <div class="row">
     <div class="col-md-12">
       <label  class="control-label" >Choose Province</label>
-      <select class="form-control" id="Area_Unit" name="Area_Unit">
+      <select required class="form-control" id="Area_Unit" name="Area_Unit">
+        <option value="">None</option>
         @foreach($Provinces as $m)
           @if($m->status === "active")
             <option value="{!!$m->name!!}">{!!$m->name!!}</option>
@@ -94,7 +95,8 @@
   <div class="row">
     <div class="col-md-12">
       <label  class="control-label" >Choose Province</label>
-      <select class="form-control" id="edit_Area_Unit" name="edit_Area_Unit">
+      <select required class="form-control" id="edit_Area_Unit" name="edit_Area_Unit">
+        <option value="">None</option>
         @foreach($Provinces as $m)
           @if($m->status === "active")
             <option value="{!!$m->name!!}">{!!$m->name!!}</option>
@@ -109,7 +111,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Area's name</label>
     <div class="col-md-12">
-            <input type="text" class="form-control" id="edit_Area_name" name="edit_Area_name" required>
+            <input type="text" required class="form-control" id="edit_Area_name" name="edit_Area_name">
       <div class="help-block with-errors"></div>
               </div>
           </div>

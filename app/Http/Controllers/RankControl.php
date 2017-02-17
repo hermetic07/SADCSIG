@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Rank;
 use App\Military;
-
+use Exception;
 class RankControl extends Controller
 {
     /**
@@ -34,13 +34,27 @@ class RankControl extends Controller
     public function add(Request $request)
     {
       $Militaries = Military::where('name', $request->Rank_Unit)->value('id');
-      $Ranks = new Rank;
-      $Ranks->name = $request->Rank_Name;
-      $Ranks->military_services_id = $Militaries;
-      $Ranks->status = "active";
-      $Ranks->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Ranks = new Rank;
+        $Ranks->name = $request->Rank_Name;
+        $Ranks->military_services_id = $Militaries;
+        $Ranks->status = "active";
+        $Ranks->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Rank::where('name',$request->Rank_Name)->value('id');
+        $data = Rank::find($s);
+        if($data->status === "deleted"){
+          $data->military_services_id = $Militaries;
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.rank_error');
+        }
+      }
+
     }
 
     /**
@@ -70,13 +84,27 @@ class RankControl extends Controller
     public function update(Request $request)
     {
       $Militaries = Military::where('name', $request->edit_Rank_Unit)->value('id');
-      $id = $request -> edit_id;
-      $Ranks = Rank::find($id);
-      $Ranks->name = $request->edit_Rank_name;
-      $Ranks->military_services_id = $Militaries;
-      $Ranks->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+      try {
+        $id = $request -> edit_id;
+        $Ranks = Rank::find($id);
+        $Ranks->name = $request->edit_Rank_name;
+        $Ranks->military_services_id = $Militaries;
+        $Ranks->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Rank::where('name',$request->edit_Rank_name)->value('id');
+        $data = Rank::find($s);
+        if($data->status === "deleted"){
+          $data->military_services_id = $Militaries;
+          $data->status = "active";
+          $data->save();
+          return view('maintenance.rank_error');
+        }
+        else {
+          return view('maintenance.rank_error');
+        }
+      }
+
     }
 
     /**

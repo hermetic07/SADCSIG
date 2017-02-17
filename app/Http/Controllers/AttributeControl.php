@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Attribute;
 use App\Measurement;
-
+use Exception;
 class AttributeControl extends Controller
 {
     /**
@@ -34,13 +34,27 @@ class AttributeControl extends Controller
     public function add(Request $request)
     {
       $Measurements = Measurement::where('name', $request->Attribute_Unit)->value('id');
-      $Attributes = new Attribute;
-      $Attributes->name = $request->Attribute_Name;
-      $Attributes->measurements_id = $Measurements;
-      $Attributes->status = "active";
-      $Attributes->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Attributes = new Attribute;
+        $Attributes->name = $request->Attribute_Name;
+        $Attributes->measurements_id = $Measurements;
+        $Attributes->status = "active";
+        $Attributes->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Attribute::where('name',$request->Attribute_Name)->value('id');
+        $data = Attribute::find($s);
+        if($data->status === "deleted"){
+          $data->measurements_id = $Measurements;
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.attribute_error');
+        }
+      }
+
     }
 
     /**
@@ -70,13 +84,27 @@ class AttributeControl extends Controller
     public function update(Request $request)
     {
       $Measurements = Measurement::where('name', $request->edit_Attribute_Unit)->value('id');
-      $id = $request -> edit_id;
-      $Attributes = Attribute::find($id);
-      $Attributes->name = $request->edit_Attribute_name;
-      $Attributes->measurements_id = $Measurements;
-      $Attributes->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+      try {
+        $id = $request -> edit_id;
+        $Attributes = Attribute::find($id);
+        $Attributes->name = $request->edit_Attribute_name;
+        $Attributes->measurements_id = $Measurements;
+        $Attributes->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Attribute::where('name',$request->edit_Attribute_name)->value('id');
+        $data = Attribute::find($s);
+        if($data->status === "deleted"){
+          $data->measurements_id = $Measurements;
+          $data->status = "inactive";
+          $data->save();
+          return view('maintenance.attribute_error');
+        }
+        else {
+          return view('maintenance.attribute_error');
+        }
+      }
+
     }
 
     /**

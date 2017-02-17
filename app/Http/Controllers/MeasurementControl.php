@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Measurement;
-
+use Exception;
 class MeasurementControl extends Controller
 {
     /**
@@ -31,12 +31,25 @@ class MeasurementControl extends Controller
      */
     public function add(Request $request)
     {
-      $measurements = new measurement;
-      $measurements->name = $request->measurement_Name;
-      $measurements->status = "active";
-      $measurements->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $measurements = new measurement;
+        $measurements->name = $request->measurement_Name;
+        $measurements->status = "active";
+        $measurements->save();
+        return back();
+      } catch (Exception $e) {
+        $s = measurement::where('name',$request->measurement_Name)->value('id');
+        $data = measurement::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.measurement_error');
+        }
+      }
+
     }
 
     /**
@@ -65,13 +78,26 @@ class MeasurementControl extends Controller
      */
     public function update(Request $request)
     {
-      $id = $request -> edit_id;
-      $measurements = measurement::find($id);
+      try {
+        $id = $request -> edit_id;
+        $measurements = measurement::find($id);
 
-      $measurements->name = $request->edit_measurement_name;
-      $measurements->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+        $measurements->name = $request->edit_measurement_name;
+        $measurements->save();
+        return back();
+      } catch (Exception $e) {
+        $s = measurement::where('name',$request->edit_measurement_name)->value('id');
+        $data = measurement::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return view('maintenance.measurement_error');
+        }
+        else {
+          return view('maintenance.measurement_error');
+        }
+      }
+
     }
 
     /**

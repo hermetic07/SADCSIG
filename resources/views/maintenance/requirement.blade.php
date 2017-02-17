@@ -7,11 +7,13 @@
 @section('addmodaltitle') Add New requirement @endsection
 
 @section('addmodalbody')
-<div class="row">
-  <label class="control-label  col-md-12">Requirement's Name</label>
-  <div class="col-md-12">
-    <input type="text" class="form-control" id="Requirements_Name" name="Requirements_Name" required>
-    <div class="help-block with-errors"></div>
+<div class="form-group">
+  <div class="row">
+    <label class="control-label  col-md-12">Requirement's Name</label>
+    <div class="col-md-12">
+      <input type="text" class="form-control" id="Requirements_Name" name="Requirements_Name" required>
+      <div class="help-block with-errors"></div>
+    </div>
   </div>
 </div>
 @endsection

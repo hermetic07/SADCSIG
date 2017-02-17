@@ -7,11 +7,13 @@
 @section('addmodaltitle') Add Province @endsection
 
 @section('addmodalbody')
-<div class="row">
-  <label class="control-label  col-md-12">Province's Name</label>
-  <div class="col-md-12">
-    <input type="text" class="form-control" id="Province_Name" name="Province_Name" required>
-    <div class="help-block with-errors"></div>
+<div class="form-group">
+  <div class="row">
+    <label class="control-label  col-md-12">Province's Name</label>
+    <div class="col-md-12">
+      <input type="text" class="form-control" id="Province_Name" name="Province_Name" required>
+      <div class="help-block with-errors"></div>
+    </div>
   </div>
 </div>
 @endsection

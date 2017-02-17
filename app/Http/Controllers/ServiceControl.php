@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service;
+use Exception;
 
 class ServiceControl extends Controller
 {
@@ -31,13 +32,27 @@ class ServiceControl extends Controller
      */
     public function add(Request $request)
     {
-      $Services = new Service;
-      $Services->name = $request->Service_Name;
-      $Services->description = $request->description;
-      $Services->status = "active";
-      $Services->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Services = new Service;
+        $Services->name = $request->Service_Name;
+        $Services->description = $request->description;
+        $Services->status = "active";
+        $Services->save();
+        return back()->with('success','Record Added successfully.');
+      } catch (Exception $e) {
+        $s = Service::where('name',$request->Service_Name)->value('id');
+        $Services = Service::find($s);
+        if($Services->status === "deleted"){
+          $Services->description = $request->description;
+          $Services->status = "active";
+          $Services->save();
+          return back();
+        }
+        else {
+          return view('maintenance.service_error');
+        }
+      }
+
     }
 
     /**
@@ -68,12 +83,25 @@ class ServiceControl extends Controller
     {
       $id = $request -> edit_id;
       $Services = Service::find($id);
+      try {
+        $Services->name = $request->edit_Service_name;
+        $Services->description = $request->edit_Service_desc;
+        $Services->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Service::where('name',$request->edit_Service_name)->value('id');
+        $data = Service::find($s);
 
-      $Services->name = $request->edit_Service_name;
-      $Services->description = $request->edit_Service_desc;
-      $Services->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+        if($data->status === "deleted"){
+            $data->status = 'inactive';
+            $data->save();
+            return view('maintenance.service_error');
+        }
+        else {
+            return view('maintenance.service_error');
+        }
+      }
+
     }
 
     /**

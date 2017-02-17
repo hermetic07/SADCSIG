@@ -11,7 +11,8 @@
   <div class="row">
     <div class="col-md-12">
       <label  class="control-label" >Choose Type of military services</label>
-      <select class="form-control" id="Rank_Unit" name="Rank_Unit">
+      <select required class="form-control" id="Rank_Unit" name="Rank_Unit">
+        <option value="">None</option>
         @foreach($Militaries as $m)
           @if($m->status === "active")
             <option value="{!!$m->name!!}">{!!$m->name!!}</option>
@@ -93,7 +94,8 @@
   <div class="row">
     <div class="col-md-12">
       <label  class="control-label" >Choose Type of military services</label>
-      <select class="form-control" id="edit_Rank_Unit" name="edit_Rank_Unit">
+      <select required class="form-control" id="edit_Rank_Unit" name="edit_Rank_Unit">
+        <option value="">None</option>
         @foreach($Militaries as $m)
           @if($m->status === "active")
             <option value="{!!$m->name!!}">{!!$m->name!!}</option>

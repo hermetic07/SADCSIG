@@ -7,11 +7,13 @@
 @section('addmodaltitle') Add new type of leave for guards @endsection
 
 @section('addmodalbody')
-<div class="row">
-  <label class="control-label  col-md-12">Type of Leave</label>
-  <div class="col-md-12">
-    <input type="text" class="form-control" id="Leave_Name" name="Leave_Name" required>
-    <div class="help-block with-errors"></div>
+<div class="form-group">
+  <div class="row">
+    <label class="control-label  col-md-12">Type of Leave</label>
+    <div class="col-md-12">
+      <input type="text" class="form-control" id="Leave_Name" name="Leave_Name" required>
+      <div class="help-block with-errors"></div>
+    </div>
   </div>
 </div>
 @endsection

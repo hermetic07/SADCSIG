@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Requirement;
-
+use Exception;
 class RequirementControl extends Controller
 {
     /**
@@ -31,12 +31,25 @@ class RequirementControl extends Controller
      */
     public function add(Request $request)
     {
-      $Requirements = new Requirement;
-      $Requirements->name = $request->Requirements_Name;
-      $Requirements->status = "active";
-      $Requirements->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Requirements = new Requirement;
+        $Requirements->name = $request->Requirements_Name;
+        $Requirements->status = "active";
+        $Requirements->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Requirement::where('name',$request->Requirements_Name)->value('id');
+        $data = Requirement::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.requirement_error');
+        }
+      }
+
     }
 
     /**
@@ -65,13 +78,26 @@ class RequirementControl extends Controller
      */
     public function update(Request $request)
     {
-      $id = $request -> edit_id;
-      $Requirements = Requirement::find($id);
+      try {
+        $id = $request -> edit_id;
+        $Requirements = Requirement::find($id);
 
-      $Requirements->name = $request->edit_Requirements_name;
-      $Requirements->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+        $Requirements->name = $request->edit_Requirements_name;
+        $Requirements->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Requirement::where('name',$request->edit_Requirements_name)->value('id');
+        $data = Requirement::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return view('maintenance.requirement_error');
+        }
+        else {
+          return view('maintenance.requirement_error');
+        }
+      }
+
     }
 
     /**

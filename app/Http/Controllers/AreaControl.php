@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Area;
 use App\Province;
-
+use Exception;
 class AreaControl extends Controller
 {
     /**
@@ -34,13 +34,27 @@ class AreaControl extends Controller
     public function add(Request $request)
     {
       $Provinces = Province::where('name', $request->Area_Unit)->value('id');
-      $Areas = new Area;
-      $Areas->name = $request->Area_Name;
-      $Areas->Provinces_id = $Provinces;
-      $Areas->status = "active";
-      $Areas->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Areas = new Area;
+        $Areas->name = $request->Area_Name;
+        $Areas->Provinces_id = $Provinces;
+        $Areas->status = "active";
+        $Areas->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Area::where('name',$request->Area_Name)->value('id');
+        $A = Area::find($s);
+        if($A->status === "deleted"){
+          $A->Provinces_id = $Provinces;
+          $A->status = "active";
+          $A->save();
+          return back();
+        }
+        else {
+          return view('maintenance.area_error');
+        }
+      }
+
     }
 
     /**
@@ -70,13 +84,28 @@ class AreaControl extends Controller
     public function update(Request $request)
     {
       $Provinces = Province::where('name', $request->edit_Area_Unit)->value('id');
-      $id = $request -> edit_id;
-      $Areas = Area::find($id);
-      $Areas->name = $request->edit_Area_name;
-      $Areas->Provinces_id = $Provinces;
-      $Areas->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+      try {
+        $id = $request -> edit_id;
+        $Areas = Area::find($id);
+        $Areas->name = $request->edit_Area_name;
+        $Areas->Provinces_id = $Provinces;
+        $Areas->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Area::where('name',$request->edit_Area_name)->value('id');
+        $data = Area::find($s);
+
+        if($data->status === "deleted"){
+            $data->status = 'inactive';
+            $data->Provinces_id = $Provinces;
+            $data->save();
+            return view('maintenance.area_error');
+        }
+        else {
+          return view('maintenance.area_error');
+        }
+      }
+
     }
 
     /**

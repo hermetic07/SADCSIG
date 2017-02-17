@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Leave;
-
+use Exception;
 class LeaveControl extends Controller
 {
     /**
@@ -31,12 +31,25 @@ class LeaveControl extends Controller
      */
     public function add(Request $request)
     {
-      $Leaves = new Leave;
-      $Leaves->name = $request->Leave_Name;
-      $Leaves->status = "active";
-      $Leaves->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Leaves = new Leave;
+        $Leaves->name = $request->Leave_Name;
+        $Leaves->status = "active";
+        $Leaves->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Leave::where('name',$request->Leave_Name)->value('id');
+        $data = Leave::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.leave_error');
+        }
+      }
+
     }
 
     /**
@@ -65,13 +78,26 @@ class LeaveControl extends Controller
      */
     public function update(Request $request)
     {
-      $id = $request -> edit_id;
-      $Leaves = Leave::find($id);
+      try {
+        $id = $request -> edit_id;
+        $Leaves = Leave::find($id);
 
-      $Leaves->name = $request->edit_Leave_name;
-      $Leaves->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+        $Leaves->name = $request->edit_Leave_name;
+        $Leaves->save();
+        return back();
+      } catch (Exception $e) {
+        $s = Leave::where('name',$request->edit_Leave_name)->value('id');
+        $data = Leave::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return view('maintenance.leave_error');
+        }
+        else {
+          return view('maintenance.leave_error');
+        }
+      }
+
     }
 
     /**

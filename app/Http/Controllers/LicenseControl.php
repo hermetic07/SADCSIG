@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\License;
-
+use Exception;
 class LicenseControl extends Controller
 {
     /**
@@ -31,12 +31,25 @@ class LicenseControl extends Controller
      */
     public function add(Request $request)
     {
-      $Licenses = new License;
-      $Licenses->name = $request->License_Name;
-      $Licenses->status = "active";
-      $Licenses->save();
-      return back()
-              ->with('success','Record Added successfully.');
+      try {
+        $Licenses = new License;
+        $Licenses->name = $request->License_Name;
+        $Licenses->status = "active";
+        $Licenses->save();
+        return back();
+      } catch (Exception $e) {
+        $s = License::where('name',$request->License_Name)->value('id');
+        $data = License::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.license_error');
+        }
+      }
+
     }
 
     /**
@@ -65,13 +78,26 @@ class LicenseControl extends Controller
      */
     public function update(Request $request)
     {
-      $id = $request -> edit_id;
-      $Licenses = License::find($id);
+      try {
+        $id = $request -> edit_id;
+        $Licenses = License::find($id);
 
-      $Licenses->name = $request->edit_License_name;
-      $Licenses->save();
-      return back()
-              ->with('success','Record Updated successfully.');
+        $Licenses->name = $request->edit_License_name;
+        $Licenses->save();
+        return back();
+      } catch (Exception $e) {
+        $s = License::where('name',$request->edit_License_name)->value('id');
+        $data = License::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return view('maintenance.license_error');
+        }
+        else {
+          return view('maintenance.license_error');
+        }
+      }
+
     }
 
     /**
