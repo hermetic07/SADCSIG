@@ -47,25 +47,24 @@
              @if($Role->status === "active")
              <div class="onoffswitch2">
     <input type="checkbox" onchange="fun_status('{!!$Role -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Role -> id!!}" checked>
-    <label class="onoffswitch2-label" for="{!!$Role -> id!!}}">
+    <label class="onoffswitch2-label" for="{!!$Role -> id!!}">
         <span class="onoffswitch2-inner"></span>
         <span class="onoffswitch2-switch"></span>
     </label>
 </div>
-
              @else
              <div class="onoffswitch2">
-    <input type="checkbox" onchange="fun_status('{!!$Role -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Role -> id!!}">
-    <label class="onoffswitch2-label" for="{!!$Role -> id!!}}">
+    <input type="checkbox" onchange="fun_status('{!!$Role -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Role -> id!!}" >
+    <label class="onoffswitch2-label" for="{!!$Role -> id!!}">
         <span class="onoffswitch2-inner"></span>
         <span class="onoffswitch2-switch"></span>
     </label>
-</div
+</div>
              @endif
            </td>
            <td>
             <a class="mytooltip tooltip-effect-7" href="#">     <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Role -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
-&nbsp;
+
             <a class="mytooltip tooltip-effect-7" href="#">     <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$Role -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
            </td>
         </tr>
@@ -156,21 +155,18 @@
                   data: {"id":id,_token: "{{ csrf_token() }}"}
                 })
         .done(function(data) {
-  swal({
-      title: "Deleted",
-      text: "This item has been successfully deleted",
-      type: "success"
-  },function() {
-      location.reload();
-  });
-})
-.error(function(data) {
+          swal({
+              title: "Deleted",
+              text: "This item has been successfully deleted",
+              type: "success"
+          },function() {
+              location.reload();
+          });
+        })
+        .error(function(data) {
        swal("Oops", "We couldn't connect to the server!", "error");
-     });
+       });
       });
-
-
-     
    }
 
   function fun_status(id)
@@ -182,18 +178,18 @@
           data: {"id":id,_token: "{{ csrf_token() }}"},
           success: function(response){
 
-  $(document).ready(function() {
-             $.toast({
-              heading: 'Status change',
-              position: 'top-right',
-              loaderBg:'#ff6849',
-              icon: 'success',
-              hideAfter: 3500,
-              stack: 6
-            });
-  });
+$(document).ready(function() {
+           $.toast({
+            heading: 'Status change',
+            position: 'top-right',
+            loaderBg:'#ff6849',
+            icon: 'success',
+            hideAfter: 3500,
+            stack: 6
+          });
+          });
           }
         });
-   }
+}
 </script>
 @endsection
