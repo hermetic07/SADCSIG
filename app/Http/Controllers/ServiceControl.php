@@ -50,6 +50,7 @@ class ServiceControl extends Controller
         }
         else {
           return view('maintenance.service_error');
+
         }
       }
 

@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/Blank', function () {
+    return view('blank');
+});
+
 Route::get('/Service','ServiceControl@index');
 Route::post('/Service-Add','ServiceControl@add');
 Route::get('/Service-view', 'ServiceControl@view');

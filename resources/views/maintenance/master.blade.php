@@ -63,7 +63,7 @@
               </li>
 
  			 <!-- Admin account-->
-              <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/users/admin.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Ernest joh Maskariño</b> <small>(Admin)</small>  </a>
+              <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/users/admin.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Evander Louis V. Macandog</b> <small>(Admin)</small>  </a>
                  <ul class="dropdown-menu dropdown-user animated flipInY">
                      <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
                      <li role="separator" class="divider"></li>
