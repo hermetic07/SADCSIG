@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Measurement;
-use App\Attribute;
+use App\GunType;
 use Exception;
-class MeasurementControl extends Controller
+class GunTypeControl extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,8 @@ class MeasurementControl extends Controller
      */
     public function index()
     {
-      $measurements = Measurement::orderBy('attributes_id', 'desc')->get();
-      $A = Attribute::all();
-      return view('maintenance.measurement')->with('measurements',$measurements)->with('A',$A);
+      $GunType = GunType::all();
+      return view('maintenance.guntype')->with('GunType',$GunType);
     }
 
     /**
@@ -33,20 +31,24 @@ class MeasurementControl extends Controller
      */
     public function add(Request $request)
     {
-      $A = Attribute::where('name', $request->attribute)->value('id');
 
       try {
-        $measurements = new measurement;
-        $measurements->size = $request->size;
-        $measurements->attributes_id = $A;
-        $measurements->measurement_type = $request->unit;
-        $measurements->status = "active";
-        $measurements->save();
+        $GunTypes = new GunType;
+        $GunTypes->name = $request->GunType_Name;
+        $GunTypes->status = "active";
+        $GunTypes->save();
         return back();
       } catch (Exception $e) {
-
-          return view('maintenance.measurement_error');
-
+        $s = GunType::where('name',$request->GunType_Name)->value('id');
+        $data = GunType::find($s);
+        if($data->status === "deleted"){
+          $data->status = "active";
+          $data->save();
+          return back();
+        }
+        else {
+          return view('maintenance.GunType_error');
+        }
       }
 
     }
@@ -61,7 +63,7 @@ class MeasurementControl extends Controller
      {
          if($request->ajax()){
              $id = $request->id;
-             $info = measurement::find($id);
+             $info = GunType::find($id);
              //echo json_decode($info);
              return response()->json($info);
          }
@@ -77,19 +79,24 @@ class MeasurementControl extends Controller
      */
     public function update(Request $request)
     {
-      $A = Attribute::where('name', $request->edit_attribute)->value('id');
+
       try {
         $id = $request -> edit_id;
-        $measurements = measurement::find($id);
-        $measurements->attributes_id = $A;
-        $measurements->size = $request->edit_size;
-        $measurements->measurement_type = $request->edit_unit;
-        $measurements->save();
+        $GunTypes = GunType::find($id);
+        $GunTypes->name = $request->edit_GunType_name;
+        $GunTypes->save();
         return back();
       } catch (Exception $e) {
-
-          return view('maintenance.measurement_error');
-
+        $s = GunType::where('name',$request->edit_GunType_name)->value('id');
+        $data = GunType::find($s);
+        if($data->status === "deleted"){
+          $data->status = "inactive";
+          $data->save();
+          return view('maintenance.GunType_error');
+        }
+        else {
+          return view('maintenance.GunType_error');
+        }
       }
 
     }
@@ -103,7 +110,7 @@ class MeasurementControl extends Controller
      public function delete(Request $request)
      {
          $id = $request -> id;
-         $data = measurement::find($id);
+         $data = GunType::find($id);
          $data->status = "deleted";
          $response = $data -> save();
          if($response)
@@ -115,15 +122,15 @@ class MeasurementControl extends Controller
      public function status(Request $request)
      {
          $id = $request -> id;
-         $measurements = measurement::find($id);
-         if($measurements->status==='active')
+         $GunTypes = GunType::find($id);
+         if($GunTypes->status==='active')
          {
-            $measurements->status = "inactive";
+            $GunTypes->status = "inactive";
          }
          else{
-           $measurements->status = "active";
+           $GunTypes->status = "active";
          }
-         $response  = $measurements->save();
+         $response  = $GunTypes->save();
          if($response)
              echo "Record's status successfully changed.";
          else

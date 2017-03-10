@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Attribute;
-use App\Measurement;
 use Exception;
 class AttributeControl extends Controller
 {
@@ -16,8 +15,7 @@ class AttributeControl extends Controller
     public function index()
     {
       $Attributes = Attribute::all();
-      $Measurements = Measurement::all();
-      return view('maintenance.attribute')->with('Attributes',$Attributes)->with('Measurements',$Measurements);
+      return view('maintenance.attribute')->with('Attributes',$Attributes);
     }
 
     /**
@@ -33,11 +31,10 @@ class AttributeControl extends Controller
      */
     public function add(Request $request)
     {
-      $Measurements = Measurement::where('name', $request->Attribute_Unit)->value('id');
+    
       try {
         $Attributes = new Attribute;
         $Attributes->name = $request->Attribute_Name;
-        $Attributes->measurements_id = $Measurements;
         $Attributes->status = "active";
         $Attributes->save();
         return back();
@@ -45,7 +42,6 @@ class AttributeControl extends Controller
         $s = Attribute::where('name',$request->Attribute_Name)->value('id');
         $data = Attribute::find($s);
         if($data->status === "deleted"){
-          $data->measurements_id = $Measurements;
           $data->status = "active";
           $data->save();
           return back();
@@ -83,19 +79,17 @@ class AttributeControl extends Controller
      */
     public function update(Request $request)
     {
-      $Measurements = Measurement::where('name', $request->edit_Attribute_Unit)->value('id');
+
       try {
         $id = $request -> edit_id;
         $Attributes = Attribute::find($id);
         $Attributes->name = $request->edit_Attribute_name;
-        $Attributes->measurements_id = $Measurements;
         $Attributes->save();
         return back();
       } catch (Exception $e) {
         $s = Attribute::where('name',$request->edit_Attribute_name)->value('id');
         $data = Attribute::find($s);
         if($data->status === "deleted"){
-          $data->measurements_id = $Measurements;
           $data->status = "inactive";
           $data->save();
           return view('maintenance.attribute_error');

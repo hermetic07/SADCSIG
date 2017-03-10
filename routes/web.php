@@ -102,3 +102,17 @@ Route::get('/Area-view', 'AreaControl@view');
 Route::post('/Area-Update','AreaControl@update');
 Route::post('/Area-status', 'AreaControl@status');
 Route::post('Area-delete', 'AreaControl@delete');
+
+Route::get('/GunType','GunTypeControl@index');
+Route::post('/GunType-Add','GunTypeControl@add');
+Route::get('/GunType-view', 'GunTypeControl@view');
+Route::post('/GunType-Update','GunTypeControl@update');
+Route::post('/GunType-status', 'GunTypeControl@status');
+Route::post('GunType-delete', 'GunTypeControl@delete');
+
+Route::get('/Gun','GunControl@index');
+Route::post('/Gun-Add','GunControl@add');
+Route::get('/Gun-view', 'GunControl@view');
+Route::post('/Gun-Update','GunControl@update');
+Route::post('/Gun-status', 'GunControl@status');
+Route::post('Gun-delete', 'GunControl@delete');

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Measurement;
-use App\Attribute;
+use App\Gun;
+use App\GunType;
 use Exception;
-class MeasurementControl extends Controller
+class GunControl extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class MeasurementControl extends Controller
      */
     public function index()
     {
-      $measurements = Measurement::orderBy('attributes_id', 'desc')->get();
-      $A = Attribute::all();
-      return view('maintenance.measurement')->with('measurements',$measurements)->with('A',$A);
+      $Guns = Gun::orderBy('guntype_id', 'desc')->get();
+      $A = GunType::all();
+      return view('maintenance.Gun')->with('Guns',$Guns)->with('A',$A);
     }
 
     /**
@@ -33,19 +33,18 @@ class MeasurementControl extends Controller
      */
     public function add(Request $request)
     {
-      $A = Attribute::where('name', $request->attribute)->value('id');
 
       try {
-        $measurements = new measurement;
-        $measurements->size = $request->size;
-        $measurements->attributes_id = $A;
-        $measurements->measurement_type = $request->unit;
-        $measurements->status = "active";
-        $measurements->save();
+        $A = GunType::where('name', $request->GunType)->value('id');
+        $Guns = new Gun;
+        $Guns->name= $request->name;
+        $Guns->guntype_id = $A;
+        $Guns->status = "active";
+        $Guns->save();
         return back();
       } catch (Exception $e) {
 
-          return view('maintenance.measurement_error');
+          return view('maintenance.Gun_error');
 
       }
 
@@ -61,7 +60,7 @@ class MeasurementControl extends Controller
      {
          if($request->ajax()){
              $id = $request->id;
-             $info = measurement::find($id);
+             $info = Gun::find($id);
              //echo json_decode($info);
              return response()->json($info);
          }
@@ -77,18 +76,17 @@ class MeasurementControl extends Controller
      */
     public function update(Request $request)
     {
-      $A = Attribute::where('name', $request->edit_attribute)->value('id');
+      $A = GunType::where('name', $request->edit_GunType)->value('id');
       try {
         $id = $request -> edit_id;
-        $measurements = measurement::find($id);
-        $measurements->attributes_id = $A;
-        $measurements->size = $request->edit_size;
-        $measurements->measurement_type = $request->edit_unit;
-        $measurements->save();
+        $Guns = Gun::find($id);
+        $Guns->name = $request->edit_size;
+        $Guns->guntype_id = $A;
+        $Guns->save();
         return back();
       } catch (Exception $e) {
 
-          return view('maintenance.measurement_error');
+          return view('maintenance.Gun_error');
 
       }
 
@@ -103,7 +101,7 @@ class MeasurementControl extends Controller
      public function delete(Request $request)
      {
          $id = $request -> id;
-         $data = measurement::find($id);
+         $data = Gun::find($id);
          $data->status = "deleted";
          $response = $data -> save();
          if($response)
@@ -115,15 +113,15 @@ class MeasurementControl extends Controller
      public function status(Request $request)
      {
          $id = $request -> id;
-         $measurements = measurement::find($id);
-         if($measurements->status==='active')
+         $Guns = Gun::find($id);
+         if($Guns->status==='active')
          {
-            $measurements->status = "inactive";
+            $Guns->status = "inactive";
          }
          else{
-           $measurements->status = "active";
+           $Guns->status = "active";
          }
-         $response  = $measurements->save();
+         $response  = $Guns->save();
          if($response)
              echo "Record's status successfully changed.";
          else

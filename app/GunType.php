@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Attribute extends Model
+class GunType extends Model
 {
-   protected $table = "attributes";
+   protected $table = "guntype";
 
 }

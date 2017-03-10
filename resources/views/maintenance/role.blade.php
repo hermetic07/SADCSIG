@@ -14,7 +14,7 @@
       <input type="text" class="form-control" id="Role_Name" name="Role_Name" required>
       <div class="help-block with-errors"></div>
     </div>
-          </div>
+  </div>
         </div>
         <div class="form-group">
           <div class="row">
@@ -23,8 +23,8 @@
               <textarea  class="form-control" id="Role_desc" name="Role_desc" rows="5" required></textarea>
               <div class="help-block with-errors"></div>
             </div>
-                  </div>
-                </div>
+          </div>
+        </div>
 @endsection
 
 @section('mtitle') Guard's Roles @endsection

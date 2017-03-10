@@ -21,18 +21,17 @@
       </select>
         <div class="help-block with-errors"></div>
     </div>
-          </div>
-        </div>
+  </div>
+</div>
 <div class="form-group">
   <div class="row">
     <label class="control-label  col-md-12">Rank</label>
     <div class="col-md-12">
     <input type="text" class="form-control" id="Rank_Name" name="Rank_Name" required>
       <div class="help-block with-errors"></div>
-              </div>
-          </div>
-
-        </div>
+    </div>
+  </div>
+</div>
 
 @endsection
 
@@ -55,21 +54,20 @@
            <td>
              @if($Rank->status === "active")
              <div class="onoffswitch2">
-    <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Rank -> id!!}" checked>
-    <label class="onoffswitch2-label" for="{!!$Rank -> id!!}">
-        <span class="onoffswitch2-inner"></span>
-        <span class="onoffswitch2-switch"></span>
-    </label>
-</div>
-
+                <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Rank -> id!!}" checked>
+                <label class="onoffswitch2-label" for="{!!$Rank -> id!!}">
+                    <span class="onoffswitch2-inner"></span>
+                    <span class="onoffswitch2-switch"></span>
+                </label>
+            </div>
              @else
              <div class="onoffswitch2">
-    <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Rank -> id!!}">
-    <label class="onoffswitch2-label" for="{!!$Rank -> id!!}">
-        <span class="onoffswitch2-inner"></span>
-        <span class="onoffswitch2-switch"></span>
-    </label>
-</div>
+                <input type="checkbox" onchange="fun_status('{!!$Rank -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Rank -> id!!}">
+                <label class="onoffswitch2-label" for="{!!$Rank -> id!!}">
+                    <span class="onoffswitch2-inner"></span>
+                    <span class="onoffswitch2-switch"></span>
+                </label>
+            </div>
              @endif
            </td>
            <td>

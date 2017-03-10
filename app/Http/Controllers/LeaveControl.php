@@ -34,6 +34,8 @@ class LeaveControl extends Controller
       try {
         $Leaves = new Leave;
         $Leaves->name = $request->Leave_Name;
+        $Leaves->span = $request->Leave_span;
+        $Leaves->spantype = $request->Leave_type;
         $Leaves->status = "active";
         $Leaves->save();
         return back();
@@ -81,8 +83,9 @@ class LeaveControl extends Controller
       try {
         $id = $request -> edit_id;
         $Leaves = Leave::find($id);
-
         $Leaves->name = $request->edit_Leave_name;
+        $Leaves->span = $request->edit_Leave_span;
+        $Leaves->spantype = $request->edit_type;
         $Leaves->save();
         return back();
       } catch (Exception $e) {

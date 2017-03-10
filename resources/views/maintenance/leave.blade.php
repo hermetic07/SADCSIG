@@ -12,9 +12,28 @@
     <label class="control-label  col-md-12">Type of Leave</label>
     <div class="col-md-12">
       <input type="text" class="form-control" id="Leave_Name" name="Leave_Name" required>
-      <div class="help-block with-errors"></div>
+    </div>
+    <div class="help-block with-errors"></div>
+  <div class="row">
+    <label class="control-label  col-md-12">Span</label>
+    <div class="col-md-12">
+      <input type="number" class="form-control" id="Leave_span" name="Leave_span" required>
+    </div>
+    <div class="help-block with-errors"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <label  class="control-label" >Span Type</label>
+      <select required class="form-control" id="Leave_type" name="Leave_type">
+        <option value="">None</option>
+        <option value="Days">Days</option>
+        <option value="Weeks">Weeks</option>
+        <option value="Months">Months</option>
+      </select>
+    </div>
     </div>
   </div>
+  <div class="help-block with-errors"></div>
 </div>
 @endsection
 
@@ -23,6 +42,7 @@
 
 @section('theads')
     <th>Type of leave</th>
+    <th>Span</th>
     <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
 @endsection
 
@@ -32,6 +52,7 @@
         <tr>
            <td>{!!$Leave->id!!}</td>
            <td>{!!$Leave->name!!}</td>
+           <td>{!!$Leave->span!!} {!!$Leave->spantype!!}</td>
            <td>
              @if($Leave->status === "active")
              <div class="onoffswitch2">
@@ -65,7 +86,7 @@
 @section('hiddenedeleteurl')'/Leave-delete'@endsection
 @section('hiddenestatusurl')'/Leave-status'@endsection
 
-@section('tdcolspan')"4"@endsection
+@section('tdcolspan')"5"@endsection
 
 @section('editmodalurl')"{{ url('/Leave-Update') }}"@endsection
 
@@ -78,7 +99,23 @@
             <div class="help-block with-errors"></div>
          </div>
        </div>
-         <div class="help-block with-errors"></div>
+      </div>
+      <div class="form-group">
+        <div class="form-group col-sm-12">
+           <label class="control-label">Span of Leave</label>
+           <input type="text" class="form-control" id="edit_Leave_span" name="edit_Leave_span" required>
+           <div class="help-block with-errors"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label  class="control-label" >Span Type</label>
+        <select required class="form-control" id="edit_type" name="edit_type" required>
+          <option value="">None</option>
+          <option value="Days">Days</option>
+          <option value="Weeks">Weeks</option>
+          <option value="Months">Months</option>
+        </select>
+        <div class="help-block with-errors"></div>
       </div>
 @endsection
 
@@ -95,6 +132,7 @@
         //console.log(result);
         $("#edit_id").text(result.id);
         $("#edit_Leave_name").text(result.name);
+        $("#edit_Leave_span").text(result.span);
       }
     });
   }
@@ -110,6 +148,7 @@
         //console.log(result);
         $("#edit_id").val(result.id);
         $("#edit_Leave_name").val(result.name);
+        $("#edit_Leave_span").val(result.span);
       }
     });
   }
