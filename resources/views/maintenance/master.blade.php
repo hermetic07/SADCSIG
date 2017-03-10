@@ -84,95 +84,123 @@
      </nav>
     <!-- End Top Navigation -->
 
-     <!-- Left navbar-header -->
-     <div class="navbar-default sidebar" role="navigation">
-     <div class="sidebar-nav navbar-collapse  " id="slimtest4">
-         <ul class="nav" id="side-menu">
-           <span class="input-group-btn2	">
- 		  		<!-- Company logo -->
- 			  <li class="user-pro2"> <a href="#" class="waves-effect"><img src="{{asset('plugins/images/users/logobg.png')}}" height="80" alt="user-img"> <span class="hide-menu"></span></span ></a></li>
-           </span>
+    <!-- Left navbar-header -->
+    <div class="navbar-default sidebar" role="navigation">
+    	<div class="sidebar-nav navbar-collapse" id="slimtest4">
+			<ul class="nav" id="side-menu">
 
-           <li> <a href="index.html" class="waves-effect"><i class="fa fa-dashboard fa-3x fa-fw"></i> <span class="hide-menu"> Dashboard </span></a>
-           </li>
+                    <li class="user-pro">
+                        <a href="#" class="waves-effect"><img src="plugins/images/LandingPage/JUCEBER.png" alt="user-img" class="img-circle"><span class="hide-menu"> Jubecer security</span>
+                        </a>
+                    </li>
 
-           <li> <a href="javascript:void(0);" class="waves-effect active"><i class="fa fa-wrench fa-3x fa-fw"></i> <span class="hide-menu"> Maintenance </a>
-              <ul class="nav nav-second-level">
-                 <li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
-                     <ul class="nav nav-third-level">
-                         <li> <a href="{{url('/Service')}}">Services</a> </li>
-                         <li> <a href="{{url('/Nature')}}">Nature of business</a></li>
-                     </ul>
-                 </li>
-                 <li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
-                     <ul class="nav nav-third-level">
+				<li> <a href="dashboard.html" class="waves-effect"><i class="fa fa-dashboard fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Dashboard </span> </a>
+          		</li>
+
+          		<li> <a href="javascript:void(0);" class="waves-effect active"><i class="fa fa-wrench fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Maintenance  <span class="fa arrow"></span></a>
+             		<ul class="nav nav-second-level">
+						<li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
+							<ul class="nav nav-third-level">
+                <li> <a href="{{url('/Service')}}">Services</a> </li>
+                            <li> <a href="{{url('/Nature')}}">Nature of business</a></li>
+                    		</ul>
+               			</li>
+                		<li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
+                    		<ul class="nav nav-third-level">
                           <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
                           <li> <a href="{{url('/License')}}">Licences and clearances</a> </li>
-                          <li> <a href="{{url('/Measurement')}}">Unit of Measurement</a></li>
                           <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
                           <li> <a href="{{url('/Military')}}">Military services</a></li>
                           <li> <a href="{{url('/Rank')}}">Rank</a></li>
                           <li> <a href="{{url('/Role')}}">Role</a></li>
                						<li> <a href="{{url('/Leave')}}">Leave</a></li>
-                     </ul>
-                 </li>
-                 <li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
-                     <ul class="nav nav-third-level">
-                         <li> <a href="{{url('/Province')}}">Provinces</a></li>
-                         <li> <a href="{{url('/Area')}}">Area</a></li>
-                     </ul>
-                 </li>
-              </ul>
- 		  </li>
-
-           <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users fa-3x fa-fw"></i> <span class="hide-menu"> Clients </a>
-              <ul class="nav nav-second-level">
-                 <li> <a href="javascript:void(0)" class="waves-effect">Pending<span class="label label-rouded label-info pull-right">13</span></a>
-                 </li>
- 				<li> <a href="ActiveClients.html" class="waves-effect">Active<span class="label label-rouded label-info pull-right">13</span></a>
-                 </li>
-              </ul>
- 		  </li>
-
-           <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shield fa-3x fa-fw"></i> <span class="hide-menu"> Security guards </a>
-              <ul class="nav nav-second-level">
-                 <li> <a href="javascript:void(0)" class="waves-effect">Guards<span class="label label-rouded label-info pull-right">13</span></a>
-                 </li>
- 				<li> <a href="#" class="waves-effect">Guard licences<span class="label label-rouded label-info pull-right">13</span></a>
-                 </li>
-              </ul>
- 		  </li>
-
- 		  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-truck fa-3x fa-fw"></i> <span class="hide-menu"> Delivery </a>
- 		  </li>
-
- 	      <li><a href="javascript:void(0);" class="waves-effect"><i class="fa fa-exchange fa-3x fa-fw"></i> <span class="hide-menu">Manual deployment</a>
- 			 <ul class="nav nav-second-level">
-                 <li> <a href="javascript:void(0)" class="waves-effect">Deploy</a>
-                 </li>
- 				<li> <a href="#" class="waves-effect">Swap</a>
-                 </li>
-              </ul>
- 	      </li>
-
-           <li> <a href="#" class="waves-effect"><i class="fa fa-file-text fa-3x fa-fw"></i> <span class="hide-menu">Reports<span class="fa arrow"></span></a>
-             <ul class="nav nav-second-level">
-               <li><a href="#">Guards</a></li>
-               <li><a href="#">Client</a></li>
-             </ul>
-           </li>
-
-           <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-3x fa-fw"></i> <span class="hide-menu">Settings<span class="fa arrow"></span></span></a>
-             <ul class="nav nav-second-level">
-               <li><a href="#">Account settings</a></li>
-             </ul>
-           </li>
+							</ul>
+						</li>
+                		<li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
+							<ul class="nav nav-third-level">
+                                          <li> <a href="{{url('/Measurement')}}">Unit of Measurement</a></li>
+                                          <li> <a href="{{url('/Province')}}">Provinces</a></li>
+                                          <li> <a href="{{url('/Area')}}">Area</a></li>
+                    		</ul>
+						</li>
+             		</ul>
+					</li>
 
 
-         </ul>
-       </div>
-     </div>
- 	<!-- Left navbar-header end -->
+          			<li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
+						<ul class="nav nav-second-level">
+							<li> <a href="ClientRegistration.html" class="waves-effect">Clients</a>
+							</li>
+							<li> <a href="SecurityGuardsRegistration.html" class="waves-effect">Security guards</a>
+							</li>
+             			</ul>
+					</li>
+
+		   	      <li><a href="javascript:void(0);" class="waves-effect"><i class="fa fa-exchange fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Manual deployment<span class="fa arrow"></span></a>
+					  <ul class="nav nav-second-level">
+						  <li> <a href="Deploy.html" class="waves-effect">Deploy</a>
+						  </li>
+						  <li> <a href="Swap.html" class="waves-effect">Swap/Replace/Relieve</a>
+						  </li>
+             		</ul>
+	      		  </li>
+
+				  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Clients <span class="fa arrow"></span></a>
+					 <ul class="nav nav-second-level">
+						<li> <a href="PendingClients.html" class="waves-effect">Pending<span class="label label-rouded label-info pull-right">13</span></a>
+						</li>
+						<li> <a href="ActiveClients.html" class="waves-effect">Active<span class="label label-rouded label-info pull-right">13</span></a>
+						</li>
+					 </ul>
+				  </li>
+
+				  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shield fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Security guards<span class="fa arrow"></span> </a>
+					 <ul class="nav nav-second-level">
+						<li> <a href="guards.html" class="waves-effect">Guards<span class="label label-rouded label-info pull-right">13</span></a>
+						</li>
+						<li> <a href="guardslicenses.html" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right">13</span></a>
+						</li>
+					 </ul>
+				  </li>
+
+				  <li> <a href="javascript:void(0);" class="waves-effect"><i class="icon-user-follow fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Applicants  </a>
+						<ul class="nav nav-second-level">
+						<li> <a href="Availableapplicants.html" class="waves-effect">Available<span class="label label-rouded label-info pull-right">13</span></a>
+						</li>
+						<li> <a href="PendingApplicants.html" class="waves-effect">Status</a>
+						</li>
+					 </ul>
+				  </li>
+
+				  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-truck fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Delivery <span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+						<li> <a href="Deliverguns.html" class="waves-effect">Guns</a>
+						</li>
+						<li> <a href="DeliverAmmunitions.html" class="waves-effect">Ammunitions</a>
+						</li>
+						<li> <a href="pickups.html" class="waves-effect">Pickups</a>
+						</li>
+					 </ul>
+				  </li>
+
+
+
+				  <li> <a href="#" class="waves-effect"><i class="fa fa-file-text fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Reports</span></a>
+				  </li>
+
+				  <li> <a href="#" class="waves-effect"><i class="fa fa-search fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Queries</span></a>
+				  </li>
+
+
+				  <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Utilities<span class="fa arrow"></span></span></a>
+					<ul class="nav nav-second-level">
+					  <li><a href="#">Account settings</a></li>
+					</ul>
+				  </li>
+        	</ul>
+      	</div>
+    </div>
+	<!-- Left navbar-header end -->
 
  <!-- Add  Modal -->
 
@@ -374,7 +402,7 @@ $(document).ready(function() {
         $('#slimtest4').slimScroll({
             color: '#FFFFFF',
             size: '10px',
-            height: '790px',
+            height: '750px',
             alwaysVisible: false
         });
  </script>
