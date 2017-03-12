@@ -12,15 +12,20 @@
     <label class="control-label  col-md-12">Type of Leave</label>
     <div class="col-md-12">
       <input type="text" class="form-control" id="Leave_Name" name="Leave_Name" required>
+      <div class="help-block with-errors"></div>
     </div>
-    <div class="help-block with-errors"></div>
+  </div>
+</div>
+<div class="form-group">
   <div class="row">
     <label class="control-label  col-md-12">Span</label>
     <div class="col-md-12">
       <input type="number" class="form-control" id="Leave_span" name="Leave_span" required>
+      <div class="help-block with-errors"></div>
     </div>
-    <div class="help-block with-errors"></div>
   </div>
+</div>
+<div class="form-group">
   <div class="row">
     <div class="col-md-12">
       <label  class="control-label" >Span Type</label>
@@ -30,10 +35,9 @@
         <option value="Weeks">Weeks</option>
         <option value="Months">Months</option>
       </select>
-    </div>
+      <div class="help-block with-errors"></div>
     </div>
   </div>
-  <div class="help-block with-errors"></div>
 </div>
 @endsection
 
@@ -76,7 +80,7 @@
            <td>
           <a class="mytooltip tooltip-effect-7" href="#">  <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Leave -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
 &nbsp;
-        <a class="mytooltip tooltip-effect-7" href="#">         <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$Leave -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
+        <a class="mytooltip tooltip-effect-7" href="#">         <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$Leave -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
            </td>
         </tr>
         @endif
@@ -101,21 +105,25 @@
        </div>
       </div>
       <div class="form-group">
-        <div class="form-group col-sm-12">
-           <label class="control-label">Span of Leave</label>
-           <input type="text" class="form-control" id="edit_Leave_span" name="edit_Leave_span" required>
-           <div class="help-block with-errors"></div>
+        <div class="row">
+          <div class="form-group col-sm-12">
+             <label class="control-label">Span of Leave</label>
+             <input type="number" class="form-control" id="edit_Leave_span" name="edit_Leave_span" required>
+             <div class="help-block with-errors"></div>
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <label  class="control-label" >Span Type</label>
-        <select required class="form-control" id="edit_type" name="edit_type" required>
-          <option value="">None</option>
-          <option value="Days">Days</option>
-          <option value="Weeks">Weeks</option>
-          <option value="Months">Months</option>
-        </select>
-        <div class="help-block with-errors"></div>
+      <div class="form-group col-sm-12">
+        <div class="row">
+          <label  class="control-label" >Span Type</label>
+          <select required class="form-control" id="edit_type" name="edit_type" required>
+            <option value="">None</option>
+            <option value="Days">Days</option>
+            <option value="Weeks">Weeks</option>
+            <option value="Months">Months</option>
+          </select>
+          <div class="help-block with-errors"></div>
+        </div>
       </div>
 @endsection
 

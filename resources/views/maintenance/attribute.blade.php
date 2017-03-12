@@ -64,7 +64,7 @@
            <td>
           <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Attribute -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
 &nbsp;
-              <a class="mytooltip tooltip-effect-7" href="#">   <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$Attribute -> id!!}')"><i class="fa fa-times"> </i></button></i></button><span class="tooltip-table">Delete</span></a>
+              <a class="mytooltip tooltip-effect-7" href="#">   <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$Attribute -> id!!}')"><i class="fa fa-times"> </i></button></i></button><span class="tooltip-table">Delete</span></a>
            </td>
         </tr>
         @endif
@@ -74,7 +74,7 @@
 @section('hiddenedeleteurl')'/Attribute-delete'@endsection
 @section('hiddenestatusurl')'/Attribute-status'@endsection
 
-@section('tdcolspan')"5"@endsection
+@section('tdcolspan')"4"@endsection
 
 @section('editmodalurl')"{{ url('/Attribute-Update') }}"@endsection
 

@@ -953,6 +953,12 @@ pre {
   background: #edf1f5;
   padding-bottom: 60px;
 }
+#page-wrapper2 {
+  padding: 0px;
+  min-height: 568px;
+  background: #edf1f5;
+  padding-bottom: 60px;
+}
 .footer {
   bottom: 0;
   color: #58666e;
@@ -5277,8 +5283,8 @@ padding-bottom: 5px;
 .sidebar #side-menu .user-pro {
   padding-top: 20px;
 	padding-bottom: 9px;
-	 
-	color: #ffffff;
+ background-color: #C94141 ;
+
 }
 .sidebar #side-menu .user-pro .img-circle {
   width: 30px;
@@ -15683,14 +15689,14 @@ ul.pro-amenities li span i {
   font-size: 12px;
 }
 .pd-agent-info {
-  max-height: 200px;
+  max-height: 150px;
   height: 200px;
   background: #f7fafc;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 .pd-agent-contact,
 .pd-agent-inq {
-  padding: 25px;
+  padding: 12px;
 }
 .pro-add-form .radio label,
 .pro-add-form .checkbox label {
@@ -15737,6 +15743,10 @@ ul.pro-amenities li span i {
     position: inherit;
     margin: 0px 0 0px 220px;
   }
+	 #page-wrapper2 {
+    position: inherit;
+    margin: 0px 0 0px 220px;
+  }
   .navbar-default {
     position: relative;
     width: 100%;
@@ -15746,6 +15756,9 @@ ul.pro-amenities li span i {
     position: fixed;
   }
   .fix-header #page-wrapper {
+    margin-top: 60px;
+  }
+	  .fix-header #page-wrapper2 {
     margin-top: 60px;
   }
   .sidebar {
@@ -15769,6 +15782,9 @@ ul.pro-amenities li span i {
   /*If body has content-wrapper*/
   .content-wrapper #page-wrapper {
     margin-left: 60px;
+  }
+	  .content-wrapper #page-wrapper2 {
+    margin-left: 0px;
   }
   .content-wrapper .navbar-left {
     margin-left: 60px;
@@ -15927,6 +15943,9 @@ ul.pro-amenities li span i {
     width: 100%;
   }
   .fix-header #page-wrapper {
+    margin-top: 60px;
+  }
+	 .fix-header #page-wrapper2 {
     margin-top: 60px;
   }
   .fix-header .sidebar {

@@ -22,10 +22,19 @@
         <div class="help-block with-errors"></div>
     </div>
   </div>
+</div>
+<div class="form-group">
   <div class="row">
     <label class="control-label  col-md-12">Size</label>
     <div class="col-md-12">
-      <input type="text" class="form-control" id="size" name="size" required>
+      <input type="number" class="form-control" id="size" name="size" required>
+      <div class="help-block with-errors"></div>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <div class="row">
+    <div class="col-md-12">
       <label  class="control-label" >Unit of Measurement</label>
       <select required class="form-control" id="unit" name="unit">
         <option value="">None</option>
@@ -80,7 +89,7 @@
            <td>
       <a class="mytooltip tooltip-effect-7" href="#">           <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$measurement -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
         &nbsp;
-      <a class="mytooltip tooltip-effect-7" href="#">           <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$measurement -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
+      <a class="mytooltip tooltip-effect-7" href="#">           <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$measurement -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
            </td>
         </tr>
         @endif
@@ -95,9 +104,8 @@
 @section('editmodalurl')"{{ url('/measurement-Update') }}"@endsection
 
 @section('editmodalcontent')
-      <div class="form-group">
+      <div class="form-group col-md-12">
         <div class="row">
-          <div class="col-md-12">
             <label  class="control-label" >Choose Body Attribute</label>
             <select required class="form-control" id="edit_attribute" name="edit_attribute">
               <option value="">None</option>
@@ -107,28 +115,29 @@
                 @endif
               @endforeach
             </select>
-              <div class="help-block with-errors"></div>
-          </div>
+            <div class="help-block with-errors"></div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group col-md-12">
         <div class="row">
-         <div class="form-group col-sm-12">
             <label class="control-label">Size</label>
             <input type="number" class="form-control" id="edit_size" name="edit_size" required>
             <div class="help-block with-errors"></div>
-         </div>
        </div>
-       <label  class="control-label" >Unit of Measurement</label>
-       <select required class="form-control" id="edit_unit" name="edit_unit">
-         <option value="">None</option>
-         <option value="Centimeter">Centimeter</option>
-         <option value="Feet">Feet</option>
-         <option value="Inches">Inches</option>
-         <option value="Kilogram">Kilogram</option>
-         <option value="Pounds">Pounds</option>
-       </select>
-         <div class="help-block with-errors"></div>
+      </div>
+      <div class="form-group col-md-12">
+       <div class="row">
+         <label  class="control-label" >Unit of Measurement</label>
+         <select required class="form-control" id="edit_unit" name="edit_unit">
+           <option value="">None</option>
+           <option value="Centimeter">Centimeter</option>
+           <option value="Feet">Feet</option>
+           <option value="Inches">Inches</option>
+           <option value="Kilogram">Kilogram</option>
+           <option value="Pounds">Pounds</option>
+         </select>
+          <div class="help-block with-errors"></div>
+       </div>
       </div>
 @endsection
 

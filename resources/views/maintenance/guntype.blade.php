@@ -9,13 +9,6 @@
 @section('addmodalbody')
 <div class="form-group">
   <div class="row">
-    <div class="col-md-12">
-        <div class="help-block with-errors"></div>
-    </div>
-          </div>
-        </div>
-<div class="form-group">
-  <div class="row">
     <label class="control-label  col-md-12">GunType</label>
     <div class="col-md-12">
         <input type="text" class="form-control" id="GunType_Name" name="GunType_Name" required>
@@ -64,7 +57,7 @@
            <td>
           <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$GunType -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
 &nbsp;
-              <a class="mytooltip tooltip-effect-7" href="#">   <button type="button" class="btn btn-info btn-circle sa-params" onclick="fun_delete('{!!$GunType -> id!!}')"><i class="fa fa-times"> </i></button></i></button><span class="tooltip-table">Delete</span></a>
+              <a class="mytooltip tooltip-effect-7" href="#">   <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$GunType -> id!!}')"><i class="fa fa-times"> </i></button></i></button><span class="tooltip-table">Delete</span></a>
            </td>
         </tr>
         @endif

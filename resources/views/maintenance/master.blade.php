@@ -90,7 +90,7 @@
 			<ul class="nav" id="side-menu">
 
                     <li class="user-pro">
-                        <a href="#" class="waves-effect"><img src="plugins/images/LandingPage/JUCEBER.png" alt="user-img" class="img-circle"><span class="hide-menu"> Jubecer security</span>
+                        <a href="#" class="waves-effect"><img src="plugins/images/LandingPage/JUCEBER.png" alt="user-img" class="img-circle"><span class="hide-menu text-white"> Jubecer security</span>
                         </a>
                     </li>
 
@@ -244,7 +244,7 @@
            <h4 class="modal-title">Edit</h4>
          </div>
          <div class="modal-body">
-           <form action=@yield('editmodalurl') method="post">
+           <form action=@yield('editmodalurl') method="post" data-toggle="validator">
              {{ csrf_field() }}
              @yield('editmodalcontent')
              <div class="modal-footer">

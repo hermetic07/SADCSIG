@@ -66,7 +66,7 @@
            <td>
         <a class="mytooltip tooltip-effect-7" href="#"><button type="button" class="btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$service -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
 &nbsp;
-        <a class="mytooltip tooltip-effect-7" href="#">     <button type="button" class="btn btn-info btn-circle" onclick="fun_delete('{!!$service -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
+        <a class="mytooltip tooltip-effect-7" href="#">     <button type="button" class="btn btn-danger btn-circle" onclick="fun_delete('{!!$service -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
 
            </td>
         </tr>
