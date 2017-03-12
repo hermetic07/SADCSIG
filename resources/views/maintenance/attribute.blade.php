@@ -10,19 +10,25 @@
 <div class="form-group">
   <div class="row">
     <div class="col-md-12">
-        <div class="help-block with-errors"></div>
-    </div>
-          </div>
-        </div>
-<div class="form-group">
-  <div class="row">
-    <label class="control-label  col-md-12">Body attribute</label>
-    <div class="col-md-12">
-        <input type="text" class="form-control" id="Attribute_Name" name="Attribute_Name" required>
+      <label  class="control-label" >Choose a unit of measurement</label>
+                      <select class="form-control" id="Uom2" required>
+                        <option disabled value="" selected="">---</option>
+                        <option>ft</option>
+                        <option>kg</option>
+                      </select>
       <div class="help-block with-errors"></div>
               </div>
           </div>
-
+  </div>
+  <div class="form-group">
+  <div class="row">
+    <label class="control-label  col-md-12">Body attribute</label>
+    <div class="col-md-12">
+        <input type="text" class="form-control" id="Attribute_Name" name="Attribute_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+      <div class="help-block with-errors"></div>
+              </div>
+          </div>
+    </div>
         </div>
 
 @endsection
@@ -32,15 +38,16 @@
 
 @section('theads')
     <th>Body attribute</th>
-    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
+    <th  width="200px">Unit of measurement</th>
+    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
       @foreach($Attributes as $Attribute)
         @if($Attribute->status !== "deleted")
         <tr>
-           <td>{!!$Attribute->id!!}</td>
            <td>{!!$Attribute->name!!}</td>
+                <td>Kg</td>
            <td>
              @if($Attribute->status === "active")
              <div class="onoffswitch2">
@@ -62,10 +69,11 @@
              @endif
            </td>
            <td>
-          <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Attribute -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
-&nbsp;
-              <a class="mytooltip tooltip-effect-7" href="#">   <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$Attribute -> id!!}')"><i class="fa fa-times"> </i></button></i></button><span class="tooltip-table">Delete</span></a>
-           </td>
+             &nbsp;
+             <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Attribute -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
+            <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$Attribute -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
+
+
         </tr>
         @endif
       @endforeach
@@ -74,7 +82,6 @@
 @section('hiddenedeleteurl')'/Attribute-delete'@endsection
 @section('hiddenestatusurl')'/Attribute-status'@endsection
 
-@section('tdcolspan')"4"@endsection
 
 @section('editmodalurl')"{{ url('/Attribute-Update') }}"@endsection
 
@@ -82,15 +89,21 @@
 <div class="form-group">
   <div class="row">
     <div class="col-md-12">
-        <div class="help-block with-errors"></div>
-    </div>
+      <label  class="control-label" >Choose a unit of measurement</label>
+                      <select class="form-control" id="Uom2" required>
+                        <option disabled value="" selected="">---</option>
+                        <option>ft</option>
+                        <option>kg</option>
+                      </select>
+      <div class="help-block with-errors"></div>
+              </div>
           </div>
-        </div>
+  </div>
 <div class="form-group">
   <div class="row">
     <label class="control-label  col-md-12">Body attribute</label>
     <div class="col-md-12">
-            <input type="text" class="form-control" id="edit_Attribute_name" name="edit_Attribute_name" required>
+            <input type="text" class="form-control" id="edit_Attribute_name" name="edit_Attribute_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
               </div>
           </div>
@@ -100,6 +113,26 @@
 @endsection
 
 @section('ajaxscript')
+<script type="text/javascript">
+        $(document).ready(function(){
+          $('#myTable').DataTable({
+
+            "columnDefs": [
+              {
+"targets": 3,
+"orderable": false
+},
+{
+"targets": 2,
+"orderable": false
+},
+            { "searchable": false, "targets": 3 },
+          ]
+          });
+
+
+      });
+    </script>
 <script type="text/javascript">
   function fun_view(id)
   {

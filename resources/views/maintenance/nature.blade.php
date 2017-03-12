@@ -7,15 +7,27 @@
 @section('addmodaltitle') Add new nature of business @endsection
 
 @section('addmodalbody')
-<div class="form-group">
+
 <div class="row">
-  <label class="control-label  col-md-12">Type of Business</label>
+<div class="form-group col-sm-8">
+
+  <label class="control-label  col-md-12">Nature of Business</label>
   <div class="col-md-12">
-    <input type="text" class="form-control" id="Nature_Name" name="Nature_Name" required>
+    <input type="text" class="form-control" id="Nature_Name" name="Nature_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
     <div class="help-block with-errors"></div>
   </div>
 </div>
+
+<div class="form-group col-sm-4">
+
+<label class="control-label col-md-12">Rate</label>
+  <div class="col-md-12">
+<input type="number" class="form-control"  min="1" required>
+<div class="help-block with-errors"></div>
 </div>
+</div>
+</div>
+
 @endsection
 
 @section('mtitle') Nature of Business @endsection
@@ -23,15 +35,16 @@
 
 @section('theads')
     <th>Type of business</th>
-    <th  data-hide="phone, tablet" width="100px">Status</th>
+    <th width="100px">Rate</th>
+    <th width="150px">Status</th>
 @endsection
 
 @section('tbodies')
       @foreach($natures as $nature)
       @if($nature->status !== "deleted")
       <tr>
-         <td>{!!$nature->id!!}</td>
          <td>{!!$nature->name!!}</td>
+         <td>50000</td>
          <td>
            @if($nature->status === "active")
            <div class="onoffswitch2">
@@ -53,9 +66,9 @@
            @endif
          </td>
          <td>
-        <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$nature -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
-&nbsp;
-          <a class="mytooltip tooltip-effect-7" href="#">     <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$nature -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
+           &nbsp;
+           <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit"onclick="fun_edit('{!!$nature -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
+          <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$nature -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
 
          </td>
       </tr>
@@ -66,24 +79,52 @@
 @section('hiddenedeleteurl')'/Nature-delete'@endsection
 @section('hiddenestatusurl')'/Nature-status'@endsection
 
-@section('tdcolspan')"4"@endsection
-
 @section('editmodalurl')"{{ url('/Nature-Update') }}"@endsection
 
 @section('editmodalcontent')
-      <div class="form-group">
-        <div class="row">
-         <div class="form-group col-sm-12">
-            <label class="control-label">Nature of Business</label>
-            <input type="text" class="form-control" id="edit_Nature_name" name="edit_Nature_name" required>
-            <div class="help-block with-errors"></div>
-         </div>
-       </div>
-         <div class="help-block with-errors"></div>
-      </div>
+<div class="row">
+<div class="form-group col-sm-8">
+
+  <label class="control-label  col-md-12">Nature of Business</label>
+  <div class="col-md-12">
+    <input type="text" class="form-control" id="edit_Nature_name" name="edit_Nature_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+    <div class="help-block with-errors"></div>
+  </div>
+</div>
+
+<div class="form-group col-sm-4">
+
+<label class="control-label col-md-12">Rate</label>
+  <div class="col-md-12">
+<input type="number" class="form-control"  min="1" required>
+<div class="help-block with-errors"></div>
+</div>
+</div>
+</div>
 @endsection
 
 @section('ajaxscript')
+<script type="text/javascript">
+        $(document).ready(function(){
+          $('#myTable').DataTable({
+
+            "columnDefs": [
+              {
+"targets": 3,
+"orderable": false
+},
+{
+"targets": 2,
+"orderable": false
+},
+            { "searchable": false, "targets": 3 },
+          ]
+          });
+
+
+      });
+    </script>
+
 <script type="text/javascript">
   function fun_view(id)
   {

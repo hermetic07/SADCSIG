@@ -14846,7 +14846,7 @@ a.dt-button:hover:not(.disabled) {
   border-color: rgba(120, 130, 140, 0.13);
 }
 .dataTables_filter input {
-  border: 1px solid rgba(120, 130, 140, 0.13);
+  border: 1px solid #2b2b2b;
 }
 table.dataTable.display tbody tr.odd > .sorting_1,
 table.dataTable.order-column.stripe tbody tr.odd > .sorting_1,
@@ -15801,7 +15801,7 @@ ul.pro-amenities li span i {
     left: 60px;
   }
   .content-wrapper .sidebar .sidebar-nav {
-  
+
     overflow: hidden;
   }
   .content-wrapper .sidebar .sidebar-nav .nav-second-level {

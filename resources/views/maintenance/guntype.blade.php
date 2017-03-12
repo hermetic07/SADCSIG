@@ -1,17 +1,17 @@
 @extends('maintenance.master')
 
-@section('Maintenance Title')Gun Types @endsection
+@section('Maintenance Title')Gun types @endsection
 
 @section('addaction')"/GunType-Add"@endsection
 
-@section('addmodaltitle') Add new Gun Type @endsection
+@section('addmodaltitle') Add new Gun type @endsection
 
 @section('addmodalbody')
 <div class="form-group">
   <div class="row">
-    <label class="control-label  col-md-12">GunType</label>
+    <label class="control-label  col-md-12">Gun type</label>
     <div class="col-md-12">
-        <input type="text" class="form-control" id="GunType_Name" name="GunType_Name" required>
+        <input type="text" class="form-control" id="GunType_Name" name="GunType_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
               </div>
           </div>
@@ -20,19 +20,18 @@
 
 @endsection
 
-@section('mtitle')  GunTypes @endsection
-@section('mtitle2') <a href="{{url('/GunType')}}"> Gun Types </a> @endsection
+@section('mtitle')  Gun types @endsection
+@section('mtitle2') <a href="{{url('/GunType')}}"> Gun type </a> @endsection
 
 @section('theads')
-    <th>GunType</th>
-    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
+    <th>Gun Type</th>
+    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
       @foreach($GunType as $GunType)
         @if($GunType->status !== "deleted")
         <tr>
-           <td>{!!$GunType->id!!}</td>
            <td>{!!$GunType->name!!}</td>
            <td>
              @if($GunType->status === "active")
@@ -55,9 +54,10 @@
              @endif
            </td>
            <td>
-          <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$GunType -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
-&nbsp;
-              <a class="mytooltip tooltip-effect-7" href="#">   <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$GunType -> id!!}')"><i class="fa fa-times"> </i></button></i></button><span class="tooltip-table">Delete</span></a>
+             &nbsp;
+             <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$GunType -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
+            <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$GunType -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
+
            </td>
         </tr>
         @endif
@@ -67,23 +67,16 @@
 @section('hiddenedeleteurl')'/GunType-delete'@endsection
 @section('hiddenestatusurl')'/GunType-status'@endsection
 
-@section('tdcolspan')"5"@endsection
+
 
 @section('editmodalurl')"{{ url('/GunType-Update') }}"@endsection
 
 @section('editmodalcontent')
 <div class="form-group">
   <div class="row">
+    <label class="control-label  col-md-12">Gun type</label>
     <div class="col-md-12">
-        <div class="help-block with-errors"></div>
-    </div>
-          </div>
-        </div>
-<div class="form-group">
-  <div class="row">
-    <label class="control-label  col-md-12">GunType</label>
-    <div class="col-md-12">
-            <input type="text" class="form-control" id="edit_GunType_name" name="edit_GunType_name" required>
+            <input type="text" class="form-control" id="edit_GunType_name" name="edit_GunType_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
               </div>
           </div>
@@ -93,6 +86,26 @@
 @endsection
 
 @section('ajaxscript')
+<script type="text/javascript">
+        $(document).ready(function(){
+          $('#myTable').DataTable({
+
+            "columnDefs": [
+              {
+"targets": 2,
+"orderable": false
+},
+{
+"targets": 1,
+"orderable": false
+},
+            { "searchable": false, "targets": 2 },
+          ]
+          });
+
+
+      });
+    </script>
 <script type="text/javascript">
   function fun_view(id)
   {

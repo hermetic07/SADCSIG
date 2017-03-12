@@ -14,9 +14,9 @@
 
   <!-- Bootstrap Core CSS -->
   <link href="{{asset('bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-  <!-- Footable CSS -->
-  <link href="{{asset('plugins/bower_components/footable/css/footable.core.css')}}" rel="stylesheet">
-  <link href="{{asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" />
+  <!-- datatable CSS -->
+  <link href="{{asset('plugins/bower_components/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" />
   <!-- Menu CSS -->
   <link href="{{asset('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css')}}" rel="stylesheet">
   <!-- toast CSS -->
@@ -101,29 +101,30 @@
              		<ul class="nav nav-second-level">
 						<li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
 							<ul class="nav nav-third-level">
+                  <li> <a href="{{url('/Nature')}}">Nature of business</a></li>
                 <li> <a href="{{url('/Service')}}">Services</a> </li>
-                            <li> <a href="{{url('/Nature')}}">Nature of business</a></li>
+
                     		</ul>
                			</li>
                 		<li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
                     		<ul class="nav nav-third-level">
-                          <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
+                          <li> <a href="{{url('/Leave')}}">Leave</a></li>
+                          <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
                           <li> <a href="{{url('/License')}}">Licences and clearances</a> </li>
                           <li> <a href="{{url('/Military')}}">Military services</a></li>
                           <li> <a href="{{url('/Rank')}}">Rank</a></li>
+                          <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
                           <li> <a href="{{url('/Role')}}">Role</a></li>
-               			  <li> <a href="{{url('/Leave')}}">Leave</a></li>
 							</ul>
 						</li>
                 		<li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
 							<ul class="nav nav-third-level">
-                <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
-                <li> <a href="{{url('/Measurement')}}">Measurements</a></li>
                 <li> <a href="{{url('/Province')}}">Provinces</a></li>
                 <li> <a href="{{url('/Area')}}">Area</a></li>
-                <li> <a href="{{url('/GunType')}}">Gun Type</a></li>
+                <li> <a href="{{url('/Measurement')}}">Measurements</a></li>
                 <li> <a href="{{url('/Gun')}}">Guns</a></li>
-                    		</ul>
+                <li> <a href="{{url('/GunType')}}">Gun Type</a></li>
+              </ul>
 						</li>
              		</ul>
 					</li>
@@ -206,7 +207,7 @@
 
  <!-- Add  Modal -->
 
-    <div id="Add" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="Add" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
           	<div class="modal-content">
 				<div class="modal-header">
@@ -214,12 +215,12 @@
 					<h4 class="modal-title">@yield('addmodaltitle')</h4>
             	</div>
             	<div class="modal-body">
-        <form action=@yield('addaction') method="POST" data-toggle="validator">
+        <form action=@yield('addaction') method="post" data-toggle="validator">
           {{ csrf_field() }}
 
             @yield('addmodalbody')
 
-            	</div>
+
              	<div class="modal-footer">
 					<button type="button" class="btn btn-default waves-effect" data-dismiss="modal" onclick="ClearFields();">Close</button>
 					<button type="submit" class="btn btn-info waves-effect waves-light" >Submit</button>
@@ -240,7 +241,6 @@
        <!-- Modal content-->
        <div class="modal-content">
          <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal">&times;</button>
            <h4 class="modal-title">Edit</h4>
          </div>
          <div class="modal-body">
@@ -279,46 +279,29 @@
       <!-- .row -->
       <div class="row">
         <div class="col-lg-12">
-          <div class="white-box animated slideInUp ">
-            <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+          <div class="white-box">
+              <label class="col-xs-5 control-label"></label>
+            <div class="col-lg-2">
+          <button class="btn btn-success btn-block waves-effect waves-light"  data-toggle="modal" data-target="#Add"  type="button" data-toggle="modal" data-target=".bs-example-modal-sm" class="model_img img-responsive"><span class="btn-label"><i class="fa fa-plus-circle"></i></span>Add</button>
+</div>
+        </br>  </br>  </br>
+            <div class="table-responsive">
+            <table id="myTable" class="table table-bordered table-hover toggle-circle color-bordered-table muted-bordered-table">
               <thead>
                 <tr>
-                <th data-sort-initial="true" data-toggle="true" width="100px">ID</th>
                   @yield('theads')
-                  <th data-sort-ignore="true" width="100px">Actions</th>
+                  <th width="220px">Actions</th>
                 </tr>
               </thead>
-              	<div class="form-inline padding-bottom-15">
-                	<div class="row">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<button class="btn btn-warning btn-rounded waves-effect waves-light"  data-toggle="modal" data-target="#Add"  type="button" data-toggle="modal" data-target=".bs-example-modal-sm" class="model_img img-responsive"><span class="btn-label"><i class="fa fa-plus-circle"></i></span>Add</button>
-							</div>
-						</div>
-                    	<div class="col-sm-6 text-right m-b-20">
-                    	<div class="form-group">
-                      		<input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
-						    autocomplete="off">
-					   </div>
-                  	   </div>
-                   </div>
-                </div>
               <tbody>
                   @yield('tbodies')
               </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan=@yield('tdcolspan')></td>
-                </tr>
-              </tfoot>
-        	</table>
+            </table>
+            </div>
+
           <input type="hidden" name="hidden_view" id="hidden_view" value=@yield('hiddenediturl')>
           <input type="hidden" name="hidden_delete" id="hidden_delete" value=@yield('hiddenedeleteurl')>
           <input type="hidden" name="hidden_status" id="hidden_status" value=@yield('hiddenestatusurl')>
-            <div class="text-right">
-              <ul class="pagination">
-              </ul>
-            </div>
          </div>
         </div>
       </div>
@@ -342,22 +325,21 @@
 <script src="{{asset('js/waves.js')}}"></script>
 <!-- Custom Theme JavaScript -->
 <script src="{{asset('js/custom.min.js')}}"></script>
-<script src="{{asset('plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>
 <!-- Menu Plugin JavaScript -->
 <script src="{{asset('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js')}}"></script>
-<!-- Footable -->
-<script src="{{asset('plugins/bower_components/footable/js/footable.all.min.js')}}"></script>
-<script src="{{asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.js')}}" type="text/javascript"></script>
-<!--FooTable init-->
-<script src="{{asset('js/footable-init.js')}}"></script>
+<!-- datatables -->
+<script src="{{asset('plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>
+
 <!-- Sweet-Alert  -->
  <script src="{{asset('js/Alert/sweetalert.min.js')}}"></script>
 
 <!-- validation -->
 <script src="{{asset('js/validator.js')}}"></script>
+<script src="{{asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.js')}}" type="text/javascript"></script>
 <!-- toast -->
 <script src="{{asset('plugins/bower_components/toast-master/js/jquery.toast.js')}}"></script>
-<script type="text/javascript">
+
+    <script>
 $(document).ready(function() {
 
 
@@ -404,7 +386,7 @@ $(document).ready(function() {
         $('#slimtest4').slimScroll({
             color: '#FFFFFF',
             size: '10px',
-            height: '750px',
+            height: '720px',
             alwaysVisible: false
         });
  </script>

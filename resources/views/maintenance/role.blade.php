@@ -11,7 +11,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Role</label>
     <div class="col-md-12">
-      <input type="text" class="form-control" id="Role_Name" name="Role_Name" required>
+      <input type="text" class="form-control" id="Role_Name" name="Role_Name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -20,7 +20,7 @@
           <div class="row">
             <label class="control-label  col-md-12">Description</label>
             <div class="col-md-12">
-              <textarea  class="form-control" id="Role_desc" name="Role_desc" rows="5" required></textarea>
+              <textarea  class="form-control" id="Role_desc"  name="Role_desc"  pattern="[.,--&\\'a-zA-Z0-9\s]+" rows="5" required></textarea>
               <div class="help-block with-errors"></div>
             </div>
           </div>
@@ -32,15 +32,14 @@
 
 @section('theads')
     <th>Role</th>
-    <th data-hide="phone, tablet" >Description</th>
-    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
+    <th>Description</th>
+    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
       @foreach($Roles as $Role)
         @if($Role->status !== "deleted")
         <tr>
-           <td>{!!$Role->id!!}</td>
            <td>{!!$Role->name!!}</td>
            <td>{!!$Role->description!!}</td>
            <td>
@@ -63,9 +62,11 @@
              @endif
            </td>
            <td>
-            <a class="mytooltip tooltip-effect-7" href="#">     <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Role -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
+             &nbsp;
+             <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit"  onclick="fun_edit('{!!$Role -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
+            <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$Role -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
 
-            <a class="mytooltip tooltip-effect-7" href="#">     <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$Role -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
+
            </td>
         </tr>
         @endif
@@ -75,8 +76,6 @@
 @section('hiddenedeleteurl')'/Role-delete'@endsection
 @section('hiddenestatusurl')'/Role-status'@endsection
 
-@section('tdcolspan')"5"@endsection
-
 @section('editmodalurl')"{{ url('/Role-Update') }}"@endsection
 
 @section('editmodalcontent')
@@ -84,7 +83,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Role</label>
     <div class="col-md-12">
-            <input type="text" class="form-control" id="edit_Role_name" name="edit_Role_name" required>
+            <input type="text" class="form-control" id="edit_Role_name" name="edit_Role_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
     </div>
           </div>
@@ -93,7 +92,7 @@
           <div class="row">
             <label class="control-label  col-md-12">Description</label>
             <div class="col-md-12">
-              <textarea class="form-control" id="edit_Role_desc" name="edit_Role_desc"  rows="5" required></textarea>
+              <textarea class="form-control" id="edit_Role_desc" name="edit_Role_desc"   pattern="[.,--&\\'a-zA-Z0-9\s]+" rows="5" required></textarea>
               <div class="help-block with-errors"></div>
             </div>
                   </div>
@@ -103,6 +102,26 @@
 @endsection
 
 @section('ajaxscript')
+<script type="text/javascript">
+        $(document).ready(function(){
+          $('#myTable').DataTable({
+
+            "columnDefs": [
+              {
+"targets": 3,
+"orderable": false
+},
+{
+"targets": 2,
+"orderable": false
+},
+            { "searchable": false, "targets": 3 },
+          ]
+          });
+
+
+      });
+    </script>
 <script type="text/javascript">
   function fun_view(id)
   {

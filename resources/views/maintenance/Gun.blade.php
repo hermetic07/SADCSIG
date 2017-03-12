@@ -69,10 +69,10 @@
              @endif
            </td>
            <td>
-      <a class="mytooltip tooltip-effect-7" href="#">           <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Gun -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
-        &nbsp;
-      <a class="mytooltip tooltip-effect-7" href="#">           <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$Gun -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
-           </td>
+             &nbsp;
+             <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Gun -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
+            <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive"onclick="fun_delete('{!!$Gun -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
+
         </tr>
         @endif
       @endforeach

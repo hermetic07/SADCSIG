@@ -11,7 +11,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Requirement's Name</label>
     <div class="col-md-12">
-      <input type="text" class="form-control" id="Requirements_Name" name="Requirements_Name" required>
+      <input type="text" class="form-control" id="Requirements_Name" name="Requirements_Name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -23,14 +23,13 @@
 
 @section('theads')
     <th>Requirement's name</th>
-    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
+    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
       @foreach($requirements as $requirement)
         @if($requirement->status !== "deleted")
         <tr>
-           <td>{!!$requirement->id!!}</td>
            <td>{!!$requirement->name!!}</td>
            <td>
              @if($requirement->status === "active")
@@ -52,9 +51,11 @@
              @endif
            </td>
            <td>
-          <a class="mytooltip tooltip-effect-7" href="#">  <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$requirement -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
-&nbsp;
-        <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$requirement -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
+             &nbsp;
+             <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$requirement -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
+            <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$requirement -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
+
+
            </td>
         </tr>
         @endif
@@ -64,7 +65,6 @@
 @section('hiddenedeleteurl')'/Requirement-delete'@endsection
 @section('hiddenestatusurl')'/Requirement-status'@endsection
 
-@section('tdcolspan')"4"@endsection
 
 @section('editmodalurl')"{{ url('/Requirement-Update') }}"@endsection
 
@@ -73,7 +73,7 @@
         <div class="row">
          <div class="form-group col-sm-12">
             <label class="control-label">Requirement's name</label>
-            <input type="text" class="form-control" id="edit_Requirements_name" name="edit_Requirements_name" required>
+            <input type="text" class="form-control" id="edit_Requirements_name" name="edit_Requirements_name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
             <div class="help-block with-errors"></div>
          </div>
        </div>
@@ -82,6 +82,26 @@
 @endsection
 
 @section('ajaxscript')
+<script type="text/javascript">
+        $(document).ready(function(){
+          $('#myTable').DataTable({
+
+            "columnDefs": [
+              {
+"targets": 2,
+"orderable": false
+},
+{
+"targets": 1,
+"orderable": false
+},
+            { "searchable": false, "targets": 2 },
+          ]
+          });
+
+
+      });
+    </script>
 <script type="text/javascript">
   function fun_view(id)
   {

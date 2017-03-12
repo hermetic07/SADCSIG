@@ -1,6 +1,6 @@
 @extends('maintenance.master')
 
-@section('Maintenance Title') Leaves @endsection
+@section('Maintenance Title') Leave @endsection
 
 @section('addaction')"/Leave-Add"@endsection
 
@@ -11,52 +11,52 @@
   <div class="row">
     <label class="control-label  col-md-12">Type of Leave</label>
     <div class="col-md-12">
-      <input type="text" class="form-control" id="Leave_Name" name="Leave_Name" required>
+      <input type="text" class="form-control" id="Leave_Name" name="Leave_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
 </div>
-<div class="form-group">
   <div class="row">
-    <label class="control-label  col-md-12">Span</label>
-    <div class="col-md-12">
-      <input type="number" class="form-control" id="Leave_span" name="Leave_span" required>
+<div class="form-group col-sm-6">
+
+    <label class="control-label  col-md-6">Numbers of days allowed</label>
+    <div class="col-md-6">
+      <input type="number" class="form-control" id="Leave_span" name="Leave_span" min="1" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
+
+<div class="form-group col-sm-6">
+
+  <label class="control-label col-md-6">Notification period</label>
+    <div class="col-md-6">
+  <input type="number" class="form-control"  min="1" required>
+  <div class="help-block with-errors"></div>
 </div>
-<div class="form-group">
-  <div class="row">
-    <div class="col-md-12">
-      <label  class="control-label" >Span Type</label>
-      <select required class="form-control" id="Leave_type" name="Leave_type">
-        <option value="">None</option>
-        <option value="Days">Days</option>
-        <option value="Weeks">Weeks</option>
-        <option value="Months">Months</option>
-      </select>
-      <div class="help-block with-errors"></div>
-    </div>
-  </div>
 </div>
+</div>
+
+
+
 @endsection
 
-@section('mtitle') Guard's Leaves @endsection
-@section('mtitle2') <a href="{{url('/Leave')}}"> Leaves </a> @endsection
+@section('mtitle') Guard's Leave @endsection
+@section('mtitle2') <a href="{{url('/Leave')}}"> Leave </a> @endsection
 
 @section('theads')
     <th>Type of leave</th>
-    <th>Span</th>
-    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
+    <th>Numbers of days allowed</th>
+    <th>Notification period</th>
+    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
       @foreach($Leaves as $Leave)
         @if($Leave->status !== "deleted")
         <tr>
-           <td>{!!$Leave->id!!}</td>
            <td>{!!$Leave->name!!}</td>
            <td>{!!$Leave->span!!} {!!$Leave->spantype!!}</td>
+           <td>10</td>
            <td>
              @if($Leave->status === "active")
              <div class="onoffswitch2">
@@ -78,10 +78,10 @@
              @endif
            </td>
            <td>
-          <a class="mytooltip tooltip-effect-7" href="#">  <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Leave -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
-&nbsp;
-        <a class="mytooltip tooltip-effect-7" href="#">         <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$Leave -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
-           </td>
+             &nbsp;
+             <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit"  onclick="fun_edit('{!!$Leave -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
+            <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$Leave -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
+
         </tr>
         @endif
       @endforeach
@@ -89,9 +89,6 @@
 @section('hiddenediturl')'/Leave-view'@endsection
 @section('hiddenedeleteurl')'/Leave-delete'@endsection
 @section('hiddenestatusurl')'/Leave-status'@endsection
-
-@section('tdcolspan')"5"@endsection
-
 @section('editmodalurl')"{{ url('/Leave-Update') }}"@endsection
 
 @section('editmodalcontent')
@@ -99,35 +96,53 @@
         <div class="row">
          <div class="form-group col-sm-12">
             <label class="control-label">Type of leave</label>
-            <input type="text" class="form-control" id="edit_Leave_name" name="edit_Leave_name" required>
+            <input type="text" class="form-control" id="edit_Leave_name" name="edit_Leave_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
             <div class="help-block with-errors"></div>
          </div>
        </div>
       </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="form-group col-sm-12">
-             <label class="control-label">Span of Leave</label>
-             <input type="number" class="form-control" id="edit_Leave_span" name="edit_Leave_span" required>
-             <div class="help-block with-errors"></div>
-          </div>
-        </div>
-      </div>
-      <div class="form-group col-sm-12">
-        <div class="row">
-          <label  class="control-label" >Span Type</label>
-          <select required class="form-control" id="edit_type" name="edit_type" required>
-            <option value="">None</option>
-            <option value="Days">Days</option>
-            <option value="Weeks">Weeks</option>
-            <option value="Months">Months</option>
-          </select>
+      <div class="row">
+    <div class="form-group col-sm-6">
+
+        <label class="control-label  col-md-6">Numbers of days allowed</label>
+        <div class="col-md-6">
+          <input type="number" class="form-control"  id="edit_Leave_span" name="edit_Leave_span" min="1" required>
           <div class="help-block with-errors"></div>
         </div>
       </div>
+
+    <div class="form-group col-sm-6">
+
+      <label class="control-label col-md-6">Notification period</label>
+        <div class="col-md-6">
+      <input type="number" class="form-control"  min="1" required>
+      <div class="help-block with-errors"></div>
+    </div>
+    </div>
+    </div>
 @endsection
 
 @section('ajaxscript')
+<script type="text/javascript">
+        $(document).ready(function(){
+          $('#myTable').DataTable({
+
+            "columnDefs": [
+              {
+"targets": 4,
+"orderable": false
+},
+{
+"targets": 3,
+"orderable": false
+},
+            { "searchable": false, "targets": 4 },
+          ]
+          });
+
+
+      });
+    </script>
 <script type="text/javascript">
   function fun_view(id)
   {

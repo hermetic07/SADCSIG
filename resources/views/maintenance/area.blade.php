@@ -1,6 +1,6 @@
 @extends('maintenance.master')
 
-@section('Maintenance Title')Areas @endsection
+@section('Maintenance Title')Area @endsection
 
 @section('addaction')"/Area-Add"@endsection
 
@@ -27,7 +27,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Area's name</label>
     <div class="col-md-12">
-    <input type="text" class="form-control" id="Area_Name" name="Area_Name" required>
+    <input type="text" class="form-control" id="Area_Name" name="Area_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required >
       <div class="help-block with-errors"></div>
               </div>
           </div>
@@ -42,15 +42,14 @@
 
 @section('theads')
     <th>Area</th>
-    <th width="200px">Province</th>
-    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
+    <th>Province</th>
+    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
       @foreach($Areas as $Area)
         @if($Area->status !== "deleted")
         <tr>
-           <td>{!!$Area->id!!}</td>
            <td>{!!$Area->name!!}</td>
            <td>{!!$Area->provinces->name!!}</td>
            <td>
@@ -65,7 +64,7 @@
 
              @else
              <div class="onoffswitch2">
-    <input type="checkbox" onchange="fun_status('{!!$Area -> id!!}')" name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Area -> id!!}" >
+    <input type="checkbox" onchange="fun_status('{!!$Area -> id!!}')" name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Area -> id!!} " >
     <label class="onoffswitch2-label" for="{!!$Area -> id!!}">
         <span class="onoffswitch2-inner"></span>
         <span class="onoffswitch2-switch"></span>
@@ -74,20 +73,16 @@
              @endif
            </td>
            <td>
-            <a class="mytooltip tooltip-effect-7" href="#">       <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Area -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
-&nbsp;
-              <a class="mytooltip tooltip-effect-7" href="#">      <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$Area -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
-           </td>
-        </tr>
+             &nbsp;
+             <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$Area -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
+            <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$Area -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
+
         @endif
       @endforeach
 @endsection
 @section('hiddenediturl')'/Area-view'@endsection
 @section('hiddenedeleteurl')'/Area-delete'@endsection
 @section('hiddenestatusurl')'/Area-status'@endsection
-
-@section('tdcolspan')"5"@endsection
-
 @section('editmodalurl')"{{ url('/Area-Update') }}"@endsection
 
 @section('editmodalcontent')
@@ -111,7 +106,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Area's name</label>
     <div class="col-md-12">
-            <input type="text" required class="form-control" id="edit_Area_name" name="edit_Area_name">
+            <input type="text" required class="form-control" id="edit_Area_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" name="edit_Area_name">
       <div class="help-block with-errors"></div>
               </div>
           </div>
@@ -121,6 +116,26 @@
 @endsection
 
 @section('ajaxscript')
+<script type="text/javascript">
+        $(document).ready(function(){
+          $('#myTable').DataTable({
+
+            "columnDefs": [
+              {
+"targets": 3,
+"orderable": false
+},
+{
+"targets": 2,
+"orderable": false
+},
+            { "searchable": false, "targets": 3 },
+          ]
+          });
+
+
+      });
+    </script>
 <script type="text/javascript">
   function fun_view(id)
   {
