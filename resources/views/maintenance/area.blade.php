@@ -51,11 +51,11 @@
         @if($Area->status !== "deleted")
         <tr>
            <td>{!!$Area->name!!}</td>
-           <td>{!!$Area->provinces->name!!}</td>
+           <td>{!!$Area->province!!}</td>
            <td>
              @if($Area->status === "active")
              <div class="onoffswitch2">
-    <input type="checkbox" onchange="fun_status('{!!$Area -> id!!}')" name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Area -> id!!}" checked>
+    <input type="checkbox" onchange="fun_status('{!!$Area -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Area -> id!!}" checked>
     <label class="onoffswitch2-label" for="{!!$Area -> id!!}">
         <span class="onoffswitch2-inner"></span>
         <span class="onoffswitch2-switch"></span>
@@ -64,12 +64,12 @@
 
              @else
              <div class="onoffswitch2">
-    <input type="checkbox" onchange="fun_status('{!!$Area -> id!!}')" name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Area -> id!!} " >
+    <input type="checkbox" onchange="fun_status('{!!$Area -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Area -> id!!}">
     <label class="onoffswitch2-label" for="{!!$Area -> id!!}">
         <span class="onoffswitch2-inner"></span>
         <span class="onoffswitch2-switch"></span>
     </label>
-</div>
+   </div>
              @endif
            </td>
            <td>

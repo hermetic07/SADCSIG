@@ -108,13 +108,13 @@
                			</li>
                 		<li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
                     		<ul class="nav nav-third-level">
-                          <li> <a href="{{url('/Leave')}}">Leave</a></li>
-                          <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
+                          <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
                           <li> <a href="{{url('/License')}}">Licences and clearances</a> </li>
+                          <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
                           <li> <a href="{{url('/Military')}}">Military services</a></li>
                           <li> <a href="{{url('/Rank')}}">Rank</a></li>
-                          <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
                           <li> <a href="{{url('/Role')}}">Role</a></li>
+                          <li> <a href="{{url('/Leave')}}">Leave</a></li>
 							</ul>
 						</li>
                 		<li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
@@ -122,8 +122,8 @@
                 <li> <a href="{{url('/Province')}}">Provinces</a></li>
                 <li> <a href="{{url('/Area')}}">Area</a></li>
                 <li> <a href="{{url('/Measurement')}}">Measurements</a></li>
-                <li> <a href="{{url('/Gun')}}">Guns</a></li>
                 <li> <a href="{{url('/GunType')}}">Gun Type</a></li>
+                <li> <a href="{{url('/Gun')}}">Guns</a></li>
               </ul>
 						</li>
              		</ul>

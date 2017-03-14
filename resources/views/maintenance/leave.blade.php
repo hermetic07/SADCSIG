@@ -30,7 +30,7 @@
 
   <label class="control-label col-md-6">Notification period</label>
     <div class="col-md-6">
-  <input type="number" class="form-control"  min="1" required>
+  <input type="number" class="form-control"  id="Leave_not" name="Leave_not" min="1" required>
   <div class="help-block with-errors"></div>
 </div>
 </div>
@@ -55,8 +55,8 @@
         @if($Leave->status !== "deleted")
         <tr>
            <td>{!!$Leave->name!!}</td>
-           <td>{!!$Leave->span!!} {!!$Leave->spantype!!}</td>
-           <td>10</td>
+           <td>{!!$Leave->days!!}</td>
+           <td>{!!$Leave->notification!!}</td>
            <td>
              @if($Leave->status === "active")
              <div class="onoffswitch2">
@@ -115,7 +115,7 @@
 
       <label class="control-label col-md-6">Notification period</label>
         <div class="col-md-6">
-      <input type="number" class="form-control"  min="1" required>
+      <input type="number" class="form-control"  id="edit_Leave_not" name="edit_Leave_not" min="1" required>
       <div class="help-block with-errors"></div>
     </div>
     </div>
@@ -155,7 +155,8 @@
         //console.log(result);
         $("#edit_id").text(result.id);
         $("#edit_Leave_name").text(result.name);
-        $("#edit_Leave_span").text(result.span);
+        $("#edit_Leave_span").text(result.days);
+        $("#edit_Leave_not").text(result.notification);
       }
     });
   }
@@ -171,7 +172,8 @@
         //console.log(result);
         $("#edit_id").val(result.id);
         $("#edit_Leave_name").val(result.name);
-        $("#edit_Leave_span").val(result.span);
+        $("#edit_Leave_span").val(result.days);
+        $("#edit_Leave_not").val(result.notification);
       }
     });
   }

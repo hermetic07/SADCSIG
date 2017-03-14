@@ -22,7 +22,7 @@
 
 <label class="control-label col-md-12">Rate</label>
   <div class="col-md-12">
-<input type="number" class="form-control"  min="1" required>
+<input type="number" class="form-control"  id="rate" name="rate" min="1" required>
 <div class="help-block with-errors"></div>
 </div>
 </div>
@@ -44,7 +44,7 @@
       @if($nature->status !== "deleted")
       <tr>
          <td>{!!$nature->name!!}</td>
-         <td>50000</td>
+         <td>{!!$nature->price!!}</td>
          <td>
            @if($nature->status === "active")
            <div class="onoffswitch2">
@@ -96,7 +96,7 @@
 
 <label class="control-label col-md-12">Rate</label>
   <div class="col-md-12">
-<input type="number" class="form-control"  min="1" required>
+<input type="number" class="form-control" id="Nature_rate" name="Nature_rate"  min="1" required>
 <div class="help-block with-errors"></div>
 </div>
 </div>
@@ -137,6 +137,7 @@
         //console.log(result);
         $("#edit_id").text(result.id);
         $("#edit_Nature_name").text(result.name);
+        $("#Nature_rate").text(result.price);
       }
     });
   }
@@ -152,6 +153,7 @@
         //console.log(result);
         $("#edit_id").val(result.id);
         $("#edit_Nature_name").val(result.name);
+        $("#Nature_rate").val(result.price);
       }
     });
   }

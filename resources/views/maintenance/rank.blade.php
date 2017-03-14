@@ -49,7 +49,7 @@
         @if($Rank->status !== "deleted")
         <tr>
            <td>{!!$Rank->name!!}</td>
-           <td>{!!$Rank->military_services->name!!}</td>
+           <td>{!!$Rank->mname!!}</td>
            <td>
              @if($Rank->status === "active")
              <div class="onoffswitch2">

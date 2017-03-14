@@ -34,6 +34,7 @@ class NatureControl extends Controller
       try {
         $Natures = new Nature;
         $Natures->name = $request->Nature_Name;
+        $Natures->price = $request->rate;
         $Natures->status = "active";
         $Natures->save();
         return back();
@@ -83,6 +84,7 @@ class NatureControl extends Controller
         $Natures = Nature::find($id);
 
         $Natures->name = $request->edit_Nature_name;
+        $Natures->price = $request->Nature_rate;
         $Natures->save();
         return back();
       } catch (Exception $e) {

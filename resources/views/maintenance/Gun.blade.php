@@ -45,9 +45,8 @@
       @foreach($Guns as $Gun)
         @if($Gun->status !== "deleted")
         <tr>
-           <td>{!!$Gun->id!!}</td>
            <td>{!!$Gun->name!!}</td>
-           <td>{!!$Gun->guntype->name!!}</td>
+           <td>{!!$Gun->guntype!!}</td>
            <td>
              @if($Gun->status === "active")
              <div class="onoffswitch2">

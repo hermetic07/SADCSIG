@@ -81,7 +81,6 @@ class ProvinceControl extends Controller
       try {
         $id = $request -> edit_id;
         $Provinces = Province::find($id);
-
         $Provinces->name = $request->edit_Province_name;
         $Provinces->save();
         return back();

@@ -11,10 +11,10 @@
   <div class="row">
     <div class="col-md-12">
       <label  class="control-label" >Choose a unit of measurement</label>
-                      <select class="form-control" id="Uom2" required>
-                        <option disabled value="" selected="">---</option>
-                        <option>ft</option>
-                        <option>kg</option>
+                      <select class="form-control" id="measurement" name="measurement" required>
+                        @foreach($m as $ms)
+                        <option value="{!!$ms->name!!}">{!!$ms->name!!}</option>
+                        @endforeach
                       </select>
       <div class="help-block with-errors"></div>
               </div>
@@ -47,7 +47,7 @@
         @if($Attribute->status !== "deleted")
         <tr>
            <td>{!!$Attribute->name!!}</td>
-                <td>Kg</td>
+          <td>{!!$Attribute->measurement!!}</td>
            <td>
              @if($Attribute->status === "active")
              <div class="onoffswitch2">
@@ -90,10 +90,10 @@
   <div class="row">
     <div class="col-md-12">
       <label  class="control-label" >Choose a unit of measurement</label>
-                      <select class="form-control" id="Uom2" required>
-                        <option disabled value="" selected="">---</option>
-                        <option>ft</option>
-                        <option>kg</option>
+                      <select class="form-control" id="edit_measurement" name="edit_measurement" required>
+                        @foreach($m as $ms)
+                        <option value="{!!$ms->name!!}">{!!$ms->name!!}</option>
+                        @endforeach
                       </select>
       <div class="help-block with-errors"></div>
               </div>

@@ -33,16 +33,14 @@ class AreaControl extends Controller
      */
     public function add(Request $request)
     {
-      $Provinces = Province::where('name', $request->Area_Unit)->value('id');
       try {
         $Areas = new Area;
         $Areas->name = $request->Area_Name;
-        $Areas->Provinces_id = $Provinces;
+        $Areas->province = $request->Area_Unit;
         $Areas->status = "active";
         $Areas->save();
         return back();
       } catch (Exception $e) {
-        $s = Area::where('name',$request->Area_Name)->value('id');
         $A = Area::find($s);
         if($A->status === "deleted"){
           $A->Provinces_id = $Provinces;
@@ -88,7 +86,7 @@ class AreaControl extends Controller
         $id = $request -> edit_id;
         $Areas = Area::find($id);
         $Areas->name = $request->edit_Area_name;
-        $Areas->Provinces_id = $Provinces;
+        $Areas->province = $request->edit_Area_Unit;
         $Areas->save();
         return back();
       } catch (Exception $e) {

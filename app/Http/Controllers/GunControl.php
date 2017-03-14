@@ -15,7 +15,7 @@ class GunControl extends Controller
      */
     public function index()
     {
-      $Guns = Gun::orderBy('guntype_id', 'desc')->get();
+      $Guns = Gun::all();
       $A = GunType::all();
       return view('maintenance.Gun')->with('Guns',$Guns)->with('A',$A);
     }
@@ -35,10 +35,9 @@ class GunControl extends Controller
     {
 
       try {
-        $A = GunType::where('name', $request->GunType)->value('id');
         $Guns = new Gun;
         $Guns->name= $request->name;
-        $Guns->guntype_id = $A;
+        $Guns->guntype = $request->GunType;
         $Guns->status = "active";
         $Guns->save();
         return back();
@@ -76,12 +75,11 @@ class GunControl extends Controller
      */
     public function update(Request $request)
     {
-      $A = GunType::where('name', $request->edit_GunType)->value('id');
       try {
         $id = $request -> edit_id;
         $Guns = Gun::find($id);
         $Guns->name = $request->edit_size;
-        $Guns->guntype_id = $A;
+        $Guns->guntype = $request->edit_GunType;
         $Guns->save();
         return back();
       } catch (Exception $e) {

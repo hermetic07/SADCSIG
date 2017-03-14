@@ -33,11 +33,11 @@ class RankControl extends Controller
      */
     public function add(Request $request)
     {
-      $Militaries = Military::where('name', $request->Rank_Unit)->value('id');
+
       try {
         $Ranks = new Rank;
         $Ranks->name = $request->Rank_Name;
-        $Ranks->military_services_id = $Militaries;
+        $Ranks->mname = $request->Rank_Unit;
         $Ranks->status = "active";
         $Ranks->save();
         return back();
@@ -45,7 +45,6 @@ class RankControl extends Controller
         $s = Rank::where('name',$request->Rank_Name)->value('id');
         $data = Rank::find($s);
         if($data->status === "deleted"){
-          $data->military_services_id = $Militaries;
           $data->status = "active";
           $data->save();
           return back();
@@ -83,12 +82,12 @@ class RankControl extends Controller
      */
     public function update(Request $request)
     {
-      $Militaries = Military::where('name', $request->edit_Rank_Unit)->value('id');
+
       try {
         $id = $request -> edit_id;
         $Ranks = Rank::find($id);
         $Ranks->name = $request->edit_Rank_name;
-        $Ranks->military_services_id = $Militaries;
+        $Ranks->mname = $request->edit_Rank_Unit;
         $Ranks->save();
         return back();
       } catch (Exception $e) {

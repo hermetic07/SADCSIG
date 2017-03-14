@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Attribute;
+use App\Measurement;
 use Exception;
 class AttributeControl extends Controller
 {
@@ -15,7 +16,8 @@ class AttributeControl extends Controller
     public function index()
     {
       $Attributes = Attribute::all();
-      return view('maintenance.attribute')->with('Attributes',$Attributes);
+      $M = Measurement::all();
+      return view('maintenance.attribute')->with('Attributes',$Attributes)->with('m',$M);
     }
 
     /**
@@ -31,10 +33,11 @@ class AttributeControl extends Controller
      */
     public function add(Request $request)
     {
-    
+
       try {
         $Attributes = new Attribute;
         $Attributes->name = $request->Attribute_Name;
+        $Attributes->measurement = $request->measurement;
         $Attributes->status = "active";
         $Attributes->save();
         return back();
@@ -83,6 +86,7 @@ class AttributeControl extends Controller
       try {
         $id = $request -> edit_id;
         $Attributes = Attribute::find($id);
+        $Attributes->measurement = $request->edit_measurement;
         $Attributes->name = $request->edit_Attribute_name;
         $Attributes->save();
         return back();
