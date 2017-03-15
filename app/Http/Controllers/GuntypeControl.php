@@ -3,62 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Gun;
 use App\GunType;
-use Exception;
+use Validator;
+use Response;
+use Illuminate\Support\Facades\Input;
 class GunTypeControl extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
       $GunType = GunType::all();
       return view('maintenance.guntype')->with('GunType',$GunType);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function add(Request $request)
     {
+      $rules = array (
+          'name' => 'regex:/(^[A-Za-z0-9 ]+$)+/'
+      );
+      $validator = Validator::make ( Input::all (), $rules );
+      if ($validator->fails ())
+        return Response::json ( array (
 
-      try {
-        $GunTypes = new GunType;
-        $GunTypes->name = $request->GunType_Name;
-        $GunTypes->status = "active";
-        $GunTypes->save();
-        return back();
-      } catch (Exception $e) {
-        $s = GunType::where('name',$request->GunType_Name)->value('id');
-        $data = GunType::find($s);
-        if($data->status === "deleted"){
-          $data->status = "active";
-          $data->save();
-          return back();
+            'errors' => $validator->getMessageBag ()->toArray ()
+        ) );
+      else {
+        $data = new Guntype ();
+        $data->name = $request->name;
+        $data->status = "active";
+        $data->save ();
+        if ($data->status === "active") {
+          $data->status = "checked";
         }
         else {
-          return view('maintenance.GunType_error');
+          $data->status = "";
         }
+        return response ()->json ( $data );
       }
-
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
      public function view(Request $request)
      {
          if($request->ajax()){
@@ -70,34 +55,19 @@ class GunTypeControl extends Controller
      }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function update(Request $req)
     {
 
-      try {
-        $id = $request -> edit_id;
-        $GunTypes = GunType::find($id);
-        $GunTypes->name = $request->edit_GunType_name;
-        $GunTypes->save();
-        return back();
-      } catch (Exception $e) {
-        $s = GunType::where('name',$request->edit_GunType_name)->value('id');
-        $data = GunType::find($s);
-        if($data->status === "deleted"){
-          $data->status = "inactive";
-          $data->save();
-          return view('maintenance.GunType_error');
-        }
-        else {
-          return view('maintenance.GunType_error');
-        }
-      }
+      $data = Guntype::find ( $req->id );
+  		$data->name = $req->name;
+  		$data->save ();
+  		if ($data->status === "active") {
+  			$data->status = "checked";
+  		}
+  		else {
+  			$data->status = "";
+  		}
+  		return response ()->json ( $data );
 
     }
 

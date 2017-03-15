@@ -24,6 +24,12 @@ class GuntypeController extends Controller {
 			$data->name = $request->name;
       $data->status = "active";
 			$data->save ();
+			if ($data->status === "active") {
+				$data->status = "checked";
+			}
+			else {
+				$data->status = "";
+			}
 			return response ()->json ( $data );
 		}
 	}
@@ -37,6 +43,12 @@ class GuntypeController extends Controller {
 		$data = Guntype::find ( $req->id );
 		$data->name = $req->name;
 		$data->save ();
+		if ($data->status === "active") {
+			$data->status = "checked";
+		}
+		else {
+			$data->status = "";
+		}
 		return response ()->json ( $data );
 	}
 

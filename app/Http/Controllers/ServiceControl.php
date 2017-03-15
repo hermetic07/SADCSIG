@@ -5,63 +5,46 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service;
 use Exception;
-
+use Validator;
+use Response;
+use Illuminate\Support\Facades\Input;
 class ServiceControl extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
       $Services = Service::all();
       return view('maintenance.services')->with('services',$Services);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function add(Request $request)
     {
-      try {
-        $Services = new Service;
-        $Services->name = $request->Service_Name;
-        $Services->description = $request->description;
-        $Services->status = "active";
-        $Services->save();
-        return back()->with('success','Record Added successfully.');
-      } catch (Exception $e) {
-        $s = Service::where('name',$request->Service_Name)->value('id');
-        $Services = Service::find($s);
-        if($Services->status === "deleted"){
-          $Services->description = $request->description;
-          $Services->status = "active";
-          $Services->save();
-          return back();
-        }
-        else {
-          return view('maintenance.service_error');
+      $rules = array (
+  				'name' => 'regex:/(^[A-Za-z0-9 ]+$)+/'
+  		);
+  		$validator = Validator::make ( Input::all (), $rules );
+  		if ($validator->fails ())
+  			return Response::json ( array (
 
+  					'errors' => $validator->getMessageBag ()->toArray ()
+  			) );
+  		else {
+  			$data = new Service ();
+  			$data->name = $request->name;
+  			$data->description = $request->description;
+        $data->status = "active";
+  			$data->save ();
+        if($data->status === "active"){
+          $data->status = "checked";
+        }else {
+          $data->status = "";
         }
-      }
+  			return response ()->json ( $data );
+  		}
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
      public function view(Request $request)
      {
          if($request->ajax()){
@@ -72,45 +55,20 @@ class ServiceControl extends Controller
          }
      }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
-      $id = $request -> edit_id;
-      $Services = Service::find($id);
-      try {
-        $Services->name = $request->edit_Service_name;
-        $Services->description = $request->edit_Service_desc;
-        $Services->save();
-        return back();
-      } catch (Exception $e) {
-        $s = Service::where('name',$request->edit_Service_name)->value('id');
-        $data = Service::find($s);
-
-        if($data->status === "deleted"){
-            $data->status = 'inactive';
-            $data->save();
-            return view('maintenance.service_error');
-        }
-        else {
-            return view('maintenance.service_error');
-        }
+      $data = Service::find ( $request->id );
+  		$data->name = $request->name;
+  		$data->description = $request->description;
+  		$data->save ();
+      if($data->status === "active"){
+        $data->status = "checked";
+      }else {
+        $data->status = "";
       }
-
+  		return response ()->json ( $data );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
      public function delete(Request $request)
      {
          $id = $request -> id;

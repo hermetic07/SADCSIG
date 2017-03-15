@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Area;
 use App\Province;
-use Exception;
+use Validator;
+use Response;
+use Illuminate\Support\Facades\Input;
 class AreaControl extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
       $Areas = Area::all();
@@ -20,47 +18,35 @@ class AreaControl extends Controller
       return view('maintenance.Area')->with('Areas',$Areas)->with('Provinces',$Provinces);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function add(Request $request)
     {
-      try {
-        $Areas = new Area;
-        $Areas->name = $request->Area_Name;
-        $Areas->province = $request->Area_Unit;
-        $Areas->status = "active";
-        $Areas->save();
-        return back();
-      } catch (Exception $e) {
-        $A = Area::find($s);
-        if($A->status === "deleted"){
-          $A->Provinces_id = $Provinces;
-          $A->status = "active";
-          $A->save();
-          return back();
+      $rules = array (
+  				'name' => 'regex:/(^[A-Za-z0-9 ]+$)+/'
+  		);
+  		$validator = Validator::make ( Input::all (), $rules );
+  		if ($validator->fails ())
+  			return Response::json ( array (
+
+  					'errors' => $validator->getMessageBag ()->toArray ()
+  			) );
+  		else {
+  			$data = new Area ();
+  			$data->name = $request->name;
+  			$data->province = $request->selection;
+        $data->status = "active";
+  			$data->save ();
+        if ($data->status === "active") {
+          $data->status = "checked";
         }
         else {
-          return view('maintenance.area_error');
+          $data->status = "";
         }
-      }
-
+  			return response ()->json ( $data );
+  		}
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
      public function view(Request $request)
      {
          if($request->ajax()){
@@ -72,46 +58,24 @@ class AreaControl extends Controller
      }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request)
     {
-      $Provinces = Province::where('name', $request->edit_Area_Unit)->value('id');
-      try {
-        $id = $request -> edit_id;
-        $Areas = Area::find($id);
-        $Areas->name = $request->edit_Area_name;
-        $Areas->province = $request->edit_Area_Unit;
-        $Areas->save();
-        return back();
-      } catch (Exception $e) {
-        $s = Area::where('name',$request->edit_Area_name)->value('id');
-        $data = Area::find($s);
-
-        if($data->status === "deleted"){
-            $data->status = 'inactive';
-            $data->Provinces_id = $Provinces;
-            $data->save();
-            return view('maintenance.area_error');
-        }
-        else {
-          return view('maintenance.area_error');
-        }
+      $data = Area::find ( $request->id );
+  		$data->province = $request->selection;
+  		$data->name = $request->name;
+  		$data->save ();
+      if ($data->status === "active") {
+        $data->status = "checked";
       }
+      else {
+        $data->status = "";
+      }
+  		return response ()->json ( $data );
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
      public function delete(Request $request)
      {
          $id = $request -> id;

@@ -53,7 +53,7 @@
 @section('tbodies')
       @foreach($Leaves as $Leave)
         @if($Leave->status !== "deleted")
-        <tr>
+        <tr class="item{{$Leave->id}}">
            <td>{!!$Leave->name!!}</td>
            <td>{!!$Leave->days!!}</td>
            <td>{!!$Leave->notification!!}</td>
@@ -123,6 +123,63 @@
 @endsection
 
 @section('ajaxscript')
+
+<script>
+$("#add").click(function() {
+
+    $.ajax({
+        type: 'post',
+        url: '/Leave-Add',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'name': $('#Leave_Name').val(),
+            'days': $('#Leave_span').val(),
+            'notification': $('#Leave_not').val(),
+
+        },
+        success: function(data) {
+            if ((data.errors)){
+              $('.error').removeClass('hidden');
+                $('.error').text(data.errors.name);
+            }
+            else {
+                $('.error').addClass('hidden');
+                $('#table').append("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.days + "</td><td>" + data.notification + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+                $('#Leave_Name').val('');
+                $('#Leave_span').val('');
+                $('#Leave_not').val('');
+            }
+        },
+
+    });
+
+    $('#Edit').modal('hide');
+});
+
+$("#edd").click(function() {
+
+  $.ajax({
+      type: 'post',
+      url: '/Leave-Update',
+      data: {
+          '_token': $('input[name=_token]').val(),
+          'id': $("#edit_id").val(),
+          'name': $('#edit_Leave_name').val(),
+          'days': $('#edit_Leave_span').val(),
+          'notification': $('#edit_Leave_not').val(),
+      },
+      success: function(data) {
+          $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.days + "</td><td>" + data.notification + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+          $('#edit_Leave_name').val('');
+          $('#edit_Leave_span').val('');
+          $('#edit_Leave_not').val('');
+      }
+  });
+});
+
+
+</script>
+
 <script type="text/javascript">
         $(document).ready(function(){
           $('#myTable').DataTable({

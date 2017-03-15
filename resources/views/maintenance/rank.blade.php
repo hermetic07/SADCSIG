@@ -27,7 +27,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Rank</label>
     <div class="col-md-12">
-    <input type="text" class="form-control" id="Rank_Name" name="Rank_Name"   pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+    <input type="text" class="form-control" id="Rank_name" name="Rank_name"   pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -47,7 +47,7 @@
 @section('tbodies')
       @foreach($Ranks as $Rank)
         @if($Rank->status !== "deleted")
-        <tr>
+        <tr class="item{{$Rank->id}}">
            <td>{!!$Rank->name!!}</td>
            <td>{!!$Rank->mname!!}</td>
            <td>
@@ -116,6 +116,58 @@
 @endsection
 
 @section('ajaxscript')
+
+<script>
+$("#add").click(function() {
+
+    $.ajax({
+        type: 'post',
+        url: '/Rank-Add',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'name': $('#Rank_name').val(),
+            'selection': $('#Rank_Unit').val(),
+        },
+        success: function(data) {
+            if ((data.errors)){
+              $('.error').removeClass('hidden');
+                $('.error').text(data.errors.name);
+            }
+            else {
+                $('.error').addClass('hidden');
+                $('#table').append("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.mname + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+                $('#Rank_name').val('');
+                $('#Rank_unit').val('');
+            }
+        },
+
+    });
+
+    $('#Edit').modal('hide');
+});
+
+$("#edd").click(function() {
+
+  $.ajax({
+      type: 'post',
+      url: '/Rank-Update',
+      data: {
+          '_token': $('input[name=_token]').val(),
+          'id': $("#edit_id").val(),
+          'name': $('#edit_Rank_name').val(),
+          'selection': $('#edit_Rank_Unit').val(),
+      },
+      success: function(data) {
+          $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.mname + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+          $('#edit_Rank_name').val('');
+          $('#edit_Rank_unit').val('');
+      }
+  });
+});
+
+
+</script>
+
 <script type="text/javascript">
         $(document).ready(function(){
           $('#myTable').DataTable({
@@ -163,6 +215,7 @@
         //console.log(result);
         $("#edit_id").val(result.id);
         $("#edit_Rank_name").val(result.name);
+        $("#edit_Rank_Unit").val(result.mname);
       }
     });
   }

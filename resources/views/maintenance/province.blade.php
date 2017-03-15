@@ -11,7 +11,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Province's name</label>
     <div class="col-md-12">
-      <input type="text" class="form-control" id="Province_Name" name="Province_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+      <input type="text" class="form-control" id="name" name="name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -29,7 +29,7 @@
 @section('tbodies')
       @foreach($Provinces as $Province)
       @if($Province->status !== "deleted")
-      <tr>
+      <tr class="item{{$Province->id}}">
          <td>{!!$Province->name!!}</td>
          <td>
            @if($Province->status === "active")
@@ -84,9 +84,56 @@
 @endsection
 
 @section('ajaxscript')
+<script>
+$("#add").click(function() {
+
+    $.ajax({
+        type: 'post',
+        url: '/Province-Add',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'name': $('#name').val(),
+        },
+        success: function(data) {
+            if ((data.errors)){
+              $('.error').removeClass('hidden');
+                $('.error').text(data.errors.name);
+            }
+            else {
+                $('.error').addClass('hidden');
+                $('#table').append("<tr class='item" + data.id + "'><td>" + data.name + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+                $('#name').val('');
+            }
+        },
+
+    });
+
+    $('#Edit').modal('hide');
+});
+
+$("#edd").click(function() {
+
+  $.ajax({
+      type: 'post',
+      url: '/Province-Update',
+      data: {
+          '_token': $('input[name=_token]').val(),
+          'id': $("#edit_id").val(),
+          'name': $('#edit_Province_name').val(),
+      },
+      success: function(data) {
+          $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.name + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+          $('#edit_Province_name').val('');
+      }
+  });
+});
+
+
+</script>
+
 <script type="text/javascript">
         $(document).ready(function(){
-          $('#myTable').DataTable({
+          $('#table').DataTable({
 
             "columnDefs": [
               {

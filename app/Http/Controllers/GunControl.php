@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Gun;
 use App\GunType;
-use Exception;
+use Validator;
+use Response;
+use Illuminate\Support\Facades\Input;
 class GunControl extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
       $Guns = Gun::all();
@@ -20,41 +18,35 @@ class GunControl extends Controller
       return view('maintenance.Gun')->with('Guns',$Guns)->with('A',$A);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function add(Request $request)
     {
 
-      try {
-        $Guns = new Gun;
-        $Guns->name= $request->name;
-        $Guns->guntype = $request->GunType;
-        $Guns->status = "active";
-        $Guns->save();
-        return back();
-      } catch (Exception $e) {
+      $rules = array (
+  				'name' => 'regex:/(^[A-Za-z0-9 ]+$)+/'
+  		);
+  		$validator = Validator::make ( Input::all (), $rules );
+  		if ($validator->fails ())
+  			return Response::json ( array (
 
-          return view('maintenance.Gun_error');
-
-      }
+  					'errors' => $validator->getMessageBag ()->toArray ()
+  			) );
+  		else {
+  			$data = new Gun ();
+  			$data->name = $request->name;
+  			$data->guntype = $request->selection;
+        $data->status = "active";
+  			$data->save ();
+        if ($data->status === "active") {
+          $data->status = "checked";
+        }
+        else {
+          $data->status = "";
+        }
+  			return response ()->json ( $data );
+  		}
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
      public function view(Request $request)
      {
          if($request->ajax()){
@@ -65,28 +57,19 @@ class GunControl extends Controller
          }
      }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
-      try {
-        $id = $request -> edit_id;
-        $Guns = Gun::find($id);
-        $Guns->name = $request->edit_size;
-        $Guns->guntype = $request->edit_GunType;
-        $Guns->save();
-        return back();
-      } catch (Exception $e) {
-
-          return view('maintenance.Gun_error');
-
+      $data = Gun::find ( $req->id );
+  		$data->name = $request->name;
+  		$data->guntype = $request->selection;
+  		$data->save ();
+      if ($data->status === "active") {
+        $data->status = "checked";
       }
+      else {
+        $data->status = "";
+      }
+  		return response ()->json ( $data );
 
     }
 

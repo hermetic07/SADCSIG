@@ -5,60 +5,48 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Nature;
 use Exception;
+use Validator;
+use Response;
+use Illuminate\Support\Facades\Input;
 class NatureControl extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
       $Natures = Nature::all();
       return view('maintenance.nature')->with('natures',$Natures);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function add(Request $request)
     {
-      try {
-        $Natures = new Nature;
-        $Natures->name = $request->Nature_Name;
-        $Natures->price = $request->rate;
-        $Natures->status = "active";
-        $Natures->save();
-        return back();
-      } catch (Exception $e) {
-        $s = Nature::where('name',$request->Nature_Name)->value('id');
-        $data = Nature::find($s);
-        if($data->status === "deleted"){
-          $data->status = "active";
-          $data->save();
-          return back();
+      $rules = array (
+  				'name' => 'regex:/(^[A-Za-z0-9 ]+$)+/'
+  		);
+  		$validator = Validator::make ( Input::all (), $rules );
+  		if ($validator->fails ())
+  			return Response::json ( array (
+
+  					'errors' => $validator->getMessageBag ()->toArray ()
+  			) );
+  		else {
+  			$data = new Nature ();
+  			$data->name = $request->name;
+  			$data->price = $request->price;
+        $data->status = "active";
+  			$data->save ();
+        if ($data->status === "active") {
+          $data->status = "checked";
         }
         else {
-          return view('maintenance.nature_error');
+          $data->status = "";
         }
-      }
+  			return response ()->json ( $data );
+  		}
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
      public function view(Request $request)
      {
          if($request->ajax()){
@@ -69,45 +57,22 @@ class NatureControl extends Controller
          }
      }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function update(Request $req)
     {
-      try {
-        $id = $request -> edit_id;
-        $Natures = Nature::find($id);
-
-        $Natures->name = $request->edit_Nature_name;
-        $Natures->price = $request->Nature_rate;
-        $Natures->save();
-        return back();
-      } catch (Exception $e) {
-        $s = Nature::where('name',$request->edit_Nature_name)->value('id');
-        $data = Nature::find($s);
-        if($data->status === "deleted"){
-          $data->status = "active";
-          $data->save();
-          return view('maintenance.nature_error');
-        }
-        else {
-          return view('maintenance.nature_error');
-        }
+      $data = Nature::find ( $req->id );
+  		$data->name = $req->name;
+  		$data->price = $req->price;
+  		$data->save ();
+      if ($data->status === "active") {
+        $data->status = "checked";
       }
+      else {
+        $data->status = "";
+      }
+  		return response ()->json ( $data );
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
      public function delete(Request $request)
      {
          $id = $request -> id;

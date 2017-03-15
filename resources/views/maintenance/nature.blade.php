@@ -42,18 +42,18 @@
 @section('tbodies')
       @foreach($natures as $nature)
       @if($nature->status !== "deleted")
-      <tr>
+      <tr class="item{{$nature->id}}">
          <td>{!!$nature->name!!}</td>
          <td>{!!$nature->price!!}</td>
          <td>
            @if($nature->status === "active")
            <div class="onoffswitch2">
-  <input type="checkbox" onchange="fun_status('{!!$nature -> id!!}')" name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$nature -> id!!}" checked>
-  <label class="onoffswitch2-label" for="{!!$nature -> id!!}">
-      <span class="onoffswitch2-inner"></span>
-      <span class="onoffswitch2-switch"></span>
-  </label>
-</div>
+              <input type="checkbox" onchange="fun_status('{!!$nature -> id!!}')" name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$nature -> id!!}" checked>
+              <label class="onoffswitch2-label" for="{!!$nature -> id!!}">
+                  <span class="onoffswitch2-inner"></span>
+                  <span class="onoffswitch2-switch"></span>
+              </label>
+            </div>
 
            @else
            <div class="onoffswitch2">
@@ -104,9 +104,60 @@
 @endsection
 
 @section('ajaxscript')
+<script>
+$("#add").click(function() {
+
+    $.ajax({
+        type: 'post',
+        url: '/Nature-Add',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'name': $('input[name=Nature_Name]').val(),
+            'price': $('#rate').val(),
+        },
+        success: function(data) {
+            if ((data.errors)){
+              $('.error').removeClass('hidden');
+                $('.error').text(data.errors.name);
+            }
+            else {
+                $('#Add').modal('hide');
+                $('.error').addClass('hidden');
+                $('#table').append("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.price + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+                $('#Nature_Name').val('');
+                $('#rate').val('');
+            }
+        },
+
+    });
+
+
+});
+
+$("#edd").click(function() {
+
+  $.ajax({
+      type: 'post',
+      url: '/Nature-Update',
+      data: {
+          '_token': $('input[name=_token]').val(),
+          'id': $("#edit_id").val(),
+          'name': $('#edit_Nature_name').val(),
+          'price': $('#Nature_rate').val(),
+      },
+      success: function(data) {
+          $('#Edit').modal('hide');
+          $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.price + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+      }
+  });
+});
+
+
+</script>
+
 <script type="text/javascript">
         $(document).ready(function(){
-          $('#myTable').DataTable({
+          $('#table').DataTable({
 
             "columnDefs": [
               {

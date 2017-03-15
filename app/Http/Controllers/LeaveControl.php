@@ -4,63 +4,48 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Leave;
-use Exception;
+use Validator;
+use Response;
+use Illuminate\Support\Facades\Input;
 class LeaveControl extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
       $Leaves = Leave::all();
       return view('maintenance.Leave')->with('Leaves',$Leaves);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function add(Request $request)
     {
-      try {
-        $Leaves = new Leave;
-        $Leaves->name = $request->Leave_Name;
-        $Leaves->days = $request->Leave_span;
-        $Leaves->notification = $request->Leave_not;
-        $Leaves->status = "active";
-        $Leaves->save();
-        return back();
-      } catch (Exception $e) {
-        $s = Leave::where('name',$request->Leave_Name)->value('id');
-        $data = Leave::find($s);
-        if($data->status === "deleted"){
-          $data->status = "active";
-          $data->save();
-          return back();
-        }
-        else {
-          return view('maintenance.leave_error');
-        }
-      }
+      $rules = array (
+  				'name' => 'regex:/(^[A-Za-z0-9 ]+$)+/'
+  		);
+  		$validator = Validator::make ( Input::all (), $rules );
+  		if ($validator->fails ())
+  			return Response::json ( array (
+
+  					'errors' => $validator->getMessageBag ()->toArray ()
+  			) );
+  		else {
+  			$data = new Leave ();
+  			$data->name = $request->name;
+  			$data->days = $request->days;
+  			$data->notification = $request->notification;
+        $data->status = "active";
+  			$data->save ();
+        if ($data->status === "active") {
+  				$data->status = "checked";
+  			}
+  			else {
+  				$data->status = "";
+  			}
+  			return response ()->json ( $data );
+  		}
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-     public function view(Request $request)
+    public function view(Request $request)
      {
          if($request->ajax()){
              $id = $request->id;
@@ -71,36 +56,20 @@ class LeaveControl extends Controller
      }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function update(Request $req)
     {
-      try {
-        $id = $request -> edit_id;
-        $Leaves = Leave::find($id);
-        $Leaves->name = $request->edit_Leave_name;
-        $Leaves->days = $request->edit_Leave_span;
-        $Leaves->notification = $request->edit_Leave_not;
-        $Leaves->save();
-        return back();
-      } catch (Exception $e) {
-        $s = Leave::where('name',$request->edit_Leave_name)->value('id');
-        $data = Leave::find($s);
-        if($data->status === "deleted"){
-          $data->status = "active";
-          $data->save();
-          return view('maintenance.leave_error');
-        }
-        else {
-          return view('maintenance.leave_error');
-        }
-      }
-
+      $data = Leave::find ( $req->id );
+  		$data->name = $req->name;
+  		$data->days = $req->days;
+  		$data->notification = $req->notification;
+  		$data->save ();
+      if ($data->status === "active") {
+				$data->status = "checked";
+			}
+			else {
+				$data->status = "";
+			}
+  		return response ()->json ( $data );
     }
 
     /**

@@ -10,8 +10,8 @@
 <div class="form-group">
   <div class="row">
     <label class="control-label  col-md-12">Service's Name</label>
-    <div class="col-md-5">
-      <input type="text" class="form-control" id="Service_Name" name="Service_Name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+    <div class="col-md-12">
+      <input type="text" class="form-control" id="name" name="name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
     </div>
           </div>
@@ -39,7 +39,7 @@
 @section('tbodies')
       @foreach($services as $service)
         @if($service->status !== "deleted")
-        <tr>
+        <tr class="item{{$service->id}}">
            <td>{!!$service->name!!}</td>
            <td>{!!$service->description!!}</td>
            <td>
@@ -65,7 +65,7 @@
            <td>
              &nbsp;
              <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit"  onclick="fun_edit('{!!$service -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
-            <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive"onclick="fun_delete('{!!$service -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
+            <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$service -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
 
 
            </td>
@@ -102,9 +102,58 @@
 @endsection
 
 @section('ajaxscript')
+<script>
+$("#add").click(function() {
+
+    $.ajax({
+        type: 'post',
+        url: '/Service-Add',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'name': $('input[name=name]').val(),
+            'description': $('#description').val(),
+        },
+        success: function(data) {
+            if ((data.errors)){
+              $('.error').removeClass('hidden');
+                $('.error').text(data.errors.name);
+            }
+            else {
+                $('.error').addClass('hidden');
+                $('#table').append("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.description + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+            }
+        },
+
+    });
+    $('#name').val('');
+    $('#description').val('');
+    $('#Edit').modal('hide');
+});
+
+$("#edd").click(function() {
+
+  $.ajax({
+      type: 'post',
+      url: '/Service-Update',
+      data: {
+          '_token': $('input[name=_token]').val(),
+          'id': $("#edit_id").val(),
+          'name': $('#edit_Service_name').val(),
+          'description': $('#edit_Service_desc').val(),
+      },
+      success: function(data) {
+          $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.description + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+      }
+  });
+});
+
+
+</script>
+
+
 <script type="text/javascript">
         $(document).ready(function(){
-          $('#myTable').DataTable({
+          $('#table').DataTable({
 
             "columnDefs": [
               {
@@ -121,7 +170,7 @@
 
 
       });
-    </script>
+</script>
 <script type="text/javascript">
 
 

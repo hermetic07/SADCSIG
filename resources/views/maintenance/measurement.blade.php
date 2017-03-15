@@ -9,41 +9,9 @@
 @section('addmodalbody')
 <div class="form-group">
   <div class="row">
+    <label class="control-label  col-md-12">Type of Measurement</label>
     <div class="col-md-12">
-      <label  class="control-label" >Choose Body Attribute</label>
-      <select required class="form-control" id="attribute" name="attribute">
-        <option value="">None</option>
-        @foreach($A as $m)
-          @if($m->status === "active")
-            <option value="{!!$m->name!!}">{!!$m->name!!}</option>
-          @endif
-        @endforeach
-      </select>
-        <div class="help-block with-errors"></div>
-    </div>
-  </div>
-</div>
-<div class="form-group">
-  <div class="row">
-    <label class="control-label  col-md-12">Size</label>
-    <div class="col-md-12">
-      <input type="number" class="form-control" id="size" name="size" required>
-      <div class="help-block with-errors"></div>
-    </div>
-  </div>
-</div>
-<div class="form-group">
-  <div class="row">
-    <div class="col-md-12">
-      <label  class="control-label" >Unit of Measurement</label>
-      <select required class="form-control" id="unit" name="unit">
-        <option value="">None</option>
-        <option value="Centimeter">Centimeter</option>
-        <option value="Feet">Feet</option>
-        <option value="Inches">Inches</option>
-        <option value="Kilogram">Kilogram</option>
-        <option value="Pounds">Pounds</option>
-      </select>
+      <input type="text" class="form-control" id="name" name="name" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -54,7 +22,6 @@
 @section('mtitle2') <a href="{{url('/Measurement')}}">  Measurements </a>  @endsection
 
 @section('theads')
-    <th>Body Attribute</th>
     <th>Measurement</th>
     <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
 @endsection
@@ -62,10 +29,8 @@
 @section('tbodies')
       @foreach($measurements as $measurement)
         @if($measurement->status !== "deleted")
-        <tr>
-           <td>{!!$measurement->id!!}</td>
-           <td>{!!$measurement->attributes->name!!}</td>
-           <td>{!!$measurement->size!!} {!!$measurement->measurement_type!!}</td>
+        <tr class="item{{$measurement->id}}">
+           <td>{!!$measurement->name!!}</td>
            <td>
              @if($measurement->status === "active")
              <div class="onoffswitch2">
@@ -87,9 +52,8 @@
              @endif
            </td>
            <td>
-      <a class="mytooltip tooltip-effect-7" href="#">           <button type="button" class="switch btn btn-info btn-circle " data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$measurement -> id!!}')" ><i class='fa fa-edit'></i></button><span class="tooltip-table">Edit</span></a>
-        &nbsp;
-      <a class="mytooltip tooltip-effect-7" href="#">           <button type="button" class="btn btn-danger btn-circle sa-params" onclick="fun_delete('{!!$measurement -> id!!}')"><i class="fa fa-times"> </i></button><span class="tooltip-table">Delete</span></a>
+             <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit" onclick="fun_edit('{!!$measurement -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
+            <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$measurement -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
            </td>
         </tr>
         @endif
@@ -106,42 +70,62 @@
 @section('editmodalcontent')
       <div class="form-group col-md-12">
         <div class="row">
-            <label  class="control-label" >Choose Body Attribute</label>
-            <select required class="form-control" id="edit_attribute" name="edit_attribute">
-              <option value="">None</option>
-              @foreach($A as $m)
-                @if($m->status === "active")
-                  <option value="{!!$m->name!!}">{!!$m->name!!}</option>
-                @endif
-              @endforeach
-            </select>
-            <div class="help-block with-errors"></div>
-        </div>
-      </div>
-      <div class="form-group col-md-12">
-        <div class="row">
             <label class="control-label">Size</label>
-            <input type="number" class="form-control" id="edit_size" name="edit_size" required>
+            <input type="text" class="form-control" id="edit_size" name="edit_size" required>
             <div class="help-block with-errors"></div>
-       </div>
-      </div>
-      <div class="form-group col-md-12">
-       <div class="row">
-         <label  class="control-label" >Unit of Measurement</label>
-         <select required class="form-control" id="edit_unit" name="edit_unit">
-           <option value="">None</option>
-           <option value="Centimeter">Centimeter</option>
-           <option value="Feet">Feet</option>
-           <option value="Inches">Inches</option>
-           <option value="Kilogram">Kilogram</option>
-           <option value="Pounds">Pounds</option>
-         </select>
-          <div class="help-block with-errors"></div>
        </div>
       </div>
 @endsection
 
 @section('ajaxscript')
+
+<script>
+$("#add").click(function() {
+
+    $.ajax({
+        type: 'post',
+        url: '/measurement-Add',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'name': $('#name').val(),
+        },
+        success: function(data) {
+            if ((data.errors)){
+              $('.error').removeClass('hidden');
+                $('.error').text(data.errors.name);
+            }
+            else {
+                $('.error').addClass('hidden');
+                $('#table').append("<tr class='item" + data.id + "'><td>" + data.name + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+                $('#name').val('');
+            }
+        },
+
+    });
+
+    $('#Edit').modal('hide');
+});
+
+$("#edd").click(function() {
+
+  $.ajax({
+      type: 'post',
+      url: '/measurement-Update',
+      data: {
+          '_token': $('input[name=_token]').val(),
+          'id': $("#edit_id").val(),
+          'name': $('#edit_size').val(),
+      },
+      success: function(data) {
+          $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.name + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+          $('#edit_size').val('');
+      }
+  });
+});
+
+
+</script>
+
 <script type="text/javascript">
   function fun_view(id)
   {
@@ -153,7 +137,7 @@
       success: function(result){
         //console.log(result);
         $("#edit_id").text(result.id);
-        $("#edit_size").text(result.size);
+        $("#edit_size").text(result.name);
       }
     });
   }
@@ -168,7 +152,7 @@
       success: function(result){
         //console.log(result);
         $("#edit_id").val(result.id);
-        $("#edit_size").val(result.size);
+        $("#edit_size").val(result.name);
       }
     });
   }

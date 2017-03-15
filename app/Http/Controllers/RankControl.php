@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Rank;
 use App\Military;
-use Exception;
+use Validator;
+use Response;
+use Illuminate\Support\Facades\Input;
 class RankControl extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
       $Ranks = Rank::all();
@@ -20,49 +18,34 @@ class RankControl extends Controller
       return view('maintenance.rank')->with('Ranks',$Ranks)->with('Militaries',$Militaries);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function add(Request $request)
     {
+      $rules = array (
+  				'name' => 'regex:/(^[A-Za-z0-9 ]+$)+/'
+  		);
+  		$validator = Validator::make ( Input::all (), $rules );
+  		if ($validator->fails ())
+  			return Response::json ( array (
 
-      try {
-        $Ranks = new Rank;
-        $Ranks->name = $request->Rank_Name;
-        $Ranks->mname = $request->Rank_Unit;
-        $Ranks->status = "active";
-        $Ranks->save();
-        return back();
-      } catch (Exception $e) {
-        $s = Rank::where('name',$request->Rank_Name)->value('id');
-        $data = Rank::find($s);
-        if($data->status === "deleted"){
-          $data->status = "active";
-          $data->save();
-          return back();
-        }
-        else {
-          return view('maintenance.rank_error');
-        }
-      }
-
+  					'errors' => $validator->getMessageBag ()->toArray ()
+  			) );
+  		else {
+  			$data = new Rank ();
+  			$data->name = $request->name;
+  			$data->mname = $request->selection;
+        $data->status = "active";
+  			$data->save ();
+        if ($data->status === "active") {
+  				$data->status = "checked";
+  			}
+  			else {
+  				$data->status = "";
+  			}
+  			return response ()->json ( $data );
+  		}
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-     public function view(Request $request)
+    public function view(Request $request)
      {
          if($request->ajax()){
              $id = $request->id;
@@ -72,47 +55,22 @@ class RankControl extends Controller
          }
      }
 
+    public function update(Request $req)
+     {
+       $data = Rank::find ( $req->id );
+       $data->mname = $req->selection;
+       $data->name = $req->name;
+       $data->save ();
+       if ($data->status === "active") {
+         $data->status = "checked";
+       }
+       else {
+         $data->status = "";
+       }
+       return response ()->json ( $data );
+     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-
-      try {
-        $id = $request -> edit_id;
-        $Ranks = Rank::find($id);
-        $Ranks->name = $request->edit_Rank_name;
-        $Ranks->mname = $request->edit_Rank_Unit;
-        $Ranks->save();
-        return back();
-      } catch (Exception $e) {
-        $s = Rank::where('name',$request->edit_Rank_name)->value('id');
-        $data = Rank::find($s);
-        if($data->status === "deleted"){
-          $data->military_services_id = $Militaries;
-          $data->status = "active";
-          $data->save();
-          return view('maintenance.rank_error');
-        }
-        else {
-          return view('maintenance.rank_error');
-        }
-      }
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-     public function delete(Request $request)
+    public function delete(Request $request)
      {
          $id = $request -> id;
          $data = Rank::find($id);

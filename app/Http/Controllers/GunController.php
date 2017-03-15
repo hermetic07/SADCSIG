@@ -38,7 +38,6 @@ class GunController extends Controller {
 
 	public function editItem(Request $req) {
 		$data = Gun::find ( $req->id );
-		$Militaries = GunType::where('name', $req->Gun_Unit)->value('id');
 		$data->name = $req->name;
 		$data->guntype = $request->selection;
 		$data->save ();

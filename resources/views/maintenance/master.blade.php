@@ -32,6 +32,9 @@
   <!---switch -->
   <link href="{{asset('plugins/bower_components/switchery/dist/switchery.min.css')}}" rel="stylesheet" />
 
+  <script src="{{asset('js/jquery.min.js')}}"></script>
+	<script
+		src="{{asset('js/bootstrap.min.js')}}"></script>
   </head>
 
 <!-- Preloader -->
@@ -211,7 +214,7 @@
         <div class="modal-dialog">
           	<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">	</button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 					<h4 class="modal-title">@yield('addmodaltitle')</h4>
             	</div>
             	<div class="modal-body">
@@ -223,7 +226,7 @@
 
              	<div class="modal-footer">
 					<button type="button" class="btn btn-default waves-effect" data-dismiss="modal" onclick="ClearFields();">Close</button>
-					<button type="submit" class="btn btn-info waves-effect waves-light" >Submit</button>
+					<button type="submit" id="add" class="btn btn-info waves-effect waves-light" >Submit</button>
 				</div>
 				</form>
           		</div>
@@ -249,7 +252,7 @@
              @yield('editmodalcontent')
              <div class="modal-footer">
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" onclick="ClearFields();">Close</button>
-              <button type="submit" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <button type="button" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
               <input type="hidden" id="edit_id" name="edit_id">
              </div>
            </form>
@@ -286,11 +289,11 @@
 </div>
         </br>  </br>  </br>
             <div class="table-responsive">
-            <table id="myTable" class="table table-bordered table-hover toggle-circle color-bordered-table muted-bordered-table">
+            <table id="table" class="table table-bordered table-hover toggle-circle color-bordered-table muted-bordered-table">
               <thead>
                 <tr>
                   @yield('theads')
-                  <th width="220px">Actions</th>
+                  <th width="250px">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -316,9 +319,7 @@
 
 <!-- jQuery and switch -->
 <script src="{{asset('plugins/bower_components/switchery/dist/switchery.min.js')}}"></script>
-<script src="{{asset('plugins/bower_components/jquery/dist/jquery.min.js')}}"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="{{asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
+
 <!--slimscroll JavaScript -->
 <script src="{{asset('js/jquery.slimscroll.js')}}"></script>
 <!--Wave Effects -->

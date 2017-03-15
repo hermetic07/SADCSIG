@@ -139,7 +139,7 @@ Route::post ( '/addRequirement', 'RequirementController@addItem' );
 Route::post ( '/editRequirement', 'RequirementController@editItem' );
 Route::post ( '/deleteRequirement', 'RequirementController@deleteItem' );
 
-Route::get ( '/Mes', 'MeasurementController@readItems' );
+Route::get ( '/mes', 'MeasurementController@readItems' );
 Route::post ( '/addMeasurement', 'MeasurementController@addItem' );
 Route::post ( '/editMeasurement', 'MeasurementController@editItem' );
 Route::post ( '/deleteMeasurement', 'MeasurementController@deleteItem' );

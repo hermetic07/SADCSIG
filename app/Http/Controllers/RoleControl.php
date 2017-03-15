@@ -4,62 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Role;
-use Exception;
+use Validator;
+use Response;
+use Illuminate\Support\Facades\Input;
 class RoleControl extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
       $Roles = Role::all();
       return view('maintenance.Role')->with('Roles',$Roles);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function add(Request $request)
     {
-      try {
-        $Roles = new Role;
-        $Roles->name = $request->Role_Name;
-        $Roles->description = $request->Role_desc;
-        $Roles->status = "active";
-        $Roles->save();
-        return back();
-      } catch (Exception $e) {
-        $s = Role::where('name',$request->Role_Name)->value('id');
-        $data = Role::find($s);
-        if($data->status === "deleted"){
-          $data->description = $request->Role_desc;
-          $data->status = "active";
-          $data->save();
-          return back();
-        }
-        else {
-          return view('maintenance.role_error');
-        }
-      }
+      $rules = array (
+  				'name' => 'regex:/(^[A-Za-z0-9 ]+$)+/'
+  		);
+  		$validator = Validator::make ( Input::all (), $rules );
+  		if ($validator->fails ())
+  			return Response::json ( array (
 
+  					'errors' => $validator->getMessageBag ()->toArray ()
+  			) );
+  		else {
+  			$data = new Role ();
+  			$data->name = $request->name;
+  			$data->description = $request->description;
+        $data->status = "active";
+  			$data->save ();
+        if ($data->status === "active") {
+  				$data->status = "checked";
+  			}
+  			else {
+  				$data->status = "";
+  			}
+  			return response ()->json ( $data );
+  		}
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
      public function view(Request $request)
      {
          if($request->ajax()){
@@ -70,37 +53,20 @@ class RoleControl extends Controller
          }
      }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function update(Request $req)
     {
-      try {
-        $id = $request -> edit_id;
-        $Roles = Role::find($id);
 
-        $Roles->name = $request->edit_Role_name;
-        $Roles->description = $request->edit_Role_desc;
-        $Roles->save();
-        return back();
-      } catch (Exception $e) {
-        $s = Role::where('name',$request->edit_Role_name)->value('id');
-        $data = Role::find($s);
-        if($data->status === "deleted"){
-          $data->description = $request->edit_Role_desc;
-          $data->status = "active";
-          $data->save();
-          return view('maintenance.role_error');
-        }
-        else {
-          return view('maintenance.role_error');
-        }
+      $data = Role::find ( $req->id );
+      $data->name = $req->name;
+      $data->description = $req->description;
+      $data->save ();
+      if ($data->status === "active") {
+        $data->status = "checked";
       }
+      else {
+        $data->status = "";
+      }
+      return response ()->json ( $data );
 
     }
 
