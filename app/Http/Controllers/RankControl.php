@@ -8,6 +8,7 @@ use App\Military;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use Exception;
 class RankControl extends Controller
 {
 
@@ -30,18 +31,26 @@ class RankControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-  			$data = new Rank ();
-  			$data->name = $request->name;
-  			$data->mname = $request->selection;
-        $data->status = "active";
-  			$data->save ();
-        if ($data->status === "active") {
-  				$data->status = "checked";
+  			try {
+          $data = new Rank ();
+    			$data->name = $request->name;
+    			$data->mname = $request->selection;
+          $data->status = "active";
+    			$data->save ();
+          if ($data->status === "active") {
+    				$data->status = "checked";
+    			}
+    			else {
+    				$data->status = "";
+    			}
+    			return response ()->json ( $data );
+  			} catch (Exception $e) {
+          return Response::json ( array (
+
+             'errors' => "ERROR!! The value that you entered is already existing"
+          ));
   			}
-  			else {
-  				$data->status = "";
-  			}
-  			return response ()->json ( $data );
+
   		}
     }
 

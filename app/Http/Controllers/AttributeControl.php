@@ -8,7 +8,7 @@ use App\Measurement;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
-
+use Exception;
 class AttributeControl extends Controller
 {
 
@@ -32,18 +32,26 @@ class AttributeControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-  			$data = new Attribute ();
-  			$data->name = $request->name;
-  			$data->measurement = $request->selection;
-        $data->status = "active";
-  			$data->save ();
-        if ($data->status === "active") {
-          $data->status = "checked";
-        }
-        else {
-          $data->status = "";
-        }
-  			return response ()->json ( $data );
+  			try {
+          $data = new Attribute ();
+    			$data->name = $request->name;
+    			$data->measurement = $request->selection;
+          $data->status = "active";
+    			$data->save ();
+          if ($data->status === "active") {
+            $data->status = "checked";
+          }
+          else {
+            $data->status = "";
+          }
+    			return response ()->json ( $data );
+  			} catch (Exception $e) {
+          return Response::json ( array (
+
+             'errors' => "ERROR!! The value that you entered is already existing"
+         ) );
+  			}
+
   		}
 
     }

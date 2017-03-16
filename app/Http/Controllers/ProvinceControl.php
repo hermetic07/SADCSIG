@@ -7,7 +7,7 @@ use App\Province;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
-
+use Exception;
 class ProvinceControl extends Controller
 {
 
@@ -30,17 +30,25 @@ class ProvinceControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-  			$data = new Province ();
-  			$data->name = $request->name;
-        $data->status = "active";
-  			$data->save ();
-        if ($data->status === "active") {
-  				$data->status = "checked";
+  			try {
+          $data = new Province ();
+    			$data->name = $request->name;
+          $data->status = "active";
+    			$data->save ();
+          if ($data->status === "active") {
+    				$data->status = "checked";
+    			}
+    			else {
+    				$data->status = "";
+    			}
+    			return response ()->json ( $data );
+  			} catch (Exception $e) {
+          return Response::json ( array (
+
+             'errors' => "ERROR!! The value that you entered is already existing"
+          ));
   			}
-  			else {
-  				$data->status = "";
-  			}
-  			return response ()->json ( $data );
+
   		}
     }
 

@@ -30,18 +30,26 @@ class NatureControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-  			$data = new Nature ();
-  			$data->name = $request->name;
-  			$data->price = $request->price;
-        $data->status = "active";
-  			$data->save ();
-        if ($data->status === "active") {
-          $data->status = "checked";
-        }
-        else {
-          $data->status = "";
-        }
-  			return response ()->json ( $data );
+  			try {
+          $data = new Nature ();
+    			$data->name = $request->name;
+    			$data->price = $request->price;
+          $data->status = "active";
+    			$data->save ();
+          if ($data->status === "active") {
+            $data->status = "checked";
+          }
+          else {
+            $data->status = "";
+          }
+    			return response ()->json ( $data );
+  			} catch (Exception $e) {
+          return Response::json ( array (
+
+             'errors' => "ERROR!! The value that you entered is already existing"
+          ));
+  			}
+
   		}
 
     }

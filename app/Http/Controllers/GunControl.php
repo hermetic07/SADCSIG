@@ -8,6 +8,7 @@ use App\GunType;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use Exception;
 class GunControl extends Controller
 {
 
@@ -31,18 +32,26 @@ class GunControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-  			$data = new Gun ();
-  			$data->name = $request->name;
-  			$data->guntype = $request->selection;
-        $data->status = "active";
-  			$data->save ();
-        if ($data->status === "active") {
-          $data->status = "checked";
-        }
-        else {
-          $data->status = "";
-        }
-  			return response ()->json ( $data );
+  			try {
+          $data = new Gun ();
+    			$data->name = $request->name;
+    			$data->guntype = $request->selection;
+          $data->status = "active";
+    			$data->save ();
+          if ($data->status === "active") {
+            $data->status = "checked";
+          }
+          else {
+            $data->status = "";
+          }
+    			return response ()->json ( $data );
+  			} catch (Exception $e) {
+          return Response::json ( array (
+
+             'errors' => "ERROR!! The value that you entered is already existing"
+          ));
+  			}
+
   		}
 
     }
@@ -59,7 +68,7 @@ class GunControl extends Controller
 
     public function update(Request $request)
     {
-      $data = Gun::find ( $req->id );
+      $data = Gun::find ( $request->id );
   		$data->name = $request->name;
   		$data->guntype = $request->selection;
   		$data->save ();

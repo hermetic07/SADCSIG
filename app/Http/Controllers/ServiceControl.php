@@ -29,17 +29,25 @@ class ServiceControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-  			$data = new Service ();
-  			$data->name = $request->name;
-  			$data->description = $request->description;
-        $data->status = "active";
-  			$data->save ();
-        if($data->status === "active"){
-          $data->status = "checked";
-        }else {
-          $data->status = "";
-        }
-  			return response ()->json ( $data );
+  			try {
+          $data = new Service ();
+    			$data->name = $request->name;
+    			$data->description = $request->description;
+          $data->status = "active";
+    			$data->save ();
+          if($data->status === "active"){
+            $data->status = "checked";
+          }else {
+            $data->status = "";
+          }
+    			return response ()->json ( $data );
+  			} catch (Exception $e) {
+          return Response::json ( array (
+
+             'errors' => "ERROR!! The value that you entered is already existing"
+         ) );
+  			}
+
   		}
 
     }

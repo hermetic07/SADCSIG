@@ -130,14 +130,32 @@ $("#add").click(function() {
         },
         success: function(data) {
             if ((data.errors)){
-              $('.error').removeClass('hidden');
-                $('.error').text(data.errors.name);
+              alert(data.errors);
             }
             else {
-                $('.error').addClass('hidden');
-                $('#table').append("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.mname + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
-                $('#Rank_name').val('');
-                $('#Rank_unit').val('');
+              $(document).ready(function() {
+              var t = $('#table').DataTable();
+                  t.row.add( [
+                  $('input[name=Rank_name]').val(),
+                  $('#Rank_Unit').val(),
+                  "  <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
+                  " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
+
+                  ] ).draw( false );
+                    } );
+                    $('#Add').modal('hide');
+                    $('.error').addClass('hidden');
+                    var text = $('#Rank_name').val();
+                    $(document).ready(function() {
+                               $.toast({
+                                heading: text+" has been successfully added",
+                                position: 'top-right',
+                                loaderBg:'#ff6849',
+                                icon: 'success',
+                                hideAfter: 3500,
+                                stack: 6
+                              });
+                    });
             }
         },
 
@@ -158,9 +176,32 @@ $("#edd").click(function() {
           'selection': $('#edit_Rank_Unit').val(),
       },
       success: function(data) {
-          $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.mname + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
-          $('#edit_Rank_name').val('');
-          $('#edit_Rank_unit').val('');
+        $(document).ready(function() {
+        var t = $('#table').DataTable();
+
+        t.row().remove(this);
+
+        t.row.add( [
+         $('#edit_Rank_name').val(),
+         $('#edit_Rank_Unit').val(),
+         " <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
+          " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
+
+        ] ).draw( false );
+        $('#Edit').modal('hide');
+            var text2 = $('#edit_Rank_name').val();
+                    $(document).ready(function() {
+                               $.toast({
+                                heading: text2 +" has been successfully updated",
+                                position: 'top-right',
+                                loaderBg:'#ff6849',
+                                icon: 'success',
+                                hideAfter: 3500,
+                                stack: 6
+                              });
+                    });
+
+          } );
       }
   });
 });

@@ -94,16 +94,31 @@ $("#add").click(function(e) {
         },
         success: function(data) {
             if ((data.errors)){
-
-              $('.error').removeClass('hidden');
-
-                $('.error').text(data.errors.name);
+                alert(data.errors)
             }
             else {
-                $('#Add').modal('hide');
-                $('.error').addClass('hidden');
-                $('#table').append("<tr class='item" + data.id + "'><td>" + data.name + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
-                $('#Requirements_Name').val('');
+              $(document).ready(function() {
+              var t = $('#table').DataTable();
+                  t.row.add( [
+                  $('input[name=Requirements_Name]').val(),
+                  "  <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
+                  " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
+
+                  ] ).draw( false );
+                    } );
+                    $('#Add').modal('hide');
+                    $('.error').addClass('hidden');
+                    var text = $('#Requirements_Name').val();
+                    $(document).ready(function() {
+                               $.toast({
+                                heading: text+" has been successfully added",
+                                position: 'top-right',
+                                loaderBg:'#ff6849',
+                                icon: 'success',
+                                hideAfter: 3500,
+                                stack: 6
+                              });
+                    });
             }
         },
 
@@ -123,8 +138,31 @@ $("#edd").click(function() {
           'name': $('#edit_Requirements_name').val(),
       },
       success: function(data) {
-          $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.name + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
-          $('#edit_Requirements_name').val('');
+        $(document).ready(function() {
+        var t = $('#table').DataTable();
+
+        t.row().remove(this);
+
+        t.row.add( [
+         $('#edit_Requirements_name').val(),
+         " <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
+          " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
+
+        ] ).draw( false );
+        $('#Edit').modal('hide');
+            var text2 = $('#edit_Requirements_name').val();
+                    $(document).ready(function() {
+                               $.toast({
+                                heading: text2 +" has been successfully updated",
+                                position: 'top-right',
+                                loaderBg:'#ff6849',
+                                icon: 'success',
+                                hideAfter: 3500,
+                                stack: 6
+                              });
+                    });
+
+          } );
       }
   });
 });

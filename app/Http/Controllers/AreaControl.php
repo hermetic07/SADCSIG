@@ -8,6 +8,7 @@ use App\Province;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use Exception;
 class AreaControl extends Controller
 {
 
@@ -26,23 +27,33 @@ class AreaControl extends Controller
   		);
   		$validator = Validator::make ( Input::all (), $rules );
   		if ($validator->fails ())
-  			return Response::json ( array (
+  			{
+          return Response::json ( array (
 
-  					'errors' => $validator->getMessageBag ()->toArray ()
-  			) );
+    					'errors' => $validator->getMessageBag ()->toArray ()
+    			) );
+        }
   		else {
-  			$data = new Area ();
-  			$data->name = $request->name;
-  			$data->province = $request->selection;
-        $data->status = "active";
-  			$data->save ();
-        if ($data->status === "active") {
-          $data->status = "checked";
-        }
-        else {
-          $data->status = "";
-        }
-  			return response ()->json ( $data );
+  			try {
+          $data = new Area ();
+    			$data->name = $request->name;
+    			$data->province = $request->selection;
+          $data->status = "active";
+    			$data->save ();
+          if ($data->status === "active") {
+            $data->status = "checked";
+          }
+          else {
+            $data->status = "";
+          }
+    			return response ()->json ( $data );
+  			} catch (Exception $e) {
+          return Response::json ( array (
+
+              'errors' => "ERROR!! The value that you entered is already existing"
+          ) );
+  			}
+
   		}
     }
 

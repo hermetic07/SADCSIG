@@ -7,7 +7,7 @@ use App\License;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
-
+use Exception;
 class LicenseControl extends Controller
 {
 
@@ -30,17 +30,25 @@ class LicenseControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-  			$data = new License ();
-  			$data->name = $request->name;
-        $data->status = "active";
-  			$data->save ();
-        if ($data->status === "active") {
-  				$data->status = "checked";
+  			try {
+          $data = new License ();
+    			$data->name = $request->name;
+          $data->status = "active";
+    			$data->save ();
+          if ($data->status === "active") {
+    				$data->status = "checked";
+    			}
+    			else {
+    				$data->status = "";
+    			}
+    			return response ()->json ( $data );
+  			} catch (Exception $e) {
+          return Response::json ( array (
+
+             'errors' => "ERROR!! The value that you entered is already existing"
+          ));
   			}
-  			else {
-  				$data->status = "";
-  			}
-  			return response ()->json ( $data );
+
   		}
 
     }
@@ -65,7 +73,7 @@ class LicenseControl extends Controller
       }
       else {
         $data->status = "";
-      }  
+      }
   		return response ()->json ( $data );
 
     }
