@@ -33,6 +33,7 @@
   <link href="{{asset('plugins/bower_components/switchery/dist/switchery.min.css')}}" rel="stylesheet" />
 
   <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/jquery.validate.js')}}"></script>
 	<script
 		src="{{asset('js/bootstrap.min.js')}}"></script>
   </head>
@@ -341,9 +342,62 @@
 <script src="{{asset('plugins/bower_components/toast-master/js/jquery.toast.js')}}"></script>
 
     <script>
+
+    var myInput = document.querySelectorAll("input[type=number]");
+
+function keyAllowed(key) {
+  var keys = [8, 9, 13, 16, 17, 18, 19, 20, 27, 46, 48, 49, 50,
+    51, 52, 53, 54, 55, 56, 57, 91, 92, 93
+  ];
+  if (key && keys.indexOf(key) === -1)
+    return false;
+  else
+    return true;
+}
+
+myInput.forEach(function(element) {
+  element.addEventListener('keypress', function(e) {
+    var key = !isNaN(e.charCode) ? e.charCode : e.keyCode;
+    if (!keyAllowed(key))
+      e.preventDefault();
+  }, false);
+
+  // Disable pasting of non-numbers
+  element.addEventListener('paste', function(e) {
+    var pasteData = e.clipboardData.getData('text/plain');
+    if (pasteData.match(/[^0-9]/))
+      e.preventDefault();
+  }, false);
+})
 $(document).ready(function() {
 
 
+  $('#Add').on('hidden.bs.modal', function()
+    {
+  $(this).find('form').trigger('reset');
+    $('.col-md-12').find('help-block with-errors').hide();
+ $('.form-group').removeClass('has-error has-feedback');
+
+    if ( $(this).hasClass('has-error') ) {
+      $('.form-group').find('.help-block').show();
+    } else {
+      $('.form-group').find('.help-block').hide();
+    }
+
+    }) ;
+    $('#Edit').on('hidden.bs.modal', function()
+      {
+    $(this).find('form').trigger('reset');
+      $('.col-md-12').find('help-block with-errors').hide();
+   $('.form-group').removeClass('has-error has-feedback');
+
+      if ( $(this).hasClass('has-error') ) {
+        $('.form-group').find('.help-block').show();
+      } else {
+        $('.form-group').find('.help-block').hide();
+      }
+
+      }) ;
 
       $(".sw").click(function(){
            $.toast({

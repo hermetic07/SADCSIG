@@ -125,9 +125,7 @@ $("#add").click(function() {
         },
 
     });
-    $('#name').val('');
-    $('#description').val('');
-    $('#Edit').modal('hide');
+
 });
 
 $("#edd").click(function() {

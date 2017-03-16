@@ -13,7 +13,7 @@
 
   <label class="control-label  col-md-12">Nature of Business</label>
   <div class="col-md-12">
-    <input type="text" class="form-control" id="Nature_Name" name="Nature_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+    <input type="text" class="form-control" id="Nature_Name" name="Nature_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" value="" required>
     <div class="help-block with-errors"></div>
   </div>
 </div>
@@ -22,7 +22,7 @@
 
 <label class="control-label col-md-12">Rate</label>
   <div class="col-md-12">
-<input type="number" class="form-control"  id="rate" name="rate" min="1" required>
+<input type="number" class="form-control"  id="rate" name="rate" min="1"  step="0.01"  required>
 <div class="help-block with-errors"></div>
 </div>
 </div>
@@ -67,7 +67,6 @@
          </td>
          <td>
            &nbsp;
-           <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit"onclick="fun_edit('{!!$nature -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
           <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$nature -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
 
          </td>
@@ -96,7 +95,7 @@
 
 <label class="control-label col-md-12">Rate</label>
   <div class="col-md-12">
-<input type="number" class="form-control" id="Nature_rate" name="Nature_rate"  min="1" required>
+<input type="number" class="form-control" id="Nature_rate" name="Nature_rate" min="1"  step="0.01"  required>
 <div class="help-block with-errors"></div>
 </div>
 </div>
@@ -105,7 +104,12 @@
 
 @section('ajaxscript')
 <script>
+
+
+
 $("#add").click(function() {
+
+    $('.form-group').find('.help-block').show();
 
     $.ajax({
         type: 'post',
@@ -121,11 +125,36 @@ $("#add").click(function() {
                 $('.error').text(data.errors.name);
             }
             else {
+              $(document).ready(function() {
+          var t = $('#table').DataTable();
+
+
+
+              t.row.add( [
+              $('input[name=Nature_Name]').val(),
+              $('#rate').val(),
+      "  <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
+                " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
+
+              ] ).draw( false );
+
+
+
+      } );
                 $('#Add').modal('hide');
                 $('.error').addClass('hidden');
-                $('#table').append("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.price + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
-                $('#Nature_Name').val('');
-                $('#rate').val('');
+
+        var text = $('#Nature_Name').val();
+                $(document).ready(function() {
+                           $.toast({
+                            heading: text+" has been successfully added",
+                            position: 'top-right',
+                            loaderBg:'#ff6849',
+                            icon: 'success',
+                            hideAfter: 3500,
+                            stack: 6
+                          });
+                });
             }
         },
 
@@ -146,8 +175,34 @@ $("#edd").click(function() {
           'price': $('#Nature_rate').val(),
       },
       success: function(data) {
-          $('#Edit').modal('hide');
-          $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.name + "</td><td>" + data.price + "</td><td> <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div> </td><td><button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button></td></tr>");
+
+        $(document).ready(function() {
+    var t = $('#table').DataTable();
+
+   t.row().remove(this);
+
+        t.row.add( [
+        $('#edit_Nature_name').val(),
+         $('#Nature_rate').val(),
+" <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
+          " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
+
+        ] ).draw( false );
+        $('#Edit').modal('hide');
+            var text2 = $('#edit_Nature_name').val();
+                    $(document).ready(function() {
+                               $.toast({
+                                heading: text2 +" has been successfully updated",
+                                position: 'top-right',
+                                loaderBg:'#ff6849',
+                                icon: 'success',
+                                hideAfter: 3500,
+                                stack: 6
+                              });
+                    });
+
+} );
+
       }
   });
 });
@@ -157,6 +212,9 @@ $("#edd").click(function() {
 
 <script type="text/javascript">
         $(document).ready(function(){
+
+
+
           $('#table').DataTable({
 
             "columnDefs": [
@@ -195,6 +253,9 @@ $("#edd").click(function() {
 
   function fun_edit(id)
   {
+
+
+
     var view_url = $("#hidden_view").val();
     $.ajax({
       url: view_url,
