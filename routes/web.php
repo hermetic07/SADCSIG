@@ -134,7 +134,26 @@ Route::get('/ClientPortalDetails', function () {
 });
 
 
+Route::get('/SecurityGuardsPortalHome', function () {
+    return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
+});
 
+Route::get('/SecurityGuardsPortalProfile', function () {
+    return view('SecurityGuardsPortal/SecurityGuardsPortalProfile');
+});
+
+Route::get('/SecurityGuardsPortalMessages', function () {
+    return view('SecurityGuardsPortal/SecurityGuardsPortalMessages');
+});
+
+Route::get('/SecurityGuardsPortalAttendance', function () {
+    return view('SecurityGuardsPortal/SecurityGuardsPortalAttendance');
+});
+
+
+Route::get('/SecurityGuardsPortalSettings', function () {
+    return view('SecurityGuardsPortal/SecurityGuardsPortalSettings');
+});
 
 
 
