@@ -30,17 +30,24 @@ class MeasurementControl extends Controller
     			) );
     		else {
     			try {
-            $data = new Measurement ();
-      			$data->name = $request->name;
-            $data->status = "active";
-      			$data->save ();
-            if ($data->status === "active") {
-              $data->status = "checked";
+            if (trim($request->name," ")!=="") {
+              $data = new Measurement ();
+        			$data->name = trim($request->name," \t\n\r\0\x0B");
+              $data->status = "active";
+        			$data->save ();
+              if ($data->status === "active") {
+                $data->status = "checked";
+              }
+              else {
+                $data->status = "";
+              }
+        			return response ()->json ( $data );
+            } else {
+              return Response::json ( array (
+                 'errors' => "empty"
+             ) );
             }
-            else {
-              $data->status = "";
-            }
-      			return response ()->json ( $data );
+
     			} catch (Exception $e) {
             return Response::json ( array (
 
@@ -65,7 +72,7 @@ class MeasurementControl extends Controller
     public function update(Request $req)
     {
       $data = Measurement::find ( $req->id );
-  		$data->name = $req->name;
+  		$data->name = trim($req->name," \t\n\r\0\x0B");
   		$data->save ();
       if ($data->status === "active") {
         $data->status = "checked";

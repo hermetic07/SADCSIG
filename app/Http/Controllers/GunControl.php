@@ -33,22 +33,30 @@ class GunControl extends Controller
   			) );
   		else {
   			try {
+        if (trim($request->name," ")!=="") {
           $data = new Gun ();
-    			$data->name = $request->name;
-    			$data->guntype = $request->selection;
+          $data->name = trim($request->name," ");
+          $data->guntype = $request->selection;
           $data->status = "active";
-    			$data->save ();
+          $data->save ();
           if ($data->status === "active") {
             $data->status = "checked";
           }
           else {
             $data->status = "";
           }
-    			return response ()->json ( $data );
+          return response ()->json ( $data );
+        } else {
+          return Response::json ( array (
+             'errors' => "empty"
+         ) );
+        }
+
   			} catch (Exception $e) {
+          $aa = $e->getMessage();
           return Response::json ( array (
 
-             'errors' => "ERROR!! The value that you entered is already existing"
+             'errors' => $aa
           ));
   			}
 
@@ -69,8 +77,8 @@ class GunControl extends Controller
     public function update(Request $request)
     {
       $data = Gun::find ( $request->id );
-  		$data->name = $request->name;
-  		$data->guntype = $request->selection;
+  		$data->name = trim($request->name," \t\n\r\0\x0B");
+  		$data->guntype = trim($request->selection," \t\n\r\0\x0B");
   		$data->save ();
       if ($data->status === "active") {
         $data->status = "checked";

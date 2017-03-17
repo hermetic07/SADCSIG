@@ -33,18 +33,25 @@ class AttributeControl extends Controller
   			) );
   		else {
   			try {
-          $data = new Attribute ();
-    			$data->name = $request->name;
-    			$data->measurement = $request->selection;
-          $data->status = "active";
-    			$data->save ();
-          if ($data->status === "active") {
-            $data->status = "checked";
+          if (trim($request->name," ")!=="") {
+            $data = new Attribute ();
+      			$data->name = trim($request->name," ");
+      			$data->measurement = trim($request->selection," ");
+            $data->status = "active";
+      			$data->save ();
+            if ($data->status === "active") {
+              $data->status = "checked";
+            }
+            else {
+              $data->status = "";
+            }
+      			return response ()->json ( $data );
+          } else {
+            return Response::json ( array (
+               'errors' => "empty"
+           ) );
           }
-          else {
-            $data->status = "";
-          }
-    			return response ()->json ( $data );
+
   			} catch (Exception $e) {
           return Response::json ( array (
 
@@ -76,8 +83,8 @@ class AttributeControl extends Controller
     public function update(Request $req)
     {
       $data = Attribute::find ( $req->id );
-  		$data->name = $req->name;
-  		$data->measurement = $req->selection;
+  		$data->name = trim($req->name," \t\n\r\0\x0B");
+  		$data->measurement = trim($req->selection," \t\n\r\0\x0B");
   		$data->save ();
       if ($data->status === "active") {
         $data->status = "checked";

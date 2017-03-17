@@ -30,19 +30,26 @@ class LeaveControl extends Controller
   			) );
   		else {
   			try {
-          $data = new Leave ();
-    			$data->name = $request->name;
-    			$data->days = $request->days;
-    			$data->notification = $request->notification;
-          $data->status = "active";
-    			$data->save ();
-          if ($data->status === "active") {
-    				$data->status = "checked";
-    			}
-    			else {
-    				$data->status = "";
-    			}
-    			return response ()->json ( $data );
+          if (trim($request->name," ")!==""&&trim($request->days, " ")!==""&&trim($request->notification, " ")!=="") {
+            $data = new Leave ();
+      			$data->name = trim($request->name," \t\n\r\0\x0B");
+      			$data->days = trim($request->days," \t\n\r\0\x0B");
+      			$data->notification = trim($request->notification," \t\n\r\0\x0B");
+            $data->status = "active";
+      			$data->save ();
+            if ($data->status === "active") {
+      				$data->status = "checked";
+      			}
+      			else {
+      				$data->status = "";
+      			}
+      			return response ()->json ( $data );
+          } else {
+            return Response::json ( array (
+               'errors' => "empty"
+           ) );
+          }
+
   			} catch (Exception $e) {
           return Response::json ( array (
 
@@ -68,9 +75,9 @@ class LeaveControl extends Controller
     public function update(Request $req)
     {
       $data = Leave::find ( $req->id );
-  		$data->name = $req->name;
-  		$data->days = $req->days;
-  		$data->notification = $req->notification;
+  		$data->name = trim($req->name," \t\n\r\0\x0B");
+  		$data->days = trim($req->days," \t\n\r\0\x0B");
+  		$data->notification = trim($req->notification," \t\n\r\0\x0B");
   		$data->save ();
       if ($data->status === "active") {
 				$data->status = "checked";

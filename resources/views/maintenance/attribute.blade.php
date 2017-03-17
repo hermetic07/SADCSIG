@@ -126,9 +126,11 @@ $("#add").click(function() {
             'selection': $('#measurement').val(),
         },
         success: function(data) {
-            if ((data.errors)){
+          if ((data.errors)){
+            if ((data.errors)=="ERROR!! The value that you entered is already existing") {
               alert(data.errors);
             }
+          }
             else {
               $(document).ready(function() {
               var t = $('#table').DataTable();
@@ -142,7 +144,7 @@ $("#add").click(function() {
                 } );
                 $('#Add').modal('hide');
                 $('.error').addClass('hidden');
-                var text = $('#name').val();
+                var text = $('#Attribute_Name').val();
                 $(document).ready(function() {
                     $.toast({
                         heading: text+" has been successfully added",

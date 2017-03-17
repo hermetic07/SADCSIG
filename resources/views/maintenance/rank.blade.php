@@ -148,9 +148,11 @@ $("#add").click(function() {
             'selection': $('#Rank_Unit').val(),
         },
         success: function(data) {
-            if ((data.errors)){
+          if ((data.errors)){
+            if ((data.errors)=="ERROR!! The value that you entered is already existing") {
               alert(data.errors);
             }
+          }
             else {
               $(document).ready(function() {
               var t = $('#table').DataTable();

@@ -35,18 +35,25 @@ class AreaControl extends Controller
         }
   		else {
   			try {
-          $data = new Area ();
-    			$data->name = $request->name;
-    			$data->province = $request->selection;
-          $data->status = "active";
-    			$data->save ();
-          if ($data->status === "active") {
-            $data->status = "checked";
+          if (trim($request->name," ")!==""&&trim($request->selection," ")!=="") {
+            $data = new Area ();
+      			$data->name = trim($request->name," \t\n\r\0\x0B");
+      			$data->province = trim($request->selection," \t\n\r\0\x0B");
+            $data->status = "active";
+      			$data->save ();
+            if ($data->status === "active") {
+              $data->status = "checked";
+            }
+            else {
+              $data->status = "";
+            }
+      			return response ()->json ( $data );
           }
           else {
-            $data->status = "";
+            return Response::json ( array (
+               'errors' => "empty"
+           ) );
           }
-    			return response ()->json ( $data );
   			} catch (Exception $e) {
           return Response::json ( array (
 
@@ -73,8 +80,8 @@ class AreaControl extends Controller
     public function update(Request $request)
     {
       $data = Area::find ( $request->id );
-  		$data->province = $request->selection;
-  		$data->name = $request->name;
+  		$data->province = trim($request->name," \t\n\r\0\x0B");
+  		$data->name = trim($request->selection," \t\n\r\0\x0B");
   		$data->save ();
       if ($data->status === "active") {
         $data->status = "checked";

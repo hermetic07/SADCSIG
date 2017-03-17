@@ -30,17 +30,24 @@ class ServiceControl extends Controller
   			) );
   		else {
   			try {
-          $data = new Service ();
-    			$data->name = $request->name;
-    			$data->description = $request->description;
-          $data->status = "active";
-    			$data->save ();
-          if($data->status === "active"){
-            $data->status = "checked";
-          }else {
-            $data->status = "";
+          if (trim($request->name," ")!==""&&trim($request->description, " ")!=="") {
+            $data = new Service ();
+      			$data->name = trim($request->name," ");
+      			$data->description = trim($request->description, " ");
+            $data->status = "active";
+      			$data->save ();
+            if($data->status === "active"){
+              $data->status = "checked";
+            }else {
+              $data->status = "";
+            }
+      			return response ()->json ( $data );
           }
-    			return response ()->json ( $data );
+          else {
+            return Response::json ( array (
+               'errors' => "empty"
+           ) );
+          }
   			} catch (Exception $e) {
           return Response::json ( array (
 
@@ -66,8 +73,8 @@ class ServiceControl extends Controller
     public function update(Request $request)
     {
       $data = Service::find ( $request->id );
-  		$data->name = $request->name;
-  		$data->description = $request->description;
+  		$data->name = trim($request->name, " \t\n\r\0\x0B");
+  		$data->description = trim($request->description, " \t\n\r\0\x0B");
   		$data->save ();
       if($data->status === "active"){
         $data->status = "checked";

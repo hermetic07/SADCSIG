@@ -32,18 +32,25 @@ class RankControl extends Controller
   			) );
   		else {
   			try {
-          $data = new Rank ();
-    			$data->name = $request->name;
-    			$data->mname = $request->selection;
-          $data->status = "active";
-    			$data->save ();
-          if ($data->status === "active") {
-    				$data->status = "checked";
-    			}
-    			else {
-    				$data->status = "";
-    			}
-    			return response ()->json ( $data );
+          if (trim($request->name," ")!==""&&trim($request->selection," ")!=="") {
+            $data = new Rank ();
+      			$data->name = trim($request->name," \t\n\r\0\x0B");
+      			$data->mname = trim($request->selection," \t\n\r\0\x0B");
+            $data->status = "active";
+      			$data->save ();
+            if ($data->status === "active") {
+      				$data->status = "checked";
+      			}
+      			else {
+      				$data->status = "";
+      			}
+      			return response ()->json ( $data );
+          } else {
+              return Response::json ( array (
+                 'errors' => "empty"
+             ) );
+          }
+
   			} catch (Exception $e) {
           return Response::json ( array (
 
@@ -67,8 +74,8 @@ class RankControl extends Controller
     public function update(Request $req)
      {
        $data = Rank::find ( $req->id );
-       $data->mname = $req->selection;
-       $data->name = $req->name;
+       $data->name = trim($req->name," \t\n\r\0\x0B");
+       $data->mname = trim($req->selection," \t\n\r\0\x0B");
        $data->save ();
        if ($data->status === "active") {
          $data->status = "checked";

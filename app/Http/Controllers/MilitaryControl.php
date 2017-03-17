@@ -30,17 +30,24 @@ class MilitaryControl extends Controller
   			) );
   		else {
   			try {
-          $data = new Military ();
-    			$data->name = $request->name;
-          $data->status = "active";
-    			$data->save ();
-          if ($data->status === "active") {
-    				$data->status = "checked";
-    			}
-    			else {
-    				$data->status = "";
-    			}
-    			return response ()->json ( $data );
+          if (trim($request->name," ")!=="") {
+            $data = new Military ();
+      			$data->name = trim($request->name," \t\n\r\0\x0B");
+            $data->status = "active";
+      			$data->save ();
+            if ($data->status === "active") {
+      				$data->status = "checked";
+      			}
+      			else {
+      				$data->status = "";
+      			}
+      			return response ()->json ( $data );
+          } else {
+            return Response::json ( array (
+               'errors' => "empty"
+           ) );
+          }
+
   			} catch (Exception $e) {
           return Response::json ( array (
 
@@ -67,7 +74,7 @@ class MilitaryControl extends Controller
     public function update(Request $req)
     {
       $data = Military::find ( $req->id );
-  		$data->name = $req->name;
+  		$data->name = trim($req->name," \t\n\r\0\x0B");
   		$data->save ();
       if ($data->status === "active") {
         $data->status = "checked";

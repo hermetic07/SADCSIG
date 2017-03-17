@@ -32,17 +32,24 @@ class GunTypeControl extends Controller
         ) );
       else {
         try {
-          $data = new Guntype ();
-          $data->name = $request->name;
-          $data->status = "active";
-          $data->save ();
-          if ($data->status === "active") {
-            $data->status = "checked";
+          if (trim($request->name," ")!=="") {
+            $data = new Guntype ();
+            $data->name = trim($request->name," \t\n\r\0\x0B");
+            $data->status = "active";
+            $data->save ();
+            if ($data->status === "active") {
+              $data->status = "checked";
+            }
+            else {
+              $data->status = "";
+            }
+            return response ()->json ( $data );
+          } else {
+            return Response::json ( array (
+               'errors' => "empty"
+           ) );
           }
-          else {
-            $data->status = "";
-          }
-          return response ()->json ( $data );
+
         } catch (Exception $e) {
           return Response::json ( array (
 
@@ -68,7 +75,7 @@ class GunTypeControl extends Controller
     {
 
       $data = Guntype::find ( $req->id );
-  		$data->name = $req->name;
+  		$data->name = trim($req->name," \t\n\r\0\x0B");
   		$data->save ();
   		if ($data->status === "active") {
   			$data->status = "checked";

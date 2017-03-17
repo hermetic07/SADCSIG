@@ -114,10 +114,12 @@ $("#add").click(function() {
             'description': $('#Role_desc').val(),
         },
         success: function(data) {
-          alert(data.errors);
-            if ((data.errors)){
+          
+          if ((data.errors)){
+            if ((data.errors)=="ERROR!! The value that you entered is already existing") {
               alert(data.errors);
             }
+          }
             else {
               $(document).ready(function() {
               var t = $('#table').DataTable();

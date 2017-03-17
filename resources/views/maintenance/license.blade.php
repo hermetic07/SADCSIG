@@ -93,7 +93,9 @@ $("#add").click(function() {
         },
         success: function(data) {
           if ((data.errors)){
-            alert(data.errors);
+            if ((data.errors)=="ERROR!! The value that you entered is already existing") {
+              alert(data.errors);
+            }
           }
           else {
             $(document).ready(function() {

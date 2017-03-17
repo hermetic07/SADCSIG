@@ -31,18 +31,25 @@ class NatureControl extends Controller
   			) );
   		else {
   			try {
-          $data = new Nature ();
-    			$data->name = $request->name;
-    			$data->price = $request->price;
-          $data->status = "active";
-    			$data->save ();
-          if ($data->status === "active") {
-            $data->status = "checked";
+          if (trim($request->name," ")!==""&&trim($request->price, " ")!=="") {
+            $data = new Nature ();
+            $data->name = trim($request->name," \t\n\r\0\x0B");
+            $data->price = $request->price;
+            $data->status = "active";
+            $data->save ();
+            if ($data->status === "active") {
+              $data->status = "checked";
+            }
+            else {
+              $data->status = "";
+            }
+            return response ()->json ( $data );
+          } else {
+            return Response::json ( array (
+               'errors' => "empty"
+           ) );
           }
-          else {
-            $data->status = "";
-          }
-    			return response ()->json ( $data );
+
   			} catch (Exception $e) {
           return Response::json ( array (
 
@@ -68,7 +75,7 @@ class NatureControl extends Controller
     public function update(Request $req)
     {
       $data = Nature::find ( $req->id );
-  		$data->name = $req->name;
+  		$data->name = trim($req->name," \t\n\r\0\x0B");
   		$data->price = $req->price;
   		$data->save ();
       if ($data->status === "active") {

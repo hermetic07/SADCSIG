@@ -130,9 +130,11 @@ $("#add").click(function() {
         },
         success: function(data) {
 
-            if ((data.errors)){
+          if ((data.errors)){
+            if ((data.errors)=="ERROR!! The value that you entered is already existing") {
               alert(data.errors);
             }
+          }
             else {
 
               $(document).ready(function() {
@@ -147,7 +149,7 @@ $("#add").click(function() {
                 } );
                 $('#Add').modal('hide');
                 $('.error').addClass('hidden');
-                var text = $('#name').val();
+                var text = $('#Area_Name').val();
                 $(document).ready(function() {
                     $.toast({
                         heading: text+" has been successfully added",
