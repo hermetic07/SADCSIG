@@ -251,6 +251,15 @@ $('.form-group').find('.help-block').show();
 
   function fun_edit(id)
   {
+    var table = $('#table').DataTable();
+
+    $('#table tbody').on( 'click', 'tr', function () {
+
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+
+    } );
+
     var view_url = $("#hidden_view").val();
     $.ajax({
       url: view_url,
