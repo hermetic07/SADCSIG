@@ -19,6 +19,109 @@ Route::get('/Blank', function () {
     return view('blank');
 });
 
+//Admin portal
+Route::get('/Dashboard', function () {
+    return view('AdminPortal/Dashboard');
+});
+
+Route::get('/Replace', function () {
+    return view('AdminPortal/Replace');
+});
+
+Route::get('/Swap', function () {
+    return view('AdminPortal/Swap');
+});
+
+Route::get('/ActiveClient', function () {
+    return view('AdminPortal/ActiveClient');
+});
+
+Route::get('/PendingClientRequests', function () {
+    return view('AdminPortal/PendingClientRequests');
+});
+
+Route::get('/SecurityGuards', function () {
+    return view('AdminPortal/SecurityGuards');
+});
+
+Route::get('/GuardLicenses', function () {
+    return view('AdminPortal/GuardLicenses');
+});
+
+
+Route::get('/GuardsDTR', function () {
+    return view('AdminPortal/GuardsDTR');
+});
+
+Route::get('/Applicants', function () {
+    return view('AdminPortal/Applicants');
+});
+
+Route::get('/Ammunition', function () {
+    return view('AdminPortal/Ammunition');
+});
+
+Route::get('/Pickups', function () {
+    return view('AdminPortal/Pickups');
+});
+
+Route::get('/Reports', function () {
+    return view('AdminPortal/Reports');
+});
+
+Route::get('/IncidentReports', function () {
+    return view('AdminPortal/IncidentReports');
+});
+
+Route::get('/Messages', function () {
+    return view('AdminPortal/Messages');
+});
+
+Route::get('/Announcements', function () {
+    return view('AdminPortal/Announcements');
+});
+
+Route::get('/ClientEstablishment', function () {
+    return view('AdminPortal/ClientEstablishment');
+});
+
+Route::get('/ClientsDetails', function () {
+    return view('AdminPortal/ClientsDetails');
+});
+
+Route::get('/BillingPeriod', function () {
+    return view('AdminPortal/BillingPeriod');
+});
+
+Route::get('/ClientPayment', function () {
+    return view('AdminPortal/ClientPayment');
+});
+
+Route::get('/Quotation', function () {
+    return view('AdminPortal/Quotation');
+});
+
+Route::get('/ServiceRequest', function () {
+    return view('AdminPortal/ServiceRequest');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/Service','ServiceControl@index');
 Route::post('/Service-Add','ServiceControl@add');
 Route::get('/Service-view', 'ServiceControl@view');

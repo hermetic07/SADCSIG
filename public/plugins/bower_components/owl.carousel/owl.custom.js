@@ -18,7 +18,7 @@ jQuery(document).ready(function($) {
                 $('#owl-demo2').owlCarousel({
 				    margin:20,
 				    nav:true,
-					autoplay:true,
+					autoplay:false,
 				    responsive:{
 				        0:{
 				            items:1
