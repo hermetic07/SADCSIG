@@ -13,7 +13,7 @@
 
   <label class="control-label  col-md-12">Nature of Business</label>
   <div class="col-md-12">
-    <input type="text" class="form-control" id="Nature_Name" name="Nature_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" value="" required>
+    <input type="text" class="form-control" id="Nature_Name" name="Nature_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" value="" maxlength="200" required>
     <div class="help-block with-errors"></div>
   </div>
 </div>
@@ -22,7 +22,7 @@
 
 <label class="control-label col-md-12">Rate</label>
   <div class="col-md-12">
-<input type="number" class="form-control"  id="rate" name="rate" min="1"  step="0.01"  required>
+<input type="number" class="form-control"  id="rate" name="rate" min="1"  step="0.01"    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" required>
 <div class="help-block with-errors"></div>
 </div>
 </div>
@@ -36,7 +36,6 @@
 @section('theads')
     <th>Type of business</th>
     <th width="100px">Rate</th>
-    <th width="150px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -87,7 +86,7 @@
 
   <label class="control-label  col-md-12">Nature of Business</label>
   <div class="col-md-12">
-    <input type="text" class="form-control" id="edit_Nature_name" name="edit_Nature_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+    <input type="text" class="form-control" id="edit_Nature_name" name="edit_Nature_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
     <div class="help-block with-errors"></div>
   </div>
 </div>
@@ -96,7 +95,7 @@
 
 <label class="control-label col-md-12">Rate</label>
   <div class="col-md-12">
-<input type="number" class="form-control" id="Nature_rate" name="Nature_rate" min="1"  step="0.01"  required>
+<input type="number" class="form-control" id="Nature_rate" name="Nature_rate" min="1"  step="0.01"    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" required>
 <div class="help-block with-errors"></div>
 </div>
 </div>
@@ -108,10 +107,12 @@
 
 
 
-$("#add").click(function() {
+$("#add").click(function(e) {
+
 
     $('.form-group').find('.help-block').show();
-
+    var a = parseInt($("#rate").val(), 10);
+  if(a >= 1){
     $.ajax({
         type: 'post',
         url: '/Nature-Add',
@@ -123,11 +124,19 @@ $("#add").click(function() {
         success: function(data) {
           if ((data.errors)){
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
-              alert(data.errors);
+              $.toast({
+               heading: 'The value that you entered is already existing',
+               position: 'top-right',
+               loaderBg:'#ff6849',
+               icon: 'error',
+               hideAfter: 3500,
+               stack: 6
+             });
             }
           }
             else {
               $(document).ready(function() {
+                  $('#Add').modal('hide');
               var t = $('#table').DataTable();
                   t.row.add( [
                   $('input[name=Nature_Name]').val(),
@@ -137,12 +146,11 @@ $("#add").click(function() {
 
                   ] ).draw( false );
                     } );
-                    $('#Add').modal('hide');
-                    $('.error').addClass('hidden');
+
                     var text = $('#Nature_Name').val();
                     $(document).ready(function() {
                                $.toast({
-                                heading: text+" has been successfully added",
+                                heading: text +" has been successfully added",
                                 position: 'top-right',
                                 loaderBg:'#ff6849',
                                 icon: 'success',
@@ -154,10 +162,14 @@ $("#add").click(function() {
         },
 
     });
+  }
+
 });
 
 $("#edd").click(function() {
     $('.form-group').find('.help-block').show();
+        var b = parseInt($("#rate").val(), 10);
+      if(b >= 1){
   $.ajax({
       type: 'post',
       url: '/Nature-Update',
@@ -170,6 +182,7 @@ $("#edd").click(function() {
       success: function(data) {
 
         $(document).ready(function() {
+              $('#Edit').modal('hide');
         var t = $('#table').DataTable();
 
         t.row('.selected').remove().draw( false );
@@ -181,7 +194,7 @@ $("#edd").click(function() {
           " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
 
         ] ).draw( false );
-        $('#Edit').modal('hide');
+
             var text2 = $('#edit_Nature_name').val();
                     $(document).ready(function() {
                                $.toast({
@@ -197,6 +210,7 @@ $("#edd").click(function() {
           } );
       }
   });
+  }
 });
 
 
