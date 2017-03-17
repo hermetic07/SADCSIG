@@ -29,33 +29,53 @@ class RoleControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-  			try {
           if (trim($request->name," ")!==""&&trim($request->description, " ")!=="") {
-            $data = new Role ();
-            $data->name = trim($request->name," \t\n\r\0\x0B");
-      			$data->description = trim($request->description, " \t\n\r\0\x0B");
-            $data->status = "active";
-      			$data->save ();
-            if ($data->status === "active") {
-      				$data->status = "checked";
-      			}
-      			else {
-      				$data->status = "";
-      			}
-      			return response ()->json ( $data );
+            try {
+              $data = new Role ();
+              $data->name = trim($request->name," \t\n\r\0\x0B");
+        			$data->description = trim($request->description, " \t\n\r\0\x0B");
+              $data->status = "active";
+        			$data->save ();
+              if ($data->status === "active") {
+        				$data->status = "checked";
+        			}
+        			else {
+        				$data->status = "";
+        			}
+        			return response ()->json ( $data );
+            } catch (Exception $e) {
+              $s = Role::where('name',trim($request->name," "))->value('id');
+              $old = Role::find($s);
+              if ($old->status==="deleted") {
+                try {
+                  $old->status = "active";
+                  $old->description = trim($request->description, " ");
+                  $old->save();
+                  if($old->status === "active"){
+                    $old->status = "checked";
+                  }else {
+                    $old->status = "";
+                  }
+                  return response ()->json ( $old );
+                } catch (Exception $ex) {
+                  return Response::json ( array (
+                     'errors' => "ERROR!! The value that you entered is already existing"
+                  ) );
+                }
+              }
+              else {
+                return Response::json ( array (
+                   'errors' => "ERROR!! The value that you entered is already existing"
+                ) );
+              }
+            }
+
           }
           else {
             return Response::json ( array (
                'errors' => "empty"
            ) );
           }
-  			} catch (Exception $e) {
-          return Response::json ( array (
-
-             'errors' => "ERROR!! The value that you entered is already existing"
-         ) );
-  			}
-
   		}
     }
 

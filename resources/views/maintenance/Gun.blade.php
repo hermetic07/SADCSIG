@@ -155,14 +155,14 @@ $("#add").click(function() {
             alert(data.errors);
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
               $.toast({
- heading: 'The value that you entered is already existing',
- position: 'top-right',
- loaderBg:'#ff6849',
- icon: 'error',
- hideAfter: 3500,
- stack: 6
-});
-            }
+                 heading: 'The value that you entered is already existing',
+                 position: 'top-right',
+                 loaderBg:'#ff6849',
+                 icon: 'error',
+                 hideAfter: 3500,
+                 stack: 6
+                });
+            
           }
             else {
               $(document).ready(function() {

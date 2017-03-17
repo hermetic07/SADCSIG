@@ -30,34 +30,53 @@ class NatureControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-  			try {
           if (trim($request->name," ")!==""&&trim($request->price, " ")!=="") {
-            $data = new Nature ();
-            $data->name = trim($request->name," \t\n\r\0\x0B");
-            $data->price = $request->price;
-            $data->status = "active";
-            $data->save ();
-            if ($data->status === "active") {
-              $data->status = "checked";
+            try {
+              $data = new Nature ();
+              $data->name = trim($request->name," \t\n\r\0\x0B");
+              $data->price = trim($request->price, " ");
+              $data->status = "active";
+              $data->save ();
+              if ($data->status === "active") {
+                $data->status = "checked";
+              }
+              else {
+                $data->status = "";
+              }
+              return response ()->json ( $data );
+            } catch (Exception $e) {
+              $s = Nature::where('name',trim($request->name," "))->value('id');
+              $old = Nature::find($s);
+              if ($old->status==="deleted") {
+                try {
+                  $old->status = "active";
+                  $old->price = trim($request->price, " ");
+                  $old->save();
+                  if($old->status === "active"){
+                    $old->status = "checked";
+                  }else {
+                    $old->status = "";
+                  }
+                  return response ()->json ( $old );
+                } catch (Exception $ex) {
+                  return Response::json ( array (
+                     'errors' => "ERROR!! The value that you entered is already existing"
+                  ) );
+                }
+              }
+              else {
+                return Response::json ( array (
+                   'errors' => "ERROR!! The value that you entered is already existing"
+                ) );
+              }
             }
-            else {
-              $data->status = "";
-            }
-            return response ()->json ( $data );
+
           } else {
             return Response::json ( array (
                'errors' => "empty"
            ) );
           }
-
-  			} catch (Exception $e) {
-          return Response::json ( array (
-
-             'errors' => "ERROR!! The value that you entered is already existing"
-          ));
-  			}
-
-  		}
+      }
 
     }
 

@@ -34,33 +34,53 @@ class AreaControl extends Controller
     			) );
         }
   		else {
-  			try {
           if (trim($request->name," ")!==""&&trim($request->selection," ")!=="") {
-            $data = new Area ();
-      			$data->name = trim($request->name," \t\n\r\0\x0B");
-      			$data->province = trim($request->selection," \t\n\r\0\x0B");
-            $data->status = "active";
-      			$data->save ();
-            if ($data->status === "active") {
-              $data->status = "checked";
+            try {
+              $data = new Area ();
+        			$data->name = trim($request->name," \t\n\r\0\x0B");
+        			$data->province = trim($request->selection," \t\n\r\0\x0B");
+              $data->status = "active";
+        			$data->save ();
+              if ($data->status === "active") {
+                $data->status = "checked";
+              }
+              else {
+                $data->status = "";
+              }
+        			return response ()->json ( $data );
+            } catch (Exception $e) {
+              $s = Area::where('name',trim($request->name," "))->value('id');
+              $old = Area::find($s);
+              if ($old->status==="deleted") {
+                try {
+                  $old->status = "active";
+                  $old->province = trim($request->selection," \t\n\r\0\x0B");
+                  $old->save();
+                  if($old->status === "active"){
+                    $old->status = "checked";
+                  }else {
+                    $old->status = "";
+                  }
+                  return response ()->json ( $old );
+                } catch (Exception $ex) {
+                  return Response::json ( array (
+                     'errors' => "ERROR!! The value that you entered is already existing"
+                  ) );
+                }
+              }
+              else {
+                return Response::json ( array (
+                   'errors' => "ERROR!! The value that you entered is already existing"
+                ) );
+              }
             }
-            else {
-              $data->status = "";
-            }
-      			return response ()->json ( $data );
+
           }
           else {
             return Response::json ( array (
                'errors' => "empty"
            ) );
           }
-  			} catch (Exception $e) {
-          return Response::json ( array (
-
-              'errors' => "ERROR!! The value that you entered is already existing"
-          ) );
-  			}
-
   		}
     }
 

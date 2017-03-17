@@ -32,35 +32,53 @@ class AttributeControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-  			try {
           if (trim($request->name," ")!=="") {
-            $data = new Attribute ();
-      			$data->name = trim($request->name," ");
-      			$data->measurement = trim($request->selection," ");
-            $data->status = "active";
-      			$data->save ();
-            if ($data->status === "active") {
-              $data->status = "checked";
+            try {
+              $data = new Attribute ();
+        			$data->name = trim($request->name," ");
+        			$data->measurement = trim($request->selection," ");
+              $data->status = "active";
+        			$data->save ();
+              if ($data->status === "active") {
+                $data->status = "checked";
+              }
+              else {
+                $data->status = "";
+              }
+        			return response ()->json ( $data );
+            } catch (Exception $e) {
+              $s = Attribute::where('name',trim($request->name," "))->value('id');
+              $old = Attribute::find($s);
+              if ($old->status==="deleted") {
+                try {
+                  $old->status = "active";
+                  $old->measurement = trim($request->selection," ");
+                  $old->save();
+                  if($old->status === "active"){
+                    $old->status = "checked";
+                  }else {
+                    $old->status = "";
+                  }
+                  return response ()->json ( $old );
+                } catch (Exception $ex) {
+                  return Response::json ( array (
+                     'errors' => "ERROR!! The value that you entered is already existing"
+                  ) );
+                }
+              }
+              else {
+                return Response::json ( array (
+                   'errors' => "ERROR!! The value that you entered is already existing"
+                ) );
+              }
             }
-            else {
-              $data->status = "";
-            }
-      			return response ()->json ( $data );
+
           } else {
             return Response::json ( array (
                'errors' => "empty"
            ) );
           }
-
-  			} catch (Exception $e) {
-          return Response::json ( array (
-
-             'errors' => "ERROR!! The value that you entered is already existing"
-         ) );
-  			}
-
   		}
-
     }
 
     /**
