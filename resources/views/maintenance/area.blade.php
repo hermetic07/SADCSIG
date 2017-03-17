@@ -26,9 +26,9 @@
 </div>
 <div class="form-group">
   <div class="row">
-    <label class="control-label  col-md-12">Area's name</label>
+    <label class="control-label">Area's name</label>
     <div class="col-md-12">
-    <input type="text" class="form-control" id="Area_Name" name="Area_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required >
+    <input type="text" class="form-control" id="Area_Name" name="Area_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required >
       <div class="help-block with-errors"></div>
               </div>
           </div>
@@ -44,7 +44,6 @@
 @section('theads')
     <th>Area</th>
     <th>Province</th>
-    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -106,7 +105,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Area's name</label>
     <div class="col-md-12">
-            <input type="text" required class="form-control" id="edit_Area_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" name="edit_Area_name">
+            <input type="text" required class="form-control" id="edit_Area_name" pattern="[.,--&\\'a-zA-Z0-9\s]+"  maxlength="200" name="edit_Area_name">
       <div class="help-block with-errors"></div>
               </div>
           </div>
@@ -119,7 +118,7 @@
 
 <script>
 $("#add").click(function() {
-
+  $('.form-group').find('.help-block').show();
     $.ajax({
         type: 'post',
         url: '/Area-Add',
@@ -132,7 +131,14 @@ $("#add").click(function() {
 
           if ((data.errors)){
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
-              alert(data.errors);
+              $.toast({
+               heading: 'The value that you entered is already existing',
+               position: 'top-right',
+               loaderBg:'#ff6849',
+               icon: 'error',
+               hideAfter: 3500,
+               stack: 6
+             });
             }
           }
             else {
@@ -167,7 +173,7 @@ $("#add").click(function() {
 });
 
 $("#edd").click(function() {
-
+  $('.form-group').find('.help-block').show();
   $.ajax({
       type: 'post',
       url: '/Area-Update',

@@ -11,7 +11,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Role</label>
     <div class="col-md-12">
-      <input type="text" class="form-control" id="Role_Name" name="Role_Name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+      <input type="text" class="form-control" id="Role_Name" name="Role_Name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -33,7 +33,6 @@
 @section('theads')
     <th>Role</th>
     <th>Description</th>
-    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -83,7 +82,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Role</label>
     <div class="col-md-12">
-            <input type="text" class="form-control" id="edit_Role_name" name="edit_Role_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+            <input type="text" class="form-control" id="edit_Role_name" name="edit_Role_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
       <div class="help-block with-errors"></div>
     </div>
           </div>
@@ -104,7 +103,7 @@
 @section('ajaxscript')
 <script>
 $("#add").click(function() {
-
+$('.form-group').find('.help-block').show();
     $.ajax({
         type: 'post',
         url: '/Role-Add',
@@ -114,10 +113,17 @@ $("#add").click(function() {
             'description': $('#Role_desc').val(),
         },
         success: function(data) {
-          
+
           if ((data.errors)){
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
-              alert(data.errors);
+              $.toast({
+   heading: 'The value that you entered is already existing',
+   position: 'top-right',
+   loaderBg:'#ff6849',
+   icon: 'error',
+   hideAfter: 3500,
+   stack: 6
+ });
             }
           }
             else {
@@ -153,7 +159,7 @@ $("#add").click(function() {
 });
 
 $("#edd").click(function() {
-
+$('.form-group').find('.help-block').show();
   $.ajax({
       type: 'post',
       url: '/Role-Update',

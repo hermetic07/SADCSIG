@@ -11,7 +11,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Province's name</label>
     <div class="col-md-12">
-      <input type="text" class="form-control" id="name" name="name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+      <input type="text" class="form-control" id="name" name="name" pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -23,7 +23,6 @@
 
 @section('theads')
     <th>Province</th>
-    <th width="100px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -73,20 +72,19 @@
 @section('editmodalcontent')
       <div class="form-group">
         <div class="row">
-         <div class="form-group col-sm-12">
-            <label class="control-label">Province</label>
-            <input type="text" class="form-control" id="edit_Province_name" name="edit_Province_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+              <label class="control-label">Province</label>
+         <div class="col-sm-12">
+            <input type="text" class="form-control" id="edit_Province_name" name="edit_Province_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
             <div class="help-block with-errors"></div>
          </div>
        </div>
-         <div class="help-block with-errors"></div>
       </div>
 @endsection
 
 @section('ajaxscript')
 <script>
 $("#add").click(function() {
-
+  $('.form-group').find('.help-block').show();
     $.ajax({
         type: 'post',
         url: '/Province-Add',
@@ -97,7 +95,14 @@ $("#add").click(function() {
         success: function(data) {
           if ((data.errors)){
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
-              alert(data.errors);
+                  $.toast({
+               heading: 'The value that you entered is already existing',
+               position: 'top-right',
+               loaderBg:'#ff6849',
+               icon: 'error',
+               hideAfter: 3500,
+               stack: 6
+             });
             }
           }
             else {
@@ -132,7 +137,7 @@ $("#add").click(function() {
 });
 
 $("#edd").click(function() {
-
+  $('.form-group').find('.help-block').show();
   $.ajax({
       type: 'post',
       url: '/Province-Update',

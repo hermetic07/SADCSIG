@@ -11,7 +11,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Type of Measurement</label>
     <div class="col-md-12">
-      <input type="text" class="form-control" id="name" name="name" required>
+      <input type="text" class="form-control" id="name" name="name" maxlength="200" pattern="[.,--&\\'a-zA-Z0-9\s]+"  required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -23,7 +23,6 @@
 
 @section('theads')
     <th>Measurement</th>
-    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -68,11 +67,13 @@
 @section('editmodalurl')"{{ url('/measurement-Update') }}"@endsection
 
 @section('editmodalcontent')
-      <div class="form-group col-md-12">
+      <div class="form-group">
         <div class="row">
-            <label class="control-label">Size</label>
-            <input type="text" class="form-control" id="edit_size" name="edit_size" required>
+            <label class="control-label">Type of measurement</label>
+          <div class="col-md-12">
+            <input type="text" class="form-control" id="edit_size" name="edit_size" maxlength="200" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
             <div class="help-block with-errors"></div>
+   </div>
        </div>
       </div>
 @endsection
@@ -100,7 +101,7 @@
     </script>
 <script>
 $("#add").click(function() {
-
+    $('.form-group').find('.help-block').show();
     $.ajax({
         type: 'post',
         url: '/measurement-Add',
@@ -111,7 +112,14 @@ $("#add").click(function() {
         success: function(data) {
           if ((data.errors)){
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
-              alert(data.errors);
+              $.toast({
+             heading: 'The value that you entered is already existing',
+             position: 'top-right',
+             loaderBg:'#ff6849',
+             icon: 'error',
+             hideAfter: 3500,
+             stack: 6
+           });
             }
           }
             else {
@@ -146,7 +154,7 @@ $("#add").click(function() {
 });
 
 $("#edd").click(function() {
-
+    $('.form-group').find('.help-block').show();
   $.ajax({
       type: 'post',
       url: '/measurement-Update',

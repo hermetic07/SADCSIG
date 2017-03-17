@@ -11,7 +11,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Requirement's Name</label>
     <div class="col-md-12">
-      <input type="text" class="form-control" id="Requirements_Name" name="Requirements_Name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+      <input type="text" class="form-control" id="Requirements_Name" name="Requirements_Name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -23,7 +23,6 @@
 
 @section('theads')
     <th>Requirement's name</th>
-    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -73,7 +72,7 @@
         <div class="row">
          <div class="form-group col-sm-12">
             <label class="control-label">Requirement's name</label>
-            <input type="text" class="form-control" id="edit_Requirements_name" name="edit_Requirements_name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+            <input type="text" class="form-control" id="edit_Requirements_name" name="edit_Requirements_name"  pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
             <div class="help-block with-errors"></div>
          </div>
        </div>
@@ -85,6 +84,7 @@
 
 <script>
 $("#add").click(function(e) {
+  $('.form-group').find('.help-block').show();
     $.ajax({
         type: 'post',
         url: '/Requirement-Add',
@@ -95,7 +95,14 @@ $("#add").click(function(e) {
         success: function(data) {
           if ((data.errors)){
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
-              alert(data.errors);
+              $.toast({
+            heading: 'The value that you entered is already existing',
+            position: 'top-right',
+            loaderBg:'#ff6849',
+            icon: 'error',
+            hideAfter: 3500,
+            stack: 6
+          });
             }
           }
             else {
@@ -113,7 +120,7 @@ $("#add").click(function(e) {
                     var text = $('#Requirements_Name').val();
                     $(document).ready(function() {
                                $.toast({
-                                heading: text+" has been successfully added",
+                                heading: text +" has been successfully added",
                                 position: 'top-right',
                                 loaderBg:'#ff6849',
                                 icon: 'success',
@@ -130,7 +137,7 @@ $("#add").click(function(e) {
 });
 
 $("#edd").click(function() {
-
+$('.form-group').find('.help-block').show();
   $.ajax({
       type: 'post',
       url: '/Requirement-Update',

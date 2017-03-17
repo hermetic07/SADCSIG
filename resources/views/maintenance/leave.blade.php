@@ -11,7 +11,7 @@
   <div class="row">
     <label class="control-label  col-md-12">Type of Leave</label>
     <div class="col-md-12">
-      <input type="text" class="form-control" id="Leave_Name" name="Leave_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+      <input type="text" class="form-control" id="Leave_Name" name="Leave_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -21,7 +21,7 @@
 
     <label class="control-label  col-md-6">Numbers of days allowed</label>
     <div class="col-md-6">
-      <input type="number" class="form-control" id="Leave_span" name="Leave_span" min="1" required>
+      <input type="number" class="form-control" id="Leave_span" name="Leave_span" min="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -30,7 +30,7 @@
 
   <label class="control-label col-md-6">Notification period</label>
     <div class="col-md-6">
-  <input type="number" class="form-control"  id="Leave_not" name="Leave_not" min="1" required>
+  <input type="number" class="form-control"  id="Leave_not" name="Leave_not" min="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  required>
   <div class="help-block with-errors"></div>
 </div>
 </div>
@@ -47,7 +47,6 @@
     <th>Type of leave</th>
     <th>Numbers of days allowed</th>
     <th>Notification period</th>
-    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -60,7 +59,7 @@
            <td>
              @if($Leave->status === "active")
              <div class="onoffswitch2">
-    <input type="checkbox" onchange="fun_status('{!!$Leave -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Leave -> id!!}" checked>
+    <input type="checkbox" onchange="fun_status('{!!$Leave -> id!!}')"  name="onoffswitch2" class="onoffswitch2-checkbox" id="{!!$Leave -> id!!}"  checked>
     <label class="onoffswitch2-label" for="{!!$Leave -> id!!}">
         <span class="onoffswitch2-inner"></span>
         <span class="onoffswitch2-switch"></span>
@@ -96,7 +95,7 @@
         <div class="row">
          <div class="form-group col-sm-12">
             <label class="control-label">Type of leave</label>
-            <input type="text" class="form-control" id="edit_Leave_name" name="edit_Leave_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+            <input type="text" class="form-control" id="edit_Leave_name" name="edit_Leave_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
             <div class="help-block with-errors"></div>
          </div>
        </div>
@@ -106,7 +105,7 @@
 
         <label class="control-label  col-md-6">Numbers of days allowed</label>
         <div class="col-md-6">
-          <input type="number" class="form-control"  id="edit_Leave_span" name="edit_Leave_span" min="1" required>
+          <input type="number" class="form-control"  id="edit_Leave_span" name="edit_Leave_span" min="1"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  required>
           <div class="help-block with-errors"></div>
         </div>
       </div>
@@ -115,7 +114,7 @@
 
       <label class="control-label col-md-6">Notification period</label>
         <div class="col-md-6">
-      <input type="number" class="form-control"  id="edit_Leave_not" name="edit_Leave_not" min="1" required>
+      <input type="number" class="form-control"  id="edit_Leave_not" name="edit_Leave_not" min="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  required>
       <div class="help-block with-errors"></div>
     </div>
     </div>
@@ -145,7 +144,10 @@
     </script>
 <script>
 $("#add").click(function() {
-
+    $('.form-group').find('.help-block').show();
+        var a1 = parseInt($("#Leave_span").val(), 10);
+            var a2 = parseInt($("#Leave_not").val(), 10);
+              if(a1 >= 1 && a2 >= 1){
     $.ajax({
         type: 'post',
         url: '/Leave-Add',
@@ -159,7 +161,14 @@ $("#add").click(function() {
         success: function(data) {
           if ((data.errors)){
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
-              alert(data.errors);
+              $.toast({
+   heading: 'The value that you entered is already existing',
+   position: 'top-right',
+   loaderBg:'#ff6849',
+   icon: 'error',
+   hideAfter: 3500,
+   stack: 6
+ });
             }
           }
           else {
@@ -191,12 +200,14 @@ $("#add").click(function() {
         },
 
     });
-
-    $('#Edit').modal('hide');
+  }
 });
 
 $("#edd").click(function() {
-
+      $('.form-group').find('.help-block').show();
+  var b1 = parseInt($("#edit_Leave_span").val(), 10);
+      var b2 = parseInt($("#edit_Leave_not").val(), 10);
+        if(b1 >= 1 && b2 >= 1){
   $.ajax({
       type: 'post',
       url: '/Leave-Update',
@@ -237,6 +248,7 @@ $("#edd").click(function() {
           } );
       }
   });
+    }
 });
 
 

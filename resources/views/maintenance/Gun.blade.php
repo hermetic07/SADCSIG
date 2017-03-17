@@ -9,8 +9,8 @@
 @section('addmodalbody')
 <div class="form-group">
   <div class="row">
+        <label class="control-label" >Choose Gun Type</label>
     <div class="col-md-12">
-      <label  class="control-label" >Choose Gun Type</label>
       <select required class="form-control" id="GunType" name="GunType">
         <option value="">None</option>
         @foreach($A as $m)
@@ -22,13 +22,16 @@
         <div class="help-block with-errors"></div>
     </div>
   </div>
+  </div>
+  <div class="form-group">
   <div class="row">
-    <label class="control-label  col-md-12">Gun Name</label>
+    <label class="control-label">Gun Name</label>
     <div class="col-md-12">
-    <input type="text" class="form-control" id="name" name="name" required>
+    <input type="text" class="form-control" id="name" name="name"  maxlength="200" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
+</div>
 </div>
 @endsection
 
@@ -38,7 +41,6 @@
 @section('theads')
     <th>Gun</th>
     <th>Gun Type</th>
-    <th data-hide="phone, tablet" data-sort-ignore=true width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -87,8 +89,8 @@
 @section('editmodalcontent')
       <div class="form-group">
         <div class="row">
+                <label  class="control-label" >Gun Type</label>
           <div class="col-md-12">
-            <label  class="control-label" >Gun Type</label>
             <select required class="form-control" id="edit_GunType" name="edit_GunType">
               <option value="">None</option>
               @foreach($A as $m)
@@ -103,14 +105,12 @@
       </div>
       <div class="form-group">
         <div class="row">
-         <div class="form-group col-sm-12">
-            <label class="control-label">Gun Name</label>
-            <input type="text" class="form-control" id="edit_name" name="edit_name" required>
+              <label class="control-label">Gun Name</label>
+         <div class="col-sm-12">
+            <input type="text" class="form-control" id="edit_name" name="edit_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
             <div class="help-block with-errors"></div>
          </div>
        </div>
-
-         <div class="help-block with-errors"></div>
       </div>
 @endsection
 
@@ -154,7 +154,14 @@ $("#add").click(function() {
         success: function(data) {
             alert(data.errors);
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
-              alert(data.errors);
+              $.toast({
+ heading: 'The value that you entered is already existing',
+ position: 'top-right',
+ loaderBg:'#ff6849',
+ icon: 'error',
+ hideAfter: 3500,
+ stack: 6
+});
             }
           }
             else {
@@ -188,7 +195,7 @@ $("#add").click(function() {
 });
 
 $("#edd").click(function() {
-
+    $('.form-group').find('.help-block').show();
   $.ajax({
       type: 'post',
       url: '/Gun-Update',

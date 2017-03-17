@@ -11,7 +11,7 @@
   <div class="row">
     <label class="control-label  col-md-12">License or Clearance</label>
     <div class="col-md-12">
-      <input type="text" required class="form-control" id="License_Name" name="License_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+">
+      <input type="text" required class="form-control" id="License_Name" name="License_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
       <div class="help-block with-errors"></div>
     </div>
   </div>
@@ -23,7 +23,6 @@
 
 @section('theads')
     <th>Licences and clearances</th>
-    <th width="10px">Status</th>
 @endsection
 
 @section('tbodies')
@@ -72,7 +71,7 @@
         <div class="row">
          <div class="form-group col-sm-12 ">
             <label class="control-label">License or Clearance</label>
-            <input type="text" class="form-control" id="edit_License_name" name="edit_License_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" required>
+            <input type="text" class="form-control" id="edit_License_name" name="edit_License_name" pattern="[.,--&\\'a-zA-Z0-9\s]+" maxlength="200" required>
             <div class="help-block with-errors"></div>
          </div>
        </div>
@@ -83,7 +82,7 @@
 @section('ajaxscript')
 <script>
 $("#add").click(function() {
-
+$('.form-group').find('.help-block').show();
     $.ajax({
         type: 'post',
         url: '/License-Add',
@@ -94,7 +93,14 @@ $("#add").click(function() {
         success: function(data) {
           if ((data.errors)){
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
-              alert(data.errors);
+              $.toast({
+heading: 'The value that you entered is already existing',
+position: 'top-right',
+loaderBg:'#ff6849',
+icon: 'error',
+hideAfter: 3500,
+stack: 6
+});
             }
           }
           else {
@@ -129,7 +135,7 @@ $("#add").click(function() {
 });
 
 $("#edd").click(function() {
-
+$('.form-group').find('.help-block').show();
   $.ajax({
       type: 'post',
       url: '/License-Update',
