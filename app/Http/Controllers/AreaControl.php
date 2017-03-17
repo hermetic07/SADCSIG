@@ -99,18 +99,56 @@ class AreaControl extends Controller
 
     public function update(Request $request)
     {
-      $data = Area::find ( $request->id );
-  		$data->province = trim($request->name," \t\n\r\0\x0B");
-  		$data->name = trim($request->selection," \t\n\r\0\x0B");
-  		$data->save ();
-      if ($data->status === "active") {
-        $data->status = "checked";
-      }
-      else {
-        $data->status = "";
-      }
-  		return response ()->json ( $data );
 
+      if (trim($request->name," ")!=="") {
+        try {
+          $data = Area::find ( $request->id );
+      		$data->name = trim($request->name," \t\n\r\0\x0B");
+      		$data->province = trim($request->selection," \t\n\r\0\x0B");
+      		$data->save ();
+          if ($data->status === "active") {
+            $data->status = "checked";
+          }
+          else {
+            $data->status = "";
+          }
+      		return response ()->json ( $data );
+        } catch (Exception $e) {
+          $s = Area::where('name',trim($request->name," "))->value('id');
+           $old = Area::find($s);
+           if ($old->status==="deleted") {
+             try {
+               $old->status = "active";
+               $old->province = trim($request->selection," \t\n\r\0\x0B");
+               $old->save();
+               if($old->status === "active"){
+                 $old->status = "checked";
+               }else {
+                 $old->status = "";
+               }
+               return Response::json ( array (
+                  'errors' => "deleted",
+                  'id' => $s,
+                  'status' => $old->status,
+
+               ) );
+             } catch (Exception $ex) {
+               return Response::json ( array (
+                  'errors' => "ERROR!! The value that you entered is already existing"
+               ) );
+             }
+           }
+           else {
+             return Response::json ( array (
+                'errors' => "ERROR!! The value that you entered is already existing"
+             ) );
+           }
+        }
+      } else {
+        return Response::json ( array (
+           'errors' => "empty"
+       ) );
+      }
     }
 
 

@@ -93,18 +93,56 @@ class NatureControl extends Controller
 
     public function update(Request $req)
     {
-      $data = Nature::find ( $req->id );
-  		$data->name = trim($req->name," \t\n\r\0\x0B");
-  		$data->price = $req->price;
-  		$data->save ();
-      if ($data->status === "active") {
-        $data->status = "checked";
-      }
-      else {
-        $data->status = "";
-      }
-  		return response ()->json ( $data );
 
+      if (trim($req->name," ")!=="") {
+        try {
+          $data = Nature::find ( $req->id );
+      		$data->name = trim($req->name," \t\n\r\0\x0B");
+      		$data->price = $req->price;
+      		$data->save ();
+          if ($data->status === "active") {
+            $data->status = "checked";
+          }
+          else {
+            $data->status = "";
+          }
+      		return response ()->json ( $data );
+        } catch (Exception $e) {
+          $s = Nature::where('name',trim($req->name," "))->value('id');
+           $old = Nature::find($s);
+           if ($old->status==="deleted") {
+             try {
+               $old->status = "active";
+               $old->price = $req->price;
+               $old->save();
+               if($old->status === "active"){
+                 $old->status = "checked";
+               }else {
+                 $old->status = "";
+               }
+               return Response::json ( array (
+                  'errors' => "deleted",
+                  'id' => $s,
+                  'status' => $old->status,
+
+               ) );
+             } catch (Exception $ex) {
+               return Response::json ( array (
+                  'errors' => "ERROR!! The value that you entered is already existin"
+               ) );
+             }
+           }
+           else {
+             return Response::json ( array (
+                'errors' => "ERROR!! The value that you entered is already existing"
+             ) );
+           }
+        }
+      } else {
+        return Response::json ( array (
+           'errors' => "empty"
+       ) );
+      }
     }
 
      public function delete(Request $request)

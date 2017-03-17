@@ -88,18 +88,57 @@ class ServiceControl extends Controller
          }
      }
 
-    public function update(Request $request)
+    public function update(Request $req)
     {
-      $data = Service::find ( $request->id );
-  		$data->name = trim($request->name, " \t\n\r\0\x0B");
-  		$data->description = trim($request->description, " \t\n\r\0\x0B");
-  		$data->save ();
-      if($data->status === "active"){
-        $data->status = "checked";
-      }else {
-        $data->status = "";
+
+      if (trim($req->name," ")!==""&&trim($req->description," ")!=="") {
+        try {
+          $data = Service::find ( $request->id );
+      		$data->name = trim($req->name, " \t\n\r\0\x0B");
+      		$data->description = trim($req->description, " \t\n\r\0\x0B");
+      		$data->save ();
+          if($data->status === "active"){
+            $data->status = "checked";
+          }else {
+            $data->status = "";
+          }
+      		return response ()->json ( $data );
+        } catch (Exception $e) {
+          $s = Service::where('name',trim($req->name," "))->value('id');
+          $old = Service::find($s);
+           if ($old->status==="deleted") {
+             try {
+               $old->description = trim($req->description, " \t\n\r\0\x0B");
+               $old->status = "active";
+               $old->save();
+               if($old->status === "active"){
+                 $old->status = "checked";
+               }else {
+                 $old->status = "";
+               }
+               return Response::json ( array (
+                  'errors' => "deleted",
+                  'id' => $s,
+                  'status' => $old->status,
+
+               ) );
+             } catch (Exception $ex) {
+               return Response::json ( array (
+                  'errors' => "ERROR!! The value that you entered is already existin"
+               ) );
+             }
+           }
+           else {
+             return Response::json ( array (
+                'errors' => "ERROR!! The value that you entered is already existing"
+             ) );
+           }
+        }
+      } else {
+        return Response::json ( array (
+           'errors' => "empty"
+       ) );
       }
-  		return response ()->json ( $data );
     }
 
      public function delete(Request $request)

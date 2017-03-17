@@ -123,6 +123,7 @@ $("#add").click(function(e) {
         },
         success: function(data) {
           if ((data.errors)){
+
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
               $.toast({
                heading: 'The value that you entered is already existing',
@@ -168,7 +169,7 @@ $("#add").click(function(e) {
 
 $("#edd").click(function() {
     $('.form-group').find('.help-block').show();
-        var b = parseInt($("#rate").val(), 10);
+        var b = parseInt($("#Nature_rate").val(), 10);
       if(b >= 1){
   $.ajax({
       type: 'post',
@@ -180,34 +181,67 @@ $("#edd").click(function() {
           'price': $('#Nature_rate').val(),
       },
       success: function(data) {
+        if (data.errors) {
+          if ((data.errors)=="deleted") {
+            $(document).ready(function() {
+            var t = $('#table').DataTable();
+                t.row.add( [
+                $('#edit_Nature_name').val(),
+                $('#Nature_rate').val(),
+                "  <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
+                " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
 
-        $(document).ready(function() {
-              $('#Edit').modal('hide');
-        var t = $('#table').DataTable();
+                ] ).draw( false );
+                  } );
+            $.toast({
+               heading: 'The value that you entered is already existing but was deleted last time. Value is now Restored',
+               position: 'top-right',
+               loaderBg:'#ff6849',
+               icon: 'error',
+               hideAfter: 3500,
+               stack: 6
+              });
+          }
+          else if((data.errors)!="empty"){
+            $.toast({
+               heading: 'The value that you entered is already existing',
+               position: 'top-right',
+               loaderBg:'#ff6849',
+               icon: 'error',
+               hideAfter: 3500,
+               stack: 6
+              });
+          }
+        }
+        else {
+          $(document).ready(function() {
+                $('#Edit').modal('hide');
+          var t = $('#table').DataTable();
 
-        t.row('.selected').remove().draw( false );
+          t.row('.selected').remove().draw( false );
 
-        t.row.add( [
-         $('#edit_Nature_name').val(),
-         $('#Nature_rate').val(),
-         " <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
-          " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
+          t.row.add( [
+           $('#edit_Nature_name').val(),
+           $('#Nature_rate').val(),
+           " <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
+            " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
 
-        ] ).draw( false );
+          ] ).draw( false );
 
-            var text2 = $('#edit_Nature_name').val();
-                    $(document).ready(function() {
-                               $.toast({
-                                heading: text2 +" has been successfully updated",
-                                position: 'top-right',
-                                loaderBg:'#ff6849',
-                                icon: 'success',
-                                hideAfter: 3500,
-                                stack: 6
-                              });
-                    });
+              var text2 = $('#edit_Nature_name').val();
+                      $(document).ready(function() {
+                                 $.toast({
+                                  heading: text2 +" has been successfully updated",
+                                  position: 'top-right',
+                                  loaderBg:'#ff6849',
+                                  icon: 'success',
+                                  hideAfter: 3500,
+                                  stack: 6
+                                });
+                      });
 
-          } );
+            } );
+        }
       }
   });
   }

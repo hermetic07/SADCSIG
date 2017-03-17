@@ -92,18 +92,56 @@ class RoleControl extends Controller
     public function update(Request $req)
     {
 
-      $data = Role::find ( $req->id );
-      $data->name = trim($req->name," \t\n\r\0\x0B");
-      $data->description = trim($req->description, " \t\n\r\0\x0B");
-      $data->save ();
-      if ($data->status === "active") {
-        $data->status = "checked";
-      }
-      else {
-        $data->status = "";
-      }
-      return response ()->json ( $data );
 
+      if (trim($req->name," ")!==""&& trim($req->description," ")!=="") {
+        try {
+          $data = Role::find ( $req->id );
+          $data->name = trim($req->name," \t\n\r\0\x0B");
+          $data->description = trim($req->description, " \t\n\r\0\x0B");
+          $data->save ();
+          if ($data->status === "active") {
+            $data->status = "checked";
+          }
+          else {
+            $data->status = "";
+          }
+          return response ()->json ( $data );
+        } catch (Exception $e) {
+          $s = Role::where('name',trim($req->name," "))->value('id');
+           $old = Role::find($s);
+           if ($old->status==="deleted") {
+             try {
+               $old->status = "active";
+               $old->description = trim($req->description, " \t\n\r\0\x0B");
+               $old->save();
+               if($old->status === "active"){
+                 $old->status = "checked";
+               }else {
+                 $old->status = "";
+               }
+               return Response::json ( array (
+                  'errors' => "deleted",
+                  'id' => $s,
+                  'status' => $old->status,
+
+               ) );
+             } catch (Exception $ex) {
+               return Response::json ( array (
+                  'errors' => "ERROR!! The value that you entered is already existin"
+               ) );
+             }
+           }
+           else {
+             return Response::json ( array (
+                'errors' => "ERROR!! The value that you entered is already existing"
+             ) );
+           }
+        }
+      } else {
+        return Response::json ( array (
+           'errors' => "empty"
+       ) );
+      }
     }
 
     /**
