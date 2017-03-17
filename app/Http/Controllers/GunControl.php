@@ -39,7 +39,7 @@ class GunControl extends Controller
           $data->guntype = $request->selection;
           $data->status = "active";
           $data->save ();
-          if ($data->status === "active") {
+          if ($data->status === "active" ) {
             $data->status = "checked";
           }
           else {
