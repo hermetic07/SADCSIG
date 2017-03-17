@@ -143,7 +143,7 @@ $("#edd").click(function() {
         $(document).ready(function() {
         var t = $('#table').DataTable();
 
-        t.row().remove(this);
+          t.row('.selected').remove().draw( false );
 
         t.row.add( [
          $('#edit_Province_name').val(),
@@ -210,6 +210,14 @@ $("#edd").click(function() {
 
   function fun_edit(id)
   {
+    var table = $('#table').DataTable();
+
+    $('#table tbody').on( 'click', 'tr', function () {
+
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+
+    } );
     var view_url = $("#hidden_view").val();
     $.ajax({
       url: view_url,

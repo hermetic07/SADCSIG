@@ -78,7 +78,26 @@
 @endsection
 
 @section('ajaxscript')
+<script type="text/javascript">
+        $(document).ready(function(){
+          $('#table').DataTable({
 
+            "columnDefs": [
+              {
+"targets": 2,
+"orderable": false
+},
+{
+"targets": 1,
+"orderable": false
+},
+            { "searchable": false, "targets": 2 },
+          ]
+          });
+
+
+      });
+    </script>
 <script>
 $("#add").click(function() {
 
@@ -138,7 +157,7 @@ $("#edd").click(function() {
         $(document).ready(function() {
         var t = $('#table').DataTable();
 
-        t.row().remove(this);
+          t.row('.selected').remove().draw( false );
 
         t.row.add( [
          $('#edit_size').val(),
@@ -185,6 +204,14 @@ $("#edd").click(function() {
 
   function fun_edit(id)
   {
+    var table = $('#table').DataTable();
+
+    $('#table tbody').on( 'click', 'tr', function () {
+
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+
+    } );
     var view_url = $("#hidden_view").val();
     $.ajax({
       url: view_url,

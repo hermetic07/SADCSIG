@@ -44,7 +44,7 @@
     </div>
 
 <!-- fix header and sidebar -->
-<body class="fix-header fix-sidebar">
+<body class="fix-header fix-sidebar" >
   <div id="wrapper">
 
     <!-- Top Navigation -->
@@ -282,14 +282,14 @@
 
       <!-- .row -->
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" >
           <div class="white-box">
               <label class="col-xs-5 control-label"></label>
             <div class="col-lg-2">
           <button class="btn btn-success btn-block waves-effect waves-light"  data-toggle="modal" data-target="#Add"  type="button" data-toggle="modal" data-target=".bs-example-modal-sm" class="model_img img-responsive"><span class="btn-label"><i class="fa fa-plus-circle"></i></span>Add</button>
 </div>
         </br>  </br>  </br>
-            <div class="table-responsive">
+            <div class="table-responsive" >
             <table id="table" class="table table-bordered table-hover toggle-circle color-bordered-table muted-bordered-table">
               <thead>
                 <tr>
@@ -384,13 +384,17 @@ $(document).ready(function() {
       $('.form-group').find('.help-block').hide();
     }
 
+          $(this).removeClass('selected');
+
     }) ;
+
     $('#Edit').on('hidden.bs.modal', function()
       {
+        $('.selected').removeClass('selected');
     $(this).find('form').trigger('reset');
       $('.col-md-12').find('help-block with-errors').hide();
    $('.form-group').removeClass('has-error has-feedback');
-
+    $('#table').removeClass('selected');
       if ( $(this).hasClass('has-error') ) {
         $('.form-group').find('.help-block').show();
       } else {

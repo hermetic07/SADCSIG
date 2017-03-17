@@ -174,7 +174,7 @@ $("#edd").click(function() {
         $(document).ready(function() {
         var t = $('#table').DataTable();
 
-        t.row().remove(this);
+          t.row('.selected').remove().draw( false );
 
         t.row.add( [
          $('#edit_Attribute_name').val(),
@@ -206,7 +206,7 @@ $("#edd").click(function() {
 
 <script type="text/javascript">
         $(document).ready(function(){
-          $('#myTable').DataTable({
+          $('#table').DataTable({
 
             "columnDefs": [
               {

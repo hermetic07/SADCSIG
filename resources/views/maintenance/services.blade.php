@@ -64,7 +64,7 @@
            </td>
            <td>
              &nbsp;
-             <button class="btn btn-warning  waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit"  onclick="fun_edit('{!!$service -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
+             <button class="btn btn-warning waves-effect waves-light"   class="model_img img-responsive" data-toggle="modal" data-target="#Edit"  onclick="fun_edit('{!!$service -> id!!}')"><span class="btn-label"><i class="fa fa-edit"></i></span>Edit</button>
             <button class="btn btn-danger  waves-effect waves-light"   class="model_img img-responsive" onclick="fun_delete('{!!$service -> id!!}')"><span class="btn-label"><i class="fa fa-times"></i></span>delete</button>
 
 
@@ -163,9 +163,10 @@ $("#edd").click(function() {
       success: function(data) {
 
         $(document).ready(function() {
-        var t = $('#table').DataTable();
 
-        t.row().remove(this);
+          var t = $('#table').DataTable();
+
+        t.row('.selected').remove().draw( false );
 
         t.row.add( [
          $('#edit_Service_name').val(),
@@ -174,6 +175,8 @@ $("#edd").click(function() {
           " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
 
         ] ).draw( false );
+
+
         $('#Edit').modal('hide');
             var text2 = $('#edit_Nature_name').val();
                     $(document).ready(function() {
@@ -228,7 +231,7 @@ $("#edd").click(function() {
       type:"GET",
       data: {"id":id},
       success: function(result){
-        //console.log(result);
+        console.log("haha " + result);
         $("#edit_id").text(result.id);
         $("#edit_Service_name").text(result.name);
         $("#edit_Service_desc").text(result.description);
@@ -238,18 +241,27 @@ $("#edd").click(function() {
 
   function fun_edit(id)
   {
+    var table = $('#table').DataTable();
+
+    $('#table tbody').on( 'click', 'tr', function () {
+
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+
+    } );
     var view_url = $("#hidden_view").val();
     $.ajax({
       url: view_url,
       type:"GET",
       data: {"id":id},
       success: function(result){
-        //console.log(result);
+
         $("#edit_id").val(result.id);
         $("#edit_Service_name").val(result.name);
         $("#edit_Service_desc").val(result.description);
       }
     });
+
   }
 
   function fun_delete(id)
