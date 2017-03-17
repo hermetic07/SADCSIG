@@ -1,0 +1,28 @@
+/* FONTS*/
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900,400italic|Roboto+Condensed:400,700);
+@import url('../fonts/font-awesome-4.5.0/css/font-awesome.min.css');
+@import url('../fonts/pe/css/pe-icon-7-stroke.css');
+@import url('../fonts/elegant/style.css');
+@import url('../fonts/flaticon/flaticon.css');
+
+
+
+/* PLUGIN CSS */
+
+@import url('../plugins/bootstrap/bootstrap.css');                /* bootstrap */
+@import url('../plugins/slider-pro/slider-pro.css');         /* main slider */
+@import url('../plugins/owl-carousel/owl.carousel.css');              /* other sliders */
+@import url('../plugins/owl-carousel/owl.transitions.css');           /* other sliders */
+@import url('../plugins/owl-carousel/owl.theme.css');                 /* other sliders */
+@import url('../plugins/magnific-popup/magnific-popup.css');            /* modal */
+@import url('../plugins/animate/animate.css');                        /* animations */
+@import url('../plugins/parallax/parallax.css');                        /* parallax */
+@import url('../plugins/validation/validation-2.2.min.css');          /* validation */
+
+
+
+/* MAIN CSS */
+
+@import url('theme.css');
+@import url('color.css');
+@import url('responsive.css');

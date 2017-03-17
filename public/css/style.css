@@ -3938,20 +3938,20 @@ table.focus-on tbody tr.focused td {
   height: 100%;
 }
 .slide1 {
-  background: url(../jubecer.png)no-repeat center center / cover ;
+  background: url(../plugins/images/covers/jubecer.png)no-repeat center center / cover ;
        height: 100%;
     animation:fade 30s infinite;
 -webkit-animation:fade 30s infinite;
 
 }
 .slide2 {
-  background: url(../abel.png)no-repeat center;
+  background: url(../plugins/images/covers/banner.jpg)no-repeat center;
       background-size: cover;
     animation:fade2 30s infinite;
 -webkit-animation:fade2 30s infinite;
 }
 .slide3 {
-    background: url(../guards.png)no-repeat center;
+    background: url(../plugins/images/covers/guards.png)no-repeat center;
       background-size: cover;
     animation:fade3 30s infinite;
 -webkit-animation:fade3 30s infinite;
@@ -4018,7 +4018,7 @@ height: 100%;
 .face.back {
 
   transform: rotateY(180deg);
-  background: url(../welcomeback.png)no-repeat center center / cover ;
+  background: url(../plugins/images/covers/welcomeback.png)no-repeat center center / cover ;
        height: 100%;
 
 
@@ -14846,7 +14846,7 @@ a.dt-button:hover:not(.disabled) {
   border-color: rgba(120, 130, 140, 0.13);
 }
 .dataTables_filter input {
-  border: 1px solid #2b2b2b;
+  border: 1px solid rgba(120, 130, 140, 0.13);
 }
 table.dataTable.display tbody tr.odd > .sorting_1,
 table.dataTable.order-column.stripe tbody tr.odd > .sorting_1,
@@ -15663,13 +15663,16 @@ ul.pro-amenities li span img {
   padding: 15px;
 }
 .pro-agent-col-3 .agent-name {
-  padding: 15px 15px 15px 5px;
+  padding: 15px 0px 15px 5px;
 }
 ul.pro-amenities {
   list-style: none;
   padding: 8px 0;
 }
 .fix-sidebar .navbar-left {
+    margin-left: 219px;
+}
+.fix-sidebar .navbar-left2 {
     margin-left: 219px;
 }
 ul.pro-amenities li {
@@ -15776,6 +15779,9 @@ ul.pro-amenities li span i {
   .fix-sidebar .navbar-left {
     margin-left: 220px;
   }
+	  .fix-sidebar .navbar-left2 {
+    margin-left: 220px;
+  }
   .footer {
     left: 220px;
   }
@@ -15789,6 +15795,10 @@ ul.pro-amenities li span i {
   .content-wrapper .navbar-left {
     margin-left: 60px;
   }
+	  .content-wrapper .navbar-left2 {
+		  float: left;
+    margin-left: 0px;
+  }
   .content-wrapper .footer {
     left: 60px;
   }
@@ -15801,7 +15811,7 @@ ul.pro-amenities li span i {
     left: 60px;
   }
   .content-wrapper .sidebar .sidebar-nav {
-
+  
     overflow: hidden;
   }
   .content-wrapper .sidebar .sidebar-nav .nav-second-level {
@@ -16067,7 +16077,7 @@ ul.pro-amenities li span i {
 		margin: -8px -8px 0 0;
 		width: 20px;
 		height: 24px;
-		background-image: url(../security-guard.png);
+		background-image: url(../plugins/images/security-guard.png);
 		background-repeat: no-repeat;
 		background-position: 0 0;
 
@@ -16209,7 +16219,7 @@ overflow: hidden;
  }
 
 .cart-item .delete-item{
-	background:url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/delete-item.png") 0 0 no-repeat;
+	background:url("../plugins/images/delete-item.png") 0 0 no-repeat;
 	width:15px;
 	height:15px;
 	margin-top: -21px;

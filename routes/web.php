@@ -105,6 +105,38 @@ Route::get('/ServiceRequest', function () {
     return view('AdminPortal/ServiceRequest');
 });
 
+Route::get('/SecuProfile', function () {
+    return view('AdminPortal/SecuProfile');
+});
+
+Route::get('/ClientPortalHome', function () {
+    return view('ClientPortal/ClientPortalHome');
+});
+
+Route::get('/ClientPortalEstablishments', function () {
+    return view('ClientPortal/ClientPortalEstablishments');
+});
+
+Route::get('/ClientPortalMessages', function () {
+    return view('ClientPortal/ClientPortalMessages');
+});
+
+Route::get('/ClientPortalGuardsDTR', function () {
+    return view('ClientPortal/ClientPortalGuardsDTR');
+});
+
+Route::get('/ClientPortalSettings', function () {
+    return view('ClientPortal/ClientPortalSettings');
+});
+
+Route::get('/ClientPortalDetails', function () {
+    return view('ClientPortal/ClientPortalDetails');
+});
+
+
+
+
+
 
 
 

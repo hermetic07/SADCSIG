@@ -1,0 +1,156 @@
+/*------------------------------------------------------------------
+
+[Table of contents]
+
+ - Color styles
+
+-------------------------------------------------------------------*/
+
+a,
+.color-primary,
+.text-primary,
+.list-mark-1 li:before,
+.list-mark-6 li:before,
+.list-mark-7 li:before,
+.pager li > a:hover,
+.pager li > a:hover .icon,
+.social-net__link:hover,
+.pagination > li:first-child > a,
+.pagination > li:first-child > span,
+.pagination > li:last-child > a,
+.pagination > li:last-child > span,
+.yamm .nav > li > a:hover,
+.footer .copyright__link:hover,
+.footer .copyright__link-2:hover,
+.footer-form__btn,
+.b-advantages-2__icon,
+.btn-link:after,
+.b-type-d__list-desription .icon,
+.b-advantages-4__item:hover .b-advantages-4__icon,
+.footer .footer-section__list li a:hover,
+.breadcrumb > li > a:hover,
+.b-post .entry-meta__icon,
+.b-post-2 .entry-footer__link .icon,
+.b-post-2 .entry-footer__link:hover,
+.list-widget__link:hover,
+.post-tags___item:hover,
+.entry-footer__link:hover,
+.owl-theme .owl-controls .owl-buttons div:hover i:after {color: #5aaff7;}
+
+
+.bg-primary,
+.btn-effect:after,
+.dropcap_primary:first-letter,
+.tooltip-1 .tooltip-inner,
+.btn-primary,
+.forms__label-check-1:after,
+.forms__label-radio-2:after,
+.panel-heading .btn-collapse.collapsed,
+.b-contact-banner__inner:before,
+.b-contact-banner__inner:after,
+.section-bg_primary:after,
+.b-progress-list__name,
+.b-post .entry-date,
+.b-advantages-4__item:nth-child(even),
+.b-pricing_sm .b-pricing__inner,
+.dash_title,
+.b-history-list__btn:hover {background-color: #D62119;}
+
+
+.bg-border,
+.dropcap_primary:first-letter {border-color: #5aaff7;}
+
+
+.tooltip-1.top .tooltip-arrow,
+.tooltip-1.top-left .tooltip-arrow,
+.tooltip-1.top-right .tooltip-arrow,
+.border-2-colors,
+.b-contact-banner_mod-a .b-contact-banner__border {border-top-color: #5aaff7;}
+
+
+.tooltip-1.right .tooltip-arrow {border-right-color: #5aaff7;}
+
+
+.tooltip-1.left .tooltip-arrow,
+.border-left_primary:before,
+.b-navig-1-list__link:hover {border-left-color: #5aaff7;}
+
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination a:hover,
+.pagination span:hover,
+.pagination a:focus,
+.pagination span:focus,
+.tooltip-1.bottom .tooltip-arrow,
+.tooltip-1.bottom-left .tooltip-arrow,
+.tooltip-1.bottom-right .tooltip-arrow,
+.table_primary > thead > tr > th,
+.border-2-colors,
+.b-contact-banner_mod-a .b-contact-banner__border {border-bottom-color: #5aaff7;}
+
+
+.color-secondary,
+.list-mark-3 li:before,
+.list-mark-4 li:before,
+.list-num-1 li:before,
+.blockquote-3:before,
+.dropcap-2:first-letter,
+.b-reviews-1__title {color: #3d75a5;}
+
+
+.bg-secondary,
+.tooltip-2 .tooltip-inner,
+.dropcap_secondary:first-letter,
+.btn-second,
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination a:hover,
+.pagination span:hover,
+.pagination a:focus,
+.pagination span:focus,
+.list-mark-5 li:before,
+.list-mark-8 li:before,
+.forms__label-radio-1:before,
+.forms__label-check-2:after,
+.panel-heading .btn-collapse,
+.b-contact-banner:before,
+.border-2-colors:before,
+.border-2-colors:after,
+.b-form-request__form,
+.b-advantages-4__item:nth-child(odd),
+.section-bg_secondary:after,
+.b-pricing_sm:hover .b-pricing__inner,
+.b-pricing_sm:hover .b-pricing__btn,
+.b-pricing_lg:hover .b-pricing__inner,
+.b-pricing_lg:hover .b-pricing__btn {background-color: #3d75a5;}
+
+
+.forms__label-radio-1:before,
+.dropcap_secondary:first-letter,
+.dropcap-2:first-letter {border-color: #3d75a5;}
+
+
+.tooltip-2.top .tooltip-arrow,
+.tooltip-2.top-left .tooltip-arrow,
+.tooltip-2.top-right .tooltip-arrow {border-top-color: #3d75a5;}
+
+
+.tooltip-2.right .tooltip-arrow {border-right-color: #3d75a5;}
+
+
+.tooltip-2.left .tooltip-arrow,
+.border-left_secondary:before,
+.blockquote-1 {border-left-color: #3d75a5;}
+
+
+.tooltip-2.bottom .tooltip-arrow,
+.tooltip-2.bottom-left .tooltip-arrow,
+.tooltip-2.bottom-right .tooltip-arrow,
+.table_secondary > thead > tr > th {border-bottom-color: #3d75a5;}
+
+
+.b-contact-banner__inner:before {box-shadow: inset 215px 0 0 0 #3d75a5;}
+
+
+.b-contact-banner__inner:after {box-shadow: inset -215px 0 0 0 #3d75a5;}

@@ -49,11 +49,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -89,11 +89,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -129,11 +129,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 4.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -169,11 +169,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -209,11 +209,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -249,11 +249,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 4.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -289,11 +289,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -329,11 +329,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -369,11 +369,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 4.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -409,11 +409,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -449,11 +449,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -489,11 +489,11 @@
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 4.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>

@@ -57,7 +57,7 @@
                                 <div class="el-overlay scrl-dwn">
                                     <ul class="el-info">
                                         <li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                        <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html"><i class="icon-info"></i></a></li>
+                                        <li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}"><i class="icon-info"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                 <div class="el-overlay scrl-dwn">
                                     <ul class="el-info">
                                         <li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2%202.jpg"><i class="icon-magnifier"></i></a></li>
-                                        <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html"><i class="icon-info"></i></a></li>
+                                        <li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}"><i class="icon-info"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
                                 <div class="el-overlay scrl-dwn">
                                     <ul class="el-info">
                                         <li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2%203.JPG"><i class="icon-magnifier"></i></a></li>
-                                        <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html"><i class="icon-info"></i></a></li>
+                                        <li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}"><i class="icon-info"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                                      <div class="pro-list-img" style="background: url('2x2.jpg') no-repeat; background-position: center; ">         <div class="pro-list-img" style="width= 200px; height: 210px; background: url('plugins/images/securityguards/2x2 4.jpg');background-size: contain; background-repeat: no-repeat; background-position: 50% 50%;">       <div class="el-overlay scrl-dwn">
                                     <ul class="el-info">
                                         <li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2%204.jpg"><i class="icon-magnifier"></i></a></li>
-                                        <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html"><i class="icon-info"></i></a></li>
+                                        <li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}"><i class="icon-info"></i></a></li>
                                     </ul>
                                 </div>
                             </div>

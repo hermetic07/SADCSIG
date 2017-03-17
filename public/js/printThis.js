@@ -8,7 +8,7 @@
  *              jqPrint: https://github.com/permanenttourist/jquery.jqprint
  *              Ben Nadal: http://www.bennadel.com/blog/1591-Ask-Ben-Print-Part-Of-A-Web-Page-With-jQuery.htm
  *
- * Licensed under the MIT licence:
+ * Licensed under the MIT licenses:
  *              http://www.opensource.org/licenses/mit-license.php
  *
  * (c) Jason Day 2015

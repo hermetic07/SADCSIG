@@ -49,7 +49,7 @@
            <tr>
                         <td>								<div class="el-card-item">
             <div class="el-card-avatar el-overlay-1">
-                             <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/chris.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             <a href="{{url('/SecuProfile')}}"><img src="plugins/images/Clients/Active/chris.jpg" alt="user"  class="img-circle img-responsive"></a>
                   <div class="el-overlay">
                     <ul class="el-info">
                                                 <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
@@ -71,7 +71,7 @@
    <tr>
                            <td>								<div class="el-card-item">
             <div class="el-card-avatar el-overlay-1">
-                             <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/luigi.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             <a href="{{url('/SecuProfile')}}"><img src="plugins/images/Clients/Active/luigi.jpg" alt="user"  class="img-circle img-responsive"></a>
                   <div class="el-overlay">
                     <ul class="el-info">
                                                 <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
