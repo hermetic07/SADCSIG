@@ -229,7 +229,9 @@
   }
 
   Validator.prototype.onSubmit = function (e) {
+    e.preventDefault();
     this.validate()
+
     if (this.isIncomplete() || this.hasErrors()) e.preventDefault()
   }
 
