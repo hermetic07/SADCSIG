@@ -169,7 +169,12 @@ Route::get('/SecurityGuardsPortalSettings', function () {
 
 
 
-
+Route::get('/Request','LastControl@index');
+Route::get('/ClientsReg','LastControl@index2');
+Route::get('/SendGun','LastControl@index3');
+Route::get('/Deploy','LastControl@index4');
+Route::get('/Login','LastControl@index5');
+Route::get('/Secus','LastControl@index6');
 
 
 
