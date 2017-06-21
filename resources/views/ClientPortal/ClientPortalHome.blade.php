@@ -1,7 +1,9 @@
 @extends('ClientPortal.master3')
 
 @section('Title') Home @endsection
-
+@section('clientName')
+  {{  $establishment->person_in_charge }}
+@endsection
 
 @section('mtitle') Home @endsection
 
@@ -18,7 +20,13 @@
             <div class="user-bg"> <img width="100%" height="250px" alt="user" src="plugins/images/backgrounds/profilebg.png">
               <div class="overlay-box">
                 <div class="user-content"> <a href="javascript:void(0)"><img src="plugins/images/Clients/Active/evander.jpg" class="thumb-lg img-circle" alt="img"></a>
-                  <h4 class="text-white">Evander</h4>
+                  <h4 class="text-white">
+                    @foreach($clients as $client)
+                      @if($client->id == $establishment->clients_id)
+                        {{ $client->name }}
+                      @endif
+                    @endforeach
+                  </h4>
                   <h5 class="text-white">Client</h5>
                 </div>
               </div>
@@ -55,7 +63,29 @@
 
                                 <div class="col-md-6 col-sm-6 text-center">
                                     <p class="text-danger">Guards</i></p>
-                                    <h1>8</h1> </div>
+                                    <h1>
+                                    @php
+                                      $ctr = 0;
+                                    @endphp
+                                      @foreach($deploymentDetails as $deploymentDetail)
+                                        @foreach($deployments as $deployment)
+                                          @if($deploymentDetail->deployments_id == $deployment->id)
+                                            @foreach($serviceRequests as $serviceRequest)
+                                              @if($deployment->service_requests_id == $serviceRequest->id)
+                                                @if($serviceRequest->establishments_id == $establishment->id)
+                                                  @if($deploymentDetail->status == 'active')
+                                                    @php
+                                                      $ctr = $ctr + 1;
+                                                    @endphp
+                                                  @endif
+                                                @endif
+                                              @endif
+                                            @endforeach
+                                          @endif
+                                        @endforeach
+                                      @endforeach
+                                      {{ $ctr }}
+                                    </h1> </div>
 
                             </div>
 

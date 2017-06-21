@@ -53,7 +53,8 @@
 
   <div class="login-box3 login-sidebar">
     <div class="white-box">
-      <form class="form-horizontal form-material" id="loginform" action="index.html">
+      <form class="form-horizontal form-material" id="loginform" method="POST" action = "{{ url('/Client-auth') }}">
+      {!! csrf_field() !!}
         <a href="javascript:void(0)" class="text-center db"><img src="plugins/images/users/logoicon2.png" alt="Home" /><br/><img src="plugins/images/users/logotext2.png"  alt="Home" /></a>
 		  </br>	  </br>	  	</br>
         <div class="form-group m-t-40">

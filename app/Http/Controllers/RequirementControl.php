@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Requirement;
+use App\Employee;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
@@ -15,6 +16,13 @@ class RequirementControl extends Controller
     {
       $Requirements = Requirement::all();
       return view('maintenance.requirement')->with('requirements',$Requirements);
+    }
+
+    public function new(Request $request)
+    {
+      $data = new Employee ();
+      $data->name = trim($request->name," \t\n\r\0\x0B");
+      $data->save ();
     }
 
     public function add(Request $request)

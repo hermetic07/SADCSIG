@@ -10,6 +10,31 @@
     @section('Sec')<a href="javascript:void(0);" class="waves-effect"> @endsection
       @section('Del')<a href="javascript:void(0);" class="waves-effect"> @endsection
 
+
+@php
+  $serviceReqsCtr = 0;
+  $gunviceReqsCtr = 0;
+@endphp
+@foreach($serviceRequests as $serviceRequest)
+  @if($serviceRequest->status != 'deleted')
+    @php
+    
+      $serviceReqsCtr = $serviceReqsCtr + 1;
+      
+    @endphp
+  @endif
+@endforeach
+@foreach($gunRequests as $gunRequest)
+  @if($gunRequest->status != 'deleted')
+    @php
+    
+      $gunviceReqsCtr = $gunviceReqsCtr + 1;
+      
+    @endphp
+  @endif
+@endforeach
+@section('ServReqstCnt') {{ $serviceReqsCtr }} @endsection
+@section('GunReqstCnt') {{ $gunviceReqsCtr }} @endsection
 @section('content')
       <div class="row">
         <div class="col-md-12 col-lg-12 col-sm-12">
@@ -73,7 +98,9 @@
                     <h5 class="text-muted vb">Service request</h5>
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                    <h3 class="counter text-right m-t-15 text-danger">23</h3>
+                    <h3 class="counter text-right m-t-15 text-danger">
+                      {{ $serviceReqsCtr }}
+                    </h3>
                   </div>
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="progress">

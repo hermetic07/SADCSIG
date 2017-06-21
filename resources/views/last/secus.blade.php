@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" type="image/png" href="plugins/images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="plugins/images/favicon-16x16.png" sizes="16x16" />
 
@@ -54,6 +54,7 @@
 	  });
 
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   </head>
 
@@ -314,25 +315,28 @@
 		</br> </br>
 
                     <form id="validation" class="form-horizontal animated fadeInUp" style="border: 2px solid black; border-radius:15px;">
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="wizard-content">
 
                             <div class="wizard-pane active" role="tabpanel">
 	                    	</br>
 								<div class="form-group">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <label class="col-xs-1 control-label">First name</label>
                                     <div class="col-xs-3">
-                                        <input type="text" class="form-control name"  />
+                                        <input type="text" class="form-control name" id="fname"  />
                                     </div>
 									<label class="col-xs-2 control-label">Middle name</label>
                                     <div class="col-xs-2">
-                                        <input type="text" class="form-control"  />
+                                        <input type="text" class="form-control" id="mname" />
                                     </div>
 									 <label class="col-xs-1 control-label">Last name</label>
                                     <div class="col-xs-3">
-                                        <input type="text" class="form-control"  />
+                                        <input type="text" class="form-control" id="lname" />
                                     </div>
                                 </div>
                        	     	<div class="form-group">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <label class="col-xs-1 control-label">Place of birth</label>
                                     <div class="col-xs-5">
                                         <input type="text" class="form-control" name="noblank"  />
@@ -340,14 +344,15 @@
                                     <label class="col-xs-2 control-label">Date of birth</label>
                                     <div class="col-xs-4">
                                         <div class="input-group">
-											<span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy" name="noblank">
+											<span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy" name="bday">
 										</div>
                                     </div>
                                 </div>
 								<div class="form-group">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
 									 <label class="col-xs-2 control-label">Gender</label>
 									    <div class="col-xs-3">
-											<select class="form-control"  name="noblank">
+											<select class="form-control"  name="noblank" id="gender">
 												<option></option>
 												<option>Male</option>
 												<option>Female</option>
@@ -355,7 +360,7 @@
 										</div>
 									 <label class="col-xs-2 control-label">Marital status</label>
 									    <div class="col-xs-3">
-											<select class="form-control"  name="noblank">
+											<select class="form-control"  name="noblank" id="marital">
 												<option></option>
                           						<option>Single</option>
                     							<option>Maried</option>
@@ -367,7 +372,7 @@
                                 <div class="form-group">
 									  <label class="col-xs-1 control-label">Address</label>
 										<div class="col-xs-11">
-											<input type="text" class="form-control" name="noblank" />
+											<input type="text" class="form-control" name="noblank" id="address" />
 										</div>
 
                                 </div>
@@ -375,13 +380,13 @@
 
 		  														 <label class="col-xs-1 control-label">2x2 picture</label>
 					<div class="col-xs-5">
-						       <input type="file" id="input-file-max-fs" class="dropify-fr" 	data-max-height="226" data-max-width="226" data-mind-height="224" data-min-width="224" accept="image/*"/ name="noblank" data-default-file="plugins/images/Clients/personincharge.jpg">
+						       <input type="file" id="input-file-max-fs" class="dropify-fr" 	data-max-height="226" data-max-width="226" data-mind-height="224" data-min-width="224" accept="image/*"/ name="picture" data-default-file="plugins/images/Clients/personincharge.jpg">
 
 							      </div>
 
 		  														 <label class="col-xs-1 control-label">Image of location</label>
 					<div class="col-xs-5">
-                                  <input type="file" id="input-file-max-fs" class="dropify-fr" accept="image/*"/ name="noblank" data-default-file="plugins/images/Clients/location.jpg">
+                                  <input type="file" id="input-file-max-fs" class="dropify-fr" accept="image/*"/ name="locationpic" data-default-file="plugins/images/Clients/location.jpg">
 						<span class="font-13 text-muted">Recommended: Screenshot from google map<span>
 
 							      </div>
@@ -394,7 +399,7 @@
                                     	<div class="col-xs-2">
                                				<div class="input-group">
 												<div class="input-group-addon"><i class="fa fa-phone"></i></div>
-										        <input type="text" class="form-control"  id="numonly" data-mask="9999999" >
+										        <input type="text" class="form-control"  id="numonly" name="telephone" data-mask="9999999" >
 											</div>
 											<span class="font-13 text-muted">ex. 1234567<span>
 										</div>
@@ -402,7 +407,7 @@
                                     	<div class="col-xs-2">
                                				<div class="input-group">
 												<div class="input-group-addon"><i class="fa fa-mobile"></i></div>
-											    <input type="text" class="form-control"  name="numonly" data-mask="99999999999">
+											    <input type="text" class="form-control"  id="numonly" name"cellphone" data-mask="99999999999">
 											</div>
 											<span class="font-13 text-muted">ex. 09123456789<span>
 										</div>
@@ -432,7 +437,7 @@
                                           @foreach($a as $a)
                                           <tr>
                         <td>{{$a->name}}</td>
-                        <td><input type="text" class="form-control" name="noblank"  /></td>
+                        <td><input type="text" class="form-control" name="noblank" id="attrib" /></td>
                         <td>{{$a->measurement}}</td>
                                           </tr>
                                           @endforeach
@@ -457,15 +462,15 @@
                                     <label class="col-xs-2 control-label"><strong>Primary</strong></label>
         							<label class="col-xs-1 control-label"></label>
 										<div class="col-xs-5">
-                            				<input type="text" class="form-control"/>
+                            				<input type="text" class="form-control" name"primary"/>
                     					</div>
 										<label class="col-xs-1 control-label"></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text" id="primaryfrom-date-range">
+                     						<input class="form-control" type="text" name"primaryf" id="primaryfrom-date-range">
                     					</div>
         								<label class="col-xs-1 control-label"> <center> To </center></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text" id="primaryto-date-range">
+                     						<input class="form-control" type="text" name"primaryt" id="primaryto-date-range">
                     					</div>
 
                          		</div>
@@ -474,15 +479,15 @@
                                   <label class="col-xs-2 control-label"><strong>Secondary</strong></label>
         						  <label class="col-xs-1 control-label"></label>
 										<div class="col-xs-5">
-                            				<input type="text" class="form-control"/>
+                            				<input type="text" class="form-control" name="second"/>
 										</div>
 										<label class="col-xs-1 control-label"></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text" id="secondaryfrom-date-range">
+                     						<input class="form-control" type="text" name="secondf" id="secondaryfrom-date-range">
                     					</div>
 										<label class="col-xs-1 control-label"> <center> To </center></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text" id="secondaryto-date-range">
+                     						<input class="form-control" type="text" name="secondt" id="secondaryto-date-range">
                     					</div>
 
                                 </div>
@@ -491,15 +496,15 @@
                                  <label class="col-xs-2 control-label"><strong>Tertiary</strong></label>
         						 <label class="col-xs-1 control-label"></label>
 									<div class="col-xs-5">
-                            			<input type="text" class="form-control"/>
+                            			<input type="text" class="form-control" name="tert"/>
                     				</div>
 									<label class="col-xs-1 control-label"></label>
 									<div class="col-xs-1">
-                     					<input class="form-control" type="text" id="tertiaryfrom-date-range">
+                     					<input class="form-control" type="text" name="tertf" id="tertiaryfrom-date-range">
 									</div>
 									<label class="col-xs-1 control-label"> <center> To </center></label>
 									<div class="col-xs-1">
-                     					<input class="form-control" type="text" id="tertiaryto-date-range">
+                     					<input class="form-control" type="text" name="terf" id="tertiaryto-date-range">
                     				</div>
 
 							  </div>
@@ -509,7 +514,7 @@
                                  <label class="col-xs-4 control-label">Degree obtained</label>
 
 									<div class="col-xs-5">
-                            			<input type="text" class="form-control"/>
+                            			<input type="text" class="form-control" name="degree"/>
 									</div>
 
 							  </div>
@@ -522,7 +527,7 @@
                 <label class="col-xs-5 control-label"></label>
 									<div class="col-xs-3">
                            				<div class="checkbox checkbox-success">
-											<input id="checkbox1" type="checkbox">
+											<input id="checkbox1" name="lic" type="checkbox" value="{{$l->name}}">
                   							<label for="checkbox1"> {{$l->name}} </label>
 										</div>
                     </div>
@@ -537,7 +542,7 @@
                   <label class="col-xs-5 control-label"></label>
 									<div class="col-xs-3">
                            				<div class="checkbox checkbox-success">
-											<input id="checkbox16" type="checkbox">
+											<input id="checkbox16" name="req" type="checkbox" value="{{$r->name}}">
 											<label for="checkbox16"> {{$r->name}} </label>
                 						</div>
 									</div>
@@ -704,6 +709,7 @@
             </div>
             <div class="modal-body">
               <form data-toggle="validator">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                   <div class="row">
                    <div class="form-group col-sm-8">
@@ -785,6 +791,7 @@
              <div class="modal-footer">
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
              </div>
             </form>
           </div>
@@ -998,6 +1005,11 @@
 
 
          $(document).ready(function(){
+           $.ajaxSetup({
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             }
+           });
 
             $('#exampleValidator').wizard({
                 onInit: function(){
@@ -1039,8 +1051,33 @@
                 },
                 onFinish: function(){
                     $('#validation').submit();
-                    alert('Done!');
+                    var allLicense = [];
+                    var allReq = [];
 
+                    $.each($("input[name='lic']:checked"), function(){
+                        allLicense.push($(this).val());
+                    });
+
+
+                    $.each($("input[name='req']:checked"), function(){
+                        allReq.push($(this).val());
+                    });
+                    $.ajax({
+                      type: 'post',
+                      url: '/RegisterEmployee',
+                      data: {
+                          '_token': $('input[name=_token]').val(),
+                          fname: $('#fname').val(),
+                          mname: $('#mname').val(),
+                          lname: $('#lname').val(),
+                          bday: $('input[name=bday]').val(),
+                          license: allLicense,
+                          req: allReq,
+                      },
+                      success: function(data){
+                        console.log(data);
+                      }
+                    });
                 }
             });
 

@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/Request-sent','LastControl@viewSentReq');
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,17 +21,13 @@ Route::get('/Blank', function () {
 });
 
 //Admin portal
-Route::get('/Dashboard', function () {
-    return view('AdminPortal/Dashboard');
-});
+Route::get('/Dashboard','AdminController@dashboardIndex');
 
 Route::get('/Replace', function () {
     return view('AdminPortal/Replace');
 });
 
-Route::get('/Swap', function () {
-    return view('AdminPortal/Swap');
-});
+Route::get('/Swap','GuardReplacementController@index');
 
 Route::get('/ActiveClient', function () {
     return view('AdminPortal/ActiveClient');
@@ -101,17 +98,17 @@ Route::get('/Quotation', function () {
     return view('AdminPortal/Quotation');
 });
 
-Route::get('/ServiceRequest', function () {
-    return view('AdminPortal/ServiceRequest');
-});
+Route::get('/ServiceRequest','ServiceRequestController@index');
+
+Route::get('/GunRequest','GunRequestController@index');
+
+Route::get('/AddGuardRequests','AdditionalGuardRequesController@index');
 
 Route::get('/SecuProfile', function () {
     return view('AdminPortal/SecuProfile');
 });
 
-Route::get('/ClientPortalHome', function () {
-    return view('ClientPortal/ClientPortalHome');
-});
+Route::get('/ClientPortalHome','ClientPortalHomeController@index');
 
 Route::get('/ClientPortalEstablishments', function () {
     return view('ClientPortal/ClientPortalEstablishments');
@@ -121,9 +118,7 @@ Route::get('/ClientPortalMessages', function () {
     return view('ClientPortal/ClientPortalMessages');
 });
 
-Route::get('/ClientPortalGuardsDTR', function () {
-    return view('ClientPortal/ClientPortalGuardsDTR');
-});
+Route::get('/ClientPortalGuardsDTR','ClientPortalHomeController@guardDtr');
 
 Route::get('/ClientPortalSettings', function () {
     return view('ClientPortal/ClientPortalSettings');
@@ -160,17 +155,30 @@ Route::get('/SecurityGuardsPortalSettings', function () {
 
 
 
+Route::get('/ClientLogin','LastControl@clientAuth');
+Route::post('/Client-auth','LastControl@authenticate');
 
 
-
-
-
-
-
-
+//Route::get('/Request','LastControl@login');
+//Route::get('/Request-view','ServiceRequestController@view');
 
 Route::get('/Request','LastControl@index');
+Route::post('/Request-Save/{id}','LastControl@saveReq');
+Route::post('/GunRequest-Save/{id}','LastControl@saveGunReq');
+Route::post('/AddGuardRequests-Save/{id}','LastControl@saveAddGuardReq');
+Route::post('/GuardReplcRequest-Save/{id}','LastControl@saveGuardReplReqst');
+
+
+
+Route::post('GunRequest-remove', 'GunRequestController@remove');
+Route::post('ServiceRequest-remove', 'ServiceRequestController@remove');
+Route::post('AddGuardRequest-remove', 'AdditionalGuardRequesController@remove');
+
+Route::get('/DeployGuards','DeploymentController@deployIndex');
+Route::post('/DeployGuards/Save','DeploymentController@saveDepl');
+
 Route::get('/ClientsReg','LastControl@index2');
+Route::post('ClientRegs/Save','LastControl@save');
 Route::get('/SendGun','LastControl@index3');
 Route::get('/Deploy','LastControl@index4');
 Route::get('/Login','LastControl@index5');
@@ -338,7 +346,7 @@ Route::post ( '/addArea', 'AreaController@addItem' );
 Route::post ( '/editArea', 'AreaController@editItem' );
 Route::post ( '/deleteArea', 'AreaController@deleteItem' );
 
-Route::get ( '/Gut', 'GuntypeController@readItems' );
+Route::get ( '/Gut', 'GuntypeController@readItems' );  ///  GuntypeController doesn't exists??
 Route::post ( '/addGuntype', 'GuntypeController@addItem' );
 Route::post ( '/editGuntype', 'GuntypeController@editItem' );
 Route::post ( '/deleteGuntype', 'GuntypeController@deleteItem' );
@@ -347,3 +355,5 @@ Route::get ( '/Gu', 'GunController@readItems' );
 Route::post ( '/addGun', 'GunController@addItem' );
 Route::post ( '/editGun', 'GunController@editItem' );
 Route::post ( '/deleteGun', 'GunController@deleteItem' );
+
+Route::get('Attribute2','Attribute2Controller@index');

@@ -45,7 +45,7 @@
         <ul class="nav navbar-top-links navbar-right pull-right">
 
 			 <!-- Admin account-->
-			<li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/Clients/Active/evander.jpg"	 alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Evander</b></a>
+			<li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/Clients/Active/evander.jpg"	 alt="user-img" width="36" class="img-circle"><b class="hidden-xs">@yield('clientName')</b></a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
                     <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
                     <li role="separator" class="divider"></li>
@@ -77,7 +77,7 @@
           </li>
 		  <li> <a href="{{url('/ClientPortalMessages')}}" class="waves-effect"><i class="fa fa-envelope fa-2x fa-fw"></i> <span class="hide-menu"> Messages </span></a>
           </li>
-		  <li> <a href="javascript:void(0)" class="waves-effect"><i class="fa fa-location-arrow fa-2x fa-fw"></i> <span class="hide-menu"> Requests </span></a>
+		  <li> <a href="{{url('/Request')}}" class="waves-effect"><i class="fa fa-location-arrow fa-2x fa-fw"></i> <span class="hide-menu"> Requests </span></a>
           </li>
 		  <li> <a href="{{url('/ClientPortalGuardsDTR')}}" class="waves-effect"><i class="fa fa-calendar-o fa-2x fa-fw"></i> <span class="hide-menu"> Guard's DTR </span></a>
           </li>

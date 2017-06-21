@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\GunRequest;
+use App\AddGuardRequests;
 use App\Service;
 use App\Nature;
 use App\Gun;
@@ -14,17 +16,46 @@ use App\Military;
 use App\GunType;
 use App\Province;
 use App\Area;
+use App\ServiceRequest;
+use App\Clients;
+use App\Establishments;
+use App\Contract;
 use Exception;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use App\ClientSentRequests;
+use App\Employees;
+use App\Deployments;
+use App\DeploymentDetails;
+use Carbon\Carbon;
+
 class LastControl extends Controller
 {
+    public function clientAuth()
+    {
+     
+      return view('last.login');
+    }
+    public function authenticate(Request $request){
 
+      return $request->toArray();
+    }
     public function index()
     {
       $Services = Service::all();
-      return view('last.request')->with('services',$Services);
+      $clients = Clients::all();
+      $establishment = Establishments::findOrFail('1');
+      $guns = Gun::all();
+      $contracts = Contract::all();
+      $serviceRequests = ServiceRequest::all();
+      $deployments = Deployments::all();
+      $deploymentDetails = DeploymentDetails::all();
+      $employees = Employees::all();
+
+      return view('ClientPortal.ClientPortalRequest
+        ')->with('services',$Services)->with('clients',$clients)->with('guns',$guns)->with('contracts',$contracts)->with('establishment',$establishment)->with('serviceRequests',$serviceRequests)->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees);
+     // return $client;
     }
 
     public function index2()
@@ -63,5 +94,49 @@ class LastControl extends Controller
       $ra = Rank::all();
       $m = Military::all();
       return view('last.secus')->with('a',$a)->with('r',$r)->with('l',$l)->with('ra',$ra)->with('m',$m);
+    }
+
+    public function saveReq($id,Request $request){
+     
+      $explod = explode('/',$request->meetSched);
+      $meetDt = "$explod[2]-$explod[0]-$explod[1]";
+
+      $service = Service::where('name',$request->service)->first();
+      ServiceRequest::create(['establishments_id'=>$id,'services_id'=>$service->id,'date_start'=>Carbon::now(),'meetingPlace'=>$request->meeting,'meetingSchedule'=>$meetDt,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+
+     return redirect('Request');
+    
+       
+    }
+
+    public function saveGunReq($id, Request $request){
+      
+      $gun = Gun::where('name',$request->gun)->first();
+      GunRequest::create(['establishments_id'=>$id,'gun_for'=>$request->service_requested,'guns_id'=>$gun->id,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+
+      return redirect('Request');
+      
+    }
+
+    public function saveAddGuardReq($id,Request $request){
+       AddGuardRequests::create(['establishments_id'=>$id,'no_guards'=>$request->no_guards,'guard_for'=>$request->service_requested,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+       return redirect('Request');
+    }
+
+    public function viewSentReq(Request $request){
+      /*$clientSentRequests = ClientSentRequests::latest('changeTime')->get();
+      $serviceRequests = ServiceRequest::where('establishments_id',$request->establishment_id)->first();
+      $gunRequests = GunRequest::where('establishments_id',$request->establishment_id)->first();
+      $establishment = Establishments::findOrFail($request->establishment_id);*/
+      return view('ClientPortal.sentRequests');
+    }
+    
+    public function saveGuardReplReqst($id,Request $request){
+      //return $request->numGuards;
+      for($i = 0; $i < $request->numGuards; $i++){
+        if($request->$i == null){
+          echo $i."<br>";
+        }
+      }
     }
 }

@@ -9,75 +9,96 @@
 
 
 
-		      <div class="row">
-		          <div class="col-lg-12	">
-
-          <div class="white-box">
-
-			  			 <div class="row  el-element-overlay white-box">
-
-							 			  <h4><center><strong>Security guards</strong></center></h4>
-            <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-              <thead>
-                <tr>
-					<th data-sort-ignore="true" width="80px"></th>
-                  <th>Name</th>
-                  <th data-sort-ignore="true" width="150px">Actions</th>
-                </tr>
-              </thead>
-              	<div class="form-inline padding-bottom-15">
-                	<div class="row">
-						<div class="col-sm-6">
-						</div>
-                    	<div class="col-sm-6 text-right m-b-20">
-                    	<div class="form-group">
-                      		<input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+<div class="row">
+	<div class="col-lg-12	">
+    <div class="white-box">
+			<div class="row  el-element-overlay white-box">
+				<h4><center><strong>Security guards</strong></center></h4>
+        <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+          <thead>
+            <tr>
+					     <th data-sort-ignore="true" width="90px"></th>
+                <th>Name</th>
+                <th  width="220px" >Shift</th>
+                <th>Deployed for</th>
+                <th>Role</th>
+                <th>Date Deployed</th>
+                <th data-sort-ignore="true">Actions</th>
+            </tr>
+          </thead>
+          <div class="form-inline padding-bottom-15">
+            <div class="row">
+						  <div class="col-sm-6"></div>
+                <div class="col-sm-6 text-right m-b-20">
+                  <div class="form-group">
+                    <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
 						    autocomplete="off">
-					   </div>
-                  	   </div>
-                   </div>
+                  </div>
                 </div>
-              <tbody>
-                 <tr>
-                              <td>								<div class="el-card-item">
-									<div class="el-card-avatar el-overlay-1">
-                             			 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-												<div class="el-overlay">
-													<ul class="el-info">
-                                                    	<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  					</ul>
-												</div>
-									</div>
-								</div></td>
-                              <td>Daisy ronquillo</td>
-                              <td>
-								  <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-calendar"></i> Show DTR </button>
-
+              </div>
+          </div>
+          <tbody>
+            @foreach($deployments as $deployment)
+                @foreach($serviceRequests as $serviceRequest)
+                  @if($deployment->service_requests_id == $serviceRequest->id)
+                    @if($serviceRequest->establishments_id == $establishment->id)
+                      @foreach($deploymentDetails as $deploymentDetail)
+                        @if($deploymentDetail->deployments_id == $deployment->id)
+                         @if($deploymentDetail->status == 'active')
+                            <tr>
+                              <td>                
+                                <div class="el-card-item">
+                                  <div class="el-card-avatar el-overlay-1">
+                                    <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                                    <div class="el-overlay">
+                                      <ul class="el-info">
+                                        <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
                               </td>
-                          </tr>
-				 <tr>
-                              <td>					<div class="el-card-item">
-									<div class="el-card-avatar el-overlay-1">
-                             			 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
-												<div class="el-overlay">
-													<ul class="el-info">
-                                                    	<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  					</ul>
-												</div>
-									</div>
-								</div></td>
-                              <td>Luigi lacsina</td>
                               <td>
-        <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-calendar"></i> Show DTR </button>
+                                @foreach($employees as $employee)
+                                  @if($employee->id == $deploymentDetail->employees_id)
+                                    {{ $employee->first_name }}  {{ $employee->last_name }}
+                                  @endif
+                                @endforeach
                               </td>
-                          </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="3"></td>
-                </tr>
-              </tfoot>
-        	</table>
+                              <td>
+                                From: {{ $deploymentDetail->shift_from }}  To: {{ $deploymentDetail->shift_to }}
+                              </td>
+                              <td>
+                                @foreach($services as $service)
+                                  @if($service->id == $serviceRequest->services_id)
+                                    {{ $service->name }}
+                                  @endif
+                                @endforeach
+                              </td>
+                              <td>
+                                {{ $deploymentDetail->role }}
+                              </td>
+                              <td>
+                                {{ $deploymentDetail->created_at }}
+                              </td>
+                              <td>
+                                <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-calendar"></i> Show DTR </button>
+                              </td>
+                            </tr>
+                          @endif
+                        @endif
+                      @endforeach
+                    @endif
+                  @endif
+                @endforeach
+              @endforeach
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="7"></td>
+            </tr>
+          </tfoot>
+    	</table>
 
             <div class="text-right">
               <ul class="pagination">

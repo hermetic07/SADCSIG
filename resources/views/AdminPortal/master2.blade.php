@@ -157,7 +157,7 @@
                     		<ul class="nav nav-third-level">
 
                           <li> <a href="{{url('/License')}}">Licences and clearances</a> </li>
-                          <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
+                          <li> <a href="{{url('/Attribute2')}}">Body attributes</a></li>
                           <li> <a href="{{url('/Military')}}">Military services</a></li>
                           <li> <a href="{{url('/Rank')}}">Rank</a></li>
                           <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
@@ -180,7 +180,7 @@
 
           			<li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
 						<ul class="nav nav-second-level">
-							<li> <a href="ClientRegistration.html" class="waves-effect">Clients</a>
+							<li> <a href="{{url('/ClientsReg')}}"" class="waves-effect">Clients</a>
 							</li>
 							<li> <a href="SecurityGuardsRegistration.html" class="waves-effect">Security guards</a>
 							</li>
@@ -204,6 +204,10 @@
 						</li>
 						<li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
 						</li>
+            <li> <a href="{{url('/ServiceRequest')}}" class="waves-effect">Client Requests<span class="label label-rouded label-info pull-right"> @yield('ServReqstCnt')</span></a>
+            </li>
+            <li> <a href="{{url('/GunRequest')}}" class="waves-effect">Gun Requests<span class="label label-rouded label-info pull-right"> @yield('GunReqstCnt')</span></a>
+            </li>
 
 					 </ul>
 				  </li>
@@ -280,6 +284,7 @@
 
       @yield('content')
 
+    <!--   <input type="hidden" name="hidden_view" id="hidden_view" value=@yield('hiddenediturl')> -->
 
 
 

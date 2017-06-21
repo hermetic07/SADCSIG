@@ -44,7 +44,7 @@
         <ul class="nav navbar-top-links navbar-right pull-right">
 
 			 <!-- Admin account-->
-			<li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/Clients/Active/evander.jpg"	 alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Evander</b></a>
+			<li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/Clients/Active/evander.jpg"	 alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{ $client->name }}</b></a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
                     <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
                     <li role="separator" class="divider"></li>
@@ -99,13 +99,8 @@
       </div>
       <!-- /.row -->
 
-		      <div class="row">
-
-
-
-
-
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
+		  <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
           <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-info-circle"></i> Request for a new service</div>
             <div class="panel-wrapper collapse in">
@@ -113,14 +108,14 @@
 
                 <p>Got a new establishment? And want us to serve you? We would like to! Request a service on us and let's talk about it!</p>
 
-                <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#Service"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
+                <label class="col-xs-6 control-label"></label>	<button class="btn btn-info m-t-10" data-toggle="modal" data-target="#Service"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</button>
 
               </div>
             </div>
           </div>
         </div>
 
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
           <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-info-circle"></i> Request for additional guns</div>
             <div class="panel-wrapper collapse in">
@@ -128,14 +123,14 @@
 
                 <p>Request for a additional guns and the agency will process it and when it will be legallize, the agency will process it for you.</p>
 
-                <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
+                <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#reqGuns"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
 
               </div>
             </div>
           </div>
         </div>
 
-				  					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
           <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-info-circle"></i> Request for additional guards</div>
             <div class="panel-wrapper collapse in">
@@ -143,7 +138,7 @@
 
                 <p>Request for a additional guns and the agency will process it and when it will be legallize, the agency will process it for you.</p>
 
-                <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
+                <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#reqAddGuards" type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
 
               </div>
             </div>
@@ -151,7 +146,7 @@
         </div>
 
 
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
           <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-info-circle"></i> Request for guard replacement</div>
             <div class="panel-wrapper collapse in">
@@ -159,131 +154,215 @@
 
                 <p>You don't like the guard that deployed to you? or for other reason? Request for a replacement of that guard and the agency will process it right away.</p>
 
-                <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10">Request</a>
+                <label class="col-xs-6 control-label"></label>  <a class="btn btn-info m-t-10" data-toggle="modal" data-target="#guardReplacement" type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
 
               </div>
-
+            </div>
           </div>
         </div>
+      </div>
+      <!-- /.container-fluid -->
+      <footer class="footer text-center"> 2017 </footer>
+    </div>    <!-- /#page-wrapper -->
+  </div>    <!-- /#wrapper -->
 
-          </div>
+<!-- Deliver guns -->
+  <div id="reqGuns" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up the following</strong></center></h4>
+        </div>
+        <div class="modal-body">
+          <form data-toggle="validator" method="POST" action="{{ url('/GunRequest-Save',$client->id) }}">
+            <div class="form-group">
+              <div class="row">
+                {!! csrf_field() !!}
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="form-group col-sm-8">
+                        <label class="control-label">Gun Name</label>
+                         <select class="form-control"  name="gun">
+                          <option value="" disabled="" selected="">---</option>
+                          @foreach($guns as $gun )
+                          <option>{{$gun->name}}</option>
+                          @endforeach
+                        </select>
+                        <div class="help-block with-errors"></div>
+                      </div>
 
-					  <!-- Deliver guns -->
-  <div id="Swap" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up the following</strong></center></h4>
-                  </div>
-                  <div class="modal-body">
-              <form data-toggle="validator">
-                <div class="form-group">
-<div class="row">
-<div class="form-group col-sm-8">
-
-  <label class="control-label  col-md-12">Gun name</label>
-  <div class="col-md-12">
-    <input type="text" class="form-control" id="Nature_Name" name="Nature_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" value="" required>
-    <div class="help-block with-errors"></div>
-  </div>
-</div>
-
-<div class="form-group col-sm-4">
-
-<label class="control-label col-md-12">Quantity</label>
-  <div class="col-md-12">
-<input type="number" class="form-control"  id="rate" name="rate" min="1"  step="0.01"  required>
-<div class="help-block with-errors"></div>
-</div>
-</div>
-					</div>
+                      <div class="form-group col-sm-4">
+                        <label class="control-label col-md-12">Quantity</label>
+                        <div class="col-md-12">
+                          <input type="number" class="form-control"  id="rate" name="rate" min="1"  step="0.01"  required>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                   </div>
                 </div>
-            </div>
-             <div class="modal-footer">
-				 <button type="button" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
-              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-             </div>
-            </form>
-                  </div>
-                </div>
-                <!-- /.modal-content -->
               </div>
-              <!-- /.modal-dialog -->
-				  	  <!-- Deliver guns -->
+            </div>
+            <div class="modal-footer">
+              <button type="submit" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>    <!-- /.modal-content -->
+    </div>     <!-- modal-dialog -->
+  </div>      <!-- Deliver guns -->
+
+  <!-- Request Service -->
   <div id="Service" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up the following</strong></center></h4>
-                  </div>
-                  <div class="modal-body">
-              <form data-toggle="validator">
-                <div class="form-group">
-					                  <div class="row">
-					               <div class="form-group col-sm-12">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up the following</strong></center></h4>
+        </div>
+        <div class="modal-body">
+          <form data-toggle="validator" method="POST" action="{{ url('/Request-Save',$client->id) }}">
+              {!! csrf_field() !!}
+            <div class="form-group">
+               <div class="row">
+                 <div class="form-group col-sm-12">
                       <label class="control-label">Service</label>
-                       <select class="form-control"  name="noblank">
-												<option value="" disabled="" selected="">---</option>
-												@foreach($services as $s )
+                       <select class="form-control"  name="service">
+                        <option value="" disabled="" selected="">---</option>
+                        @foreach($services as $s )
                         <option>{{$s->name}}</option>
                         @endforeach
-											</select>
+                      </select>
                       <div class="help-block with-errors"></div>
-                   </div>
-					<div class="form-group col-sm-6">
-                       <label class="control-label">Meeting place</label>
-                             <input type="text" class="form-control" id="Nature_Name" name="Nature_Name" pattern="[.,--&\\'a-zA-Z0-9\s]+" value="" required>
-                       <div class="help-block with-errors"></div>
-                    </div>
-
-					               <div class="form-group col-sm-6">
-                      <label class="control-label">Meeting schedule</label>
-                       					                                        <div class="input-group">
-											<span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy" name="noblank">
-										</div>
-                      <div class="help-block with-errors"></div>
-                   </div>
-					<div class="form-group col-sm-12	">
-                       <label class="control-label">Description of service:</label>
-                      <textarea class="form-control" rows="5" required></textarea>
-                       <div class="help-block with-errors"></div>
-
-                    </div>
-
-
-                 </div>
-                   <div class="help-block with-errors"></div>
-
-                </div>
-            </div>
-             <div class="modal-footer">
-				 <button type="button" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
-              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-             </div>
-            </form>
                   </div>
+
+                 <div class="form-group col-sm-6">
+                  <label class="control-label">Meeting place</label>
+                    <input type="text" class="form-control" id="Nature_Name" name="meeting" pattern="[.,--&\\'a-zA-Z0-9\s]+" value="" required>
+                    <div class="help-block with-errors"></div>
                 </div>
-                <!-- /.modal-content -->
+
+                 <div class="form-group col-sm-6">
+                  <label class="control-label">Meeting schedule</label>
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy" name="meetSched">
+                    </div>
+                    <div class="help-block with-errors"></div>
+                 </div>
+                 <div class="form-group col-sm-12 ">
+                    <label class="control-label">Description of service:</label>
+                    <textarea class="form-control" rows="5" required name="servDesc"></textarea>
+                    <div class="help-block with-errors"></div>
+                 </div>
               </div>
-              <!-- /.modal-dialog -->
+              <div class="help-block with-errors"></div>
             </div>
-<!-- /Add military service modal -->
+            
+            <div class="modal-footer">
+              <button type="submit" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+          </div>      <!-- modal-body -->
+        </div>        <!-- /.modal-content -->
+      </div>          <!-- /.modal-dialog -->
+    </div>          <!-- /request service modal -->
+
+    <!-- Additional Guards -->
+  <div id="reqAddGuards" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up the following</strong></center></h4>
         </div>
-      </div>
+        <div class="modal-body">
+          <form data-toggle="validator" method="POST" action="{{ url('/GunRequest-Save',$client->id) }}">
+            <div class="form-group">
+              <div class="row">
+                {!! csrf_field() !!}
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="form-group col-sm-8">
+                        <label class="control-label">Gun Name</label>
+                         <select class="form-control"  name="gun">
+                          <option value="" disabled="" selected="">---</option>
+                          @foreach($guns as $gun )
+                          <option>{{$gun->name}}</option>
+                          @endforeach
+                        </select>
+                        <div class="help-block with-errors"></div>
+                      </div>
 
+                      <div class="form-group col-sm-4">
+                        <label class="control-label col-md-12">Quantity</label>
+                        <div class="col-md-12">
+                          <input type="number" class="form-control"  id="rate" name="rate" min="1"  step="0.01"  required>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>    <!-- /.modal-content -->
+    </div>     <!-- modal-dialog -->
+  </div>      <!-- Additional Guards -->
 
-      </div>
+ <!-- Guard Replacement -->
+  <div id="guardReplacement" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up the following</strong></center></h4>
+        </div>
+        <div class="modal-body">
+          <form data-toggle="validator" method="POST" action="{{ url('/GunRequest-Save',$client->id) }}">
+            <div class="form-group">
+              <div class="row">
+                {!! csrf_field() !!}
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="form-group col-sm-8">
+                        <label class="control-label">Gun Name</label>
+                         <select class="form-control"  name="gun">
+                          <option value="" disabled="" selected="">---</option>
+                          @foreach($guns as $gun )
+                          <option>{{$gun->name}}</option>
+                          @endforeach
+                        </select>
+                        <div class="help-block with-errors"></div>
+                      </div>
 
+                      <div class="form-group col-sm-4">
+                        <label class="control-label col-md-12">Quantity</label>
+                        <div class="col-md-12">
+                          <input type="number" class="form-control"  id="rate" name="rate" min="1"  step="0.01"  required>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>    <!-- /.modal-content -->
+    </div>     <!-- modal-dialog -->
+  </div>      <!-- Guard Replacement-->
 
-    </div>
-    <!-- /.container-fluid -->
-    <footer class="footer text-center"> 2017 </footer>
-  </div>
-  <!-- /#page-wrapper -->
-</div>
-<!-- /#wrapper -->
 <!-- jQuery -->
 <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
