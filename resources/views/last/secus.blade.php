@@ -407,7 +407,7 @@
                                     	<div class="col-xs-2">
                                				<div class="input-group">
 												<div class="input-group-addon"><i class="fa fa-mobile"></i></div>
-											    <input type="text" class="form-control"  id="numonly" name"cellphone" data-mask="99999999999">
+											    <input type="text" class="form-control"  id="numonly" name="cellphone" data-mask="99999999999">
 											</div>
 											<span class="font-13 text-muted">ex. 09123456789<span>
 										</div>
@@ -462,15 +462,15 @@
                                     <label class="col-xs-2 control-label"><strong>Primary</strong></label>
         							<label class="col-xs-1 control-label"></label>
 										<div class="col-xs-5">
-                            				<input type="text" class="form-control" name"primary"/>
+                            				<input type="text" class="form-control" name="primary"/>
                     					</div>
 										<label class="col-xs-1 control-label"></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text" name"primaryf" id="primaryfrom-date-range">
+                     						<input class="form-control" type="text" name="primaryf" id="primaryfrom-date-range">
                     					</div>
         								<label class="col-xs-1 control-label"> <center> To </center></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text" name"primaryt" id="primaryto-date-range">
+                     						<input class="form-control" type="text" name="primaryt" id="primaryto-date-range">
                     					</div>
 
                          		</div>
@@ -496,15 +496,15 @@
                                  <label class="col-xs-2 control-label"><strong>Tertiary</strong></label>
         						 <label class="col-xs-1 control-label"></label>
 									<div class="col-xs-5">
-                            			<input type="text" class="form-control" name="tert"/>
+                            			<input type="text" class="form-control" name="tertiary"/>
                     				</div>
 									<label class="col-xs-1 control-label"></label>
 									<div class="col-xs-1">
-                     					<input class="form-control" type="text" name="tertf" id="tertiaryfrom-date-range">
+                     					<input class="form-control" type="text" name="tertiaryf" id="tertiaryfrom-date-range">
 									</div>
 									<label class="col-xs-1 control-label"> <center> To </center></label>
 									<div class="col-xs-1">
-                     					<input class="form-control" type="text" name="terf" id="tertiaryto-date-range">
+                     					<input class="form-control" type="text" name="tertiaryt" id="tertiaryto-date-range">
                     				</div>
 
 							  </div>
@@ -675,7 +675,7 @@
                   <td id="data1">1</td>
 
                   <td>
-				<input type="text" class="form-control" name="noblank" />
+				<input type="text" class="form-control" name="noblank" id="skills" />
 				  </td>
 					    <td>
 				X
@@ -1053,15 +1053,19 @@
                     $('#validation').submit();
                     var allLicense = [];
                     var allReq = [];
-
+                    var allattrib = [];
                     $.each($("input[name='lic']:checked"), function(){
                         allLicense.push($(this).val());
                     });
 
+                    $.each($("input[name='attrib']"), function(){
+                        allattrib.push($(this).val());
+                    });
 
                     $.each($("input[name='req']:checked"), function(){
                         allReq.push($(this).val());
                     });
+
                     $.ajax({
                       type: 'post',
                       url: '/RegisterEmployee',
@@ -1071,11 +1075,28 @@
                           mname: $('#mname').val(),
                           lname: $('#lname').val(),
                           bday: $('input[name=bday]').val(),
+                          address: $('#address').val(),
+                          telephone:$('input[name=telephone]').val(),
+                          cellphone:$('input[name=cellphone]').val(),
+                          email:$('input[name=email]').val(),
+                          gender:$('#gender').val(),
+                          attributes: allattrib,
+                          primary:$('input[name=primary]').val(),
+                          primaryf:$('input[name=primaryf]').val(),
+                          primaryt:$('input[name=primaryt]').val(),
+                          secondary:$('input[name=second]').val(),
+                          secondaryf:$('input[name=secondf]').val(),
+                          secondaryt:$('input[name=secondt]').val(),
+                          tertiary:$('input[name=tertiary]').val(),
+                          tertiaryf:$('input[name=tertiaryf]').val(),
+                          tertiaryt:$('input[name=tertiaryt]').val(),
+                          degree:$('input[name=degree]').val(),
                           license: allLicense,
                           req: allReq,
                       },
                       success: function(data){
-                        console.log(data);
+                        alert(data);
+                        location.reload();
                       }
                     });
                 }

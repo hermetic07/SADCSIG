@@ -357,3 +357,7 @@ Route::post ( '/editGun', 'GunController@editItem' );
 Route::post ( '/deleteGun', 'GunController@deleteItem' );
 
 Route::get('Attribute2','Attribute2Controller@index');
+
+//Guard side
+Route::get('Guard-Registration','LastControl@index6');
+Route::post('/RegisterEmployee','RegisterControl@employeeReg');
