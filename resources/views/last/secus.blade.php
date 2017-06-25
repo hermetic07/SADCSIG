@@ -344,7 +344,7 @@
                                     <label class="col-xs-2 control-label">Date of birth</label>
                                     <div class="col-xs-4">
                                         <div class="input-group">
-											<span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy" name="bday">
+											<span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose" placeholder="yyyy/mm/dd" name="bday">
 										</div>
                                     </div>
                                 </div>
@@ -557,44 +557,21 @@
 
 									<div class="form-group">
 									 <div class="table-responsive">
-                                		<table class="table color-bordered-table inverse-bordered-table">
+                    <table id="military-table" class="table color-bordered-table inverse-bordered-table">
 											<thead>
 												<tr>
 													<th>Military service</th>
-                                            		<th>Rank</th>
+                          <th>Rank</th>
 													<th>Serial number</th>
 													<th>Period of service From</th>
 													<th>To</th>
 													<th width="50px">Delete</th>
-                                        		</tr>
-                                    		</thead>
-                                    		<tbody>
-                                        		<tr>
-													<td>Sample</td>
-													<td>Sample</td>
-													<td>Sample</td>
-														<td>Sample</td>
-													<td>Sample</td>
-													<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td>
-                                        		</tr>
-												<tr>
-                                            		<td>Sample</td>
-													<td>Sample</td>
-                                            		<td>Sample</td>
-														<td>Sample</td>
-													<td>Sample</td>
-													<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td>
-												</tr>
-												<tr>
-													<td>Sample</td>
-													<td>Sample</td>
-													<td>Sample</td>
-													<td>Sample</td>
-													<td>Sample</td>
-													<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td>
-                                        		</tr>
-                                    		</tbody>
-                                		</table>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                  </table>
 									</div>
 								   </div>
 								</br>
@@ -606,36 +583,19 @@
 
 									<div class="form-group">
 									 <div class="table-responsive">
-                                		<table class="table color-bordered-table inverse-bordered-table">
+              <table class="table color-bordered-table inverse-bordered-table" id="seminar-table">
 											<thead>
 												<tr>
 													<th>Name</th>
-                                            		<th>Ratings</th>
+                          <th>Ratings</th>
 													<th>Date taken</th>
 													<th width="50px">Delete</th>
-                                        		</tr>
-                                    		</thead>
-                                    		<tbody>
-                                        		<tr>
-													<td>Sample</td>
-													<td>Sample</td>
-													<td>Sample</td>
-													<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td>
-                                        		</tr>
-												<tr>
-                                            		<td>Sample</td>
-													<td>Sample</td>
-                                            		<td>Sample</td>
-													<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td>
-												</tr>
-												<tr>
-													<td>Sample</td>
-													<td>Sample</td>
-													<td>Sample</td>
-													<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td>
-                                        		</tr>
-                                    		</tbody>
-                                		</table>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                </table>
 									</div>
 								   </div>
 								<h4> <strong>Special skills and other qualifications</strong></h4>
@@ -648,7 +608,7 @@
 											<div class="col-xs-6">
 
 
-										<table id="demo-foo-addrow" class="table color-bordered-table inverse-bordered-table"
+				<table id="demo-foo-addrow" class="table color-bordered-table inverse-bordered-table"
               data-page-size="100">
               <thead>
                 <tr>
@@ -673,16 +633,9 @@
               <tbody>
                 <tr>
                   <td id="data1">1</td>
-
-                  <td>
-				<input type="text" class="form-control" name="noblank" id="skills" />
-				  </td>
-					    <td>
-				X
-				  </td>
+                  <td><input type="text" class="form-control" name="noblank" id="skills" /></td>
+					        <td>X</td>
                 </tr>
-
-
               </tbody>
             </table>
 								   </div>
@@ -714,17 +667,17 @@
                   <div class="row">
                    <div class="form-group col-sm-8">
                       <label class="control-label">Name</label>
-                       <input type="text" class="form-control" required>
+                       <input id="semname" type="text" class="form-control" required>
                       <div class="help-block with-errors"></div>
                    </div>
 					   <div class="form-group col-sm-4">
                        <label class="control-label">Ratings</label>
-                       <input type="text" class="form-control" required>
+                       <input id="semrating" type="text" class="form-control" required>
                        <div class="help-block with-errors"></div>
                     </div>
                   <div class="col-md-12">
                       <label class="control-label  col-md-12">Date taken</label>
-                    <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="dp-datetaken" placeholder="mm/dd/yyyy">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="dp-datetaken" placeholder="yyyy/mm/dd">
                   </div>
                  </div>
                    <div class="help-block with-errors"></div>
@@ -732,7 +685,7 @@
             </div>
              <div class="modal-footer">
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <button id="semadd" type="button" class="btn btn-info waves-effect waves-light" >Submit</button>
              </div>
             </form>
           </div>
@@ -753,35 +706,41 @@
                   <div class="row">
                    <div class="form-group col-sm-6">
                       <label class="control-label">Military service</label>
-                       										   	<select class="form-control"  name="noblank">
+                       	<select class="form-control" id="militarname" name="noblank">
 												<option value="" disabled="" selected="">---</option>
-												<option>Military</option>
-												<option>ROTC</option>
+												@foreach($m as $m)
+                        @if($m->status==="active")
+                        <option>{{$m->name}}</option>
+                        @endif
+                        @endforeach
 											</select>
                       <div class="help-block with-errors"></div>
                    </div>
 					   <div class="form-group col-sm-6">
                        <label class="control-label">Ranks</label>
-                       		  <select class="form-control"  name="noblank">
+                       		  <select class="form-control" id="mrank" name="noblank">
 												<option value="" disabled="" selected="">---</option>
-												<option>Major</option>
-												<option>Sergeant</option>
+												@foreach($ra as $r)
+                          @if($r->status==="active")
+                          <option>{{$r->name}}</option>
+                          @endif
+                        @endforeach
 											</select>
                        <div class="help-block with-errors"></div>
                     </div>
 					    <div class="form-group col-sm-12">
  				<label class="control-label  col-md-12">Serial number</label>
-											<input type="text" class="form-control"/>
+											<input id="mserial" type="text" class="form-control"/>
                        <div class="help-block with-errors"></div>
                     </div>
 				                   <div class="form-group col-sm-6">
                       <label class="control-label  col-md-12">Period of service from</label>
-                    <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="dp-periodfrom" placeholder="mm/dd/yyyy">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="dp-periodfrom" placeholder="yyyy/mm/dd">
                       <div class="help-block with-errors"></div>
                    </div>
 					   <div class="form-group col-sm-6">
                       <label class="control-label  col-md-12">to</label>
-                    <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="dp-periodto" placeholder="mm/dd/yyyy">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="dp-periodto" placeholder="yyyy/mm/dd">
                        <div class="help-block with-errors"></div>
                     </div>
                  </div>
@@ -790,7 +749,7 @@
             </div>
              <div class="modal-footer">
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <button id="msumbmit" type="button" class="btn btn-info waves-effect waves-light" >Submit</button>
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
              </div>
             </form>
@@ -890,7 +849,80 @@
             alwaysVisible: false
         });
 
-	 // Add & Remove Row
+        // remove row for military
+          var mrow = $('#military-table');
+          mrow.footable().on('click', '.delete-row-btn', function() {
+
+
+          //get the footable object
+            var footable = mrow.data('footable');
+
+            //get the row we are wanting to delete
+            var row = $(this).parents('tr:first');
+
+            //delete the row
+            footable.removeRow(row);
+          });
+        // add row for military
+          $('#msumbmit').click(function() {
+            var militar=$('#militarname').val();
+            var rank=$('#mrank').val();
+            var serial=$('#mserial').val();
+            var datefrom=$('#dp-periodfrom').val();
+            var dateto=$('#dp-periodto').val();
+            var footable = mrow.data('footable');
+
+
+            var newRow = '<tr><td>'+militar+'</td><td>'+rank+'</td><td>'+serial+'</td><td>'+datefrom+'</td><td>'+dateto+'</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+
+
+            //add it
+            footable.appendRow(newRow);
+
+            $('#militarname').val('');
+            $('#mrank').val('');
+            $('#mserial').val('');
+            $('#dp-periodfrom').val('');
+            $('#dp-periodto').val('');
+            $('#AddMili').modal('hide');
+          });
+
+
+
+// remove row for seminar
+  var semrow = $('#seminar-table');
+  semrow.footable().on('click', '.delete-row-btn', function() {
+
+
+  //get the footable object
+    var footable = semrow.data('footable');
+
+    //get the row we are wanting to delete
+    var row = $(this).parents('tr:first');
+
+    //delete the row
+    footable.removeRow(row);
+  });
+// add row for seminar
+  $('#semadd').click(function() {
+    var name=$('#semname').val();
+    var rating=$('#semrating').val();
+    var date=$('#dp-datetaken').val();
+    var footable = semrow.data('footable');
+
+
+    var newRow = '<tr><td>'+name+'</td><td>'+rating+'</td><td>'+date+'</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+
+
+    //add it
+    footable.appendRow(newRow);
+    $('#semname').val('');
+    $('#semrating').val('');
+    $('#dp-datetaken').val('');
+    $('#Addtse').modal('hide');
+  });
+
+	 // Remove Row for skills
 	var addrow = $('#demo-foo-addrow');
 	addrow.footable().on('click', '.delete-row-btn', function() {
 
@@ -903,12 +935,9 @@
 		//delete the row
 		footable.removeRow(row);
 	});
-	// Add Row Button
+	// Add Row Button for skills
 	$('#demo-btn-addrow').click(function() {
-
-
-
-		//get the footable object
+    //get the footable object
 		var footable = addrow.data('footable');
 
 		//build up the row we are wanting to add

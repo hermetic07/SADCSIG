@@ -31,11 +31,10 @@ class RankControl extends Controller
   					'errors' => $validator->getMessageBag ()->toArray ()
   			) );
   		else {
-          if (trim($request->name," ")!==""&&trim($request->selection," ")!=="") {
+          if (trim($request->name," ")!=="") {
             try {
               $data = new Rank ();
         			$data->name = trim($request->name," \t\n\r\0\x0B");
-        			$data->mname = trim($request->selection," \t\n\r\0\x0B");
               $data->status = "active";
         			$data->save ();
               if ($data->status === "active") {
@@ -51,7 +50,6 @@ class RankControl extends Controller
               if ($old->status==="deleted") {
                 try {
                   $old->status = "active";
-                  $old->mname = trim($request->selection," \t\n\r\0\x0B");
                   $old->save();
                   if($old->status === "active"){
                     $old->status = "checked";

@@ -8,20 +8,6 @@
 
 @section('addmodalbody')
 <div class="form-group">
-  <div class="row">
-    <div class="col-md-12">
-      <label  class="control-label" >Choose Type of military services</label>
-      <select required class="form-control" id="Rank_Unit" name="Rank_Unit">
-        <option value="">None</option>
-        @foreach($Militaries as $m)
-          @if($m->status === "active")
-            <option value="{!!$m->name!!}">{!!$m->name!!}</option>
-          @endif
-        @endforeach
-      </select>
-        <div class="help-block with-errors"></div>
-    </div>
-  </div>
 </div>
 <div class="form-group">
   <div class="row">
@@ -40,7 +26,6 @@
 
 @section('theads')
     <th>Name</th>
-    <th width="200px">Type of Military Service</th>
 @endsection
 
 @section('tbodies')
@@ -48,7 +33,6 @@
         @if($Rank->status !== "deleted")
         <tr class="item{{$Rank->id}}">
            <td>{!!$Rank->name!!}</td>
-           <td>{!!$Rank->mname!!}</td>
            <td>
              @if($Rank->status === "active")
              <div class="onoffswitch2">
@@ -86,20 +70,6 @@
 
 @section('editmodalcontent')
 <div class="form-group">
-  <div class="row">
-    <div class="col-md-12">
-      <label  class="control-label" >Choose Type of military services</label>
-      <select required class="form-control" id="edit_Rank_Unit" name="edit_Rank_Unit">
-        <option value="">None</option>
-        @foreach($Militaries as $m)
-          @if($m->status === "active")
-            <option value="{!!$m->name!!}">{!!$m->name!!}</option>
-          @endif
-        @endforeach
-      </select>
-        <div class="help-block with-errors"></div>
-    </div>
-          </div>
         </div>
 <div class="form-group">
   <div class="row">
@@ -121,7 +91,7 @@
 
             "columnDefs": [
               {
-"targets": 3,
+"targets": 2,
 "orderable": false
 },
 {
@@ -149,6 +119,7 @@ $("#add").click(function() {
         },
         success: function(data) {
           if ((data.errors)){
+            alert(data.errors);
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
               $.toast({
            heading: 'The value that you entered is already existing',
@@ -165,8 +136,7 @@ $("#add").click(function() {
               var t = $('#table').DataTable();
                   t.row.add( [
                   $('input[name=Rank_name]').val(),
-                  $('#Rank_Unit').val(),
-                  "  <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
+                  "  <div class='onoffswitch2'> <input type='checkbox' onchange='fun_status('"+data.id+"')' name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
                   " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
 
                   ] ).draw( false );
@@ -201,7 +171,6 @@ $("#edd").click(function() {
           '_token': $('input[name=_token]').val(),
           'id': $("#edit_id").val(),
           'name': $('#edit_Rank_name').val(),
-          'selection': $('#edit_Rank_Unit').val(),
       },
       success: function(data) {
         if (data.errors) {
@@ -244,7 +213,6 @@ $("#edd").click(function() {
 
         t.row.add( [
          $('#edit_Rank_name').val(),
-         $('#edit_Rank_Unit').val(),
          " <div class='onoffswitch2'> <input type='checkbox' onchange=\"fun_status('"+data.id+"')\" name='onoffswitch2' class='onoffswitch2-checkbox' id='"+data.id+"' "+data.status+"> <label class='onoffswitch2-label' for='"+data.id+"'> <span class='onoffswitch2-inner'></span> <span class='onoffswitch2-switch'></span> </label> </div>",
           " &nbsp; <button class='btn btn-warning  waves-effect waves-light' class='model_img img-responsive' data-toggle='modal' data-target='#Edit'  onclick=\"fun_edit('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-edit'></i></span>Edit</button> <button class='btn btn-danger  waves-effect waves-light'  class='model_img img-responsive' onclick=\"fun_delete('"+data.id+"')\" ><span class='btn-label'><i class='fa fa-times'></i></span> Delete</button>",
 
@@ -326,7 +294,6 @@ $("#edd").click(function() {
         //console.log(result);
         $("#edit_id").val(result.id);
         $("#edit_Rank_name").val(result.name);
-        $("#edit_Rank_Unit").val(result.mname);
       }
     });
   }
