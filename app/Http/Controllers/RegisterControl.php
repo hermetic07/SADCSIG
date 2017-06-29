@@ -8,10 +8,15 @@ use App\EmployeeAttributes;
 use App\EmployeeDegree;
 use App\EmployeeEducation;
 use App\EmployeeLicense;
+use App\EmployeeMilitary;
+use App\EmployeeSeminar;
 use App\EmployeeRequirements;
+use App\EmployeeSkills;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Exception;
 class RegisterControl extends Controller
 {
@@ -19,55 +24,209 @@ class RegisterControl extends Controller
 
     public function employeeReg(Request $request)
     {
+
       try {
+        //basic info
+
         $count = Employee::get()->count();
         $employee = new Employee();
         $employee->id = "SECU".$count;
-        $employee->username = "SECU".$count;
+        $test = "SECU".$count;
+        session(['key' => $test]);
         $employee->password = "password";
         $employee->first_name = $request->fname;
         $employee->middle_name = $request->mname;
         $employee->last_name = $request->lname;
-
-        $employee->address = $request->address;
+        $employee->gender = $request->gender;
+        $employee->marital_status = $request->marital;
+        $explod = explode('/',$request->bday);
+        $meetDt = "$explod[2]-$explod[0]-$explod[1]";
+        $employee->birth = $meetDt;
+        $employee->street = $request->street;
+        $employee->barangay = $request->barangay;
+        $employee->city = $request->city;
         $employee->telephone = $request->telephone;
         $employee->cellphone = $request->cellphone;
         $employee->email = $request->email;
+        $employee->status = "pending";
+
+        $employee->deployed = 0;
         $employee->save();
 
-
-
-        $l = Input::get('license');
-        foreach($l as $as) {
-          $License = new EmployeeLicense();
-          $License->employees_id = "SECU".$count;
-          $License->license = $as;
-          $License->save();
+        // start of body attributes
+        $index1 = 0;
+        $aname = Input::get('aname');
+        $attr = Input::get('attr');
+        try {
+          foreach($aname as $a) {
+            $index2 = 0;
+            $empatt = new EmployeeAttributes();
+            $empatt->employees_id = "SECU".$count;
+            $empatt->attribute = $a;
+            foreach($attr as $b)
+            {
+              if($index1===$index2)
+              {
+                $empatt->size = $b;
+                $empatt->save();
+              }
+              $index2+=1;
+            }
+            $index1+=1;
+          }
+        } catch (Exception $e) {
         }
 
-        $r = Input::get('req');
-        foreach($r as $as) {
-          $Req = new EmployeeRequirements();
-          $Req->employees_id = "SECU".$count;
-          $Req->requirement = $as;
-          $Req->save();
+        // start of military Service
+        $index1 = 0;
+        $allmilitary = Input::get('allmilitary');
+        $allrank = Input::get('allrank');
+        $allserial = Input::get('allserial');
+        $alldatef = Input::get('alldatef');
+        $alldatet = Input::get('alldatet');
+        try {
+          foreach($allmilitary as $a) {
+            $index2 = 0;
+            $index3 = 0;
+            $index4 = 0;
+            $index5 = 0;
+            $empm = new EmployeeMilitary();
+            $empm->employees_id = "SECU".$count;
+            $empm->military_services_id = $a;
+            foreach($allrank as $b)
+            {
+              if($index1===$index2)
+              {
+                $empm->ranks_id = $b;
+              }
+              $index2+=1;
+            }
+            foreach($allserial as $b)
+            {
+              if($index1===$index3)
+              {
+                $empm->serial_number = $b;
+              }
+              $index3+=1;
+            }
+            foreach($alldatef as $b)
+            {
+              if($index1===$index4)
+              {
+                $empm->from = $b;
+              }
+              $index4+=1;
+            }
+            foreach($alldatet as $b)
+            {
+              if($index1===$index5)
+              {
+                $empm->to = $b;
+                $empm->save();
+              }
+              $index5+=1;
+            }
+            $index1+=1;
+          }
+        } catch (Exception $e) {
+
         }
+
+        // seminars and trainings
+        $index1 = 0;
+        $allseminar = Input::get('allseminar');
+        $allrating = Input::get('allrating');
+        $alldatetaken = Input::get('alldatetaken');
+        try {
+          foreach($allseminar as $a) {
+            $index2 = 0;
+            $index3 = 0;
+            $empm = new EmployeeSeminar();
+            $empm->employees_id = "SECU".$count;
+            $empm->name = $a;
+            foreach($allrating as $b)
+            {
+              if($index1===$index2)
+              {
+                $empm->rating = $b;
+              }
+              $index2+=1;
+            }
+            foreach($alldatetaken as $b)
+            {
+              if($index1===$index3)
+              {
+                $explods = explode('/',$b);
+                $meetDt = "$explods[2]-$explods[0]-$explods[1]";
+                $empm->date = $meetDt;
+                $empm->save();
+              }
+              $index3+=1;
+            }
+            $index1+=1;
+          }
+        } catch (Exception $e) {
+
+        }
+
+        // start of licenses
+        try {
+          $l = Input::get('license');
+          foreach($l as $as) {
+            $License = new EmployeeLicense();
+            $License->employees_id = "SECU".$count;
+            $License->license = $as;
+            $License->save();
+          }
+        } catch (Exception $e) {
+
+        }
+
+        //start of requirement
+        try {
+          $r = Input::get('req');
+          foreach($r as $as) {
+            $Req = new EmployeeRequirements();
+            $Req->employees_id = "SECU".$count;
+            $Req->requirement = $as;
+            $Req->save();
+          }
+        } catch (Exception $e) {
+
+        }
+
+        //start of talent
+        try {
+          $alltalent = Input::get('alltalent');
+          foreach($alltalent as $as) {
+            $talents = new EmployeeSkills();
+            $talents->employees_id = "SECU".$count;
+            $talents->name = $as;
+            $talents->save();
+          }
+        } catch (Exception $e) {
+          return $e;
+        }
+
 
         $E1 = new EmployeeEducation();
         $E1->employees_id = "SECU".$count;
         $E1->school_name = $request->primary;
         $E1->year_start = $request->primaryf;
         $E1->year_end = $request->primaryt;
+        $E1->save();
         $E2 = new EmployeeEducation();
         $E2->employees_id ="SECU".$count;
         $E2->school_name = $request->secondary;
         $E2->year_start = $request->secondaryf;
         $E2->year_end = $request->secondaryt;
+        $E2->save();
         $E3 = new EmployeeEducation();
         $E3->employees_id ="SECU".$count;
         $E3->school_name = $request->tertiary;
         $E3->year_start = $request->tertiaryf;
         $E3->year_end = $request->tertiaryt;
+        $E3->save();
         $ED = new EmployeeDegree();
         $ED->employees_id ="SECU".$count;
         $ED->degree = $request->degree;
@@ -86,5 +245,29 @@ class RegisterControl extends Controller
 
      public function test(){
        return view('test');
+     }
+
+     public function saveImage(Request $request){
+       $count =0;
+       $value = $request->session()->get('key');
+       $employee = Employee::find($value);
+       if (Input::hasFile('picture')) {
+         $file = Input::file('picture');
+         $file->move('uploads', $file->getClientOriginalName());
+         $employee->image = $file->getClientOriginalName();
+         $count+=1;
+       }
+       if (Input::hasFile('locationpic')) {
+         $file = Input::file('locationpic');
+         $file->move('uploads', $file->getClientOriginalName());
+         $employee->location_image = $file->getClientOriginalName();
+         $count+=1;
+       }
+       if ($count!==0) {
+         $employee->save();
+         $request->session()->forget('key');
+         echo "Images have been uploaded";
+       }
+       $request->session()->forget('key');
      }
 }

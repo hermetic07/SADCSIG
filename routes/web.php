@@ -359,7 +359,9 @@ Route::post ( '/deleteGun', 'GunController@deleteItem' );
 Route::get('Attribute2','Attribute2Controller@index');
 
 //Guard side
+Route::get ( '/test', 'RegisterControl@test' );
 Route::get('Guard-Registration','LastControl@index6');
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
+Route::post('upload','RegisterControl@saveImage');
 
 Route::get('send','sendEmail@send');

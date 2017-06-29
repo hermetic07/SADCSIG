@@ -38,6 +38,8 @@
 <!-- Daterange picker plugins css -->
 <link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
 <link href="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+<script src="{{asset('js/jquery.min.js')}}"></script>
+  <script src="{{asset('js/jquery.validate.js')}}"></script>
  <script type="text/javascript">
 
 	  $(document).ready(function(){
@@ -67,232 +69,53 @@
 <!-- fix header and sidebar -->
 <body class="fix-header fix-sidebar">
 
-  <div id="wrapper">
-    <!-- Top Navigation -->
-    <nav class="navbar navbar-default navbar-static-top m-b-0">
-	  <!-- navbar-header -->
-      <div class="navbar-header">
-		<a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+      <!-- Top Navigation -->
+      <nav class="navbar navbar-default navbar-static-top m-b-0">
+  	  <!-- navbar-header -->
+        <div class="navbar-header">
+  		<a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
 
-          <ul class="nav navbar-top-links navbar-left hidden-xs">
-          	<li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
-		  </ul>
+            <ul class="nav navbar-top-links navbar-left hidden-xs">
+            	<li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
+  		  </ul>
 
-       	  <ul class="nav navbar-top-links navbar-right pull-right">
+         	  <ul class="nav navbar-top-links navbar-right pull-right">
 
-			  	 <!-- Incident report -->
-			 <li class="dropdown">
-			   <a class="waves-effect waves-light" href="IncidentReport.html">
-				 <span class="mytooltip tooltip-effect-7">
-                    <span class="tooltip-item">
-					  <i class="fa fa-warning"></i>
-				      <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-					</span>
-                    <span class="tooltip-table2 clearfix">
-                      <span class="tooltip-texth2">
-			 Reports
-					  </span>
-                    </span>
-                 </span>
-			   </a>
-        	 </li>
-			 <!-- Messages-->
-			 <li class="dropdown">
-			   <a class="waves-effect waves-light" href="Messages.html">
-				 <span class="mytooltip tooltip-effect-7">
-                    <span class="tooltip-item">
-					  <i class="icon-envelope"></i>
-				      <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-					</span>
-                    <span class="tooltip-table2 clearfix">
-                      <span class="tooltip-texth2">
-					  Messages
-					  </span>
-                    </span>
-                 </span>
-			   </a>
-        	 </li>
+  		 <!-- System logo-->
+           <div class="top-left-part"><a class="logo" href="Dashboard.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
+           </div>
 
-			 <!-- Announcements-->
-			 <li class="dropdown">
-				 <a class="waves-effect waves-light" href="Announcement.html">
-					 <span class="mytooltip tooltip-effect-7">
-						 <span class="tooltip-item">
-							 <i class="fa fa-bullhorn"></i>
-					 </span>
-                      <span class="tooltip-table2 clearfix">
-                      <span class="tooltip-texth">
-						Announcements
-					  </span>
-                      </span>
-                    </span>
-				</a>
-             </li>
+       </div>
+        <!-- /.navbar-header -->
+      </nav>
+      <!-- End Top Navigation -->
+
+  <!-- Top Navigation -->
+  <nav class="navbar navbar-default navbar-static-top m-b-0">
+  <!-- navbar-header -->
+    <div class="navbar-header">
+  <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
 
 
 
-			 <!-- Admin account-->
-             <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/users/admin.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Ernest</b> <small>(Admin)</small>  </a>
-                <ul class="dropdown-menu dropdown-user animated flipInY">
-                    <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#"><i class="ti-settings"></i> Account Setting</a> </li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-power-off"></i> Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-
-		 <!-- System logo-->
-         <div class="top-left-part"><a class="logo" href="Dashboard.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
-         </div>
-
-     </div>
-      <!-- /.navbar-header -->
-    </nav>
-    <!-- End Top Navigation -->
-   <!-- Left navbar-header -->
-    <div class="navbar-default sidebar" role="navigation">
-    	<div class="sidebar-nav navbar-collapse" id="slimtest4">
-			<ul class="nav" id="side-menu">
-
-                    <li class="user-pro">
-                        <a href="#" class="waves-effect"><img src="plugins/images/LandingPage/JUCEBER.png" alt="user-img" class="img-circle"><span class="hide-menu text-white">Jubecer security</span>
-                        </a>
-                    </li>
-
-				<li> <a href="dashboard.html" class="waves-effect"><i class="fa fa-dashboard fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Dashboard </span> </a>
-          		</li>
-
-          		<li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-wrench fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Maintenance  <span class="fa arrow"></span></a>
-             		<ul class="nav nav-second-level">
-						<li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
-							<ul class="nav nav-third-level">
-                       			<li> <a href="Services.html">Services</a> </li>
-                        		<li> <a href="NatureOfBusiness.html">Nature of business</a></li>
-                    		</ul>
-               			</li>
-                		<li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
-                    		<ul class="nav nav-third-level">
-								<li> <a href="MilitaryServices.html">Military services</a></li>
-								<li> <a href="Ranks.html">Rank</a></li>
-								<li> <a href="BodyAttributes.html">Body attributes</a></li>
-							<li> <a href="Leave.html">Leave</a></li>
-							<li> <a href="licensessAndClearances.html">licensess and clearances</a> </li>
-							<li> <a href="Guns.html">Guns</a> </li>
-							</ul>
-						</li>
-                		<li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
-							<ul class="nav nav-third-level">
-                        		<li> <a href="#">Area</a> </li>
-								<li> <a href="Uom.html">Unit of measurement</a> </li>
-								<li> <a href="Requirements.html">Requirements</a> </li>
-                    		</ul>
-						</li>
-             		</ul>
-					</li>
 
 
-          			<li> <a href="javascript:void(0);" class="waves-effect active"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
-						<ul class="nav nav-second-level">
-							<li> <a href="ClientRegistration.html" class="waves-effect">Clients</a>
-							</li>
-							<li> <a href="SecurityGuardsRegistration.html" class="waves-effect">Security guards</a>
-							</li>
-             			</ul>
-					</li>
+   <!-- System logo-->
+       <div class="top-left-part"><a class="logo" href="Dashboard.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
+       </div>
 
-		   	      <li><a href="javascript:void(0);" class="waves-effect"><i class="fa fa-exchange fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Manual deployment<span class="fa arrow"></span></a>
-					  <ul class="nav nav-second-level">
-						  <li> <a href="Deploy.html" class="waves-effect">Deploy</a>
-						  </li>
-						  <li> <a href="Replace.html" class="waves-effect">Replace</a>
-						  </li>
-						    <li> <a href="Swap.html" class="waves-effect">Swap</a>
-						  </li>
-             		</ul>
-	      		  </li>
-
-				  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Clients <span class="fa arrow"></span></a>
-					 <ul class="nav nav-second-level">
-						 <li> <a href="ActiveClients.html" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
-						</li>
-						<li> <a href="PendingClients.html" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
-						</li>
-
-					 </ul>
-				  </li>
-
-				  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shield fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Security guards<span class="fa arrow"></span> </a>
-					 <ul class="nav nav-second-level">
-						<li> <a href="guards.html" class="waves-effect">Guards<span class="label label-rouded label-info pull-right">13</span></a>
-						</li>
-						<li> <a href="guardslicenses.html" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right">13</span></a>
-						</li>
-						 	<li> <a href="guardsdtr.html" class="waves-effect">Guard's DTR</a>
-						</li>
-					 </ul>
-				  </li>
-
-				  <li> <a href="Availableapplicants.html" class="waves-effect"><i class="icon-user-follow fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Applicants  </a>
-				  </li>
-
-				  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-truck fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Delivery <span class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-						<li> <a href="Deliverguns.html" class="waves-effect">Guns</a>
-						</li>
-						<li> <a href="DeliverAmmunitions.html" class="waves-effect">Ammunitions</a>
-						</li>
-						<li> <a href="pickups.html" class="waves-effect">Pickups</a>
-						</li>
-					 </ul>
-				  </li>
+   </div>
+    <!-- /.navbar-header -->
+  </nav>
+  <!-- End Top Navigation -->
 
 
 
-				  <li> <a href="#" class="waves-effect"><i class="fa fa-file-text fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Reports</span></a>
-				  </li>
-
-				  <li> <a href="#" class="waves-effect"><i class="fa fa-search fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Queries</span></a>
-				  </li>
-
-
-				  <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Utilities<span class="fa arrow"></span></span></a>
-					<ul class="nav nav-second-level">
-					  <li><a href="#">Account settings</a></li>
-					</ul>
-				  </li>
-        	</ul>
-      	</div>
-    </div>
-	<!-- Left navbar-header end -->
-
-
-
- <div id="page-wrapper">
-    <div class="container-fluid">
-      <div class="row bg-title">
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-          <h4 class="page-title">Security guards registration</h4>
-        </div>
-        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-          <ol class="breadcrumb">
-            <li class="active"><a href="#">Dashboard</a></li>
-            <li class="active">Register</li>
-			<li class="active"><a href="SecurityGuardsRegistration.html">Security guards</a></li>
-          </ol>
-        </div>
-        <!-- /.col-lg-12 -->
-      </div>
-      <!-- .row -->
-
-      <!-- /.row -->
-      <!-- /.row -->
-      <div class="row">
-        <div class="col-md-12 col-lg-12 col-sm-12">
           <div class="white-box">
             <div class="row">
-					<div class="alert alert-info"> Please input each forms correctly and completely base on the information of the employee given. </div>
+              <br>
+              <br>
+					<div class="alert alert-info"> <p align="center">Please input each forms correctly and completely base on the information of the employee given.</p> </div>
  <div id="exampleValidator" class="wizard">
              <ul class="wizard-steps" role="tablist" style="border: 1px solid black;">
                    		<li class="active" role="tab">
@@ -314,43 +137,38 @@
 
 		</br> </br>
 
-                    <form id="validation" class="form-horizontal animated fadeInUp" style="border: 2px solid black; border-radius:15px;">
+                    <form id="validation"  class="form-horizontal animated fadeInUp" style="border: 2px solid black; border-radius:15px;">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="wizard-content">
 
                             <div class="wizard-pane active" role="tabpanel">
 	                    	</br>
+                <h4> <strong>Personal Information</strong></h4>
 								<div class="form-group">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <label class="col-xs-1 control-label">First name</label>
                                     <div class="col-xs-3">
                                         <input type="text" class="form-control name" id="fname"  />
                                     </div>
-									<label class="col-xs-2 control-label">Middle name</label>
-                                    <div class="col-xs-2">
+									<label class="col-xs-1 control-label">Middle name</label>
+                                    <div class="col-xs-3">
                                         <input type="text" class="form-control" id="mname" />
                                     </div>
 									 <label class="col-xs-1 control-label">Last name</label>
                                     <div class="col-xs-3">
                                         <input type="text" class="form-control" id="lname" />
                                     </div>
-                                </div>
-                       	     	<div class="form-group">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <label class="col-xs-1 control-label">Place of birth</label>
-                                    <div class="col-xs-5">
-                                        <input type="text" class="form-control" name="noblank"  />
-                                    </div>
-                                    <label class="col-xs-2 control-label">Date of birth</label>
-                                    <div class="col-xs-4">
-                                        <div class="input-group">
+              </div>
+
+								<div class="form-group">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <label class="col-xs-1 control-label">Date of birth</label>
+                        <div class="col-xs-3">
+                        <div class="input-group">
 											<span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose" placeholder="yyyy/mm/dd" name="bday">
 										</div>
                                     </div>
-                                </div>
-								<div class="form-group">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-									 <label class="col-xs-2 control-label">Gender</label>
+									 <label class="col-xs-1 control-label">Gender</label>
 									    <div class="col-xs-3">
 											<select class="form-control"  name="noblank" id="gender">
 												<option></option>
@@ -358,7 +176,7 @@
 												<option>Female</option>
 											</select>
 										</div>
-									 <label class="col-xs-2 control-label">Marital status</label>
+									 <label class="col-xs-1 control-label">Marital status</label>
 									    <div class="col-xs-3">
 											<select class="form-control"  name="noblank" id="marital">
 												<option></option>
@@ -368,35 +186,29 @@
                     							<option>Widowed</option>
 											</select>
 										</div>
-                                </div>
+                  </div>
                                 <div class="form-group">
-									  <label class="col-xs-1 control-label">Address</label>
-										<div class="col-xs-11">
-											<input type="text" class="form-control" name="noblank" id="address" />
+									  <label class="col-xs-1 control-label">Street</label>
+										<div class="col-xs-3">
+											<input type="text" class="form-control" name="noblank" id="street" />
+										</div>
+                    <label class="col-xs-1 control-label">Barangay</label>
+										<div class="col-xs-3">
+											<input type="text" class="form-control" name="noblank" id="barangay" />
+										</div>
+                    <label class="col-xs-1 control-label">City</label>
+										<div class="col-xs-3">
+											<input type="text" class="form-control" name="noblank" id="city" />
 										</div>
 
                                 </div>
-		          <div class="form-group">
 
-		  														 <label class="col-xs-1 control-label">2x2 picture</label>
-					<div class="col-xs-5">
-						       <input type="file" id="input-file-max-fs" class="dropify-fr" 	data-max-height="226" data-max-width="226" data-mind-height="224" data-min-width="224" accept="image/*"/ name="picture" data-default-file="plugins/images/Clients/personincharge.jpg">
-
-							      </div>
-
-		  														 <label class="col-xs-1 control-label">Image of location</label>
-					<div class="col-xs-5">
-                                  <input type="file" id="input-file-max-fs" class="dropify-fr" accept="image/*"/ name="locationpic" data-default-file="plugins/images/Clients/location.jpg">
-						<span class="font-13 text-muted">Recommended: Screenshot from google map<span>
-
-							      </div>
-						 </div>
 								<div class="form-group">
 
 									<h4> <strong>Contact information </strong></h4>
 									</br>
 									<label class="col-xs-1 control-label">Telephone</label>
-                                    	<div class="col-xs-2">
+                                    	<div class="col-xs-3">
                                				<div class="input-group">
 												<div class="input-group-addon"><i class="fa fa-phone"></i></div>
 										        <input type="text" class="form-control"  id="numonly" name="telephone" data-mask="9999999" >
@@ -404,15 +216,15 @@
 											<span class="font-13 text-muted">ex. 1234567<span>
 										</div>
 									<label class="col-xs-1 control-label">Cellphone</label>
-                                    	<div class="col-xs-2">
+                                    	<div class="col-xs-3">
                                				<div class="input-group">
 												<div class="input-group-addon"><i class="fa fa-mobile"></i></div>
 											    <input type="text" class="form-control"  id="numonly" name="cellphone" data-mask="99999999999">
 											</div>
 											<span class="font-13 text-muted">ex. 09123456789<span>
 										</div>
-											<label class="col-xs-2 control-label">Email address</label>
-										<div class="col-xs-4">
+											<label class="col-xs-1 control-label">Email address</label>
+										<div class="col-xs-3">
                                				<div class="input-group">
 												<div class="input-group-addon"><i class="ti-email"></i></div>
 										        <input type="text" class="form-control" name="email">
@@ -435,11 +247,12 @@
                                     		</thead>
                                     		<tbody>
                                           @foreach($a as $a)
-                                          <tr>
-                        <td>{{$a->name}}</td>
-                        <td><input type="text" class="form-control" name="noblank" id="attrib" /></td>
+
+                      <tr>
+                        <td>{{$a->name}}<input type="hidden" name="aname" value="{{$a->name}}"></td>
+                        <td><input type="text" class="form-control atts" name="noblank" /></td>
                         <td>{{$a->measurement}}</td>
-                                          </tr>
+                      </tr>
                                           @endforeach
 
                                     		</tbody>
@@ -633,7 +446,7 @@
               <tbody>
                 <tr>
                   <td id="data1">1</td>
-                  <td><input type="text" class="form-control" name="noblank" id="skills" /></td>
+                  <td><input type="text" class="form-control talent" name="noblank"></td>
 					        <td>X</td>
                 </tr>
               </tbody>
@@ -645,13 +458,15 @@
                       <div class="wizard-pane" role="tabpanel">
 
 						<!--TODO: nakakatamad :( Summary of registration-->
+            <h4>wewew</h4>
 
                      </div>
 
 
                 </div>
+              </form>
 			</div>
-        </div>
+    </div>
 <!-- Add training, seminars, exams Modal -->
     <div id="Addtse" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -757,7 +572,7 @@
         </div>
       </div>
 <!-- /Add military service modal -->
-      </div>
+
 
       <!--row -->
       <!-- /.row -->
@@ -771,10 +586,10 @@
 
 
 
-    </div>
+
     <!-- /.container-fluid -->
     <footer class="footer text-center"> 2016 &copy; Evacle </footer>
-  </div>
+
 
 
 <!-- jQuery and switch -->
@@ -873,7 +688,7 @@
             var footable = mrow.data('footable');
 
 
-            var newRow = '<tr><td>'+militar+'</td><td>'+rank+'</td><td>'+serial+'</td><td>'+datefrom+'</td><td>'+dateto+'</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+            var newRow = '<tr><td><input type="hidden" name="military" value="'+militar+'">'+militar+'</td><td class="ranks">'+rank+'</td><td class="serial">'+serial+'</td><td class="datef">'+datefrom+'</td><td class="datet">'+dateto+'</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
 
 
             //add it
@@ -911,7 +726,7 @@
     var footable = semrow.data('footable');
 
 
-    var newRow = '<tr><td>'+name+'</td><td>'+rating+'</td><td>'+date+'</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+    var newRow = '<tr><td><input type="hidden" name="seminar" value="'+name+'">'+name+'</td><td class="rate">'+rating+'</td><td class="date_taken">'+date+'</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
 
 
     //add it
@@ -941,7 +756,7 @@
 		var footable = addrow.data('footable');
 
 		//build up the row we are wanting to add
-		var newRow = '<tr><td class="count"></td><td><input type="text" class="form-control" name="noblank" /></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+		var newRow = '<tr><td class="count"></td><td><input type="text" class="form-control talent" name="noblank" /></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
 
 
 		//add it
@@ -1083,18 +898,71 @@
                     var allLicense = [];
                     var allReq = [];
                     var allattrib = [];
+                    var allaname = [];
+                    var allmilitary = [];
+                    var allrank = [];
+                    var allserial = [];
+                    var alldatef = [];
+                    var alldatet = [];
+                    var allseminar = [];
+                    var allrating = [];
+                    var alldatetaken = [];
+                    var alltalent = [];
+
+                    //licenses array
                     $.each($("input[name='lic']:checked"), function(){
                         allLicense.push($(this).val());
                     });
+                    //body attributes
+                    $.each($("input[name='aname']"), function(){
+                        allaname.push($(this).val());
 
-                    $.each($("input[name='attrib']"), function(){
+                    });
+                    //body attributes size
+                    $.each($(".atts"), function(){
                         allattrib.push($(this).val());
                     });
-
+                    // requirments
                     $.each($("input[name='req']:checked"), function(){
                         allReq.push($(this).val());
                     });
-
+                    // military
+                    $.each($("input[name='military']"), function(){
+                        allmilitary.push($(this).val());
+                    });
+                    // rank
+                    $.each($(".ranks"), function(){
+                        allrank.push($(this).html());
+                    });
+                    // serial
+                    $.each($(".serial"), function(){
+                        allserial.push($(this).html());
+                    });
+                    // from
+                    $.each($(".datef"), function(){
+                        alldatef.push($(this).html());
+                    });
+                    // to
+                    $.each($(".datet"), function(){
+                        alldatet.push($(this).html());
+                    });
+                    // seminars
+                    $.each($("input[name='seminar']"), function(){
+                        allseminar.push($(this).val());
+                    });
+                    //ratings
+                    $.each($(".rate"), function(){
+                        allrating.push($(this).html());
+                    });
+                    //date taken
+                    $.each($(".date_taken"), function(){
+                        alldatetaken.push($(this).html());
+                    });
+                    //skill and talents
+                    $.each($(".talent"), function(){
+                        alltalent.push($(this).val());
+                    });
+                    //post data request to database
                     $.ajax({
                       type: 'post',
                       url: '/RegisterEmployee',
@@ -1103,13 +971,18 @@
                           fname: $('#fname').val(),
                           mname: $('#mname').val(),
                           lname: $('#lname').val(),
+                          gender: $('#gender').val(),
+                          marital: $('#marital').val(),
                           bday: $('input[name=bday]').val(),
-                          address: $('#address').val(),
+                          street: $('#street').val(),
+                          barangay: $('#barangay').val(),
+                          city: $('#city').val(),
                           telephone:$('input[name=telephone]').val(),
                           cellphone:$('input[name=cellphone]').val(),
                           email:$('input[name=email]').val(),
                           gender:$('#gender').val(),
-                          attributes: allattrib,
+                          attr: allattrib,
+                          aname: allaname,
                           primary:$('input[name=primary]').val(),
                           primaryf:$('input[name=primaryf]').val(),
                           primaryt:$('input[name=primaryt]').val(),
@@ -1121,11 +994,25 @@
                           tertiaryt:$('input[name=tertiaryt]').val(),
                           degree:$('input[name=degree]').val(),
                           license: allLicense,
+                          allmilitary: allmilitary,
+                          allrank: allrank,
+                          allserial: allserial,
+                          alldatet: alldatet,
+                          alldatef: alldatef,
+                          allseminar: allseminar,
+                          allrating: allrating,
+                          alldatetaken: alldatetaken,
+                          alltalent: alltalent,
                           req: allReq,
                       },
                       success: function(data){
-                        alert(data);
-                        location.reload();
+                        if (data==="Registration Complete. Pls wait for the company to contact you") {
+
+                          window.location.href = "/test";
+                        }
+                        else {
+                          alert(data);
+                        }
                       }
                     });
                 }
