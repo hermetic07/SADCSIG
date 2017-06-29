@@ -361,3 +361,5 @@ Route::get('Attribute2','Attribute2Controller@index');
 //Guard side
 Route::get('Guard-Registration','LastControl@index6');
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
+
+Route::get('send','sendEmail@send');
