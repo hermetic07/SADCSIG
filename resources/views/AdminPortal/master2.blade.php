@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
   <meta charset="utf-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
@@ -35,6 +36,8 @@
 <!-- Calendar CSS -->
 <link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
 	<link rel="stylesheet" href="plugins/bower_components/dropify/dist/css/dropify.min.css">
+  <script src="{{asset('js/jquery.min.js')}}"></script>
+  <script src="{{asset('js/jquery.validate.js')}}"></script>
   </head>
 
 
@@ -157,7 +160,7 @@
                     		<ul class="nav nav-third-level">
 
                           <li> <a href="{{url('/License')}}">Licences and clearances</a> </li>
-                          <li> <a href="{{url('/Attribute2')}}">Body attributes</a></li>
+                          <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
                           <li> <a href="{{url('/Military')}}">Military services</a></li>
                           <li> <a href="{{url('/Rank')}}">Rank</a></li>
                           <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
@@ -214,9 +217,9 @@
 
 				  <li> @yield('Sec')<i class="fa fa-shield fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Security guards<span class="fa arrow"></span> </a>
 					 <ul class="nav nav-second-level">
-						<li> <a href="{{url('/SecurityGuards')}}" class="waves-effect">Guards<span class="label label-rouded label-info pull-right">13</span></a>
+						<li> <a href="{{url('/SecurityGuards')}}" class="waves-effect">Guards<span class="label label-rouded label-info pull-right"></span></a>
 						</li>
-						<li> <a href="{{url('/GuardLicenses')}}" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right">13</span></a>
+						<li> <a href="{{url('/GuardLicenses')}}" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right"></span></a>
 						</li>
 						 	<li> <a href="{{url('/GuardsDTR')}}" class="waves-effect">Guard's DTR</a>
 						</li>

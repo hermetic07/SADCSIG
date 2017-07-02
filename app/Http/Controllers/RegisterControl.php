@@ -48,6 +48,7 @@ class RegisterControl extends Controller
         $employee->telephone = $request->telephone;
         $employee->cellphone = $request->cellphone;
         $employee->email = $request->email;
+        session(['email' => $request->email]);
         $employee->status = "pending";
 
         $employee->deployed = 0;
@@ -253,21 +254,58 @@ class RegisterControl extends Controller
        $employee = Employee::find($value);
        if (Input::hasFile('picture')) {
          $file = Input::file('picture');
-         $file->move('uploads', $file->getClientOriginalName());
-         $employee->image = $file->getClientOriginalName();
+         $file->move('uploads', $value.$file->getClientOriginalName());
+         $employee->image = $value.$file->getClientOriginalName();
          $count+=1;
        }
        if (Input::hasFile('locationpic')) {
          $file = Input::file('locationpic');
-         $file->move('uploads', $file->getClientOriginalName());
-         $employee->location_image = $file->getClientOriginalName();
+         $file->move('uploads', $value.$file->getClientOriginalName());
+         $employee->location_image = $value.$file->getClientOriginalName();
          $count+=1;
        }
        if ($count!==0) {
          $employee->save();
-         $request->session()->forget('key');
-         echo "Images have been uploaded";
+
        }
        $request->session()->forget('key');
+       $value2 = $request->session()->get('email');
+       $request->session()->forget('email');
+       return view('Complete')->with('email',$value2);
+     }
+
+     public function hire(Request $request)
+     {
+        $employees = Employee::where("status" , "pending" )->get();
+        return view('AdminPortal/Applicants')->with('employee',$employees);
+     }
+
+     public function approve(Request $request)
+     {
+        $employee = Employee::find($request->id);
+        $employee->status = "active";
+        $employee->save();
+        return "Email: ".$employee->email." password: ".$employee->password ;
+     }
+
+     public function remove(Request $request)
+     {
+        $employee = Employee::find($request->id);
+        $employee->status = "deleted";
+        $employee->save();
+        return "Applicant has been remove";
+     }
+
+     public function secuProfile($id)
+     {
+        $employee = Employee::find($id);
+        $education = EmployeeEducation::where("employees_id",$id)->get();
+        $degree = EmployeeDegree::where("employees_id",$id)->get();
+        $seminar = EmployeeSeminar::where("employees_id",$id)->get();
+        $military = EmployeeMilitary::where("employees_id",$id)->get();
+        $skill = EmployeeSkills::where("employees_id",$id)->get();
+        $attr = EmployeeAttributes::where("employees_id",$id)->get();
+        $count = 1;
+        return view('SecuProfile')->with('employee',$employee)->with('count',$count)->with('ed',$education)->with('d',$degree)->with('s',$seminar)->with('m',$military)->with('skill',$skill)->with('attr',$attr);
      }
 }

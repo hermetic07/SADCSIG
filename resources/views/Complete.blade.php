@@ -78,46 +78,13 @@
       <div class="white-box">
         <div class="row">
           <div class="alert alert-info">
-            <p align="center">Registration Success! Pls upload your 2x2 picture and image of your location if you have</p>
+            <p align="center">Below is the email where we will send your username and password</p>
           </div>
-          <form action="{{URL::to('upload')}}" method="post" enctype="multipart/form-data">
-            <br>
-            <br>
-            <br>
-                  <div class="form-group">
-                    <label class="col-xs-1 control-label">2x2 picture</label>
-
-                    <div class="col-xs-4">
-                    <input type="file" name="picture" id="input-file-max-fs" class="dropify-fr" 	data-max-height="226" data-max-width="226" data-mind-height="224" data-min-width="224" accept="image/*"/  data-default-file="plugins/images/Clients/personincharge.jpg">
-                    <span class="font-13 text-muted">Only 2x2 picture is accepted<span>
-                    </div>
-
-                    <label class="col-xs-2 control-label">Image of location</label>
-                    <div class="col-xs-4">
-                        <input type="file" name="locationpic" id="input-file-max-fs" class="dropify-fr" accept="image/*"/  data-default-file="plugins/images/Clients/location.jpg">
-                        <span class="font-13 text-muted">Recommended: Screenshot from google map<span>
-                    </div>
-                  </div>
-                <br>
-                  <div class="col-xs-5" id="buttons">
-                  </div>
-
-                  <div class="col-xs-4" id="buttons">
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <input type="submit" name="sub" value="Upload Pictures">
-                    <input type="submit" name="sub" value="Upload Later">
-                  </div>
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          </form>
+              <p align="center">Username: {{$email}} </p>
         </div>
       </div>
 
-      <div class='alert alert-info'>
-        <p align="center">Click upload later to get your code if you dont have a picture yet</p>
-      </div>
+
 
       <footer > <div class="navbar navbar-fixed-bottom">
         <div class="alert alert-info">

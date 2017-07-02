@@ -458,7 +458,7 @@
                       <div class="wizard-pane" role="tabpanel">
 
 						<!--TODO: nakakatamad :( Summary of registration-->
-            <h4>wewew</h4>
+            <h4>Summary:</h4>
 
                      </div>
 

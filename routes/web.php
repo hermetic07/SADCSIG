@@ -50,9 +50,7 @@ Route::get('/GuardsDTR', function () {
     return view('AdminPortal/GuardsDTR');
 });
 
-Route::get('/Applicants', function () {
-    return view('AdminPortal/Applicants');
-});
+Route::get('/Applicants', 'RegisterControl@hire');
 
 Route::get('/Ammunition', function () {
     return view('AdminPortal/Ammunition');
@@ -103,10 +101,6 @@ Route::get('/ServiceRequest','ServiceRequestController@index');
 Route::get('/GunRequest','GunRequestController@index');
 
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index');
-
-Route::get('/SecuProfile', function () {
-    return view('AdminPortal/SecuProfile');
-});
 
 Route::get('/ClientPortalHome','ClientPortalHomeController@index');
 
@@ -358,10 +352,15 @@ Route::post ( '/deleteGun', 'GunController@deleteItem' );
 
 Route::get('Attribute2','Attribute2Controller@index');
 
-//Guard side
+//Guard side (evander)
 Route::get ( '/test', 'RegisterControl@test' );
 Route::get('Guard-Registration','LastControl@index6');
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
 Route::post('upload','RegisterControl@saveImage');
+//admin guard (evander)
+Route::post('/HireEmployee','RegisterControl@approve');
+Route::post('/RemoveApplicant','RegisterControl@remove');
+Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
 
+//
 Route::get('send','sendEmail@send');

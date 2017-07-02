@@ -62,17 +62,18 @@
                 </div>
 
                     <div class="row  el-element-overlay">
+            @foreach($employee as $e)
 						<div class="col-md-4 col-sm-4 content">
 							<div class="white-box">
                                     <div class="row">
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                             							 <a href="{{url('/SecuProfile')}}"><img src="uploads/{{$e->image}}" alt="user"  class="img-circle img-responsive"></a>
 																<div class="el-overlay">
 																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
+																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="uploads/{{$e->image}}"><i class="icon-magnifier"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$e->id)}}"_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -84,27 +85,27 @@
 
 												<div class="col-md-8 col-sm-8">
 
-										 				<h3 class="box-title m-b-0">Ernest john maskarino</h3>
+										 				<h3 class="box-title m-b-0">{{$e->first_name}} {{$e->middle_name}} {{$e->last_name}}</h3>
 
 
                                     					<div class="row m-t-0">
 															<div class="col-md-6 b-r">
-																<p>Evander@yahoo.com</p>
+																<p>{{$e->email}}</p>
 															</div>
 														</div>
 														<div class="row m-t-1">
 															<div class="col-md-12 b-r">
-																<p>Pureza, sta.mesa, manila, philippines.</p>
+																<p>{{$e->street}} {{$e->barangay}} {{$e->city}}</p>
                                         					</div>
 														</div>
 														<div class="row m-t-6">
                                         					<div class="col-md-6 b-r">
 																<strong>Mobile</strong>
-																<p>9999999999</p>
+																<p>{{$e->cellphone}}</p>
                                         					</div>
 															<div class="col-md-6">
 																<strong>Telephone</strong>
-																<p>99999999999</p>
+																<p>{{$e->telephone}}</p>
 															</div>
 														</div>
 												</div>
@@ -112,385 +113,17 @@
 								</div>
 								<div class="row">
 									<div class="col-sm-6">
-													<button type="button" class="btn btn-block btn-success" ><i class="icon-user-following"></i> </i>Hire</button>
+													<button type="button" class="btn btn-block btn-success" onclick="fun_hire('{{$e->id}}')" ><i class="icon-user-following"></i> </i>Hire</button>
 									</div>
 											<div class="col-sm-6">
-										        	<button type="button" class="btn btn-block btn-danger" ><i class="icon-user-unfollow"></i> </i>Remove</button>
+										        	<button type="button" class="btn btn-block btn-danger" onclick="fun_remove('{{$e->id}}')"><i class="icon-user-unfollow"></i> </i>Remove</button>
 									</div>
 
 								</div>
 
                              </div>
 			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-
-										</div>
-
-
-
-												<div class="col-md-8 col-sm-8">
-
-										 				<h3 class="box-title m-b-0">Ernest john maskarino</h3>
-
-
-                                    					<div class="row m-t-0">
-															<div class="col-md-6 b-r">
-																<p>Evander@yahoo.com</p>
-															</div>
-														</div>
-														<div class="row m-t-1">
-															<div class="col-md-12 b-r">
-																<p>Pureza, sta.mesa, manila, philippines.</p>
-                                        					</div>
-														</div>
-														<div class="row m-t-6">
-                                        					<div class="col-md-6 b-r">
-																<strong>Mobile</strong>
-																<p>9999999999</p>
-                                        					</div>
-															<div class="col-md-6">
-																<strong>Telephone</strong>
-																<p>99999999999</p>
-															</div>
-														</div>
-												</div>
-
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-													<button type="button" class="btn btn-block btn-success" ><i class="icon-user-following"></i> </i>Hire</button>
-									</div>
-											<div class="col-sm-6">
-										        	<button type="button" class="btn btn-block btn-danger" ><i class="icon-user-unfollow"></i> </i>Remove</button>
-									</div>
-
-								</div>
-
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-
-										</div>
-
-
-
-												<div class="col-md-8 col-sm-8">
-
-										 				<h3 class="box-title m-b-0">Ernest john maskarino</h3>
-
-
-                                    					<div class="row m-t-0">
-															<div class="col-md-6 b-r">
-																<p>Evander@yahoo.com</p>
-															</div>
-														</div>
-														<div class="row m-t-1">
-															<div class="col-md-12 b-r">
-																<p>Pureza, sta.mesa, manila, philippines.</p>
-                                        					</div>
-														</div>
-														<div class="row m-t-6">
-                                        					<div class="col-md-6 b-r">
-																<strong>Mobile</strong>
-																<p>9999999999</p>
-                                        					</div>
-															<div class="col-md-6">
-																<strong>Telephone</strong>
-																<p>99999999999</p>
-															</div>
-														</div>
-												</div>
-
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-													<button type="button" class="btn btn-block btn-success" ><i class="icon-user-following"></i> </i>Hire</button>
-									</div>
-											<div class="col-sm-6">
-										        	<button type="button" class="btn btn-block btn-danger" ><i class="icon-user-unfollow"></i> </i>Remove</button>
-									</div>
-
-								</div>
-
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-
-										</div>
-
-
-
-												<div class="col-md-8 col-sm-8">
-
-										 				<h3 class="box-title m-b-0">Ernest john maskarino</h3>
-
-
-                                    					<div class="row m-t-0">
-															<div class="col-md-6 b-r">
-																<p>Evander@yahoo.com</p>
-															</div>
-														</div>
-														<div class="row m-t-1">
-															<div class="col-md-12 b-r">
-																<p>Pureza, sta.mesa, manila, philippines.</p>
-                                        					</div>
-														</div>
-														<div class="row m-t-6">
-                                        					<div class="col-md-6 b-r">
-																<strong>Mobile</strong>
-																<p>9999999999</p>
-                                        					</div>
-															<div class="col-md-6">
-																<strong>Telephone</strong>
-																<p>99999999999</p>
-															</div>
-														</div>
-												</div>
-
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-													<button type="button" class="btn btn-block btn-success" ><i class="icon-user-following"></i> </i>Hire</button>
-									</div>
-											<div class="col-sm-6">
-										        	<button type="button" class="btn btn-block btn-danger" ><i class="icon-user-unfollow"></i> </i>Remove</button>
-									</div>
-
-								</div>
-
-                             </div>
-			  			</div>
-
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-
-										</div>
-
-
-
-												<div class="col-md-8 col-sm-8">
-
-										 				<h3 class="box-title m-b-0">Ernest john maskarino</h3>
-
-
-                                    					<div class="row m-t-0">
-															<div class="col-md-6 b-r">
-																<p>Evander@yahoo.com</p>
-															</div>
-														</div>
-														<div class="row m-t-1">
-															<div class="col-md-12 b-r">
-																<p>Pureza, sta.mesa, manila, philippines.</p>
-                                        					</div>
-														</div>
-														<div class="row m-t-6">
-                                        					<div class="col-md-6 b-r">
-																<strong>Mobile</strong>
-																<p>9999999999</p>
-                                        					</div>
-															<div class="col-md-6">
-																<strong>Telephone</strong>
-																<p>99999999999</p>
-															</div>
-														</div>
-												</div>
-
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-													<button type="button" class="btn btn-block btn-success" ><i class="icon-user-following"></i> </i>Hire</button>
-									</div>
-											<div class="col-sm-6">
-										        	<button type="button" class="btn btn-block btn-danger" ><i class="icon-user-unfollow"></i> </i>Remove</button>
-									</div>
-
-								</div>
-
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-
-										</div>
-
-
-
-												<div class="col-md-8 col-sm-8">
-
-										 				<h3 class="box-title m-b-0">Ernest john maskarino</h3>
-
-
-                                    					<div class="row m-t-0">
-															<div class="col-md-6 b-r">
-																<p>Evander@yahoo.com</p>
-															</div>
-														</div>
-														<div class="row m-t-1">
-															<div class="col-md-12 b-r">
-																<p>Pureza, sta.mesa, manila, philippines.</p>
-                                        					</div>
-														</div>
-														<div class="row m-t-6">
-                                        					<div class="col-md-6 b-r">
-																<strong>Mobile</strong>
-																<p>9999999999</p>
-                                        					</div>
-															<div class="col-md-6">
-																<strong>Telephone</strong>
-																<p>99999999999</p>
-															</div>
-														</div>
-												</div>
-
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-													<button type="button" class="btn btn-block btn-success" ><i class="icon-user-following"></i> </i>Hire</button>
-									</div>
-											<div class="col-sm-6">
-										        	<button type="button" class="btn btn-block btn-danger" ><i class="icon-user-unfollow"></i> </i>Remove</button>
-									</div>
-
-								</div>
-
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-
-										</div>
-
-
-
-												<div class="col-md-8 col-sm-8">
-
-										 				<h3 class="box-title m-b-0">Ernest john maskarino</h3>
-
-
-                                    					<div class="row m-t-0">
-															<div class="col-md-6 b-r">
-																<p>Evander@yahoo.com</p>
-															</div>
-														</div>
-														<div class="row m-t-1">
-															<div class="col-md-12 b-r">
-																<p>Pureza, sta.mesa, manila, philippines.</p>
-                                        					</div>
-														</div>
-														<div class="row m-t-6">
-                                        					<div class="col-md-6 b-r">
-																<strong>Mobile</strong>
-																<p>9999999999</p>
-                                        					</div>
-															<div class="col-md-6">
-																<strong>Telephone</strong>
-																<p>99999999999</p>
-															</div>
-														</div>
-												</div>
-
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-													<button type="button" class="btn btn-block btn-success" ><i class="icon-user-following"></i> </i>Hire</button>
-									</div>
-											<div class="col-sm-6">
-										        	<button type="button" class="btn btn-block btn-danger" ><i class="icon-user-unfollow"></i> </i>Remove</button>
-									</div>
-
-								</div>
-
-                             </div>
-			  			</div>
-
-
+              @endforeach
 
 
 
@@ -508,4 +141,49 @@
 <!-- /.row -->
 
      </div>
+<script type="text/javascript">
+
+
+     
+    $(document).ready(function()
+    {
+       $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
+       });
+    })();
+    function fun_hire(id)
+    {
+
+      $.ajax({
+        url: '/HireEmployee',
+        type:"POST",
+        data: {
+
+          "id":id
+        },
+        success: function(result){
+          alert(result);
+          location.reload();
+        }
+      });
+    }
+    function fun_remove(id)
+    {
+
+      $.ajax({
+        url: '/RemoveApplicant',
+        type:"POST",
+        data: {
+
+          "id":id
+        },
+        success: function(result){
+          alert(result);
+          location.reload();
+        }
+      });
+    }
+</script>
   @endsection
