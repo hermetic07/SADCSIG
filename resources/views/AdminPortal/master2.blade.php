@@ -29,6 +29,8 @@
   <link href="css/colors/MyThemeColor.css" id="theme"  rel="stylesheet">
   <!--alerts CSS -->
   <link href="js/Alert/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="js/Alert/swalExtend.css" rel="stylesheet" type="text/css">
+
   <!---switch -->
   <link href="plugins/bower_components/switchery/dist/switchery.min.css" rel="stylesheet" />
   <!-- Popup CSS -->
@@ -328,6 +330,7 @@
 <!-- Sweet-Alert  -->
  <script src="js/Alert/sweetalert.min.js"></script>
     <script src="js/Alert/jquery-alertcustom.js"></script>
+        <script src="js/Alert/swalExtend.js"></script>
     <!-- Calendar JavaScript -->
 <script src="plugins/bower_components/calendar/jquery-ui.min.js"></script>
 <script src="plugins/bower_components/moment/moment.js"></script>
@@ -360,6 +363,7 @@ console.log(query);
 
 </script>
  <script>
+
  $( document ).ready(function() {
 	 //Scrollbar
         $('#slimtest4').slimScroll({
@@ -415,6 +419,9 @@ console.log(query);
 
 
  </script>
+ <script>
+
+</script>
  @yield('script')
 </body>
 </html>

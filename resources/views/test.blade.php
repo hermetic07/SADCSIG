@@ -50,211 +50,208 @@
 
    </script>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <style>
-    #buttons {
-      margin: auto;
-    }
-   </style>
+
   </head>
-  <body>
-    <!-- Top Navigation -->
-       <nav class="navbar navbar-default navbar-static-top m-b-0">
-   	  <!-- navbar-header -->
-         <div class="navbar-header">
-   		<a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+<body class="fix-header fix-sidebar">
+  <!-- Top Navigation -->
+     <nav class="navbar navbar-default navbar-static-top m-b-0">
+    <!-- navbar-header -->
+       <div class="navbar-header">
+    <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
 
-             <ul class="nav navbar-top-links navbar-left hidden-xs">
-             	<li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
-   		  </ul>
+           <ul class="nav navbar-top-links navbar-left hidden-xs">
+            <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
+      </ul>
 
-          	  <ul class="nav navbar-top-links navbar-right pull-right">
+            <ul class="nav navbar-top-links navbar-right pull-right">
 
-   			  	 <!-- Incident report -->
-   			 <li class="dropdown">
-   			   <a class="waves-effect waves-light" href="IncidentReport.html">
-   				 <span class="mytooltip tooltip-effect-7">
-                       <span class="tooltip-item">
-   					  <i class="fa fa-warning"></i>
-   				      <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-   					</span>
+           <!-- Incident report -->
+       <li class="dropdown">
+         <a class="waves-effect waves-light" href="IncidentReport.html">
+         <span class="mytooltip tooltip-effect-7">
+                     <span class="tooltip-item">
+            <i class="fa fa-warning"></i>
+              <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+          </span>
+                     <span class="tooltip-table2 clearfix">
+                       <span class="tooltip-texth2">
+       Reports
+            </span>
+                     </span>
+                  </span>
+         </a>
+           </li>
+       <!-- Messages-->
+       <li class="dropdown">
+         <a class="waves-effect waves-light" href="Messages.html">
+         <span class="mytooltip tooltip-effect-7">
+                     <span class="tooltip-item">
+            <i class="icon-envelope"></i>
+              <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+          </span>
+                     <span class="tooltip-table2 clearfix">
+                       <span class="tooltip-texth2">
+            Messages
+            </span>
+                     </span>
+                  </span>
+         </a>
+           </li>
+
+       <!-- Announcements-->
+       <li class="dropdown">
+         <a class="waves-effect waves-light" href="Announcement.html">
+           <span class="mytooltip tooltip-effect-7">
+             <span class="tooltip-item">
+               <i class="fa fa-bullhorn"></i>
+           </span>
                        <span class="tooltip-table2 clearfix">
-                         <span class="tooltip-texth2">
-   			 Reports
-   					  </span>
+                       <span class="tooltip-texth">
+            Announcements
+            </span>
                        </span>
-                    </span>
-   			   </a>
-           	 </li>
-   			 <!-- Messages-->
-   			 <li class="dropdown">
-   			   <a class="waves-effect waves-light" href="Messages.html">
-   				 <span class="mytooltip tooltip-effect-7">
-                       <span class="tooltip-item">
-   					  <i class="icon-envelope"></i>
-   				      <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-   					</span>
-                       <span class="tooltip-table2 clearfix">
-                         <span class="tooltip-texth2">
-   					  Messages
-   					  </span>
-                       </span>
-                    </span>
-   			   </a>
-           	 </li>
-
-   			 <!-- Announcements-->
-   			 <li class="dropdown">
-   				 <a class="waves-effect waves-light" href="Announcement.html">
-   					 <span class="mytooltip tooltip-effect-7">
-   						 <span class="tooltip-item">
-   							 <i class="fa fa-bullhorn"></i>
-   					 </span>
-                         <span class="tooltip-table2 clearfix">
-                         <span class="tooltip-texth">
-   						Announcements
-   					  </span>
-                         </span>
-                       </span>
-   				</a>
-                </li>
+                     </span>
+        </a>
+              </li>
 
 
 
-   			 <!-- Admin account-->
-                <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/users/admin.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Ernest</b> <small>(Admin)</small>  </a>
-                   <ul class="dropdown-menu dropdown-user animated flipInY">
-                       <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                       <li role="separator" class="divider"></li>
-                       <li><a href="#"><i class="ti-settings"></i> Account Setting</a> </li>
-                       <li role="separator" class="divider"></li>
-                       <li><a href="login.html"><i class="fa fa-power-off"></i> Logout</a></li>
-                   </ul>
-               </li>
+       <!-- Admin account-->
+              <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/users/admin.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Ernest</b> <small>(Admin)</small>  </a>
+                 <ul class="dropdown-menu dropdown-user animated flipInY">
+                     <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="#"><i class="ti-settings"></i> Account Setting</a> </li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                 </ul>
+             </li>
+         </ul>
+
+     <!-- System logo-->
+          <div class="top-left-part"><a class="logo" href="Dashboard.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
+          </div>
+
+      </div>
+       <!-- /.navbar-header -->
+     </nav>
+     <!-- End Top Navigation -->
+    <!-- Left navbar-header -->
+     <div class="navbar-default sidebar" role="navigation">
+      <div class="sidebar-nav navbar-collapse" id="slimtest4">
+      <ul class="nav" id="side-menu">
+
+                     <li class="user-pro">
+                         <a href="#" class="waves-effect"><img src="plugins/images/LandingPage/JUCEBER.png" alt="user-img" class="img-circle"><span class="hide-menu text-white">Jubecer security</span>
+                         </a>
+                     </li>
+
+        <li> <a href="dashboard.html" class="waves-effect"><i class="fa fa-dashboard fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Dashboard </span> </a>
+              </li>
+
+              <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-wrench fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Maintenance  <span class="fa arrow"></span></a>
+                  <ul class="nav nav-second-level">
+            <li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
+              <ul class="nav nav-third-level">
+                              <li> <a href="Services.html">Services</a> </li>
+                            <li> <a href="NatureOfBusiness.html">Nature of business</a></li>
+                        </ul>
+                      </li>
+                    <li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                <li> <a href="MilitaryServices.html">Military services</a></li>
+                <li> <a href="Ranks.html">Rank</a></li>
+                <li> <a href="BodyAttributes.html">Body attributes</a></li>
+              <li> <a href="Leave.html">Leave</a></li>
+              <li> <a href="licensessAndClearances.html">licensess and clearances</a> </li>
+              <li> <a href="Guns.html">Guns</a> </li>
+              </ul>
+            </li>
+                    <li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
+              <ul class="nav nav-third-level">
+                            <li> <a href="#">Area</a> </li>
+                <li> <a href="Uom.html">Unit of measurement</a> </li>
+                <li> <a href="Requirements.html">Requirements</a> </li>
+                        </ul>
+            </li>
+                  </ul>
+          </li>
+
+
+                <li> <a href="javascript:void(0);" class="waves-effect active"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level">
+              <li> <a href="ClientRegistration.html" class="waves-effect">Clients</a>
+              </li>
+              <li> <a href="SecurityGuardsRegistration.html" class="waves-effect active">Security guards</a>
+              </li>
+                    </ul>
+          </li>
+
+              <li><a href="javascript:void(0);" class="waves-effect"><i class="fa fa-exchange fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Manual deployment<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li> <a href="Deploy.html" class="waves-effect">Deploy</a>
+              </li>
+              <li> <a href="Replace.html" class="waves-effect">Replace</a>
+              </li>
+                <li> <a href="Swap.html" class="waves-effect">Swap</a>
+              </li>
+                  </ul>
+              </li>
+
+          <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Clients <span class="fa arrow"></span></a>
+           <ul class="nav nav-second-level">
+             <li> <a href="ActiveClients.html" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
+            </li>
+            <li> <a href="PendingClients.html" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
+            </li>
+
            </ul>
+          </li>
 
-   		 <!-- System logo-->
-            <div class="top-left-part"><a class="logo" href="Dashboard.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
-            </div>
+          <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shield fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Security guards<span class="fa arrow"></span> </a>
+           <ul class="nav nav-second-level">
+            <li> <a href="guards.html" class="waves-effect">Guards<span class="label label-rouded label-info pull-right">13</span></a>
+            </li>
+            <li> <a href="guardslicenses.html" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right">13</span></a>
+            </li>
+              <li> <a href="guardsdtr.html" class="waves-effect">Guard's DTR</a>
+            </li>
+           </ul>
+          </li>
 
+          <li> <a href="Availableapplicants.html" class="waves-effect"><i class="icon-user-follow fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Applicants  </a>
+          </li>
+
+          <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-truck fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Delivery <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+            <li> <a href="Deliverguns.html" class="waves-effect">Guns</a>
+            </li>
+            <li> <a href="DeliverAmmunitions.html" class="waves-effect">Ammunitions</a>
+            </li>
+            <li> <a href="pickups.html" class="waves-effect">Pickups</a>
+            </li>
+           </ul>
+          </li>
+
+
+
+          <li> <a href="#" class="waves-effect"><i class="fa fa-file-text fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Reports</span></a>
+          </li>
+
+          <li> <a href="#" class="waves-effect"><i class="fa fa-search fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Queries</span></a>
+          </li>
+
+
+          <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Utilities<span class="fa arrow"></span></span></a>
+          <ul class="nav nav-second-level">
+            <li><a href="#">Account settings</a></li>
+          </ul>
+          </li>
+          </ul>
         </div>
-         <!-- /.navbar-header -->
-       </nav>
-       <!-- End Top Navigation -->
-      <!-- Left navbar-header -->
-       <div class="navbar-default sidebar" role="navigation">
-       	<div class="sidebar-nav navbar-collapse" id="slimtest4">
-   			<ul class="nav" id="side-menu">
+     </div>
+  <!-- Left navbar-header end -->
 
-                       <li class="user-pro">
-                           <a href="#" class="waves-effect"><img src="plugins/images/LandingPage/JUCEBER.png" alt="user-img" class="img-circle"><span class="hide-menu text-white">Jubecer security</span>
-                           </a>
-                       </li>
-
-   				<li> <a href="dashboard.html" class="waves-effect"><i class="fa fa-dashboard fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Dashboard </span> </a>
-             		</li>
-
-             		<li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-wrench fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Maintenance  <span class="fa arrow"></span></a>
-                		<ul class="nav nav-second-level">
-   						<li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
-   							<ul class="nav nav-third-level">
-                          			<li> <a href="Services.html">Services</a> </li>
-                           		<li> <a href="NatureOfBusiness.html">Nature of business</a></li>
-                       		</ul>
-                  			</li>
-                   		<li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
-                       		<ul class="nav nav-third-level">
-   								<li> <a href="MilitaryServices.html">Military services</a></li>
-   								<li> <a href="Ranks.html">Rank</a></li>
-   								<li> <a href="BodyAttributes.html">Body attributes</a></li>
-   							<li> <a href="Leave.html">Leave</a></li>
-   							<li> <a href="licensessAndClearances.html">licensess and clearances</a> </li>
-   							<li> <a href="Guns.html">Guns</a> </li>
-   							</ul>
-   						</li>
-                   		<li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
-   							<ul class="nav nav-third-level">
-                           		<li> <a href="#">Area</a> </li>
-   								<li> <a href="Uom.html">Unit of measurement</a> </li>
-   								<li> <a href="Requirements.html">Requirements</a> </li>
-                       		</ul>
-   						</li>
-                		</ul>
-   					</li>
-
-
-             			<li> <a href="javascript:void(0);" class="waves-effect active"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
-   						<ul class="nav nav-second-level">
-   							<li> <a href="ClientRegistration.html" class="waves-effect">Clients</a>
-   							</li>
-   							<li> <a href="SecurityGuardsRegistration.html" class="waves-effect active">Security guards</a>
-   							</li>
-                			</ul>
-   					</li>
-
-   		   	      <li><a href="javascript:void(0);" class="waves-effect"><i class="fa fa-exchange fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Manual deployment<span class="fa arrow"></span></a>
-   					  <ul class="nav nav-second-level">
-   						  <li> <a href="Deploy.html" class="waves-effect">Deploy</a>
-   						  </li>
-   						  <li> <a href="Replace.html" class="waves-effect">Replace</a>
-   						  </li>
-   						    <li> <a href="Swap.html" class="waves-effect">Swap</a>
-   						  </li>
-                		</ul>
-   	      		  </li>
-
-   				  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Clients <span class="fa arrow"></span></a>
-   					 <ul class="nav nav-second-level">
-   						 <li> <a href="ActiveClients.html" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
-   						</li>
-   						<li> <a href="PendingClients.html" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
-   						</li>
-
-   					 </ul>
-   				  </li>
-
-   				  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-shield fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Security guards<span class="fa arrow"></span> </a>
-   					 <ul class="nav nav-second-level">
-   						<li> <a href="guards.html" class="waves-effect">Guards<span class="label label-rouded label-info pull-right">13</span></a>
-   						</li>
-   						<li> <a href="guardslicenses.html" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right">13</span></a>
-   						</li>
-   						 	<li> <a href="guardsdtr.html" class="waves-effect">Guard's DTR</a>
-   						</li>
-   					 </ul>
-   				  </li>
-
-   				  <li> <a href="Availableapplicants.html" class="waves-effect"><i class="icon-user-follow fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Applicants  </a>
-   				  </li>
-
-   				  <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-truck fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Delivery <span class="fa arrow"></span></a>
-   						<ul class="nav nav-second-level">
-   						<li> <a href="Deliverguns.html" class="waves-effect">Guns</a>
-   						</li>
-   						<li> <a href="DeliverAmmunitions.html" class="waves-effect">Ammunitions</a>
-   						</li>
-   						<li> <a href="pickups.html" class="waves-effect">Pickups</a>
-   						</li>
-   					 </ul>
-   				  </li>
-
-
-
-   				  <li> <a href="#" class="waves-effect"><i class="fa fa-file-text fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Reports</span></a>
-   				  </li>
-
-   				  <li> <a href="#" class="waves-effect"><i class="fa fa-search fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Queries</span></a>
-   				  </li>
-
-
-   				  <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Utilities<span class="fa arrow"></span></span></a>
-   					<ul class="nav nav-second-level">
-   					  <li><a href="#">Account settings</a></li>
-   					</ul>
-   				  </li>
-           	</ul>
-         	</div>
-       </div>
-   	<!-- Left navbar-header end -->
     <div id="page-wrapper">
     <div class="container-fluid">
       <div class="row bg-title">
@@ -283,10 +280,9 @@
           <div class="alert alert-success">
             <p align="center">Registration Success! Pls upload your 2x2 picture and image of your location. If not available just click upload later.</p>
           </div>
-          <form action="{{URL::to('upload')}}" method="post" enctype="multipart/form-data">
+          <form action="{{URL::to('Applicants')}}" method="post" enctype="multipart/form-data">
             <br>
-            <br>
-            <br>
+
                   <div class="form-group">
 
                     <label class="col-xs-1 control-label">2x2 picture</label>
@@ -300,18 +296,22 @@
                     <div class="col-xs-5">
                         <input type="file" name="locationpic" id="input-file-max-fs" class="dropify-fr" accept="image/*"/  data-default-file="plugins/images/Clients/location.jpg">
                         <span class="font-13 text-muted">Recommended: Screenshot from google map<span>
+
                     </div>
                   </div>
-                <br>
-                  <div class="col-xs-4" id="buttons">
+
+                <div class="col-lg-4  col-sm-4 col-xs-12">
+                </div>
+                <div class="col-lg-2 col-sm-4 col-xs-12">
+                  <button  type="submit" name="sub" value="Upload Pictures" class="btn btn-block  btn-rounded btn-info">Upload picture</button>
+                </div>
+
+                  <div class="col-lg-2 col-sm-4 col-xs-12">
+                    <button type="submit" name="sub" value="Upload Later" class="btn btn-block  btn-rounded btn-info">Continue anyway</button>
                   </div>
 
-                  <div class="col-xs-4" id="buttons">
-                    <br>
-                    <br>
-                    <input type="submit" name="sub" value="Upload Pictures">
-                    <input type="submit" name="sub" value="Upload Later">
-                  </div>
+
+
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
           </form>
         </div>

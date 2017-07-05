@@ -17,6 +17,7 @@ use Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Mail;
 use Exception;
 class RegisterControl extends Controller
 {
@@ -271,7 +272,8 @@ class RegisterControl extends Controller
        $request->session()->forget('key');
        $value2 = $request->session()->get('email');
        $request->session()->forget('email');
-       return view('Complete')->with('email',$value2);
+      return $this->hire($request);
+
      }
 
      public function hire(Request $request)
@@ -282,9 +284,26 @@ class RegisterControl extends Controller
 
      public function approve(Request $request)
      {
-        $employee = Employee::find($request->id);
-        $employee->status = "active";
-        $employee->save();
+       $employee = Employee::find($request->id);
+       $employee->status = "active";
+       $employee->save();
+       $data = [
+                  'email'   => $employee->email,
+                  'pw'   => $employee->password,
+                  'fname' => $employee->first_name,
+                  'mname' => $employee->middle_name,
+                  'lname' => $employee->last_name
+
+              ];
+
+              Mail::send('mail', $data, function($message) use ($data)
+  {
+    $message->to($data['email']);
+    $message->subject($data['fname']);
+
+
+  });
+
         return "Email: ".$employee->email." password: ".$employee->password ;
      }
 

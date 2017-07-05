@@ -356,7 +356,7 @@ Route::get('Attribute2','Attribute2Controller@index');
 Route::get ( '/test', 'RegisterControl@test' );
 Route::get('Guard-Registration','LastControl@index6');
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
-Route::post('upload','RegisterControl@saveImage');
+Route::post('/Applicants','RegisterControl@saveImage');
 //admin guard (evander)
 Route::post('/HireEmployee','RegisterControl@approve');
 Route::post('/RemoveApplicant','RegisterControl@remove');

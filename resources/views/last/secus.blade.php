@@ -403,7 +403,7 @@
                                     	<div class="col-xs-3">
                                				<div class="input-group">
 												<div class="input-group-addon"><i class="fa fa-phone"></i></div>
-										        <input type="text" class="form-control"  id="numonly" name="noblank" data-mask="9999999" >
+										        <input type="text" class="form-control"  id="numonly" name="telephone" maxlength="9" >
 											</div>
 											<span class="font-13 text-muted">ex. 1234567<span>
 										</div>
@@ -411,7 +411,7 @@
                                     	<div class="col-xs-3">
                                				<div class="input-group">
 												<div class="input-group-addon"><i class="fa fa-mobile"></i></div>
-											    <input type="text" class="form-control"  id="numonly" name="noblank" data-mask="99999999999">
+											    <input type="text" class="form-control"  id="numonly" name="cellphone" maxlength="11">
 											</div>
 											<span class="font-13 text-muted">ex. 09123456789<span>
 										</div>
@@ -467,15 +467,15 @@
                                     <label class="col-xs-2 control-label"><strong>Primary</strong></label>
         							<label class="col-xs-1 control-label"></label>
 										<div class="col-xs-5">
-                            				<input type="text" class="form-control" name="primary" required/>
+                            				<input type="text" class="form-control" name="primary" />
                     					</div>
 										<label class="col-xs-1 control-label"></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text" name="primaryf" id="primaryfrom-date-range">
+                     						<input class="form-control" type="text"  id="primaryfrom-date-range">
                     					</div>
         								<label class="col-xs-1 control-label"> <center> To </center></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text" name="primaryt" id="primaryto-date-range">
+                     						<input class="form-control" type="text"  id="primaryto-date-range">
                     					</div>
 
                          		</div>
@@ -488,11 +488,11 @@
 										</div>
 										<label class="col-xs-1 control-label"></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text" name="secondf" id="secondaryfrom-date-range">
+                     						<input class="form-control" type="text"  id="secondaryfrom-date-range">
                     					</div>
 										<label class="col-xs-1 control-label"> <center> To </center></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text" name="secondt" id="secondaryto-date-range">
+                     						<input class="form-control" type="text"  id="secondaryto-date-range">
                     					</div>
 
                                 </div>
@@ -501,15 +501,15 @@
                                  <label class="col-xs-2 control-label"><strong>Tertiary</strong></label>
         						 <label class="col-xs-1 control-label"></label>
 									<div class="col-xs-5">
-                            			<input type="text" class="form-control" name="tertiary" required />
+                            			<input type="text" class="form-control"  required />
                     				</div>
 									<label class="col-xs-1 control-label"></label>
 									<div class="col-xs-1">
-                     					<input class="form-control" type="text" name="tertiaryf" id="tertiaryfrom-date-range">
+                     					<input class="form-control" type="text"  id="tertiaryfrom-date-range">
 									</div>
 									<label class="col-xs-1 control-label"> <center> To </center></label>
 									<div class="col-xs-1">
-                     					<input class="form-control" type="text" name="tertiaryt" id="tertiaryto-date-range">
+                     					<input class="form-control" type="text"  id="tertiaryto-date-range">
                     				</div>
 
 							  </div>
@@ -519,7 +519,7 @@
                                  <label class="col-xs-4 control-label">Degree obtained</label>
 
 									<div class="col-xs-5">
-                            			<input type="text" class="form-control" name="degree" required/>
+                            			<input type="text" class="form-control" name="degree"/>
 									</div>
 
 							  </div>
@@ -628,7 +628,7 @@
                 <tr>
                   <td id="data1">1</td>
                   <td><input type="text" class="form-control talent" name="noblank"></td>
-
+                  <td>&nbsp X </td>
                 </tr>
                 <tr>
 
@@ -803,7 +803,7 @@
   <script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
 <!-- Date Picker Plugin JavaScript -->
 <script src="plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-<script src="js/mask.js"></script>
+
 	<!-- Date range Plugin JavaScript -->
 <script src="plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
 <script src="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -1089,54 +1089,6 @@
                                 }
                             },
                             req: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
-
-                                }
-                            },
-                            primaryf: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
-
-                                }
-                            },
-                            primaryt: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
-
-                                }
-                            },
-                            secondf: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
-
-                                }
-                            },
-                            secondt: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
-
-                                }
-                            },
-                            tertiaryf: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
-
-                                }
-                            },
-                            tertiaryt: {
                                 validators: {
                                     notEmpty: {
                                         message: 'This field  is required'

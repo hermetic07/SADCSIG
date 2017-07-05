@@ -9,7 +9,11 @@ class sendEmail extends Controller
 {
     public function send()
     {
-      Mail::send(['text'=>'mail'],['name','Infant Jesus Academy CORM'], function($message){
+    
+
+      Mail::send([],['name','Infant Jesus Academy CORM'], function($message){
+        $MailBody = 'Your Custom Body';
+          $message->setBody($MailBody, 'text/html');
          $message->to('ejmaskarino05@gmail.com','To ernest')->subject('Test Email');
          $message->to('ijacorentalmanagement@gmail.com','IJACORM');
       });

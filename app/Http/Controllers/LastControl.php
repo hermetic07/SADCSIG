@@ -34,7 +34,7 @@ class LastControl extends Controller
 {
     public function clientAuth()
     {
-     
+
       return view('last.login');
     }
     public function authenticate(Request $request){
@@ -97,7 +97,7 @@ class LastControl extends Controller
     }
 
     public function saveReq($id,Request $request){
-     
+
       $explod = explode('/',$request->meetSched);
       $meetDt = "$explod[2]-$explod[0]-$explod[1]";
 
@@ -105,17 +105,17 @@ class LastControl extends Controller
       ServiceRequest::create(['establishments_id'=>$id,'services_id'=>$service->id,'date_start'=>Carbon::now(),'meetingPlace'=>$request->meeting,'meetingSchedule'=>$meetDt,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
      return redirect('Request');
-    
-       
+
+
     }
 
     public function saveGunReq($id, Request $request){
-      
+
       $gun = Gun::where('name',$request->gun)->first();
       GunRequest::create(['establishments_id'=>$id,'gun_for'=>$request->service_requested,'guns_id'=>$gun->id,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
       return redirect('Request');
-      
+
     }
 
     public function saveAddGuardReq($id,Request $request){
@@ -130,7 +130,7 @@ class LastControl extends Controller
       $establishment = Establishments::findOrFail($request->establishment_id);*/
       return view('ClientPortal.sentRequests');
     }
-    
+
     public function saveGuardReplReqst($id,Request $request){
       //return $request->numGuards;
       for($i = 0; $i < $request->numGuards; $i++){
