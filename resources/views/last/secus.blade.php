@@ -532,7 +532,7 @@
                 <label class="col-xs-5 control-label"></label>
 									<div class="col-xs-3">
                            				<div class="checkbox checkbox-success">
-											<input id="checkbox1" name="lic" type="checkbox" value="{{$l->name}}">
+											<input  name="lic" type="checkbox" value="{{$l->name}}" />
                   							<label for="checkbox1"> {{$l->name}} </label>
 										</div>
                     </div>
@@ -547,7 +547,7 @@
                   <label class="col-xs-5 control-label"></label>
 									<div class="col-xs-3">
                            				<div class="checkbox checkbox-success">
-											<input id="checkbox16" name="req" type="checkbox" value="{{$r->name}}">
+											<input  name="secreq" type="checkbox" value="{{$r->name}}" />
 											<label for="checkbox16"> {{$r->name}} </label>
                 						</div>
 									</div>
@@ -1200,7 +1200,7 @@
                       allattrib.push($(this).val());
                   });
                   // requirments
-                  $.each($("input[name='req']:checked"), function(){
+                  $.each($("input[name='secreq']:checked"), function(){
                       allReq.push($(this).val());
                   });
                   // military

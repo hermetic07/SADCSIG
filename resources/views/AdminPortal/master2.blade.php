@@ -185,9 +185,9 @@
 
           			<li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
 						<ul class="nav nav-second-level">
-							<li> <a href="{{url('/ClientsReg')}}"" class="waves-effect">Clients</a>
+							<li> <a href="{{url('/ClientsRegistration')}}" class="waves-effect">Clients</a>
 							</li>
-							<li> <a href="SecurityGuardsRegistration.html" class="waves-effect">Security guards</a>
+							<li> <a href="{{url('/Guard-Registration')}}" class="waves-effect">Security guards</a>
 							</li>
              			</ul>
 					</li>

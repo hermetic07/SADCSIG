@@ -296,15 +296,23 @@ class RegisterControl extends Controller
 
               ];
 
-              Mail::send('mail', $data, function($message) use ($data)
-  {
-    $message->to($data['email']);
-    $message->subject($data['fname']);
+        Mail::send('mail', $data, function($message) use ($data)
+        {
+                $message->to($data['email']);
+                $message->subject($data['fname']);
+        });
 
+        $data2 = [
+                   'email'   => $employee->email,
+                   'pw'   => $employee->password,
+                   'fname' => $employee->first_name,
+                   'mname' => $employee->middle_name,
+                   'lname' => $employee->last_name,
+                   'picture' => $employee->image
 
-  });
+               ];
 
-        return "Email: ".$employee->email." password: ".$employee->password ;
+        return $data2 ;
      }
 
      public function remove(Request $request)

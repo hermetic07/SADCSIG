@@ -149,6 +149,60 @@ Route::get('/SecurityGuardsPortalSettings', function () {
 
 
 
+/// ---------  Admin Client Requests  --------------------////
+
+Route::get('/ServiceRequest','ServiceRequestController@index');  // All services requested from clients
+Route::get('/NewContract-{id}','ServiceRequestController@newContract');
+Route::post('NewContract-Save','ServiceRequestController@saveContract');
+Route::get('/GunRequest','GunRequestController@index');     //  All gun requests from clients
+Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery');  // Save Gun Delivery into Database
+
+Route::get('GunDeliveries','GunDeliveryController@adminDeliveries');
+
+Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
+Route::get('/DeployGuards','DeploymentController@deployIndex');
+Route::post('/DeployGuards/Save','DeploymentController@saveDepl');
+Route::get('/ClientRegistration','ContractController@register');
+
+Route::post('/ClientRegistration-Save','ContractController@save');
+
+
+/** -----------------  CLIENTS --------------------- **/
+
+// Check before deleting Route::get('/SendGun','LastControl@index3');
+
+
+Route::get('/ClientPortalHome','ClientPortalHomeController@index');
+Route::get('/Request-{id}','ClientPortalHomeController@requests');
+Route::post('/Request-Save/{id}','LastControl@saveReq');
+Route::post('/GunRequest-Save/{id}','LastControl@saveGunReq');
+Route::post('/AddGuardRequests-Save/{id}','LastControl@saveAddGuardReq');
+Route::post('/GuardReplcRequest-Save/{id}','LastControl@saveGuardReplReqst');
+
+Route::post('GunDelivery-remove', 'GunDeliveryController@remove');
+Route::post('GunRequest-remove', 'GunRequestController@remove');
+Route::post('ServiceRequest-remove', 'ServiceRequestController@remove');
+Route::post('AddGuardRequest-remove', 'AdditionalGuardRequesController@remove');
+
+Route::get('/ClientPortalHome-GunDelivery-{id}','ClientPortalHomeController@gunDeliveries');
+Route::post('GunDelivery-claim', 'GunDeliveryController@claim');
+
+Route::get('/ClientPortalGuardsDTR-{id}','ClientPortalHomeController@guardDtr');
+
+Route::get('/ClientPortalEstablishments', function () {
+    return view('ClientPortal/ClientPortalEstablishments');
+});
+Route::get('/ClientPortalMessages', function () {
+    return view('ClientPortal/ClientPortalMessages');
+});
+
+Route::get('/ClientPortalSettings', function () {
+    return view('ClientPortal/ClientPortalSettings');
+});
+Route::get('/ClientPortalDetails', function () {
+    return view('ClientPortal/ClientPortalDetails');
+});
+
 Route::get('/ClientLogin','LastControl@clientAuth');
 Route::post('/Client-auth','LastControl@authenticate');
 
@@ -156,27 +210,29 @@ Route::post('/Client-auth','LastControl@authenticate');
 //Route::get('/Request','LastControl@login');
 //Route::get('/Request-view','ServiceRequestController@view');
 
-Route::get('/Request','LastControl@index');
-Route::post('/Request-Save/{id}','LastControl@saveReq');
-Route::post('/GunRequest-Save/{id}','LastControl@saveGunReq');
-Route::post('/AddGuardRequests-Save/{id}','LastControl@saveAddGuardReq');
-Route::post('/GuardReplcRequest-Save/{id}','LastControl@saveGuardReplReqst');
 
 
 
-Route::post('GunRequest-remove', 'GunRequestController@remove');
-Route::post('ServiceRequest-remove', 'ServiceRequestController@remove');
-Route::post('AddGuardRequest-remove', 'AdditionalGuardRequesController@remove');
 
-Route::get('/DeployGuards','DeploymentController@deployIndex');
-Route::post('/DeployGuards/Save','DeploymentController@saveDepl');
 
-Route::get('/ClientsReg','LastControl@index2');
-Route::post('ClientRegs/Save','LastControl@save');
-Route::get('/SendGun','LastControl@index3');
+
+
+
+
+
+
+
+
+
+
+
+//Route::get('/ClientsReg','LastControl@index2');
+//Route::post('ClientRegs/Save','LastControl@save');
+//Route::get('/SendGun','LastControl@index3');
 Route::get('/Deploy','LastControl@index4');
 Route::get('/Login','LastControl@index5');
 Route::get('/Secus','LastControl@index6');
+
 
 
 
@@ -364,3 +420,8 @@ Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
 
 //
 Route::get('send','sendEmail@send');
+//log In
+Route::get('/ClientLogin','ContractController@signin');
+Route::post('/CLogin','ContractController@login');
+Route::get('/ClientHome','ContractController@home');
+Route::post('/ClientOut','ContractController@logout');

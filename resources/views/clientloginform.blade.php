@@ -77,13 +77,26 @@
 
       <div class="white-box">
         <div class="row">
-          <div class="alert alert-info">
-            <p align="center">{{$u->id}} is logged in </p>
-          </div>
-          <form class="" action="{{url('/ClientOut')}}" method="post">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="submit" name="out" value="Log Out">
-          </form>
+
+
+                <form class="" action="{{url('/CLogin')}}" method="post">
+
+                  <div class="form-group">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                      <label class="col-xs-1 control-label">Username</label>
+                      <div class="col-xs-3">
+                          <input type="text" class="form-control" name="client_username"/>
+                      </div>
+                      <label class="col-xs-1 control-label">Password</label>
+                      <div class="col-xs-3">
+                          <input type="text" class="form-control" name="client_password"/>
+                      </div>
+                           <input type="submit" name="submit" value="Log IN">
+                  </div>
+                </form>
+
+
+
         </div>
       </div>
 

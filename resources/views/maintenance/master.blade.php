@@ -186,7 +186,7 @@
 						<ul class="nav nav-second-level">
 							<li> <a href="ClientRegistration.html" class="waves-effect">Clients</a>
 							</li>
-							<li> <a href="SecurityGuardsRegistration.html" class="waves-effect">Security guards</a>
+							<li> <a href="{{url('/Guard-Registration')}}" class="waves-effect">Security guards</a>
 							</li>
              			</ul>
 					</li>

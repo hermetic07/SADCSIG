@@ -73,7 +73,7 @@
 																<div class="el-overlay">
 																	<ul class="el-info">
 																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="uploads/{{$e->image}}"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$e->id)}}"_blank"><i class="fa fa-info"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$e->id)}}"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
 													</div>
@@ -204,9 +204,9 @@
                                       success: function(result){
 
                                           swal({
-                                              title: "First Name!" ,
-                                              text: "is now officially hired. \n\n" + result,
-                                              imageUrl: "uploads/2x2.jpg"
+                                              title: result.fname ,
+                                              text: "is now officially hired. \n\n"+ "Email: " + result.email + " Password: " + result.pw,
+                                              imageUrl: "uploads/"+result.picture
                                             }, function(){
                 location.reload();
         });
