@@ -315,6 +315,33 @@ class RegisterControl extends Controller
         return $data2 ;
      }
 
+     public function approve2(Request $request)
+     {
+       $employee = Employee::find($request->id);
+       $employee->status = "active";
+       $employee->save();
+       $data = [
+                  'email'   => $employee->email,
+                  'pw'   => $employee->password,
+                  'fname' => $employee->first_name,
+                  'mname' => $employee->middle_name,
+                  'lname' => $employee->last_name
+
+              ];
+
+        $data2 = [
+                   'email'   => $employee->email,
+                   'pw'   => $employee->password,
+                   'fname' => $employee->first_name,
+                   'mname' => $employee->middle_name,
+                   'lname' => $employee->last_name,
+                   'picture' => $employee->image
+
+               ];
+
+        return $data2 ;
+     }
+
      public function remove(Request $request)
      {
         $employee = Employee::find($request->id);

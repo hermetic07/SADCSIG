@@ -1,193 +1,121 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+  <link rel="icon" type="image/png" href="plugins/images/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="plugins/images/favicon-16x16.png" sizes="16x16" />
 
-    <title></title>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Bootstrap Core CSS -->
-     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Footable CSS -->
-     <link href="plugins/bower_components/footable/css/footable.core.css" rel="stylesheet">
-     <link href="plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
-    <!-- Menu CSS -->
-     <link href="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
-     <!-- animation CSS -->
-     <link href="css/animate.css" rel="stylesheet">
-   <!-- Wizard CSS -->
-   <link href="plugins/bower_components/jquery-wizard-master/css/wizard.css" rel="stylesheet">
-     <!-- Custom CSS -->
-     <link href="css/style.css" rel="stylesheet">
-     <!-- color CSS -->
-     <link href="css/colors/MyThemeColor.css" id="theme"  rel="stylesheet">
-     <!--alerts CSS -->
-     <link href="js/Alert/sweetalert.css" rel="stylesheet" type="text/css">
-     <!---switch -->
-     <link href="plugins/bower_components/switchery/dist/switchery.min.css" rel="stylesheet" />
-   	<link rel="stylesheet" href="plugins/bower_components/dropify/dist/css/dropify.min.css">
-   	  <!-- Date picker plugins css -->
-   <link href="plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
-   <!-- Daterange picker plugins css -->
-   <link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
-   <link href="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-   <script src="{{asset('js/jquery.min.js')}}"></script>
-     <script src="{{asset('js/jquery.validate.js')}}"></script>
-    <script type="text/javascript">
+<title>LogIn</title>
+<!-- Bootstrap Core CSS -->
+<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- animation CSS -->
+<link href="css/animate.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="css/style.css" rel="stylesheet">
+<!-- color CSS -->
+<link href="css/colors/blue.css" id="theme"  rel="stylesheet">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<!-- Preloader -->
+<div class="preloader">
+  <div class="cssload-speeding-wheel"></div>
+</div>
+<section id="wrapper" class="login-register">
 
-   	  $(document).ready(function(){
+	<div id="f1_container">
+<div id="f1_card">
+  <div class="front face">
+    <div class='slide1'></div>
+  <div class='slide2'></div>
+  <div class='slide3'></div>
+  </div>
+  <div class="back face">
 
-
-
-   			var shift =1;
-   			//Span for count of selected guards
-               var value = parseInt($(".myspan").text(), 10) + 1;
-   			//Span for the remaining guards that need to be selected to meet the limit
-   			var value2 = parseInt($(".deploysecu").text(), 10) + 1;
-
-
-   	  });
-
-   </script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <style>
-    #buttons {
-      margin: auto;
-    }
-   </style>
-  </head>
-  <body>
-    <!-- Top Navigation -->
-    <nav class="navbar navbar-default navbar-static-top m-b-0">
-    <!-- navbar-header -->
-      <div class="navbar-header">
-    <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+  </div>
+</div>
+</div>
 
 
 
 
-
-     <!-- System logo-->
-         <div class="top-left-part"><a class="logo" href="Dashboard.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
-         </div>
-
-     </div>
-      <!-- /.navbar-header -->
-    </nav>
-    <!-- End Top Navigation -->
-
-      <div class="white-box">
-        <div class="row">
+</section>
 
 
-                <form class="" action="{{url('/CLogin')}}" method="post">
-
-                  <div class="form-group">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                      <label class="col-xs-1 control-label">Username</label>
-                      <div class="col-xs-3">
-                          <input type="text" class="form-control" name="client_username"/>
-                      </div>
-                      <label class="col-xs-1 control-label">Password</label>
-                      <div class="col-xs-3">
-                          <input type="text" class="form-control" name="client_password"/>
-                      </div>
-                           <input type="submit" name="submit" value="Log IN">
-                  </div>
-                </form>
-
-
-
+  <div class="login-box3 login-sidebar">
+    <div class="white-box">
+      <form class="form-horizontal form-material" id="loginform" action="{{url('/CLogin')}}" method="post">
+  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <a href="javascript:void(0)" class="text-center db"><img src="plugins/images/users/logoicon2.png" alt="Home" /><br/><img src="plugins/images/users/logotext2.png"  alt="Home" /></a>
+		  </br>	  </br>	  	</br>
+        <div class="form-group m-t-40">
+          <div class="col-xs-12">
+            <input class="form-control" type="text" name="client_username" required="" placeholder="Username">
+          </div>
         </div>
-      </div>
-
-
-
-      <footer > <div class="navbar navbar-fixed-bottom">
-        <div class="alert alert-info">
-          <p align="center">2016 &copy; Evacle</p>
+        <div class="form-group">
+          <div class="col-xs-12">
+            <input class="form-control" type="password" required="" name="client_password" placeholder="Password">
+          </div>
         </div>
-      </div> </footer>
-      <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
-      <!-- Bootstrap Core JavaScript -->
-      <script src="bootstrap/dist/js/bootstrap.min.js"></script>
-      <!-- Form Wizard JavaScript -->
-      <script src="plugins/bower_components/jquery-wizard-master/dist/jquery-wizard.min.js"></script>
-      <!-- FormValidation -->
-      <link rel="stylesheet" href="plugins/bower_components/jquery-wizard-master/libs/formvalidation/	formValidation.min.css">
-      <!-- FormValidation plugin and the class supports validating Bootstrap form -->
-      <script src="plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.js"></script>
-      <script src="plugins/bower_components/jquery-wizard-master/libs/formvalidation/bootstrap.min.js"></script>
-      <script src="plugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js" type="text/javascript"></script>
-      <!-- Footable -->
-      <script src="plugins/bower_components/footable/js/footable.all.min.js"></script>
-      <script src="plugins/bower_components/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
-      <!--FooTable init-->
-      <script src="js/footable-init.js"></script>
-      <!--slimscroll JavaScript -->
-      <script src="js/jquery.slimscroll.js"></script>
-      <!--Wave Effects -->
-      <script src="js/waves.js"></script>
-      <!-- Custom Theme JavaScript -->
-      <script src="js/custom.min.js"></script>
-      <script src="plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
-        <!-- Menu Plugin JavaScript -->
-        <script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
-      <!-- Date Picker Plugin JavaScript -->
-      <script src="plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <div class="form-group">
+          <div class="col-md-12">
 
-      	<!-- Date range Plugin JavaScript -->
-      <script src="plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
-      <script src="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-      <script src="plugins/bower_components/dropify/dist/js/dropify.min.js"></script>
-      <script>
-
-      $(document).ready(function() {
+            <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a> </div>
+        </div>
+        <div class="form-group text-center m-t-20">
+			</br> </br> </br> </br>
+          <div class="col-xs-12">
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit name="submit" value="Log IN"">Log In</button>
+          </div>
+        </div>
 
 
+      </form>
+      <form class="form-horizontal" id="recoverform" action="login2.html">
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <h3>Recover Password</h3>
+            <p class="text-muted">Enter your Email and instructions will be sent to you! </p>
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <input class="form-control" type="text" required="" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-group text-center m-t-20">
+          <div class="col-xs-12">
+            <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
+		  	<button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" onClick="history.go(0)">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<!-- jQuery -->
+<script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Menu Plugin JavaScript -->
+<script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
 
-      });
-      </script>
-      <script>
-                  $(document).ready(function(){
-                      // Basic
-                      $('.dropify').dropify();
-
-                      // Translated
-                      $('.dropify-fr').dropify({
-                          messages: {
-      							default: 'Please insert your 2x2 picture',
-      							replace: 'Drag and drop or click to replace picture',
-                              remove:  'Remove',
-                              error:   'Please upload a 2x2 picture'
-                          }
-                      });
-
-                      // Used events
-                      var drEvent = $('#input-file-events').dropify();
-
-                      drEvent.on('dropify.beforeClear', function(event, element){
-                          return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-                      });
-
-                      drEvent.on('dropify.afterClear', function(event, element){
-                          alert('File deleted');
-                      });
-
-                      drEvent.on('dropify.errors', function(event, element){
-                          console.log('Has Errors');
-                      });
-
-                      var drDestroy = $('#input-file-to-destroy').dropify();
-                      drDestroy = drDestroy.data('dropify')
-                      $('#toggleDropify').on('click', function(e){
-                          e.preventDefault();
-                          if (drDestroy.isDropified()) {
-                              drDestroy.destroy();
-                          } else {
-                              drDestroy.init();
-                          }
-                      })
-                  });
-              </script>
-  </body>
+<!--slimscroll JavaScript -->
+<script src="js/jquery.slimscroll.js"></script>
+<!--Wave Effects -->
+<script src="js/waves.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="js/custom.min.js"></script>
+<!--Style Switcher -->
+<script src="plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+</body>
 </html>

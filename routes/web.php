@@ -12,9 +12,6 @@
 */
 Route::get('/Request-sent','LastControl@viewSentReq');
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/Blank', function () {
     return view('blank');
@@ -415,13 +412,14 @@ Route::post('/RegisterEmployee','RegisterControl@employeeReg');
 Route::post('/Applicants','RegisterControl@saveImage');
 //admin guard (evander)
 Route::post('/HireEmployee','RegisterControl@approve');
+Route::post('/HireEmployee2','RegisterControl@approve2');
 Route::post('/RemoveApplicant','RegisterControl@remove');
 Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
 
 //
 Route::get('send','sendEmail@send');
 //log In
-Route::get('/ClientLogin','ContractController@signin');
+Route::get('/','ContractController@signin');
 Route::post('/CLogin','ContractController@login');
 Route::get('/ClientHome','ContractController@home');
 Route::post('/ClientOut','ContractController@logout');

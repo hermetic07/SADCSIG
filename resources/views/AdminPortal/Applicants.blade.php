@@ -216,7 +216,48 @@
                                        }
                                      });
                               } else {
-                                swal("No internet connection", "Email not sent", "error");
+                                swal({
+                                        title: "No internet connection",
+                                        text: "Unable to send an email. Hire the applicants anyway?",
+                                        type: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Yes",
+                                        cancelButtonText: "No, cancel it",
+                                        closeOnConfirm: false,
+                                        closeOnCancel: false
+                                    }, function(isConfirm){
+                                        if (isConfirm) {
+
+                                            $.ajax({
+                                                  url: '/HireEmployee2',
+                                                  type:"POST",
+                                                   data: {
+
+                                                     "id":id
+
+                                                  },
+                                                  success: function(result){
+
+                                                      swal({
+                                                          title: result.fname ,
+                                                          text: "is now officially hired. \n\n"+ "Email: " + result.email + " Password: " + result.pw,
+                                                          imageUrl: "uploads/"+result.picture
+                                                        }, function(){
+                            location.reload();
+                    });
+
+
+
+                                                   }
+                                                 });
+
+
+
+                                        } else {
+                                            swal("Cancelled", "Email not sent", "error");
+                                        }
+                                    });
                               }
 
 
