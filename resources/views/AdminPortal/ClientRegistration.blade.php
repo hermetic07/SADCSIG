@@ -28,6 +28,7 @@
 <link href="plugins/bower_components/jquery-wizard-master/css/wizard.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link href="css/style.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet">
   <!-- color CSS -->
   <link href="css/colors/MyThemeColor.css" id="theme"  rel="stylesheet">
   <!--alerts CSS -->
@@ -37,6 +38,9 @@
       <link rel="stylesheet" href="plugins/bower_components/dropify/dist/css/dropify.min.css">
     <!-- Date picker plugins css -->
 <link href="plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+<link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+
 <!-- Daterange picker plugins css -->
 <link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
 <link href="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
@@ -282,6 +286,9 @@
               <h4><span><i class="ti-user"></i></span>Business details</h4>
             </li>
             <li role="tab">
+              <h4><span><i class="fa fa-file-text-o"></i></span>terms of contract</h4>
+            </li>
+            <li role="tab">
               <h4><span><i class="fa fa-clock-o"></i></span>Guard's shift</h4>
             </li>
             <li role="tab">
@@ -348,6 +355,7 @@
                   </select>
                   </div>
               </div>
+
               <div class="form-group">
                 <label class="col-xs-2 control-label">Area Size (approx. in square meters)</label>
                   <div class="col-xs-4">
@@ -358,7 +366,36 @@
                     <input type="text" class="form-control" name="population"  />
                 </div>
               </div>
-              <br>
+
+
+
+              								<div class="form-group">
+              									<label class="col-xs-1 control-label">Telephone</label>
+                                                  	<div class="col-xs-3">
+                                             				<div class="input-group">
+              												<div class="input-group-addon"><i class="fa fa-phone"></i></div>
+              										        <input type="number" class="form-control"  id="numonly" name="telephone" maxlength="9" >
+              											</div>
+              											<span class="font-13 text-muted">ex. 1234567<span>
+              										</div>
+              									<label class="col-xs-1 control-label">Cellphone</label>
+                                                  	<div class="col-xs-3">
+                                             				<div class="input-group">
+              												<div class="input-group-addon"><i class="fa fa-mobile"></i></div>
+              											    <input type="number" class="form-control"  id="numonly" name="cellphone" maxlength="11">
+              											</div>
+              											<span class="font-13 text-muted">ex. 09123456789<span>
+              										</div>
+              											<label class="col-xs-1 control-label">Email address</label>
+              										<div class="col-xs-3">
+                                             				<div class="input-group">
+              												<div class="input-group-addon"><i class="ti-email"></i></div>
+              										        <input type="text" class="form-control" name="email">
+              											</div>
+              											<span class="font-13 text-muted">ex. myemail@yahoo.com<span>
+              										</div>
+                                              </div>
+
               <div class="form-group">
                 <center> <h4> <strong>Person in charge Informations</strong></h4> </center>
               </div>
@@ -380,7 +417,7 @@
 
                 </div>
                 <div class="col-xs-4">
-                    <input type="text" class="form-control" name="pic_no" placeholder="Contact Number" />
+                    <input type="number" class="form-control" name="pic_no" placeholder="Contact Number" />
                 </div>
                 <div class="col-xs-4">
                     <input type="email" class="form-control" name="pic_email" placeholder="Email Address" />
@@ -388,47 +425,60 @@
               </div>
               <hr>
 
-              <div class="form-group">
 
-                <center> <h4> <strong>Terms of contract</strong></h4> </center>
-                  <br>
-                    <div class="form-group">
-                      <label class="col-xs-1 control-label">Type of Service</label>
-                      <div class="col-md-4">
-                        <select class="form-control"  name="service" id="service">
-                          <option value="" disabled="" selected="">Select Type of Service</option>
-                          @foreach($services as $s )
-                          <option value="{{$s->id}}">{{$s->name}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                      <label class="col-xs-3 control-label">Number of guards needed</label>
-                       <div class="col-xs-4">
-                       <input id="tch3" type="text" value="" name="no_guards" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
-                      </div>
-                    </div>
 
-                  <div class="form-group">
-                    <label class="col-xs-1 control-label">Span (months) </label>
-                    <div class="col-xs-3">
-                      <input id="tch3" type="text" name="span_mo" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
-                    </div>
-                    <label class="col-xs-1 control-label">Starts from </label>
-                     <div class="col-xs-3">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy" name="from" />
+
+              </div>
+              <div class="wizard-pane" role="tabpanel">
+                <div class="form-group">
+
+                  <center> <h4> <strong>Terms of contract</strong></h4> </center>
+                    <br>
+                      <div class="form-group">
+                        <label class="col-xs-2 control-label">Type of Service</label>
+                        <div class="col-md-4">
+                          <select class="form-control"  name="service" id="service">
+                            <option value="" disabled="" selected="">Select Type of Service</option>
+                            @foreach($services as $s )
+                            <option value="{{$s->id}}">{{$s->name}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <label class="col-xs-2 control-label">Operating hours</label>
+                         <div class="col-xs-4">
+                         <input id="tch1" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
                         </div>
                       </div>
-                      <label class="col-xs-1 control-label"> Ends to </label>
+                      <div class="form-group">
+                        <label class="col-xs-2 control-label">Number of guards needed</label>
+                         <div class="col-xs-4">
+                         <input id="tch3" type="text" value="" name="no_guards" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
+                        </div>
+                        <label class="col-xs-2 control-label">Expected complete date</label>
+                         <div class="col-xs-4">
+                         <input id="tch2" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                      <label class="col-xs-1 control-label">Span (months) </label>
                       <div class="col-xs-3">
-                         <div class="input-group">
-                           <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="dp-periodto" placeholder="yyyy/mm/dd" name="to">
+                        <input id="tch3" type="text" name="span_mo" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
+                      </div>
+                      <label class="col-xs-1 control-label">Starts from </label>
+                       <div class="col-xs-3">
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly/>
+                          </div>
+                        </div>
+                        <label class="col-xs-1 control-label"> Ends to </label>
+                        <div class="col-xs-3">
+                           <div class="input-group">
+                             <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control secondcal" id="secondcal" placeholder="yyyy/mm/dd" name="to" disabled>
+                           </div>
                          </div>
-                       </div>
+                    </div>
                   </div>
-                </div>
-
-
               </div>
               <div class="wizard-pane" role="tabpanel">
                 <div class="form-group">
@@ -461,62 +511,11 @@
                 <tr>
                   <td id="data1">1</td>
                   <td>
-            <select class="form-control shiftstart">
-                    <option value="" disabled="" selected="">---</option>
-                      <option id="0" value="00:00:00">12 AM</option>
-                      <option id="1" value="01:00:00">1 AM</option>
-                      <option id="2" value="02:00:00">2 AM</option>
-                      <option id="3" value="03:00:00">3 AM</option>
-                      <option id="4" value="04:00:00">4 AM</option>
-                      <option id="5" value="05:00:00">5 AM</option>
-                      <option id="6" value="06:00:00">6 AM</option>
-                      <option id="7" value="07:00:00">7 AM</option>
-                      <option id="8" value="08:00:00">8 AM</option>
-                      <option id="9" value="09:00:00">9 AM</option>
-                      <option id="10" value="10:00:00">10 AM</option>
-                      <option id="11" value="11:00:00">11 AM</option>
-                      <option id="12" value="12:00:00">12 PM</option>
-                      <option id="13" value="13:00:00">1 PM</option>
-                      <option id="14" value="14:00:00">2 PM</option>
-                      <option id="15" value="15:00:00">3 PM</option>
-                      <option id="16" value="16:00:00">4 PM</option>
-                      <option id="17" value="17:00:00">5 PM</option>
-                      <option id="18" value="18:00:00">6 PM</option>
-                      <option id="19" value="19:00:00">7 PM</option>
-                      <option id="20" value="20:00:00">8 PM</option>
-                      <option id="21" value="21:00:00">9 PM</option>
-                      <option id="22" value="22:00:00">10 PM</option>
-                      <option id="23" value="23:00:00">11 PM</option>
-            </select>
+      <div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div>
+
           </td>
                   <td>
-            <select class="form-control shiftend">
-                    <option value="" disabled="" selected="">---</option>
-                      <option id="0" value="00:00:00">12 AM</option>
-                      <option id="1" value="01:00:00">1 AM</option>
-                      <option id="2" value="02:00:00">2 AM</option>
-                      <option id="3" value="03:00:00">3 AM</option>
-                      <option id="4" value="04:00:00">4 AM</option>
-                      <option id="5" value="05:00:00">5 AM</option>
-                      <option id="6" value="06:00:00">6 AM</option>
-                      <option id="7" value="07:00:00">7 AM</option>
-                      <option id="8" value="08:00:00">8 AM</option>
-                      <option id="9" value="09:00:00">9 AM</option>
-                      <option id="10" value="10:00:00">10 AM</option>
-                      <option id="11" value="11:00:00">11 AM</option>
-                      <option id="12" value="12:00:00">12 PM</option>
-                      <option id="13" value="13:00:00">1 PM</option>
-                      <option id="14" value="14:00:00">2 PM</option>
-                      <option id="15" value="15:00:00">3 PM</option>
-                      <option id="16" value="16:00:00">4 PM</option>
-                      <option id="17" value="17:00:00">5 PM</option>
-                      <option id="18" value="18:00:00">6 PM</option>
-                      <option id="19" value="19:00:00">7 PM</option>
-                      <option id="20" value="20:00:00">8 PM</option>
-                      <option id="21" value="21:00:00">9 PM</option>
-                      <option id="22" value="22:00:00">10 PM</option>
-                      <option id="23" value="23:00:00">11 PM</option>
-            </select>
+            <div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div>
           </td>
 
           </tr>
@@ -628,6 +627,7 @@
 <script src="plugins/bower_components/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
 <!--FooTable init-->
 <script src="js/footable-init.js"></script>
+<script src="js/jquery-ui.js"></script>
 <!--slimscroll JavaScript -->
 <script src="js/jquery.slimscroll.js"></script>
 <!--Wave Effects -->
@@ -638,36 +638,63 @@
   <!-- Menu Plugin JavaScript -->
   <script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
     <script src="plugins/bower_components/dropify/dist/js/dropify.min.js"></script>
-<!-- Date Picker Plugin JavaScript -->
-<script src="plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>
 
-  <!-- Date range Plugin JavaScript -->
-<script src="plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
-<script src="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+
+
  <script>
-   // Date Picker
-    jQuery('.mydatepicker, #datepicker').datepicker();
-    jQuery('#datepicker-autoclose').datepicker({
-        autoclose: true,
-        todayHighlight: true,
 
+ $('.clockpicker').clockpicker({
+    donetext: 'Done',
 
-      });
-      jQuery('#dp-periodto').datepicker({
-      autoclose: true,
-      todayHighlight: true,
-        endDate: '+0d',
+})
+  .find('input').change(function(){
+    console.log(this.value);
+});
 
-    });
+ $(function() {
+     $(".firstcal").datepicker({
+         dateFormat: "mm/dd/yy",
+         onSelect: function(dateText, instance) {
+           var a = $('input[name=span_mo]').val();
+         var number = parseInt(a);
+
+             date = $.datepicker.parseDate(instance.settings.dateFormat, dateText, instance.settings);
+             date.setMonth(date.getMonth() + number);
+             $(".secondcal").datepicker("setDate", date);
+         }
+     });
+     $(".secondcal").datepicker({
+         dateFormat: "mm/dd/yy"
+     });
+ });
+  $('.firstcal').attr("disabled", "disabled")
    //Scrollbar
     jQuery(document).ready(function() {
-
-
+      $("input[id='tch1']").TouchSpin({
+                 min: 1  ,
+                 max: 24,
+                 stepinterval: 50,
+                 maxboostedstep: 10000000,
+             });
+             $("input[id='tch2']").TouchSpin({
+                        min: 1  ,
+                        max: 1000000000,
+                        stepinterval: 50,
+                        maxboostedstep: 10000000,
+                    });
      $("input[id='tch3']").TouchSpin({
-                min: -1000000000,
+                min: 1  ,
                 max: 1000000000,
                 stepinterval: 50,
                 maxboostedstep: 10000000,
+            }).on('change', function () {
+$('#firstcal').removeAttr("disabled");
+      $('#firstcal').val("");
+      $('#secondcal').val('');
             });
 
 
@@ -704,7 +731,7 @@
     ctr++;
 
     //build up the row we are wanting to add
-    var newRow = '<tr><td class="count"></td><td><select class="form-control"><option value="" disabled="" selected="">---</option><option id="0" value="00:00:00">12 AM</option><option id="1" value="01:00:00">1 AM</option><option id="2" value="02:00:00">2 AM</option><option id="3" value="03:00:00">3 AM</option><option id="4" value="04:00:00">4 AM</option><option id="5" value="05:00:00">5 AM</option><option id="6" value="06:00:00">6 AM</option><option id="7" value="07:00:00">7 AM</option><option id="8" value="08:00:00">8 AM</option><option id="9" value="09:00:00">9 AM</option><option id="10" value="10:00:00">10 AM</option><option id="11" value="11:00:00">11 AM</option><option id="12" value="12:00:00">12 PM</option><option id="13" value="13:00:00">1 PM</option><option id="14" value="14:00:00">2 PM</option><option id="15" value="15:00:00">3 PM</option><option id="16" value="16:00:00">4 PM</option><option id="17" value="17:00:00">5 PM</option><option id="18" value="18:00:00">6 PM</option><option id="19" value="19:00:00">7 PM</option><option id="20" value="20:00:00">8 PM</option><option id="21" value="21:00:00">9 PM</option><option id="22" value="22:00:00">10 PM</option><option id="23" value="23:00:00">11 PM</option></select></td><td><select class="form-control"><option value="" disabled="" selected="">---</option><option id="0" value="00:00:00">12 AM</option><option id="1" value="01:00:00">1 AM</option><option id="2" value="02:00:00">2 AM</option><option id="3" value="03:00:00">3 AM</option><option id="4" value="04:00:00">4 AM</option><option id="5" value="05:00:00">5 AM</option><option id="6" value="06:00:00">6 AM</option><option id="7" value="07:00:00">7 AM</option><option id="8" value="08:00:00">8 AM</option><option id="9" value="09:00:00">9 AM</option><option id="10" value="10:00:00">10 AM</option><option id="11" value="11:00:00">11 AM</option><option id="12" value="12:00:00">12 PM</option><option id="13" value="13:00:00">1 PM</option><option id="14" value="14:00:00">2 PM</option><option id="15" value="15:00:00">3 PM</option><option id="16" value="16:00:00">4 PM</option><option id="17" value="17:00:00">5 PM</option><option id="18" value="18:00:00">6 PM</option><option id="19" value="19:00:00">7 PM</option><option id="20" value="20:00:00">8 PM</option><option id="21" value="21:00:00">9 PM</option><option id="22" value="22:00:00">10 PM</option><option id="23" value="23:00:00">11 PM</option></select></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+    var newRow = '<tr><td class="count"></td><<td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
 
 
     //add it
