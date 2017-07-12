@@ -292,7 +292,7 @@
               <h4><span><i class="fa fa-clock-o"></i></span>Guard's shift</h4>
             </li>
             <li role="tab">
-              <h4><span><i class="ti-check"></i></span>Account</h4>
+              <h4><span><i class="ti-check"></i></span>Qualifications</h4>
             </li>
           </ul>
               </br>
@@ -431,9 +431,6 @@
               </div>
               <div class="wizard-pane" role="tabpanel">
                 <div class="form-group">
-
-                  <center> <h4> <strong>Terms of contract</strong></h4> </center>
-                    <br>
                       <div class="form-group">
                         <label class="col-xs-2 control-label">Type of Service</label>
                         <div class="col-md-4">
@@ -447,16 +444,6 @@
                         <label class="col-xs-2 control-label">Operating hours</label>
                          <div class="col-xs-4">
                          <input id="tch1" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-xs-2 control-label">Number of guards needed</label>
-                         <div class="col-xs-4">
-                         <input id="tch3" type="text" value="" name="no_guards" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
-                        </div>
-                        <label class="col-xs-2 control-label">Expected complete date</label>
-                         <div class="col-xs-4">
-                         <input id="tch2" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
                         </div>
                       </div>
 
@@ -477,6 +464,18 @@
                              <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control secondcal" id="secondcal" placeholder="yyyy/mm/dd" name="to" disabled>
                            </div>
                          </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-xs-2 control-label">Number of guards needed</label>
+                       <div class="col-xs-4">
+                       <input id="tch3" type="text" value="" name="no_guards" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
+                      </div>
+                      <label class="col-xs-2 control-label">Expected complete date</label>
+                       <div class="col-xs-4">
+                         <div class="input-group">
+                           <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control excom" placeholder="mm/dd/yyyy" />
+                         </div>
+                      </div>
                     </div>
                   </div>
               </div>
@@ -511,11 +510,15 @@
                 <tr>
                   <td id="data1">1</td>
                   <td>
-      <div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div>
+        <div class="input-group" data-placement="left" data-align="top" data-autoclose="true">
+          <input type="time" class="form-control" ><span class="input-group-addon">
+            <span class="glyphicon glyphicon-time"></span></span></div>
 
           </td>
                   <td>
-            <div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div>
+            <div class="input-group" data-placement="left" data-align="top" data-autoclose="true">
+              <input type="time" class="form-control" ><span class="input-group-addon">
+                <span class="glyphicon glyphicon-time"></span></span></div>
           </td>
 
           </tr>
@@ -528,18 +531,169 @@
         </div>
         </div>
         <div class="wizard-pane" role="tabpanel">
-            <div class="form-group">
-                <label class="col-xs-4 control-label">Username</label>
-                <div class="col-xs-5">
-                    <input type="text" class="form-control" name="client_username"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-4 control-label">Password</label>
-                <div class="col-xs-5">
-                    <input type="text" class="form-control" name="client_password"/>
-                </div>
-            </div>
+          <div class="form-group">
+									 <label class="col-xs-2 control-label">School level</label>
+									    <div class="col-xs-4">
+											<select class="form-control"  name="noblank" id="gender">
+												<option disabled></option>
+												<option>High school level</option>
+												<option>College level</option>
+											</select>
+										</div>
+									 <label class="col-xs-1 control-label">Age</label>
+									    <div class="col-xs-4">
+						             <input type="number" class="form-control">
+										</div>
+                  </div>
+
+</br>
+          <center> <h4> <strong>Body attributes of guards</strong></h4> </center>
+            <br>
+            <div class="table-responsive">
+                             <table class="table color-bordered-table inverse-bordered-table">
+               <thead>
+                 <tr>
+                   <th>Body attribute</th>
+                                         <th><center>Specification</center></th>
+                   <th>Measurement</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr>
+                   <td>Height</td>
+                   <td>
+                     <div class="form-group">
+
+
+                        <div class="col-xs-6">
+                       <input type="text" class="form-control" name="noblank"  placeholder="not less than"/>
+                       </div>
+                       <div class="col-xs-6">
+                                  <input type="text" class="form-control" name="noblank"   placeholder="not greater than"/>
+                      </div>
+                    </div>
+
+                   </td>
+
+                   <td>ft</td>
+                                     </tr>
+                 <tr>
+                                         <td>Weight</td>
+                   <td>             <div class="form-group">
+
+
+                                   <div class="col-xs-6">
+                                  <input type="text" class="form-control" name="noblank"  placeholder="not less than"/>
+                                  </div>
+                                  <div class="col-xs-6">
+                                             <input type="text" class="form-control" name="noblank"   placeholder="not greater than"/>
+                                 </div>
+                               </div></td>
+                                         <td>kg</td>
+                 </tr>
+                 <tr>
+                   <td>Wing span</td>
+                   <td>             <div class="form-group">
+
+
+                                   <div class="col-xs-6">
+                                  <input type="text" class="form-control" name="noblank"  placeholder="not less than"/>
+                                  </div>
+                                  <div class="col-xs-6">
+                                             <input type="text" class="form-control" name="noblank"   placeholder="not greater than"/>
+                                 </div>
+                               </div></td>
+                   <td>meter</td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+           </div>
+         </br>
+           <div class="form-group">
+
+                       <div class="col-xs-6">
+    <center> <h4> <strong>Licences and clearances</strong></h4> </center>
+             </br>
+    <div class="form-group">
+  									<div class="col-xs-4">
+                             				<div class="checkbox checkbox-success">
+  											<input id="checkbox1" type="checkbox">
+                    							<label for="checkbox1"> PNP-SOSIA License </label>
+  										</div>
+                      				</div>
+
+  									<div class="col-xs-4">
+                             				<div class="checkbox checkbox-success">
+  											<input id="checkbox2" type="checkbox">
+  											<label for="checkbox2"> NTC License </label>
+  										</div>
+  									</div>
+
+
+
+  									<div class="col-xs-4">
+                             				<div class="checkbox checkbox-success">
+                    							<input id="checkbox3" type="checkbox">
+                    							<label for="checkbox3"> TIN </label>
+                  						</div>
+  									</div>
+
+                    <div class="col-xs-4">
+                                    <div class="checkbox checkbox-success">
+                                  <input id="checkbox4" type="checkbox">
+                                  <label for="checkbox4"> SSS </label>
+                              </div>
+                    </div>
+                    <div class="col-xs-4">
+                                    <div class="checkbox checkbox-success">
+                                  <input id="checkbox5" type="checkbox">
+                                  <label for="checkbox5"> GSIS </label>
+                              </div>
+                    </div>
+                    <div class="col-xs-4">
+                                    <div class="checkbox checkbox-success">
+                                  <input id="checkbox6" type="checkbox">
+                                  <label for="checkbox6"> NBI </label>
+                              </div>
+                    </div>
+
+
+                                         </div>
+
+                     </div>
+
+                       <div class="col-xs-6">
+    <center> <h4> <strong>Requirements</strong></h4> </center>
+             </br>
+                 <div class="form-group">
+									<div class="col-xs-4">
+                           				<div class="checkbox checkbox-success">
+											<input id="checkbox16" type="checkbox">
+											<label for="checkbox16"> NSO birth certificate </label>
+                						</div>
+									</div>
+
+									<div class="col-xs-4">
+                           				<div class="checkbox checkbox-success">
+											<input id="checkbox17" type="checkbox">
+											<label for="checkbox17"> Baranggay clearance </label>
+                						</div>
+									</div>
+                  <div class="col-xs-4">
+                                  <div class="checkbox checkbox-success">
+                      <input id="checkbox17" type="checkbox">
+                      <label for="checkbox17"> House sketch </label>
+                            </div>
+                  </div>
+
+
+                     </div>
+                        </div>
+                   </div>
+                 </br>
+                 <center> <h4> <strong>Notes</strong></h4> </center>
+                   <br>
+                  <textarea id="txtArea" class="form-control" rows="8">--- </textarea>
         </div>
         </div>
         </form>
@@ -670,7 +824,19 @@
      $(".secondcal").datepicker({
          dateFormat: "mm/dd/yy"
      });
+     $(".excom").datepicker({
+         dateFormat: "mm/dd/yy"
+     });
  });
+
+ $(".excom").datepicker({
+    beforeShow: function (input, inst) {
+        setTimeout(function () {
+            inst.dpDiv.css({
+                top: 555            });
+        }, 0);
+    }
+});
   $('.firstcal').attr("disabled", "disabled")
    //Scrollbar
     jQuery(document).ready(function() {
@@ -848,6 +1014,19 @@ $('#firstcal').removeAttr("disabled");
         })();
 </script>
 <script>
+
+$("#txtArea").on("keypress",function(e) {
+    var key = e.keyCode;
+    // If the user has pressed enter
+    if (key == 13) {
+        document.getElementById("txtArea").value =document.getElementById("txtArea").value + "\n--- ";
+        return false;
+    }
+    else {
+        return true;
+    }
+});
+
             $(document).ready(function(){
                 // Basic
                 $('.dropify').dropify();
