@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="3;{{url('/Dashboard')}}">
-        <title>Laravel</title>
+<meta http-equiv="refresh" content="3;{{url('/Login')}}">
+        <title>Welcome!</title>
         <link rel="stylesheet" href="css/style.css">
 
         <!-- Styles -->
@@ -117,7 +117,7 @@
 }
 .square:after {
     content: "";
-    background: rgb(118, 169, 4);
+    background: #fb3a3a;
     width: 15px;
     height: 15px;
     position: absolute;
@@ -211,7 +211,7 @@
 
 
      <body>
-    
+
         <!--   START LOADER  -->
         <div id="loader-wrapper" >
 

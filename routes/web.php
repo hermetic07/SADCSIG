@@ -13,7 +13,7 @@
 Route::get('/Request-sent','LastControl@viewSentReq');
 
 
-Route::get('/Blank', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
@@ -423,7 +423,7 @@ Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
 //
 Route::get('send','sendEmail@send');
 //log In
-Route::get('/','ContractController@signin');
+Route::get('/login','ContractController@signin');
 Route::post('/CLogin','ContractController@login');
 Route::get('/ClientHome','ContractController@home');
 Route::post('/ClientOut','ContractController@logout');
