@@ -273,6 +273,16 @@
             <div class="carousel" data-flickity>
               <div class="carousel-cell">
 
+        <a href="javascript:void(0)"><img alt="img" class="img-circle img-responsive" src="plugins/images/Clients/establishments/pup.jpg"></a>
+
+              <h3 class="m-t-20 m-b-20">Welcome!</h3>
+              <p>On this page you will select your guards to deploy them to your area. You can view their informations and hire them base on your qualifications</p>
+            <center>  <span class="label label-rouded label-info">5 more</span> </center>
+            </div>
+
+
+              <div class="carousel-cell">
+
                 <div class="our-team">
                   <div class="el-card-item" style="padding-bottom: 5px;" >
                     <div class="el-card-avatar el-overlay-1">
@@ -295,8 +305,8 @@
             <div class="col-xs-12">
            <div class="form-group">
                   <div class="col-xs-6">
-         <button class="btn btn-block btn-outline btn-rounded btn-success">Accept</button></div>
-                <div class="col-xs-6">  <button class="btn btn-block btn-outline btn-rounded btn-danger">Reject</button></div>
+         <button class="btn btn-block btn-outline btn-rounded btn-success acc">Accept</button></div>
+                <div class="col-xs-6">  <button class="btn btn-block btn-outline btn-rounded btn-danger rej">Reject</button></div>
                </div>  </div>
               </div>
               <div class="carousel-cell">
@@ -323,8 +333,8 @@
             <div class="col-xs-12">
            <div class="form-group">
                   <div class="col-xs-6">
-         <button class="btn btn-block btn-outline btn-rounded btn-success">Accept</button></div>
-                <div class="col-xs-6">  <button class="btn btn-block btn-outline btn-rounded btn-danger">Reject</button></div>
+         <button class="btn btn-block btn-outline btn-rounded btn-success acc ">Accept</button></div>
+                <div class="col-xs-6">  <button class="btn btn-block btn-outline btn-rounded btn-danger rej">Reject</button></div>
                </div>  </div>
               </div>
               <div class="carousel-cell">
@@ -351,8 +361,8 @@
             <div class="col-xs-12">
            <div class="form-group">
                   <div class="col-xs-6">
-         <button class="btn btn-block btn-outline btn-rounded btn-success">Accept</button></div>
-                <div class="col-xs-6">  <button class="btn btn-block btn-outline btn-rounded btn-danger">Reject</button></div>
+         <button class="btn btn-block btn-outline btn-rounded btn-success acc  ">Accept</button></div>
+                <div class="col-xs-6">  <button class="btn btn-block btn-outline btn-rounded btn-danger rej" type="button">Reject</button></div>
                </div>  </div>
               </div>
 
@@ -396,7 +406,30 @@
       <!-- Calendar JavaScript -->
       <script src="plugins/bower_components/calendar/jquery-ui.min.js"></script>
 
+      <script>
 
+      $(document).ready(function(){
+
+            $('.rej').on('click', function() {
+            $(this).closest('.carousel-cell').fadeOut(1000, function () {
+         $(this).remove();
+     });
+
+            });
+
+            $('.acc').on('click', function() {
+            $(this).closest('.carousel-cell').fadeOut(1000, function () {
+         $(this).remove();
+     });
+
+            });
+    });
+
+
+
+
+
+      </script>
 
   </body>
 </html>
