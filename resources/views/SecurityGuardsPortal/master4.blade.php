@@ -27,7 +27,8 @@
 <link href="plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 <!-- Calendar CSS -->
 <link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
-
+<!--alerts CSS -->
+<link href="{{asset('js/Alert/sweetalert.css')}}" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -134,7 +135,8 @@
 <!-- Custom Theme JavaScript -->
 <script src="js/custom.min2.js"></script>
 <script src="js/dashboard1.js"></script>
-
+<!-- Sweet-Alert  -->
+ <script src="{{asset('js/Alert/sweetalert.min.js')}}"></script>
 <script src="plugins/bower_components/toast-master/js/jquery.toast.js"></script>
 <!-- Calendar JavaScript -->
 <script src="plugins/bower_components/calendar/jquery-ui.min.js"></script>
@@ -142,6 +144,7 @@
 <script src="plugins/bower_components/calendar/dist/fullcalendar.min.js"></script>
 <script src="plugins/bower_components/calendar/dist/jquery.fullcalendar.js"></script>
 	<script>
+  
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var radius = canvas.height / 2;

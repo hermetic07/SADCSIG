@@ -153,7 +153,7 @@
                       <label class="control-label">Content:</label>
                          <p class="form-control-static"> Good morning! We got you the best of our security team! Select guards and we will deploy them to you.</p>
                        </br>
-                     <center>   <button  type="button" onclick="location.href=''" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button> </center>
+                     <center>   <button  type="button" onclick="location.href='{{url('/GuardPool')}}'" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button> </center>
                       <div class="help-block with-errors"></div>
                    </div>
 

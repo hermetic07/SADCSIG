@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Guard pool</title>
         <link rel="stylesheet" href="css/style2.css">
 
         <!-- Styles -->
@@ -191,8 +191,6 @@
         <link href="css/colors/megna.css" id="theme"  rel="stylesheet">
         <!-- Popup CSS -->
         <link href="plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
-        <!-- Calendar CSS -->
-        <link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
           <link href="css/flickity.min.css" rel="stylesheet">
 
 
@@ -260,6 +258,8 @@
         </div>
         <!-- Left navbar-header end -->
         <!-- Page Content -->
+
+
         <div id="page-wrapper">
           <div class="container-fluid">
             <div class="row bg-title">
@@ -268,14 +268,22 @@
               </div>
               <!-- /.col-lg-12 -->
             </div>
+                        <div class="row  el-element-overlay">
             <div class="carousel-wrapper">
             <div class="carousel" data-flickity>
               <div class="carousel-cell">
+
                 <div class="our-team">
-                <div class="pic">
-                      <img src="plugins/images/SecurityGuards/2x2 3.jpg" style=" max-width: 100%; height: auto; display: block;"/>
-                    <a href="#" class="read-more">More info</a>
-                </div>
+                  <div class="el-card-item" style="padding-bottom: 5px;" >
+                    <div class="el-card-avatar el-overlay-1">
+                           <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg"  alt="user" ></a>
+                            <div class="el-overlay">
+                              <ul class="el-info">
+                                      <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank">More info </a></li>
+                              </ul>
+                        </div>
+                      </div>
+                  </div>
                 <div class="team-content">
                     <h3 class="title">Ernest John Maskarino</h3>
                     <span class="post">Security guard</span>
@@ -292,11 +300,18 @@
                </div>  </div>
               </div>
               <div class="carousel-cell">
+
                 <div class="our-team">
-                <div class="pic">
-                      <img src="plugins/images/SecurityGuards/2x2.jpg" style=" max-width: 100%; height: auto; display: block;"/>
-                    <a href="#" class="read-more">More info</a>
-                </div>
+                  <div class="el-card-item" style="padding-bottom: 5px;" >
+                    <div class="el-card-avatar el-overlay-1">
+                           <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/evander.jpg"  alt="user" ></a>
+                            <div class="el-overlay">
+                              <ul class="el-info">
+                                      <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank">More info </a></li>
+                              </ul>
+                        </div>
+                      </div>
+                  </div>
                 <div class="team-content">
                     <h3 class="title">Evander Macandog</h3>
                     <span class="post">Security officer</span>
@@ -313,14 +328,21 @@
                </div>  </div>
               </div>
               <div class="carousel-cell">
+
                 <div class="our-team">
-                <div class="pic">
-                      <img src="plugins/images/SecurityGuards/2x2 2.jpg" style=" max-width: 100%; height: auto; display: block;"/>
-                    <a href="#" class="read-more">More info</a>
-                </div>
+                  <div class="el-card-item"  style="padding-bottom: 5px;">
+                    <div class="el-card-avatar el-overlay-1">
+                           <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/chris.jpg"  alt="user" ></a>
+                            <div class="el-overlay">
+                              <ul class="el-info">
+                                      <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank">More info </a></li>
+                              </ul>
+                        </div>
+                      </div>
+                  </div>
                 <div class="team-content">
-                    <h3 class="title">Abel Mandap</h3>
-                    <span class="post">Lady guard</span>
+                    <h3 class="title">Chris jerico albino </h3>
+                    <span class="post">Security guard</span>
                 </div>
               </br>
 
@@ -333,10 +355,8 @@
                 <div class="col-xs-6">  <button class="btn btn-block btn-outline btn-rounded btn-danger">Reject</button></div>
                </div>  </div>
               </div>
-            </div>
-          </div>
 
-
+  		  </div>
       		  </div>
 
             </div>
@@ -375,9 +395,7 @@
       <script src="plugins/bower_components/Magnific-Popup-master/dist/jquery.magnific-popup-init.js"></script>
       <!-- Calendar JavaScript -->
       <script src="plugins/bower_components/calendar/jquery-ui.min.js"></script>
-      <script src="plugins/bower_components/moment/moment.js"></script>
-      <script src="plugins/bower_components/calendar/dist/fullcalendar.min.js"></script>
-      <script src="plugins/bower_components/calendar/dist/jquery.fullcalendar.js"></script>
+
 
 
   </body>
