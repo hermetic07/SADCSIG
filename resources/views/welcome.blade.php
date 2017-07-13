@@ -208,9 +208,10 @@
 
         </style>
     </head>
-    <body>
+
 
      <body>
+    
         <!--   START LOADER  -->
         <div id="loader-wrapper" >
 
@@ -227,7 +228,6 @@
         </div>
         <!--   END LOADER  -->
 
-     </body>
 
 
 

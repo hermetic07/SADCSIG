@@ -22,8 +22,7 @@
            <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
              <thead>
                <tr>
-               <th data-sort-initial="true" data-toggle="true" data-sort-ignore="true"  width="100px"></th>
-       <th width="100px">Sender</th>
+         <th width="100px">Sender</th>
                 <th>Name</th>
         <th> Date </th>
        <th>Subject</th>
@@ -44,40 +43,42 @@
                </div>
              <tbody>
                 <tr>
-                             <td>								<div class="el-card-item">
-                 <div class="el-card-avatar el-overlay-1">
-                                  <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/chris.jpg" alt="user"  class="img-circle img-responsive"></a>
-                       <div class="el-overlay">
-                         <ul class="el-info">
-                                                     <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                           </ul>
-                       </div>
-                 </div>
-                 </div>
-          </td>
 
-           <td><span class="label label-table label-success">Client</span></td>
+           <td>        <center>         <div class="el-card-item" style="padding-bottom: 5px;" >
+            <div class="el-card-avatar el-overlay-1" style="width: 65%;">
+                             <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg"  alt="user"  class="img-circle img-responsive"></a>
+                  <div class="el-overlay">
+                    <ul class="el-info">
+                                                <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                      </ul>
+                  </div>
+            </div>
+            </div>
+                    <span class="label label-table label-danger">Agency</span>        </center></td>
                  <td>Ernest john maskarino</td>
                     <td>Jan-28-2017 09:52 PM</td>
-                 <td>Message</td>
+                 <td>Your Security guard's pool</td>
 
                    <td> 	 &nbsp;
           <button type="button" class="btn btn-info btn-circle"  data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button></td>
 
                          </tr>
                 <tr>
-                             <td>								<div class="el-card-item">
-                 <div class="el-card-avatar el-overlay-1">
-                                  <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg" alt="user"  class="img-circle img-responsive"></a>
-                       <div class="el-overlay">
-                         <ul class="el-info">
-                                                     <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                           </ul>
-                       </div>
-                 </div>
-                 </div></td>
 
-           <td><span class="label label-table label-success">Client</span></td>
+
+           <td>
+        <center>         <div class="el-card-item" style="padding-bottom: 5px;" >
+ <div class="el-card-avatar el-overlay-1" style="width: 65%;">
+                  <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg"  alt="user"  class="img-circle img-responsive"></a>
+       <div class="el-overlay">
+         <ul class="el-info">
+                                     <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                           </ul>
+       </div>
+ </div>
+ </div>
+         <span class="label label-table label-success">Client</span>        </center>
+           </td>
                  <td>Ernest john maskarino</td>
                     <td>Jan-28-2017 09:52 PM</td>
                  <td>Guard replacement request</td>
@@ -88,18 +89,23 @@
                          </tr>
 
                 <tr>
-                             <td>								<div class="el-card-item">
-                 <div class="el-card-avatar el-overlay-1">
-                                  <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-                       <div class="el-overlay">
-                         <ul class="el-info">
-                                                     <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                           </ul>
-                       </div>
-                 </div>
-                 </div></td>
 
-           <td><span class="label label-table label-info">Security guards</span></td>
+
+
+          <td>
+        <center>            <div class="el-card-item" style="padding-bottom: 5px;" >
+<div class="el-card-avatar el-overlay-1" style="width: 65%;">
+                 <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg"  alt="user"  class="img-circle img-responsive"></a>
+      <div class="el-overlay">
+        <ul class="el-info">
+                                    <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          </ul>
+      </div>
+</div>
+</div>
+
+       <span class="label label-table label-info">Security guard</span>  </center>
+     </td>
                  <td>Ernest john maskarino</td>
                     <td>Jan-28-2017 09:52 PM</td>
                  <td>Leave request</td>
@@ -111,7 +117,7 @@
              </tbody>
              <tfoot>
                <tr>
-                 <td colspan="6"></td>
+                 <td colspan="5"></td>
                </tr>
              </tfoot>
          </table>
@@ -126,7 +132,7 @@
           </div>
             </div>
 
-     <!-- Deliver guns -->
+     <!-- Inbox -->
  <div id="Swap" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
              <div class="modal-dialog">
                <div class="modal-content">
@@ -140,12 +146,14 @@
                  <div class="row">
          <div class="form-group col-sm-12">
                       <label class="control-label">Subject:</label>
-                         <p class="form-control-static"> Message</p>
+                         <p class="form-control-static">Guard's pool</p>
                       <div class="help-block with-errors"></div>
                    </div>
          <div class="form-group col-sm-12	">
                       <label class="control-label">Content:</label>
-                         <p class="form-control-static"> Good morning! I would likely to show my gratitude because of awesome service!</p>
+                         <p class="form-control-static"> Good morning! We got you the best of our security team! Select guards and we will deploy them to you.</p>
+                       </br>
+                     <center>   <button  type="button" onclick="location.href=''" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button> </center>
                       <div class="help-block with-errors"></div>
                    </div>
 
@@ -164,7 +172,7 @@
              </div>
              <!-- /.modal-dialog -->
            </div>
-<!-- /Add military service modal -->
+
 
      </div>
 

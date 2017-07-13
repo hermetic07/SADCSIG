@@ -20,6 +20,8 @@ Route::get('/Blank', function () {
 //Admin portal
 Route::get('/Dashboard','AdminController@dashboardIndex');
 
+
+
 Route::get('/Replace', function () {
     return view('AdminPortal/Replace');
 });
@@ -119,7 +121,9 @@ Route::get('/ClientPortalDetails', function () {
     return view('ClientPortal/ClientPortalDetails');
 });
 
-
+Route::get('/GuardPool', function () {
+    return view('ClientPortal/Guardpool');
+});
 Route::get('/SecurityGuardsPortalHome', function () {
     return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
 });
