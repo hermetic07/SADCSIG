@@ -411,7 +411,7 @@
                                     	<div class="col-xs-3">
                                				<div class="input-group">
 												<div class="input-group-addon"><i class="fa fa-mobile"></i></div>
-											    <input type="text" class="form-control"  id="numonly" name="cellphone" maxlength="11">
+											             <input type="text" class="form-control"  id="numonly" name="cellphone" maxlength="11">
 											</div>
 											<span class="font-13 text-muted">ex. 09123456789<span>
 										</div>

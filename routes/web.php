@@ -14,7 +14,7 @@ Route::get('/Request-sent','LastControl@viewSentReq');
 
 
 Route::get('/Blank', function () {
-    return view('blank');
+    return view('welcome');
 });
 
 //Admin portal
