@@ -51,7 +51,7 @@
         @if($Area->status !== "deleted")
         <tr class="item{{$Area->id}}">
            <td>{!!$Area->name!!}</td>
-           <td>{!!$Area->province!!}</td>
+           <td>{!!$Area->provinces->name!!}</td>
            <td>
              @if($Area->status === "active")
              <div class="onoffswitch2">
@@ -118,6 +118,7 @@
 
 <script>
 $("#add").click(function() {
+
   $('.form-group').find('.help-block').show();
     $.ajax({
         type: 'post',
@@ -128,8 +129,7 @@ $("#add").click(function() {
             'selection': $('#Area_Unit').val(),
         },
         success: function(data) {
-
-          if ((data.errors)){
+          if (data.errors){
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
               $.toast({
                heading: 'The value that you entered is already existing',

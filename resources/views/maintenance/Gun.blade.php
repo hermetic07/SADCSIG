@@ -48,7 +48,7 @@
         @if($Gun->status !== "deleted")
         <tr class="item{{$Gun->id}}">
            <td>{!!$Gun->name!!}</td>
-           <td>{!!$Gun->guntype!!}</td>
+           <td>{!!$Gun->guntype->name!!}</td>
            <td>
              @if($Gun->status === "active")
              <div class="onoffswitch2">
@@ -152,6 +152,7 @@ $("#add").click(function() {
             'selection': $('#GunType').val(),
         },
         success: function(data) {
+          alert(data);
             if (data.errors) {
               if ((data.errors)=="ERROR!! The value that you entered is already existing") {
                 $.toast({

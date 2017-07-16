@@ -1010,14 +1010,13 @@ $('#firstcal').removeAttr("disabled");
                         allstart:allstart,
                     },
                     success: function(data){
-                      alert(data);
                       if(data==="Success")
                       {
                         alert("Registration Success");
                         location.reload();
                       }
                       else {
-                        alert(data);
+                        alert("Something went wrong");
                       }
                     }
                   });

@@ -118,8 +118,7 @@ $("#add").click(function() {
             'selection': $('#Rank_Unit').val(),
         },
         success: function(data) {
-          if ((data.errors)){
-            alert(data.errors);
+          if ((data.errors)){ 
             if ((data.errors)=="ERROR!! The value that you entered is already existing") {
               $.toast({
            heading: 'The value that you entered is already existing',

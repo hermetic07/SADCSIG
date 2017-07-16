@@ -22,21 +22,13 @@ class GunControl extends Controller
     public function add(Request $request)
     {
 
-      $rules = array (
-  				'name' => 'regex:/(^[A-Za-z0-9 ]+$)+/'
-  		);
-  		$validator = Validator::make ( Input::all (), $rules );
-  		if ($validator->fails ())
-  			return Response::json ( array (
 
-  					'errors' => $validator->getMessageBag ()->toArray ()
-  			) );
-  		else {
         if (trim($request->name," ")!=="") {
           try {
             $data = new Gun ();
             $data->name = trim($request->name," ");
-            $data->guntype = $request->selection;
+            $gt = GunType::where('name',$request->selection)->value('id');
+            $data->guntype_id = $gt;
             $data->status = "active";
             $data->save ();
             if ($data->status === "active" ) {
@@ -52,7 +44,8 @@ class GunControl extends Controller
              if ($old->status==="deleted") {
                try {
                  $old->status = "active";
-                 $old->guntype = trim($request->selection," \t\n\r\0\x0B");
+                 $gt = GunType::where('name',$request->selection)->value('id');
+                 $old->guntype_id = $gt;
                  $old->save();
                  if($old->status === "active"){
                    $old->status = "checked";
@@ -78,7 +71,7 @@ class GunControl extends Controller
              'errors' => "empty"
          ) );
         }
-  		}
+
 
     }
 
@@ -98,7 +91,8 @@ class GunControl extends Controller
         try {
           $data = Gun::find ( $request->id );
           $data->name = trim($request->name," ");
-          $data->guntype = $request->selection;
+          $gt = GunType::where('name',$request->selection)->value('id');
+          $data->guntype_id = $gt;
           $data->status = "active";
           $data->save ();
           if ($data->status === "active" ) {
@@ -114,7 +108,8 @@ class GunControl extends Controller
            if ($old->status==="deleted") {
              try {
                $old->status = "active";
-               $old->guntype = trim($request->selection," \t\n\r\0\x0B");
+               $gt = GunType::where('name',$request->selection)->value('id');
+               $old->guntype_id = $gt;
                $old->save();
                if($old->status === "active"){
                  $old->status = "checked";

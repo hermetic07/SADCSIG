@@ -22,25 +22,19 @@ class AreaControl extends Controller
 
     public function add(Request $request)
     {
-      $rules = array (
-  				'name' => 'regex:/(^[A-Za-z0-9 ]+$)+/'
-  		);
-  		$validator = Validator::make ( Input::all (), $rules );
-  		if ($validator->fails ())
-  			{
-          return Response::json ( array (
 
-    					'errors' => $validator->getMessageBag ()->toArray ()
-    			) );
-        }
-  		else {
+
           if (trim($request->name," ")!==""&&trim($request->selection," ")!=="") {
+
             try {
+
               $data = new Area ();
         			$data->name = trim($request->name," \t\n\r\0\x0B");
-        			$data->province = trim($request->selection," \t\n\r\0\x0B");
+              $province = Province::where('name',trim($request->selection," "))->value('id');
+              $data->provinces_id = $province;
               $data->status = "active";
         			$data->save ();
+
               if ($data->status === "active") {
                 $data->status = "checked";
               }
@@ -54,7 +48,8 @@ class AreaControl extends Controller
               if ($old->status==="deleted") {
                 try {
                   $old->status = "active";
-                  $old->province = trim($request->selection," \t\n\r\0\x0B");
+                  $province = Province::where('name',trim($request->selection," "))->value('id');
+                  $old->provinces_id = $province;
                   $old->save();
                   if($old->status === "active"){
                     $old->status = "checked";
@@ -81,7 +76,7 @@ class AreaControl extends Controller
                'errors' => "empty"
            ) );
           }
-  		}
+
     }
 
 
@@ -104,7 +99,8 @@ class AreaControl extends Controller
         try {
           $data = Area::find ( $request->id );
       		$data->name = trim($request->name," \t\n\r\0\x0B");
-      		$data->province = trim($request->selection," \t\n\r\0\x0B");
+          $province = Province::where('name',trim($request->selection," "))->value('id');
+          $data->provinces_id = $province;
       		$data->save ();
           if ($data->status === "active") {
             $data->status = "checked";
@@ -119,7 +115,8 @@ class AreaControl extends Controller
            if ($old->status==="deleted") {
              try {
                $old->status = "active";
-               $old->province = trim($request->selection," \t\n\r\0\x0B");
+               $province = Province::where('name',trim($request->selection," "))->value('id');
+               $old->provinces_id = $province;
                $old->save();
                if($old->status === "active"){
                  $old->status = "checked";

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Gun extends Model
 {
-   protected $table = "Guns";
+   protected $table = "guns";
 
    public function guntype() {
 

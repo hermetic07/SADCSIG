@@ -93,7 +93,7 @@ class ServiceControl extends Controller
 
       if (trim($req->name," ")!==""&&trim($req->description," ")!=="") {
         try {
-          $data = Service::find ( $request->id );
+          $data = Service::find ( $req->id );
       		$data->name = trim($req->name, " \t\n\r\0\x0B");
       		$data->description = trim($req->description, " \t\n\r\0\x0B");
       		$data->save ();

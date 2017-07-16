@@ -13,12 +13,14 @@
       <label  class="control-label" >Choose a unit of measurement</label>
                       <select class="form-control" id="measurement" name="measurement" required>
                         @foreach($m as $ms)
-                        <option value="{!!$ms->name!!}">{!!$ms->name!!}</option>
+                          @if($ms->status === "active")
+                          <option value="{!!$ms->name!!}">{!!$ms->name!!}</option>
+                          @endif
                         @endforeach
                       </select>
       <div class="help-block with-errors"></div>
               </div>
-          </div> 
+          </div>
   </div>
   <div class="form-group">
   <div class="row">
@@ -91,7 +93,9 @@
       <label  class="control-label" >Choose a unit of measurement</label>
                       <select class="form-control" id="edit_measurement" name="edit_measurement" required>
                         @foreach($m as $ms)
+                        @if($ms->status === "active")
                         <option value="{!!$ms->name!!}">{!!$ms->name!!}</option>
+                        @endif
                         @endforeach
                       </select>
       <div class="help-block with-errors"></div>
@@ -292,8 +296,8 @@ $('.form-group').find('.help-block').show();
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
 
-    } );  
-	
+    } );
+
     var view_url = $("#hidden_view").val();
     $.ajax({
       url: view_url,
