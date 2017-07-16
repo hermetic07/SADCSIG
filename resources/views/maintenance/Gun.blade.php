@@ -152,7 +152,6 @@ $("#add").click(function() {
             'selection': $('#GunType').val(),
         },
         success: function(data) {
-          alert(data);
             if (data.errors) {
               if ((data.errors)=="ERROR!! The value that you entered is already existing") {
                 $.toast({
