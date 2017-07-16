@@ -319,7 +319,13 @@ $("#edd").click(function() {
 
   function fun_delete(id)
    {
+  var table = $('#table').DataTable();
+  $('#table tbody').on( 'click', 'tr', function () {
 
+          table.$('tr.selected').removeClass('selected');
+          $(this).addClass('selected');
+
+  } );
       swal({
           title: "Are you sure?",
           text: "Delete this item?",
@@ -341,7 +347,7 @@ $("#edd").click(function() {
       text: "This item has been successfully deleted",
       type: "success"
   },function() {
-      location.reload();
+    table.row('.selected').remove().draw( false );
   });
 })
 .error(function(data) {
