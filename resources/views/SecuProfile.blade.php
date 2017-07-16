@@ -83,7 +83,11 @@
     <div class="white-box">
     <div class="user-bg"> <img width="100%" alt="user" src="{{URL::asset('plugins/images/backgrounds/profilebg.png')}}">
       <div class="overlay-box">
-        <div class="user-content"> <a href="{{URL::asset('javascript:void(0)')}}"><img src="{{URL::asset('uploads/'.$employee->image)}}" class="thumb-lg img-circle" alt="img"></a>
+          @if ($employee->image)
+          <div class="user-content"> <a href="{{URL::asset('javascript:void(0)')}}"><img src="{{URL::asset('uploads/'.$employee->image)}}" class="thumb-lg img-circle" alt="img"></a>
+          @else
+          <div class="user-content"> <a href="{{URL::asset('javascript:void(0)')}}"><img src="{{URL::asset('default/secu.png')}}" class="thumb-lg img-circle" alt="img"></a>
+          @endif
           <h4 class="text-white">{{$employee->first_name}} {{$employee->middle_name}} {{$employee->last_name}}</h4>
           <h5 class="text-white">{{$employee->email}}</h5>
         </div>
@@ -158,7 +162,11 @@
     <div class="white-box">
       <div class="el-card-item">
           <div class="el-card-avatar el-overlay-1">
+                  @if ($employee->location_image)
               <img src="{{URL::asset('uploads/'.$employee->location_image)}}">
+              @else
+              <img src="{{URL::asset('default/location.png')}}">
+              @endif
               <div class="el-overlay">
                   <ul class="el-info">
                       <li><a class="btn default btn-outline image-popup-vertical-fit" href="{{URL::asset('plugins/images/Clients/establishments/location.png')}}"><i class="icon-magnifier"></i></a></li>

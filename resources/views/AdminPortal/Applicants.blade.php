@@ -68,15 +68,28 @@
                                     <div class="row">
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="uploads/{{$e->image}}" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="uploads/{{$e->image}}"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$e->id)}}"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
+                                        @if ($e->image)
+                                        <div class="el-card-avatar el-overlay-1">
+                                           							 <a href="{{url('/SecuProfile')}}"><img src="uploads/{{$e->image}}" alt="user"  class="img-circle img-responsive"></a>
+              																<div class="el-overlay">
+              																	<ul class="el-info">
+              																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="uploads/{{$e->image}}"><i class="icon-magnifier"></i></a></li>
+                                                                  					<li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$e->id)}}"><i class="fa fa-info"></i></a></li>
+                                                									</ul>
+              																</div>
+              													</div>
+                                        @else
+                                        <div class="el-card-avatar el-overlay-1">
+                                                         <a href="{{url('/SecuProfile')}}"><img src="default/secu.png" alt="user"  class="img-circle img-responsive"></a>
+                                              <div class="el-overlay">
+                                                <ul class="el-info">
+                                                  <li><a class="btn default btn-outline image-popup-vertical-fit" href="default/secu.png"><i class="icon-magnifier"></i></a></li>
+                                                                            <li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$e->id)}}"><i class="fa fa-info"></i></a></li>
+                                                                  </ul>
+                                              </div>
+                                        </div>
+                                        @endif
+
 												</div>
 
 										</div>
