@@ -1,8 +1,21 @@
 @extends('ClientPortal.master3')
 
 @section('Title') Establishment's details @endsection
-
-
+@section('clientName')
+   {{  $client->name }}
+@endsection
+@section('link_rqst')
+  href="/Request-{{$client->id}}"
+@endsection
+@section('link_guardsDTR')
+  href="/ClientPortalGuardsDTR-{{$client->id}}"
+@endsection
+@section('link_estab')
+   href="/ClientPortalEstablishments-{{$client->id}}"
+@endsection
+@section('link_home')
+  href="/ClientPortalHome-{{$client->id}}"
+@endsection
 @section('mtitle') Establishment's details @endsection
 
 @section('content')
@@ -17,9 +30,9 @@
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <div class="white-box">
                       <div id="image-popups" class="row">
-                    <h4>Polytechnic University of the Philippines</h4>
-                    <h5><span class="text-muted"><i class="fa fa-map-marker text-danger m-r-10" aria-hidden="true"></i>Anonas, Santa Mesa, Maynila, Kalakhang Maynila</span></h5>
-                  <div class="col-sm-12 p-t-20 fw-500"><a href="plugins/images/Clients/establishments/pup.jpg" data-effect="mfp-zoom-out">	<img src="plugins/images/Clients/establishments/pup.jpg" height="600" alt="esta-img" class="img-responsive"  /><br/></a></div>
+                    <h4>{{$estab_name}}</h4>
+                    <h5><span class="text-muted"><i class="fa fa-map-marker text-danger m-r-10" aria-hidden="true"></i>{{$adress}}, {{$area_name}}</span></h5>
+                  <div class="col-sm-12 p-t-20 fw-500"><a href="plugins/images/Clients/establishments/pup.jpg" data-effect="mfp-zoom-out">  <img src="plugins/images/Clients/establishments/pup.jpg" height="600" alt="esta-img" class="img-responsive"  /><br/></a></div>
                 </div>
 
 
@@ -29,46 +42,52 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="white-box">
-                    <h5 class="box-title fw-500">Essential Information</h5>
+                    <h5 class="box-title fw-500">{{$nature_name}} Information</h5>
                     <hr class="m-0">
                     <div class="table-responsive pro-rd p-t-10">
                         <table class="table">
                             <tbody class="text-dark">
                                 <tr>
-                                    <td>Contract</td>
-                                    <td>24 months</td>
+                                    @php
+                                      $contractCtr = 0;
+                                    @endphp
+                                    <td><a href="/ClientPortalContracts-{{$client->id}}+{{$estabID}}">Contract</a></td>
+                                    <td>
+                                    @foreach($estabContracts as $estabContract)
+                                      @if($estabContract->id == $estabID)
+                                        @php
+                                          $contractCtr++;
+                                        @endphp
+                                      @endif
+                                      
+                                    @endforeach
+                                    {{$contractCtr}}
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>Starting date</td>
-                                    <td>July 11, 2015</td>
-                                </tr>
-                                <tr>
-                                    <td>End date</td>
-                                    <td>July 11,2017</td>
-                                </tr>
+                                
               <tr>
                                     <td>Nature of business</td>
-                                    <td>School	</td>
+                                    <td>{{$nature_name}}</td>
                                 </tr>
               <tr>
                                     <td>Contact number(client)</td>
-                                    <td>123456789</td>
+                                    <td>{{$contactNo}}</td>
                                 </tr>
                     <tr>
                                     <td>Person in charge</td>
-                                    <td>Abel mandap</td>
+                                    <td>{{$pic}}</td>
                                 </tr>
                         <tr>
                                     <td>Contact number (Person in charge)</td>
-                                    <td>123456789</td>
+                                    <td>{{$contactNo}}</td>
                                 </tr>
               <tr>
                                     <td>Area Size (approx. in square meters)</td>
-                                    <td>10.00</td>
+                                    <td>{{$area_size}}</td>
                                 </tr>
               <tr>
                                     <td>Population (approx.)</td>
-                                    <td>5000</td>
+                                    <td>{{$population}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -151,8 +170,8 @@
          </td>
                       <td>Abel mandap</td>
         <td>abel@gmail.com</td>
-                      <td>999999999	 </td>
-            <td>999999999	</td>
+                      <td>999999999  </td>
+            <td>999999999 </td>
         <td><span class="label label-table label-success">Active</span> </td>
                   </tr>
      <tr>
@@ -170,8 +189,8 @@
         </td>
                       <td>Earl dixon geraldez</td>
         <td>earl@gmail.com</td>
-                      <td>999999999	 </td>
-            <td>999999999	</td>
+                      <td>999999999  </td>
+            <td>999999999 </td>
         <td><span class="label label-table label-warning">Reliever</span> </td>
                   </tr>
 
@@ -190,8 +209,8 @@
         </td>
                       <td>Daisy ronquillo</td>
         <td>daisy@gmail.com</td>
-                      <td>999999999	 </td>
-            <td>999999999	</td>
+                      <td>999999999  </td>
+            <td>999999999 </td>
         <td><span class="label label-table label-danger">Leave</span> </td>
                   </tr>
 

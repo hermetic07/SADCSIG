@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" type="image/png" href="plugins/images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="plugins/images/favicon-16x16.png" sizes="16x16" />
 <title>JCSGMS - @yield('Title')</title>
@@ -27,42 +28,36 @@
 <link href="plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 <!-- Calendar CSS -->
 <link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
-<script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
-
-    @yield('style')
-
+<script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
 <!-- Preloader -->
-<div class="preloader">
-  <div class="cssload-speeding-wheel"></div>
-</div>
-<div id="wrapper">
-   <!-- Top Navigation -->
-    <nav class="navbar navbar-default navbar-static-top m-b-0">
-	  <!-- navbar-header -->
-      <div class="navbar-header">
-		<a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
-        <ul class="nav navbar-top-links navbar-left hidden-xs">
+  <div class="preloader">
+    <div class="cssload-speeding-wheel"></div>
+  </div>
+  <div id="wrapper">
+  <!-- Top Navigation -->
+  <nav class="navbar navbar-default navbar-static-top m-b-0">
+  <!-- navbar-header -->
+    <div class="navbar-header">
+      <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+      <ul class="nav navbar-top-links navbar-left hidden-xs">
           <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
-		</ul>
-        <ul class="nav navbar-top-links navbar-right pull-right">
-
-			 <!-- Admin account-->
-			<li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/Clients/Active/evander.jpg"	 alt="user-img" width="36" class="img-circle"><b class="hidden-xs">@yield('clientName')</b></a>
-                <ul class="dropdown-menu dropdown-user animated flipInY">
-                    <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#"><i class="ti-settings"></i> Account Setting</a> </li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-power-off"></i> Logout</a></li>
-                </ul>
-            </li>
-
+      </ul>
+      <ul class="nav navbar-top-links navbar-right pull-right">
+       <!-- Admin account-->
+       <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/Clients/Active/evander.jpg"  alt="user-img" width="36" class="img-circle"><b class="hidden-xs">@yield('clientName')</b></a>
+          <ul class="dropdown-menu dropdown-user animated flipInY">
+              <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#"><i class="ti-settings"></i> Account Setting</a> </li>
+              <li role="separator" class="divider"></li>
+              <li><a href="{{url('/ClientOut')}}"><i class="fa fa-power-off"></i> Logout</a></li>
+          </ul>
+        </li>
         </ul>
 
-		 <!-- System logo-->
+     <!-- System logo-->
          <div class="top-left-part"><a class="logo" href="index.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
          </div>
 
@@ -76,17 +71,17 @@
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
           <ul class="nav" id="side-menu">
 
-          <li> <a href="{{url('/ClientPortalHome')}}" class="waves-effect"><i class="fa fa-home fa-2x fa-fw"></i> <span class="hide-menu"> Home </span></a>
+          <li> <a  @yield('link_home') class="waves-effect"><i class="fa fa-home fa-2x fa-fw"></i> <span class="hide-menu"> Home </span></a>
           </li>
-		  <li> <a href="{{url('/ClientPortalEstablishments')}}" class="waves-effect"><i class="fa fa-building-o fa-2x fa-fw"></i> <span class="hide-menu"> Establishments </span></a>
+      <li> <a @yield('link_estab') class="waves-effect"><i class="fa fa-building-o fa-2x fa-fw"></i> <span class="hide-menu"> Establishments </span></a>
           </li>
-		  <li> <a href="{{url('/ClientPortalMessages')}}" class="waves-effect"><i class="fa fa-envelope fa-2x fa-fw"></i> <span class="hide-menu"> Messages </span></a>
+      <li> <a href="{{url('/ClientPortalMessages')}}" class="waves-effect"><i class="fa fa-envelope fa-2x fa-fw"></i> <span class="hide-menu"> Messages </span></a>
           </li>
-		  <li> <a href="{{url('/Request')}}" class="waves-effect"><i class="fa fa-location-arrow fa-2x fa-fw"></i> <span class="hide-menu"> Requests </span></a>
+      <li> <a @yield('link_rqst') class="waves-effect"><i class="fa fa-location-arrow fa-2x fa-fw"></i> <span class="hide-menu"> Requests </span></a>
           </li>
-		  <li> <a href="{{url('/ClientPortalGuardsDTR')}}" class="waves-effect"><i class="fa fa-calendar-o fa-2x fa-fw"></i> <span class="hide-menu"> Guard's DTR </span></a>
+      <li> <a @yield('link_guardsDTR') class="waves-effect"><i class="fa fa-calendar-o fa-2x fa-fw"></i> <span class="hide-menu"> Guard's DTR </span></a>
           </li>
-			  <li> <a href="{{url('/ClientPortalSettings')}}" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw"></i> <span class="hide-menu"> Settings </span></a>
+        <li> <a href="{{url('/ClientPortalSettings')}}" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw"></i> <span class="hide-menu"> Settings </span></a>
           </li>
 
 
@@ -107,7 +102,7 @@
 
       @yield('content')
 
-		  </div>
+      </div>
 
       </div>
 
@@ -120,7 +115,7 @@
 </div>
 <!-- /#wrapper -->
 <!-- jQuery -->
-<script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
 <!-- Bootstrap Core JavaScript -->
 <script src="bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Menu Plugin JavaScript -->
@@ -150,7 +145,31 @@
 <script src="plugins/bower_components/moment/moment.js"></script>
 <script src="plugins/bower_components/calendar/dist/fullcalendar.min.js"></script>
 <script src="plugins/bower_components/calendar/dist/jquery.fullcalendar.js"></script>
-	<script>
+
+
+
+
+
+
+<script src="js/Alert/sweetalert.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var radius = canvas.height / 2;

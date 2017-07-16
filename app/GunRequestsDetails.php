@@ -4,11 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClientRegistration extends Model
+class GunRequestsDetails extends Model
 {
     protected $fillable =  [
-    	'admin','contract_id','client_id'
+    	'id','gun_requests_id','guns_id','quantity','status'
     ];
-
-    
 }

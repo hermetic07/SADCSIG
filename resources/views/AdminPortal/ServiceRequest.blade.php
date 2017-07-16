@@ -18,7 +18,7 @@
 @section('content')
 
 <div class="row">
-        <div class="col-lg-12	">
+        <div class="col-lg-12 ">
 
     <div class="white-box">
              <div class="row  el-element-overlay">
@@ -47,7 +47,7 @@
           </div>
         <tbody>
            <tr>
-                        <td>								<div class="el-card-item">
+                        <td>                <div class="el-card-item">
             <div class="el-card-avatar el-overlay-1">
                              <a href="{{url('/SecuProfile')}}"><img src="plugins/images/Clients/Active/chris.jpg" alt="user"  class="img-circle img-responsive"></a>
                   <div class="el-overlay">
@@ -69,7 +69,7 @@
                         </td>
                     </tr>
    <tr>
-                           <td>								<div class="el-card-item">
+                           <td>               <div class="el-card-item">
             <div class="el-card-avatar el-overlay-1">
                              <a href="{{url('/SecuProfile')}}"><img src="plugins/images/Clients/Active/luigi.jpg" alt="user"  class="img-circle img-responsive"></a>
                   <div class="el-overlay">
@@ -123,7 +123,7 @@
                     <p class="form-control-static"> Daisy ronquillo </p>
                  <div class="help-block with-errors"></div>
               </div>
-                            <div class="form-group col-sm-8	">
+                            <div class="form-group col-sm-8 ">
                  <label class="control-label">Address</label>
                     <p class="form-control-static"> Anonas, Santa Mesa, Maynila, Kalakhang Maynila</p>
                  <div class="help-block with-errors"></div>

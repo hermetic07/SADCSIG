@@ -173,12 +173,13 @@ Route::post('/ClientRegistration-Save','ContractController@save');
 // Check before deleting Route::get('/SendGun','LastControl@index3');
 
 
-Route::get('/ClientPortalHome','ClientPortalHomeController@index');
+Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index');
 Route::get('/Request-{id}','ClientPortalHomeController@requests');
 Route::post('/Request-Save/{id}','LastControl@saveReq');
 Route::post('/GunRequest-Save/{id}','LastControl@saveGunReq');
 Route::post('/AddGuardRequests-Save/{id}','LastControl@saveAddGuardReq');
 Route::post('/GuardReplcRequest-Save/{id}','LastControl@saveGuardReplReqst');
+
 
 Route::post('GunDelivery-remove', 'GunDeliveryController@remove');
 Route::post('GunRequest-remove', 'GunRequestController@remove');
@@ -189,19 +190,19 @@ Route::get('/ClientPortalHome-GunDelivery-{id}','ClientPortalHomeController@gunD
 Route::post('GunDelivery-claim', 'GunDeliveryController@claim');
 
 Route::get('/ClientPortalGuardsDTR-{id}','ClientPortalHomeController@guardDtr');
+Route::get('/ClientPortalEstablishments-shifts+{id}','ClientPortalHomeController@shifts');
+Route::get('/ClientPortalEstablishments-{id}','ClientPortalHomeController@clientEstablishments');
 
-Route::get('/ClientPortalEstablishments', function () {
-    return view('ClientPortal/ClientPortalEstablishments');
-});
+Route::get('/ClientPortalEstablishmentsDetails-{id}+{estabID}','ClientPortalHomeController@clientEstablishmentsdetails');
+
+Route::get('/ClientPortalContracts-{id}+{estabID}','ClientPortalHomeController@clientContracts');
+
 Route::get('/ClientPortalMessages', function () {
     return view('ClientPortal/ClientPortalMessages');
 });
 
 Route::get('/ClientPortalSettings', function () {
     return view('ClientPortal/ClientPortalSettings');
-});
-Route::get('/ClientPortalDetails', function () {
-    return view('ClientPortal/ClientPortalDetails');
 });
 
 Route::get('/ClientLogin','LastControl@clientAuth');
@@ -210,18 +211,6 @@ Route::post('/Client-auth','LastControl@authenticate');
 
 //Route::get('/Request','LastControl@login');
 //Route::get('/Request-view','ServiceRequestController@view');
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

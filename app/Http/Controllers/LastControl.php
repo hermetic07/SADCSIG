@@ -28,24 +28,25 @@ use App\ClientSentRequests;
 use App\Employees;
 use App\Deployments;
 use App\DeploymentDetails;
+use App\GunRequestsDetails;
 use Carbon\Carbon;
 
 class LastControl extends Controller
 {
     public function clientAuth()
     {
-
+     
       return view('last.login');
     }
     public function authenticate(Request $request){
 
       return $request->toArray();
     }
-    public function index()
+    /*public function index()
     {
       $Services = Service::all();
       $clients = Clients::all();
-      $establishment = Establishments::findOrFail('1');
+      $establishment = Establishments::findOrFail('2');
       $guns = Gun::all();
       $contracts = Contract::all();
       $serviceRequests = ServiceRequest::all();
@@ -57,7 +58,7 @@ class LastControl extends Controller
         ')->with('services',$Services)->with('clients',$clients)->with('guns',$guns)->with('contracts',$contracts)->with('establishment',$establishment)->with('serviceRequests',$serviceRequests)->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees);
      // return $client;
     }
-
+*/
     public function index2()
     {
       $n = Nature::all();
@@ -97,30 +98,58 @@ class LastControl extends Controller
     }
 
     public function saveReq($id,Request $request){
-
+     
       $explod = explode('/',$request->meetSched);
       $meetDt = "$explod[2]-$explod[0]-$explod[1]";
 
-      $service = Service::where('name',$request->service)->first();
-      ServiceRequest::create(['establishments_id'=>$id,'services_id'=>$service->id,'date_start'=>Carbon::now(),'meetingPlace'=>$request->meeting,'meetingSchedule'=>$meetDt,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+      
+      ServiceRequest::create(['client_id'=>$id,'services_id'=>$request->service,'date_start'=>Carbon::now(),'meetingPlace'=>$request->meeting,'meetingSchedule'=>$meetDt,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
-     return redirect('Request');
-
-
+     return redirect('Request-'.$id);
+    
+       
     }
 
     public function saveGunReq($id, Request $request){
+      $ctr2 = 0;
+      $ctr3 = 0;
+      $gunReqstID;
+      
+      for($ctr = 0; $ctr < $request->gunCount; $ctr++){
+        if($request->$ctr != null){
+          //echo $request->$ctr;
+          $ctr2++;
+          if($ctr2==1){
+            GunRequest::create(['client_id'=>$id,'establishment_id'=>$request->establishment_id,'status'=>"active",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+            $GunRequests = GunRequest::latest('created_at')->get();
 
-      $gun = Gun::where('name',$request->gun)->first();
-      GunRequest::create(['establishments_id'=>$id,'gun_for'=>$request->service_requested,'guns_id'=>$gun->id,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+            foreach($GunRequests as $gunRequest){
+              $ctr3++;
+              if($ctr3 == 1){
+                 $gunReqstID = $gunRequest->id;
+              }
+              
+            }
 
-      return redirect('Request');
+          }
+          $quantity = "quantity".((string)$ctr);
+          GunRequestsDetails::create(['gun_requests_id'=>$gunReqstID,'guns_id'=>$request->$ctr,'quantity'=>$request->$quantity,'status'=>"active"]);
 
+        }
+      }
+      //$gun = Gun::findOrFail($request->);
+     /* GunRequest::create(['establishments_id'=>$id,'gun_for'=>$request->service_requested,'guns_id'=>$gun->id,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+*/
+      return redirect('Request-'.$id);
+ 
     }
 
     public function saveAddGuardReq($id,Request $request){
-       AddGuardRequests::create(['establishments_id'=>$id,'no_guards'=>$request->no_guards,'guard_for'=>$request->service_requested,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
-       return redirect('Request');
+      $shifts = explode(',',$request->shifts);
+      $shift_start = $shifts[0];
+      $shif_end =  $shifts[1];
+       AddGuardRequests::create(['client_id'=>$id,'establishments_id'=>$request->establishment_id,'no_guards'=>$request->no_guards,'shift_start'=>$shift_start,'shift_end'=>$shif_end,'date_needed'=>$request->date_needed,'status'=>'active','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+       return redirect('Request-'.$id);
     }
 
     public function viewSentReq(Request $request){
@@ -130,7 +159,7 @@ class LastControl extends Controller
       $establishment = Establishments::findOrFail($request->establishment_id);*/
       return view('ClientPortal.sentRequests');
     }
-
+    
     public function saveGuardReplReqst($id,Request $request){
       //return $request->numGuards;
       for($i = 0; $i < $request->numGuards; $i++){

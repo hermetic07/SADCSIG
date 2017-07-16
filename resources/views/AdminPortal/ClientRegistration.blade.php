@@ -294,6 +294,9 @@
             <li role="tab">
               <h4><span><i class="ti-check"></i></span>Qualifications</h4>
             </li>
+            <li role="tab">
+              <h4><span><i class="ti-check"></i></span>Account</h4>
+            </li>
           </ul>
               </br>
           <form id="validation" class="form-horizontal"  style="border: 2px solid black; border-radius:15px;" method="POST" action="/ClientRegistration-Save">
@@ -443,7 +446,7 @@
                         </div>
                         <label class="col-xs-2 control-label">Operating hours</label>
                          <div class="col-xs-4">
-                         <input id="tch1" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
+                         <input id="tch1" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" name="operating_hrs">
                         </div>
                       </div>
 
@@ -473,7 +476,7 @@
                       <label class="col-xs-2 control-label">Expected complete date</label>
                        <div class="col-xs-4">
                          <div class="input-group">
-                           <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control excom" placeholder="mm/dd/yyyy" />
+                           <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control excom" placeholder="mm/dd/yyyy" name="exp_date" />
                          </div>
                       </div>
                     </div>
@@ -511,13 +514,13 @@
                   <td id="data1">1</td>
                   <td>
         <div class="input-group" data-placement="left" data-align="top" data-autoclose="true">
-          <input type="time" class="form-control" ><span class="input-group-addon">
+          <input type="time" class="form-control shiftstart" ><span class="input-group-addon">
             <span class="glyphicon glyphicon-time"></span></span></div>
 
           </td>
                   <td>
             <div class="input-group" data-placement="left" data-align="top" data-autoclose="true">
-              <input type="time" class="form-control" ><span class="input-group-addon">
+              <input type="time" class="form-control shiftend" ><span class="input-group-addon">
                 <span class="glyphicon glyphicon-time"></span></span></div>
           </td>
 
@@ -613,7 +616,7 @@
 
                        <div class="col-xs-6">
     <center> <h4> <strong>Licences and clearances</strong></h4> </center>
-             </br>
+             <br>
     <div class="form-group">
   									<div class="col-xs-4">
                              				<div class="checkbox checkbox-success">
@@ -664,7 +667,7 @@
 
                        <div class="col-xs-6">
     <center> <h4> <strong>Requirements</strong></h4> </center>
-             </br>
+             <br>
                  <div class="form-group">
 									<div class="col-xs-4">
                            				<div class="checkbox checkbox-success">
@@ -690,11 +693,23 @@
                      </div>
                         </div>
                    </div>
-                 </br>
+                 <br>
                  <center> <h4> <strong>Notes</strong></h4> </center>
                    <br>
                   <textarea id="txtArea" class="form-control" rows="8">--- </textarea>
         </div>
+         <div class="wizard-pane" role="tabpanel">
+          <div class="form-group">
+            <label class="control-label col-md-2">Username:</label>
+            <div class="col-md-4">
+              <input type="text" name="username" id="username" class="form-control" >
+            </div>
+            <label for="password" class="col-md-2 control-label">Password</label>
+            <div class="col-md-4">
+              <input type="password" name="password" id="password" class="form-control">
+            </div>
+          </div>
+          </div>
         </div>
         </form>
 
@@ -897,7 +912,7 @@ $('#firstcal').removeAttr("disabled");
     ctr++;
 
     //build up the row we are wanting to add
-    var newRow = '<tr><td class="count"></td><<td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+    var newRow = '<tr><td class="count"></td><<td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control shiftstart" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control shiftend" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
 
 
     //add it
@@ -989,8 +1004,8 @@ $('#firstcal').removeAttr("disabled");
                         span_mo:$('input[name=span_mo]').val(),
                         from:$('input[name=from]').val(),
                         to:$('input[name=to]').val(),
-                        client_username:$('input[name=client_username]').val(),
-                        client_password:$('input[name=client_password]').val(),
+                        client_username:$('input[name=username]').val(),
+                        client_password:$('input[name=password]').val(),
                         allend:allend,
                         allstart:allstart,
                     },

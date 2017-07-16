@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class GunRequest extends Model
 {
     protected $fillable =  [
-    	'id','establishments_id','gun_for','guns_id','status','read'
+    	'id','client_id','establishment_id','status'
     ];
 }

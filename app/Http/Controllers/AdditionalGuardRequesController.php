@@ -9,17 +9,29 @@ use App\Establishments;
 use App\Area;
 use App\Service;
 use App\Province;
+use App\Contracts;
+use App\ServiceRequest;
+use App\Employees;
+use App\ClientRegistration;
 
 class AdditionalGuardRequesController extends Controller
 {
-    public function index(){
-    	$clients = Clients::all();
-        $establishments = Establishments::all();
-    	$areas = Area::all();
-    	$provinces = Province::all();
+    public function index2(Request $request){
+
+        $contracts = Contracts::all();
         $services = Service::all();
-    	$addGuardRequests = AddGuardRequests::latest('created_at')->get();
-    	return view('AdminPortal.ClientRequests.AdditionalGuardRequests')->with('addGuardRequests',$addGuardRequests)->with('clients',$clients)->with('areas',$areas)->with('provinces',$provinces)->with('establishments',$establishments)->with('services',$services);
+        $serviceRequests = ServiceRequest::all();
+        $clients = Clients::all();
+        $establishments = Establishments::all();
+        $areas = Area::all();
+        $provinces = Province::all();
+        $employees = Employees::all();
+        $clientRegistrations = ClientRegistration::all();
+
+        $addGuardRequests = AddGuardRequests::latest('created_at')->get();
+        return view('AdminPortal.ClientRequests.Deploy2')->with('clients',$clients)->with('contracts',$contracts)->with('addGuardRequest',$addGuardRequests)->with('areas',$areas)->with('provinces',$provinces)->with('serviceRequests',$serviceRequests)->with('establishments',$establishments)->with('services',$services)->with('employees',$employees)->with('clientRegistrations',$clientRegistrations);
+
+        //return view('AdminPortal.Deploy');
     }
 
     public function remove(Request $request)

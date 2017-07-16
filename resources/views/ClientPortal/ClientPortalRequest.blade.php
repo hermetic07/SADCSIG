@@ -1,23 +1,35 @@
 @extends('ClientPortal.master3')
 @section('Title') Requests @endsection
 @section('clientName')
-   {{  $establishment->person_in_charge }}
+   {{  $client->name }}
+@endsection
+@section('link_rqst')
+  href="/Request-{{$client->id}}"
+@endsection
+@section('link_guardsDTR')
+  href="/ClientPortalGuardsDTR-{{$client->id}}"
+@endsection
+@section('link_estab')
+   href="/ClientPortalEstablishments-{{$client->id}}"
+@endsection
+@section('link_home')
+  href="/ClientPortalHome-{{$client->id}}"
 @endsection
 @section('mtitle') Requests @endsection
 
 
 @section('content')
 <form class="form-horizontal" method="GET" action="{{ url('/Request-sent') }}">
-  <input type="hidden" name="establishments_id" value="{{ $establishment->id }}">
+  <input type="hidden" name="establishments_id" value="{{ $client->id }}">
   <button type="submit" class="btn btn-info pull-right">View Sent Request</button>
 </form>
-	 <!-- Page Content -->
+   <!-- Page Content -->
   <div id="page-wrapper">
     <div class="container-fluid">
       
       <!-- /.row -->
 
-		  <div class="row">
+      <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
           <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-info-circle"></i> Request for a new service</div>
@@ -26,14 +38,14 @@
 
                 <p>Got a new establishment? And want us to serve you? We would like to! Request a service on us and let's talk about it!</p>
 
-                <label class="col-xs-6 control-label"></label>	<button class="btn btn-info m-t-10" data-toggle="modal" data-target="#Service"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</button>
+                <label class="col-xs-6 control-label"></label>  <button class="btn btn-info m-t-10" data-toggle="modal" data-target="#Service"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</button>
 
               </div>
             </div>
           </div>
         </div>
 
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
           <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-info-circle"></i> Request for additional guns</div>
             <div class="panel-wrapper collapse in">
@@ -41,14 +53,14 @@
 
                 <p>Request for a additional guns and the agency will process it and when it will be legallize, the agency will process it for you.</p>
 
-                <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#reqGuns"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
+                <label class="col-xs-6 control-label"></label>  <a class="btn btn-info m-t-10" data-toggle="modal" data-target="#reqGuns"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
 
               </div>
             </div>
           </div>
         </div>
 
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
           <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-info-circle"></i> Request for additional guards</div>
             <div class="panel-wrapper collapse in">
@@ -56,7 +68,7 @@
 
                 <p>Request for a additional guns and the agency will process it and when it will be legallize, the agency will process it for you.</p>
 
-                <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#reqAddGuards" type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
+                <label class="col-xs-6 control-label"></label>  <a class="btn btn-info m-t-10" data-toggle="modal" data-target="#reqAddGuards" type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
 
               </div>
             </div>
@@ -64,7 +76,7 @@
         </div>
 
 
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
           <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-info-circle"></i> Request for guard replacement</div>
             <div class="panel-wrapper collapse in">
@@ -93,56 +105,96 @@
           <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up the following</strong></center></h4>
         </div>
         <div class="modal-body">
-          <form data-toggle="validator" method="POST" action="{{ url('/GunRequest-Save',$establishment->id) }}">
-            <div class="form-group">
-              <div class="row">
-                {!! csrf_field() !!}
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="form-group col-sm-8">
-                        <label class="control-label">Gun Name</label>
-                         <select class="form-control"  name="gun">
-                          <option value="" disabled="" selected="">---</option>
-                          @foreach($guns as $gun )
-                          <option>{{$gun->name}}</option>
+          <form data-toggle="validator" method="POST" action="{{ url('/GunRequest-Save',$client->id) }}">
+            {!! csrf_field() !!}
+            <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+              <thead>
+                <tr id="earl">
+                  
+                  
+                  <th  data-sort-ignore="true">Gun Name</th>
+                  <th  data-sort-ignore="true">Action</th>  
+                  <th data-sort-ignore="true" width="120px">Quantity</th>
+                </tr>
+                </thead>
+                <tbody class="gunReq">
+                  @php
+                    $gunCtr = 0;
+                  @endphp
+                  @foreach($guns as $gun)
+                    
+                    <tr>
+                      <td>
+                        {{ $gun->name }}
+                      </td>
+                      <td>
+                        <input id="{{ $gun->id }}" class="checkbox" type="checkbox" name="{{ $gunCtr }}" value="{{ $gun->id }}">
+                      </td>
+                      <td>
+                        <input type="number" class="form-control qty" id="{{ $gun->id }}" name="quantity{{ $gunCtr }}" min="1"  step="0.01"  required>
+                      </td>
+                    </tr>
+                    @php
+                      $gunCtr++;
+                    @endphp
+                  @endforeach
+                </tbody>
+               </table> 
+               <select class="form-control"  name="establishment_id" required>
+                <option value="" disabled="" selected="">~~~ Your Establishments</option>
+                  @php
+                    $estabCtr = 0;
+                    $arr = array();
+                    $a = 0;
+                    $l = 0;
+
+                  @endphp
+
+                  @foreach($clientRegistrations as $clientRegistration)
+                    @if($clientRegistration->client_id == $client->id)
+                      @foreach($contracts as $contract)
+                        @if($contract->id == $clientRegistration->contract_id)
+                          @foreach($establishments as $establishment)
+                            @if($establishment->contract_id == $contract->id)
+                              @php
+                                $estabID = $establishment->id;
+                                  $arr[$a] = $estabID; $a++;
+                                  $l = count($arr);
+                              @endphp
+                            @endif
                           @endforeach
-                        </select>
-                        <div class="help-block with-errors"></div>
-                      </div>
+                        @endif
+                      @endforeach
+                    @endif
+                  @endforeach
 
-                      <div class="form-group col-sm-4">
-                        <label class="control-label col-md-12">Quantity</label>
-                        <div class="col-md-12">
-                          <input type="number" class="form-control"  id="rate" name="quantity" min="1"  step="0.01"  required>
-                          <div class="help-block with-errors"></div>
-                        </div>
-                      </div>
+                  @php
+                    $e = 0;
+                    for($q = 0; $q < count($arr); $q++){
+                      for($p = $q+1; $p < count($arr); $p++){
+                        if($arr[$q] == $arr[$p]){
+                          $arr[$p]="-";
+                        }
+                      }    
+                    }
+                    for($f = 0; $f < count($arr); $f++){
+                      if($arr[$f] != "-"){
 
-                      <div class="form-group col-sm-8">
-                        <label class="control-label">Service Requested</label>
-                         <select class="form-control"  name="service_requested">
-                          <option value="" disabled="" selected="">---</option>
-
-                          <!-- TAKE NOTE !!!!!  Dapat sa contract table manggagaling ung data neto hindi sa service_requests table -->
-
-                          @foreach($serviceRequests as $serviceRequest )
-                            @if($serviceRequest->establishments_id == $establishment->id)
-                              @foreach($services as $service)
-                                @if($service->id == $serviceRequest->services_id)
-                                  <option value="{{ $service->id }}">{{$service->name}}</option>
-                                @endif
-                              @endforeach
+                        @endphp
+                          @foreach($establishments as $establishment) 
+                            @if($establishment->id == $arr[$f])
+                              <option value="{{$establishment->id}}">{{$establishment->name}}</option>
+                              @break;
                             @endif
                           @endforeach
                           
-                        </select>
-                        <div class="help-block with-errors"></div>
-                      </div>
+                        @php
+                      }
+                    }
 
-                   </div>
-                </div>
-              </div>
-            </div>
+                  @endphp
+              </select>
+               <input type="hidden" name="gunCount" value="{{ $gunCtr }}">         
             <div class="modal-footer">
               <button type="submit" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
@@ -162,7 +214,7 @@
           <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up the following</strong></center></h4>
         </div>
         <div class="modal-body">
-          <form data-toggle="validator" method="POST" action="{{ url('/Request-Save',$establishment->id) }}">
+          <form data-toggle="validator" method="POST" action="{{ url('/Request-Save',$client->id) }}">
               {!! csrf_field() !!}
             <div class="form-group">
                <div class="row">
@@ -171,7 +223,7 @@
                        <select class="form-control"  name="service">
                         <option value="" disabled="" selected="">---</option>
                         @foreach($services as $s )
-                        <option>{{$s->name}}</option>
+                        <option value="{{ $s->id }}">{{$s->name}}</option>
                         @endforeach
                       </select>
                       <div class="help-block with-errors"></div>
@@ -218,48 +270,73 @@
           <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up the following</strong></center></h4>
         </div>
         <div class="modal-body">
-          <form data-toggle="validator" method="POST" action="{{ url('/AddGuardRequests-Save',$establishment->id) }}">
-            <div class="form-group">
-              <div class="row">
+          <form class="form-horizontal" data-toggle="validator" method="POST" action="{{ url('/AddGuardRequests-Save',$client->id) }}">
+            
                 {!! csrf_field() !!}
-                  <div class="form-group">
-                    <div class="row">
-
-                      <div class="form-group col-sm-4">
-                        <label class="control-label col-md-12">Number of Guards</label>
-                        <div class="col-md-12">
+                  
+                    
+                    
+                      <div class="form-group">
+                        <label for="no_guards" class="control-label col-md-3 pull-left">Number of Guards</label>
+                        <div class="col-md-8">
                           <input type="number" class="form-control"  id="no_guards" name="no_guards" min="1"  step="0.01"  required>
                           <div class="help-block with-errors"></div>
                         </div>
                       </div>
 
-                      <div class="form-group col-sm-8">
-                        <label class="control-label">Service Requested</label>
-                         <select class="form-control"  name="service_requested">
+                      <div class="form-group">
+                        <label class="control-label col-md-3">Establishments</label>
+                        <div class="col-md-8">
+                          <select class="form-control"  name="establishment_id" onchange="getShifts(this.value)">
                           <option value="" disabled="" selected="">---</option>
+                            @php
+                              $e = 0;
+                              for($q = 0; $q < count($arr); $q++){
+                                for($p = $q+1; $p < count($arr); $p++){
+                                  if($arr[$q] == $arr[$p]){
+                                    $arr[$p]="-";
+                                  }
+                                }    
+                              }
+                              for($f = 0; $f < count($arr); $f++){
+                                if($arr[$f] != "-"){
 
-                          <!-- TAKE NOTE !!!!!  Dapat sa contract table manggagaling ung data neto hindi sa service_requests table -->
-
-                          @foreach($serviceRequests as $serviceRequest )
-                            @if($serviceRequest->establishments_id == $establishment->id)
-                              @foreach($services as $service)
-                                @if($service->id == $serviceRequest->services_id)
-                                  <option value="{{ $service->id }}">{{$service->name}}</option>
-                                @endif
-                              @endforeach
-                            @endif
-                          @endforeach
-                          
+                                  @endphp
+                                    @foreach($establishments as $establishment) 
+                                      @if($establishment->id == $arr[$f])
+                                        <option value="{{$establishment->id}}">{{$establishment->name}}</option>
+                                        @break;
+                                      @endif
+                                    @endforeach
+                                    
+                                  @php
+                                }
+                              }
+                            @endphp
+                          </select>
+                        </div>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                      <label for="shifts" class="control-label col-md-3">Shifts</label>
+                      <div class="col-md-8">
+                        <select class="form-control" name="shifts" id="shifts">
+                          <option value="">~~ Guard Shifts ~~</option>
                         </select>
-                        <div class="help-block with-errors"></div>
                       </div>
-                   </div>
-                </div>
-              </div>
-            </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="date_needed" class="col-md-3 control-label">Date needed</label>
+                      <div class="col-md-8">
+                        <input type="text" name="date_needed" id="date_needed" class="form-control" placeholder="Expected date when you need the Guards">
+                      </div>
+                    </div>
+               
+             <div class="form-group">
             <div class="modal-footer">
               <button type="submit" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
             </div>
           </form>
         </div>
@@ -287,6 +364,7 @@
                   <th  data-sort-ignore="true">Reasons</th>  
                   <th data-sort-ignore="true">Action</th>
                 </tr>
+                </thead>
                 <tbody>
                   @php
                     $ctr = 0;
@@ -337,7 +415,7 @@
                                     <textarea id="{{ $ctr }}" name="text{{ $ctr }}" class="form-control" rows="3" placeholder="Reasons for replacing {{ $empFirstName }}  {{ $empLastName }}"></textarea>
                                   </td>
                                   <td>
-                                    <input class="selectGuard" type="checkbox" name="{{ $ctr }}" value="{{ $deploymentDetail->employees_id }}">
+                                    <input class="selectGuard" type="checkbox" name="{{ $ctr }}" value="{{ $deploymentDetail->employees_id }}" onchange="func()">
                                   </td>
                                 </tr>
                                 @endif
@@ -369,7 +447,7 @@
           <h4 class="modal-title" id="myLargeModalLabel"><center><strong style="color: white;">Are you sure you really want to replace these Guards??</strong></center></h4>
         </div>
         <div class="modal-body">
-          <form data-toggle="validator" >
+          <form data-toggle="validator">
             {!! csrf_field() !!}
             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
               <thead>
@@ -393,7 +471,7 @@
                                 @php
                                   $ctr = $ctr+1;
                                 @endphp
-                                <tr>
+                                <tr id="{{ $deploymentDetail->employees_id }}">
                                   <td>
                                     <div class="el-card-item">
                                       <div class="el-card-avatar el-overlay-1">
@@ -442,13 +520,37 @@
       </div>    <!-- /.modal-content -->
     </div>     <!-- modal-dialog -->
   </div>      <!-- Guard Replacement-->
+
+
+
+
+
+
+
+
+<input class="earlearl" type="checkbox" name="faith" value="jejej">
+
   <script type="text/javascript">
-    $(document).ready(function(){
-      $(".selectGuard").click(function(){
-        //$("#"+this.name).enable();
-        alert(this.name);
-      });
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
     });
+      function getShifts(id){
+        //console.log('url("/ClientPortalEstablishments-shifts-'+id+'")');
+
+        $.ajax({
+          type : 'GET',
+          url: '/ClientPortalEstablishments-shifts+'+id,
+          success:function(data){
+            $('#shifts').text('');
+            $('#shifts').append(data);
+            console.log(data);
+          }
+        });
+
+      }
+    
   </script>
 @endsection
 @section('script')

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Clients;
 use App\Area;
 use App\Province;
-use App\Contract;
+use App\Contracts;
 use App\Establishments;
 use App\ServiceRequest;
 use App\Service;
@@ -18,23 +18,9 @@ use Illuminate\Http\Request;
 
 class DeploymentController extends Controller
 {
-    public function deployIndex(Request $request){
-
-    	$contracts = Contract::all();
-    	$services = Service::all();
-    	$serviceRequests = ServiceRequest::all();
-    	$clients = Clients::all();
-    	$establishments = Establishments::all();
-    	$areas = Area::all();
-    	$provinces = Province::all();
-        $employees = Employees::all();
-    	$addGuardRequests = AddGuardRequests::findOrFail($request->addGuardRequestID);
-    	return view('AdminPortal.Deploy')->with('clients',$clients)->with('contracts',$contracts)->with('addGuardRequests',$addGuardRequests)->with('areas',$areas)->with('provinces',$provinces)->with('serviceRequests',$serviceRequests)->with('establishments',$establishments)->with('services',$services)->with('employees',$employees);
-
-    	//return view('AdminPortal.Deploy');
-    }
+    
     public function saveDepl(Request $request){
-
+        
         $l = $request->avGuards;
         $ctr2 = 0;
         
@@ -49,7 +35,7 @@ class DeploymentController extends Controller
                 $ctr2++;
                 //echo $ctr2;
                 if($ctr2==1){
-                    Deployments::create(['id'=>$deploymentsID,'service_requests_id'=>$request->servReqID,'num_guards'=>$request->numGuards,'status'=>'active','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+                    Deployments::create(['id'=>$deploymentsID,'establishment_id'=>$request->servReqID,'num_guards'=>$request->numGuards,'status'=>'active','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
                 }
                 $explod = explode(',',$request->$shiftFrom);
                 $from = $explod[0];
@@ -58,11 +44,12 @@ class DeploymentController extends Controller
                 $to = $explod2[0];
                 DeploymentDetails::create(['deployments_id'=>$deploymentsID,'employees_id'=>$secuID,'shift_from'=>$from,'shift_to'=>$to,'role'=>$request->$role,'status'=>'active']);
                 Employees::findOrFail($secuID)->update(['deployed'=>1]);
-                AddGuardRequests::findOrFail($request->addGuardReqID)->update(['status'=>'done']);;
+                AddGuardRequests::findOrFail($request->addGuardReqID)->update(['status'=>'done']);
                 //echo $from;
             }
         }
 
-        return redirect('/AddGuardRequests');
+        
+       return redirect('/AddGuardRequests');
     }
 }
