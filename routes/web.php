@@ -50,6 +50,7 @@ Route::get('/GuardsDTR', function () {
 });
 
 Route::get('/Applicants', 'RegisterControl@hire');
+Route::get('/SecurityGuards', 'RegisterControl@guards');
 
 Route::get('/Ammunition', function () {
     return view('AdminPortal/Ammunition');

@@ -282,10 +282,16 @@ class RegisterControl extends Controller
         return view('AdminPortal/Applicants')->with('employee',$employees);
      }
 
+     public function guards(Request $request)
+     {
+        $employees = Employee::where("status" , "waiting" )->get();
+        return view('AdminPortal/SecurityGuards')->with('employee',$employees);
+     }
+
      public function approve(Request $request)
      {
        $employee = Employee::find($request->id);
-       $employee->status = "active";
+       $employee->status = "waiting"; //because when hired, they are automatically waiting  for a client
        $employee->save();
        $data = [
                   'email'   => $employee->email,
