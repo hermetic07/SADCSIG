@@ -3746,7 +3746,7 @@ table.focus-on tbody tr.focused td {
 .form-material .form-control,
 .form-material .form-control.focus,
 .form-material .form-control:focus {
-  background-image: linear-gradient(#9675ce, #9675ce), linear-gradient(rgba(120, 130, 140, 0.13), rgba(120, 130, 140, 0.13));
+  background-image: linear-gradient(#fec107, #fec107), linear-gradient(rgba(120, 130, 140, 0.13), rgba(120, 130, 140, 0.13));
   border: 0 none;
   border-radius: 0;
   box-shadow: none;
@@ -14085,7 +14085,7 @@ padding-bottom: 5px;
   perspective-origin: 50% 100%;
 }
 .tabs-style-flip nav li.tab-current a {
-  color: #fb9678;
+  color: #fec107;
 }
 .tabs-style-flip nav li.tab-current a::after {
   background-color: #f7fafc;
