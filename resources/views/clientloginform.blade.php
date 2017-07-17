@@ -54,7 +54,7 @@
 </section>
 
 
-  <div class="login-box3 login-sidebar">
+  <div class="login-box3 login-sidebar ">
     <div class="white-box">
 
 

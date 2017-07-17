@@ -146,6 +146,9 @@ Route::get('/SecurityGuardsPortalSettings', function () {
     return view('SecurityGuardsPortal/SecurityGuardsPortalSettings');
 });
 
+Route::get('/AdminLogIn', function () {
+    return view('AdminLogIn');
+});
 
 
 

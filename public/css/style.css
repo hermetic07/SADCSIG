@@ -3924,7 +3924,7 @@ table.focus-on tbody tr.focused td {
 }
 /* Login- register pages */
 .login-register {
-
+  background: url(../../plugins/images/yellowbg.jpg) no-repeat center center / cover !important;
   height: 100%;
   position: fixed;
 
@@ -4041,6 +4041,12 @@ height: 100%;
     margin: 0 auto;
 
 }
+.login-box4 {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 5%;
+
+}
 .login-box .footer {
   width: 100%;
   left: 0px;
@@ -4053,6 +4059,8 @@ height: 100%;
 #recoverform {
   display: none;
 }
+
+
 /*Pricing*/
 .pricing-box {
   position: relative;
