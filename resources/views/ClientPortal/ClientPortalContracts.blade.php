@@ -19,7 +19,7 @@
 @section('mtitle') Establishment's Contracts @endsection
 
 @section('content')
-	<div class="row">
+  <div class="row">
   <div class="col-lg-12 ">
     <div class="white-box">
       <div class="row  el-element-overlay white-box">
@@ -46,37 +46,37 @@
               </div>
           </div>
           @php
-          	$dateCreated;
+            $dateCreated;
           @endphp
           <tbody>
-         	@foreach($establishments as $establishment)
-         		@if($establishment->id == $estabID)
-         			@foreach($contracts as $contract)
-	 					@if($contract->id == $establishment->contract_id)
-	 						@php
-				          	$dateCreated = $contract->created_at;
-				          @endphp
-         		<tr>
-         			<td>
-         				{{$contract->id}}
-         			</td>
-         			<td>
-         				
-         						@foreach($services as $service)
-         							@if($service->id == $contract->services_id)
-         								{{ $service->name }}
-         							@endif
-         						@endforeach
-         					
-         			</td>
-         			<td>
-         				{{$dateCreated}}
-         			</td>
-         			<td>
-         				<button class="btn btn-info"  data-toggle="modal" data-target="#{{$contract->id}}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
-         				<button class="btn btn-success"  type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> PDF</button>
-         			</td>
-         		</tr>
+          @foreach($establishments as $establishment)
+            @if($establishment->id == $estabID)
+              @foreach($contracts as $contract)
+            @if($contract->id == $establishment->contract_id)
+              @php
+                    $dateCreated = $contract->created_at;
+                  @endphp
+            <tr>
+              <td>
+                {{$contract->id}}
+              </td>
+              <td>
+                
+                    @foreach($services as $service)
+                      @if($service->id == $contract->services_id)
+                        {{ $service->name }}
+                      @endif
+                    @endforeach
+                  
+              </td>
+              <td>
+                {{$dateCreated}}
+              </td>
+              <td>
+                <button class="btn btn-info"  data-toggle="modal" data-target="#{{$contract->id}}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
+                <button class="btn btn-success"  type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> PDF</button>
+              </td>
+            </tr>
  <div id="{{ $contract->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -88,12 +88,12 @@
         <form >
         {!! csrf_field() !!}
         <div class="form-group">
-        	
+          
         </div>
           
         
           <div class="modal-footer">
-          	<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
           </div>
         </form>
       </div>
@@ -101,10 +101,10 @@
   </div> <!-- /.modal-dialog -->
 </div> <!-- /Add military service modal -->
 
-	         			@endif
-	         		@endforeach
-         		@endif
-         	@endforeach
+                @endif
+              @endforeach
+            @endif
+          @endforeach
 
           
           </tbody>
@@ -113,7 +113,7 @@
               <td colspan="4"></td>
             </tr>
           </tfoot>
-      	</table>
+        </table>
 
             <div class="text-right">
               <ul class="pagination">
@@ -122,10 +122,10 @@
            </div>
           </div>
           <div class="col-lg-6 animated slideInRight guards" style="display:none">
-	          <div class="white-box">
-	            <div id="calendar" ></div>
-	          </div>
-	      </div>
+            <div class="white-box">
+              <div id="calendar" ></div>
+            </div>
+        </div>
          </div>
         </div>
 @endsection

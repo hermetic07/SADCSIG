@@ -29,11 +29,25 @@ class AdditionalGuardRequesController extends Controller
         $clientRegistrations = ClientRegistration::all();
 
         $addGuardRequests = AddGuardRequests::latest('created_at')->get();
+
         return view('AdminPortal.ClientRequests.Deploy2')->with('clients',$clients)->with('contracts',$contracts)->with('addGuardRequest',$addGuardRequests)->with('areas',$areas)->with('provinces',$provinces)->with('serviceRequests',$serviceRequests)->with('establishments',$establishments)->with('services',$services)->with('employees',$employees)->with('clientRegistrations',$clientRegistrations);
 
         //return view('AdminPortal.Deploy');
     }
-
+    public function view(Request $request){
+        if($request->ajax()){
+            $addGuardRequest = AddGuardRequests::findOrFail($request->id);
+            $establishment = Establishments::findOrFail($addGuardRequest->establishments_id);
+            $area = Area::findOrFail($establishment->areas_id);
+            $province = $area->province;
+            $completeAdd = $establishment->address.",".$area->name." ,".$province->name;
+             return view('AdminPortal.ClientRequests.modal')
+                        ->with('addGuardRequest',$addGuardRequest)
+                        ->with('establishment',$establishment)
+                        ->with('completeAdd',$completeAdd);
+            //return response($completeAdd);
+        }
+    }
     public function remove(Request $request)
      {
          $id = $request -> id;

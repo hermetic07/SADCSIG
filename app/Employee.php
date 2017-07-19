@@ -7,5 +7,9 @@ class Employee extends Model
 {
    protected $table = "employees";
 
+   protected $fillable =  [
+    	'deployed'
+    ];
+
    public $incrementing = false;
 }

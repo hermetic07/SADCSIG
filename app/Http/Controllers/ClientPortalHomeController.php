@@ -15,7 +15,7 @@ use App\Deployments;
 use App\DeploymentDetails;
 use App\GunDelivery;
 use App\GunDeliveryDetails;
-use App\Employees;
+use App\Employee;
 use App\GunRequest;
 use App\GunRequestsDetails;
 use App\ClientRegistration;
@@ -57,7 +57,7 @@ class ClientPortalHomeController extends Controller
     $deployments = Deployments::all();
     $deploymentDetails = DeploymentDetails::latest('created_at')->get();
     $client = Clients::findOrFail($id);
-    $employees = Employees::all();
+    $employees = Employee::all();
     $serviceRequests = ServiceRequest::all();
     $Services = Service::all();
     $contracts = Contracts::all();
@@ -90,7 +90,7 @@ class ClientPortalHomeController extends Controller
       $serviceRequests = ServiceRequest::all();
       $deployments = Deployments::all();
       $deploymentDetails = DeploymentDetails::all();
-      $employees = Employees::all();
+      $employees = Employee::all();
       $clientRegistrations = ClientRegistration::all();
 
 
@@ -135,6 +135,10 @@ class ClientPortalHomeController extends Controller
       $area_size;
       $population;
 
+      $deployments = Deployments::all();
+      $deploymentDetails = DeploymentDetails::all();
+      $employees = Employee::all();
+
       foreach($establishments as $establishment){
         if($establishment->id == $estabID){
           $estabID = $establishment->id;
@@ -176,7 +180,8 @@ class ClientPortalHomeController extends Controller
             ->with('area_name',$area_name)
             
             ->with('area_size',$area_size)
-            ->with('population',$population);
+            ->with('population',$population)
+            ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees);
             //dd($provinces->province);
     }
 

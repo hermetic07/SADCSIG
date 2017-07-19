@@ -118,27 +118,16 @@
                                     @endphp
                                       
                                         @foreach($deployments as $deployment)
-                                            @foreach($clientRegistrations as $clientRegistration)
-                                              @if($clientRegistration->client_id == $client->id)
-                                                @foreach($contracts as $contract)
-                                                  @if($contract->id == $clientRegistration->contract_id)
-                                                    @if($deployment->contract_id == $contract->id)
-                                                      @foreach($deploymentDetails as $deploymentDetail)
-                                                        @if($deploymentDetail->deployments_id == $deployment->id)
-                                                          @if($deploymentDetail->status == "active")
-                                                            @php
-                                                              $ctr++;
-                                                            @endphp
-                                                          @endif
-                                                        @endif
-                                                      @endforeach
-                                                    @endif
-                                                  @endif
-                                                @endforeach
+                                          @if($deployment->clients_id == $client->id)
+                                            @foreach($deploymentDetails as $deploymentDetail)
+                                              @if($deploymentDetail->deployments_id == $deployment->id)
+                                                @php
+                                                  $ctr++;
+                                                @endphp
                                               @endif
                                             @endforeach
+                                          @endif
                                         @endforeach
-                                      
                                       {{ $ctr }}
                                       </a>
                                     </h1> </div>

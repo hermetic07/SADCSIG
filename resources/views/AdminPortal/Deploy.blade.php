@@ -3,6 +3,7 @@
 <html lang="en">
  <head>
   <meta charset="utf-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
@@ -11,7 +12,7 @@
   <link rel="icon" type="image/png" href="plugins/images/favicon-16x16.png" sizes="16x16" />
 
   <!-- title -->      
-  <title>Deploy guards</title>
+  <title>Initial Deployment</title>
       
  <!-- Bootstrap Core CSS -->
   <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -38,64 +39,67 @@
   
   <!-- js for selecting guards --> 
   <script type="text/javascript">
-	
-	  $(document).ready(function(){
+  
+    $(document).ready(function(){
       arry = [];
-	     id = "";
+       id = "";
+       guardsReq = "";
         $('.add-guard').on('click', function() {
 
             var Self = $(this);
             var Thisdiv = $(this).parent();
-			
+      
  
             var ButtonAddGuard = $(this).parent().find('.AddGuard');
             var ButtonAddedGuard = $(this).parent().find('.AddedGuard');
-			 			
-			ButtonAddGuard.hide(); 
-			$(ButtonAddedGuard).fadeIn("slow");
+            
+      ButtonAddGuard.hide(); 
+      $(ButtonAddedGuard).fadeIn("slow");
 
-			//this will be the counts of guard to be seleceted 
-			var limit =$("#guardsCount").text();			
-			//Span for count of selected guards
+      //this will be the counts of guard to be seleceted 
+      //var limit =$("#guardsCount").text();    
+        var limit = guardsReq;
+
+      //Span for count of selected guards
             var value = parseInt($(".myspan").text(), 10) + 1;
-			//Span for the remaining guards that need to be selected to meet the limit
-			var value2 = parseInt($(".deploysecu").text(), 10) + 1;
-			
-			//Setting text to the blue span the "value"
+      //Span for the remaining guards that need to be selected to meet the limit
+      var value2 = parseInt($(".deploysecu").text(), 10) + 1;
+      
+      //Setting text to the blue span the "value"
             $(".myspan").text(value);
-			
-			//the value for the limit minus the count of selected guards 
-			var value3 = limit - value;
-			//Setting the text of remaining count to select
-			 $(".deploysecu").text(value3+" more");
-			
-			//disable buttons if you select enough guards
-			if(value3 < 1){
-      				$('#deployguards').removeAttr("disabled"); 
-					$(".deploysecu").hide();	
-				    $('.AddGuard').attr("disabled", "disabled");					
-  			}
-			
-			//fly the image to the icon
+      
+      //the value for the limit minus the count of selected guards 
+      var value3 = limit - value;
+      //Setting the text of remaining count to select
+       $(".deploysecu").text(value3+" more");
+      
+      //disable buttons if you select enough guards
+      if(value3 < 1){
+              $('#deployguards').removeAttr("disabled"); 
+          $(".deploysecu").hide();  
+            $('.AddGuard').attr("disabled", "disabled");          
+        }
+      
+      //fly the image to the icon
             var itemImg = $(this).parent().find('img').eq(0);
             flyToElement($(itemImg), $('.navbar-toggler'));
  
-			//guard name
+      //guard name
             var guardname = Thisdiv.find('.guard_name').get(0).innerHTML;
-         	// guard image
+          // guard image
             var guardimage = $(this).parent().find('img').attr('src');
             var guardID = this.name;
 
- 				
- 			//putting the guards to the sidebar
+        
+      //putting the guards to the sidebar
             setTimeout(function() {
 
                 var GuardInfo = "<div class='cart-item'><div class='img-wrap'><img src='" + guardimage + "'  alt='' /></div><span>" + guardname + "</span><div class='cart-item-border'></div><div class='delete-item' name= "+guardID+"></div></div>";
  
                 $("#cart .empty").hide();
                 $("#cart").append(GuardInfo); 
-				
-				//removing guards to the sidebar
+        
+        //removing guards to the sidebar
                 $("#cart .cart-item").last().find(".delete-item").click(function() {
                   //arry.pop(guardID);
                   arry = jQuery.grep(arry, function(value){
@@ -103,29 +107,29 @@
                   });
                   id = arry.join("");
                   //alert(id);
-						      ButtonAddedGuard.hide();
-						      ButtonAddGuard.show();                         
+                  ButtonAddedGuard.hide();
+                  ButtonAddGuard.show();                         
                   $(this).parent().fadeOut(300, function() {
-							       var remove = parseInt($(".myspan").text(), 10) - 1;
-                      $(".myspan").text(remove);							
-							       value3 = limit - remove;
-			 				        $(".deploysecu").text(value3+" more");
-							//if you select not enought guards the deploy guards will be disable
-								      if( value3 = 10){							
-       								   $('#deployguards').attr("disabled", "disabled");	
-								        $(".deploysecu").show();	
-								        $('.AddGuard').removeAttr("disabled");	
-  								    }              
+                     var remove = parseInt($(".myspan").text(), 10) - 1;
+                      $(".myspan").text(remove);              
+                     value3 = limit - remove;
+                      $(".deploysecu").text(value3+" more");
+              //if you select not enought guards the deploy guards will be disable
+                      if( value3 = 10){             
+                         $('#deployguards').attr("disabled", "disabled"); 
+                        $(".deploysecu").show();  
+                        $('.AddGuard').removeAttr("disabled");  
+                      }              
                       $(this).remove();
-							//if no guards selected, no guards will show
+              //if no guards selected, no guards will show
                       if ($("#cart .cart-item").size() == 0) {
                           $("#cart .empty").fadeIn(500);
                       }
                     })
                   });
-				}, 1000);
-			
-			
+        }, 1000);
+      
+      
   
         });
 });
@@ -149,12 +153,31 @@ $(document).ready(function(){
   $(".btnClose").click(function(){
     $("tr").show();
   });
+  $(".radioBtn").click(function(){
+    var radioVal;
+    //guardsReq =  this.id;
+    radioVal = this.value.split(",");
+    guardsReq = radioVal[2]; 
+    //alert("#"+this.id);
+$(".sel").text( " Please select " + guardsReq + " guards to deploy to the client.");
+    $('#establishmentID').val(radioVal[1]);
+    $('#numGuards').val(radioVal[2]);
+    $('#contractID').val(radioVal[0]);
+    $('#clientID').val(radioVal[3]);
+    //alert(radioVal[3]);
+    var notRadio = "#"+this.id;
+   // alert(notRadio);
+    $(".radioBtn:not("+notRadio+")").attr("disabled", "disabled");
+    //alert(".radioBtn:not("+notRadio+")");
+   //var radioVal = this.value.toArray();
+   
+  });
 });
   
 
     
 </script>
-	 
+   
 </head>
     
 <body class="fix-header content-wrapper">
@@ -164,16 +187,16 @@ $(document).ready(function(){
   <div class="cssload-speeding-wheel"></div>
 </div>
 
-			
+      
     
 <div id="wrapper">
   <!-- Top Navigation -->
   <nav class="navbar navbar-default navbar-static-top m-b-0">
     <div class="navbar-header"> 
-		  <ul class="nav navbar-top-links navbar-left2 hidden-xs">
-          	<li><a href="Dashboard.html" class="waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i>&nbsp; Back to dashboard</a></li>
-		  </ul>
-		  
+      <ul class="nav navbar-top-links navbar-left2 hidden-xs">
+            <li><a href="{{ route('dashboard') }}" class="waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i>&nbsp; Back to dashboard</a></li>
+      </ul>
+      
       <ul class="nav navbar-top-links navbar-right pull-right">
         <!-- /.dropdown-tasks -->
           <!-- /.dropdown -->
@@ -204,11 +227,11 @@ $(document).ready(function(){
     <div class="container-fluid">
       <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-          <h4 class="page-title">Deploy guards</h4>
+          <h4 class="page-title">Initial Deployment</h4>
         </div>
         <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
           <ol class="breadcrumb">
-            <li><a href="Dashboard.html">Dashboard</a></li>
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="active">Deploy guards</li>
           </ol>
         </div>
@@ -234,12 +257,12 @@ $(document).ready(function(){
                           <tr>
                             <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="10px" >Establishment
                             </th>
-                            <th>Establishment's name</th>
-                            <th>Person In Charge</th>
-                            <th  data-sort-ignore="true">Location</th>
-                            <th>Service Requested</th>
+                            <th>Client</th>
                             <th >Guard's needed</th>
-                            <th data-sort-ignore="true" width="150px">Actions</th>
+                            <th>Completion Date</th>
+                            <th>Status</th>
+                            <th width="80px">Select</th>
+                            <th width="190px">Actions</th>
                           </tr>
                         </thead>
                         <div class="form-inline padding-bottom-15">
@@ -255,86 +278,90 @@ $(document).ready(function(){
                         @php
                           $ctr = 0;
                           $ctr2 = 0;
-                          $serviceRequestID;
+                          
+                          $establishmentID;
+                          $shifts;
+                          $no_guards;
+                          $client_id;
+
                         @endphp
+
                         <tbody>
-                           @foreach($serviceRequests as $serviceRequest)
-                            @if($serviceRequest->establishments_id == $addGuardRequests->establishments_id)
-                             @if($serviceRequest->services_id == $addGuardRequests->guard_for)
-                              @php
-                                $serviceRequestID = $serviceRequest->id;
-                              @endphp
-                                <tr>
-                                 <td>
-                                   <div class="el-card-item">
-                                    <div class="el-card-avatar el-overlay-1">
-                                      <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/establishments/up.jpg" alt="user"  class=" img-responsive"></a>
-                                      <div class="el-overlay">
-                                        <ul class="el-info">
-                                          <li><a class="btn default btn-outline" href="ClientDetails.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                        </ul>
-                                      </div>
-                                    </div>
-                                 </div>
-                                 </td>
-                                 <td>
-                                  @foreach($establishments as $establishment)
-                                    @if($establishment->id == $addGuardRequests->id)
-                                      {{ $establishment->name }}
-                                      @php
-                                        $personInCharge = $establishment->person_in_charge;
-                                      @endphp
-                                    @endif
-                                  @endforeach
-                                 </td>
-                                 <td>
-                                   {{ $personInCharge }}
-                                 </td>
-                                 <td>
-                                  @foreach($establishments as $establishment)
-                                    @if($establishment->id == $addGuardRequests->id)
-                                      @foreach($areas as $area)
-                                        @if($establishment->areas_id == $area->id)
-                                          @foreach($provinces as $province)
-                                            @if($area->provinces_id == $province->id)
-                                              {{ $establishment->address}} {{ $area->name }}, {{ $province->name }}
-                                            @endif
-                                          @endforeach
-                                        @endif
-                                      @endforeach
-                                    @endif
-                                  @endforeach
-                                 </td>
-                                 <td>
-                                   @foreach($services as $service)
-                                    @if($service->id == $addGuardRequests->guard_for)
-                                      {{ $service->name }}
-                                    @endif
-                                  @endforeach
-                                 </td>
-                                 <td id="guardsCount">
-                                  {{ $addGuardRequests->no_guards }}
-                                 </td>
-                                 <td>
-                                  <div class="radio radio-info">
-                                    <input type="radio" id="select1">
-                                    <label for="select1"> Select</label>
+                          @foreach($contracts as $contract)
+                           @foreach($establishments as $establishment)
+                              @if($establishment->contract_id == $contract->id)
+                                @php
+                                  $establishmentID = $establishment->id;
+                                @endphp
+                              @endif
+                            @endforeach
+                            
+                           
+                           
+                            <tr>
+                              <td>
+                               <div class="el-card-item">
+                                <div class="el-card-avatar el-overlay-1">
+                                  <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/establishments/up.jpg" alt="user"  class=" img-responsive"></a>
+                                  <div class="el-overlay">
+                                    <ul class="el-info">
+                                      <li><a class="btn default btn-outline" href="ClientDetails.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                    </ul>
                                   </div>
-                                 </td>
-                               </tr>
-                             @endif
-                            @endif
-                           @endforeach
+                                </div>
+                               </div>
+                              </td>
+                              <td>
+                                @foreach($clientRegistrations as $clientRegistration)
+                                  @if($clientRegistration->contract_id == $contract->id)
+                                    @foreach($clients as $client)
+                                      @if($client->id == $clientRegistration->client_id)
+                                        {{ $client->name }}
+                                        @php
+                                        $client_id = $client->id;
+                                        @endphp
+                                      @endif
+                                    @endforeach
+                                  @endif
+                                @endforeach
+                              </td>
+                              <td>
+                                {{$contract->guard_count}}
+                                @php
+                                  $no_guards = $contract->guard_count;
+                                @endphp
+
+                              </td>
+                              <td>
+                                {{$contract->exp_date}}
+                              </td>
+                              <td>
+                                {{$contract->init_deploy_status}}
+                              </td>
+                              <td>
+                                <div class="radio radio-info">
+                                <input type="radio" id="{{ $contract->id }}" class="radioBtn" value="{{ $contract->id }},{{ $establishmentID }},{{ $contract->guard_count }},{{$client_id}}">
+                                  <label for="select1"> Select</label>
+                                </div>
+                              </td>
+                              <td>
+                                <button class="btn btn-info" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
+                                  <button class="btn btn-danger"><i class="fa fa-times"></i> </button>
+                              </td>
+                            </tr>
+                            
+                          @endforeach
                         </tbody>
                         <tfoot>
                           <tr>
-                            <td colspan="7"></td>
+                            <td colspan="8"></td>
                           </tr>
                         </tfoot>
                     </table>
                   </div>
               </div>
               <div class="wizard-pane" role="tabpanel">
+
               
 <!-- The side bar -->
               
@@ -394,7 +421,7 @@ $(document).ready(function(){
                         <div class="col-md-4 col-sm-4 text-center guard_details">
                            <div class="el-card-item">
                              <div class="el-card-avatar el-overlay-1">
-                                <a href="artist-detail.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                                <a href="artist-detail.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-circle img-responsive"></a>
                                 <div class="el-overlay">
                                   <ul class="el-info">
                                     <li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
@@ -404,7 +431,7 @@ $(document).ready(function(){
                               </div>
                             </div>
                                           <!-- name of the guard to be fly to the sidebar -->
-                            <span style="display: none" class="guard_name">{{ $employee->first_name }}</span> 
+                            <span style="display: none" class="guard_name">{{ $employee->first_name }}, {{ $employee->last_name }}</span> 
                             <span style="display: none" class="location">quezon</span>      
                               <button type="button"  id='AddGuard'  class="btn AddGuard btn-block btn-outline btn-info add-guard shitshit" name=",#{{ $employee->id }}"><i class="icon-user-follow"></i> <!--</i>--> Add guard</button>
                                         
@@ -462,15 +489,14 @@ $(document).ready(function(){
                           <center><h5 class="box-title fw-500">List of guards</h5></center> 
                           <center><h5>Guards deployed: 2</h5></center> 
                           <br> 
-                            <form data-toggle="validator" method="POST" action="{{ url('/DeployGuards/Save') }}">
+                            <form id="deploy" data-toggle="validator" method="POST" action="{{ url('/DeployGuards/Save') }}">
                             {!! csrf_field() !!}
                             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
                               <thead>
                                 <tr id="earl">
                                   <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="100px" ></th>
                                   <th>Guard's name</th>
-                                  <th  data-sort-ignore="true">Shift from</th>
-                                  <th  data-sort-ignore="true">to</th>  
+                                  <th  data-sort-ignore="true">Shifts</th>
                                   <th data-sort-ignore="true">Role</th>
                                 </tr>
                               </thead>
@@ -488,9 +514,7 @@ $(document).ready(function(){
                               <tbody>
                                 @foreach($employees as $employee)
                                   @if($employee->deployed == 0)
-                                  @php
-                                    $ctr = $ctr + 1;
-                                  @endphp
+                                  
                                 <tr id="{{ $employee->id }}">
                                   <td>
                                     <div class="el-card-item">
@@ -506,65 +530,18 @@ $(document).ready(function(){
                                     </td>
                                     <td>{{ $employee->first_name }} {{ $employee->last_name }}</td>
                                     <td>
-                                      <select class="form-control" name="shiftTo{{ $ctr }}">
+                                      <select class="form-control" name="shift{{$ctr}}" id="shift">
                                         <option value="" disabled="" selected="">---</option>
-                                        <option id="0" value="00:00:00,{{ $employee->id }}">12 AM</option>
-                                        <option id="1" value="01:00:00,{{ $employee->id }}">1 AM</option>
-                                        <option id="2" value="02:00:00,{{ $employee->id }}">2 AM</option>
-                                        <option id="3" value="03:00:00,{{ $employee->id }}">3 AM</option>
-                                        <option id="4" value="04:00:00,{{ $employee->id }}">4 AM</option>
-                                        <option id="5" value="05:00:00,{{ $employee->id }}">5 AM</option>
-                                        <option id="6" value="06:00:00,{{ $employee->id }}">6 AM</option>
-                                        <option id="7" value="07:00:00,{{ $employee->id }}">7 AM</option>
-                                        <option id="8" value="08:00:00,{{ $employee->id }}">8 AM</option>
-                                        <option id="9" value="09:00:00,{{ $employee->id }}">9 AM</option>
-                                        <option id="10" value="10:00:00,{{ $employee->id }}">10 AM</option>
-                                        <option id="11" value="11:00:00,{{ $employee->id }}">11 AM</option>
-                                        <option id="12" value="12:00:00,{{ $employee->id }}">12 PM</option>
-                                        <option id="13" value="13:00:00,{{ $employee->id }}">1 PM</option>
-                                        <option id="14" value="14:00:00,{{ $employee->id }}">2 PM</option>
-                                        <option id="15" value="15:00:00,{{ $employee->id }}">3 PM</option>
-                                        <option id="16" value="16:00:00,{{ $employee->id }}">4 PM</option>
-                                        <option id="17" value="17:00:00,{{ $employee->id }}">5 PM</option>
-                                        <option id="18" value="18:00:00,{{ $employee->id }}">6 PM</option>
-                                        <option id="19" value="19:00:00,{{ $employee->id }}">7 PM</option>
-                                        <option id="20" value="20:00:00,{{ $employee->id }}">8 PM</option>
-                                        <option id="21" value="21:00:00,{{ $employee->id }}">9 PM</option>
-                                        <option id="22" value="22:00:00,{{ $employee->id }}">10 PM</option>
-                                        <option id="23" value="23:00:00,{{ $employee->id }}">11 PM</option>
+                                       @foreach($shifts as $shift)
+                                        @if($shift->estab_id == $establishmentID)
+                                          <option id="0" value="{{$shift->start}},{{$shift->end}},{{$employee->id}}">From:{{$shift->start}} - To:{{$shift->end}}</option>
+                                        @endif
+                                      @endforeach
                                       </select>
                                     </td>
+                                    
                                     <td>
-                                      <select class="form-control" name="shiftFrom{{ $ctr }}">
-                                        <option value="" disabled="" selected="">---</option>
-                                        <option id="0" value="00:00:00,{{ $employee->id }}">12 AM</option>
-                                        <option id="1" value="01:00:00,{{ $employee->id }}">1 AM</option>
-                                        <option id="2" value="02:00:00,{{ $employee->id }}">2 AM</option>
-                                        <option id="3" value="03:00:00,{{ $employee->id }}">3 AM</option>
-                                        <option id="4" value="04:00:00,{{ $employee->id }}">4 AM</option>
-                                        <option id="5" value="05:00:00,{{ $employee->id }}">5 AM</option>
-                                        <option id="6" value="06:00:00,{{ $employee->id }}">6 AM</option>
-                                        <option id="7" value="07:00:00,{{ $employee->id }}">7 AM</option>
-                                        <option id="8" value="08:00:00,{{ $employee->id }}">8 AM</option>
-                                        <option id="9" value="09:00:00,{{ $employee->id }}">9 AM</option>
-                                        <option id="10" value="10:00:00,{{ $employee->id }}">10 AM</option>
-                                        <option id="11" value="11:00:00,{{ $employee->id }}">11 AM</option>
-                                        <option id="12" value="12:00:00,{{ $employee->id }}">12 PM</option>
-                                        <option id="13" value="13:00:00,{{ $employee->id }}">1 PM</option>
-                                        <option id="14" value="14:00:00,{{ $employee->id }}">2 PM</option>
-                                        <option id="15" value="15:00:00,{{ $employee->id }}">3 PM</option>
-                                        <option id="16" value="16:00:00,{{ $employee->id }}">4 PM</option>
-                                        <option id="17" value="17:00:00,{{ $employee->id }}">5 PM</option>
-                                        <option id="18" value="18:00:00,{{ $employee->id }}">6 PM</option>
-                                        <option id="19" value="19:00:00,{{ $employee->id }}">7 PM</option>
-                                        <option id="20" value="20:00:00,{{ $employee->id }}">8 PM</option>
-                                        <option id="21" value="21:00:00,{{ $employee->id }}">9 PM</option>
-                                        <option id="22" value="22:00:00,{{ $employee->id }}">10 PM</option>
-                                        <option id="23" value="23:00:00,{{ $employee->id }}">11 PM</option> 
-                                       </select>
-                                    </td>
-                                    <td>
-                                      <select class="form-control" name="role{{ $ctr }}">
+                                      <select class="form-control" name="role{{$ctr}}" id="role">
                                         <option value="" disabled="" selected="">---</option>
                                         <option value="Security guard">Security guard</option>
                                         <option value="Lady guard">Lady guard</option>
@@ -573,20 +550,25 @@ $(document).ready(function(){
                                       </select>
                                     </td>
                                   </tr>
+                                 @php
+                                    $ctr = $ctr + 1;
+                                  @endphp
                                   @endif
                                 @endforeach
                                 </tbody>
                                 <tfoot>
                                   <tr>
-                                    <td colspan="5"></td>
+                                    <td colspan="4"></td>
                                   </tr>
                                 </tfoot>
                               </table>
-                              <input type="hidden" name="servReqID" value="{{ $serviceRequestID }}">
-                              <input type="hidden" name="numGuards" value="{{ $addGuardRequests->no_guards }}">
-                              <input type="hidden" name="avGuards" value="{{ $ctr }}">
-                              <input type="hidden" name="addGuardReqID" value="{{ $addGuardRequests->id }}">
 
+                              
+                             <input type="hidden" name="avGuards" value="{{ $ctr }}">
+                             <input type="hidden" id="establishmentID" name="establishmentID" value="">
+                             <input type="hidden" id="numGuards" name="numGuards" value="">
+                             <input type="hidden" id="contractID" name="contractID" value="">
+                             <input type="hidden" id="clientID" name="clientID" value="">
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-default waves-effect btnClose" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-info waves-effect waves-light" >Deploy</button>
@@ -612,6 +594,13 @@ $(document).ready(function(){
     </div>  <!-- class="container-fluid" -->      
   </div>    <!-- id="page-wrapper2" -->
 </div>  <!-- /#wrapper -->
+
+<!-- View Modal -->
+<div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog viewrequest">
+    
+  </div> <!-- /.modal-dialog -->
+</div> <!-- /Add military service modal -->
 
 <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
@@ -640,18 +629,20 @@ $(document).ready(function(){
 <!--FooTable init-->
 <script src="js/footable-init.js"></script>
 
+<script src="js/Alert/sweetalert.min.js"></script>
+<script src="plugins/bower_components/dropify/dist/js/dropify.min.js"></script>
 
   <script type="text/javascript">
 
-	  $( "#target" ).keyup(function( event ) {
+    $( "#target" ).keyup(function( event ) {
   $("#target2").trigger('click'); 
 });
 
-	$('.form-search').on('submit',function(){return false;});
+  $('.form-search').on('submit',function(){return false;});
 $('.form-search .btn').on('click', function(e){
-	
+  
     var query = document.getElementById('target').value;
-	console.log(query);
+  console.log(query);
     $('div.staff-container .guard_name').each(function(){
          var $this = $(this);
          if($this.text().toLowerCase().indexOf(query) === -1)
@@ -661,7 +652,7 @@ $('.form-search .btn').on('click', function(e){
 });
 
 
-	
+  
 </script>
 <script type="text/javascript">
         (function(){
@@ -747,12 +738,12 @@ $('.form-search .btn').on('click', function(e){
 
 <script type="text/javascript">
 
-	// the count of guards for alert info
+  // the count of guards for alert info
    $('#deployguards').attr("disabled", "disabled");
-		    var limit=$("#guardsCount").text();
+        var limit=$("#guardsCount").text();
                         $(".sel").text( " Please select " + limit + " guards to deploy to the client.");
-							
-		//Scrollbar 
+              
+    //Scrollbar 
         $('#slimtest4').slimScroll({
             color: '#00f',
             size: '10px',
@@ -762,6 +753,45 @@ $('.form-search .btn').on('click', function(e){
 
 
 </script>
+
+<input type="hidden" name="hidden_delete" id="hidden_delete" value="AddGuardRequest-remove">
+<script>
+  function fun_delete(id)
+   {
+
+      swal({
+          title: "Are you sure?",
+          text: "Remove this item?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, remove it!",
+          closeOnConfirm: false
+      }, function(){
+        var delete_url = $("#hidden_delete").val();
+                $.ajax({
+                  url: delete_url,
+                  type:"POST",
+                  data: {"id":id,_token: "{{ csrf_token() }}"}
+                }).done(function(data) {
+                swal({
+                    title: "Removed",
+                    text: "This item has been successfully removed",
+                    type: "success"
+                },function() {
+                    location.reload();
+                });
+              }).error(function(data) {
+       swal("Oops", "We couldn't connect to the server!", "error");
+     });
+      });
+
+
+     
+   }
+</script>
+
+
  
 </body>
 </html>

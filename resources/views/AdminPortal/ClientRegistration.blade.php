@@ -353,7 +353,7 @@
                   <select class="form-control"  name="province" id="province">
                     <option value="" disabled="" selected="">Select Province</option>
                     @foreach($provinces as $province )
-                      <option>{{$province->name}}</option>
+                      <option value="{{$province->id}}">{{$province->name}}</option>
                     @endforeach
                   </select>
                   </div>
@@ -372,31 +372,31 @@
 
 
 
-              								<div class="form-group">
-              									<label class="col-xs-1 control-label">Telephone</label>
-                                                  	<div class="col-xs-3">
-                                             				<div class="input-group">
-              												<div class="input-group-addon"><i class="fa fa-phone"></i></div>
-              										        <input type="number" class="form-control"  id="numonly" name="telephone" maxlength="9" >
-              											</div>
-              											<span class="font-13 text-muted">ex. 1234567<span>
-              										</div>
-              									<label class="col-xs-1 control-label">Cellphone</label>
-                                                  	<div class="col-xs-3">
-                                             				<div class="input-group">
-              												<div class="input-group-addon"><i class="fa fa-mobile"></i></div>
-              											    <input type="number" class="form-control"  id="numonly" name="cellphone" maxlength="11">
-              											</div>
-              											<span class="font-13 text-muted">ex. 09123456789<span>
-              										</div>
-              											<label class="col-xs-1 control-label">Email address</label>
-              										<div class="col-xs-3">
-                                             				<div class="input-group">
-              												<div class="input-group-addon"><i class="ti-email"></i></div>
-              										        <input type="text" class="form-control" name="email">
-              											</div>
-              											<span class="font-13 text-muted">ex. myemail@yahoo.com<span>
-              										</div>
+                              <div class="form-group">
+                                <label class="col-xs-1 control-label">Telephone</label>
+                                                    <div class="col-xs-3">
+                                                    <div class="input-group">
+                                      <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                          <input type="number" class="form-control"  id="numonly" name="telephone" maxlength="9" >
+                                    </div>
+                                    <span class="font-13 text-muted">ex. 1234567<span>
+                                  </div>
+                                <label class="col-xs-1 control-label">Cellphone</label>
+                                                    <div class="col-xs-3">
+                                                    <div class="input-group">
+                                      <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
+                                        <input type="number" class="form-control"  id="numonly" name="cellphone" maxlength="11">
+                                    </div>
+                                    <span class="font-13 text-muted">ex. 09123456789<span>
+                                  </div>
+                                    <label class="col-xs-1 control-label">Email address</label>
+                                  <div class="col-xs-3">
+                                                    <div class="input-group">
+                                      <div class="input-group-addon"><i class="ti-email"></i></div>
+                                          <input type="text" class="form-control" name="email">
+                                    </div>
+                                    <span class="font-13 text-muted">ex. myemail@yahoo.com<span>
+                                  </div>
                                               </div>
 
               <div class="form-group">
@@ -535,18 +535,18 @@
         </div>
         <div class="wizard-pane" role="tabpanel">
           <div class="form-group">
-									 <label class="col-xs-2 control-label">School level</label>
-									    <div class="col-xs-4">
-											<select class="form-control"  name="noblank" id="gender">
-												<option disabled></option>
-												<option>High school level</option>
-												<option>College level</option>
-											</select>
-										</div>
-									 <label class="col-xs-1 control-label">Age</label>
-									    <div class="col-xs-4">
-						             <input type="number" class="form-control">
-										</div>
+                   <label class="col-xs-2 control-label">School level</label>
+                      <div class="col-xs-4">
+                      <select class="form-control"  name="noblank" id="gender">
+                        <option disabled></option>
+                        <option>High school level</option>
+                        <option>College level</option>
+                      </select>
+                    </div>
+                   <label class="col-xs-1 control-label">Age</label>
+                      <div class="col-xs-4">
+                         <input type="number" class="form-control">
+                    </div>
                   </div>
 
 </br>
@@ -618,28 +618,28 @@
     <center> <h4> <strong>Licences and clearances</strong></h4> </center>
              <br>
     <div class="form-group">
-  									<div class="col-xs-4">
-                             				<div class="checkbox checkbox-success">
-  											<input id="checkbox1" type="checkbox">
-                    							<label for="checkbox1"> PNP-SOSIA License </label>
-  										</div>
-                      				</div>
+                    <div class="col-xs-4">
+                                    <div class="checkbox checkbox-success">
+                        <input id="checkbox1" type="checkbox">
+                                  <label for="checkbox1"> PNP-SOSIA License </label>
+                      </div>
+                              </div>
 
-  									<div class="col-xs-4">
-                             				<div class="checkbox checkbox-success">
-  											<input id="checkbox2" type="checkbox">
-  											<label for="checkbox2"> NTC License </label>
-  										</div>
-  									</div>
+                    <div class="col-xs-4">
+                                    <div class="checkbox checkbox-success">
+                        <input id="checkbox2" type="checkbox">
+                        <label for="checkbox2"> NTC License </label>
+                      </div>
+                    </div>
 
 
 
-  									<div class="col-xs-4">
-                             				<div class="checkbox checkbox-success">
-                    							<input id="checkbox3" type="checkbox">
-                    							<label for="checkbox3"> TIN </label>
-                  						</div>
-  									</div>
+                    <div class="col-xs-4">
+                                    <div class="checkbox checkbox-success">
+                                  <input id="checkbox3" type="checkbox">
+                                  <label for="checkbox3"> TIN </label>
+                              </div>
+                    </div>
 
                     <div class="col-xs-4">
                                     <div class="checkbox checkbox-success">
@@ -669,19 +669,19 @@
     <center> <h4> <strong>Requirements</strong></h4> </center>
              <br>
                  <div class="form-group">
-									<div class="col-xs-4">
-                           				<div class="checkbox checkbox-success">
-											<input id="checkbox16" type="checkbox">
-											<label for="checkbox16"> NSO birth certificate </label>
-                						</div>
-									</div>
+                  <div class="col-xs-4">
+                                  <div class="checkbox checkbox-success">
+                      <input id="checkbox16" type="checkbox">
+                      <label for="checkbox16"> NSO birth certificate </label>
+                            </div>
+                  </div>
 
-									<div class="col-xs-4">
-                           				<div class="checkbox checkbox-success">
-											<input id="checkbox17" type="checkbox">
-											<label for="checkbox17"> Baranggay clearance </label>
-                						</div>
-									</div>
+                  <div class="col-xs-4">
+                                  <div class="checkbox checkbox-success">
+                      <input id="checkbox17" type="checkbox">
+                      <label for="checkbox17"> Baranggay clearance </label>
+                            </div>
+                  </div>
                   <div class="col-xs-4">
                                   <div class="checkbox checkbox-success">
                       <input id="checkbox17" type="checkbox">
@@ -1016,6 +1016,7 @@ $('#firstcal').removeAttr("disabled");
                         location.reload();
                       }
                       else {
+                        alert(data);
                         alert("Something went wrong");
                       }
                     }

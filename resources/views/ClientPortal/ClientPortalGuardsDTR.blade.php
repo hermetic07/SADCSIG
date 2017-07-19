@@ -33,7 +33,7 @@
                <th data-sort-ignore="true" width="90px"></th>
                 <th>Name</th>
                 <th  width="220px" >Shift</th>
-                <th>Contract</th>
+                <th>Post</th>
                 <th>Role</th>
                 <th>Date Deployed</th>
                 <th data-sort-ignore="true">Actions</th>
@@ -51,14 +51,12 @@
               </div>
           </div>
           <tbody>
-          @foreach($clientRegistrations as $clientRegistration)
-            @if($client->id == $clientRegistration->client_id)
-              @foreach($contracts as $contract)
-                @if($contract->id == $clientRegistration->contract_id)
-                  @foreach($deployments as $deployment)
-                    @foreach($deploymentDetails as $deploymentDetail)
-                      @if($deploymentDetail->deployments_id == $deployment->id)
-                        @if($deploymentDetail->status == "active")
+         @foreach($deployments as $deployment)
+            @if($deployment->clients_id == $client->id)
+              @foreach($deploymentDetails as $deploymentDetail)
+                @if($deploymentDetail->deployments_id == $deployment->id)
+                  @foreach($employees as $employee)
+                    @if($employee->id == $deploymentDetail->employees_id)
                           <tr>
                               <td>                
                                 <div class="el-card-item">
@@ -73,21 +71,13 @@
                                 </div>
                               </td>
                               <td>
-                                @foreach($employees as $employee)
-                                  @if($employee->id == $deploymentDetail->employees_id)
-                                    {{ $employee->first_name }}  {{ $employee->last_name }}
-                                  @endif
-                                @endforeach
+                                {{$employee->first_name}}, {{$employee->last_name}}
                               </td>
                               <td>
-                                From: {{ $deploymentDetail->shift_from }}  To: {{ $deploymentDetail->shift_to }}
+                               
                               </td>
                               <td>
-                                @foreach($services as $service)
-                                  @if($service->id == $contract->services_id)
-                                    {{ $service->name }}
-                                  @endif
-                                @endforeach
+                                
                               </td>
                               <td>
                                 {{ $deploymentDetail->role }}
@@ -100,8 +90,6 @@
                               </td>
                             </tr>
                         @endif
-                      @endif
-                    @endforeach
                   @endforeach
                 @endif
               @endforeach

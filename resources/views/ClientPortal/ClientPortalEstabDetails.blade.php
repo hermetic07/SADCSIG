@@ -155,64 +155,41 @@
 
 
       <tbody>
-         <tr>
+         
+          @foreach($deployments as $deployment)
+            @if($deployment->clients_id == $client->id)
+              @foreach($deploymentDetails as $deploymentDetail)
+                @if($deploymentDetail->deployments_id == $deployment->id)
+                  @foreach($employees as $employee)
+                    @if($employee->id == $deploymentDetail->employees_id)
+                    <tr>
                       <td>
-        <div class="el-card-item">
-          <div class="el-card-avatar el-overlay-1">
-                           <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+            <div class="el-card-item">
+              <div class="el-card-avatar el-overlay-1">
+                <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
                 <div class="el-overlay">
                   <ul class="el-info">
-                                              <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                    </ul>
+                    <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                  </ul>
                 </div>
+            </div>
           </div>
-        </div>
          </td>
-                      <td>Abel mandap</td>
-        <td>abel@gmail.com</td>
-                      <td>999999999  </td>
-            <td>999999999 </td>
-        <td><span class="label label-table label-success">Active</span> </td>
-                  </tr>
-     <tr>
-                      <td>
-              <div class="el-card-item">
-          <div class="el-card-avatar el-overlay-1">
-                           <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2%202.jpg" alt="user"  class="img-circle img-responsive"></a>
-                <div class="el-overlay">
-                  <ul class="el-info">
-                                              <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                    </ul>
-                </div>
-          </div>
-        </div>
-        </td>
-                      <td>Earl dixon geraldez</td>
-        <td>earl@gmail.com</td>
-                      <td>999999999  </td>
-            <td>999999999 </td>
-        <td><span class="label label-table label-warning">Reliever</span> </td>
-                  </tr>
-
-     <tr>
-                      <td>
-              <div class="el-card-item">
-          <div class="el-card-avatar el-overlay-1">
-                           <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/daisy2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-                <div class="el-overlay">
-                  <ul class="el-info">
-                                              <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                    </ul>
-                </div>
-          </div>
-        </div>
-        </td>
-                      <td>Daisy ronquillo</td>
-        <td>daisy@gmail.com</td>
-                      <td>999999999  </td>
-            <td>999999999 </td>
-        <td><span class="label label-table label-danger">Leave</span> </td>
-                  </tr>
+         <td>{{$employee->first_name}}, {{$employee->last_name}}</td>
+         <td>abel@gmail.com</td>
+         <td>999999999 </td>
+         <td>999999999 </td>
+         <td><span class="label label-table label-success">{{$employee->status}}</span> </td>
+         </tr>
+                    @endif
+                  @endforeach
+                @endif
+              @endforeach
+            @endif
+          @endforeach
+          
+      
+     
 
 
       </tbody>

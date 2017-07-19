@@ -37,7 +37,7 @@
 <link href="plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 <!-- Calendar CSS -->
 <link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
-	<link rel="stylesheet" href="plugins/bower_components/dropify/dist/css/dropify.min.css">
+  <link rel="stylesheet" href="plugins/bower_components/dropify/dist/css/dropify.min.css">
   <script src="{{asset('js/jquery.min.js')}}"></script>
   <script src="{{asset('js/jquery.validate.js')}}"></script>
   </head>
@@ -54,68 +54,68 @@
   <div id="wrapper">
       <!-- Top Navigation -->
     <nav class="navbar navbar-default navbar-static-top m-b-0">
-	  <!-- navbar-header -->
+    <!-- navbar-header -->
       <div class="navbar-header">
-		<a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+    <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
 
           <ul class="nav navbar-top-links navbar-left hidden-xs">
-          	<li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
-		  </ul>
+            <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
+      </ul>
 
-       	  <ul class="nav navbar-top-links navbar-right pull-right">
+          <ul class="nav navbar-top-links navbar-right pull-right">
 
-			  	 <!-- Incident report -->
-			 <li class="dropdown">
-			   <a class="waves-effect waves-light" href="{{url('/IncidentReports')}}">
-				 <span class="mytooltip tooltip-effect-7">
+           <!-- Incident report -->
+       <li class="dropdown">
+         <a class="waves-effect waves-light" href="{{url('/IncidentReports')}}">
+         <span class="mytooltip tooltip-effect-7">
                     <span class="tooltip-item">
-					  <i class="fa fa-warning"></i>
-				      <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-					</span>
+            <i class="fa fa-warning"></i>
+              <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+          </span>
                     <span class="tooltip-table2 clearfix">
                       <span class="tooltip-texth2">
-			 Reports
-					  </span>
+       Reports
+            </span>
                     </span>
                  </span>
-			   </a>
-        	 </li>
-			 <!-- Messages-->
-			 <li class="dropdown">
-			   <a class="waves-effect waves-light" href="{{url('/Messages')}}">
-				 <span class="mytooltip tooltip-effect-7">
+         </a>
+           </li>
+       <!-- Messages-->
+       <li class="dropdown">
+         <a class="waves-effect waves-light" href="{{url('/Messages')}}">
+         <span class="mytooltip tooltip-effect-7">
                     <span class="tooltip-item">
-					  <i class="icon-envelope"></i>
-				      <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-					</span>
+            <i class="icon-envelope"></i>
+              <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+          </span>
                     <span class="tooltip-table2 clearfix">
                       <span class="tooltip-texth2">
-					  Messages
-					  </span>
+            Messages
+            </span>
                     </span>
                  </span>
-			   </a>
-        	 </li>
+         </a>
+           </li>
 
-			 <!-- Announcements-->
-			 <li class="dropdown">
-				 <a class="waves-effect waves-light" href="{{url('/Announcements')}}">
-					 <span class="mytooltip tooltip-effect-7">
-						 <span class="tooltip-item">
-							 <i class="fa fa-bullhorn"></i>
-					 </span>
+       <!-- Announcements-->
+       <li class="dropdown">
+         <a class="waves-effect waves-light" href="{{url('/Announcements')}}">
+           <span class="mytooltip tooltip-effect-7">
+             <span class="tooltip-item">
+               <i class="fa fa-bullhorn"></i>
+           </span>
                       <span class="tooltip-table2 clearfix">
                       <span class="tooltip-texth">
-						Announcements
-					  </span>
+            Announcements
+            </span>
                       </span>
                     </span>
-				</a>
+        </a>
              </li>
 
 
 
-			 <!-- Admin account-->
+       <!-- Admin account-->
              <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/users/admin.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Ernest</b> <small>(Admin)</small>  </a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
                     <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
@@ -127,7 +127,7 @@
             </li>
         </ul>
 
-		 <!-- System logo-->
+     <!-- System logo-->
          <div class="top-left-part"><a class="logo" href="Dashboard.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
          </div>
 
@@ -138,28 +138,28 @@
 
      <!-- Left navbar-header -->
     <div class="navbar-default sidebar" role="navigation">
-    	<div class="sidebar-nav navbar-collapse" id="slimtest4">
-			<ul class="nav" id="side-menu">
+      <div class="sidebar-nav navbar-collapse" id="slimtest4">
+      <ul class="nav" id="side-menu">
 
                     <li class="user-pro">
                         <a href="#" class="waves-effect"><img src="plugins/images/LandingPage/JUCEBER.png" alt="user-img" class="img-circle"><span class="hide-menu text-white">Jubecer security</span>
                         </a>
                     </li>
 
-				<li> <a href="{{url('/Dashboard')}}" class="waves-effect"><i class="fa fa-dashboard fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Dashboard </span> </a>
-          		</li>
+        <li> <a href="{{url('/Dashboard')}}" class="waves-effect"><i class="fa fa-dashboard fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Dashboard </span> </a>
+              </li>
 
               <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-wrench fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Maintenance  <span class="fa arrow"></span></a>
-             		<ul class="nav nav-second-level">
-						<li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
-							<ul class="nav nav-third-level">
+                <ul class="nav nav-second-level">
+            <li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
+              <ul class="nav nav-third-level">
                   <li> <a href="{{url('/Nature')}}">Nature of business</a></li>
                 <li> <a href="{{url('/Service')}}">Services</a> </li>
 
-                    		</ul>
-               			</li>
-                		<li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
-                    		<ul class="nav nav-third-level">
+                        </ul>
+                    </li>
+                    <li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
 
                           <li> <a href="{{url('/License')}}">Licences and clearances</a> </li>
                           <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
@@ -168,86 +168,86 @@
                           <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
                           <li> <a href="{{url('/Role')}}">Role</a></li>
                           <li> <a href="{{url('/Leave')}}">Leave</a></li>
-							</ul>
-						</li>
-                		<li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
-							<ul class="nav nav-third-level">
+              </ul>
+            </li>
+                    <li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
+              <ul class="nav nav-third-level">
                 <li> <a href="{{url('/Measurement')}}">Measurements</a></li>
                 <li> <a href="{{url('/Province')}}">Provinces</a></li>
                 <li> <a href="{{url('/Area')}}">Area</a></li>
                 <li> <a href="{{url('/GunType')}}">Gun Type</a></li>
                 <li> <a href="{{url('/Gun')}}">Guns</a></li>
               </ul>
-						</li>
-             		</ul>
-					</li>
+            </li>
+                </ul>
+          </li>
 
 
-          			<li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
-						<ul class="nav nav-second-level">
-							<li> <a href="{{url('/ClientsRegistration')}}" class="waves-effect">Clients</a>
-							</li>
-							<li> <a href="{{url('/Guard-Registration')}}" class="waves-effect">Security guards</a>
-							</li>
-             			</ul>
-					</li>
+                <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level">
+              <li> <a href="{{url('/ClientsRegistration')}}" class="waves-effect">Clients</a>
+              </li>
+              <li> <a href="{{url('/Guard-Registration')}}" class="waves-effect">Security guards</a>
+              </li>
+                  </ul>
+          </li>
 
-		   	      <li>@yield('Dep')<i class="fa fa-exchange fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Deployment<span class="fa arrow"></span></a>
-					  <ul class="nav nav-second-level">
-						  <li> <a href="Deploy.html" class="waves-effect">Deploy</a>
-						  </li>
-						  <li> <a href="{{url('/Replace')}}" class="waves-effect">Replace</a>
-						  </li>
-						    <li> <a href="{{url('/Swap')}}" class="waves-effect">Swap</a>
-						  </li>
-             		</ul>
-	      		  </li>
+              <li>@yield('Dep')<i class="fa fa-exchange fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Deployment<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li> <a href="{{route('manual.deployment')}}" class="waves-effect">Deploy</a>
+              </li>
+              <li> <a href="{{url('/Replace')}}" class="waves-effect">Replace</a>
+              </li>
+                <li> <a href="{{url('/Swap')}}" class="waves-effect">Swap</a>
+              </li>
+                </ul>
+              </li>
 
-				  <li> @yield('Cli')<i class="fa fa-users fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Clients <span class="fa arrow"></span></a>
-					 <ul class="nav nav-second-level">
-						 <li> <a href="{{url('/ActiveClient')}}" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
-						</li>
-						<li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
-						</li>
+          <li> @yield('Cli')<i class="fa fa-users fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Clients <span class="fa arrow"></span></a>
+           <ul class="nav nav-second-level">
+             <li> <a href="{{url('/ActiveClient')}}" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
+            </li>
+            <li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
+            </li>
             <li> <a href="{{url('/ServiceRequest')}}" class="waves-effect">Client Requests<span class="label label-rouded label-info pull-right"> @yield('ServReqstCnt')</span></a>
             </li>
             <li> <a href="{{url('/GunRequest')}}" class="waves-effect">Gun Requests<span class="label label-rouded label-info pull-right"> @yield('GunReqstCnt')</span></a>
             </li>
 
-					 </ul>
-				  </li>
+           </ul>
+          </li>
 
-				  <li> @yield('Sec')<i class="fa fa-shield fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Security guards<span class="fa arrow"></span> </a>
-					 <ul class="nav nav-second-level">
-						<li> <a href="{{url('/SecurityGuards')}}" class="waves-effect">Guards<span class="label label-rouded label-info pull-right"></span></a>
-						</li>
-						<li> <a href="{{url('/GuardLicenses')}}" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right"></span></a>
-						</li>
-						 	<li> <a href="{{url('/GuardsDTR')}}" class="waves-effect">Guard's DTR</a>
-						</li>
-					 </ul>
-				  </li>
+          <li> @yield('Sec')<i class="fa fa-shield fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Security guards<span class="fa arrow"></span> </a>
+           <ul class="nav nav-second-level">
+            <li> <a href="{{url('/SecurityGuards')}}" class="waves-effect">Guards<span class="label label-rouded label-info pull-right"></span></a>
+            </li>
+            <li> <a href="{{url('/GuardLicenses')}}" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right"></span></a>
+            </li>
+              <li> <a href="{{url('/GuardsDTR')}}" class="waves-effect">Guard's DTR</a>
+            </li>
+           </ul>
+          </li>
 
-				  <li><a href="{{url('/Applicants')}}" class="waves-effect"><i class="icon-user-follow fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Applicants  </a>
-				  </li>
+          <li><a href="{{url('/Applicants')}}" class="waves-effect"><i class="icon-user-follow fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Applicants  </a>
+          </li>
 
-				  <li> @yield('Del')<i class="fa fa-truck fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Delivery <span class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-						<li> <a href="Deliverguns.html" class="waves-effect">Guns</a>
-						</li>
-						<li> <a href="{{url('/Ammunition')}}" class="waves-effect">Ammunitions</a>
-						</li>
-						<li> <a href="{{url('/Pickups')}}" class="waves-effect">Pickups</a>
-						</li>
-					 </ul>
-				  </li>
+          <li> @yield('Del')<i class="fa fa-truck fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Delivery <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+            <li> <a href="Deliverguns.html" class="waves-effect">Guns</a>
+            </li>
+            <li> <a href="{{url('/Ammunition')}}" class="waves-effect">Ammunitions</a>
+            </li>
+            <li> <a href="{{url('/Pickups')}}" class="waves-effect">Pickups</a>
+            </li>
+           </ul>
+          </li>
 
 
 
-				  <li> <a href="{{url('/Reports')}}" class="waves-effect"><i class="fa fa-file-text fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Reports</span></a>
-				  </li>
+          <li> <a href="{{url('/Reports')}}" class="waves-effect"><i class="fa fa-file-text fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Reports</span></a>
+          </li>
 
-				  <li> <a href="#" class="waves-effect"><i class="fa fa-search fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Queries</span><span class="fa arrow"></span></a>
+          <li> <a href="#" class="waves-effect"><i class="fa fa-search fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Queries</span><span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
               <li> <a href="#" class="waves-effect">Clients</a>
               </li>
@@ -256,18 +256,18 @@
                 <li> <a href="#" class="waves-effect">Recapitulation</a>
               </li>
                 </ul>
-				  </li>
+          </li>
 
 
-				  <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Utilities<span class="fa arrow"></span></span></a>
-					<ul class="nav nav-second-level">
-					  <li><a href="#">Account settings</a></li>
-					</ul>
-				  </li>
-        	</ul>
-      	</div>
+          <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Utilities<span class="fa arrow"></span></span></a>
+          <ul class="nav nav-second-level">
+            <li><a href="#">Account settings</a></li>
+          </ul>
+          </li>
+          </ul>
+        </div>
     </div>
-	<!-- Left navbar-header end -->
+  <!-- Left navbar-header end -->
 
 
 
@@ -365,7 +365,7 @@ console.log(query);
  <script>
 
  $( document ).ready(function() {
-	 //Scrollbar
+   //Scrollbar
         $('#slimtest4').slimScroll({
             color: '#FFFFFF',
             size: '10px',

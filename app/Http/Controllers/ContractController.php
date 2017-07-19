@@ -23,8 +23,8 @@ class ContractController extends Controller
         $provinces = Province::all();
         $natures = Nature::all();
         $services = Service::all();
-        $count1 = "CONTRACT".Contracts::get()->count();
-        $count2 = "CLIENT".Clients::get()->count();
+        $count1 = "CONTRACTz".Contracts::get()->count();
+        $count2 = "CLIENTz".Clients::get()->count();
         return view('AdminPortal.ClientRegistration')->with('areas',$areas)->with('provinces',$provinces)->with('natures',$natures)->with('services',$services)->with('clcode',$count2)->with('cncode',$count1);
     }
 

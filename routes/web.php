@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 //Admin portal
-Route::get('/Dashboard','AdminController@dashboardIndex');
+Route::get('/Dashboard','AdminController@dashboardIndex')->name('dashboard');
 
 
 
@@ -146,9 +146,6 @@ Route::get('/SecurityGuardsPortalSettings', function () {
     return view('SecurityGuardsPortal/SecurityGuardsPortalSettings');
 });
 
-Route::get('/AdminLogIn', function () {
-    return view('AdminLogIn');
-});
 
 
 
@@ -161,16 +158,13 @@ Route::get('/NewContract-{id}','ServiceRequestController@newContract');
 Route::post('NewContract-Save','ServiceRequestController@saveContract');
 Route::get('/GunRequest','GunRequestController@index');     //  All gun requests from clients
 Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery');  // Save Gun Delivery into Database
-
 Route::get('GunDeliveries','GunDeliveryController@adminDeliveries');
-
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
 Route::get('/DeployGuards','DeploymentController@deployIndex');
-Route::post('/DeployGuards/Save','DeploymentController@saveDepl');
+Route::post('/DeployGuards/Save','DeploymentController@saveDepl')->name('deployment.save');
 Route::get('/ClientRegistration','ContractController@register');
-
 Route::post('/ClientRegistration-Save','ContractController@save');
-
+Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');;
 
 /** -----------------  CLIENTS --------------------- **/
 
@@ -182,6 +176,7 @@ Route::get('/Request-{id}','ClientPortalHomeController@requests');
 Route::post('/Request-Save/{id}','LastControl@saveReq');
 Route::post('/GunRequest-Save/{id}','LastControl@saveGunReq');
 Route::post('/AddGuardRequests-Save/{id}','LastControl@saveAddGuardReq');
+Route::get('viewModal','AdditionalGuardRequesController@view')->name('addguardrequests.view');
 Route::post('/GuardReplcRequest-Save/{id}','LastControl@saveGuardReplReqst');
 
 
@@ -226,9 +221,6 @@ Route::post('/Client-auth','LastControl@authenticate');
 Route::get('/Deploy','LastControl@index4');
 Route::get('/Login','LastControl@index5');
 Route::get('/Secus','LastControl@index6');
-
-
-
 
 Route::get('/Service','ServiceControl@index');
 Route::post('/Service-Add','ServiceControl@add');
