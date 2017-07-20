@@ -3905,7 +3905,7 @@ table.focus-on tbody tr.focused td {
 .error-box {
   height: 100%;
   position: fixed;
-  background: url(plugins/images/error-bg.jpg) no-repeat center center #fff !important;
+  background: url(../plugins/images/error-bg.jpg) no-repeat center center #fff !important;
   width: 100%;
 
 }
