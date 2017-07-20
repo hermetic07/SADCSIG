@@ -412,3 +412,7 @@ Route::get('/login','ContractController@signin');
 Route::post('/CLogin','ContractController@login');
 Route::get('/ClientHome','ContractController@home');
 Route::post('/ClientOut','ContractController@logout');
+
+Route::get('/AdminLogIn', function () {
+    return view('AdminLogIn');
+});
