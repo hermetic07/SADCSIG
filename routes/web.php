@@ -171,7 +171,7 @@ Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployme
 // Check before deleting Route::get('/SendGun','LastControl@index3');
 
 
-Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index');
+
 Route::get('/Request-{id}','ClientPortalHomeController@requests');
 Route::post('/Request-Save/{id}','LastControl@saveReq');
 Route::post('/GunRequest-Save/{id}','LastControl@saveGunReq');
@@ -219,7 +219,6 @@ Route::post('/Client-auth','LastControl@authenticate');
 //Route::post('ClientRegs/Save','LastControl@save');
 //Route::get('/SendGun','LastControl@index3');
 Route::get('/Deploy','LastControl@index4');
-Route::get('/Login','LastControl@index5');
 Route::get('/Secus','LastControl@index6');
 
 Route::get('/Service','ServiceControl@index');
@@ -411,7 +410,7 @@ Route::get('send','sendEmail@send');
 Route::get('/login','ContractController@signin');
 Route::post('/CLogin','ContractController@login');
 Route::get('/ClientHome','ContractController@home');
-Route::post('/ClientOut','ContractController@logout');
+Route::get('/ClientOut','ContractController@logout');
 
 Route::get('/AdminLogIn', function () {
     return view('AdminLogIn');

@@ -29,15 +29,18 @@ class ContractController extends Controller
     }
 
     public function login(Request $request){
-      $count = Clients::where('username','=',$request->client_username)->where('password','=',$request->client_password)->count();
-      $test = Clients::where('username','=',$request->client_username)->where('password','=',$request->client_password)->get();
+      $count = Clients::where('email','=',$request->client_username)->where('password','=',$request->client_password)->count();
+      $test = Clients::where('email','=',$request->client_username)->where('password','=',$request->client_password)->get();
 
       if ($count===1) {
         foreach ($test as $t) {
           $key = $t->id;
         }
         session(['client' => $key]);
-        return redirect('/ClientPortalHome-'.$key);
+        return redirect('/ClientPortalHome');
+      }
+      else {
+          return view('clientloginform');
       }
     }
 
@@ -59,7 +62,7 @@ class ContractController extends Controller
     public function save(Request $request){
       //return $request->from;
       try {
-        
+
         $clientID;
         $person_in_charge;
         $ctr = 0; $ctr2 = 0;
@@ -76,7 +79,7 @@ class ContractController extends Controller
         foreach ($contracts as $contract) {
             $ctr++;
             if($ctr == 1){
-                
+
                 $person_in_charge = $contract->pic_fname." ".$contract->pic_mname." ".$contract->pic_lname;
             }
         }
@@ -87,7 +90,7 @@ class ContractController extends Controller
 
         Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'person_in_charge'=>'Earl','contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
 
-        ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);       
+        ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
 
         $index1 = 0;
         $allstart = Input::get('allstart');
@@ -122,7 +125,7 @@ class ContractController extends Controller
      /* if($request->ajax()){
         $contractID;
         $clientID;
-        
+
         $ctr = 0; $ctr2 = 0;
         $explod = explode('/',$request->from);
         $startDate = "$explod[2]-$explod[0]-$explod[1]";
@@ -155,9 +158,9 @@ class ContractController extends Controller
        $client['email'] = $request->pic_email;
        $client['contactNo'] = $request->pic_no;
 
-      
 
-      
+
+
 
       $index1 = 0;
         $allstart = Input::get('allstart');
@@ -186,7 +189,7 @@ class ContractController extends Controller
          if($contract->save() && $client->save()){
            return "Success";
        }
-         
+
       }*/
     }
 }
