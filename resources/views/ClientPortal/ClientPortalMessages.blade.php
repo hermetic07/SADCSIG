@@ -56,7 +56,7 @@
             </div>
           </div>
           @php
-            $tempDeploymentID;
+            $tempDeploymentID = "";
 
           @endphp
           <tbody>
