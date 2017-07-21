@@ -122,9 +122,7 @@ Route::get('/ClientPortalDetails', function () {
     return view('ClientPortal/ClientPortalDetails');
 });
 
-Route::get('/GuardPool', function () {
-    return view('ClientPortal/Guardpool');
-});
+
 Route::get('/SecurityGuardsPortalHome', function () {
     return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
 });
@@ -196,9 +194,9 @@ Route::get('/ClientPortalEstablishmentsDetails-{id}+{estabID}','ClientPortalHome
 
 Route::get('/ClientPortalContracts-{id}+{estabID}','ClientPortalHomeController@clientContracts');
 
-Route::get('/ClientPortalMessages', function () {
-    return view('ClientPortal/ClientPortalMessages');
-});
+Route::get('/ClientPortalMessages-{id}','ClientPortalHomeController@messages');
+Route::get('/ClientPortalMessages/modal/{messageID}','ClientPortalHomeController@messagesModal');
+Route::get('/GuardPool+{tempDeploymentID}+{clientID}','ClientPortalHomeController@guardPool');
 
 Route::get('/ClientPortalSettings', function () {
     return view('ClientPortal/ClientPortalSettings');

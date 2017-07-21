@@ -29,6 +29,7 @@
 <!-- Calendar CSS -->
 <link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
 <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+@yield('customstyle')
 </head>
 <body>
 <!-- Preloader -->
@@ -75,7 +76,7 @@
           </li>
       <li> <a @yield('link_estab') class="waves-effect"><i class="fa fa-building-o fa-2x fa-fw"></i> <span class="hide-menu"> Establishments </span></a>
           </li>
-      <li> <a href="{{url('/ClientPortalMessages')}}" class="waves-effect"><i class="fa fa-envelope fa-2x fa-fw"></i> <span class="hide-menu"> Messages </span></a>
+      <li> <a @yield('link_messages')" class="waves-effect"><i class="fa fa-envelope fa-2x fa-fw"></i> <span class="hide-menu"> Messages </span></a>
           </li>
       <li> <a @yield('link_rqst') class="waves-effect"><i class="fa fa-location-arrow fa-2x fa-fw"></i> <span class="hide-menu"> Requests </span></a>
           </li>
@@ -101,6 +102,7 @@
       <!-- /.row -->
 
       @yield('content')
+      @yield('modals')
 
       </div>
 

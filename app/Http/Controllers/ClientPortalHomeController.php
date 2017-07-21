@@ -21,6 +21,10 @@ use App\GunRequestsDetails;
 use App\ClientRegistration;
 use App\Nature;
 use App\Shifts;
+use App\AdminMessages;
+use App\TempDeployments;
+use App\TempDeploymentDetails;
+use App\ClientInbox;
 
 class ClientPortalHomeController extends Controller
 {
@@ -203,5 +207,29 @@ class ClientPortalHomeController extends Controller
 
         return view('ClientPortal.select')->with('shifts',$shifts);
       }
+    }
+    public function messages($id){
+      $client = Clients::findOrFail($id);
+      $clientInbox = ClientInbox::where('client_id',$client->id)->get();
+      $adminMessages = AdminMessages::all();
+      $tempDeployment = TempDeployments::all();
+      $tempDeploymentDetails = TempDeploymentDetails::all();
+
+      return view('ClientPortal/ClientPortalMessages')->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails);
+    }
+    public function messagesModal(Request $request,$messageID){
+      if($request->ajax()){
+        $clientInbox = ClientInbox::findOrFail($messageID)->get();
+
+        return response($clientInbox);
+      }
+      
+    }
+    public function guardPool($tempDeploymentID,$clientID){
+      $client = Clients::findOrFail($clientID);
+      $tempDeployment = TempDeployments::findOrFail($tempDeploymentID);
+      $tempDeploymentDetails = $tempDeployment->tempDeploymentDetails;
+      $employees = Employee::all();
+      return view('ClientPortal.Guardpool')->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('client',$client)->with('employees',$employees);
     }
 }

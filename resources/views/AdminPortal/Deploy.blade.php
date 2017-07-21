@@ -519,7 +519,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                   <td>
                                     <div class="el-card-item">
                                        <div class="el-card-avatar el-overlay-1">
-                                          <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                                          <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-circle img-responsive"></a>
                                           <div class="el-overlay">
                                             <ul class="el-info">
                                               <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>

@@ -15,13 +15,17 @@ use App\Deployments;
 use App\DeploymentDetails;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\AdminMessages;
+use App\TempDeployments;
+use App\TempDeploymentDetails;
+use App\ClientInbox;
 
 class DeploymentController extends Controller
 {
     
     public function saveDepl(Request $request){
         
-        $l = $request->avGuards;
+        /*$l = $request->avGuards;
         $ctr2 = 0;
         
         $deploymentsID = random_int(1, 100);
@@ -50,6 +54,43 @@ class DeploymentController extends Controller
 
         
       return redirect('/Dashboard');
-        //return $request->clientID;
+        //return $request->clientID;*/
+        $message_ID = 'MSSG-'.$request->contractID;
+        $temp_deployment_id = 'TMPDPLOY-'.$request->contractID;
+        $temp_deployment_details_id ='';
+        //return $message_ID;
+        AdminMessages::create(['message_ID'=>$message_ID,'trans_id'=>$request->contractID,'sender'=>'Admin','receiver'=>$request->clientID,'message_type'=>'DEPLOYMENT','status'=>'active']);
+
+        $l = $request->avGuards;
+        $ctr2 = 0;
+        
+        //$deploymentsID = random_int(1, 100);
+        //echo $deploymentsID;
+        for($ctr = 0; $ctr < $l; $ctr++){
+            $shift = "shift".((string)$ctr);
+            $role = "role".((string)$ctr);
+            if($request->$shift != null){
+              // echo $request->$shiftFrom ."--". $request->$shiftTo."<br><br>";
+                $ctr2++;
+                //echo $ctr2;
+                if($ctr2==1){
+                    TempDeployments::create(['temp_deployment_id'=> $temp_deployment_id,'messages_ID'=>$message_ID,'admin'=>'Earl','clients_id'=>$request->clientID,'establishment_id'=>$request->establishmentID,'num_guards'=>$request->numGuards]);
+                }
+                $explod = explode(',',$request->$shift);
+                $from = $explod[0];
+                $secuID = $explod[2];
+                
+                $to = $explod[1];
+                $client_inbox_id = 'CLNTINBX-'.$request->clientID;
+                $temp_deployment_details_id= 'TMPDPLOY-DTLS-'.$request->contractID.((string)$ctr);
+                TempDeploymentDetails::create(['temp_deployment_details_id'=>$temp_deployment_details_id,'temp_deployments_id'=>$temp_deployment_id,'employees_id'=>$secuID,'shift_from'=>$from,'shift_to'=>$to,'role'=>$request->$role,'status'=>'active']);
+               // Employee::findOrFail($secuID)->update(['deployed'=>1]);
+               
+                
+            }
+        }
+         ClientInbox::create(['client_inbox_id'=>$client_inbox_id,'client_id'=>$request->clientID,'admin_messages_ID'=>$message_ID,'date_received'=>Carbon::now()]);
+                Contracts::findOrFail($request->contractID)->update(['init_deploy_status'=>'pending']);
+         return redirect('/Dashboard');
     }
 }

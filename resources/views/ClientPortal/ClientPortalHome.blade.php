@@ -16,7 +16,12 @@
 @section('link_home')
   href="/ClientPortalHome-{{$client->id}}"
 @endsection
+@section('link_messages')
+  href="/ClientPortalMessages-{{$client->id}}"
+@endsection
 @section('mtitle') Home @endsection
+
+
 
 @section('content')
 

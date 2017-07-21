@@ -11,7 +11,7 @@ use App\Service;
 use App\Province;
 use App\Contracts;
 use App\ServiceRequest;
-use App\Employees;
+use App\Employee;
 use App\ClientRegistration;
 use App\GunRequest;
 use App\Shifts;
@@ -30,7 +30,7 @@ class AdminController extends Controller
         $establishments = Establishments::all();
         $areas = Area::all();
         $provinces = Province::all();
-        $employees = Employees::all();
+        $employees = Employee::all();
         $clientRegistrations = ClientRegistration::all();
         $shifts = Shifts::all();
 
