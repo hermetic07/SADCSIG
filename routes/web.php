@@ -125,26 +125,7 @@ Route::get('/ClientPortalDetails', function () {
 Route::get('/GuardPool', function () {
     return view('ClientPortal/Guardpool');
 });
-Route::get('/SecurityGuardsPortalHome', function () {
-    return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
-});
 
-Route::get('/SecurityGuardsPortalProfile', function () {
-    return view('SecurityGuardsPortal/SecurityGuardsPortalProfile');
-});
-
-Route::get('/SecurityGuardsPortalMessages', function () {
-    return view('SecurityGuardsPortal/SecurityGuardsPortalMessages');
-});
-
-Route::get('/SecurityGuardsPortalAttendance', function () {
-    return view('SecurityGuardsPortal/SecurityGuardsPortalAttendance');
-});
-
-
-Route::get('/SecurityGuardsPortalSettings', function () {
-    return view('SecurityGuardsPortal/SecurityGuardsPortalSettings');
-});
 
 
 
@@ -395,6 +376,13 @@ Route::get('Attribute2','Attribute2Controller@index');
 
 //Guard side (evander)
 Route::get ( '/test', 'RegisterControl@test' );
+Route::post ( '/SecurityGuardsLogin', 'EmployeeControl@SLogin' );
+Route::get ( '/SecurityGuardsLogOut', 'EmployeeControl@SLogout' );
+Route::get ( '/SecurityGuardsPortalHome', 'EmployeeControl@home' );
+Route::get('/SecurityGuardsPortalProfile', 'EmployeeControl@profile');
+Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
+Route::get('/SecurityGuardsPortalAttendance', 'EmployeeControl@settings');
+Route::get('/SecurityGuardsPortalSettings', 'EmployeeControl@attendance');
 Route::get('Guard-Registration','LastControl@index6');
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
 Route::post('/Applicants','RegisterControl@saveImage');
