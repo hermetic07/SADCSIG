@@ -47,14 +47,14 @@
 		</ul>
         <ul class="nav navbar-top-links navbar-right pull-right">
 
-			 <!-- Admin account-->
-			<li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/SecurityGuards/2x2.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Chris</b></a>
+			 <!-- Security account-->
+			<li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="uploads/{{$employee->image}}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{$employee->first_name}}</b></a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
-                    <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                    <li><a href="{{url('/SecurityGuardsPortalProfile')}}"><i class="ti-user"></i> My Profile</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="#"><i class="ti-settings"></i> Account Setting</a> </li>
+                    <li><a href="{{url('/SecurityGuardsPortalSettings')}}"><i class="ti-settings"></i> Account Setting</a> </li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                    <li><a href="{{url('/SecurityGuardsLogOut')}}"><i class="fa fa-power-off"></i> Logout</a></li>
                 </ul>
             </li>
 
@@ -144,7 +144,7 @@
 <script src="plugins/bower_components/calendar/dist/fullcalendar.min.js"></script>
 <script src="plugins/bower_components/calendar/dist/jquery.fullcalendar.js"></script>
 	<script>
-  
+
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var radius = canvas.height / 2;
