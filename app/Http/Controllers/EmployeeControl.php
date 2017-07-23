@@ -84,8 +84,8 @@ class EmployeeControl extends Controller
     public function messages(Request $request)
     {
       try {
+        $value = $request->session()->get('user');
         if ($value!==null) {
-          $value = $request->session()->get('user');
           $u = Employee::find($value);
           return view('SecurityGuardsPortal/SecurityGuardsPortalMessages')->with('employee',$u);
         }
@@ -98,8 +98,8 @@ class EmployeeControl extends Controller
     public function request(Request $request)
     {
       try {
+        $value = $request->session()->get('user');
         if ($value!==null) {
-          $value = $request->session()->get('user');
           $u = Employee::find($value);
           return view('SecurityGuardsPortal.SecurityGuardsPortalProfile')->with('employee',$u);
         }
@@ -112,8 +112,8 @@ class EmployeeControl extends Controller
     public function attendance(Request $request)
     {
       try {
+        $value = $request->session()->get('user');
         if ($value!==null) {
-          $value = $request->session()->get('user');
           $u = Employee::find($value);
           return view('SecurityGuardsPortal/SecurityGuardsPortalAttendance')->with('employee',$u);
         }
@@ -126,8 +126,8 @@ class EmployeeControl extends Controller
     public function settings(Request $request)
     {
       try {
+        $value = $request->session()->get('user');
         if ($value!==null) {
-          $value = $request->session()->get('user');
           $u = Employee::find($value);
           return view('SecurityGuardsPortal/SecurityGuardsPortalSettings')->with('employee',$u);
         }
