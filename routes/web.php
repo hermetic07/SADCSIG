@@ -20,7 +20,9 @@ Route::get('/', function () {
 //Admin portal
 Route::get('/Dashboard','AdminController@dashboardIndex')->name('dashboard');
 
-
+Route::get('/DeploymentStatus', function () {
+    return view('AdminPortal/DeploymentStatus');
+});
 
 Route::get('/Replace', function () {
     return view('AdminPortal/Replace');
