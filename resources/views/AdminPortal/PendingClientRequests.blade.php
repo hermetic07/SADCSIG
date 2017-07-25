@@ -82,7 +82,7 @@
                                         <div class="progress-bar progress-bar-info active progress-bar-striped" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">1 / 2
                                         </div>
                                     </div>
-                                    <center><small> Security guards deployed </small> </center>
+                                    <center><a href="javascript:void(0)"> <small> Security guards deployed </small></a> </center>
                                 </ul>
                                 </div>
                                 <div class="col-sm-12">
