@@ -15,6 +15,7 @@ use App\Employee;
 use App\ClientRegistration;
 use App\GunRequest;
 use App\Shifts;
+use App\Nature;
 
 class AdminController extends Controller
 {
@@ -37,5 +38,12 @@ class AdminController extends Controller
         
 
         return view('AdminPortal.Deploy')->with('clients',$clients)->with('contracts',$contracts)->with('areas',$areas)->with('provinces',$provinces)->with('establishments',$establishments)->with('services',$services)->with('employees',$employees)->with('clientRegistrations',$clientRegistrations)->with('shifts',$shifts);
+    }
+    public function pending_client_requests(){
+        $contracts = Contracts::latest('created_at')->get();
+        $establishments = Establishments::all();
+        $natures = Nature::all();
+        return view('AdminPortal/PendingClientRequests')
+                ->with('contracts',$contracts)->with('establishments',$establishments)->with('natures',$natures);
     }
 }

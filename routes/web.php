@@ -32,9 +32,7 @@ Route::get('/ActiveClient', function () {
     return view('AdminPortal/ActiveClient');
 });
 
-Route::get('/PendingClientRequests', function () {
-    return view('AdminPortal/PendingClientRequests');
-});
+
 
 Route::get('/SecurityGuards', function () {
     return view('AdminPortal/SecurityGuards');
@@ -162,7 +160,9 @@ Route::get('/DeployGuards','DeploymentController@deployIndex');
 Route::post('/DeployGuards/Save','DeploymentController@saveDepl')->name('deployment.save');
 Route::get('/ClientRegistration','ContractController@register');
 Route::post('/ClientRegistration-Save','ContractController@save');
-Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');;
+Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
+
+Route::get('/PendingClientRequests','AdminController@pending_client_requests')->name('pending.client.requests');
 
 /** -----------------  CLIENTS --------------------- **/
 
@@ -196,7 +196,8 @@ Route::get('/ClientPortalContracts-{id}+{estabID}','ClientPortalHomeController@c
 
 Route::get('/ClientPortalMessages-{id}','ClientPortalHomeController@messages');
 Route::get('/ClientPortalMessages/modal/{messageID}','ClientPortalHomeController@messagesModal');
-Route::get('/GuardPool+{tempDeploymentID}+{clientID}','ClientPortalHomeController@guardPool');
+Route::get('/GuardPool+{tempDeploymentID}+{clientID}+{client_notif_id}','ClientPortalHomeController@guardPool');
+Route::get('/GuardPool-save','ClientPortalHomeController@saveGuards')->name('saveguards');
 
 Route::get('/ClientPortalSettings', function () {
     return view('ClientPortal/ClientPortalSettings');

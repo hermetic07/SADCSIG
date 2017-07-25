@@ -207,10 +207,15 @@
               <p>On this page you will select your guards to deploy them to your area. You can view their informations and hire them base on your qualifications</p>
             <center>  <span class="label label-rouded label-info">5 more</span> </center>
             </div>
-
+            @php
+              $checker = 0;
+            @endphp
             @foreach($tempDeploymentDetails as $tempDeploymentDetail)
               @foreach($employees as $employee)
                 @if($employee->id == $tempDeploymentDetail->employees_id)
+                  @php
+                    $checker++;
+                  @endphp
                   <div class="carousel-cell">
 
                 <div class="our-team">
@@ -227,6 +232,7 @@
                 <div class="team-content">
                     <h3 class="title">{{$employee->first_name}}, {{$employee->last_name}}</h3>
                     <span class="post">{{$tempDeploymentDetail->role}}</span>
+
                 </div>
               <br>
 
@@ -238,7 +244,7 @@
                     <button id="{{$employee->id}}" class="btn btn-block btn-outline btn-rounded btn-success acc">Accept</button>
                   </div>
                   <div class="col-xs-6"> 
-                    <button class="btn btn-block btn-outline btn-rounded btn-danger rej">Reject</button>
+                    <button id="{{$employee->id}}" class="btn btn-block btn-outline btn-rounded btn-danger rej">Reject</button>
                   </div>
                </div> 
               </div>
@@ -246,9 +252,16 @@
                 @endif
               @endforeach
             @endforeach
-              
+              <div class="carousel-cell">
+
+        <a href="javascript:void(0)"><img alt="img" class="img-circle img-responsive" src="plugins/images/Clients/establishments/pup.jpg"></a>
 
 
+              <h3 class="m-t-20 m-b-20">Click Finish if you are done!</h3>
+              <button type="button" class="btn btn-info btn-block finish">Finish</button>
+            </div>
+            <input type="hidden" id="checker" value="{{$checker}}">
+            <input type="hidden" id="client_notif_id" value="{{$client_notif_id}}">
 @endsection
 
 
@@ -258,27 +271,66 @@
         <script src="js/flickity.pkgd.min.js"></script>
       
 <script>
-
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
 
       $(document).ready(function(){
         accepted_gaurds = [];
         rejected_guards = [];
+        accepted_guards_ids = '';
+        rejected_guards_ids = '';
 
-            $('.rej').on('click', function() {
+        $('.rej').on('click', function() {
+              rejected_guards.push(this.id);
+              rejected_guards_ids = rejected_guards.join(",");
+              
+              $(this).closest('.carousel-cell').fadeOut(1000, function () {
+                  $(this).remove();
+              });
+
+        });
+
+        $('.acc').on('click', function() {
+              accepted_gaurds.push(this.id);
+              accepted_guards_ids = accepted_gaurds.join(",");
+              
             $(this).closest('.carousel-cell').fadeOut(1000, function () {
-         $(this).remove();
-     });
-
+                $(this).remove();
             });
+          });
+        $('.finish').hover(function(){
+          // var total_selected = accepted_gaurds.length + rejected_guards.length;
+          // var checker = $('#checker').val();
+          //alert(total_selected+"-"+checker);
+          // if(total_selected < checker){
+          //   this.attr('disabled',true);
+          //   //alert("Please Select/Reject guards. We need to know your response");
+          // }
+        });
+        $('.finish').on('click',function(e){
 
-            $('.acc').on('click', function() {
-              console.log('test branch');
-              accepted_gaurds.push(this.id)
-            $(this).closest('.carousel-cell').fadeOut(1000, function () {
-         $(this).remove();
-     });
+        var client_notif_id = $('#client_notif_id').val();
+        //alert(client_notif_id);
+        $.ajax({
+          data : {client_notif_id:client_notif_id,accepted:accepted_guards_ids,rejected:rejected_guards_ids},
+          type : 'GET',
+          url : '{{route("saveguards")}}',
+          success : function(data){
+           if(data == 0){
+            alert("Success! We'll notify you once we completed the guards");
+           }else{
+            alert("Please Select/Reject guards. We need to know your response");
+           }
+           //alert(data);
+          }
+        });
+        
+       });
 
-            });
+
     });
 
 
@@ -286,6 +338,5 @@
 
 
       </script>
-
-
+      
  @endsection

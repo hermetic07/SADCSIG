@@ -57,6 +57,7 @@
           </div>
           @php
             $tempDeploymentID = "";
+            $client_notif_id = "";
 
           @endphp
           <tbody>
@@ -79,12 +80,16 @@
                 </td>
                 <td>
                   @foreach($adminMessages as $adminMessage)
-                    @if($adminMessage->message_ID == $clientInboxMessage->admin_messages_ID)
+                    @if($adminMessage->notif_id == $clientInboxMessage->notif_id)
                       {{$adminMessage->sender}}
+                      @php
+                         $client_notif_id = $clientInboxMessage->client_deloyment_notif_id;
+                      @endphp
                       @foreach($tempDeployments as $tempDeployment)
-                        @if($tempDeployment->messages_ID == $adminMessage->message_ID)
+                        @if($tempDeployment->messages_ID == $adminMessage->notif_id)
                           @php
                             $tempDeploymentID = $tempDeployment->temp_deployment_id;
+
                           @endphp
                         @endif
                       @endforeach
@@ -97,13 +102,13 @@
                 </td>
                 <td>
                   @foreach($adminMessages as $adminMessage)
-                    @if($adminMessage->message_ID == $clientInboxMessage->admin_messages_ID)
-                      {{$adminMessage->message_type}}
+                    @if($adminMessage->notif_id == $clientInboxMessage->notif_id)
+                      {{$adminMessage->subject}}
                     @endif
                   @endforeach
                 </td>
                 <td>   &nbsp;
-                  <button type="button" class="btn btn-info btn-circle viewMessage" id="{{$clientInboxMessage->client_inbox_id}}" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                  <button type="button" class="btn btn-info btn-circle viewMessage" id="{{$clientInboxMessage->client_deloyment_notif_id}}" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
                 </td>
               </tr>
             @endforeach
@@ -125,7 +130,7 @@
 
           </div>
             </div>
-
+            <input type="hidden" id="client_notif_id" value="{{$client_notif_id}}">
     
 
 
@@ -155,7 +160,7 @@
                           <p class="form-control-static"> Good morning! We got you the best of our security team! Select guards and we will deploy them to you.</p>
                           <br>
                           <center>
-                            <button  type="button" onclick="location.href='/GuardPool+'+'{{$tempDeploymentID}}+'+'{{$client->id}}'" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button>
+                            <button  type="button" onclick="location.href='/GuardPool+'+'{{$tempDeploymentID}}+'+'{{$client->id}}'+'+{{$client_notif_id}}'" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button>
                           </center>
                           <div class="help-block with-errors"></div>
                         </div>
@@ -197,8 +202,10 @@
 
       // }
       $('.viewMessage').on('click',function(e){
-        //alert('/ClientPortalMessages/modal/'+this.id);
+        //var client_notif_id = $('#client_notif_id').val();
+        //alert(client_notif_id);
         $.ajax({
+          
           type : 'GET',
           url : '/ClientPortalMessages/modal/'+this.id,
           success : function(data){

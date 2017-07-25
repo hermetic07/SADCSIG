@@ -15,10 +15,10 @@ use App\Deployments;
 use App\DeploymentDetails;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\AdminMessages;
+use App\DeploymentNotifForClient;
 use App\TempDeployments;
 use App\TempDeploymentDetails;
-use App\ClientInbox;
+use App\ClientDeploymentNotif;
 
 class DeploymentController extends Controller
 {
@@ -59,7 +59,7 @@ class DeploymentController extends Controller
         $temp_deployment_id = 'TMPDPLOY-'.$request->contractID;
         $temp_deployment_details_id ='';
         //return $message_ID;
-        AdminMessages::create(['message_ID'=>$message_ID,'trans_id'=>$request->contractID,'sender'=>'Admin','receiver'=>$request->clientID,'message_type'=>'DEPLOYMENT','status'=>'active']);
+        DeploymentNotifForClient::create(['notif_id'=>$message_ID,'trans_id'=>$request->contractID,'sender'=>'Admin','receiver'=>$request->clientID,'subject'=>'DEPLOYMENT','status'=>'active']);
 
         $l = $request->avGuards;
         $ctr2 = 0;
@@ -89,7 +89,7 @@ class DeploymentController extends Controller
                 
             }
         }
-         ClientInbox::create(['client_inbox_id'=>$client_inbox_id,'client_id'=>$request->clientID,'admin_messages_ID'=>$message_ID,'date_received'=>Carbon::now()]);
+         ClientDeploymentNotif::create(['client_deloyment_notif_id'=>$client_inbox_id,'client_id'=>$request->clientID,'notif_id'=>$message_ID,'date_received'=>Carbon::now()]);
                 Contracts::findOrFail($request->contractID)->update(['init_deploy_status'=>'pending']);
          return redirect('/Dashboard');
     }
