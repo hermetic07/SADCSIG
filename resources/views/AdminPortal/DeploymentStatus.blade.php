@@ -57,7 +57,6 @@
             </ul>
           </div>
         </div>
-     <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
     </div>
 
     <div class="el-card-item item avatar">
@@ -82,7 +81,6 @@
                 </ul>
               </div>
             </div>
-         <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
         </div>
 
         <div class="el-card-item item avatar">
@@ -107,10 +105,10 @@
                     </ul>
                   </div>
                 </div>
-             <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
             </div>
 </div>
 </div>
+    	 <label class="col-xs-3"></label>   			<div class="col-xs-6"> <button onclick="location.href='{{url('/ChangeGuards')}}'" class="btn btn-block btn-outline btn-rounded btn-danger">Change 4 rejected guards</button> </div>
 </div>
 <div class="col-lg-12">
 <div class="panel panel-default">
@@ -141,7 +139,7 @@
             </ul>
           </div>
         </div>
-     <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
+<button class="btn btn-block btn-outline btn-rounded btn-warning reason">Reason</button>
     </div>
 
     <div class="el-card-item item avatar">
@@ -167,8 +165,7 @@
                 </ul>
               </div>
             </div>
-            <button class="btn btn-block btn-outline btn-rounded btn-warning">Reason</button>
-         <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
+<button class="btn btn-block btn-outline btn-rounded btn-warning reason">Reason</button>
         </div>
 
         <div class="el-card-item item avatar">
@@ -193,10 +190,12 @@
                     </ul>
                   </div>
                 </div>
-             <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
+      <button class="btn btn-block btn-outline btn-rounded btn-warning reason">Reason</button>
             </div>
 </div>
 </div>
+<label class="col-xs-3"></label>   				<div class="col-xs-6"> <button onclick="location.href='{{url('/ChangeGuards')}}'" class="btn btn-block btn-outline btn-rounded btn-danger">Change 4 rejected guards</button> </div>
+
 </div>
         </div>
 
@@ -251,3 +250,12 @@
 
 </div>
   @endsection
+  @section('script')
+<script>
+
+$('.reason').click(function(){
+    swal("Reason for decline", "Sorry. Malayo eh. talo pamasahe")
+});
+
+</script>
+    @endsection
