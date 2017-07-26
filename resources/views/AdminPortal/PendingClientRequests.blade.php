@@ -56,33 +56,13 @@
                                             {{$contract->guard_count}}
                                         </span>
                                     </li>
-                                    <li>
-                                        <span><img src="plugins/images/Clients/Active/security-guard.png"></span>
-                                        <span><a href="" id="sentGuards" name="{{$contract->id}}">Sent Guards</a></span>
-                                        <span class="pull-right text-inverse">
-                                            {{$contract->guard_count}}
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span><img src="plugins/images/Clients/Active/security-guard.png"></span>
-                                        <span>Accepted Guards</span>
-                                        <span class="pull-right text-inverse">
-                                            {{$contract->guard_count}}
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span><img src="plugins/images/Clients/Active/security-guard.png"></span>
-                                        <span>Rejected Guards</span>
-                                        <span class="pull-right text-inverse">
-                                            {{$contract->guard_count}}
-                                        </span>
-                                    </li>
+                                    
                                     <br>
                                     <div class="progress progress-md">
                                         <div class="progress-bar progress-bar-info active progress-bar-striped" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">1 / 2
                                         </div>
                                     </div>
-                                    <center><a href="javascript:void(0)"> <small> Security guards deployed </small></a> </center>
+                                    <center><a id="deployedGuards" href="" name="{{$contract->id}}"> <small> Security guards deployed </small></a> </center>
                                 </ul>
                                 </div>
                                 <div class="col-sm-12">
@@ -106,6 +86,7 @@
             </div>
         @endif
     @endforeach
+   
     <div class="row">
         <div class="col-md-12 text-center">
             <ul class="pagination pagination-split">
@@ -116,16 +97,14 @@
     </div>
 </div>
 <script type="text/javascript">
-        $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-          });
-            $('#sentGuards').on('click',function(){
-                $.ajax({
-                    data: this.name
-                });
-            });
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+       $('#deployedGuards').on('click',function(){
+        alert(this.name);
+       });
     </script>
   @endsection
   @section('script')
