@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" type="image/png" href="plugins/images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="plugins/images/favicon-16x16.png" sizes="16x16" />
 <title>JCSGMS -  @yield('Title') </title>
@@ -29,7 +30,7 @@
 <link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
 <!--alerts CSS -->
 <link href="{{asset('js/Alert/sweetalert.css')}}" rel="stylesheet" type="text/css">
-
+<script src="{{asset('js/jquery.min.js')}}"></script>
 </head>
 <body>
 <!-- Preloader -->
