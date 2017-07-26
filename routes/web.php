@@ -387,6 +387,8 @@ Route::get ( '/SecurityGuardsPortalHome', 'EmployeeControl@home' );
 Route::get('/SecurityGuardsPortalProfile', 'EmployeeControl@profile');
 Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
 Route::get('/SecurityGuardsPortalSettings', 'EmployeeControl@settings');
+Route::post ( '/EmployeeUpdateProfile', 'EmployeeControl@UpdateProfile' );
+Route::post ( '/EmployeeUpdatePassword', 'EmployeeControl@UpdatePassword' );
 Route::get('/SecurityGuardsPortalAttendance', 'EmployeeControl@attendance');
 Route::get('Guard-Registration','LastControl@index6');
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');

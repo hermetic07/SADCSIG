@@ -143,4 +143,45 @@ class EmployeeControl extends Controller
       return view('clientloginform');
     }
 
+    public function UpdateProfile(Request $request)
+    {
+
+      try {
+        $value = $request->session()->get('user');
+        if ($value!==null) {
+          $u = Employee::find($value);
+          $u->email = $request->email;
+          $u->telephone = $request->telephone;
+          $u->cellphone = $request->cellphone;
+          $u->save();
+          return "Update Success";
+        }
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
+
+    public function UpdatePassword(Request $request)
+    {
+
+      try {
+        $value = $request->session()->get('user');
+        if ($value!==null) {
+          $u = Employee::find($value);
+          if ($u->password===$request->oldp) {
+            $u->password=$request->oldp;
+            $u->save();
+            return "Password Has Been Changed";
+          }
+          else {
+            return "Old password doesn't match";
+          }
+        }
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
+
 }
