@@ -23,6 +23,9 @@ Route::get('/Dashboard','AdminController@dashboardIndex')->name('dashboard');
 Route::get('/DeploymentStatus', function () {
     return view('AdminPortal/DeploymentStatus');
 });
+Route::get('/ChangeGuards', function () {
+    return view('AdminPortal/ChangeRejectedGuards');
+});
 
 Route::get('/Replace', function () {
     return view('AdminPortal/Replace');
