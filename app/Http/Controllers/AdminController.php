@@ -16,6 +16,11 @@ use App\ClientRegistration;
 use App\GunRequest;
 use App\Shifts;
 use App\Nature;
+use App\NotifResponse;
+use App\ClientDeploymentNotif;
+use App\TempDeployments;
+use App\TempDeploymentDetails;
+use App\AcceptedGuards;
 
 class AdminController extends Controller
 {
@@ -45,5 +50,25 @@ class AdminController extends Controller
         $natures = Nature::all();
         return view('AdminPortal/PendingClientRequests')
                 ->with('contracts',$contracts)->with('establishments',$establishments)->with('natures',$natures);
+    }
+
+    public function deploymentStatus($contractID){
+        $tempDeployment = TempDeployments::where('contract_ID',$contractID)->get();
+        $message_ID = $tempDeployment[0]->messages_ID;
+        $tempDeploymentDetails = TempDeploymentDetails::all();
+        $clientDeploymentNotifs = ClientDeploymentNotif::where('notif_id',$message_ID)->get();
+        $client_deployment_notif_id = $clientDeploymentNotifs[0]->client_deloyment_notif_id;
+        $notif_response = NotifResponse::where('client_deployment_notif_id',$client_deployment_notif_id)->get();
+        $acceptedGuards = AcceptedGuards::where('client_deployment_notif_id',$client_deployment_notif_id)->get();
+        $employees = Employee::all();
+        
+        return view('AdminPortal.DeploymentStatus')
+                    ->with('tempDeployment',$tempDeployment)
+                    ->with('tempDeploymentDetails',$tempDeploymentDetails)
+                    ->with('notif_response',$notif_response)
+                    ->with('clientDeploymentNotifs',$clientDeploymentNotifs)
+                    ->with('employees',$employees)
+                    ->with('acceptedGuards',$acceptedGuards);
+        //return $notif_response;
     }
 }

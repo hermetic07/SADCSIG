@@ -37,6 +37,11 @@
 <link href="plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 <!-- Calendar CSS -->
 <link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
+<!-- Popup CSS -->
+<link href="plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
+
+<link href="plugins/bower_components/owl.carousel/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+<link href="plugins/bower_components/owl.carousel/owl.theme.default.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="plugins/bower_components/dropify/dist/css/dropify.min.css">
   <script src="{{asset('js/jquery.min.js')}}"></script>
   <script src="{{asset('js/jquery.validate.js')}}"></script>
@@ -340,15 +345,25 @@
 <!-- validation -->
 <script src="js/validator.js"></script>
 <script src="plugins/bower_components/dropify/dist/js/dropify.min.js"></script>
-<script type="text/javascript">
 
+<!-- jQuery for carousel -->
+<script src="plugins/bower_components/owl.carousel/owl.carousel.min.js"></script>
+<script src="plugins/bower_components/owl.carousel/owl.custom.js"></script>
+
+<script type="text/javascript">
+      (function() {
+                [].slice.call( document.querySelectorAll( '.sttabs' ) ).forEach( function( el ) {
+                    new CBPFWTabs( el );
+                });
+            })();
+</script>
+
+<script type="text/javascript">
   $( "#target" ).keyup(function( event ) {
 $("#target2").trigger('click');
 });
-
 $('.form-search').on('submit',function(){return false;});
 $('.form-search .btn').on('click', function(e){
-
   var query = document.getElementById('target').value;
 console.log(query);
   $('div.staff-container .guard_name').each(function(){
@@ -358,12 +373,8 @@ console.log(query);
       else $this.closest('div.staff-container').fadeIn();
   });
 });
-
-
-
 </script>
  <script>
-
  $( document ).ready(function() {
    //Scrollbar
         $('#slimtest4').slimScroll({
@@ -375,7 +386,6 @@ console.log(query);
         pageSize = 9;
            pagesCount = $(".content").length;
            var currentPage = 1;
-
            /////////// PREPARE NAV ///////////////
            var nav = '';
            var totalPages = Math.ceil(pagesCount / pageSize);
@@ -385,7 +395,6 @@ console.log(query);
            $(".pag_prev").after(nav);
            $(".numeros").first().addClass("active");
            //////////////////////////////////////
-
            showPage = function() {
                $(".content").hide().each(function(n) {
                    if (n >= pageSize * (currentPage - 1) && n < pageSize * currentPage)
@@ -393,22 +402,18 @@ console.log(query);
                });
            }
            showPage();
-
-
            $(".pagination li.numeros").click(function() {
                $(".pagination li").removeClass("active");
                $(this).addClass("active");
                currentPage = parseInt($(this).text());
                showPage();
            });
-
            $(".pagination li.pag_prev").click(function() {
                if($(this).next().is('.active')) return;
                $('.numeros.active').removeClass('active').prev().addClass('active');
                currentPage = currentPage > 1 ? (currentPage-1) : 1;
                showPage();
            });
-
            $(".pagination li.pag_next").click(function() {
                if($(this).prev().is('.active')) return;
                $('.numeros.active').removeClass('active').next().addClass('active');
@@ -416,11 +421,8 @@ console.log(query);
                showPage();
            });
        });
-
-
  </script>
  <script>
-
 </script>
  @yield('script')
 </body>

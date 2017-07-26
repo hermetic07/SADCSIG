@@ -3905,7 +3905,7 @@ table.focus-on tbody tr.focused td {
 .error-box {
   height: 100%;
   position: fixed;
-  background: url(plugins/images/error-bg.jpg) no-repeat center center #fff !important;
+  background: url(../plugins/images/error-bg.jpg) no-repeat center center #fff !important;
   width: 100%;
 
 }
@@ -16305,4 +16305,34 @@ table{counter-reset:section+1;}
 {
 counter-increment:section;
 content:counter(section);
+}
+.avatar {
+    position:relative;
+    padding-top:20px;
+    display:inline-block;
+    margin-top:-20px;
+}
+.accepted-badge{
+  position: absolute;
+right: -17px;
+top: 24px;
+background: green;
+text-align: center;
+border-radius: 30px 30px 30px 30px;
+color: white;
+padding: 5px 10px;
+font-size: 20px;
+z-index: 100;
+}
+.rejected-badge{
+  position: absolute;
+right: -17px;
+top: 24px;
+background: red;
+text-align: center;
+border-radius: 30px 30px 30px 30px;
+color: white;
+padding: 5px 10px;
+font-size: 20px;
+z-index: 100;
 }

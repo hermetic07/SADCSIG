@@ -35,72 +35,26 @@
     <div class="row  el-element-overlay">
 <div id="client" class="owl-carousel owl-theme ">
 
-<div class="el-card-item item avatar">
-  <span class="accepted-badge">&#10004;</span>
-    <div class="el-card-avatar el-overlay-1 ">
-      <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
-        <div class="el-overlay">
-          <ul class="el-info">
-            <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-          </ul>
-        </div>
-      </div>
-  </div>
-
-  <div class="el-card-item item avatar">
-    <span class="rejected-badge">&#10006;</span>
-      <div class="el-card-avatar el-overlay-1 ">
-        <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
-          <div class="el-overlay">
-            <ul class="el-info">
-              <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-            </ul>
-          </div>
-        </div>
-     <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
-    </div>
-
-    <div class="el-card-item item avatar">
-      <span class="accepted-badge">&#10004;</span>
-        <div class="el-card-avatar el-overlay-1 ">
-          <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
-            <div class="el-overlay">
-              <ul class="el-info">
-                <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-              </ul>
-            </div>
-          </div>
-      </div>
-
-      <div class="el-card-item item avatar">
-        <span class="rejected-badge">&#10006;</span>
+@foreach($notif_response as $response)
+   @foreach($employees as $employee)
+    @if($employee->id == $response->guard_id)
+      @if($response->status == "accepted")
+        <div class="el-card-item item avatar">
+        <span class="accepted-badge">&#10004;</span>
           <div class="el-card-avatar el-overlay-1 ">
-            <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
+            <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
               <div class="el-overlay">
                 <ul class="el-info">
                   <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
                 </ul>
               </div>
             </div>
-         <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
         </div>
-
+      @elseif($response->status == "rejected")
         <div class="el-card-item item avatar">
-          <span class="accepted-badge">&#10004;</span>
-            <div class="el-card-avatar el-overlay-1 ">
-              <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
-                <div class="el-overlay">
-                  <ul class="el-info">
-                    <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-          </div>
-
-          <div class="el-card-item item avatar">
             <span class="rejected-badge">&#10006;</span>
               <div class="el-card-avatar el-overlay-1 ">
-                <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
+                <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
                   <div class="el-overlay">
                     <ul class="el-info">
                       <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
@@ -109,6 +63,10 @@
                 </div>
              <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
             </div>
+      @endif
+    @endif
+   @endforeach
+  @endforeach
 </div>
 </div>
 </div>
@@ -119,62 +77,14 @@
     <div class="row  el-element-overlay">
 <div id="secus" class="owl-carousel owl-theme ">
 
-<div class="el-card-item item avatar">
-  <span class="accepted-badge">&#10004;</span>
-    <div class="el-card-avatar el-overlay-1 ">
-      <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
-        <div class="el-overlay">
-          <ul class="el-info">
-            <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-          </ul>
-        </div>
-      </div>
-  </div>
-
-  <div class="el-card-item item avatar">
-    <span class="rejected-badge">&#10006;</span>
-      <div class="el-card-avatar el-overlay-1 ">
-        <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
-          <div class="el-overlay">
-            <ul class="el-info">
-              <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-            </ul>
-          </div>
-        </div>
-     <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
-    </div>
-
-    <div class="el-card-item item avatar">
-      <span class="accepted-badge">&#10004;</span>
-        <div class="el-card-avatar el-overlay-1 ">
-          <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
-            <div class="el-overlay">
-              <ul class="el-info">
-                <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-              </ul>
-            </div>
-          </div>
-                      <button class="btn btn-block btn-outline btn-rounded btn-success">deploy</button>
-      </div>
-
-      <div class="el-card-item item avatar">
-        <span class="rejected-badge">&#10006;</span>
-          <div class="el-card-avatar el-overlay-1 ">
-            <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
-              <div class="el-overlay">
-                <ul class="el-info">
-                  <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                </ul>
-              </div>
-            </div>
-            <button class="btn btn-block btn-outline btn-rounded btn-warning">Reason</button>
-         <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
-        </div>
-
+@foreach($acceptedGuards as $acceptedGuard)
+  @foreach($employees as $employee)
+    @if($employee->id == $acceptedGuard->guard_id)
+      @if($acceptedGuard->guard_reponse == "")
         <div class="el-card-item item avatar">
           <span class="accepted-badge">&#10004;</span>
             <div class="el-card-avatar el-overlay-1 ">
-              <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
+              <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
                 <div class="el-overlay">
                   <ul class="el-info">
                     <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
@@ -182,19 +92,14 @@
                 </div>
               </div>
           </div>
+      @elseif($acceptedGuard->guard_reponse == "confirmed")
+      @elseif($acceptedGuard->guard_reponse == "denied")
+      @endif
+    @endif
+  @endforeach
+@endforeach
 
-          <div class="el-card-item item avatar">
-            <span class="rejected-badge">&#10006;</span>
-              <div class="el-card-avatar el-overlay-1 ">
-                <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-responsive"></a>
-                  <div class="el-overlay">
-                    <ul class="el-info">
-                      <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-             <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
-            </div>
+
 </div>
 </div>
 </div>
@@ -220,7 +125,7 @@
 <hr class="m-0">
 <div class="pd-agent-contact text-center"> <i class="fa fa-phone text-danger" aria-hidden="true"></i> 123456789
 <br> <i class="fa fa-envelope-o text-danger p-r-10 m-t-10" aria-hidden="true"></i> email@gmail.com
-</br> 	</br></div>
+</br>   </br></div>
 <h5 class="box-title fw-500">Essential Information</h5>
 <hr class="m-0">
 <div class="table-responsive pro-rd p-t-10">
@@ -240,7 +145,7 @@
         </tr>
 <tr>
             <td>Nature of business</td>
-            <td>School	</td>
+            <td>School  </td>
         </tr>
 
     </tbody>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TempDeployments extends Model
 {
     protected $fillable =  [
-    	'temp_deployment_id','messages_ID','admin','clients_id','establishment_id','num_guards'
+    	'temp_deployment_id','messages_ID','admin','clients_id','contract_ID','establishment_id','num_guards'
     ];
     public function tempDeploymentDetails(){
     	return $this->hasMany('App\TempDeploymentDetails');

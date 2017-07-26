@@ -22,6 +22,7 @@ Route::get('/Dashboard','AdminController@dashboardIndex')->name('dashboard');
 
 
 
+
 Route::get('/Replace', function () {
     return view('AdminPortal/Replace');
 });
@@ -163,6 +164,10 @@ Route::post('/ClientRegistration-Save','ContractController@save');
 Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
 
 Route::get('/PendingClientRequests','AdminController@pending_client_requests')->name('pending.client.requests');
+
+Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus');
+
+
 
 /** -----------------  CLIENTS --------------------- **/
 
