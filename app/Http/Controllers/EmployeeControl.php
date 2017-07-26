@@ -23,7 +23,7 @@ class EmployeeControl extends Controller
     {
       try
       {
-        $count = Employee::where('email','=',$request->secu_username)->where('password','=',$request->secu_password)->where('status','=','active')->count();
+        $count = Employee::where('email','=',$request->secu_username)->where('password','=',$request->secu_password)->where('status','!=','deleted')->count();
 
         if ($count===1) {
           $employee = Employee::where('email','=',$request->secu_username)->where('password','=',$request->secu_password)->get();
