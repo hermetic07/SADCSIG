@@ -31,6 +31,10 @@ Route::get('/Replace', function () {
     return view('AdminPortal/Replace');
 });
 
+Route::get('/UploadPics', function () {
+    return view('AdminPortal/ClientPics');
+});
+
 Route::get('/Swap','GuardReplacementController@index');
 
 Route::get('/ActiveClient', function () {

@@ -68,7 +68,7 @@
 
 <!-- fix header and sidebar -->
 <body class="fix-header fix-sidebar">
-
+<div class="blockdiv">
   <!-- Top Navigation -->
      <nav class="navbar navbar-default navbar-static-top m-b-0">
  	  <!-- navbar-header -->
@@ -645,6 +645,7 @@
               </form>
 			</div>
     </div>
+          </div>
 <!-- Add training, seminars, exams Modal -->
     <div id="Addtse" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -808,6 +809,8 @@
 <script src="plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
 <script src="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script src="plugins/bower_components/dropify/dist/js/dropify.min.js"></script>
+<!--BlockUI Script -->
+<script src="../plugins/bower_components/blockUI/jquery.blockUI.js"></script>
  <script>
 	 //Scrollbar
 	  jQuery(document).ready(function() {
@@ -1172,6 +1175,12 @@
               },
               onFinish: function(){
                   $('#validation').submit();
+                  $('div.blockdiv').block({
+              message: '<h4><img src="../plugins/images/busy.gif" /> Just a moment...</h4>'
+              , css: {
+                  border: '1px solid #fff'
+              }
+          });
                   var allLicense = [];
                   var allReq = [];
                   var allattrib = [];
