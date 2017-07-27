@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Area;
+use App\PrefBasic;
+use App\PrefAttrib;
+use App\PrefLicense;
+use App\PrefRequirement;
 use App\Province;
 use App\Shifts;
 use App\Nature;
@@ -73,6 +77,7 @@ class ContractController extends Controller
         $person_in_charge;
         $ctr = 0; $ctr2 = 0;
         $explod = explode('/',$request->from);
+
         $startDate = "$explod[2]-$explod[0]-$explod[1]";
 
         $explod = explode('/',$request->to);
@@ -119,9 +124,73 @@ class ContractController extends Controller
             $index1+=1;
           }
         } catch (Exception $e) {
-          return $e;
+          return "Error in shifting";
         }
 
+        //basic preferences
+        try {
+          $prefBasic = new PrefBasic();
+          $prefBasic->stringContractId = $request->contract_code;
+          $prefBasic->stringSchoolLevel=$request->prefSchool;
+          $prefBasic->intAge=$request->prefAge;
+          $prefBasic->stringNote=$request->prefNote;
+          $prefBasic->save();
+        } catch (Exception $e) {
+          return "Pls Check the preferences tab";
+        }
+
+        //licenses preferences
+        try {
+          $allLicense = Input::get('prefLicense');
+          foreach ($allLicense as $a) {
+            $lic = new PrefLicense();
+            $lic->stringContractId = $request->contract_code;
+            $lic->intLicenseId = $a;
+            $lic->save();
+          }
+        } catch (Exception $e) {
+          return "No seleceted License";
+        }
+
+        //Requirement preferences
+        try {
+          $allreq = Input::get('prefReq');
+          foreach ($allreq as $a) {
+            $req = new PrefRequirement();
+            $req->stringContractId = $request->contract_code;
+            $req->intRequirementId = $a;
+            $req->save();
+          }
+        } catch (Exception $e) {
+          return "No seleceted Requirement";
+        }
+
+        //body preference
+        $index1 = 0;
+        $prefbody = Input::get('prefBody');
+        $attribute = Attribute::all();
+        try {
+          foreach($attribute as $a) {
+            $index2 = 0;
+            foreach($prefbody as $b)
+            {
+              if($index1===$index2)
+              {
+                $explod = explode('/',$b);
+                $s = new PrefAttrib();
+                $s->stringContractId = $request->contract_code;
+                $s->intAttributeId = $a->id;
+                $s->intLowest =(int)$explod[0];
+                $s->intGreatest = (int)$explod[1];;
+                $s->save();
+              }
+              $index2+=1;
+            }
+            $index1+=1;
+          }
+        } catch (Exception $e) {
+          return "All Prefered Body Attribute is Required";
+        }
 
         return "Success";
       } catch (Exception $e) {

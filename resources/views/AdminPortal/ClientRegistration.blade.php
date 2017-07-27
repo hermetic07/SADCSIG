@@ -534,15 +534,17 @@
           <div class="form-group">
                    <label class="col-xs-2 control-label">School level</label>
                       <div class="col-xs-4">
-                      <select class="form-control"  name="noblank" id="gender">
+                      <select class="form-control"  name="noblank" id="school_level">
                         <option disabled></option>
-                        <option>High school level</option>
-                        <option>College level</option>
+                        <option value="none">none</option>
+                        <option value="Grade School">Grade School</option>
+                        <option value="High School">High school level</option>
+                        <option value="College">College level</option>
                       </select>
                     </div>
                    <label class="col-xs-1 control-label">Age</label>
                       <div class="col-xs-4">
-                         <input type="number" class="form-control">
+                         <input type="number" class="form-control" id="pref_age">
                     </div>
                   </div>
 
@@ -565,10 +567,10 @@
                    <td>
                    <div class="form-group">
                     <div class="col-xs-6">
-                       <input type="text" class="form-control" name="noblank"  placeholder="not less than"/>
+                       <input type="text" class="form-control attrib_less" name="attrib_less"  placeholder="not less than"/>
                     </div>
                     <div class="col-xs-6">
-                        <input type="text" class="form-control" name="noblank"   placeholder="not greater than"/>
+                        <input type="text" class="form-control attrib_great" name="attrib_great"   placeholder="not greater than"/>
                     </div>
                     </div>
                    </td>
@@ -587,7 +589,7 @@
                       @foreach($licenses as $l)
                       <div class="col-xs-4">
                         <div class="checkbox checkbox-success">
-                          <input id="checkbox1" type="checkbox">
+                          <input id="checkbox1" class="licenses" type="checkbox" value="{{$l->id}}">
                             <label for="checkbox1"> {{$l->name}} </label>
                         </div>
                       </div>
@@ -602,7 +604,7 @@
                       @foreach($requirements as $r)
                       <div class="col-xs-4">
                         <div class="checkbox checkbox-success">
-                          <input id="checkbox1" type="checkbox">
+                          <input id="checkbox1" class="requirements" type="checkbox" value="{{$r->id}}">
                             <label for="checkbox1"> {{$r->name}} </label>
                         </div>
                       </div>
@@ -613,7 +615,7 @@
               <br>
               <center> <h4> <strong>Notes</strong></h4> </center>
               <br>
-              <textarea id="txtArea" class="form-control" rows="8"></textarea>
+              <textarea id="txtArea" name="pref_note" class="form-control pref_note" rows="8"></textarea>
         </div>
          <div class="wizard-pane" role="tabpanel">
           <div class="form-group">
@@ -905,9 +907,23 @@ $('#firstcal').removeAttr("disabled");
                     return true;
                 },
                 onFinish: function(){
+                  var allstart = [];
+                  var allend = [];
+                  var allLicense = [];
+                  var allReq = [];
+                  var allAttrib = [];
+                  $.each($(".requirements"), function(){
+                      allReq.push($(this).val());
+                  });
 
-                  var allstart =[];
-                  var allend =[];
+                  $.each($(".licenses"), function(){
+                      allLicense.push($(this).val());
+                  });
+
+                  $.each($(".attrib_less"), function(){
+                      var Something = $(this).parent().parent().find('.attrib_great').val();
+                      allAttrib.push($(this).val()+'/'+Something);
+                  });
 
                   $.each($(".shiftstart"), function(){
                       allstart.push($(this).val());
@@ -945,16 +961,21 @@ $('#firstcal').removeAttr("disabled");
                         client_password:$('input[name=password]').val(),
                         allend:allend,
                         allstart:allstart,
+                        prefSchool: $('#school_level').val(),
+                        prefAge:$('#pref_age').val(),
+                        prefNote:$('.pref_note').val(),
+                        prefBody:allAttrib,
+                        prefLicense:allLicense,
+                        prefReq:allReq,
                     },
                     success: function(data){
                       if(data==="Success")
                       {
-                        alert("Registration Success");
+                        alert("Registration Success. Will now proceed to uploading of your pictures");
                         location.reload();
                       }
                       else {
                         alert(data);
-                        alert("Something went wrong");
                       }
                     }
                   });
