@@ -391,6 +391,7 @@ Route::post ( '/EmployeeUpdateProfile', 'EmployeeControl@UpdateProfile' );
 Route::post ( '/EmployeeUpdatePassword', 'EmployeeControl@UpdatePassword' );
 Route::get('/SecurityGuardsPortalAttendance', 'EmployeeControl@attendance');
 Route::get('Guard-Registration','LastControl@index6');
+Route::post ( '/GetProvinceAreas', 'AreaControl@getArea' );
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
 Route::post('/Applicants','RegisterControl@saveImage');
 //admin guard (evander)

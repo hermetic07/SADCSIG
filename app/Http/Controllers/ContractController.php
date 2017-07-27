@@ -9,6 +9,9 @@ use App\Shifts;
 use App\Nature;
 use App\Service;
 use App\Contracts;
+use App\License;
+use App\Attribute;
+use App\Requirement;
 use Carbon\Carbon;
 use App\Establishments;
 use App\Clients;
@@ -23,9 +26,12 @@ class ContractController extends Controller
         $provinces = Province::all();
         $natures = Nature::all();
         $services = Service::all();
+        $licenses = License::all();
+        $attributes = Attribute::all();
+        $requirements = Requirement::all();
         $count1 = "CONTRACTz".Contracts::get()->count();
         $count2 = "CLIENTz".Clients::get()->count();
-        return view('AdminPortal.ClientRegistration')->with('areas',$areas)->with('provinces',$provinces)->with('natures',$natures)->with('services',$services)->with('clcode',$count2)->with('cncode',$count1);
+        return view('AdminPortal.ClientRegistration')->with('requirements',$requirements)->with('attributes',$attributes)->with('licenses',$licenses)->with('areas',$areas)->with('provinces',$provinces)->with('natures',$natures)->with('services',$services)->with('clcode',$count2)->with('cncode',$count1);
     }
 
     public function login(Request $request){

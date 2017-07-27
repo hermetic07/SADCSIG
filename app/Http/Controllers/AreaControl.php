@@ -19,6 +19,16 @@ class AreaControl extends Controller
       return view('maintenance.Area')->with('Areas',$Areas)->with('Provinces',$Provinces);
     }
 
+    public function getArea(Request $request)
+    {
+      $test = "";
+      $Area = Area::All()->where('provinces_id',$request->prov);
+      foreach ($Area as $a) {
+          $test.="<option value='$a->id'>$a->name</option>\n";
+      }
+      return $test;
+
+    }
 
     public function add(Request $request)
     {
