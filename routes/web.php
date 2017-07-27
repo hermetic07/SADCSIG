@@ -160,7 +160,7 @@ Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployme
 
 // Check before deleting Route::get('/SendGun','LastControl@index3');
 
-
+Route::post('/clientupload','ContractController@saveImage');
 
 Route::get('/Request-{id}','ClientPortalHomeController@requests');
 Route::post('/Request-Save/{id}','LastControl@saveReq');

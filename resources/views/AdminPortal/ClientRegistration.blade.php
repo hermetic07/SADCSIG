@@ -972,7 +972,7 @@ $('#firstcal').removeAttr("disabled");
                       if(data==="Success")
                       {
                         alert("Registration Success. Will now proceed to uploading of your pictures");
-                        location.reload();
+                        window.location.href = "/UploadPics";
                       }
                       else {
                         alert(data);
