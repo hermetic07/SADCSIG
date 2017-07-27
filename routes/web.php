@@ -160,7 +160,7 @@ Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployme
 
 // Check before deleting Route::get('/SendGun','LastControl@index3');
 
-
+Route::post('/clientupload','ContractController@saveImage');
 
 Route::get('/Request-{id}','ClientPortalHomeController@requests');
 Route::post('/Request-Save/{id}','LastControl@saveReq');
@@ -395,6 +395,7 @@ Route::post ( '/EmployeeUpdateProfile', 'EmployeeControl@UpdateProfile' );
 Route::post ( '/EmployeeUpdatePassword', 'EmployeeControl@UpdatePassword' );
 Route::get('/SecurityGuardsPortalAttendance', 'EmployeeControl@attendance');
 Route::get('Guard-Registration','LastControl@index6');
+Route::post ( '/GetProvinceAreas', 'AreaControl@getArea' );
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
 Route::post('/Applicants','RegisterControl@saveImage');
 //admin guard (evander)

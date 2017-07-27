@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Area;
+use App\PrefBasic;
+use App\PrefAttrib;
+use App\PrefLicense;
+use App\PrefRequirement;
 use App\Province;
 use App\Shifts;
 use App\Nature;
 use App\Service;
 use App\Contracts;
+use App\License;
+use App\Attribute;
+use App\ClientsPic;
+use App\Requirement;
 use Carbon\Carbon;
 use App\Establishments;
 use App\Clients;
@@ -23,9 +31,12 @@ class ContractController extends Controller
         $provinces = Province::all();
         $natures = Nature::all();
         $services = Service::all();
+        $licenses = License::all();
+        $attributes = Attribute::all();
+        $requirements = Requirement::all();
         $count1 = "CONTRACTz".Contracts::get()->count();
         $count2 = "CLIENTz".Clients::get()->count();
-        return view('AdminPortal.ClientRegistration')->with('areas',$areas)->with('provinces',$provinces)->with('natures',$natures)->with('services',$services)->with('clcode',$count2)->with('cncode',$count1);
+        return view('AdminPortal.ClientRegistration')->with('requirements',$requirements)->with('attributes',$attributes)->with('licenses',$licenses)->with('areas',$areas)->with('provinces',$provinces)->with('natures',$natures)->with('services',$services)->with('clcode',$count2)->with('cncode',$count1);
     }
 
     public function login(Request $request){
@@ -67,6 +78,7 @@ class ContractController extends Controller
         $person_in_charge;
         $ctr = 0; $ctr2 = 0;
         $explod = explode('/',$request->from);
+
         $startDate = "$explod[2]-$explod[0]-$explod[1]";
 
         $explod = explode('/',$request->to);
@@ -113,69 +125,64 @@ class ContractController extends Controller
             $index1+=1;
           }
         } catch (Exception $e) {
-          return $e;
+          return "Error in shifting";
         }
 
-
-        return "Success";
-      } catch (Exception $e) {
-        return $e;
-      }
-
-     /* if($request->ajax()){
-        $contractID;
-        $clientID;
-
-        $ctr = 0; $ctr2 = 0;
-        $explod = explode('/',$request->from);
-        $startDate = "$explod[2]-$explod[0]-$explod[1]";
-
-        $explod = explode('/',$request->to);
-        $endDate = "$explod[2]-$explod[0]-$explod[1]";
-
-       $contract = new Contracts();
-       $contract['id'] = $request->contract_code;
-       $contract['pic_fname'] = $request->firstName;
-       $contract['pic_mname'] = $request->middleName;
-       $contract['pic_lname'] = $request->lastName;
-       $contract['establishment_name'] = $request->estab_name;
-       $contract['services_id'] = $request->service;
-       $contract['address'] = $request->street_add;
-       $contract['areas_id'] = $request->area;
-       $contract['guard_count'] = $request->no_guards;
-       $contract['status'] = "active";
-       $contract['year_span'] = $request->span_mo;
-       $contract['start_date'] = $startDate;
-       $contract['end_date'] = $endDate;
-
-       $client = new Clients();
-       $client['id'] = $request->client_code;
-       $client['name'] = $request->client_name;
-       $client['username'] = $request->client_username;
-       $client['password'] = $request->client_password;
-       $client['address'] = $request->street_add;
-       $client['areas_id'] = $request->area;
-       $client['email'] = $request->pic_email;
-       $client['contactNo'] = $request->pic_no;
-
-
-
-
-
-      $index1 = 0;
-        $allstart = Input::get('allstart');
-        $allend = Input::get('allend');
+        //basic preferences
         try {
-          foreach($allstart as $a) {
+          $prefBasic = new PrefBasic();
+          $prefBasic->stringContractId = $request->contract_code;
+          $prefBasic->stringSchoolLevel=$request->prefSchool;
+          $prefBasic->intAge=$request->prefAge;
+          $prefBasic->stringNote=$request->prefNote;
+          $prefBasic->save();
+        } catch (Exception $e) {
+          return "Pls Check the preferences tab";
+        }
+
+        //licenses preferences
+        try {
+          $allLicense = Input::get('prefLicense');
+          foreach ($allLicense as $a) {
+            $lic = new PrefLicense();
+            $lic->stringContractId = $request->contract_code;
+            $lic->intLicenseId = $a;
+            $lic->save();
+          }
+        } catch (Exception $e) {
+          return "No seleceted License";
+        }
+
+        //Requirement preferences
+        try {
+          $allreq = Input::get('prefReq');
+          foreach ($allreq as $a) {
+            $req = new PrefRequirement();
+            $req->stringContractId = $request->contract_code;
+            $req->intRequirementId = $a;
+            $req->save();
+          }
+        } catch (Exception $e) {
+          return "No seleceted Requirement";
+        }
+
+        //body preference
+        $index1 = 0;
+        $prefbody = Input::get('prefBody');
+        $attribute = Attribute::all();
+        try {
+          foreach($attribute as $a) {
             $index2 = 0;
-            $s = new Shifts();
-            $s->contract_id = $request->contract_code;
-            $s->start = $a;
-            foreach($allend as $b)
+            foreach($prefbody as $b)
             {
-              if($index1==$index2)
+              if($index1===$index2)
               {
-                $s->end = $b;
+                $explod = explode('/',$b);
+                $s = new PrefAttrib();
+                $s->stringContractId = $request->contract_code;
+                $s->intAttributeId = $a->id;
+                $s->intLowest =(int)$explod[0];
+                $s->intGreatest = (int)$explod[1];;
                 $s->save();
               }
               $index2+=1;
@@ -183,13 +190,58 @@ class ContractController extends Controller
             $index1+=1;
           }
         } catch (Exception $e) {
-          return $e;
+          return "All Prefered Body Attribute is Required";
         }
+        session(['client' => $request->client_code]);
+        session(['contract' => $request->contract_code]);
+        return "Success";
+      } catch (Exception $e) {
+        return $e;
+      }
+    }
 
-         if($contract->save() && $client->save()){
-           return "Success";
-       }
+    public function saveImage(Request $request){
+      try {
+        $count =0;
+        $value = $request->session()->get('client');
+        $value2 = $request->session()->get('contract');
+        $client = Clients::find($value);
+        if (Input::hasFile('clientpicture')) {
+          $file = Input::file('clientpicture');
+          $file->move('uploads', $value."cli".$file->getClientOriginalName());
+          $client->image = $value."cli".$file->getClientOriginalName();
+          $client->save();
+        }
+        $clientspic = new ClientsPic();
+        $clientspic->stringContractId = $value2;
+        if (Input::hasFile('location')) {
+          $file = Input::file('location');
+          $file->move('uploads', $value."loc".$file->getClientOriginalName());
+          $clientspic->stringlocation = $value."loc".$file->getClientOriginalName();
+          $count+=1;
+        }
+        if (Input::hasFile('picpicture')) {
+          $file = Input::file('picpicture');
+          $file->move('uploads', $value."pic".$file->getClientOriginalName());
+          $clientspic->stringpic = $value."pic".$file->getClientOriginalName();
+          $count+=1;
+        }
+        if (Input::hasFile('establishment')) {
+          $file = Input::file('establishment');
+          $file->move('uploads', $value."es".$file->getClientOriginalName());
+          $clientspic->stringestablishment = $value."es".$file->getClientOriginalName();
+          $count+=1;
+        }
+        if ($count!==0) {
+          $clientspic->save();
+        }
+        $request->session()->forget('client');
+        $request->session()->forget('contract');
+        return "success";
+      } catch (Exception $e) {
+        return $e;
+      }
 
-      }*/
+
     }
 }

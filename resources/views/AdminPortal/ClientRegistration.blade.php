@@ -342,20 +342,17 @@
                       <input type="text" class="form-control name" placeholder="Street Address" name="street_add" />
                   </div>
                   <div class="col-xs-3">
-                    <select class="form-control"  name="area" id="area">
-                      <option value="" disabled="" selected="">Select Area</option>
-                      @foreach($areas as $area )
-                      <option value="{{ $area->id }}">{{$area->name}}</option>
-                      @endforeach
-                    </select>
-                  </div>
-                  <div class="col-xs-3">
                   <select class="form-control"  name="province" id="province">
                     <option value="" disabled="" selected="">Select Province</option>
                     @foreach($provinces as $province )
                       <option value="{{$province->id}}">{{$province->name}}</option>
                     @endforeach
                   </select>
+                  </div>
+                  <div class="col-xs-3">
+                    <select class="form-control"  name="area" id="area">
+                      <option value="" disabled="" selected="">Select Area</option>
+                    </select>
                   </div>
               </div>
 
@@ -537,15 +534,17 @@
           <div class="form-group">
                    <label class="col-xs-2 control-label">School level</label>
                       <div class="col-xs-4">
-                      <select class="form-control"  name="noblank" id="gender">
+                      <select class="form-control"  name="noblank" id="school_level">
                         <option disabled></option>
-                        <option>High school level</option>
-                        <option>College level</option>
+                        <option value="none">none</option>
+                        <option value="Grade School">Grade School</option>
+                        <option value="High School">High school level</option>
+                        <option value="College">College level</option>
                       </select>
                     </div>
                    <label class="col-xs-1 control-label">Age</label>
                       <div class="col-xs-4">
-                         <input type="number" class="form-control">
+                         <input type="number" class="form-control" id="pref_age">
                     </div>
                   </div>
 
@@ -553,150 +552,70 @@
           <center> <h4> <strong>Body attributes of guards</strong></h4> </center>
             <br>
             <div class="table-responsive">
-                             <table class="table color-bordered-table inverse-bordered-table">
+             <table class="table color-bordered-table inverse-bordered-table">
                <thead>
                  <tr>
                    <th>Body attribute</th>
-                                         <th><center>Specification</center></th>
+                   <th><center>Specification</center></th>
                    <th>Measurement</th>
-                                     </tr>
-                                 </thead>
-                                 <tbody>
-                                     <tr>
-                   <td>Height</td>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($attributes as $a)
+                <tr>
+                   <td>{{$a->name}}</td>
                    <td>
-                     <div class="form-group">
-
-
-                        <div class="col-xs-6">
-                       <input type="text" class="form-control" name="noblank"  placeholder="not less than"/>
-                       </div>
-                       <div class="col-xs-6">
-                                  <input type="text" class="form-control" name="noblank"   placeholder="not greater than"/>
-                      </div>
+                   <div class="form-group">
+                    <div class="col-xs-6">
+                       <input type="text" class="form-control attrib_less" name="attrib_less"  placeholder="not less than"/>
                     </div>
-
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control attrib_great" name="attrib_great"   placeholder="not greater than"/>
+                    </div>
+                    </div>
                    </td>
-
-                   <td>ft</td>
-                                     </tr>
-                 <tr>
-                                         <td>Weight</td>
-                   <td>             <div class="form-group">
-
-
-                                   <div class="col-xs-6">
-                                  <input type="text" class="form-control" name="noblank"  placeholder="not less than"/>
-                                  </div>
-                                  <div class="col-xs-6">
-                                             <input type="text" class="form-control" name="noblank"   placeholder="not greater than"/>
-                                 </div>
-                               </div></td>
-                                         <td>kg</td>
-                 </tr>
-                 <tr>
-                   <td>Wing span</td>
-                   <td>             <div class="form-group">
-
-
-                                   <div class="col-xs-6">
-                                  <input type="text" class="form-control" name="noblank"  placeholder="not less than"/>
-                                  </div>
-                                  <div class="col-xs-6">
-                                             <input type="text" class="form-control" name="noblank"   placeholder="not greater than"/>
-                                 </div>
-                               </div></td>
-                   <td>meter</td>
-                                     </tr>
-                                 </tbody>
-                             </table>
+                   <td>{{$a->measurement}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
            </div>
          </br>
            <div class="form-group">
-
-                       <div class="col-xs-6">
-    <center> <h4> <strong>Licences and clearances</strong></h4> </center>
-             <br>
-    <div class="form-group">
-                    <div class="col-xs-4">
-                                    <div class="checkbox checkbox-success">
-                        <input id="checkbox1" type="checkbox">
-                                  <label for="checkbox1"> PNP-SOSIA License </label>
-                      </div>
-                              </div>
-
-                    <div class="col-xs-4">
-                                    <div class="checkbox checkbox-success">
-                        <input id="checkbox2" type="checkbox">
-                        <label for="checkbox2"> NTC License </label>
-                      </div>
-                    </div>
-
-
-
-                    <div class="col-xs-4">
-                                    <div class="checkbox checkbox-success">
-                                  <input id="checkbox3" type="checkbox">
-                                  <label for="checkbox3"> TIN </label>
-                              </div>
-                    </div>
-
-                    <div class="col-xs-4">
-                                    <div class="checkbox checkbox-success">
-                                  <input id="checkbox4" type="checkbox">
-                                  <label for="checkbox4"> SSS </label>
-                              </div>
-                    </div>
-                    <div class="col-xs-4">
-                                    <div class="checkbox checkbox-success">
-                                  <input id="checkbox5" type="checkbox">
-                                  <label for="checkbox5"> GSIS </label>
-                              </div>
-                    </div>
-                    <div class="col-xs-4">
-                                    <div class="checkbox checkbox-success">
-                                  <input id="checkbox6" type="checkbox">
-                                  <label for="checkbox6"> NBI </label>
-                              </div>
-                    </div>
-
-
-                                         </div>
-
-                     </div>
-
-                       <div class="col-xs-6">
-    <center> <h4> <strong>Requirements</strong></h4> </center>
-             <br>
-                 <div class="form-group">
-                  <div class="col-xs-4">
-                                  <div class="checkbox checkbox-success">
-                      <input id="checkbox16" type="checkbox">
-                      <label for="checkbox16"> NSO birth certificate </label>
-                            </div>
-                  </div>
-
-                  <div class="col-xs-4">
-                                  <div class="checkbox checkbox-success">
-                      <input id="checkbox17" type="checkbox">
-                      <label for="checkbox17"> Baranggay clearance </label>
-                            </div>
-                  </div>
-                  <div class="col-xs-4">
-                                  <div class="checkbox checkbox-success">
-                      <input id="checkbox17" type="checkbox">
-                      <label for="checkbox17"> House sketch </label>
-                            </div>
-                  </div>
-
-
-                     </div>
+              <div class="col-xs-6">
+                <center> <h4> <strong>Licences and clearances</strong></h4> </center>
+                <br>
+                <div class="form-group">
+                      @foreach($licenses as $l)
+                      <div class="col-xs-4">
+                        <div class="checkbox checkbox-success">
+                          <input id="checkbox1" class="licenses" type="checkbox" value="{{$l->id}}">
+                            <label for="checkbox1"> {{$l->name}} </label>
                         </div>
-                   </div>
-                 <br>
-                 <center> <h4> <strong>Notes</strong></h4> </center>
-                   <br>
-                  <textarea id="txtArea" class="form-control" rows="8">--- </textarea>
+                      </div>
+                      @endforeach
+                </div>
+              </div>
+
+              <div class="col-xs-6">
+                <center> <h4> <strong>Requirements</strong></h4> </center>
+                <br>
+                <div class="form-group">
+                      @foreach($requirements as $r)
+                      <div class="col-xs-4">
+                        <div class="checkbox checkbox-success">
+                          <input id="checkbox1" class="requirements" type="checkbox" value="{{$r->id}}">
+                            <label for="checkbox1"> {{$r->name}} </label>
+                        </div>
+                      </div>
+                      @endforeach
+                </div>
+              </div>
+            </div>
+              <br>
+              <center> <h4> <strong>Notes</strong></h4> </center>
+              <br>
+              <textarea id="txtArea" name="pref_note" class="form-control pref_note" rows="8"></textarea>
         </div>
          <div class="wizard-pane" role="tabpanel">
           <div class="form-group">
@@ -712,9 +631,8 @@
           </div>
         </div>
         </form>
-
-          </div>
-        </div>
+      </div>
+    </div>
 
     <!-- Add guns Modal -->
     <div id="Addtse" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -919,7 +837,26 @@ $('#firstcal').removeAttr("disabled");
     footable.appendRow(newRow);
   });
  </script>
-    <script type="text/javascript">
+ <script>
+ $("#province").change(function(){
+   $.ajaxSetup({
+     headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+   }); 
+   $.ajax({
+     type: 'post',
+     url: '/GetProvinceAreas',
+     data: {
+         prov:$('#province').val(),
+     },
+     success: function(data){
+         $('#area').html(data);
+     }
+   });
+ });
+ </script>
+<script type="text/javascript">
 
 
          $(document).ready(function(){
@@ -928,6 +865,8 @@ $('#firstcal').removeAttr("disabled");
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
              }
            });
+
+
 
             $('#exampleValidator').wizard({
                 onInit: function(){
@@ -968,9 +907,23 @@ $('#firstcal').removeAttr("disabled");
                     return true;
                 },
                 onFinish: function(){
+                  var allstart = [];
+                  var allend = [];
+                  var allLicense = [];
+                  var allReq = [];
+                  var allAttrib = [];
+                  $.each($(".requirements"), function(){
+                      allReq.push($(this).val());
+                  });
 
-                  var allstart =[];
-                  var allend =[];
+                  $.each($(".licenses"), function(){
+                      allLicense.push($(this).val());
+                  });
+
+                  $.each($(".attrib_less"), function(){
+                      var Something = $(this).parent().parent().find('.attrib_great').val();
+                      allAttrib.push($(this).val()+'/'+Something);
+                  });
 
                   $.each($(".shiftstart"), function(){
                       allstart.push($(this).val());
@@ -1008,16 +961,21 @@ $('#firstcal').removeAttr("disabled");
                         client_password:$('input[name=password]').val(),
                         allend:allend,
                         allstart:allstart,
+                        prefSchool: $('#school_level').val(),
+                        prefAge:$('#pref_age').val(),
+                        prefNote:$('.pref_note').val(),
+                        prefBody:allAttrib,
+                        prefLicense:allLicense,
+                        prefReq:allReq,
                     },
                     success: function(data){
                       if(data==="Success")
                       {
-                        alert("Registration Success");
-                        location.reload();
+                        alert("Registration Success. Will now proceed to uploading of your pictures");
+                        window.location.href = "/UploadPics";
                       }
                       else {
                         alert(data);
-                        alert("Something went wrong");
                       }
                     }
                   });
