@@ -19,6 +19,8 @@ use App\DeploymentNotifForClient;
 use App\TempDeployments;
 use App\TempDeploymentDetails;
 use App\ClientDeploymentNotif;
+use App\AcceptedGuards;
+use App\NotifResponse;
 
 class DeploymentController extends Controller
 {
@@ -55,9 +57,10 @@ class DeploymentController extends Controller
         
       return redirect('/Dashboard');
         //return $request->clientID;*/
-        $message_ID = 'MSSG-'.$request->contractID;
-        $temp_deployment_id = 'TMPDPLOY-'.$request->contractID;
+        $message_ID = 'MSSGS-'.$request->contractID;
+        $temp_deployment_id = 'TMPDPLY-'.$request->contractID;
         $temp_deployment_details_id ='';
+        $client_inbox_id = '';
         //return $message_ID;
         DeploymentNotifForClient::create(['notif_id'=>$message_ID,'trans_id'=>$request->contractID,'sender'=>'Admin','receiver'=>$request->clientID,'subject'=>'DEPLOYMENT','status'=>'active']);
 
@@ -81,8 +84,8 @@ class DeploymentController extends Controller
                 $secuID = $explod[2];
                 
                 $to = $explod[1];
-                $client_inbox_id = 'CLNTINBX-'.$request->clientID;
-                $temp_deployment_details_id= 'TMPDPLOY-DTLS-'.$request->contractID.((string)$ctr);
+                $client_inbox_id = 'CLNTNTF-'.$request->clientID;
+                $temp_deployment_details_id= 'TMPDPLY-DTLS-'.$request->contractID.((string)$ctr);
                 TempDeploymentDetails::create(['temp_deployment_details_id'=>$temp_deployment_details_id,'temp_deployments_id'=>$temp_deployment_id,'employees_id'=>$secuID,'shift_from'=>$from,'shift_to'=>$to,'role'=>$request->$role,'status'=>'active']);
                // Employee::findOrFail($secuID)->update(['deployed'=>1]);
                
@@ -92,5 +95,36 @@ class DeploymentController extends Controller
          ClientDeploymentNotif::create(['client_deloyment_notif_id'=>$client_inbox_id,'client_id'=>$request->clientID,'notif_id'=>$message_ID,'date_received'=>Carbon::now()]);
                 Contracts::findOrFail($request->contractID)->update(['init_deploy_status'=>'pending']);
          return redirect('/Dashboard');
+    }
+    public function deploy(Request $request){
+        
+         if($request->ajax()){
+            $deployment = new Deployments();
+            
+            $deployment['clients_id'] = $request->clientID;
+            $deployment['establishment_id'] = $request->estabID;
+            $deployment['num_guards'] = $request->num_guards;
+            $deployment->save();
+
+            $dep = Deployments::latest('created_at')->get();
+             $deploymentDetails = new DeploymentDetails();
+                $deploymentDetails['deployments_id'] = $dep[0]->id;
+                $deploymentDetails['employees_id'] = $request->employeeID;
+                $deploymentDetails['shift_from'] = $request->shiftFrom;
+                $deploymentDetails['shift_to'] = $request->shiftTo;
+                $deploymentDetails['role'] = $request->role;
+                $deploymentDetails['status'] = "active";
+                if($deploymentDetails->save()){
+                     //return response("sucess");
+                }else{
+                    return response("OOOPS Something went wrong!");
+                }
+            
+            //return response($dep);
+                $ac = AcceptedGuards::where('guard_id',$request->employeeID)->update(['guard_reponse'=>'deployed']);
+                $nr = NotifResponse::where('guard_id',$request->employeeID)->update(['status'=>'deployed']);
+                $emp = Employee::findOrFail($request->employeeID)->update(['deployed'=>'1']);
+                return response($nr);
+        }
     }
 }

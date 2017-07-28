@@ -157,16 +157,18 @@ Route::get('/GunRequest','GunRequestController@index');     //  All gun requests
 Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery');  // Save Gun Delivery into Database
 Route::get('GunDeliveries','GunDeliveryController@adminDeliveries');
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
-Route::get('/DeployGuards','DeploymentController@deployIndex');
+Route::get('/DeployGuards','DeploymentController@deploy')->name('deploy');
 Route::post('/DeployGuards/Save','DeploymentController@saveDepl')->name('deployment.save');
 Route::get('/ClientRegistration','ContractController@register');
 Route::post('/ClientRegistration-Save','ContractController@save');
 Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
+Route::get('select/Shifts','AdminController@selectShifts')->name('select.shifts');
 
 Route::get('/PendingClientRequests','AdminController@pending_client_requests')->name('pending.client.requests');
 
 Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus');
-
+Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change.rejected');
+Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')->name('save.changes');
 
 
 /** -----------------  CLIENTS --------------------- **/

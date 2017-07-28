@@ -322,7 +322,9 @@
            if(data == 0){
             alert("Success! We'll notify you once we completed the guards");
            }else{
-            alert("Please Select/Reject guards. We need to know your response");
+            alert("Success! We'll notify you once we completed the guards");
+            location.href="/ClientPortalHome-{{$client->id}}";
+            console.log(data);
            }
            //alert(data);
           }

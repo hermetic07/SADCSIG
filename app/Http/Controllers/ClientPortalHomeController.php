@@ -267,6 +267,9 @@ class ClientPortalHomeController extends Controller
         if($var > 1){
           return response(1);
         }
+        
+        $c = new ClientDeploymentNotif();
+        $c->update(['status'=>'done']);
         return response(1);
       }
     }

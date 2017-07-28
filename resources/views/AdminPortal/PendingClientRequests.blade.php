@@ -59,7 +59,7 @@
                                     
                                     <br>
                                     <div class="progress progress-md">
-                                        <div class="progress-bar progress-bar-info active progress-bar-striped" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">1 / 2
+                                        <div class="progress-bar progress-bar-info active progress-bar-striped" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">1 / {{$contract->guard_count}}
                                         </div>
                                     </div>
                                     <center><a id="deployedGuards" href="/DeploymentStatus+{{$contract->id}}" name="{{$contract->id}}"> <small> Security guards deployed </small></a> </center>
@@ -71,11 +71,22 @@
                                             <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="plugins/images/Clients/Active/chris.jpg"></a>
                                         </div>
                                         <div class="agent-name">
-                                            <h5 class="m-b-0">Chris jerico albino</h5> <small class="text-muted">Person in charge</small>
+                                            <h5 class="m-b-0">{{$contract->pic_fname}},{{$contract->pic_lname}}</h5> <small class="text-muted">Person in charge</small>
                                         </div>
                                     </div>
                                     <div class="pro-location hidden-xs hidden-xs hidden-xs">
-                                        <span class="pull-right text-muted"><i class="fa fa-map-marker text-danger m-r-10" aria-hidden="true"></i>Anonas, Santa Mesa, Maynila, Kalakhang Maynila</span>
+                                        <span class="pull-right text-muted">
+                                            <i class="fa fa-map-marker text-danger m-r-10" aria-hidden="true"></i>
+                                            @foreach($areas as $area)
+                                                @if($area->id == $contract->areas_id)
+                                                    @foreach($provinces as $province)
+                                                        @if($area->province_id == $province->id)
+                                                            {{$contract->address}},{{$area->name}}, {{$province->name}}
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        </span>
                                     </div>
                                 </div>
                             </div>

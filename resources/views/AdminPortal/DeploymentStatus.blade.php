@@ -31,86 +31,217 @@
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">Client's approval</div>
-<div class="panel-wrapper p-b-10 collapse in">
+
+<form method="GET" action="{{ url('/ChangeGuards') }}">
+  <div class="panel-wrapper p-b-10 collapse in">
     <div class="row  el-element-overlay">
 <div id="client" class="owl-carousel owl-theme ">
+@php
+  $rejectCtr = 0;
+  $acceptedCtr = 0;
+  $changedCtr = 0;
+  $changeID = "";
+  $rejectID = "";
+  $accepted = "";
+  $totalGuardsDeployed = 0;
+  $shiftTo = "";
+  $shiftFrom = "";
+  $role = "";
+  $refuseCtr = 0;
+  $refuseID = "";
+  
+@endphp
+@foreach($tempDeployments as $tempDeployment)
+  @if($tempDeployment->contract_ID == $contract->id)
+  @foreach($clientDeploymentNotifs as $clientDeploymentNotif)
+    @if($clientDeploymentNotif->notif_id == $tempDeployment->messages_ID)
+      @foreach($notif_response as $response)
+        @if($response->client_deployment_notif_id == $clientDeploymentNotif->client_deloyment_notif_id)
+          @foreach($employees as $employee)
+            @if($employee->id == $response->guard_id)
+              @php
+                $totalGuardsDeployed++;
+              @endphp
+              @if($response->status == "accepted")
 
-@foreach($notif_response as $response)
-   @foreach($employees as $employee)
-    @if($employee->id == $response->guard_id)
-      @if($response->status == "accepted")
-        <div class="el-card-item item avatar">
-        <span class="accepted-badge">&#10004;</span>
-          <div class="el-card-avatar el-overlay-1 ">
-            <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
-              <div class="el-overlay">
-                <ul class="el-info">
-                  <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                </ul>
-              </div>
-            </div>
-        </div>
-      @elseif($response->status == "rejected")
-        <div class="el-card-item item avatar">
-            <span class="rejected-badge">&#10006;</span>
-              <div class="el-card-avatar el-overlay-1 ">
-                <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
-                  <div class="el-overlay">
-                    <ul class="el-info">
-                      <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                    </ul>
-                  </div>
+                <div class="el-card-item item avatar">
+                <span class="accepted-badge">&#10004;</span>
+                  <div class="el-card-avatar el-overlay-1 ">
+                    <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
+                      <div class="el-overlay">
+                        <ul class="el-info">
+                          <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          <li>
+                            {{$employee->first_name}}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                 </div>
-             <button class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
-            </div>
-      @endif
+                
+                @php
+                  $accepted = $accepted.",.".$employee->id;
+                  $acceptedCtr++;
+                @endphp
+              @elseif($response->status == "changed")
+                @php
+                  $changedCtr++;
+                  $changeID = $changeID.",.".$employee->id;
+                @endphp
+              @elseif($response->status == "rejected")
+                <div class="el-card-item item avatar">
+                    <span class="rejected-badge">&#10006;</span>
+                      <div class="el-card-avatar el-overlay-1 ">
+                        <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
+                          <div class="el-overlay">
+                            <ul class="el-info">
+                              <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                              <li>
+                            {{$employee->first_name}}
+                          </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      @php
+                        $rejectCtr++;
+                        $rejectID = $rejectID.",.".$employee->id;
+                      @endphp
+              @endif
+            @endif
+          @endforeach
+        @endif
+      @endforeach
     @endif
-   @endforeach
   @endforeach
+  @endif
+@endforeach
+
 </div>
 </div>
+<input type="hidden" name="rejectedIDs" value="{{$rejectID}}">
+<input type="hidden" name="accepted" value="{{$accepted}}">
+<input type="hidden" name="rejectedCtr" value="{{$rejectCtr}}">
+<input type="hidden" name="contractID" value="{{$contractID}}">
+<input type="hidden" name="clientID" value="{{$client->id}}">
+
+<label class="col-xs-3"></label>        <div class="col-xs-6"> <button type="submit" id="rejected" class="btn btn-block btn-outline btn-rounded btn-danger">Change {{$rejectCtr}} rejected guards</button> </div>
 </div>
+</form>
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">Security guard's approval</div>
+<form method="GET" action="{{ url('/ChangeGuards') }}">
 <div class="panel-wrapper p-b-10 collapse in">
     <div class="row  el-element-overlay">
 <div id="secus" class="owl-carousel owl-theme ">
 
-@foreach($acceptedGuards as $acceptedGuard)
-  @foreach($employees as $employee)
-    @if($employee->id == $acceptedGuard->guard_id)
-      @if($acceptedGuard->guard_reponse == "")
-        <div class="el-card-item item avatar">
-          <span class="accepted-badge">&#10004;</span>
-            <div class="el-card-avatar el-overlay-1 ">
-              <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
-                <div class="el-overlay">
-                  <ul class="el-info">
-                    <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                  </ul>
+@foreach($tempDeployments as $tempDeployment)
+  @if($tempDeployment->contract_ID == $contract->id)
+  @foreach($clientDeploymentNotifs as $clientDeploymentNotif)
+    @if($clientDeploymentNotif->notif_id == $tempDeployment->messages_ID)
+      @foreach($acceptedGuards as $acceptedGuard)
+        @if($acceptedGuard->client_deployment_notif_id == $clientDeploymentNotif->client_deloyment_notif_id)
+          @foreach($employees as $employee)
+            @if($employee->id == $acceptedGuard->guard_id)
+              @if($acceptedGuard->guard_reponse == "")
+                <div class="el-card-item item avatar">
+                <span class="accepted-badge">&#10004;</span>
+                  <div class="el-card-avatar el-overlay-1 ">
+                    <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
+                      <div class="el-overlay">
+                        <ul class="el-info">
+                          <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          <li>
+                            {{$employee->first_name}}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div>
+                  </div>
                 </div>
-              </div>
-          </div>
-      @elseif($acceptedGuard->guard_reponse == "confirmed")
-      @elseif($acceptedGuard->guard_reponse == "denied")
-      @endif
+              @elseif($acceptedGuard->guard_reponse == "changed")
+                @php
+                  $changeID = $changeID.",.".$employee->id;
+                @endphp
+               @elseif($acceptedGuard->guard_reponse == "reject")
+               <div class="el-card-item item avatar">
+                <span class="rejected-badge">&#10006;</span>
+                  <div class="el-card-avatar el-overlay-1 ">
+                    <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
+                      <div class="el-overlay">
+                        <ul class="el-info">
+                          <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          <li>
+                            {{$employee->first_name}}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+            <button type="button" class="btn btn-block btn-outline btn-rounded btn-warning reason">Reason</button>
+                </div>
+               @php
+                $refuseCtr++;
+                $refuseID = $refuseID.",.".$employee->id;
+               @endphp
+              @elseif($acceptedGuard->guard_reponse == "confirmed")
+                <div class="el-card-item item avatar">
+                  <span class="accepted-badge">&#10004;</span>
+                    <div class="el-card-avatar el-overlay-1 ">
+                      <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
+                        <div class="el-overlay">
+                          <ul class="el-info">
+                            <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                            <li>
+                            {{$employee->first_name}}
+                          </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div>
+                    <button type="button" class="btn btn-block btn-outline btn-rounded btn-success" id="deploy" value="{{$employee->id}}">Deploy</button>
+                  </div>
+                </div>
+                @foreach($tempDeploymentDetails as $tempDeploymentDetail)
+                  @if($tempDeploymentDetail->employees_id == $employee->id)
+                    @php
+                      $shiftTo =  $tempDeploymentDetail->shift_to;
+                      $shiftFrom = $tempDeploymentDetail->shift_from;
+                      $role = $tempDeploymentDetail->role;
+                    @endphp
+                  @endif
+                @endforeach
+              @endif
+            @endif
+          @endforeach
+        @endif
+      @endforeach
     @endif
   @endforeach
+  @endif
 @endforeach
 
-
-</div>
-</div>
-</div>
+            </div>
+          </div>
+          <input type="hidden" name="rejectedIDs" value="{{$rejectID}}">
+          <input type="hidden" name="accepted" value="{{$accepted}}">
+          <input type="hidden" name="rejectedCtr" value="{{$rejectCtr}}">
+          <input type="hidden" name="contractID" value="{{$contractID}}">
+          <input type="hidden" name="clientID" value="{{$client->id}}">
+          <input type="hidden" name="changeID" value="{{$changeID}}">
+          <input type="hidden" name="refuseID" value="{{$refuseID}}">
+          <input type="hidden" name="refuseCtr" id="refuseCtr" value="{{$refuseCtr}}">
         </div>
-
-
-
-        </div>
+      </div>
+      <label class="col-xs-3"></label>
+      <div class="col-xs-6">
+        <button id="refuse" type="submit" class="btn btn-block btn-outline btn-rounded btn-danger">Change {{$refuseCtr}} rejected guards</button>
+      </div>
     </div>
-
-
+    </form>
+  </div>
 </div>
 </div>
 </div></div>
@@ -119,12 +250,12 @@
 <div class="white-box">
 <div class="pd-agent-info text-center">
 <a href="javascript:void(0)"><img alt="img" class="thumb-lg img-circle" src="plugins/images/Clients/Active/chris.jpg"></a>
-<h4>Chris jerico albino</h4>
+<h4>{{$client->name}}</h4>
 <h6>Client's name</h6> </div>
 
 <hr class="m-0">
-<div class="pd-agent-contact text-center"> <i class="fa fa-phone text-danger" aria-hidden="true"></i> 123456789
-<br> <i class="fa fa-envelope-o text-danger p-r-10 m-t-10" aria-hidden="true"></i> email@gmail.com
+<div class="pd-agent-contact text-center"> <i class="fa fa-phone text-danger" aria-hidden="true"></i> {{$client->contactNo}}
+<br> <i class="fa fa-envelope-o text-danger p-r-10 m-t-10" aria-hidden="true"></i> {{$client->email}}
 </br>   </br></div>
 <h5 class="box-title fw-500">Essential Information</h5>
 <hr class="m-0">
@@ -133,11 +264,11 @@
     <tbody class="text-dark">
         <tr>
             <td>No. of guards needed</td>
-            <td>11</td>
+            <td>{{$contract->guard_count}}</td>
         </tr>
 <tr>
             <td>Status (Accepted/rejected)</td>
-            <td>5/10 out of 11</td>
+            <td>{{$acceptedCtr}}/{{$changedCtr}} out of {{$totalGuardsDeployed}}</td>
         </tr>
         <tr>
             <td>Expected complete date</td>
@@ -145,7 +276,7 @@
         </tr>
 <tr>
             <td>Nature of business</td>
-            <td>School  </td>
+            <td>{{$natures->name}}</td>
         </tr>
 
     </tbody>
@@ -155,4 +286,67 @@
 </div>
 
 </div>
+
+<input type="hidden" id="rejectedCtr" value="{{$rejectCtr}}">
+
+<input type="hidden" id="clientID" value="{{$client->id}}">
+<input type="hidden" id="estabID" value="{{$establishment->id}}">
+<input type="hidden" id="shifts" value="{{$shiftTo}},{{$shiftFrom}}">
+<input type="hidden" id="role" value="{{$role}}">
+
+
+
+  @endsection
+  @section('script')
+    <script type="text/javascript">
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      rejectIDs =  [];
+      rejectIDs = $('#rejectedIDs').val();
+
+      $(document).ready(function(){
+        if($('#rejectedCtr').val() == 0){
+          $('#rejected').prop('disabled', true);
+        }
+        if($('#refuseCtr').val() == 0){
+          $('#refuse').prop('disabled', true);
+        }
+        $('#deploy').on('click',function(){
+          clientID = $('#clientID').val();
+          estabID = $('#estabID').val();
+          num_guards = 1;
+          shiftFrom = $('#shifts').val().split(",")[0];
+          shiftTo = $('#shifts').val().split(",")[1];
+          role = $('#role').val();
+          employeeID = this.value;
+          alert(employeeID);
+
+          $.ajax({
+            url: '{{route("deploy")}}',
+            type:'GET',
+            data:{clientID:clientID,estabID:estabID,num_guards:num_guards,shiftFrom:shiftFrom,shiftTo:shiftTo,role:role,employeeID:employeeID},
+            success:function(data){
+              alert(data);
+              console.log(data);
+              location.reload();
+            }
+          });
+
+        });
+        // $('#rejected').on('click',function(){
+        //   $.ajax({
+        //     url:'{{route("change.rejected")}}',
+        //     type:'GET',
+        //     data : {rejectedIDs:rejectIDs},
+        //     success : function(data){
+              
+        //     }
+        //   });
+          
+        // });
+      });
+    </script>
   @endsection

@@ -62,7 +62,9 @@
           @endphp
           <tbody>
             @foreach($clientInboxMessages as $clientInboxMessage)
-              <tr>
+
+              @if($clientInboxMessage->status == "done")
+              <tr style="background-color:gray">
                 <td>
                   <center>
                     <div class="el-card-item" style="padding-bottom: 5px;" >
@@ -81,7 +83,7 @@
                 <td>
                   @foreach($adminMessages as $adminMessage)
                     @if($adminMessage->notif_id == $clientInboxMessage->notif_id)
-                      {{$adminMessage->sender}}
+                      {{$clientInboxMessage->client_deloyment_notif_id}}
                       @php
                          $client_notif_id = $clientInboxMessage->client_deloyment_notif_id;
                       @endphp
@@ -108,9 +110,98 @@
                   @endforeach
                 </td>
                 <td>   &nbsp;
-                  <button type="button" class="btn btn-info btn-circle viewMessage" id="{{$clientInboxMessage->client_deloyment_notif_id}}" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                  <button disabled type="button" data-target="#{{$clientInboxMessage->notif_id}}" data-toggle="modal" class="btn btn-info btn-circle viewMessage"  data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
                 </td>
               </tr>
+              @else
+                <tr>
+                <td>
+                  <center>
+                    <div class="el-card-item" style="padding-bottom: 5px;" >
+                      <div class="el-card-avatar el-overlay-1" style="width: 65%;">
+                        <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg"  alt="user"  class="img-circle img-responsive"></a>
+                        <div class="el-overlay">
+                          <ul class="el-info">
+                            <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="label label-table label-danger">Agency</span>        
+                  </center>
+                </td>
+                <td>
+                  @foreach($adminMessages as $adminMessage)
+                    @if($adminMessage->notif_id == $clientInboxMessage->notif_id)
+                      {{$clientInboxMessage->client_deloyment_notif_id}}
+                      @php
+                         $client_notif_id = $clientInboxMessage->client_deloyment_notif_id;
+                      @endphp
+                      @foreach($tempDeployments as $tempDeployment)
+                        @if($tempDeployment->messages_ID == $adminMessage->notif_id)
+                          @php
+                            $tempDeploymentID = $tempDeployment->temp_deployment_id;
+
+                          @endphp
+                        @endif
+                      @endforeach
+                    @endif
+                  @endforeach
+
+                </td>
+                <td>
+                  {{$clientInboxMessage->date_received}}
+                </td>
+                <td>
+                  @foreach($adminMessages as $adminMessage)
+                    @if($adminMessage->notif_id == $clientInboxMessage->notif_id)
+                      {{$adminMessage->subject}}
+                    @endif
+                  @endforeach
+                </td>
+                <td>   &nbsp;
+                  <button type="button" data-target="#{{$clientInboxMessage->notif_id}}" data-toggle="modal" class="btn btn-info btn-circle viewMessage"  data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                </td>
+              </tr>
+<div id="{{$clientInboxMessage->notif_id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+             <div class="modal-dialog">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                   <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Message</strong></center></h4>
+                 </div>
+                 <div class="modal-body">
+                   <form data-toggle="validator">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="form-group col-sm-12">
+                          <label class="control-label">Subject:</label>
+                          <p class="form-control-static">Guard's pool</p>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group col-sm-12 ">
+                          <label class="control-label">Content:</label>
+                          <p class="form-control-static"> Good morning! We got you the best of our security team! Select guards and we will deploy them to you.</p>
+                          <br>
+                          <center>
+                            <button  type="button" onclick="location.href='/GuardPool+'+'{{$tempDeploymentID}}+'+'{{$client->id}}'+'+{{$client_notif_id}}'" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button>
+                          </center>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    </div>
+                  </form>
+                 </div>
+               </div>
+               <!-- /.modal-content -->
+             </div>
+             <!-- /.modal-dialog -->
+           </div>
+              @endif
             @endforeach
             
           </tbody>
@@ -201,18 +292,18 @@
       //   });
 
       // }
-      $('.viewMessage').on('click',function(e){
-        //var client_notif_id = $('#client_notif_id').val();
-        //alert(client_notif_id);
-        $.ajax({
+      // $('.viewMessage').on('click',function(e){
+      //   //var client_notif_id = $('#client_notif_id').val();
+      //   //alert(client_notif_id);
+      //   $.ajax({
           
-          type : 'GET',
-          url : '/ClientPortalMessages/modal/'+this.id,
-          success : function(data){
-           $('#guardPool').modal('show');
-          }
-        });
-       });
+      //     type : 'GET',
+      //     url : '/ClientPortalMessages/modal/'+this.id,
+      //     success : function(data){
+      //      $('#guardPool').modal('show');
+      //     }
+      //   });
+      //  });
     
   </script>
 

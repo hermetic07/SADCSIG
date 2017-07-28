@@ -58,7 +58,14 @@
 
       //this will be the counts of guard to be seleceted 
       //var limit =$("#guardsCount").text();    
-        var limit = guardsReq;
+      if($('#refuseCtr').val() >0){
+        var limit = $('#refuseCtr').val();
+        //alert(limit);
+        
+      }else{
+       var limit = $('#rejectCtr').val(); 
+      // alert(limit);
+      }
 
       //Span for count of selected guards
             var value = parseInt($(".myspan").text(), 10) + 1;
@@ -137,6 +144,20 @@
 
 
 $(document).ready(function(){
+	rejected = $('#rejects').val();
+  accepted = $('#accepts').val();
+  changed =  $('#changeID').val();
+
+    	$('#earl'+rejected).prop('disabled', true);
+    	$('#earl'+rejected).css("background-color", "red");
+
+      $('#earl'+accepted).prop('disabled', true);
+      $('#earl'+accepted).css("background-color", "gray");
+
+      $('#earl'+changed).prop('disabled', true);
+      $('#earl'+changed).css("background-color", "red");
+
+     // alert($('#refuseCtr').val());
     
   $(".shitshit").click(function(){
     arry.push(this.name)
@@ -153,25 +174,6 @@ $(document).ready(function(){
   $(".btnClose").click(function(){
     $("tr").show();
   });
-  $(".radioBtn").click(function(){
-    var radioVal;
-    //guardsReq =  this.id;
-    radioVal = this.value.split(",");
-    guardsReq = radioVal[2]; 
-    //alert("#"+this.id);
-$(".sel").text( " Please select " + guardsReq + " guards to deploy to the client.");
-    $('#establishmentID').val(radioVal[1]);
-    $('#numGuards').val(radioVal[2]);
-    $('#contractID').val(radioVal[0]);
-    $('#clientID').val(radioVal[3]);
-    //alert(radioVal[3]);
-    var notRadio = "#"+this.id;
-   // alert(notRadio);
-    $(".radioBtn:not("+notRadio+")").attr("disabled", "disabled");
-    //alert(".radioBtn:not("+notRadio+")");
-   //var radioVal = this.value.toArray();
-   
-  });
 });
   
 
@@ -181,6 +183,12 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
 </head>
     
 <body class="fix-header content-wrapper">
+<input type="hidden" id="empCtr" value="{{$empCtr}}">
+
+<input type="hidden" id="accepts" value="{{$accepted}}">
+<input type="hidden" id="changeID" value="{{$changeID}}">
+<input type="hidden" id="refuseCtr" value="{{$refuseCtr}}">
+
 
 <!-- Preloader -->
 <div class="preloader">
@@ -241,125 +249,14 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
           <div class="white-box">
             <div id="exampleValidator" class="wizard">
               <ul class="wizard-steps" role="tablist">
-                <li class="active" role="tab">
-                  <h4><span><i class="ti-user"></i></span>Choose a client</h4>
-                </li>
+                
                 <li role="tab">
                   <h4><span><i class="fa fa-shield"></i></span>Select guards</h4>
                 </li>
               </ul>
               <form id="validation" class="form-horizontal">
                 <div class="wizard-content">
-                  <div class="wizard-pane active" role="tabpanel">
-                    <div class="row  el-element-overlay">
-                      <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-                        <thead>
-                          <tr>
-                            <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="10px" >Establishment
-                            </th>
-                            <th>Client</th>
-                            <th >Guard's needed</th>
-                            <th>Completion Date</th>
-                            <th>Status</th>
-                            <th width="80px">Select</th>
-                            <th width="190px">Actions</th>
-                          </tr>
-                        </thead>
-                        <div class="form-inline padding-bottom-15">
-                          <div class="row">
-                            <div class="col-sm-7"></div>
-                             <div class="col-sm-5 text-right m-b-20">
-                               <div class="form-group">
-                                  <input id="demo-input-search2" type="text" placeholder="Search" class="form-control" autocomplete="off">
-                               </div>
-                             </div>
-                          </div>
-                        </div>
-                        @php
-                          $ctr = 0;
-                          $ctr2 = 0;
-                          
-                          $establishmentID;
-                          $shifts;
-                          $no_guards;
-                          $client_id;
-
-                        @endphp
-
-                        <tbody>
-                          @foreach($contracts as $contract)
-                           @foreach($establishments as $establishment)
-                              @if($establishment->contract_id == $contract->id)
-                                @php
-                                  $establishmentID = $establishment->id;
-                                @endphp
-                              @endif
-                            @endforeach
-                            
-                           
-                           
-                            <tr>
-                              <td>
-                               <div class="el-card-item">
-                                <div class="el-card-avatar el-overlay-1">
-                                  <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/establishments/up.jpg" alt="user"  class=" img-responsive"></a>
-                                  <div class="el-overlay">
-                                    <ul class="el-info">
-                                      <li><a class="btn default btn-outline" href="ClientDetails.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                    </ul>
-                                  </div>
-                                </div>
-                               </div>
-                              </td>
-                              <td>
-                                @foreach($clientRegistrations as $clientRegistration)
-                                  @if($clientRegistration->contract_id == $contract->id)
-                                    @foreach($clients as $client)
-                                      @if($client->id == $clientRegistration->client_id)
-                                        {{ $client->name }}
-                                        @php
-                                        $client_id = $client->id;
-                                        @endphp
-                                      @endif
-                                    @endforeach
-                                  @endif
-                                @endforeach
-                              </td>
-                              <td>
-                                {{$contract->guard_count}}
-                                @php
-                                  $no_guards = $contract->guard_count;
-                                @endphp
-
-                              </td>
-                              <td>
-                                {{$contract->exp_date}}
-                              </td>
-                              <td>
-                                {{$contract->init_deploy_status}}
-                              </td>
-                              <td>
-                                <div class="radio radio-info">
-                                <input type="radio" id="{{ $contract->id }}" class="radioBtn" value="{{ $contract->id }},{{ $establishmentID }},{{ $contract->guard_count }},{{$client_id}}">
-                                  <label for="select1"> Select</label>
-                                </div>
-                              </td>
-                              <td>
-                                <button class="btn btn-info" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
-                                  <button class="btn btn-danger"><i class="fa fa-times"></i> </button>
-                              </td>
-                            </tr>
-                            
-                          @endforeach
-                        </tbody>
-                        <tfoot>
-                          <tr>
-                            <td colspan="8"></td>
-                          </tr>
-                        </tfoot>
-                    </table>
-                  </div>
-              </div>
+                  
               <div class="wizard-pane" role="tabpanel">
 
               
@@ -409,13 +306,29 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                       </div>
                     </div>
                   </div>
-      
+      					@php
+                          $ctr = 0;
+                          $ctr2 = 0;
+                          
+                          $establishmentID;
+                          $shifts;
+                          $no_guards;
+                          $client_id;
+
+                        @endphp
+          @foreach($establishments as $establishment)
+	          @if($establishment->contract_id == $contractID)
+	            @php
+	              $establishmentID = $establishment->id;
+	            @endphp
+	          @endif
+	       @endforeach
           @foreach($employees as $employee)
             @if($employee->deployed == 0)
             @php
               $ctr2 = $ctr2+1;
             @endphp
-                  <div class="col-md-4 col-sm-4 staff-container">   
+                  <div class="col-md-4 col-sm-4 staff-container {{$employee->id}}">   
                     <div class="white-box">
                       <div class="row">
                         <div class="col-md-4 col-sm-4 text-center guard_details">
@@ -433,7 +346,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                           <!-- name of the guard to be fly to the sidebar -->
                             <span style="display: none" class="guard_name">{{ $employee->first_name }}, {{ $employee->last_name }}</span> 
                             <span style="display: none" class="location">quezon</span>      
-                              <button type="button"  id='AddGuard'  class="btn AddGuard btn-block btn-outline btn-info add-guard shitshit" name=",#{{ $employee->id }}"><i class="icon-user-follow"></i> <!--</i>--> Add guard</button>
+                              <button type="button"  id='AddGuard' name=",#{{ $employee->id }}"  class="btn AddGuard btn-block btn-outline btn-info add-guard shitshit {{$employee->id}}" ><i class="icon-user-follow"></i> <!--</i>--> Add guard</button>
                                         
                               <span class="mytooltip tooltip-effect-5">
                                 <button type="button" style='display:none' id='AddedGuard' class="btn AddedGuard btn-block btn-success disabled">
@@ -489,7 +402,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                           <center><h5 class="box-title fw-500">List of guards</h5></center> 
                           <center><h5>Guards deployed: 2</h5></center> 
                           <br> 
-                            <form id="deploy" data-toggle="validator" method="POST" action="{{ url('/DeployGuards/Save') }}">
+                            <form id="deploy" data-toggle="validator" method="POST" action="{{ route('save.changes') }}">
                             {!! csrf_field() !!}
                             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
                               <thead>
@@ -530,9 +443,13 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                     </td>
                                     <td>{{ $employee->first_name }} {{ $employee->last_name }}</td>
                                     <td>
-                                      <select class="form-control shifts" name="shift{{$ctr}}" id="shift-{{$employee->id}}" >
+                                      <select class="form-control" name="shift{{$ctr}}" id="shift">
                                         <option value="" disabled="" selected="">---</option>
-                                       
+                                       @foreach($shifts as $shift)
+                                        @if($shift->estab_id == $establishmentID)
+                                          <option id="0" value="{{$shift->start}},{{$shift->end}},{{$employee->id}}">From:{{$shift->start}} - To:{{$shift->end}}</option>
+                                        @endif
+                                      @endforeach
                                       </select>
                                     </td>
                                     
@@ -558,13 +475,14 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                   </tr>
                                 </tfoot>
                               </table>
+                              <input type="hidden" name="avGuards" value="{{ $ctr }}">
+                             <input type="hidden" name="establishmentID" name="establishmentID" value="{{$establishmentID}}">
+                             <input type="hidden" name="contractID" value="{{$contractID}}">
+                             <input type="hidden" id="clientID" name="clientID" value="{{$clientID}}">
+                             <input type="hidden" name="rejects" id="rejects" value="{{$rejects}}">
+                             <input type="hidden" name="rejectCtr" id="rejectCtr" value="{{$rejectCtr}}">
+                             <input type="hidden" name="refuseID" id="refuseID" value="{{$refuseID}}">
 
-                              
-                             <input type="hidden" name="avGuards" value="{{ $ctr }}">
-                             <input type="hidden" id="establishmentID" name="establishmentID" value="">
-                             <input type="hidden" id="numGuards" name="numGuards" value="">
-                             <input type="hidden" id="contractID" name="contractID" value="">
-                             <input type="hidden" id="clientID" name="clientID" value="">
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-default waves-effect btnClose" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-info waves-effect waves-light" >Deploy</button>
@@ -785,30 +703,6 @@ $('.form-search .btn').on('click', function(e){
 
      
    }
-  $(document).ready(function(){
-    $('.shifts').on('click',function(){
-      //alert(this.id.split("-")[1]);
-      employeeID = this.id.split("-")[1];
-      contractID = $('#contractID').val();
-      $.ajax({
-        url:'{{route("select.shifts")}}',
-        type:'GET',
-        data : {contractID:contractID,employeeID:employeeID},
-        success:function(data){
-          //alert(data);
-           $('select'+'#shift-'+employeeID).text('');
-           $('select'+'#shift-'+employeeID).html(data);
-          console.log(data);
-        }
-      });
-    });
-    // $('.shifts').change(function(){
-    //   value = this.value;
-    //   //alert(value);
-    //   //this.selected(value);
-    //   $('.shifts').val(value).attr("selected", "selected");
-    // });
-  });
 </script>
 
 
