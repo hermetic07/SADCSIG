@@ -30,6 +30,7 @@ Route::get('/ChangeGuards', function () {
     return view('AdminPortal/ChangeRejectedGuards');
 });
 
+
 Route::get('/Replace', function () {
     return view('AdminPortal/Replace');
 });
@@ -44,9 +45,7 @@ Route::get('/ActiveClient', function () {
     return view('AdminPortal/ActiveClient');
 });
 
-Route::get('/PendingClientRequests', function () {
-    return view('AdminPortal/PendingClientRequests');
-});
+
 
 Route::get('/SecurityGuards', function () {
     return view('AdminPortal/SecurityGuards');
@@ -134,6 +133,10 @@ Route::get('/ClientPortalDetails', function () {
     return view('ClientPortal/ClientPortalDetails');
 });
 
+
+Route::get('/SecurityGuardsPortalHome', function () {
+    return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
+}
 Route::get('/GuardPool', function () {
     return view('ClientPortal/Guardpool');
 });
@@ -153,11 +156,19 @@ Route::get('/GunRequest','GunRequestController@index');     //  All gun requests
 Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery');  // Save Gun Delivery into Database
 Route::get('GunDeliveries','GunDeliveryController@adminDeliveries');
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
-Route::get('/DeployGuards','DeploymentController@deployIndex');
+Route::get('/DeployGuards','DeploymentController@deploy')->name('deploy');
 Route::post('/DeployGuards/Save','DeploymentController@saveDepl')->name('deployment.save');
 Route::get('/ClientRegistration','ContractController@register');
 Route::post('/ClientRegistration-Save','ContractController@save');
-Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');;
+Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
+Route::get('select/Shifts','AdminController@selectShifts')->name('select.shifts');
+
+Route::get('/PendingClientRequests','AdminController@pending_client_requests')->name('pending.client.requests');
+
+Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus');
+Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change.rejected');
+Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')->name('save.changes');
+
 
 /** -----------------  CLIENTS --------------------- **/
 
@@ -189,9 +200,10 @@ Route::get('/ClientPortalEstablishmentsDetails-{id}+{estabID}','ClientPortalHome
 
 Route::get('/ClientPortalContracts-{id}+{estabID}','ClientPortalHomeController@clientContracts');
 
-Route::get('/ClientPortalMessages', function () {
-    return view('ClientPortal/ClientPortalMessages');
-});
+Route::get('/ClientPortalMessages-{id}','ClientPortalHomeController@messages');
+Route::get('/ClientPortalMessages/modal/{messageID}','ClientPortalHomeController@messagesModal');
+Route::get('/GuardPool+{tempDeploymentID}+{clientID}+{client_notif_id}','ClientPortalHomeController@guardPool');
+Route::get('/GuardPool-save','ClientPortalHomeController@saveGuards')->name('saveguards');
 
 Route::get('/ClientPortalSettings', function () {
     return view('ClientPortal/ClientPortalSettings');

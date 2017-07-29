@@ -21,6 +21,12 @@ use App\GunRequestsDetails;
 use App\ClientRegistration;
 use App\Nature;
 use App\Shifts;
+use App\DeploymentNotifForClient;
+use App\TempDeployments;
+use App\TempDeploymentDetails;
+use App\ClientDeploymentNotif;
+use App\NotifResponse;
+use App\AcceptedGuards;
 
 class ClientPortalHomeController extends Controller
 {
@@ -207,4 +213,75 @@ class ClientPortalHomeController extends Controller
         return view('ClientPortal.select')->with('shifts',$shifts);
       }
     }
+    public function messages($id){
+      $client = Clients::findOrFail($id);
+      $clientInbox = ClientDeploymentNotif::where('client_id',$client->id)->get();
+      $adminMessages = DeploymentNotifForClient::all();
+      $tempDeployment = TempDeployments::all();
+      $tempDeploymentDetails = TempDeploymentDetails::all();
+
+      return view('ClientPortal/ClientPortalMessages')->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails);
+    }
+    public function messagesModal(Request $request,$messageID){
+      if($request->ajax()){
+        $clientInbox = ClientDeploymentNotif::findOrFail($messageID)->get();
+
+        return response($clientInbox);
+      }
+      
+    }
+    public function guardPool($tempDeploymentID,$clientID,$client_notif_id){
+      $client = Clients::findOrFail($clientID);
+      $tempDeployment = TempDeployments::findOrFail($tempDeploymentID);
+      $tempDeploymentDetails = $tempDeployment->tempDeploymentDetails;
+
+      
+      $employees = Employee::all();
+       return view('ClientPortal.Guardpool')->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('client',$client)->with('employees',$employees)->with('client_notif_id',$client_notif_id);
+      
+    }
+    public function saveGuards(Request $request){
+      $guards_accepted = explode(',',$request->accepted);
+      $guards_rejected = explode(',',$request->rejected);
+      $success = 0;
+      $var = 0;
+     // $notifResponse = new NotifResponse();
+      
+      
+
+      if($request->ajax()){
+        if($guards_accepted[0] != ""){
+          for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr = $ctr+1){
+            
+            NotifResponse::create(['client_deployment_notif_id'=>$request->client_notif_id,'guard_id'=>$guards_accepted[$ctr],'status'=>"accepted"]);
+             AcceptedGuards::create(['client_deployment_notif_id'=>$request->client_notif_id,'guard_id'=>$guards_accepted[$ctr],'guard_reponse'=>""]);
+          }
+        }else{
+          $var = $var + 1;
+        }
+        if($guards_rejected[0] != ""){
+          for($ctr = 0; $ctr < sizeof($guards_rejected); $ctr = $ctr+1){
+            
+            NotifResponse::create(['client_deployment_notif_id'=>$request->client_notif_id,'guard_id'=>$guards_rejected[$ctr],'status'=>"rejected"]);
+          }
+        }else{
+          $var = $var + 1;
+        }
+        if($var > 1){
+          return response(1);
+        }
+        
+        $c = new ClientDeploymentNotif();
+        $c->update(['status'=>'done']);
+        return response(1);
+      }
+    }
 }
+// for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){
+//             $notifResponse['guard_id'] = $guards_accepted[$ctr];
+//             $notifResponse['status'] = "accepted"
+
+//             if($notifResponse->save()){
+//                 return response("Success");
+//             }
+//         }

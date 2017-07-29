@@ -519,7 +519,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                   <td>
                                     <div class="el-card-item">
                                        <div class="el-card-avatar el-overlay-1">
-                                          <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                                          <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-circle img-responsive"></a>
                                           <div class="el-overlay">
                                             <ul class="el-info">
                                               <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
@@ -530,13 +530,9 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                     </td>
                                     <td>{{ $employee->first_name }} {{ $employee->last_name }}</td>
                                     <td>
-                                      <select class="form-control" name="shift{{$ctr}}" id="shift">
+                                      <select class="form-control shifts" name="shift{{$ctr}}" id="shift-{{$employee->id}}" >
                                         <option value="" disabled="" selected="">---</option>
-                                       @foreach($shifts as $shift)
-                                        @if($shift->estab_id == $establishmentID)
-                                          <option id="0" value="{{$shift->start}},{{$shift->end}},{{$employee->id}}">From:{{$shift->start}} - To:{{$shift->end}}</option>
-                                        @endif
-                                      @endforeach
+                                       
                                       </select>
                                     </td>
 
@@ -789,6 +785,30 @@ $('.form-search .btn').on('click', function(e){
 
      
    }
+  $(document).ready(function(){
+    $('.shifts').on('click',function(){
+      //alert(this.id.split("-")[1]);
+      employeeID = this.id.split("-")[1];
+      contractID = $('#contractID').val();
+      $.ajax({
+        url:'{{route("select.shifts")}}',
+        type:'GET',
+        data : {contractID:contractID,employeeID:employeeID},
+        success:function(data){
+          //alert(data);
+           $('select'+'#shift-'+employeeID).text('');
+           $('select'+'#shift-'+employeeID).html(data);
+          console.log(data);
+        }
+      });
+    });
+    // $('.shifts').change(function(){
+    //   value = this.value;
+    //   //alert(value);
+    //   //this.selected(value);
+    //   $('.shifts').val(value).attr("selected", "selected");
+    // });
+  });
 </script>
 
 

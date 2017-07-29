@@ -193,7 +193,7 @@
 
 		   	      <li><a href="javascript:void(0);" class="waves-effect"><i class="fa fa-exchange fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Deployment<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-    						  <li> <a href="Deploy.html" class="waves-effect">Deploy</a>
+    						  <li> <a href="{{route('manual.deployment')}}" class="waves-effect">Deploy<span class="label label-rouded label-info pull-right">@yield('deploy_ctr')</span></a>
     						  </li>
     						  <li> <a href="{{url('/Replace')}}" class="waves-effect">Replace</a>
     						  </li>

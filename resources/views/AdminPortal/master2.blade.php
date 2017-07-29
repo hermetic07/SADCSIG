@@ -71,132 +71,53 @@
 
            <!-- Incident report -->
        <li class="dropdown">
-         <a class="waves-effect waves-light" data-toggle="dropdown" href="#">
+         <a class="waves-effect waves-light" href="{{url('/IncidentReports')}}">
+         <span class="mytooltip tooltip-effect-7">
+                    <span class="tooltip-item">
             <i class="fa fa-warning"></i>
               <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-
+          </span>
+                    <span class="tooltip-table2 clearfix">
+                      <span class="tooltip-texth2">
+       Reports
+            </span>
+                    </span>
+                 </span>
          </a>
-         <ul class="dropdown-menu mailbox animated bounceInDown">
-           <li>
-             <div class="drop-title">4 new Incident reports</div>
            </li>
-           <li>
-             <div class="message-center"> <a href="#">
-               <div class="user-img"> <img src="plugins\images\Clients\Active\ernest.jpg" alt="user" class="img-circle"> </div>
-               <div class="mail-contnet">
-                 <h5>Ernest John maskarino</h5>
-                 <span class="mail-desc">Robbery</span> <span class="time">9:30 AM</span> </div>
-               </a> <a href="#">
-               <div class="user-img"> <img src="plugins\images\Clients\Active\evander.jpg" alt="user" class="img-circle"> </div>
-               <div class="mail-contnet">
-                 <h5>Evander Macandog</h5>
-                 <span class="mail-desc">Police reports</span> <span class="time">9:10 AM</span> </div>
-               </a>
-
-               </a> </div>
-           </li>
-           <li> <a class="text-center" href="{{url('/IncidentReports')}}"> <strong>See all reports</strong> <i class="fa fa-angle-right"></i> </a></li>
-         </ul>
-         <!-- /.dropdown-IR -->
-           </li>
-           <!-- Messages-->
-           <li class="dropdown">
-             <a class="waves-effect waves-light"  data-toggle="dropdown" href="#">
-
-                <i class="icon-envelope"></i>
-                  <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-
-             </a>
-             <ul class="dropdown-menu mailbox animated bounceInDown">
-            <li>
-              <div class="drop-title">You have 4 new messages</div>
-            </li>
-            <li>
-              <div class="message-center"> <a href="#">
-                <div class="user-img"> <img src="plugins\images\Clients\Active\chris.jpg" alt="user" class="img-circle"> </div>
-                <div class="mail-contnet">
-                  <h5>Chris jerico</h5>
-                  <span class="mail-desc">Ang ganda ng serbisyo nyo</span> <span class="time">9:30 AM</span> </div>
-                </a> <a href="#">
-                <div class="user-img"> <img src="plugins\images\Clients\Active\luigi.jpg"alt="user" class="img-circle">  </div>
-                <div class="mail-contnet">
-                  <h5>Luigi Lacsina</h5>
-                  <span class="mail-desc">good morning!</span> <span class="time">9:10 AM</span> </div>
-            </li>
-            <li> <a class="text-center" href="{{url('/Messages')}}"> <strong>See all messages</strong> <i class="fa fa-angle-right"></i> </a></li>
-          </ul>
-          <!-- /.dropdown-messages -->
-               </li>
-
-           <!-- Notifications -->
-           <li class="dropdown">
-             <a class="waves-effect waves-light" data-toggle="dropdown" href="#">
-                   <i class="fa fa-bell"></i>
-            </a>
-            <ul class="dropdown-menu mailbox animated bounceInDown">
-           <li>
-             <div class="drop-title">4 new notifications</div>
-           </li>
-           <li>
-             <div class="message-center"> <a href="#">
-               <div class="user-img"> <img src="plugins\images\Clients\Active\luigi.jpg" alt="user" class="img-circle"> </div>
-               <div class="mail-contnet">
-                 <h5>Luigi Lacsina</h5>
-                 <span class="mail-desc">Additional guards request</span> <span class="time">9:30 AM</span> </div>
-               </a> <a href="#">
-               <div class="user-img"> <img src="plugins\images\Clients\Active\evander.jpg"alt="user" class="img-circle">  </div>
-               <div class="mail-contnet">
-                 <h5>Evander</h5>
-                 <span class="mail-desc">Rejected guards  </span> <span class="time">9:10 AM</span> </div>
-           </li>
-           <li> <a class="text-center" href="{{url('/Notifications')}}"> <strong>See all notifications</strong> <i class="fa fa-angle-right"></i> </a></li>
-         </ul>
+       <!-- Messages-->
+       <li class="dropdown">
+         <a class="waves-effect waves-light" href="{{url('/Messages')}}">
+         <span class="mytooltip tooltip-effect-7">
+                    <span class="tooltip-item">
+            <i class="icon-envelope"></i>
+              <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+          </span>
+                    <span class="tooltip-table2 clearfix">
+                      <span class="tooltip-texth2">
+            Messages
+            </span>
+                    </span>
+                 </span>
+         </a>
            </li>
 
-             <!-- task -->
-             <li class="dropdown">
-               <a class="waves-effect waves-light" data-toggle="dropdown" href="#">
-                  <i class="icon-note"></i>
-                    <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-               </a>
-               <ul class="dropdown-menu dropdown-tasks animated slideInUp">
-                 <li>
-                   <div class="drop-title">Deployment status</div>
-                 </li>
-                           <li> <a href="#">
-                             <div>
-                               <p> <strong>Polytechnic university of the philippines</strong> <span class="pull-right text-muted">6/10 Complete</span> </p>
-                               <div class="progress progress-striped active">
-                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                               </div>
-                             </div>
-                             </a> </li>
-                           <li class="divider"></li>
-                           <li> <a href="#">
-                             <div>
-                               <p> <strong>Petron</strong> <span class="pull-right text-muted">2/10 Complete</span> </p>
-                               <div class="progress progress-striped active">
-                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="10" style="width: 20%"> <span class="sr-only">20% Complete</span> </div>
-                               </div>
-                             </div>
-                             </a> </li>
-                           <li class="divider"></li>
+       <!-- Announcements-->
+       <li class="dropdown">
+         <a class="waves-effect waves-light" href="{{url('/Announcements')}}">
+           <span class="mytooltip tooltip-effect-7">
+             <span class="tooltip-item">
+               <i class="fa fa-bullhorn"></i>
+           </span>
+                      <span class="tooltip-table2 clearfix">
+                      <span class="tooltip-texth">
+            Announcements
+            </span>
+                      </span>
+                    </span>
+        </a>
+             </li>
 
-                           <li class="divider"></li>
-                           <li> <a class="text-center" href="#"> <strong>See All Tasks</strong> <i class="fa fa-angle-right"></i> </a> </li>
-                         </ul>
-                         <!-- /.dropdown-tasks -->
-
-                 </li>
-
-             <!-- Announcements-->
-             <li class="dropdown">
-               <a class="waves-effect waves-light" href="{{url('/Announcements')}}">
-
-                     <i class="fa fa-bullhorn"></i>
-
-              </a>
-                   </li>
 
 
        <!-- Admin account-->
@@ -431,23 +352,18 @@
 
 <script type="text/javascript">
       (function() {
-
                 [].slice.call( document.querySelectorAll( '.sttabs' ) ).forEach( function( el ) {
                     new CBPFWTabs( el );
                 });
-
             })();
 </script>
 
 <script type="text/javascript">
-
   $( "#target" ).keyup(function( event ) {
 $("#target2").trigger('click');
 });
-
 $('.form-search').on('submit',function(){return false;});
 $('.form-search .btn').on('click', function(e){
-
   var query = document.getElementById('target').value;
 console.log(query);
   $('div.staff-container .guard_name').each(function(){
@@ -457,12 +373,8 @@ console.log(query);
       else $this.closest('div.staff-container').fadeIn();
   });
 });
-
-
-
 </script>
  <script>
-
  $( document ).ready(function() {
    //Scrollbar
         $('#slimtest4').slimScroll({
@@ -474,7 +386,6 @@ console.log(query);
         pageSize = 9;
            pagesCount = $(".content").length;
            var currentPage = 1;
-
            /////////// PREPARE NAV ///////////////
            var nav = '';
            var totalPages = Math.ceil(pagesCount / pageSize);
@@ -484,7 +395,6 @@ console.log(query);
            $(".pag_prev").after(nav);
            $(".numeros").first().addClass("active");
            //////////////////////////////////////
-
            showPage = function() {
                $(".content").hide().each(function(n) {
                    if (n >= pageSize * (currentPage - 1) && n < pageSize * currentPage)
@@ -492,22 +402,18 @@ console.log(query);
                });
            }
            showPage();
-
-
            $(".pagination li.numeros").click(function() {
                $(".pagination li").removeClass("active");
                $(this).addClass("active");
                currentPage = parseInt($(this).text());
                showPage();
            });
-
            $(".pagination li.pag_prev").click(function() {
                if($(this).next().is('.active')) return;
                $('.numeros.active').removeClass('active').prev().addClass('active');
                currentPage = currentPage > 1 ? (currentPage-1) : 1;
                showPage();
            });
-
            $(".pagination li.pag_next").click(function() {
                if($(this).prev().is('.active')) return;
                $('.numeros.active').removeClass('active').next().addClass('active');
@@ -515,11 +421,8 @@ console.log(query);
                showPage();
            });
        });
-
-
  </script>
  <script>
-
 </script>
  @yield('script')
 </body>

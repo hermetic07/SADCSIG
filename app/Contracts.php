@@ -10,6 +10,12 @@ class Contracts extends Model
     	'id','pic_fname','pic_mname','pic_lname','establishment_name','services_id','address','areas_id','guard_count','status','year_span','start_date','end_date','exp_date'
     ];
 
+    public function scopePending($query){
+    	$query->where('status','==',"pending");
+    }
+    public function establishment(){
+    	return $this->belongsTo('App\Establishments');
+    }
     protected $primaryKey = 'id';
     public $incrementing = false; 
 }
