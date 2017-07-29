@@ -52,6 +52,10 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   </head>
+  <!-- Preloader -->
+      <div class="preloader">
+          <div class="cssload-speeding-wheel"></div>
+      </div>
 <body class="fix-header fix-sidebar">
   <!-- Top Navigation -->
      <nav class="navbar navbar-default navbar-static-top m-b-0">

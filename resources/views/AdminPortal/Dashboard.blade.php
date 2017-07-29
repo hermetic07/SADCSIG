@@ -18,18 +18,18 @@
 @foreach($serviceRequests as $serviceRequest)
   @if($serviceRequest->status != 'deleted')
     @php
-    
+
       $serviceReqsCtr = $serviceReqsCtr + 1;
-      
+
     @endphp
   @endif
 @endforeach
 @foreach($gunRequests as $gunRequest)
   @if($gunRequest->status != 'deleted')
     @php
-    
+
       $gunviceReqsCtr = $gunviceReqsCtr + 1;
-      
+
     @endphp
   @endif
 @endforeach
@@ -90,7 +90,7 @@
                   </div>
                 </div>
                           <center><a href="Availableapplicants.html"><button class="btn btn-info btn-rounded waves-effect waves-light" >See all</button></a></center>
-
+                          
               </div>
               <div class="col-lg-3 col-sm-6 row-in-br">
                 <div class="col-in row">

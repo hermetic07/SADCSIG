@@ -359,12 +359,12 @@ class RegisterControl extends Controller
      public function secuProfile($id)
      {
         $employee = Employee::find($id);
-        $education = EmployeeEducation::where("employees_id",$id)->get();
-        $degree = EmployeeDegree::where("employees_id",$id)->get();
-        $seminar = EmployeeSeminar::where("employees_id",$id)->get();
-        $military = EmployeeMilitary::where("employees_id",$id)->get();
-        $skill = EmployeeSkills::where("employees_id",$id)->get();
-        $attr = EmployeeAttributes::where("employees_id",$id)->get();
+        $education = EmployeeEducation::where("id",$id)->get();
+        $degree = EmployeeDegree::where("id",$id)->get();
+        $seminar = EmployeeSeminar::where("id",$id)->get();
+        $military = EmployeeMilitary::where("id",$id)->get();
+        $skill = EmployeeSkills::where("id",$id)->get();
+        $attr = EmployeeAttributes::where("id",$id)->get();
         $count = 1;
         return view('SecuProfile')->with('employee',$employee)->with('count',$count)->with('ed',$education)->with('d',$degree)->with('s',$seminar)->with('m',$military)->with('skill',$skill)->with('attr',$attr);
      }

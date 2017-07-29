@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html lang="en">
  <head>
   <meta charset="utf-8">
@@ -11,9 +11,9 @@
   <link rel="icon" type="image/png" href="plugins/images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="plugins/images/favicon-16x16.png" sizes="16x16" />
 
-  <!-- title -->      
+  <!-- title -->
   <title>Initial Deployment</title>
-      
+
  <!-- Bootstrap Core CSS -->
   <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -35,11 +35,11 @@
   <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
 
   <!-- js for flying to object -->
-  <script type='text/javascript' src="js/codex-fly.js"></script> 
-  
-  <!-- js for selecting guards --> 
+  <script type='text/javascript' src="js/codex-fly.js"></script>
+
+  <!-- js for selecting guards -->
   <script type="text/javascript">
-  
+
     $(document).ready(function(){
       arry = [];
        id = "";
@@ -48,57 +48,57 @@
 
             var Self = $(this);
             var Thisdiv = $(this).parent();
-      
- 
+
+
             var ButtonAddGuard = $(this).parent().find('.AddGuard');
             var ButtonAddedGuard = $(this).parent().find('.AddedGuard');
-            
-      ButtonAddGuard.hide(); 
+
+      ButtonAddGuard.hide();
       $(ButtonAddedGuard).fadeIn("slow");
 
-      //this will be the counts of guard to be seleceted 
-      //var limit =$("#guardsCount").text();    
+      //this will be the counts of guard to be seleceted
+      //var limit =$("#guardsCount").text();
         var limit = guardsReq;
 
       //Span for count of selected guards
             var value = parseInt($(".myspan").text(), 10) + 1;
       //Span for the remaining guards that need to be selected to meet the limit
       var value2 = parseInt($(".deploysecu").text(), 10) + 1;
-      
+
       //Setting text to the blue span the "value"
             $(".myspan").text(value);
-      
-      //the value for the limit minus the count of selected guards 
+
+      //the value for the limit minus the count of selected guards
       var value3 = limit - value;
       //Setting the text of remaining count to select
        $(".deploysecu").text(value3+" more");
-      
+
       //disable buttons if you select enough guards
       if(value3 < 1){
-              $('#deployguards').removeAttr("disabled"); 
-          $(".deploysecu").hide();  
-            $('.AddGuard').attr("disabled", "disabled");          
+              $('#deployguards').removeAttr("disabled");
+          $(".deploysecu").hide();
+            $('.AddGuard').attr("disabled", "disabled");
         }
-      
+
       //fly the image to the icon
             var itemImg = $(this).parent().find('img').eq(0);
             flyToElement($(itemImg), $('.navbar-toggler'));
- 
+
       //guard name
             var guardname = Thisdiv.find('.guard_name').get(0).innerHTML;
           // guard image
             var guardimage = $(this).parent().find('img').attr('src');
             var guardID = this.name;
 
-        
+
       //putting the guards to the sidebar
             setTimeout(function() {
 
                 var GuardInfo = "<div class='cart-item'><div class='img-wrap'><img src='" + guardimage + "'  alt='' /></div><span>" + guardname + "</span><div class='cart-item-border'></div><div class='delete-item' name= "+guardID+"></div></div>";
- 
+
                 $("#cart .empty").hide();
-                $("#cart").append(GuardInfo); 
-        
+                $("#cart").append(GuardInfo);
+
         //removing guards to the sidebar
                 $("#cart .cart-item").last().find(".delete-item").click(function() {
                   //arry.pop(guardID);
@@ -108,18 +108,18 @@
                   id = arry.join("");
                   //alert(id);
                   ButtonAddedGuard.hide();
-                  ButtonAddGuard.show();                         
+                  ButtonAddGuard.show();
                   $(this).parent().fadeOut(300, function() {
                      var remove = parseInt($(".myspan").text(), 10) - 1;
-                      $(".myspan").text(remove);              
+                      $(".myspan").text(remove);
                      value3 = limit - remove;
                       $(".deploysecu").text(value3+" more");
               //if you select not enought guards the deploy guards will be disable
-                      if( value3 = 10){             
-                         $('#deployguards').attr("disabled", "disabled"); 
-                        $(".deploysecu").show();  
-                        $('.AddGuard').removeAttr("disabled");  
-                      }              
+                      if( value3 = 10){
+                         $('#deployguards').attr("disabled", "disabled");
+                        $(".deploysecu").show();
+                        $('.AddGuard').removeAttr("disabled");
+                      }
                       $(this).remove();
               //if no guards selected, no guards will show
                       if ($("#cart .cart-item").size() == 0) {
@@ -128,16 +128,16 @@
                     })
                   });
         }, 1000);
-      
-      
-  
+
+
+
         });
 });
-    
+
 
 
 $(document).ready(function(){
-    
+
   $(".shitshit").click(function(){
     arry.push(this.name)
     id = arry.join("")
@@ -148,7 +148,7 @@ $(document).ready(function(){
   $("#deployguards").click(function(){
     //alert("tr:not(#earl"+id+")");
     $("tr:not(#earl"+id+")").hide();
-    
+
   });
   $(".btnClose").click(function(){
     $("tr").show();
@@ -157,7 +157,7 @@ $(document).ready(function(){
     var radioVal;
     //guardsReq =  this.id;
     radioVal = this.value.split(",");
-    guardsReq = radioVal[2]; 
+    guardsReq = radioVal[2];
     //alert("#"+this.id);
 $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client.");
     $('#establishmentID').val(radioVal[1]);
@@ -170,16 +170,16 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
     $(".radioBtn:not("+notRadio+")").attr("disabled", "disabled");
     //alert(".radioBtn:not("+notRadio+")");
    //var radioVal = this.value.toArray();
-   
+
   });
 });
-  
 
-    
+
+
 </script>
-   
+
 </head>
-    
+
 <body class="fix-header content-wrapper">
 
 <!-- Preloader -->
@@ -187,16 +187,16 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
   <div class="cssload-speeding-wheel"></div>
 </div>
 
-      
-    
+
+
 <div id="wrapper">
   <!-- Top Navigation -->
   <nav class="navbar navbar-default navbar-static-top m-b-0">
-    <div class="navbar-header"> 
+    <div class="navbar-header">
       <ul class="nav navbar-top-links navbar-left2 hidden-xs">
             <li><a href="{{ route('dashboard') }}" class="waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i>&nbsp; Back to dashboard</a></li>
       </ul>
-      
+
       <ul class="nav navbar-top-links navbar-right pull-right">
         <!-- /.dropdown-tasks -->
           <!-- /.dropdown -->
@@ -278,7 +278,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                         @php
                           $ctr = 0;
                           $ctr2 = 0;
-                          
+
                           $establishmentID;
                           $shifts;
                           $no_guards;
@@ -295,9 +295,9 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                 @endphp
                               @endif
                             @endforeach
-                            
-                           
-                           
+
+
+
                             <tr>
                               <td>
                                <div class="el-card-item">
@@ -349,7 +349,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                   <button class="btn btn-danger"><i class="fa fa-times"></i> </button>
                               </td>
                             </tr>
-                            
+
                           @endforeach
                         </tbody>
                         <tfoot>
@@ -362,32 +362,32 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
               </div>
               <div class="wizard-pane" role="tabpanel">
 
-              
+
 <!-- The side bar -->
-              
+
                 <nav class="navbar navbar-fixed-right navbar-minimal animate" role="navigation">
                  <span class="label label-rouded2 label-custom pull-right myspan" id="cnt">0</span>
                    <div class="navbar-toggler animate">
                      <span class="menu-icon"></span>
                   </div>
-                    <ul class=" navbar-menu animate"> 
+                    <ul class=" navbar-menu animate">
                       <div id="slimtest4">
                         <div id="cart">
                           <span class="empty">No guards. Select guards to deploy.</span>
                         </div>
-                      </div>                
+                      </div>
                       <button type="button" class="btn btn-block btn-info" id="deployguards"  data-toggle="modal" data-target="#Addtse"  type="button" data-toggle="modal" data-target=".bs-example-modal-sm" >
                         <i class="fa fa-plus-circle" ></i>
-                          Deploy guards 
+                          Deploy guards
                         <span class="label label-rouded3 label-danger deploysecu">0</span>
                       </button>
                     </ul>
                 </nav>
-                <div class="row  el-element-overlay">  
-        
+                <div class="row  el-element-overlay">
+
              <!-- alert info for the count of guards to be selected -->
                   <div class="alert alert-info sel ">
-                    <i class="fa fa-exclamation-circle"></i>  Select 10 guards  
+                    <i class="fa fa-exclamation-circle"></i>  Select 10 guards
                   </div>
 
                   <div class="row">
@@ -409,13 +409,13 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                       </div>
                     </div>
                   </div>
-      
+
           @foreach($employees as $employee)
             @if($employee->deployed == 0)
             @php
               $ctr2 = $ctr2+1;
             @endphp
-                  <div class="col-md-4 col-sm-4 staff-container">   
+                  <div class="col-md-4 col-sm-4 staff-container">
                     <div class="white-box">
                       <div class="row">
                         <div class="col-md-4 col-sm-4 text-center guard_details">
@@ -431,10 +431,10 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                               </div>
                             </div>
                                           <!-- name of the guard to be fly to the sidebar -->
-                            <span style="display: none" class="guard_name">{{ $employee->first_name }}, {{ $employee->last_name }}</span> 
-                            <span style="display: none" class="location">quezon</span>      
+                            <span style="display: none" class="guard_name">{{ $employee->first_name }}, {{ $employee->last_name }}</span>
+                            <span style="display: none" class="location">quezon</span>
                               <button type="button"  id='AddGuard'  class="btn AddGuard btn-block btn-outline btn-info add-guard shitshit" name=",#{{ $employee->id }}"><i class="icon-user-follow"></i> <!--</i>--> Add guard</button>
-                                        
+
                               <span class="mytooltip tooltip-effect-5">
                                 <button type="button" style='display:none' id='AddedGuard' class="btn AddedGuard btn-block btn-success disabled">
                                   <i class="fa fa-check"></i>
@@ -443,7 +443,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                 <span class="tooltip-content clearfix">
                                   <span class="tooltip-text">To remove this guard. Remove it to your list.</span>
                                 </span>
-                              </span> 
+                              </span>
                             </div>
 
                             <div class="col-md-8 col-sm-8">
@@ -471,8 +471,8 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                               </div>
                             </div>
                           </div>
-                        </div>      
-                      </div>  
+                        </div>
+                      </div>
             @endif
           @endforeach
             <input type="hidden" name="exceeds" value="{{ $ctr2 }}">
@@ -486,9 +486,9 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                       </div>
                       <div class="modal-body">
                         <div class="row  el-element-overlay">
-                          <center><h5 class="box-title fw-500">List of guards</h5></center> 
-                          <center><h5>Guards deployed: 2</h5></center> 
-                          <br> 
+                          <center><h5 class="box-title fw-500">List of guards</h5></center>
+                          <center><h5>Guards deployed: 2</h5></center>
+                          <br>
                             <form id="deploy" data-toggle="validator" method="POST" action="{{ url('/DeployGuards/Save') }}">
                             {!! csrf_field() !!}
                             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
@@ -510,11 +510,11 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                   </div>
                                 </div>
                               </div>
-                            
+
                               <tbody>
                                 @foreach($employees as $employee)
                                   @if($employee->deployed == 0)
-                                  
+
                                 <tr id="{{ $employee->id }}">
                                   <td>
                                     <div class="el-card-item">
@@ -535,7 +535,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                        
                                       </select>
                                     </td>
-                                    
+
                                     <td>
                                       <select class="form-control" name="role{{$ctr}}" id="role">
                                         <option value="" disabled="" selected="">---</option>
@@ -559,7 +559,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                 </tfoot>
                               </table>
 
-                              
+
                              <input type="hidden" name="avGuards" value="{{ $ctr }}">
                              <input type="hidden" id="establishmentID" name="establishmentID" value="">
                              <input type="hidden" id="numGuards" name="numGuards" value="">
@@ -573,7 +573,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                             <div class="text-right">
                               <ul class="pagination">
                               </ul>
-                            </div>  
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -587,14 +587,14 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
         </div>  <!-- class="white-box" -->
       </div>  <!-- class="col-lg-12" -->
      </div>   <!--  class="row" -->
-    </div>  <!-- class="container-fluid" -->      
+    </div>  <!-- class="container-fluid" -->
   </div>    <!-- id="page-wrapper2" -->
 </div>  <!-- /#wrapper -->
 
 <!-- View Modal -->
 <div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
   <div class="modal-dialog viewrequest">
-    
+
   </div> <!-- /.modal-dialog -->
 </div> <!-- /Add military service modal -->
 
@@ -631,12 +631,12 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
   <script type="text/javascript">
 
     $( "#target" ).keyup(function( event ) {
-  $("#target2").trigger('click'); 
+  $("#target2").trigger('click');
 });
 
   $('.form-search').on('submit',function(){return false;});
 $('.form-search .btn').on('click', function(e){
-  
+
     var query = document.getElementById('target').value;
   console.log(query);
     $('div.staff-container .guard_name').each(function(){
@@ -648,7 +648,7 @@ $('.form-search .btn').on('click', function(e){
 });
 
 
-  
+
 </script>
 <script type="text/javascript">
         (function(){
@@ -728,7 +728,7 @@ $('.form-search .btn').on('click', function(e){
                 }
             });
 
-           
+
         })();
 </script>
 
@@ -738,8 +738,8 @@ $('.form-search .btn').on('click', function(e){
    $('#deployguards').attr("disabled", "disabled");
         var limit=$("#guardsCount").text();
                         $(".sel").text( " Please select " + limit + " guards to deploy to the client.");
-              
-    //Scrollbar 
+
+    //Scrollbar
         $('#slimtest4').slimScroll({
             color: '#00f',
             size: '10px',
@@ -812,6 +812,6 @@ $('.form-search .btn').on('click', function(e){
 </script>
 
 
- 
+
 </body>
 </html>

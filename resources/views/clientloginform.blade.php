@@ -70,7 +70,7 @@
         </nav>
         <div class="content-wrap">
           <section id="section-flip-1">
-            <form class="form-horizontal form-material animated slideInLeft    " id="loginform"  action="{{url('/CLogin')}}" method="post">
+            <form class="form-horizontal form-material animated slideInLeft" id="loginform"  action="{{url('/CLogin')}}" method="post">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group m-t-40">
                 <div class="col-xs-12">
@@ -90,13 +90,13 @@
               <div class="form-group text-center m-t-20">
             </br> </br>
                 <div class="col-xs-12">
-                  <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit name="submit" value="Log IN"">Log In</button>
+                  <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" name="submit" value="Log IN">Log In</button>
                 </div>
               </div>
 
 
             </form>
-            <form class="form-horizontal" id="recoverform" action="login2.html">
+            <form class="form-horizontal" id="recoverform" >
               <div class="form-group ">
                 <div class="col-xs-12">
                   <h3>Recover Password</h3>
@@ -117,16 +117,16 @@
             </form>
           </section>
           <section id="section-flip-2">
-            <form class="form-horizontal form-material animated slideInRight " >
-
+            <form class="form-horizontal form-material animated slideInRight" action="{{url('/SecurityGuardsLogin')}}" method="post">
+              {{csrf_field()}}
               <div class="form-group m-t-40">
                 <div class="col-xs-12">
-                  <input class="form-control" type="text"  required="" placeholder="Email address">
+                  <input class="form-control" name="secu_username" type="text"  required="" placeholder="Email address">
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-xs-12">
-                  <input class="form-control" type="password" required="" placeholder="Password">
+                  <input class="form-control" name="secu_password" type="password" required="" placeholder="Password">
                 </div>
               </div>
               <div class="form-group">
@@ -137,7 +137,7 @@
               <div class="form-group text-center m-t-20">
             </br> </br>
                 <div class="col-xs-12">
-                  <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" >Log In</button>
+                  <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" >Log In</button>
                 </div>
               </div>
 

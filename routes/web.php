@@ -20,11 +20,23 @@ Route::get('/', function () {
 //Admin portal
 Route::get('/Dashboard','AdminController@dashboardIndex')->name('dashboard');
 
-
+Route::get('/DeploymentStatus', function () {
+    return view('AdminPortal/DeploymentStatus');
+});
+Route::get('/Notifications', function () {
+    return view('AdminPortal/notification');
+});
+Route::get('/ChangeGuards', function () {
+    return view('AdminPortal/ChangeRejectedGuards');
+});
 
 
 Route::get('/Replace', function () {
     return view('AdminPortal/Replace');
+});
+
+Route::get('/UploadPics', function () {
+    return view('AdminPortal/ClientPics');
 });
 
 Route::get('/Swap','GuardReplacementController@index');
@@ -124,24 +136,11 @@ Route::get('/ClientPortalDetails', function () {
 
 Route::get('/SecurityGuardsPortalHome', function () {
     return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
+}
+Route::get('/GuardPool', function () {
+    return view('ClientPortal/Guardpool');
 });
 
-Route::get('/SecurityGuardsPortalProfile', function () {
-    return view('SecurityGuardsPortal/SecurityGuardsPortalProfile');
-});
-
-Route::get('/SecurityGuardsPortalMessages', function () {
-    return view('SecurityGuardsPortal/SecurityGuardsPortalMessages');
-});
-
-Route::get('/SecurityGuardsPortalAttendance', function () {
-    return view('SecurityGuardsPortal/SecurityGuardsPortalAttendance');
-});
-
-
-Route::get('/SecurityGuardsPortalSettings', function () {
-    return view('SecurityGuardsPortal/SecurityGuardsPortalSettings');
-});
 
 
 
@@ -175,8 +174,8 @@ Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')->name('sav
 
 // Check before deleting Route::get('/SendGun','LastControl@index3');
 
+Route::post('/clientupload','ContractController@saveImage');
 
-Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index');
 Route::get('/Request-{id}','ClientPortalHomeController@requests');
 Route::post('/Request-Save/{id}','LastControl@saveReq');
 Route::post('/GunRequest-Save/{id}','LastControl@saveGunReq');
@@ -225,7 +224,6 @@ Route::post('/Client-auth','LastControl@authenticate');
 //Route::post('ClientRegs/Save','LastControl@save');
 //Route::get('/SendGun','LastControl@index3');
 Route::get('/Deploy','LastControl@index4');
-Route::get('/Login','LastControl@index5');
 Route::get('/Secus','LastControl@index6');
 
 Route::get('/Service','ServiceControl@index');
@@ -402,7 +400,17 @@ Route::get('Attribute2','Attribute2Controller@index');
 
 //Guard side (evander)
 Route::get ( '/test', 'RegisterControl@test' );
+Route::post ( '/SecurityGuardsLogin', 'EmployeeControl@SLogin' );
+Route::get ( '/SecurityGuardsLogOut', 'EmployeeControl@SLogout' );
+Route::get ( '/SecurityGuardsPortalHome', 'EmployeeControl@home' );
+Route::get('/SecurityGuardsPortalProfile', 'EmployeeControl@profile');
+Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
+Route::get('/SecurityGuardsPortalSettings', 'EmployeeControl@settings');
+Route::post ( '/EmployeeUpdateProfile', 'EmployeeControl@UpdateProfile' );
+Route::post ( '/EmployeeUpdatePassword', 'EmployeeControl@UpdatePassword' );
+Route::get('/SecurityGuardsPortalAttendance', 'EmployeeControl@attendance');
 Route::get('Guard-Registration','LastControl@index6');
+Route::post ( '/GetProvinceAreas', 'AreaControl@getArea' );
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
 Route::post('/Applicants','RegisterControl@saveImage');
 //admin guard (evander)
@@ -417,4 +425,8 @@ Route::get('send','sendEmail@send');
 Route::get('/login','ContractController@signin');
 Route::post('/CLogin','ContractController@login');
 Route::get('/ClientHome','ContractController@home');
-Route::post('/ClientOut','ContractController@logout');
+Route::get('/ClientOut','ContractController@logout');
+
+Route::get('/AdminLogIn', function () {
+    return view('AdminLogIn');
+});

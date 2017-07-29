@@ -30,33 +30,36 @@ use App\AcceptedGuards;
 
 class ClientPortalHomeController extends Controller
 {
-    
-    public function index($id){
-      $Services = Service::all();
-      $client = Clients::findOrFail($id);
-      $establishments = Establishments::all();
-      $guns = Gun::all();
-      $contracts = Contracts::all();
-      $serviceRequests = ServiceRequest::all();
-      $deployments = Deployments::all();
-      $deploymentDetails = DeploymentDetails::all();
-      $clientRegistrations = ClientRegistration::all();
-      $gunRequests = GunRequest::all();
-      $gunRequestsDetails = GunRequestsDetails::all();
-      $gunDeliveries= GunDelivery::latest('created_at')->get();
-      $gunDeliveryDetails = GunDeliveryDetails::all();
-      
 
-     /* $establishments_id = $establishment->id;
-      $gunRequests = GunRequest::where('establishments_id',$establishments_id)->get();
-      $gunDeliveries= GunDelivery::latest('created_at')->get();*/
+    public function index(Request $request){
+      $value = $request->session()->get('client');
+      if ($value!=="") {
+        $Services = Service::all();
+        $client = Clients::findOrFail($value);
+        $establishments = Establishments::all();
+        $guns = Gun::all();
+        $contracts = Contracts::all();
+        $serviceRequests = ServiceRequest::all();
+        $deployments = Deployments::all();
+        $deploymentDetails = DeploymentDetails::all();
+        $clientRegistrations = ClientRegistration::all();
+        $gunRequests = GunRequest::all();
+        $gunRequestsDetails = GunRequestsDetails::all();
+        $gunDeliveries= GunDelivery::latest('created_at')->get();
+        $gunDeliveryDetails = GunDeliveryDetails::all();
 
-      $areas = Area::all();
-      $provinces = Province::all();
-      
 
-      return view('ClientPortal.ClientPortalHome
-        ')->with('services',$Services)->with('client',$client)->with('guns',$guns)->with('contracts',$contracts)->with('establishments',$establishments)->with('serviceRequests',$serviceRequests)->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('areas',$areas)->with('provinces',$provinces)->with('clientRegistrations',$clientRegistrations)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails);
+       /* $establishments_id = $establishment->id;
+        $gunRequests = GunRequest::where('establishments_id',$establishments_id)->get();
+        $gunDeliveries= GunDelivery::latest('created_at')->get();*/
+
+        $areas = Area::all();
+        $provinces = Province::all();
+
+
+        return view('ClientPortal.ClientPortalHome
+          ')->with('services',$Services)->with('client',$client)->with('guns',$guns)->with('contracts',$contracts)->with('establishments',$establishments)->with('serviceRequests',$serviceRequests)->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('areas',$areas)->with('provinces',$provinces)->with('clientRegistrations',$clientRegistrations)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails);
+      }
    }
 
   public function guardDtr($id){
@@ -169,7 +172,7 @@ class ClientPortalHomeController extends Controller
       $areas = Area::findOrFail($areas_id);
       $area_name = $areas->name;
       $provinces = Province::where('id',$provinces_id)->get();
-     
+
 
       return view('ClientPortal.ClientPortalEstabDetails')
             ->with('estabID',$estabID)
@@ -184,7 +187,7 @@ class ClientPortalHomeController extends Controller
             ->with('adress',$adress)
             ->with('nature_name',$nature_name)
             ->with('area_name',$area_name)
-            
+
             ->with('area_size',$area_size)
             ->with('population',$population)
             ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees);
