@@ -113,7 +113,7 @@ Route::get('/GunRequest','GunRequestController@index');
 
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index');
 
-Route::get('/ClientPortalHome','ClientPortalHomeController@index');
+Route::get('/ClientPortalHome-{clientID}','ClientPortalHomeController@index');
 
 Route::get('/ClientPortalEstablishments', function () {
     return view('ClientPortal/ClientPortalEstablishments');

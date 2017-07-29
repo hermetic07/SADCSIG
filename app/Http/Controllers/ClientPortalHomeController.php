@@ -31,7 +31,7 @@ use App\AcceptedGuards;
 class ClientPortalHomeController extends Controller
 {
 
-    public function index(Request $request){
+    public function index($clientID,Request $request){
       $value = $request->session()->get('client');
       if ($value!=="") {
         $Services = Service::all();
