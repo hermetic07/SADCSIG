@@ -8,7 +8,7 @@ class Area extends Model
 {
    protected $table = "areas";
 
-   public function province() {
+   public function provinces() {
 
        return $this->belongsTo('App\Province');
    }

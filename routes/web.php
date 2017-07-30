@@ -401,6 +401,10 @@ Route::get ( '/SecurityGuardsLogOut', 'EmployeeControl@SLogout' );
 Route::get ( '/SecurityGuardsPortalHome', 'EmployeeControl@home' );
 Route::get('/SecurityGuardsPortalProfile', 'EmployeeControl@profile');
 Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
+// Earl :D ---------------------------------------------------------------------
+Route::get('/SecurityGuardsPortalMessages/modal','EmployeeControl@showModal')->name('SGMessage.modal');
+Route::post('/saveGuardResponse','EmployeeControl@saveResponse')->name('save.guard.response');
+// -- end Earl :D ----------------------------------------------------------------
 Route::get('/SecurityGuardsPortalSettings', 'EmployeeControl@settings');
 Route::post ( '/EmployeeUpdateProfile', 'EmployeeControl@UpdateProfile' );
 Route::post ( '/EmployeeUpdatePassword', 'EmployeeControl@UpdatePassword' );
