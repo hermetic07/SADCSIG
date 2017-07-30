@@ -149,6 +149,26 @@ class EmployeeControl extends Controller
       $acceptedGuard->update(['guard_reponse'=>'confirmed']);
       return redirect('/SecurityGuardsPortalMessages');
     }
+    public function guardReject(Request $request){
+      if($request->ajax()){
+        $acceptedGuard = DB::table('accepted_guards')
+                           ->where('client_deployment_notif_id', $request->deployment_notif_id)
+                           ->where('guard_id', $request->secuID);
+      
+        if($acceptedGuard->update(['guard_reponse'=>'reject'])){
+          $acceptedGuard->update(['reasons'=>$request->reason]);
+          return response("Success!! We've sent your reasons.");
+        }
+      }
+    }
+    public function getReason(Request $request){
+      if($request->ajax()){
+        $acceptedGuard = DB::table('accepted_guards')
+                        ->where('client_deployment_notif_id', $request->client_deployment_notif_id)
+                        ->where('guard_id', $request->secuID)->get();
+        return response($acceptedGuard[0]->reasons);
+      }
+    }
     public function request(Request $request)
     {
       try {

@@ -180,7 +180,7 @@
                         </ul>
                       </div>
                     </div>
-            <button type="button" class="btn btn-block btn-outline btn-rounded btn-warning reason">Reason</button>
+            <button type="button" value="{{$acceptedGuard->client_deployment_notif_id}},{{$acceptedGuard->guard_id}}" class="btn btn-block btn-outline btn-rounded btn-warning reason">Reason</button>
                 </div>
                @php
                 $refuseCtr++;
@@ -347,6 +347,19 @@
         //   });
           
         // });
+      });
+      $('.reason').on('click',function(){
+        secuID = this.value.split(",")[1];
+        client_deployment_notif_id = this.value.split(",")[0];
+        //alert(secuID+"------"+client_deployment_notif_id);
+        $.ajax({
+          url : '{{route("getreason")}}',
+          type : 'GET',
+          data : {secuID:secuID,client_deployment_notif_id:client_deployment_notif_id},
+          success:function(data){
+            alert(data);
+          }
+        });
       });
     </script>
   @endsection

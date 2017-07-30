@@ -49,7 +49,7 @@ class ContractController extends Controller
           $key = $t->id;
         }
         session(['client' => $key]);
-        return redirect('/ClientPortalHome');
+        return redirect('/ClientPortalHome-'.$key);
       }
       else {
           return view('clientloginform');
