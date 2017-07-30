@@ -408,6 +408,8 @@ Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
 // Earl :D ---------------------------------------------------------------------
 Route::get('/SecurityGuardsPortalMessages/modal','EmployeeControl@showModal')->name('SGMessage.modal');
 Route::post('/saveGuardResponse','EmployeeControl@saveResponse')->name('save.guard.response');
+Route::post('/saveGuardReject','EmployeeControl@guardReject')->name('guard.reject');
+Route::get('/getReason','EmployeeControl@getReason')->name('getreason');
 // -- end Earl :D ----------------------------------------------------------------
 Route::get('/SecurityGuardsPortalSettings', 'EmployeeControl@settings');
 Route::post ( '/EmployeeUpdateProfile', 'EmployeeControl@UpdateProfile' );

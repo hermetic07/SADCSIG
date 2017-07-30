@@ -67,7 +67,7 @@
             <input type="hidden" name="deployment_notif_id" value="{{$deployment_notif_id}}">
             <div class="col-md-4"></div>
             <button type="submit" class="fcbtn btn btn-success btn-outline btn-1e accept">Accept</button>
-            <button type="button" class="fcbtn btn btn-danger btn-outline btn-1e" onclick="reject()">Reject</button>
+            <button type="button" class="fcbtn btn btn-danger btn-outline btn-1e" onclick="reject('{{$secuID}},{{$deployment_notif_id}}')">Reject</button>
           </div>
         </div>
       </form>

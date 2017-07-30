@@ -111,8 +111,10 @@
 
 @section('script')
 <script>
-function reject()
+function reject(e)
 {
+  secuID = e.split(",")[0];
+  deployment_notif_id = e.split(",")[1];
   $('#Message').modal('hide');
   swal({
     title: "Awww. We do understand",
@@ -131,15 +133,17 @@ function reject()
       return false
     }
     $.ajax({
-      url : '',
-      type : 'POST'
-      data : '',
+      url : '{{route("guard.reject")}}',
+      type : 'POST',
+      data : {reason:inputValue,secuID:secuID,deployment_notif_id:deployment_notif_id},
       success: function(data){
+        
+        
+        //console.log(data);
         swal("Thank you!", "Your reason: " + inputValue, "success");
       }
     });
     
-
   });
 
 }
@@ -161,7 +165,7 @@ function reject()
         type : 'GET',
         data : {secuID:secuID,deployment_notif_id:deployment_notif_id},
         success:function(data){
-          console.log(data);
+          //console.log(data);
           $('.modal-body').empty();
           $('.modal-body').html(data);
           $('#Message').modal('show');
