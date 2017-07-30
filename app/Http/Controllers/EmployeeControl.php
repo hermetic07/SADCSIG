@@ -143,10 +143,17 @@ class EmployeeControl extends Controller
       }
     }
     public function saveResponse(Request $request){
+       $acceptedGuard2 = DB::table('accepted_guards')
+                           ->where('guard_id', $request->secuID);
+                $acceptedGuard2->update(['guard_reponse'=>'reject']);           
       $acceptedGuard = DB::table('accepted_guards')
                            ->where('client_deployment_notif_id', $request->deployment_notif_id)
                            ->where('guard_id', $request->secuID);
       $acceptedGuard->update(['guard_reponse'=>'confirmed']);
+     // AcceptedGuards::where('client_deployment_notif_id','!=',$request->deployment_notif_id)->update(['guard_reponse'=>'reject']);
+
+
+      //return response($ac);
       return redirect('/SecurityGuardsPortalMessages');
     }
     public function guardReject(Request $request){
@@ -155,12 +162,15 @@ class EmployeeControl extends Controller
                            ->where('client_deployment_notif_id', $request->deployment_notif_id)
                            ->where('guard_id', $request->secuID);
       
-        if($acceptedGuard->update(['guard_reponse'=>'reject'])){
+        
           $acceptedGuard->update(['reasons'=>$request->reason]);
+          $acceptedGuard->update(['guard_reponse'=>'reject']);
           return response("Success!! We've sent your reasons.");
-        }
-      }
+        
+       // return response($request->deployment_notif_id);
+      
     }
+  }
     public function getReason(Request $request){
       if($request->ajax()){
         $acceptedGuard = DB::table('accepted_guards')

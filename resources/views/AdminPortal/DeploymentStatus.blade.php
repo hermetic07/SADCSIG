@@ -147,7 +147,7 @@
             @if($employee->id == $acceptedGuard->guard_id)
               @if($acceptedGuard->guard_reponse == "")
                 <div class="el-card-item item avatar">
-                <span class="accepted-badge">&#10004;</span>
+                <span class="rejected-badge">P</span>
                   <div class="el-card-avatar el-overlay-1 ">
                     <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
                       <div class="el-overlay">
@@ -159,6 +159,7 @@
                         </ul>
                       </div>
                     </div>
+                    
                     <div>
                   </div>
                 </div>
@@ -180,7 +181,7 @@
                         </ul>
                       </div>
                     </div>
-            <button type="button" value="{{$acceptedGuard->client_deployment_notif_id}},{{$acceptedGuard->guard_id}}" class="btn btn-block btn-outline btn-rounded btn-warning reason">Reason</button>
+            <button type="button" value="{{$acceptedGuard->client_deployment_notif_id}},{{$acceptedGuard->guard_id}}" class="btn btn-block btn-outline btn-rounded btn-danger reason">Reason</button>
                 </div>
                @php
                 $refuseCtr++;
@@ -249,7 +250,7 @@
 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 <div class="white-box">
 <div class="pd-agent-info text-center">
-<a href="javascript:void(0)"><img alt="img" class="thumb-lg img-circle" src="plugins/images/Clients/Active/chris.jpg"></a>
+<a href="javascript:void(0)"><img alt="img" class="thumb-lg img-circle" src="uploads/{{$client->image}}"></a>
 <h4>{{$client->name}}</h4>
 <h6>Client's name</h6> </div>
 

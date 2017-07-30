@@ -23,7 +23,8 @@ use App\TempDeployments;
 use App\TempDeploymentDetails;
 use App\AcceptedGuards;
 use Carbon\Carbon;
-
+use App\Deployment;
+use App\DeploymentDetails;
 class AdminController extends Controller
 {
     public function dashboardIndex(){
@@ -63,12 +64,18 @@ class AdminController extends Controller
         $areas = Area::all();
         $provinces = Province::all();
         $shifts = Shifts::all();
+        $tempDeployments = TempDeployments::all();
+        $tempDeploymentDetails = TempDeploymentDetails::all();
+        $acceptedGuards = AcceptedGuards::all();
         return view('AdminPortal/PendingClientRequests')
                 ->with('contracts',$contracts)
                 ->with('establishments',$establishments)
                 ->with('natures',$natures)
                 ->with('areas',$areas)
-                ->with('provinces',$provinces);
+                ->with('provinces',$provinces)
+                ->with('tempDeployments',$tempDeployments)
+                ->with('tempDeploymentDetails',$tempDeploymentDetails)
+                ->with('acceptedGuards',$acceptedGuards);
                 
     }
 
@@ -183,6 +190,11 @@ class AdminController extends Controller
         
         //return $rejected[0];
          return redirect('/PendingClientRequests');
+    }
+    public function notifications(Request $request){
+        $contracts = Contracts::latest('created_at')->get();
+        return view('AdminPortal.notification')
+                ->with('contracts',$contracts);
     }
 
 }
