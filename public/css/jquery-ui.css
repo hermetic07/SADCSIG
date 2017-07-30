@@ -238,7 +238,7 @@
 
 /* left-aligned */
 .ui-menu .ui-icon {
-	position: absolute;
+	position: ;
 	top: 0;
 	bottom: 0;
 	left: .2em;
@@ -361,7 +361,7 @@ button.ui-button::-moz-focus-inner {
 .ui-controlgroup-horizontal .ui-controlgroup-label.ui-widget-content {
 	border-right: none;
 }
-.ui-controlgroup-vertical .ui-controlgroup-label.ui-widget-content {
+.ui-controlgroup-vertical .ui-controlgroup-label.-content {
 	border-bottom: none;
 }
 
@@ -403,8 +403,8 @@ button.ui-button::-moz-focus-inner {
 	width: 17em;
 	padding: .2em .2em 0;
 	display: none;
-	  margin-left: 100px;
-	 z-index: 1000;
+
+	 z-index: 5;
 }
 .ui-datepicker .ui-datepicker-header {
 	position: relative;
@@ -875,7 +875,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-tooltip {
 	padding: 8px;
-	position: absolute;
+	position: 		absolute;
 	z-index: 9999;
 	max-width: 300px;
 }
