@@ -40,9 +40,64 @@
               </div>
             </div>
           </div>
+          
           <tbody>
             @foreach($acceptedGuards as $acceptedGuard)
               @if($acceptedGuard->guard_id == $employee->id)
+                @if($acceptedGuard->guard_reponse == "confirmed")
+                  <tr style="background-color:gray ">
+                  <td>
+                    <center>
+                      <div class="el-card-item" style="padding-bottom: 5px;" >
+                        <div class="el-card-avatar el-overlay-1" style="width: 65%;">
+                          <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg"  alt="user"  class="img-circle img-responsive"></a>
+                          <div class="el-overlay">
+                            <ul class="el-info">
+                              <li>
+                                <a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <span class="label label-table label-danger">Agency</span> 
+                    </center>
+                  </td>
+                  <td>Ernest john maskarino</td>
+                  <td>{{$acceptedGuard->created_at}}</td>
+                  <td>DEPLOYMENT</td>
+                  <td>   &nbsp;
+                    <button disabled type="button" value="{{$acceptedGuard->guard_id}},{{$acceptedGuard->client_deployment_notif_id}}" class="btn btn-info btn-circle view" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                  </td>
+                </tr>
+                  
+                @elseif($acceptedGuard->guard_reponse == "reject")
+                  <tr>
+                    <td>
+                      <center>
+                        <div class="el-card-item" style="padding-bottom: 5px;" >
+                          <div class="el-card-avatar el-overlay-1" style="width: 65%;">
+                            <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg"  alt="user"  class="img-circle img-responsive"></a>
+                            <div class="el-overlay">
+                              <ul class="el-info">
+                                <li>
+                                  <a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <span class="label label-table label-danger">Agency</span> 
+                      </center>
+                    </td>
+                    <td>Ernest john maskarino</td>
+                    <td>{{$acceptedGuard->created_at}}</td>
+                    <td>DEPLOYMENT</td>
+                    <td>   &nbsp;
+                      <button disabled type="button" value="{{$acceptedGuard->guard_id}},{{$acceptedGuard->client_deployment_notif_id}}" class="btn btn-info btn-circle view" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                    </td>
+                  </tr>
+                @else
                 <tr>
                   <td>
                     <center>
@@ -68,6 +123,7 @@
                     <button type="button" value="{{$acceptedGuard->guard_id}},{{$acceptedGuard->client_deployment_notif_id}}" class="btn btn-info btn-circle view" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
                   </td>
                 </tr>
+                @endif
               @endif
             @endforeach
             
@@ -78,7 +134,7 @@
                </tr>
             </tfoot>
           </table>
-
+          
            <div class="text-right">
              <ul class="pagination">
              </ul>
@@ -111,6 +167,7 @@
 
 @section('script')
 <script>
+
 function reject(e)
 {
   secuID = e.split(",")[0];
@@ -139,8 +196,9 @@ function reject(e)
       success: function(data){
         
         
-        //console.log(data);
+        console.log(data);
         swal("Thank you!", "Your reason: " + inputValue, "success");
+        location.reload();
       }
     });
     
@@ -148,6 +206,7 @@ function reject(e)
 
 }
 </script>
+
 <script type="text/javascript">
   $.ajaxSetup({
       headers: {
@@ -155,6 +214,8 @@ function reject(e)
       }
     });
   $(document).ready(function(){
+
+      
     $('.view').on('click',function(){
       
       secuID = this.value.split(",")[0];

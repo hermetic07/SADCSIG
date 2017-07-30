@@ -53,7 +53,8 @@
                           <span class="time pull-right">April 14, 2016 6:30 pm</span>
                         </div>
                       </div>
-                      <div class="comment-body">
+                      @foreach($contracts as $contract)
+                       <a href="{{route('manual.deployment')}}"> <div class="comment-body">
                         <div class="user-img"> <img src="plugins\images\Clients\Active\Chris.jpg" alt="user" class="img-circle"></div>
                         <div class="mail-contnet">
                           <h5>Chris jerico (University of the philippines)</h5>
@@ -61,7 +62,8 @@
                           <span class="label label-rounded label-danger">Initial deployment</span>
                           <span class="time pull-right">April 14, 2016 6:30 pm</span>
                         </div>
-                      </div>
+                      </div></a>
+                      @endforeach
                     </div>
                 </div>
               </div>
