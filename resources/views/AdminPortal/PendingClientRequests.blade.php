@@ -19,6 +19,18 @@
 <div class="row">
     @foreach($contracts as $contract)
         @if($contract->status == 'pending')
+            @foreach($tempDeployments as $tempDeployment)
+                @if($tempDeployment->contract_ID == $contract->id)
+                    @foreach($tempDeploymentDetails as $tempDeploymentDetail)
+                        @if($tempDeploymentDetail->temp_deployments_id == $tempDeployment->temp_deployment_id)
+                            @foreach($acceptedGuards as $acceptedGuard)
+                                @if($acceptedGuard->)
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
+                @endif
+            @endforeach
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 content" >
                 <div class="white-box p-0 pro-box pro-horizontal" style="border: 1px solid black;">

@@ -23,9 +23,7 @@ Route::get('/Dashboard','AdminController@dashboardIndex')->name('dashboard');
 Route::get('/DeploymentStatus', function () {
     return view('AdminPortal/DeploymentStatus');
 });
-Route::get('/Notifications', function () {
-    return view('AdminPortal/notification');
-});
+Route::get('/Notifications','AdminController@notifications');
 Route::get('/ChangeGuards', function () {
     return view('AdminPortal/ChangeRejectedGuards');
 });
