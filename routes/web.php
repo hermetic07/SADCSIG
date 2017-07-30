@@ -41,11 +41,6 @@ Route::get('/UploadPics', function () {
 
 Route::get('/Swap','GuardReplacementController@index');
 
-Route::get('/ActiveClient', function () {
-    return view('AdminPortal/ActiveClient');
-});
-
-
 
 Route::get('/SecurityGuards', function () {
     return view('AdminPortal/SecurityGuards');
@@ -169,6 +164,7 @@ Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus');
 Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change.rejected');
 Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')->name('save.changes');
 
+Route::get('/ActiveClient', 'ContractController@allCLients');
 
 /** -----------------  CLIENTS --------------------- **/
 
