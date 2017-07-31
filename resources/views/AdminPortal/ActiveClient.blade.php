@@ -84,7 +84,7 @@
                                           <hr class="m-0">
                                           <div class="clearfix"></div>
           																</br>
-          							<a href="{{url('/ClientEstablishment')}}">	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i> View details </button> </a>
+          							<a href='/ClientEstablishment-{{"$c->id"}}'>	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i> View details </button> </a>
                                       </div>
 
 

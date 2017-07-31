@@ -203,4 +203,24 @@ class AdminController extends Controller
                 ->with('contracts',$contracts);
     }
 
+    public function activeClientDetails($contractID){
+        $client = Clients::findOrFail($contractID);
+        $clientRegistrations = ClientRegistration::where('client_id',$contractID)->get();
+        $establishment = Establishments::where('contract_id', $clientRegistrations[0]->contract_id)->get();
+        $natures = Nature::findOrFail($establishment[0]->natures_id);
+        $areas = Area::findOrFail($establishment[0]->areas_id);
+        $provinces = Province::findOrFail($establishment[0]->province_id);
+        $clientPic = ClientsPic::where('stringContractId',$clientRegistrations[0]->contract_id)->get();
+        $picture = $clientPic[0]->stringestablishment;
+        return view('AdminPortal.ClientEstablishment')
+                ->with('establishment',$establishment)
+                ->with('natures',$natures)
+                ->with('provinces',$provinces)
+                ->with('client',$client)
+                ->with('picture',$picture)
+                ;
+       // return $picture;
+
+    }
+
 }

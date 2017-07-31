@@ -80,9 +80,7 @@ Route::get('/Announcements', function () {
     return view('AdminPortal/Announcements');
 });
 
-Route::get('/ClientEstablishment', function () {
-    return view('AdminPortal/ClientEstablishment');
-});
+
 
 Route::get('/ClientsDetails', function () {
     return view('AdminPortal/ClientsDetails');
@@ -163,6 +161,7 @@ Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change
 Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')->name('save.changes');
 
 Route::get('/ActiveClient', 'ContractController@allCLients');
+Route::get('/ClientEstablishment-{contractID}','AdminController@activeClientDetails');
 
 /** -----------------  CLIENTS --------------------- **/
 
