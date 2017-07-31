@@ -24,8 +24,18 @@
 @section('content')
 
 
-
-
+@php
+  $estabImage = "";
+  $clientPicture = "";
+@endphp
+@foreach($clientPic as $clientP)
+    @if($clientP->stringContractId == $contractID)
+        @php
+            $estabImage = $clientP->stringestablishment;
+            $clientPicture = $clientP->stringpic;
+        @endphp
+    @endif
+@endforeach
 <div class="row">
 
               <div class="row">
@@ -35,7 +45,7 @@
                       <div id="image-popups" class="row">
                     <h4>{{$estab_name}}</h4>
                     <h5><span class="text-muted"><i class="fa fa-map-marker text-danger m-r-10" aria-hidden="true"></i>{{$adress}}, {{$area_name}}</span></h5>
-                  <div class="col-sm-12 p-t-20 fw-500"><a href="plugins/images/Clients/establishments/pup.jpg" data-effect="mfp-zoom-out">  <img src="plugins/images/Clients/establishments/pup.jpg" height="600" alt="esta-img" class="img-responsive"  /><br/></a></div>
+                  <div class="col-sm-12 p-t-20 fw-500"><a href="plugins/images/Clients/establishments/pup.jpg" data-effect="mfp-zoom-out">  <img src="uploads/{{$estabImage}}" height="600" alt="esta-img" class="img-responsive"  /><br/></a></div>
                 </div>
 
 
@@ -272,7 +282,9 @@
 </div>
   </div>
 </div>
-
+@section('adminPic')
+          src = "uploads/{{$clientPicture}}"
+        @endsection
 @endsection
 
 

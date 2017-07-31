@@ -23,6 +23,10 @@
 
 @section('content')
 
+@php
+  $estabImage = "";
+  $clientPicture = "";
+@endphp
 
 <!-- /.row -->    
 <div class="row">
@@ -141,8 +145,21 @@
                         @if($tempDeployment->messages_ID == $adminMessage->notif_id)
                           @php
                             $tempDeploymentID = $tempDeployment->temp_deployment_id;
-
+                            
                           @endphp
+                          @foreach($contracts as $contract)
+                             @if($contract->id == $tempDeployment->contract_ID)
+                              @foreach($clientPic as $clientP)
+                                @if($clientP->stringContractId == $contract->id)
+                                    @php
+                                        $estabImage = $clientP->stringestablishment;
+                                        $clientPicture = $clientP->stringpic;
+                                        
+                                    @endphp
+                                @endif
+                            @endforeach
+                             @endif
+                            @endforeach
                         @endif
                       @endforeach
                     @endif
@@ -309,3 +326,6 @@
 
 
  @endsection
+@section('adminPic')
+          src = "uploads/{{$clientPicture}}"
+        @endsection

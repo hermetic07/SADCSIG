@@ -21,7 +21,9 @@
 @endsection
 @section('mtitle') Home @endsection
 
-
+@php
+  $estabImage = "";
+@endphp
 
 @section('content')
 
@@ -78,6 +80,17 @@
                                     @foreach($clientRegistrations as $clientRegistration)
                                       @if($clientRegistration->client_id == $client->id)
                                         @foreach($contracts as $contract)
+                                          @foreach($clientPic as $clientP)
+                                            @if($clientP->stringContractId == $contract->id)
+                                                @php
+                                                    $estabImage = $clientP->stringpic;
+                                                @endphp
+                                                @section('adminPic')
+                                                  src = "uploads/{{$estabImage}}"
+                                                @endsection
+                                            @endif
+                                            
+                                        @endforeach
                                           @if($contract->id == $clientRegistration->contract_id)
                                             @foreach($establishments as $establishment)
                                               @if($establishment->contract_id == $contract->id)

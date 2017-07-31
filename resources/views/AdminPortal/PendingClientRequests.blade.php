@@ -15,6 +15,10 @@
 
 
 @section('content')
+@php
+    $deployedCtr = 0;
+    $estabImage = "";
+@endphp
 
 <div class="row">
     @foreach($contracts as $contract)
@@ -23,18 +27,35 @@
                 @if($tempDeployment->contract_ID == $contract->id)
                     @foreach($tempDeploymentDetails as $tempDeploymentDetail)
                         @if($tempDeploymentDetail->temp_deployments_id == $tempDeployment->temp_deployment_id)
-                            @foreach($acceptedGuards as $acceptedGuard)
-                                @if($acceptedGuard->)
+                            @foreach($clientDeploymentNotifs as $clientDeploymentNotif)
+                                @if($clientDeploymentNotif->notif_id == $tempDeployment->messages_ID)
+                                    @foreach($acceptedGuards as $acceptedGuard)
+                                        @if($acceptedGuard->client_deployment_notif_id == $clientDeploymentNotif->client_deloyment_notif_id)
+                                            @if($acceptedGuard->guard_reponse == 'confirmed')
+                                                @php
+                                                    $deployedCtr++;
+                                                @endphp
+                                            @endif
+                                            
+                                        @endif
+                                    @endforeach
                                 @endif
                             @endforeach
                         @endif
                     @endforeach
                 @endif
             @endforeach
+            @foreach($clientPic as $clientP)
+                @if($clientP->stringContractId == $contract->id)
+                    @php
+                        $estabImage = $clientP->stringestablishment;
+                    @endphp
+                @endif
+            @endforeach
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 content" >
                 <div class="white-box p-0 pro-box pro-horizontal" style="border: 1px solid black;">
-                    <div class="col-sm-4 pro-list-img" style="background: url(plugins/images/Clients/establishments/petron.jpg) center center / cover no-repeat;">
+                    <div class="col-sm-4 pro-list-img" style="background: url(uploads/{{$estabImage}}) center center / cover no-repeat;">
                         <span class="pro-label label label-inverse">
                             <a class="text-white"  href="ClientDetails.html">
                                 <i class="icon-info"></i>&nbsp;&nbsp;More info
@@ -71,7 +92,7 @@
                                     
                                     <br>
                                     <div class="progress progress-md">
-                                        <div class="progress-bar progress-bar-info active progress-bar-striped" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">1 / {{$contract->guard_count}}
+                                        <div class="progress-bar progress-bar-info active progress-bar-striped" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">{{$deployedCtr}} / {{$contract->guard_count}}
                                         </div>
                                     </div>
                                     <center><a id="deployedGuards" href="/DeploymentStatus+{{$contract->id}}" name="{{$contract->id}}"> <small> Security guards deployed </small></a> </center>

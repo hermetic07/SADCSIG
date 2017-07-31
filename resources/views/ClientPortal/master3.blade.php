@@ -47,7 +47,7 @@
       </ul>
       <ul class="nav navbar-top-links navbar-right pull-right">
        <!-- Admin account-->
-       <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/Clients/Active/evander.jpg"  alt="user-img" width="36" class="img-circle"><b class="hidden-xs">@yield('clientName')</b></a>
+       <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img @yield('adminPic')  alt="user-img" width="36" class="img-circle"><b class="hidden-xs">@yield('clientName')</b></a>
           <ul class="dropdown-menu dropdown-user animated flipInY">
               <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
               <li role="separator" class="divider"></li>

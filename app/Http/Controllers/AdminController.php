@@ -25,6 +25,7 @@ use App\AcceptedGuards;
 use Carbon\Carbon;
 use App\Deployment;
 use App\DeploymentDetails;
+use App\ClientsPic;
 class AdminController extends Controller
 {
     public function dashboardIndex(){
@@ -67,6 +68,9 @@ class AdminController extends Controller
         $tempDeployments = TempDeployments::all();
         $tempDeploymentDetails = TempDeploymentDetails::all();
         $acceptedGuards = AcceptedGuards::all();
+        $clientDeploymentNotifs = ClientDeploymentNotif::all();
+        $clientPic = ClientsPic::all();
+
         return view('AdminPortal/PendingClientRequests')
                 ->with('contracts',$contracts)
                 ->with('establishments',$establishments)
@@ -75,7 +79,9 @@ class AdminController extends Controller
                 ->with('provinces',$provinces)
                 ->with('tempDeployments',$tempDeployments)
                 ->with('tempDeploymentDetails',$tempDeploymentDetails)
-                ->with('acceptedGuards',$acceptedGuards);
+                ->with('acceptedGuards',$acceptedGuards)
+                ->with('clientDeploymentNotifs',$clientDeploymentNotifs)
+                ->with('clientPic',$clientPic);
                 
     }
 

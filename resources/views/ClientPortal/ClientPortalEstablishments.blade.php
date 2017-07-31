@@ -24,6 +24,8 @@
 @section('content')
 
 
+
+
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 content">
@@ -34,11 +36,22 @@
           $arr = array();
           $a = 0;
           $l = 0;
+          $estabImage = "";
+          $clientPicture = "";
         @endphp
+       
 
         @foreach($clientRegistrations as $clientRegistration)
           @if($clientRegistration->client_id == $client->id)
             @foreach($contracts as $contract)
+              @foreach($clientPic as $clientP)
+                  @if($clientP->stringContractId == $contract->id)
+                      @php
+                          $estabImage = $clientP->stringestablishment;
+                          $clientPicture = $clientP->stringpic;
+                      @endphp
+                  @endif
+              @endforeach
               @if($contract->id == $clientRegistration->contract_id)
                 @foreach($establishments as $establishment)
                   @if($establishment->contract_id == $contract->id)
@@ -53,7 +66,8 @@
             @endforeach
           @endif
         @endforeach
-
+        
+       
         @php
           $e = 0;
           for($q = 0; $q < count($arr); $q++){
@@ -68,7 +82,7 @@
 
               @endphp
               <div class="white-box p-0 pro-box pro-horizontal" style="border: 1px solid black;">
-                <div class="col-sm-4 pro-list-img" style="background: url(plugins/images/Clients/establishments/up.jpg) center center / cover no-repeat;">
+                <div class="col-sm-4 pro-list-img" style="background: url(uploads/{{$estabImage}}) center center / cover no-repeat;">
                   <span class="pro-label label label-inverse"><a class="text-white"  href="/ClientPortalEstablishmentsDetails-{{$client->id}}+{{$arr[$f]}}"><i class="icon-info"></i>&nbsp;&nbsp;More info</a></span>
                 </div>
                   <div class="col-sm-8">
@@ -140,6 +154,9 @@
           }
 
         @endphp
+        @section('adminPic')
+          src = "uploads/{{$clientPicture}}"
+        @endsection
 
       </div>
      </div>

@@ -22,6 +22,7 @@
 @section('mtitle') Messages @endsection
 
 @section('customstyle')
+
             
 <style>
 
@@ -342,3 +343,6 @@
       </script>
       
  @endsection
+ @section('adminPic')
+    src = "uploads/{{$picture}}"
+  @endsection

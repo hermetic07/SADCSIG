@@ -27,6 +27,7 @@ use App\TempDeploymentDetails;
 use App\ClientDeploymentNotif;
 use App\NotifResponse;
 use App\AcceptedGuards;
+use App\ClientsPic;
 
 class ClientPortalHomeController extends Controller
 {
@@ -47,7 +48,7 @@ class ClientPortalHomeController extends Controller
         $gunRequestsDetails = GunRequestsDetails::all();
         $gunDeliveries= GunDelivery::latest('created_at')->get();
         $gunDeliveryDetails = GunDeliveryDetails::all();
-
+        $clientPic = ClientsPic::all();
 
        /* $establishments_id = $establishment->id;
         $gunRequests = GunRequest::where('establishments_id',$establishments_id)->get();
@@ -58,7 +59,7 @@ class ClientPortalHomeController extends Controller
 
 
         return view('ClientPortal.ClientPortalHome
-          ')->with('services',$Services)->with('client',$client)->with('guns',$guns)->with('contracts',$contracts)->with('establishments',$establishments)->with('serviceRequests',$serviceRequests)->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('areas',$areas)->with('provinces',$provinces)->with('clientRegistrations',$clientRegistrations)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails);
+          ')->with('services',$Services)->with('client',$client)->with('guns',$guns)->with('contracts',$contracts)->with('establishments',$establishments)->with('serviceRequests',$serviceRequests)->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('areas',$areas)->with('provinces',$provinces)->with('clientRegistrations',$clientRegistrations)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails)->with('clientPic',$clientPic);
       }
    }
 
@@ -124,14 +125,19 @@ class ClientPortalHomeController extends Controller
         $natures = Nature::all();
         $areas = Area::all();
         $provinces = Province::all();
+        $clientPic = ClientsPic::all();
 
-      return view('ClientPortal.ClientPortalEstablishments')->with('client',$client)->with('establishments',$establishments)->with('clientRegistrations',$clientRegistrations)->with('contracts',$contracts)->with('natures',$natures)->with('areas',$areas)->with('provinces',$provinces);
+      return view('ClientPortal.ClientPortalEstablishments')->with('client',$client)->with('establishments',$establishments)->with('clientRegistrations',$clientRegistrations)->with('contracts',$contracts)->with('natures',$natures)->with('areas',$areas)->with('provinces',$provinces)->with('clientPic',$clientPic);
     }
 
     public function clientEstablishmentsdetails($id,$estabID){
       $client = Clients::findOrFail($id);
       $establishments = Establishments::findOrFail($estabID)->get();
+      $clientRegistrations = ClientRegistration::where('client_id',$id)->get();
+      $es = Establishments::findOrFail($estabID);
       $estabContracts = Establishments::all();
+      
+       $clientPic = ClientsPic::all();
       $estabID;
       $estab_name;
       $pic;
@@ -173,7 +179,7 @@ class ClientPortalHomeController extends Controller
       $area_name = $areas->name;
       $provinces = Province::where('id',$provinces_id)->get();
 
-
+     // return $es->contract_id;
       return view('ClientPortal.ClientPortalEstabDetails')
             ->with('estabID',$estabID)
             ->with('client',$client)
@@ -187,11 +193,12 @@ class ClientPortalHomeController extends Controller
             ->with('adress',$adress)
             ->with('nature_name',$nature_name)
             ->with('area_name',$area_name)
-
+            ->with('clientPic',$clientPic)
+            ->with('contractID',$es->contract_id)
             ->with('area_size',$area_size)
             ->with('population',$population)
-            ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees);
-            //dd($provinces->province);
+            ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic);
+          
     }
 
     public function clientContracts($id,$estabID){
@@ -219,8 +226,13 @@ class ClientPortalHomeController extends Controller
       $adminMessages = DeploymentNotifForClient::all();
       $tempDeployment = TempDeployments::all();
       $tempDeploymentDetails = TempDeploymentDetails::all();
+      $clientRegistrations = ClientRegistration::where('client_id',$id)->get();
+      
+      $contracts = Contracts::all();
+      $clientPic = ClientsPic::all();
 
-      return view('ClientPortal/ClientPortalMessages')->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails);
+
+      return view('ClientPortal/ClientPortalMessages')->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic);
     }
     public function messagesModal(Request $request,$messageID){
       if($request->ajax()){
@@ -234,10 +246,11 @@ class ClientPortalHomeController extends Controller
       $client = Clients::findOrFail($clientID);
       $tempDeployment = TempDeployments::findOrFail($tempDeploymentID);
       $tempDeploymentDetails = $tempDeployment->tempDeploymentDetails;
-
+      $clientPic = ClientsPic::where('stringContractId',$tempDeployment->contract_ID)->get();
       
       $employees = Employee::all();
-       return view('ClientPortal.Guardpool')->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('client',$client)->with('employees',$employees)->with('client_notif_id',$client_notif_id);
+       return view('ClientPortal.Guardpool')->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('client',$client)->with('employees',$employees)->with('client_notif_id',$client_notif_id)->with('picture',$clientPic[0]->stringpic);
+      //return $clientPic[0]->stringpic;
       
     }
     public function saveGuards(Request $request){
