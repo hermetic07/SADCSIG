@@ -49,7 +49,7 @@
   $role = "";
   $refuseCtr = 0;
   $refuseID = "";
-  
+
 @endphp
 @foreach($tempDeployments as $tempDeployment)
   @if($tempDeployment->contract_ID == $contract->id)
@@ -78,7 +78,7 @@
                       </div>
                     </div>
                 </div>
-                
+
                 @php
                   $accepted = $accepted.",.".$employee->id;
                   $acceptedCtr++;
@@ -103,7 +103,7 @@
                           </div>
                         </div>
                       </div>
-                      
+
                       @php
                         $rejectCtr++;
                         $rejectID = $rejectID.",.".$employee->id;
@@ -147,7 +147,7 @@
             @if($employee->id == $acceptedGuard->guard_id)
               @if($acceptedGuard->guard_reponse == "")
                 <div class="el-card-item item avatar">
-                <span class="rejected-badge">P</span>
+                <span class="rejected-badge"><i class="fa fa-spin fa-circle-o-notch"></i></span>
                   <div class="el-card-avatar el-overlay-1 ">
                     <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
                       <div class="el-overlay">
@@ -159,7 +159,7 @@
                         </ul>
                       </div>
                     </div>
-                    
+
                     <div>
                   </div>
                 </div>
@@ -343,10 +343,10 @@
         //     type:'GET',
         //     data : {rejectedIDs:rejectIDs},
         //     success : function(data){
-              
+
         //     }
         //   });
-          
+
         // });
       });
       $('.reason').on('click',function(){
