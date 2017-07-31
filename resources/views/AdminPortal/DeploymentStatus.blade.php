@@ -26,8 +26,8 @@
 
 
 <div id="image-popups" class="row"
-            <h4>Polytechnic University of the Philippines</h4>
-            <h5><span class="text-muted"><i class="fa fa-map-marker text-danger m-r-10" aria-hidden="true"></i>Anonas, Santa Mesa, Maynila, Kalakhang Maynila</span></h5>
+            <h4>{{$establishment->name}}</h4>
+            <h5><span class="text-muted"><i class="fa fa-map-marker text-danger m-r-10" aria-hidden="true"></i>{{$establishment->address}}, {{$area->name}}, {{$province->name}}</span></h5>
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">Client's approval</div>
