@@ -192,6 +192,7 @@
               buttonNames: ["Walk-in", "Online"],
               clickFunctionList: [
                   function () {
+
                     swal({
                             title: "Hire this applicant?",
                             text: "Send an email for their Account credentials",
@@ -204,8 +205,7 @@
                             closeOnCancel: false
                         }, function(isConfirm){
                             if (isConfirm) {
-                              var isOnLine = navigator.onLine;
-                              if (isOnLine) {
+                              function doConnectFunction() {
                                 $.ajax({
                                       url: '/HireEmployee',
                                       type:"POST",
@@ -222,56 +222,65 @@
                                               imageUrl: "uploads/"+result.picture
                                             }, function(){
                 location.reload();
-        });
+              });
 
 
 
                                        }
                                      });
-                              } else {
-                                swal({
-                                        title: "No internet connection",
-                                        text: "Unable to send an email. Hire the applicants anyway?",
-                                        type: "warning",
-                                        showCancelButton: true,
-                                        confirmButtonColor: "#DD6B55",
-                                        confirmButtonText: "Yes",
-                                        cancelButtonText: "No, cancel it",
-                                        closeOnConfirm: false,
-                                        closeOnCancel: false
-                                    }, function(isConfirm){
-                                        if (isConfirm) {
+                            }
+                            function doNotConnectFunction() {
+                              swal({
+                                      title: "No internet connection",
+                                      text: "Unable to send an email. Hire the applicants anyway?",
+                                      type: "warning",
+                                      showCancelButton: true,
+                                      confirmButtonColor: "#DD6B55",
+                                      confirmButtonText: "Yes",
+                                      cancelButtonText: "No, cancel it",
+                                      closeOnConfirm: false,
+                                      closeOnCancel: false
+                                  }, function(isConfirm){
+                                      if (isConfirm) {
 
-                                            $.ajax({
-                                                  url: '/HireEmployee2',
-                                                  type:"POST",
-                                                   data: {
+                                          $.ajax({
+                                                url: '/HireEmployee2',
+                                                type:"POST",
+                                                 data: {
 
-                                                     "id":id
+                                                   "id":id
 
-                                                  },
-                                                  success: function(result){
+                                                },
+                                                success: function(result){
 
-                                                      swal({
-                                                          title: result.fname ,
-                                                          text: "is now officially hired. \n\n"+ "Email: " + result.email + " Password: " + result.pw,
-                                                          imageUrl: "uploads/"+result.picture
-                                                        }, function(){
-                            location.reload();
-                    });
-
-
-
-                                                   }
-                                                 });
+                                                    swal({
+                                                        title: result.fname ,
+                                                        text: "is now officially hired. \n\n"+ "Email: " + result.email + " Password: " + result.pw,
+                                                        imageUrl: "uploads/"+result.picture
+                                                      }, function(){
+                          location.reload();
+                  });
 
 
 
-                                        } else {
-                                            swal("Cancelled", "Email not sent", "error");
-                                        }
-                                    });
-                              }
+                                                 }
+                                               });
+
+
+
+                                      } else {
+                                          swal("Cancelled", "Email not sent", "error");
+                                      }
+                                  });
+                            }
+
+                            var i = new Image();
+                            i.onload = doConnectFunction;
+                            i.onerror = doNotConnectFunction;
+                            // CHANGE IMAGE URL TO ANY IMAGE YOU KNOW IS LIVE
+                            i.src = 'http://gfx2.hotmail.com/mail/uxp/w4/m4/pr014/h/s7.png?d=' + escape(Date());
+                            // escape(Date()) is necessary to override possibility of image coming from cache
+          
 
 
                             } else {
