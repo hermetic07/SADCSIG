@@ -128,6 +128,9 @@ Route::get('/ClientPortalDetails', function () {
 Route::get('/SecurityGuardsPortalHome', function () {
     return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
 });
+Route::get('/SecurityGuardsPortalRequest', function () {
+    return view('SecurityGuardsPortal/SecurityGuardsPortalRequest');
+});
 Route::get('/GuardPool', function () {
     return view('ClientPortal/Guardpool');
 });

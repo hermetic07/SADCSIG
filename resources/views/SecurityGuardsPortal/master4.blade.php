@@ -81,7 +81,7 @@
           </li>
 		  <li> <a href="{{url('/SecurityGuardsPortalMessages')}}" class="waves-effect"><i class="fa fa-envelope fa-2x fa-fw"></i> <span class="hide-menu"> Messages </span></a>
           </li>
-		  <li> <a href="SecurityGuardsRequest.html" class="waves-effect"><i class="fa fa-location-arrow fa-2x fa-fw"></i> <span class="hide-menu"> Requests </span></a>
+		  <li> <a href="{{url('/SecurityGuardsPortalRequest')}}" class="waves-effect"><i class="fa fa-location-arrow fa-2x fa-fw"></i> <span class="hide-menu"> Requests </span></a>
           </li>
 		  <li> <a href="{{url('/SecurityGuardsPortalAttendance')}}" class="waves-effect"><i class="fa fa-sign-in fa-2x fa-fw"></i> <span class="hide-menu"> Attendance </span></a>
           </li>
