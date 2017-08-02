@@ -68,7 +68,7 @@
                                     <div class="row">
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
-                                        @if ($e->image)
+                                        @if ($e->image!== null && $e->image!=="")
                                         <div class="el-card-avatar el-overlay-1">
                                            							 <a href="{{url('/SecuProfile')}}"><img src="uploads/{{$e->image}}" alt="user"  class="img-circle img-responsive"></a>
               																<div class="el-overlay">
@@ -280,7 +280,7 @@
                             // CHANGE IMAGE URL TO ANY IMAGE YOU KNOW IS LIVE
                             i.src = 'http://gfx2.hotmail.com/mail/uxp/w4/m4/pr014/h/s7.png?d=' + escape(Date());
                             // escape(Date()) is necessary to override possibility of image coming from cache
-          
+
 
 
                             } else {
