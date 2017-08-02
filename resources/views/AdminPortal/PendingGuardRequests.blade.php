@@ -82,7 +82,7 @@
                             </div>
                             </br>
 							
-													<button data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
+													<button data-toggle="modal" data-target="#pending"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
 
 											                         
                                                     
@@ -142,7 +142,7 @@
                             </div>
                             </br>
 				
-													<button data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
+													<button data-toggle="modal" data-target="#done"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
 
 											                         
 				
@@ -201,7 +201,7 @@
                             </div>
                             </br>
 			
-													<button data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
+													<button data-toggle="modal" data-target="#done"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
 
 											                         
 				
@@ -234,8 +234,8 @@
         </div>
 
 
-          <!-- Deliver guns -->
-  <div id="Swap" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+          <!-- Leave info (pending) -->
+  <div id="pending" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -285,5 +285,55 @@
               </div>
               <!-- /.modal-dialog -->
             </div>
+              </div>
 
+<!-- Leave info (done) -->
+  <div id="done" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Leave request</strong></center></h4>
+                  </div>
+                  <div class="modal-body">
+              <form data-toggle="validator">
+                <div class="form-group">
+                  <div class="row">
+
+					  			<div class="form-group col-sm-8">
+                       <label class="control-label">Leave type</label>
+                          <p class="form-control-static">Sick leave</p>
+                    </div>
+					  				  			<div class="form-group col-sm-4">
+                       <label class="control-label">Notification period (days)</label>
+                          <p class="form-control-static">14</p>
+   
+                    </div>
+					  		<div class="form-group col-sm-6">
+                       <label class="control-label">Date start</label>
+                          <p class="form-control-static"> 07/11/17 </p>
+
+                    </div>
+					  		<div class="form-group col-sm-6">
+                       <label class="control-label">Date end</label>
+                          <p class="form-control-static"> 07/25/17 </p>
+
+                    </div>
+                    					  		<div class="form-group col-sm-12">
+                       <label class="control-label">Reason</label>
+                          <p class="form-control-static"> confined </p>
+
+                    </div>
+					    </div>			
+             <div class="modal-footer">   
+              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+
+             </div>
+            </form>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
   @endsection
