@@ -104,6 +104,27 @@ class EmployeeControl extends Controller
 
     }
 
+    public function notifications(Request $request)
+    {
+
+      try {
+        $value = $request->session()->get('user');
+        if ($value!==null) {
+          $u = Employee::find($value);
+          $acceptedGuards = AcceptedGuards::where('guard_id',$u->id)->get();
+
+          return view('SecurityGuardsPortal/SecurityGuardsPortalNotifications')
+                  ->with('employee',$u)
+                  ->with('acceptedGuards',$acceptedGuards);
+          //return $acceptedGuards;
+
+        }
+      } catch (Exception $e) {
+        return view($e);
+      }
+
+    }
+
     public function messages(Request $request)
     {
 

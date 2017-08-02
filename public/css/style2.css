@@ -2607,6 +2607,7 @@ ul.common li a:hover {
   border-bottom: 1px solid rgba(120, 130, 140, 0.13);
   display: table;
   padding: 20px 25px;
+  width: 100%;
 }
 .comment-center .comment-body:hover {
   background: #f7fafc;
@@ -5057,7 +5058,7 @@ ul.list-icons li i {
   background: #ffffff;
 }
 .sidebar .sidebar-nav.navbar-collapse {
-  padding-left: 430px;
+  padding-left: 390px;
   padding-right: 0;
 }
 .sidebar .fa-fw {

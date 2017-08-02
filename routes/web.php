@@ -130,6 +130,7 @@ Route::get('/ClientPortalDetails', function () {
 Route::get('/SecurityGuardsPortalHome', function () {
     return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
 });
+    
 
 Route::get('/GuardPool', function () {
     return view('ClientPortal/Guardpool');
@@ -400,6 +401,7 @@ Route::post ( '/SecurityGuardsLogin', 'EmployeeControl@SLogin' );
 Route::get ( '/SecurityGuardsLogOut', 'EmployeeControl@SLogout' );
 Route::get ( '/SecurityGuardsPortalHome', 'EmployeeControl@home' );
 Route::get('/SecurityGuardsPortalProfile', 'EmployeeControl@profile');
+Route::get('/SecurityGuardsPortalNotifications', 'EmployeeControl@notifications');
 Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
 Route::get('/SecurityGuardsPortalRequest', 'EmployeeControl@requests');
 // Earl :D ---------------------------------------------------------------------
