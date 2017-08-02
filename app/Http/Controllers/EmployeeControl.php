@@ -69,6 +69,18 @@ class EmployeeControl extends Controller
 
     }
 
+    public function requests(Request $request)
+    {
+      try {
+        $value = $request->session()->get('user');
+        $u = Employee::find($value);
+        return view('SecurityGuardsPortal/SecurityGuardsPortalRequest')->with('employee',$u);
+      } catch (Exception $e) {
+        return view('clientloginform');
+      }
+
+    }
+
     public function profile(Request $request)
     {
       try {
@@ -100,7 +112,7 @@ class EmployeeControl extends Controller
         if ($value!==null) {
           $u = Employee::find($value);
           $acceptedGuards = AcceptedGuards::where('guard_id',$u->id)->get();
-          
+
           return view('SecurityGuardsPortal/SecurityGuardsPortalMessages')
                   ->with('employee',$u)
                   ->with('acceptedGuards',$acceptedGuards);
@@ -145,7 +157,7 @@ class EmployeeControl extends Controller
     public function saveResponse(Request $request){
        $acceptedGuard2 = DB::table('accepted_guards')
                            ->where('guard_id', $request->secuID);
-                $acceptedGuard2->update(['guard_reponse'=>'reject']);           
+                $acceptedGuard2->update(['guard_reponse'=>'reject']);
       $acceptedGuard = DB::table('accepted_guards')
                            ->where('client_deployment_notif_id', $request->deployment_notif_id)
                            ->where('guard_id', $request->secuID);
@@ -161,14 +173,14 @@ class EmployeeControl extends Controller
         $acceptedGuard = DB::table('accepted_guards')
                            ->where('client_deployment_notif_id', $request->deployment_notif_id)
                            ->where('guard_id', $request->secuID);
-      
-        
+
+
           $acceptedGuard->update(['reasons'=>$request->reason]);
           $acceptedGuard->update(['guard_reponse'=>'reject']);
           return response("Success!! We've sent your reasons.");
-        
+
        // return response($request->deployment_notif_id);
-      
+
     }
   }
     public function getReason(Request $request){
