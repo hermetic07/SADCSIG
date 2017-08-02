@@ -266,7 +266,7 @@
                           <p class="form-control-static"> 07/25/17 </p>
 
                     </div>
-                    					  		<div class="form-group col-sm-12">
+                    					  		<div class="form-group col-sm-12">``
                        <label class="control-label">Reason</label>
                           <p class="form-control-static"> confined </p>
 
