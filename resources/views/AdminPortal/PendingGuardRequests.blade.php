@@ -81,11 +81,11 @@
                                     <h5 class="m-b-0">Polytechnic university of the philippines</h5> <small class="text-muted">Client</small> </div>
                             </div>
                             </br>
-								<div class="row">
+							
 													<button data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
 
 											                         
-								</div>
+                                                    
 		
                              </div>
 			  			</div>
@@ -141,11 +141,11 @@
                                     <h5 class="m-b-0">Polytechnic university of the philippines</h5> <small class="text-muted">Client</small> </div>
                             </div>
                             </br>
-								<div class="row">
+				
 													<button data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
 
 											                         
-								</div>
+				
 		
                              </div>
 			  			</div>
@@ -200,11 +200,11 @@
                                     <h5 class="m-b-0">Polytechnic university of the philippines</h5> <small class="text-muted">Client</small> </div>
                             </div>
                             </br>
-								<div class="row">
+			
 													<button data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
 
 											                         
-								</div>
+				
 		
                              </div>
 			  			</div>
