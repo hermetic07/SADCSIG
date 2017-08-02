@@ -43,7 +43,9 @@ Route::get('/Swap','GuardReplacementController@index');
 Route::get('/SecurityGuards', function () {
     return view('AdminPortal/SecurityGuards');
 });
-
+Route::get('/PendingGuardRequests', function () {
+    return view('AdminPortal/PendingGuardRequests');
+});
 Route::get('/GuardLicenses', function () {
     return view('AdminPortal/GuardLicenses');
 });

@@ -305,6 +305,8 @@
            <ul class="nav nav-second-level">
             <li> <a href="{{url('/SecurityGuards')}}" class="waves-effect">Guards<span class="label label-rouded label-info pull-right"></span></a>
             </li>
+            <li> <a href="{{url('/PendingGuardRequests')}}" class="waves-effect">Pending Request<span class="label label-rouded label-info pull-right"></span></a>
+            </li>
             <li> <a href="{{url('/GuardLicenses')}}" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right"></span></a>
             </li>
               <li> <a href="{{url('/GuardsDTR')}}" class="waves-effect">Guard's DTR</a>
