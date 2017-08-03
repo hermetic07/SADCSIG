@@ -66,7 +66,7 @@
 
 
 
-      <!-- Deliver guns -->
+      <!-- Leave Modal -->
 <div id="Swap" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -78,43 +78,42 @@
             <form data-toggle="validator">
               <div class="form-group">
                 <div class="row">
-                       <div class="form-group col-sm-7">
+                  <div class="form-group col-sm-6">
                     <label class="control-label">Leave type</label>
-                                            <select class="form-control"  name="noblank">
+                    <select class="form-control"  name="noblank" id="leaves">
                       <option value="" disabled="" selected="">---</option>
-                      <option>Vacation sick</option>
-                      <option>ROTC</option>
+                      @foreach($leave as $l)
+                      <option value="{{$l->id}}">{{$l->name}}</option>
+                      @endforeach
                     </select>
                     <div class="help-block with-errors"></div>
                  </div>
-        <div class="form-group col-sm-5">
+                 <div class="form-group col-sm-6">
                      <label class="control-label">Notification period (days)</label>
-                        <p class="form-control-static"> 14</p>
+                      <p class="form-control-static" id="notif_days"> 0</p>
                      <div class="help-block with-errors"></div>
                   </div>
-
-                       <div class="form-group col-sm-6">
+                </div>
+                <div class="row">
+                  <div class="form-group col-sm-6">
                     <label class="control-label">Date start</label>
-                                                                      <div class="input-group">
+                    <div class="input-group">
                     <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy" name="noblank">
-                  </div>
+                    </div>
                     <div class="help-block with-errors"></div>
                  </div>
-        <div class="form-group col-sm-6">
-                     <label class="control-label">Date end</label>
-                                                            <div class="input-group">
+                 <div class="form-group col-sm-6">
+                    <label class="control-label">Date end</label>
+                    <div class="input-group">
                     <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose2" placeholder="mm/dd/yyyy" name="noblank">
+                    </div>
+                    <div class="help-block with-errors"></div>
                   </div>
-                     <div class="help-block with-errors"></div>
-                  </div>
-        <div class="form-group col-sm-12	">
-                     <label class="control-label">Reason:</label>
+                  <div class="form-group col-sm-12	">
+                    <label class="control-label">Reason:</label>
                     <textarea class="form-control" rows="5" required></textarea>
-                     <div class="help-block with-errors"></div>
-
+                    <div class="help-block with-errors"></div>
                   </div>
-
-
                </div>
                  <div class="help-block with-errors"></div>
               </div>
@@ -137,6 +136,24 @@
 
 
 @section('script')
-
+<script>
+$("#leaves").change(function(){
+  $.ajaxSetup({
+    headers: {
+     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+     }
+  }); 
+  $.ajax({
+    type: 'post',
+    url: '/GetLeaveInfo',
+    data: {
+        leave:$('#leaves').val(),
+    },
+    success: function(data){
+        $('#notif_days').html(data.notification);
+    }
+  });
+});
+</script>
 
  @endsection
