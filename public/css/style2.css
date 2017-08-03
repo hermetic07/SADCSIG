@@ -15753,3 +15753,7 @@ minutes-container {
 .seconds-container {
   transition: transform 0.2s cubic-bezier(.4,2.08,.55,.44);
 }
+
+.firstcal {
+    z-index: 1151 !important;
+}

@@ -78,7 +78,7 @@
             <form data-toggle="validator">
               <div class="form-group">
                 <div class="row">
-                  <div class="form-group col-sm-6">
+                  <div class="form-group col-sm-4">
                     <label class="control-label">Leave type</label>
                     <select class="form-control"  name="noblank" id="leaves">
                       <option value="" disabled="" selected="">---</option>
@@ -88,24 +88,36 @@
                     </select>
                     <div class="help-block with-errors"></div>
                  </div>
-                 <div class="form-group col-sm-6">
+                 <div class="form-group col-sm-5">
                      <label class="control-label">Notification period (days)</label>
-                      <p class="form-control-static" id="notif_days"> 0</p>
+                      <p class="form-control-static" id="notif_days">0</p>
+                     <div class="help-block with-errors"></div>
+                  </div>
+                   <div class="form-group col-sm-3">
+                     <label class="control-label">Allowable days</label>
+                      <p class="form-control-static" id="allow_days"> 0</p>
                      <div class="help-block with-errors"></div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-sm-6">
-                    <label class="control-label">Date start</label>
+                  <div class="form-group col-sm-4">
+                    <label class="control-label">Notification date</label>
                     <div class="input-group">
-                    <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy" name="noblank">
+                     <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control thirdcal" id="thirdcal" placeholder="mm/dd/yyyy" name="notifdate"  disabled/>
                     </div>
                     <div class="help-block with-errors"></div>
                  </div>
-                 <div class="form-group col-sm-6">
+                  <div class="form-group col-sm-4">
+                    <label class="control-label">Date start</label>
+                    <div class="input-group">
+                     <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly/>
+                    </div>
+                    <div class="help-block with-errors"></div>
+                 </div>
+                 <div class="form-group col-sm-4">
                     <label class="control-label">Date end</label>
                     <div class="input-group">
-                    <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="datepicker-autoclose2" placeholder="mm/dd/yyyy" name="noblank">
+                      <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control secondcal" id="secondcal" placeholder="mm/dd/yyyy" name="to" disabled>
                     </div>
                     <div class="help-block with-errors"></div>
                   </div>
@@ -137,7 +149,12 @@
 
 @section('script')
 <script>
+
 $("#leaves").change(function(){
+        $('#firstcal').val("");
+      $('#secondcal').val('');
+  var notifday= 0;
+   var allowday= 0;
   $.ajaxSetup({
     headers: {
      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -151,9 +168,65 @@ $("#leaves").change(function(){
     },
     success: function(data){
         $('#notif_days').html(data.notification);
+           $('#allow_days').html(data.days);
+          notifday = data.notification;
+          allowday = data.days;
+   $('.firstcal').datepicker('destroy');
+$(".firstcal").datepicker({
+         dateFormat: "mm/dd/yy",
+         minDate: notifday,
+         onSelect: function(dateText, instance) {
+
+
+             date = $.datepicker.parseDate(instance.settings.dateFormat, dateText, instance.settings);
+              date.setDate(date.getDate() + allowday);
+             $(".secondcal").datepicker("setDate", date);
+         }
+     });
     }
+    
   });
+      
+
 });
+
+ $(function() {
+   
+     $(".firstcal").datepicker({
+         dateFormat: "mm/dd/yy",
+         minDate: 0,
+         onSelect: function(dateText, instance) {
+  
+           var a = $('input[name=span_mo]').val();
+         var number = parseInt(a);
+
+             date = $.datepicker.parseDate(instance.settings.dateFormat, dateText, instance.settings);
+             date.setMonth(date.getMonth() + number);
+             $(".secondcal").datepicker("setDate", date);
+         }
+     });
+     $(".secondcal").datepicker({
+         dateFormat: "mm/dd/yy"
+     });
+     $(".thirdcal").datepicker({
+         dateFormat: "mm/dd/yy"
+     });
+
+     $(".thirdcal").datepicker().datepicker("setDate", new Date());
+     
+ });
+
+ $(".excom").datepicker({
+    beforeShow: function (input, inst) {
+        setTimeout(function () {
+            inst.dpDiv.css({
+                top: 555            });
+        }, 0);
+    }
+});
+
 </script>
+
+
 
  @endsection
