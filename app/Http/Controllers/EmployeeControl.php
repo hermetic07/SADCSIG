@@ -25,6 +25,7 @@ use App\Contracts;
 use App\Establishments;
 use App\Area;
 use App\Province;
+use App\Leave;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeControl extends Controller
@@ -74,9 +75,21 @@ class EmployeeControl extends Controller
       try {
         $value = $request->session()->get('user');
         $u = Employee::find($value);
-        return view('SecurityGuardsPortal/SecurityGuardsPortalRequest')->with('employee',$u);
+        $L = Leave::All();
+        return view('SecurityGuardsPortal/SecurityGuardsPortalRequest')->with('employee',$u)->with('leave',$L);
       } catch (Exception $e) {
         return view('clientloginform');
+      }
+
+    }
+
+    public function leaveInfo(Request $request)
+    {
+      try {
+        $L = Leave::find($request->leave);
+        return $L;
+      } catch (Exception $e) {
+        return $e;
       }
 
     }

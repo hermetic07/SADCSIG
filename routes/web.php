@@ -130,7 +130,7 @@ Route::get('/ClientPortalDetails', function () {
 Route::get('/SecurityGuardsPortalHome', function () {
     return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
 });
-    
+
 
 Route::get('/GuardPool', function () {
     return view('ClientPortal/Guardpool');
@@ -404,6 +404,7 @@ Route::get('/SecurityGuardsPortalProfile', 'EmployeeControl@profile');
 Route::get('/SecurityGuardsPortalNotifications', 'EmployeeControl@notifications');
 Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
 Route::get('/SecurityGuardsPortalRequest', 'EmployeeControl@requests');
+Route::post('/GetLeaveInfo', 'EmployeeControl@leaveInfo');
 // Earl :D ---------------------------------------------------------------------
 Route::get('/SecurityGuardsPortalMessages/modal','EmployeeControl@showModal')->name('SGMessage.modal');
 Route::post('/saveGuardResponse','EmployeeControl@saveResponse')->name('save.guard.response');
