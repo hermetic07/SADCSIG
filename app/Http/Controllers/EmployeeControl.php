@@ -26,6 +26,7 @@ use App\Establishments;
 use App\Area;
 use App\Province;
 use App\Leave;
+use App\LeaveRequest;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeControl extends Controller
@@ -88,6 +89,29 @@ class EmployeeControl extends Controller
       try {
         $L = Leave::find($request->leave);
         return $L;
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
+
+    public function saveLeave(Request $request)
+    {
+      try {
+
+        $LR = new LeaveRequest();
+        $LR->employees_id=$request->id;
+        $LR->leaves_id=$request->leave;
+        $explod = explode('/',$request->notday);
+        $LR->notif_date="$explod[2]-$explod[0]-$explod[1]";
+        $explod = explode('/',$request->startday);
+        $LR->start_date="$explod[2]-$explod[0]-$explod[1]";
+        $explod = explode('/',$request->endday);
+        $LR->end_date="$explod[2]-$explod[0]-$explod[1]";
+        $LR->reason = $request->reason;
+        $LR->status="pending";
+        $LR->save();
+        return "Request has been sent";
       } catch (Exception $e) {
         return $e;
       }

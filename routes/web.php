@@ -405,6 +405,7 @@ Route::get('/SecurityGuardsPortalNotifications', 'EmployeeControl@notifications'
 Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
 Route::get('/SecurityGuardsPortalRequest', 'EmployeeControl@requests');
 Route::post('/GetLeaveInfo', 'EmployeeControl@leaveInfo');
+Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
 // Earl :D ---------------------------------------------------------------------
 Route::get('/SecurityGuardsPortalMessages/modal','EmployeeControl@showModal')->name('SGMessage.modal');
 Route::post('/saveGuardResponse','EmployeeControl@saveResponse')->name('save.guard.response');
