@@ -14,7 +14,6 @@
   <!-- title -->
   <title>@yield('Title')</title>
 
-@yield('Css')
  <!-- Bootstrap Core CSS -->
   <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
  <!-- Footable CSS -->
@@ -268,7 +267,14 @@
           </li>
 
 
-              @yield('Reg')
+                <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level">
+              <li> <a href="{{url('/ClientsRegistration')}}" class="waves-effect">Clients</a>
+              </li>
+              <li> <a href="{{url('/Guard-Registration')}}" class="waves-effect">Security guards</a>
+              </li>
+                  </ul>
+          </li>
 
               <li>@yield('Dep')<i class="fa fa-exchange fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Deployment<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
@@ -425,8 +431,6 @@
 <script src="plugins/bower_components/owl.carousel/owl.carousel.min.js"></script>
 <script src="plugins/bower_components/owl.carousel/owl.custom.js"></script>
 
- @yield('script')
- 
 <script type="text/javascript">
       (function() {
                 [].slice.call( document.querySelectorAll( '.sttabs' ) ).forEach( function( el ) {
@@ -499,5 +503,8 @@ console.log(query);
            });
        });
  </script>
+ <script>
+</script>
+ @yield('script')
 </body>
 </html>

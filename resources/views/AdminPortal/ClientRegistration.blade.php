@@ -1,15 +1,42 @@
-@extends('AdminPortal.master2')
 
-@section('Title') Client registration @endsection
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
+  <link rel="icon" type="image/png" href="plugins/images/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="plugins/images/favicon-16x16.png" sizes="16x16" />
 
-@section('Css')
+  <!-- title -->
+  <title>Client registration</title>
+
+ <!-- Bootstrap Core CSS -->
+  <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+ <!-- Footable CSS -->
+  <link href="plugins/bower_components/footable/css/footable.core.css" rel="stylesheet">
+  <link href="plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+ <!-- Menu CSS -->
+  <link href="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+  <!-- animation CSS -->
+  <link href="css/animate.css" rel="stylesheet">
 <!-- Wizard CSS -->
 <link href="plugins/bower_components/jquery-wizard-master/css/wizard.css" rel="stylesheet">
-<!-- Custom CSS -->
-<link href="css/jquery-ui.css" rel="stylesheet">
- 
-<!-- Date picker plugins css -->
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet">
+  <!-- color CSS -->
+  <link href="css/colors/MyThemeColor.css" id="theme"  rel="stylesheet">
+  <!--alerts CSS -->
+  <link href="js/Alert/sweetalert.css" rel="stylesheet" type="text/css">
+  <!---switch -->
+  <link href="plugins/bower_components/switchery/dist/switchery.min.css" rel="stylesheet" />
+      <link rel="stylesheet" href="plugins/bower_components/dropify/dist/css/dropify.min.css">
+    <!-- Date picker plugins css -->
 <link href="plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
 <link href="plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
 <link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
@@ -18,32 +45,271 @@
 <link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
 <link href="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <script src="{{asset('js/jquery.min.js')}}"></script>
-<script src="{{asset('js/jquery.validate.js')}}"></script>
-@endsection
- 
-@section('mtitle') Client registration  @endsection
+  <script src="{{asset('js/jquery.validate.js')}}"></script>
+ <script type="text/javascript">
 
-@section('mtitle2')
-                        <li><a href="#"> Registration</a></li>
-                         <li class="active"><a href="{{url('/ClientRegistration')}}"> Client registration</a></li>  @endsection
+    $(document).ready(function(){
 
-@section('Reg')
-      <li> <a href="javascript:void(0);" class="waves-effect active" ><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
-            <ul class="nav nav-second-level">
-              <li> <a href="{{url('/ClientRegistration')}}" class="waves-effect active">Clients</a>
+
+
+      var shift =1;
+      //Span for count of selected guards
+            var value = parseInt($(".myspan").text(), 10) + 1;
+      //Span for the remaining guards that need to be selected to meet the limit
+      var value2 = parseInt($(".deploysecu").text(), 10) + 1;
+
+
+    });
+
+</script>
+  </head>
+
+
+<!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+
+<!-- fix header and sidebar -->
+<body class="fix-header fix-sidebar">
+
+
+    <div id="wrapper">
+        <!-- Top Navigation -->
+      <nav class="navbar navbar-default navbar-static-top m-b-0">
+      <!-- navbar-header -->
+        <div class="navbar-header">
+      <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+
+            <ul class="nav navbar-top-links navbar-left hidden-xs">
+              <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
+        </ul>
+
+            <ul class="nav navbar-top-links navbar-right pull-right">
+
+             <!-- Incident report -->
+         <li class="dropdown">
+           <a class="waves-effect waves-light" href="{{url('/IncidentReports')}}">
+           <span class="mytooltip tooltip-effect-7">
+                      <span class="tooltip-item">
+              <i class="fa fa-warning"></i>
+                <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+            </span>
+                      <span class="tooltip-table2 clearfix">
+                        <span class="tooltip-texth2">
+         Reports
+              </span>
+                      </span>
+                   </span>
+           </a>
+             </li>
+         <!-- Messages-->
+         <li class="dropdown">
+           <a class="waves-effect waves-light" href="{{url('/Messages')}}">
+           <span class="mytooltip tooltip-effect-7">
+                      <span class="tooltip-item">
+              <i class="icon-envelope"></i>
+                <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+            </span>
+                      <span class="tooltip-table2 clearfix">
+                        <span class="tooltip-texth2">
+              Messages
+              </span>
+                      </span>
+                   </span>
+           </a>
+             </li>
+
+         <!-- Announcements-->
+         <li class="dropdown">
+           <a class="waves-effect waves-light" href="{{url('/Announcements')}}">
+             <span class="mytooltip tooltip-effect-7">
+               <span class="tooltip-item">
+                 <i class="fa fa-bullhorn"></i>
+             </span>
+                        <span class="tooltip-table2 clearfix">
+                        <span class="tooltip-texth">
+              Announcements
+              </span>
+                        </span>
+                      </span>
+          </a>
+               </li>
+
+
+
+         <!-- Admin account-->
+               <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/users/admin.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Ernest</b> <small>(Admin)</small>  </a>
+                  <ul class="dropdown-menu dropdown-user animated flipInY">
+                      <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="#"><i class="ti-settings"></i> Account Setting</a> </li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                  </ul>
               </li>
-              <li> <a href="{{url('/Guard-Registration')}}" class="waves-effect">Security guards</a>
+          </ul>
+
+       <!-- System logo-->
+           <div class="top-left-part"><a class="logo" href="Dashboard.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
+           </div>
+
+       </div>
+        <!-- /.navbar-header -->
+      </nav>
+      <!-- End Top Navigation -->
+
+       <!-- Left navbar-header -->
+      <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse" id="slimtest4">
+        <ul class="nav" id="side-menu">
+
+                      <li class="user-pro">
+                          <a href="#" class="waves-effect"><img src="plugins/images/LandingPage/JUCEBER.png" alt="user-img" class="img-circle"><span class="hide-menu text-white">Jubecer security</span>
+                          </a>
+                      </li>
+
+          <li> <a href="{{url('/Dashboard')}}" class="waves-effect"><i class="fa fa-dashboard fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Dashboard </span> </a>
+                </li>
+
+                <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-wrench fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Maintenance  <span class="fa arrow"></span></a>
+                  <ul class="nav nav-second-level">
+              <li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
+                <ul class="nav nav-third-level">
+                    <li> <a href="{{url('/Nature')}}">Nature of business</a></li>
+                  <li> <a href="{{url('/Service')}}">Services</a> </li>
+
+                          </ul>
+                      </li>
+                      <li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
+                          <ul class="nav nav-third-level">
+
+                            <li> <a href="{{url('/License')}}">Licences and clearances</a> </li>
+                            <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
+                            <li> <a href="{{url('/Military')}}">Military services</a></li>
+                            <li> <a href="{{url('/Rank')}}">Rank</a></li>
+                            <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
+                            <li> <a href="{{url('/Role')}}">Role</a></li>
+                            <li> <a href="{{url('/Leave')}}">Leave</a></li>
+                </ul>
+              </li>
+                      <li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
+                <ul class="nav nav-third-level">
+                  <li> <a href="{{url('/Measurement')}}">Measurements</a></li>
+                  <li> <a href="{{url('/Province')}}">Provinces</a></li>
+                  <li> <a href="{{url('/Area')}}">Area</a></li>
+                  <li> <a href="{{url('/GunType')}}">Gun Type</a></li>
+                  <li> <a href="{{url('/Gun')}}">Guns</a></li>
+                </ul>
               </li>
                   </ul>
-          </li>
-@endsection
+            </li>
 
-@section('Dep')<a href="javascript:void(0);" class="waves-effect"> @endsection
-  @section('Cli')<a href="javascript:void(0);" class="waves-effect"> @endsection
-    @section('Sec')<a href="javascript:void(0);" class="waves-effect"> @endsection
-      @section('Del')<a href="javascript:void(0);" class="waves-effect"> @endsection
 
-@section('content')
+                  <li> <a href="javascript:void(0);" class="waves-effect active"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
+              <ul class="nav nav-second-level">
+                <li> <a href="{{url('/ClientsRegistration')}}" class="waves-effect active">Clients</a>
+                </li>
+                <li> <a href="{{url('/Guard-Registration')}}" class="waves-effect">Security guards</a>
+                </li>
+                    </ul>
+            </li>
+
+                <li><a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-exchange fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Deployment<span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li> <a href="{{route('manual.deployment')}}" class="waves-effect">Deploy</a>
+                </li>
+                <li> <a href="{{url('/Replace')}}" class="waves-effect">Replace</a>
+                </li>
+                  <li> <a href="{{url('/Swap')}}" class="waves-effect">Swap</a>
+                </li>
+                  </ul>
+                </li>
+
+            <li><a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-users fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Clients <span class="fa arrow"></span></a>
+             <ul class="nav nav-second-level">
+               <li> <a href="{{url('/ActiveClient')}}" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
+              </li>
+              <li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
+              </li>
+              <li> <a href="{{url('/ServiceRequest')}}" class="waves-effect">Client Requests<span class="label label-rouded label-info pull-right"><a href="javascript:void(0);" class="waves-effect"> </span></a>
+              </li>
+              <li> <a href="{{url('/GunRequest')}}" class="waves-effect">Gun Requests<span class="label label-rouded label-info pull-right"><a href="javascript:void(0);" class="waves-effect"> </span></a>
+              </li>
+
+             </ul>
+            </li>
+
+            <li> <a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-shield fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Security guards<span class="fa arrow"></span> </a>
+             <ul class="nav nav-second-level">
+              <li> <a href="{{url('/SecurityGuards')}}" class="waves-effect">Guards<span class="label label-rouded label-info pull-right"></span></a>
+              </li>
+              <li> <a href="{{url('/GuardLicenses')}}" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right"></span></a>
+              </li>
+                <li> <a href="{{url('/GuardsDTR')}}" class="waves-effect">Guard's DTR</a>
+              </li>
+             </ul>
+            </li>
+
+            <li><a href="{{url('/Applicants')}}" class="waves-effect"><i class="icon-user-follow fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Applicants  </a>
+            </li>
+
+            <li><a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-truck fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Delivery <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+              <li> <a href="Deliverguns.html" class="waves-effect">Guns</a>
+              </li>
+              <li> <a href="{{url('/Ammunition')}}" class="waves-effect">Ammunitions</a>
+              </li>
+              <li> <a href="{{url('/Pickups')}}" class="waves-effect">Pickups</a>
+              </li>
+             </ul>
+            </li>
+
+
+
+            <li> <a href="{{url('/Reports')}}" class="waves-effect"><i class="fa fa-file-text fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Reports</span></a>
+            </li>
+
+            <li> <a href="#" class="waves-effect"><i class="fa fa-search fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Queries</span><span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li> <a href="#" class="waves-effect">Clients</a>
+                </li>
+                <li> <a href="#" class="waves-effect">Security guards</a>
+                </li>
+                  <li> <a href="#" class="waves-effect">Recapitulation</a>
+                </li>
+                  </ul>
+            </li>
+
+
+            <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Utilities<span class="fa arrow"></span></span></a>
+            <ul class="nav nav-second-level">
+              <li><a href="#">Account settings</a></li>
+            </ul>
+            </li>
+            </ul>
+          </div>
+      </div>
+    <!-- Left navbar-header end -->
+ <div id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h4 class="page-title">Client registration</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li class="active"><a href="#">Dashboard</a></li>
+            <li class="active">Register</li>
+      <li class="active"><a href="ClientRegistration.html">Client</a></li>
+          </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+      </div>
+      <!-- .row -->
+
+      <!-- /.row -->
+      <!-- /.row -->
 <div class="row">
   <div class="col-md-12 col-lg-12 col-sm-12">
     <div class="white-box">
@@ -454,11 +720,23 @@
       </div>
       <!--row -->
       <!-- /.row -->
- @endsection
 
 
 
-@section('script')
+
+
+
+    </div>
+    <!-- /.container-fluid -->
+    <footer class="footer text-center"> 2016 &copy; Evacle </footer>
+  </div>
+
+
+<!-- jQuery and switch -->
+
+<script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Form Wizard JavaScript -->
 <script src="plugins/bower_components/jquery-wizard-master/dist/jquery-wizard.min.js"></script>
 <!-- FormValidation -->
@@ -467,6 +745,25 @@
 <script src="plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.js"></script>
 <script src="plugins/bower_components/jquery-wizard-master/libs/formvalidation/bootstrap.min.js"></script>
 <script src="plugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js" type="text/javascript"></script>
+<!-- Footable -->
+<script src="plugins/bower_components/footable/js/footable.all.min.js"></script>
+<script src="plugins/bower_components/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
+<!--FooTable init-->
+<script src="js/footable-init.js"></script>
+<script src="js/jquery-ui.js"></script>
+<!--slimscroll JavaScript -->
+<script src="js/jquery.slimscroll.js"></script>
+<!--Wave Effects -->
+<script src="js/waves.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="js/custom.min.js"></script>
+<script src="plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+  <!-- Menu Plugin JavaScript -->
+  <script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <script src="plugins/bower_components/dropify/dist/js/dropify.min.js"></script>
+    <script src="plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>
 
 
 
@@ -843,4 +1140,5 @@ $("#txtArea").on("keypress",function(e) {
                 })
             });
         </script>
- @endsection
+</body>
+</html>
