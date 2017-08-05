@@ -8,7 +8,16 @@
 @section('mtitle2')
                         <li><a href="{{url('/SecurityGuards')}}"> Security guards</a></li>
                          <li class="active"><a href="{{url('/GuardLicenses')}}"> Licenses</a></li>  @endsection
-
+@section('Reg')
+      <li> <a href="javascript:void(0);" class="waves-effect" ><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level">
+              <li> <a href="{{url('/ClientRegistration')}}" class="waves-effect">Clients</a>
+              </li>
+              <li> <a href="{{url('/Guard-Registration')}}" class="waves-effect">Security guards</a>
+              </li>
+                  </ul>
+          </li>
+@endsection
 @section('Dep')<a href="javascript:void(0);" class="waves-effect"> @endsection
   @section('Cli')<a href="javascript:void(0);" class="waves-effect"> @endsection
     @section('Sec')<a href="javascript:void(0);" class="waves-effect active"> @endsection
