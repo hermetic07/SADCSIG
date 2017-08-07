@@ -338,4 +338,22 @@ class EmployeeControl extends Controller
 
     }
 
+    public function allLeave()
+    {
+      $leavelist =  DB::table('leave_request')
+                      ->join('leaves', 'leaves.id', '=', 'leave_request.leaves_id')
+                      ->join('employees', 'employees.id', '=', 'leave_request.employees_id')
+                      ->select('leave_request.id as id', 'employees.first_name as fname', 'employees.last_name as lname', 'employees.cellphone as cp', 'employees.telephone as telephone', 'employees.street as street', 'employees.city as city', 'employees.barangay as barangay', 'employees.image as image', 'leaves.name as leave', 'leave_request.reason as reason' , 'leave_request.notif_date as ndate', 'leave_request.start_date as sdate', 'leave_request.end_date as edate', 'leave_request.status as status' )
+                      ->groupBy('leave_request.id')
+                      ->get();
+      return view('AdminPortal.PendingGuardRequests')->with('leavelist',$leavelist);
+    }
+
+    public function viewLeave(Request $r)
+    {
+
+      $leavelist =  LeaveRequest::find( $r->id );
+      return $leavelist;
+    }
+
 }
