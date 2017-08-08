@@ -20,10 +20,13 @@
   href="/ClientPortalMessages-{{$client->id}}"
 @endsection
 @section('mtitle') Home @endsection
+@section('adminPic')
+  src = "uploads/{{$client->image}}"
+@endsection
 
-@php
+<!-- @php
   $estabImage = "";
-@endphp
+@endphp -->
 
 @section('content')
 
@@ -37,7 +40,7 @@
 
             <div class="user-bg"> <img width="100%" height="250px" alt="user" src="plugins/images/backgrounds/profilebg.png">
               <div class="overlay-box">
-                <div class="user-content"> <a href="javascript:void(0)"><img src="plugins/images/Clients/Active/evander.jpg" class="thumb-lg img-circle" alt="img"></a>
+                <div class="user-content"> <a href="javascript:void(0)"><img src = "uploads/{{$client->image}}" class="thumb-lg img-circle" alt="img"></a>
                   <h4 class="text-white">
                     
                         {{ $client->name }}
@@ -80,7 +83,7 @@
                                     @foreach($clientRegistrations as $clientRegistration)
                                       @if($clientRegistration->client_id == $client->id)
                                         @foreach($contracts as $contract)
-                                          @foreach($clientPic as $clientP)
+                                          <!-- @foreach($clientPic as $clientP)
                                             @if($clientP->stringContractId == $contract->id)
                                                 @php
                                                     $estabImage = $clientP->stringpic;
@@ -90,7 +93,7 @@
                                                 @endsection
                                             @endif
                                             
-                                        @endforeach
+                                        @endforeach -->
                                           @if($contract->id == $clientRegistration->contract_id)
                                             @foreach($establishments as $establishment)
                                               @if($establishment->contract_id == $contract->id)
@@ -175,14 +178,14 @@
                   <li class="text-right"><span class="counter">
                   <a class="loadDelivery" href="/ClientPortalHome-GunDelivery-{{$client->id}}">
                   @foreach($gunRequests as $gunRequest)
-                    @if($gunRequest->client_id == $client->id)
+                    @if($gunRequest->strClientID == $client->id)
                       @foreach($clientRegistrations as $clientRegistration)
-                        @if($clientRegistration->client_id == $gunRequest->client_id)
+                        @if($clientRegistration->client_id == $gunRequest->strClientID)
                           @foreach($contracts as $contract)
                             @if($contract->id == $clientRegistration->contract_id)
                               @foreach($gunDeliveries as $gunDelivery)
-                                @if($gunDelivery->status != "CLAIMED")
-                                  @if($gunDelivery->gun_request_id == $gunRequest->id)
+                                @if($gunDelivery->status == "ONDELIVERY")
+                                  @if($gunDelivery->strGunReqID == $gunRequest->strGunReqID)
                                   
                                         @php
                                           $deliveryCtr++;

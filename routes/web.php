@@ -100,11 +100,9 @@ Route::get('/Quotation', function () {
 
 Route::get('/ServiceRequest','ServiceRequestController@index');
 
-Route::get('/GunRequest','GunRequestController@index');
-
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index');
 
-Route::get('/ClientPortalHome-{clientID}','ClientPortalHomeController@index');
+
 
 Route::get('/ClientPortalEstablishments', function () {
     return view('ClientPortal/ClientPortalEstablishments');
@@ -144,6 +142,8 @@ Route::get('/ServiceRequest','ServiceRequestController@index');  // All services
 Route::get('/NewContract-{id}','ServiceRequestController@newContract');
 Route::post('NewContract-Save','ServiceRequestController@saveContract');
 Route::get('/GunRequest','GunRequestController@index');     //  All gun requests from clients
+Route::get('/GunRequest-view','GunRequestController@viewGunRequest')->name('view.gunRequest');
+Route::get('/GunRequest-status','GunRequestController@deliveryStats')->name('delivery.status');
 Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery');  // Save Gun Delivery into Database
 Route::get('GunDeliveries','GunDeliveryController@adminDeliveries');
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
@@ -183,6 +183,8 @@ Route::post('ServiceRequest-remove', 'ServiceRequestController@remove');
 Route::post('AddGuardRequest-remove', 'AdditionalGuardRequesController@remove');
 
 Route::get('/ClientPortalHome-GunDelivery-{id}','ClientPortalHomeController@gunDeliveries');
+Route::get('/ClaimDeliveryModdal','ClientPortalHomeController@claimDeliveryModal')->name('claim.delivery.modal');
+Route::post('/ClaimDelivery','ClientPortalHomeController@claimDelivery')->name('claim.delivery');
 Route::post('GunDelivery-claim', 'GunDeliveryController@claim');
 
 Route::get('/ClientPortalGuardsDTR-{id}','ClientPortalHomeController@guardDtr');
@@ -202,6 +204,7 @@ Route::get('/ClientPortalSettings', function () {
     return view('ClientPortal/ClientPortalSettings');
 });
 
+Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index');
 Route::get('/ClientLogin','LastControl@clientAuth');
 Route::post('/Client-auth','LastControl@authenticate');
 

@@ -7,6 +7,7 @@ use App\GunDelivery;
 use App\GunDeliveryDetails;
 use App\Gun;
 use App\GunRequest;
+use Carbon\Carbon;
 
 class GunDeliveryController extends Controller
 {
@@ -19,7 +20,8 @@ class GunDeliveryController extends Controller
     public function saveDelivery(Request $request){
     	 $ctr2 = 0;
      	 $ctr3 = 0;
-     	 $gunDeliveryID;
+
+     	 $gunDeliveryID = "GUNDELV-".GunDelivery::get()->count();;
     	for($ctr = 0; $ctr<$request->gunCount ; $ctr++){
             $qtyOrder = "qtyOrder".((string)$ctr);
     		$qty = "qty".((string)$ctr);
@@ -27,18 +29,11 @@ class GunDeliveryController extends Controller
     		if($request->$qty != null){
     			$ctr2++;
     			if($ctr2 == 1){
-    				GunDelivery::create(['gun_request_id'=>$request->gunReqstID,'status'=>"ONDELIVERY"]);
+    				GunDelivery::create(['strGunDeliveryID'=>$gunDeliveryID,'strGunReqID'=>$request->gunReqstID,'status'=>"ONDELIVERY",'dateTimeReceived'=>Carbon::now()]);
     			}
-    			$gunDeliveries = GunDelivery::latest('created_at')->get();
-
-    			foreach ($gunDeliveries as $gunDelivery) {
-    				$ctr3++;
-    				if($ctr3 == 1){
-    					$gunDeliveryID = $gunDelivery->id;
-    				}
-    			}
-    			GunDeliveryDetails::create(['gun_delivery_id'=>$gunDeliveryID,'gun_id'=>$request->$gunID,'qtyOrdered'=>$request->$qtyOrder,'quantity'=>$request->$qty]);
-                GunRequest::findOrFail($request->gunReqstID)->update(['status'=>'done']);
+    			$strGunDelivDetailsID = "GUNDELVDTLS-".GunDeliveryDetails::get()->count();
+    			GunDeliveryDetails::create(['strGunDeliveryDetailsID'=>$strGunDelivDetailsID,'strGunDeliveryID'=>$gunDeliveryID,'strGunID'=>$request->$gunID,'qtyOrdered'=>$request->$qtyOrder,'quantity'=>$request->$qty]);
+                GunRequest::findOrFail($request->gunReqstID)->update(['status'=>'active']);
     		}
     	}
     	return redirect('/GunRequest');

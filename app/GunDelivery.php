@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class GunDelivery extends Model
 {
+	protected $table = "tblGunDeliveries";
     protected $fillable =  [
-    	'id','gun_request_id','status','dateTimeReceived'
+    	'strGunDeliveryID','strGunReqID','status','dateTimeReceived'
     ];
+    protected $primaryKey = 'strGunDeliveryID';
+    public $incrementing = false; 
 }

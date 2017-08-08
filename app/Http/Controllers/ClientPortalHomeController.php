@@ -28,11 +28,15 @@ use App\ClientDeploymentNotif;
 use App\NotifResponse;
 use App\AcceptedGuards;
 use App\ClientsPic;
+use App\ClaimedDelivery;
 
 class ClientPortalHomeController extends Controller
 {
+    public function clientImage(Request $request){
+      
+    }
 
-    public function index($clientID,Request $request){
+    public function index($id,Request $request){
       $value = $request->session()->get('client');
       if ($value!=="") {
         $Services = Service::all();
@@ -83,13 +87,74 @@ class ClientPortalHomeController extends Controller
     $establishment = Establishments::all();
     $client_id = $client->id;
     $guns = Gun::all();
-    $gunRequests = GunRequest::where('client_id',$client_id)->get();
+    $gunRequests = GunRequest::where('strClientID',$client_id)->get();
     $gunRequestsDetails = GunRequestsDetails::all();
     $gunDeliveries= GunDelivery::latest('created_at')->get();
     $gunDeliveryDetails = GunDeliveryDetails::all();
     return view('ClientPortal.ClientPortalGunDeliveries')->with('client',$client)->with('guns',$guns)->with('establishment',$establishment)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('establishment',$establishment)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails);
+    //return $id;
   }
+  public function claimDeliveryModal(Request $request){
+    if($request->ajax()){
+      $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID);
+      $gunDeliveryDetails = GunDeliveryDetails::all();
+      $guns = Gun::all();
+      $gunRequests = GunRequest::where('strGunReqID',$gunDeliveries->strGunReqID)->get();
 
+      return view('ClientPortal.formcomponents.claimDeliveryModal')
+              ->with('gunDelivery',$gunDeliveries)
+              ->with('gunDeliveryDetails',$gunDeliveryDetails)
+              ->with('guns',$guns)
+              ->with('gunRequests',$gunRequests[0]);
+     // return $gunRequests[0];
+    }
+  }
+  public function claimDelivery(Request $request){
+    $gunID = "";
+    $qtyClaimed = "";
+    $qtyDelivered = "";
+    $success = 0;
+    $partial =0;
+    $claimedDeliveryID = "CLAIMEDDEL-".ClaimedDelivery::get()->count();
+    for($i = 0; $i < $request->ctr; $i++){
+      $gunID = "gunID".((string)$i);
+      $qtyClaimed = "qtyClaimed".((string)$i);
+      $qtyDelivered = "qtyDelivered".((string)$i);
+      $claimedDelivery = new ClaimedDelivery();
+      $claimedDelivery['strClaimedDelID'] = $claimedDeliveryID;
+      $claimedDelivery['strGunDeliveryID'] = $request->gunDeliveryID;
+      $claimedDelivery['strGunID'] = $request->$gunID;
+      $claimedDelivery['intQtyClaimed'] = $request->$qtyClaimed;
+      if($request->$qtyClaimed == $request->$qtyDelivered){
+        $partial =0;
+      }else{
+        $partial =1;
+      }
+      if($claimedDelivery->save()){
+        $success = 0;
+      }else{
+        $success = 1;
+      }
+      
+    }
+    if($partial == 0){
+      $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'CLAIMED']);
+    }else{
+      $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'PARTIALCLAIMED']);
+    }
+    
+    //return $partial;
+    return redirect('/ClientPortalHome-GunDelivery-'.$request->gunRequestsID);
+    if($request->ajax()){
+      if($success == 0){
+        return response("Success");
+      }else{
+        return response($success);
+      }
+    }
+    
+    
+  }
   public function requests($id)
     {
       $Services = Service::all();

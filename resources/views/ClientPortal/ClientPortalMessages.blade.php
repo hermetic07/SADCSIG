@@ -20,13 +20,16 @@
   href="/ClientPortalMessages-{{$client->id}}"
 @endsection
 @section('mtitle') Messages @endsection
+@section('adminPic')
+  src = "uploads/{{$client->image}}"
+@endsection
 
 @section('content')
 
-@php
+<!-- @php
   $estabImage = "";
   $clientPicture = "";
-@endphp
+@endphp -->
 
 <!-- /.row -->    
 <div class="row">
@@ -149,7 +152,7 @@
                           @endphp
                           @foreach($contracts as $contract)
                              @if($contract->id == $tempDeployment->contract_ID)
-                              @foreach($clientPic as $clientP)
+                              <!-- @foreach($clientPic as $clientP)
                                 @if($clientP->stringContractId == $contract->id)
                                     @php
                                         $estabImage = $clientP->stringestablishment;
@@ -157,7 +160,7 @@
                                         
                                     @endphp
                                 @endif
-                            @endforeach
+                            @endforeach -->
                              @endif
                             @endforeach
                         @endif
@@ -326,6 +329,6 @@
 
 
  @endsection
-@section('adminPic')
+<!-- @section('adminPic')
           src = "uploads/{{$clientPicture}}"
-        @endsection
+        @endsection -->

@@ -79,13 +79,13 @@ class ContractController extends Controller
         $person_in_charge;
         $ctr = 0; $ctr2 = 0;
         $explod = explode('/',$request->from);
-
         $startDate = "$explod[2]-$explod[0]-$explod[1]";
-
         $explod = explode('/',$request->to);
         $endDate = "$explod[2]-$explod[0]-$explod[1]";
+        $parse_exp_date = explode('/',$request->exp_date);
+        $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
 
-        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$request->exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
         $contracts = Contracts::latest('created_at')->get();
 

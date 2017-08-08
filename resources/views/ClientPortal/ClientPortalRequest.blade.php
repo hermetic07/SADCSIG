@@ -19,7 +19,9 @@
   href="/ClientPortalMessages-{{$client->id}}"
 @endsection
 @section('mtitle') Requests @endsection
-
+@section('adminPic')
+  src = "uploads/{{$client->image}}"
+@endsection
 
 @section('content')
 <form class="form-horizontal" method="GET" action="{{ url('/Request-sent') }}">
@@ -131,7 +133,7 @@
                         {{ $gun->name }}
                       </td>
                       <td>
-                        <input id="{{ $gun->id }}" class="checkbox" type="checkbox" name="{{ $gunCtr }}" value="{{ $gun->id }}">
+                        <input id="{{ $gun->id }}" class="checkbox" type="checkbox" name="{{ $gunCtr }}" value="{{ $gun->strGunID }}">
                       </td>
                       <td>
                         <input type="number" class="form-control qty" id="{{ $gun->id }}" name="quantity{{ $gunCtr }}" min="1"  step="0.01"  required>

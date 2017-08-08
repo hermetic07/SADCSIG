@@ -20,6 +20,9 @@
   href="/ClientPortalMessages-{{$client->id}}"
 @endsection
 @section('mtitle') Your security guards daily time record @endsection
+@section('adminPic')
+  src = "uploads/{{$client->image}}"
+@endsection
 
 @section('content')
 

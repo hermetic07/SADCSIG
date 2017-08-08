@@ -20,6 +20,9 @@
   href="/ClientPortalMessages-{{$client->id}}"
 @endsection
 @section('mtitle') Establishments @endsection
+@section('adminPic')
+  src = "uploads/{{$client->image}}"
+@endsection
 
 @section('content')
 
@@ -37,7 +40,6 @@
           $a = 0;
           $l = 0;
           $estabImage = "";
-          $clientPicture = "";
         @endphp
        
 
@@ -48,7 +50,7 @@
                   @if($clientP->stringContractId == $contract->id)
                       @php
                           $estabImage = $clientP->stringestablishment;
-                          $clientPicture = $clientP->stringpic;
+                          
                       @endphp
                   @endif
               @endforeach
@@ -154,10 +156,7 @@
           }
 
         @endphp
-        @section('adminPic')
-          src = "uploads/{{$clientPicture}}"
-        @endsection
-
+        
       </div>
      </div>
     </div>

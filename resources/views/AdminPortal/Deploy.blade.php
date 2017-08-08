@@ -259,7 +259,8 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                             </th>
                             <th>Client</th>
                             <th >Guard's needed</th>
-                            
+                            <th>Expected Date</th>
+                            <th>Date Requested</th>
                             <th width="80px">Select</th>
                             <th width="190px">Actions</th>
                           </tr>
@@ -331,7 +332,12 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                 @endphp
 
                               </td>
-                              
+                              <td>
+                                {{$contract->exp_date}}
+                              </td>
+                              <td>
+                                {{$contract->created_at}}
+                              </td>
                               <td>
                                 <div class="radio radio-info">
                                 <input type="radio" id="{{ $contract->id }}" class="radioBtn" value="{{ $contract->id }},{{ $establishmentID }},{{ $contract->guard_count }},{{$client_id}}">
