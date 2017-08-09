@@ -221,7 +221,7 @@
                                               text: "is now officially hired. \n\n"+ "Email: " + result.email + " Password: " + result.pw,
                                               imageUrl: "uploads/"+result.picture
                                             }, function(){
-                location.reload();
+                window.location.href = "/Applicants";
               });
 
 
@@ -258,7 +258,7 @@
                                                         text: "is now officially hired. \n\n"+ "Email: " + result.email + " Password: " + result.pw,
                                                         imageUrl: "uploads/"+result.picture
                                                       }, function(){
-                          location.reload();
+                          window.location.href = "/Applicants";
                   });
 
 

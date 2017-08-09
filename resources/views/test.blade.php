@@ -284,7 +284,7 @@
           <div class="alert alert-success">
             <p align="center">Registration Success! Pls upload your 2x2 picture and image of your location. If not available just click upload later.</p>
           </div>
-          <form action="{{URL::to('Applicants')}}" method="post" enctype="multipart/form-data">
+          <form action="{{URL::to('Applicant')}}" method="post" enctype="multipart/form-data">
             <br>
 
                   <div class="form-group">

@@ -43,9 +43,7 @@ Route::get('/Swap','GuardReplacementController@index');
 Route::get('/SecurityGuards', function () {
     return view('AdminPortal/SecurityGuards');
 });
-Route::get('/PendingGuardRequests', function () {
-    return view('AdminPortal/PendingGuardRequests');
-});
+
 Route::get('/GuardLicenses', function () {
     return view('AdminPortal/GuardLicenses');
 });
@@ -425,7 +423,7 @@ Route::get('/SecurityGuardsPortalAttendance', 'EmployeeControl@attendance');
 Route::get('Guard-Registration','LastControl@index6');
 Route::post ( '/GetProvinceAreas', 'AreaControl@getArea' );
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
-Route::post('/Applicants','RegisterControl@saveImage');
+Route::post('/Applicant','RegisterControl@saveImage');
 //admin guard (evander)
 Route::post('/HireEmployee','RegisterControl@approve');
 Route::post('/HireEmployee2','RegisterControl@approve2');
@@ -443,6 +441,3 @@ Route::get('/ClientOut','ContractController@logout');
 Route::get('/AdminLogIn', function () {
     return view('AdminLogIn');
 });
-
-
-
