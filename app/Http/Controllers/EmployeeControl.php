@@ -353,7 +353,17 @@ class EmployeeControl extends Controller
     {
 
       $leavelist =  LeaveRequest::find( $r->id );
-      return $leavelist;
+      $leave = Leave::find($leavelist->leaves_id);
+      $data = [
+        'id'=>$leavelist->id,
+        'leave'=>$leave->name,
+        'status'=>$leavelist->status,
+        'notif_date'=>$leavelist->notif_date,
+        'start_date'=>$leavelist->start_date,
+        'end_date'=>$leavelist->end_date,
+        'reason'=>$leavelist->reason,
+      ];
+      return $data;
     }
 
 }

@@ -159,8 +159,8 @@
                     </div>
 					    </div>
              <div class="modal-footer">
-              <button type="button" class="btn btn-success waves-effect waves-light" >Accept</button>
-              <button type="button" class="btn btn-danger waves-effect waves-light" >Reject</button>
+              <button type="button" class="btn btn-success waves-effect waves-light" id="accept" >Accept</button>
+              <button type="button" class="btn btn-danger waves-effect waves-light" id="reject">Reject</button>
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 
              </div>
@@ -237,10 +237,19 @@
         },
       success: function(result){
         $("#rid").val(result.id);
+        $("#leave").html(result.leave);
         $("#daterequested").html(result.notif_date);
         $("#datestart").html(result.start_date);
         $("#dateend").html(result.end_date);
         $("#reason").html(result.reason);
+        if (result.status!=="pending") {
+          $("#accept").hide();
+          $("#reject").hide();
+        }
+        else {
+          $("#accept").show();
+          $("#reject").show();
+        }
       }
     });
   }
