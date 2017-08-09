@@ -18,6 +18,7 @@
 @php
     $deployedCtr = 0;
     $estabImage = "";
+    $pic_image = "";
 @endphp
 
 <div class="row">
@@ -49,6 +50,7 @@
                 @if($clientP->stringContractId == $contract->id)
                     @php
                         $estabImage = $clientP->stringestablishment;
+                        $pic_image = $clientP->stringpic;
                     @endphp
                 @endif
             @endforeach
@@ -101,7 +103,7 @@
                                 <div class="col-sm-12">
                                     <div class="pro-agent">
                                         <div class="agent-img">
-                                            <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="plugins/images/Clients/Active/chris.jpg"></a>
+                                            <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="uploads/{{$pic_image}}"></a>
                                         </div>
                                         <div class="agent-name">
                                             <h5 class="m-b-0">{{$contract->pic_fname}},{{$contract->pic_lname}}</h5> <small class="text-muted">Person in charge</small>
