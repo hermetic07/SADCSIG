@@ -10,7 +10,7 @@ The following contributors are students of the Polytechnic University of the Phi
  <br>
  --Ernest Masakariño (Front end developer)
  <br>
- --Evander Lous Macandog (Back-end developer)
+ --Evander Louis Macandog (Back-end developer)
  <br>
  --Chris Jericho Albino (Q.A/ Mobile App Developer)
  <br>
