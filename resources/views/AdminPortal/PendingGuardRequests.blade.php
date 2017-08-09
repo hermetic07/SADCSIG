@@ -89,7 +89,7 @@
                             </div>
                             </br>
 
-                          <button data-toggle="modal" data-target="#pending" onclick="view('{{$l->id}}')" type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
+                          <button  data-target="#pending" onclick="view('{{$l->id}}')" type="button"  data-target=".bs-example-modal-lg" class="btn btn-block btn-info" ><i class="fa fa-list"></i> </i>View leave request</button>
 
 
 
@@ -232,7 +232,6 @@
       url: "/View-Leave-Request",
       type:"GET",
       data: {
-        _token: "{{ csrf_token() }}",
         'id': id,
         },
       success: function(result){
@@ -250,8 +249,62 @@
           $("#accept").show();
           $("#reject").show();
         }
+        $('#pending').modal('show');
       }
     });
   }
+  </script>
+  <script type="text/javascript">
+  $('#accept').on('click', function(e){
+
+    $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'post',
+      url: '/Admin-Leave-Accept',
+      data: {
+          id:$('#rid').val(),
+      },
+      success: function(data){
+          if (data==="Leave Accepted") {
+            alert(data);
+            location.reload();
+          }
+          else {
+            alert(data);
+          }
+      }
+    });
+  })
+
+  $('#reject').on('click', function(e){
+
+    $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'post',
+      url: '/Admin-Leave-Reject',
+      data: {
+          id:$('#rid').val(),
+      },
+      success: function(data){
+          if (data==="Leave Rejected") {
+            alert(data);
+            location.reload();
+          }
+          else {
+            alert(data);
+          }
+      }
+    });
+  })
   </script>
   @endsection

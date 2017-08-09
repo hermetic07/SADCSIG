@@ -351,7 +351,6 @@ class EmployeeControl extends Controller
 
     public function viewLeave(Request $r)
     {
-
       $leavelist =  LeaveRequest::find( $r->id );
       $leave = Leave::find($leavelist->leaves_id);
       $data = [
@@ -364,6 +363,32 @@ class EmployeeControl extends Controller
         'reason'=>$leavelist->reason,
       ];
       return $data;
+    }
+
+    public function acceptLeave(Request $r)
+    {
+      try {
+        $leavelist =  LeaveRequest::find( $r->id );
+        $leavelist->status="accepted";
+        $leavelist->save();
+        return "Leave Accepted";
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
+
+    public function rejectLeave(Request $r)
+    {
+      try {
+        $leavelist =  LeaveRequest::find( $r->id );
+        $leavelist->status="rejected";
+        $leavelist->save();
+        return "Leave Rejected";
+      } catch (Exception $e) {
+        return $e;
+      }
+
     }
 
 }
