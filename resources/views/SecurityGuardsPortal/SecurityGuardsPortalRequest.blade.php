@@ -123,7 +123,7 @@
                   </div>
                   <div class="form-group col-sm-12	">
                     <label class="control-label">Reason:</label>
-                    <textarea class="form-control" rows="5" required></textarea>
+                    <textarea class="form-control" rows="5" id="reason" required></textarea>
                     <div class="help-block with-errors"></div>
                   </div>
                </div>
@@ -131,7 +131,7 @@
               </div>
           </div>
            <div class="modal-footer">
-       <button type="button" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
+       <button type="button" id="edd" class="btn btn-info waves-effect waves-light" onclick="save('{{$employee->id}}')">Submit</button>
             <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
            </div>
           </form>
@@ -184,19 +184,19 @@ $(".firstcal").datepicker({
          }
      });
     }
-    
+
   });
-      
+
 
 });
 
  $(function() {
-   
+
      $(".firstcal").datepicker({
          dateFormat: "mm/dd/yy",
          minDate: 0,
          onSelect: function(dateText, instance) {
-  
+
            var a = $('input[name=span_mo]').val();
          var number = parseInt(a);
 
@@ -213,7 +213,7 @@ $(".firstcal").datepicker({
      });
 
      $(".thirdcal").datepicker().datepicker("setDate", new Date());
-     
+
  });
 
  $(".excom").datepicker({
@@ -228,5 +228,34 @@ $(".firstcal").datepicker({
 </script>
 
 
+<script type="text/javascript">
+function save(id)
+{
+  $.ajaxSetup({
+    headers: {
+     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+     }
+  });
 
+  $.ajax({
+    url: "/SaveLeaveRequest",
+    type:"POST",
+    data: {
+
+      "id":id,
+      "leave":$('#leaves').val(),
+      "notday":$('#thirdcal').val(),
+      "startday":$('#firstcal').val(),
+      "endday":$('#secondcal').val(),
+      "reason":$('#reason').val(),
+
+    },
+    success: function(result){
+      alert(result);
+      location.reload();
+    }
+  });
+}
+
+</script>
  @endsection
