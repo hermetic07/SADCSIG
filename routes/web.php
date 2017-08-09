@@ -405,11 +405,13 @@ Route::get('/SecurityGuardsPortalNotifications', 'EmployeeControl@notifications'
 Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
 Route::get('/SecurityGuardsPortalRequest', 'EmployeeControl@requests');
 Route::post('/GetLeaveInfo', 'EmployeeControl@leaveInfo');
+
 Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
 Route::get('/Admin-Guard-Leave', 'EmployeeControl@allLeave');
 Route::post('/Admin-Leave-Accept', 'EmployeeControl@acceptLeave');
 Route::post('/Admin-Leave-Reject', 'EmployeeControl@rejectLeave');
 Route::get('/View-Leave-Request', 'EmployeeControl@viewLeave');
+
 // Earl :D ---------------------------------------------------------------------
 Route::get('/SecurityGuardsPortalMessages/modal','EmployeeControl@showModal')->name('SGMessage.modal');
 Route::post('/saveGuardResponse','EmployeeControl@saveResponse')->name('save.guard.response');
@@ -441,3 +443,6 @@ Route::get('/ClientOut','ContractController@logout');
 Route::get('/AdminLogIn', function () {
     return view('AdminLogIn');
 });
+
+
+

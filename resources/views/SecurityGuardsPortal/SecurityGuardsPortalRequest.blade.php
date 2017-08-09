@@ -21,7 +21,7 @@
 
               <p>Request for a leave to the agency and wait for their confirmation if it will be confirm. If not, it means there's no one available to relieve you or other reason.</p>
 
-              <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10"  data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" >Request</a>
+              <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10"  data-toggle="modal" data-target="#leave"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" >Request</a>
 
             </div>
           </div>
@@ -39,7 +39,7 @@
 
               <p>Request for a swap to another client but first your client, the security guard that you want to be swap with and his/her client must agree before the agency will confirm and process it.</p>
 
-              <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10">Request</a>
+ <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10"  data-toggle="modal" data-target="#swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" >Request</a>
 
             </div>
 
@@ -67,12 +67,12 @@
 
 
       <!-- Leave Modal -->
-<div id="Swap" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="leave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up following</strong></center></h4>
+                  <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Leave request</strong></center></h4>
                 </div>
                 <div class="modal-body">
             <form data-toggle="validator">
@@ -141,8 +141,119 @@
             </div>
             <!-- /.modal-dialog -->
           </div>
-<!-- /Add military service modal -->
+<!-- /leave -->
+
+      <!-- Leave Modal -->
+<div id="swap" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+              <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Swap request</strong></center></h4>
+                </div>
+                <div class="modal-body">
+           <div class="row  el-element-overlay">
+            <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+              <thead>
+                <tr>
+			    <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="100px" ></th>
+                <th>Guard's name</th>
+                  <th data-sort-ignore="true">Client</th>
+          <th data-sort-ignore="true">action</th>
+                </tr>
+              </thead>
+              	<div class="form-inline padding-bottom-15">
+                	<div class="row">
+						<div class="col-sm-6">
+
+						</div>
+                    	<div class="col-sm-6 text-right m-b-20">
+                    	<div class="form-group">
+                      		<input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+						    autocomplete="off">
+					   </div>
+                  	   </div>
+                   </div>
+                </div>
+				
+						
+              <tbody>
+				  		   <tr>
+                              <td>
+								<div class="el-card-item">
+									<div class="el-card-avatar el-overlay-1">
+                             			 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+												<div class="el-overlay">
+													<ul class="el-info">
+                                                    	<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                  					</ul>
+												</div>
+									</div>
+								</div>
+							   </td>
+                              <td>Abel mandap</td>
+
+					          <td> P.U.P	</td>
+                    <td>   <div class="radio radio-info">
+                  <input type="radio" name="radio" id="radio1" value="option1">
+                  <label for="radio1"> swap </label>
+                </div> </td>
+
+                          </tr>
+				     <tr>
+                              <td>
+								  		<div class="el-card-item">
+									<div class="el-card-avatar el-overlay-1">
+                             			 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2%202.jpg" alt="user"  class="img-circle img-responsive"></a>
+												<div class="el-overlay">
+													<ul class="el-info">
+                                                    	<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                  					</ul>
+												</div>
+									</div>
+								</div>
+						 		</td>
+                              <td>Earl dixon geraldez</td>
+					          <td> U.P. </td>
+					 		                    <td>   <div class="radio radio-info">
+                  <input type="radio" name="radio" id="radio1" value="option1">
+                  <label for="radio1"> Swap</label>
+                </div> </td>
+                          </tr>
+				
+
+
+
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4"></td>
+                </tr>
+              </tfoot>
+        	</table>
+			  
+            <div class="text-right">
+              <ul class="pagination">
+              </ul>
+            </div>      
+   
+ </div>
+
+              </div>
+           <div class="modal-footer">
+       <button type="button" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+           </div>
+          </form>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+<!-- /swap -->
       </div>
+
 
 @endsection
 
