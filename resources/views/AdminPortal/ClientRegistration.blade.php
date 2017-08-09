@@ -776,7 +776,7 @@
 })
   .find('input').change(function(){
     console.log(this.value);
-});
+});+
 
  $(function() {
      $(".firstcal").datepicker({
