@@ -39,7 +39,7 @@
                       <tr>
                         <td>
                           @foreach($guns as $gun)
-                            @if($gun->strGunID == $gunDeliveryDetail->strGunID)
+                            @if($gun->id == $gunDeliveryDetail->strGunID)
                               {{ $gun->name }}
                             @endif
                           @endforeach

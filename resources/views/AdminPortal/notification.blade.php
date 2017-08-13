@@ -54,15 +54,28 @@
                         </div>
                       </div>
                       @foreach($contracts as $contract)
-                       <a href="{{route('manual.deployment')}}"> <div class="comment-body">
-                        <div class="user-img"> <img src="plugins\images\Clients\Active\Chris.jpg" alt="user" class="img-circle"></div>
-                        <div class="mail-contnet">
-                          <h5>Chris jerico (University of the philippines)</h5>
-                          <span class="mail-desc">New establisment to serve. Need two initial guards.</span>
-                          <span class="label label-rounded label-danger">Initial deployment</span>
-                          <span class="time pull-right">April 14, 2016 6:30 pm</span>
-                        </div>
-                      </div></a>
+                        @foreach($clientRegistrations as $clientRegistration)
+                          @if($clientRegistration->contract_id == $contract->id)
+                            @foreach($clients as $client)
+                              @if($client->id == $clientRegistration->client_id)
+                                @foreach($establishments as $establishment)
+                                  @if($establishment->contract_id == $contract->id)
+                                    <a href="{{route('manual.deployment')}}"> <div class="comment-body">
+                                      <div class="user-img"> <img src="uploads/{{$client->image}}" alt="user" class="img-circle"></div>
+                                        <div class="mail-contnet">
+                                          <h5>Chris jerico ({{$establishment->name}})</h5>
+                                          <span class="mail-desc">New establisment to serve. Need {{$contract->guard_count}} initial guards.</span>
+                                          <span class="label label-rounded label-danger">Initial deployment</span>
+                                          <span class="time pull-right">April 14, 2016 6:30 pm</span>
+                                        </div>
+                                      </div>
+                                    </a>
+                                  @endif
+                                @endforeach
+                              @endif
+                            @endforeach
+                          @endif
+                        @endforeach
                       @endforeach
                     </div>
                 </div>

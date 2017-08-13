@@ -167,7 +167,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
     //alert(radioVal[3]);
     var notRadio = "#"+this.id;
    // alert(notRadio);
-    $(".radioBtn:not("+notRadio+")").attr("disabled", "disabled");
+    $(".radioBtn:not("+notRadio+")").prop('checked', false);
     //alert(".radioBtn:not("+notRadio+")");
    //var radioVal = this.value.toArray();
 
@@ -259,8 +259,8 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                             </th>
                             <th>Client</th>
                             <th >Guard's needed</th>
-                            <th>Expected Date</th>
                             <th>Date Requested</th>
+                            <th>Status</th>
                             <th width="80px">Select</th>
                             <th width="190px">Actions</th>
                           </tr>
@@ -279,10 +279,12 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                           $ctr = 0;
                           $ctr2 = 0;
 
-                          $establishmentID;
+                          $establishmentID = "";
                           $shifts;
                           $no_guards;
-                          $client_id;
+                          $client_id = "";
+                          $clientName = "";
+                          $estabImage = "";
 
                         @endphp
 
@@ -295,48 +297,57 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                 @endphp
                               @endif
                             @endforeach
-
+                            @foreach($clientRegistrations as $clientRegistration)
+                                  @if($clientRegistration->contract_id == $contract->id)
+                                    @foreach($clients as $client)
+                                      @if($client->id == $clientRegistration->client_id)
+                                        
+                                        @php
+                                        $client_id = $client->id;
+                                        $clientName = $client->name;
+                                        @endphp
+                                      @endif
+                                    @endforeach
+                                  @endif
+                                @endforeach
+                              @foreach($clientPic as $pic)
+                                @if($pic->stringContractId == $contract->id)
+                                  @php
+                                    $estabImage = $pic->stringestablishment;
+                                  @endphp
+                                @endif
+                              @endforeach
 
 
                             <tr>
                               <td>
                                <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                  <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/establishments/up.jpg" alt="user"  class=" img-responsive"></a>
+                                  <a href="SecurityGuardsProfile.html"><img src="uploads/{{$estabImage}}" alt="user"  class=" img-responsive"></a>
                                   <div class="el-overlay">
                                     <ul class="el-info">
-                                      <li><a class="btn default btn-outline" href="ClientDetails.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                      <li><a class="btn default btn-outline" href="/ClientsDetails-{{$client_id}}+{{$establishmentID}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                     </ul>
                                   </div>
                                 </div>
                                </div>
                               </td>
                               <td>
-                                @foreach($clientRegistrations as $clientRegistration)
-                                  @if($clientRegistration->contract_id == $contract->id)
-                                    @foreach($clients as $client)
-                                      @if($client->id == $clientRegistration->client_id)
-                                        {{ $client->name }}
-                                        @php
-                                        $client_id = $client->id;
-                                        @endphp
-                                      @endif
-                                    @endforeach
-                                  @endif
-                                @endforeach
+                                <a href="{{route('admin.client.estab',$client_id)}}">{{$clientName}}</a>
                               </td>
-                              <td>
-                                {{$contract->guard_count}}
-                                @php
-                                  $no_guards = $contract->guard_count;
-                                @endphp
-
-                              </td>
+                              
                               <td>
                                 {{$contract->exp_date}}
                               </td>
                               <td>
                                 {{$contract->created_at}}
+                              </td>
+                              <td>
+                                {{$contract->status}}
+                                @php
+                                  $no_guards = $contract->guard_count;
+                                @endphp
+
                               </td>
                               <td>
                                 <div class="radio radio-info">
@@ -345,7 +356,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                 </div>
                               </td>
                               <td>
-                                <button class="btn btn-info" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
+                                <button class="btn btn-info btnView" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
                                   <button class="btn btn-danger"><i class="fa fa-times"></i> </button>
                               </td>
                             </tr>
@@ -451,22 +462,22 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                               <small>College Graduate</small>
                               <div class="row m-t-10">
                                 <div class="col-md-6 b-r">
-                                  <p>Evander@yahoo.com</p>
+                                  <p>{{ $employee->email }}</p>
                                 </div>
                               </div>
                               <div class="row m-t-1">
                                 <div class="col-md-6 b-r">
-                                  <p>quezon</p>
+                                  <p>{{ $employee->street }},{{ $employee->barangay }}, {{ $employee->city }}</p>
                                 </div>
                               </div>
                               <div class="row m-t-1">
                                 <div class="col-md-6 b-r">
                                  <strong>Contact number</strong>
-                                 <p>9999999999</p>
+                                 <p>{{ $employee->cellphone }}</p>
                                 </div>
                                 <div class="col-md-6">
                                   <strong>Telephone</strong>
-                                  <p>99999999999</p>
+                                  <p>{{ $employee->telephone }}</p>
                                </div>
                               </div>
                             </div>
@@ -752,6 +763,11 @@ $('.form-search .btn').on('click', function(e){
 
 <input type="hidden" name="hidden_delete" id="hidden_delete" value="AddGuardRequest-remove">
 <script>
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
   function fun_delete(id)
    {
 
@@ -786,6 +802,16 @@ $('.form-search .btn').on('click', function(e){
      
    }
   $(document).ready(function(){
+    $('.btnView').on('click',function(){
+      $.ajax({
+        url : '',
+        type : '',
+        data : {},
+        success : function(){
+          
+        }
+      });
+    });
     $('.shifts').on('click',function(){
       //alert(this.id.split("-")[1]);
       employeeID = this.id.split("-")[1];

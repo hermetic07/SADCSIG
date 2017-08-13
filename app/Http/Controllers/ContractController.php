@@ -101,7 +101,7 @@ class ContractController extends Controller
 
         $establishment_id = 'ESTAB-'.$request->client_code;
 
-        Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'person_in_charge'=>'Earl','contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
+        Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'person_in_charge'=>$person_in_charge,'contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
 
         ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
 
@@ -238,7 +238,7 @@ class ContractController extends Controller
         }
         $request->session()->forget('client');
         $request->session()->forget('contract');
-        return "success";
+        return redirect('/Dashboard');
       } catch (Exception $e) {
         return $e;
       }

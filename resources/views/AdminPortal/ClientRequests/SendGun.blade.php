@@ -439,11 +439,11 @@
                             <tr>
                               <td>
                                 @foreach($guns as $gun)
-                                  @if($gunRequestsDetail->strGunID == $gun->strGunID)
+                                  @if($gunRequestsDetail->strGunID == $gun->id)
                                     {{ $gun->name }}
                                     @php
                                       $avGuns = $gun->quantity;
-                                      $gunID = $gun->strGunID;
+                                      $gunID = $gun->id;
                                     @endphp
                                   @endif
                                 @endforeach

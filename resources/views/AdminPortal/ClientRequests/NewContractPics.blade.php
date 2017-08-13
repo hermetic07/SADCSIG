@@ -284,7 +284,7 @@
             </div>
             <br>
 
-                @include('partials._clientPics',['disabled'=>'','clientpic'=>'plugins/images/Clients/personincharge.jpg'])
+                @include('partials._clientPics',['disabled'=>'disabled','clientpic'=>'uploads/'.$clientPic])
       </div>
     </div>
   </div>

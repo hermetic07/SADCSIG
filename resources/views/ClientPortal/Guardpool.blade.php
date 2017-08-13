@@ -344,5 +344,5 @@
       
  @endsection
  @section('adminPic')
-    src = "uploads/{{$picture}}"
+    src = "uploads/{{$client->image}}"
   @endsection

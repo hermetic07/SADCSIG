@@ -48,6 +48,9 @@
           @php
             $ctr = 0;
             $ctr2 = 0;
+            $areas_id = "";
+            $clientPic = "";
+            $clientName = "";
           @endphp
           <tbody>
             @foreach($serviceRequests as $serviceRequest)
@@ -60,34 +63,45 @@
                   $ctr = $ctr + 1;
                   
                 @endphp
+
+                @foreach($clients as $client)
+                  @if($serviceRequest->client_id ==  $client->id)
+                    @php
+                      $clientID = $client->id;
+                      $areas_id = $client->areas_id;
+                      $clientName = $client->name;
+                      $clientPic = $client->image;
+                    @endphp 
+                  @endif
+               @endforeach
+
                 <tr>
                   <td>
                     <div class="el-card-item">
                       <div class="el-card-avatar el-overlay-1">
-                       <!-- <a href="{{url('/SecuProfile')}}"><img src="plugins/images/Clients/Active/chris.jpg" alt="user"  class="img-circle img-responsive"></a> -->
+                        <a href="#"><img src="uploads/{{$clientPic}}" alt="user"  class="img-circle img-responsive"></a>
                        
                         <div class="el-overlay">
                         <ul class="el-info">
-                          <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          <li><a class="btn default btn-outline" href="{{route('admin.client.estab',$clientID)}}" target="_blank"><i class="fa fa-info"></i></a></li>
                         </ul>
                         </div>
                       </div>
                     </div>
                   </td>
                   <td>
-                   @foreach($clients as $client)
-                      @if($serviceRequest->client_id ==  $client->id)
-                        
-                        {{ $client->name }} 
-                        @php
-                          $clientID = $client->id;
-                        @endphp
-                      @endif
-                   @endforeach
-                    
+                   {{$clientName}}
                   </td>
                   <td>
-                   
+                   @foreach($areas as $area)
+                      @if($area->id == $areas_id)
+                        @foreach($provinces as $province)
+                          @if($province->id == $area->provinces_id)
+                            {{$client->address}},{{$area->name}},{{$province->name}}
+                          @endif
+                        @endforeach
+                      @endif
+                   @endforeach
                   </td>
                   
                 <td>
@@ -97,98 +111,10 @@
                   {{ $serviceRequest->status }}
                 </td>
                 <td>
-                 <button class="btn btn-info"  data-toggle="modal" data-target="#{{ $serviceRequest->id }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
+                 <button class="btn btn-info viewReqetails" value="{{$serviceRequest->id}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
                 <button class="btn btn-danger" onclick="fun_delete('{!!$serviceRequest -> id!!}')"><i class="fa fa-times"></i> Remove </button>
                 </td>
               </tr>
-
-
-<div id="{{ $serviceRequest->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Request details</strong></center></h4>
-      </div>
-      <div class="modal-body">
-        <form method="GET" action="/NewContract-{{$serviceRequest->id}}">
-        {!! csrf_field() !!}
-          <div class="form-group">
-            <div class="row">
-              <div class="form-group col-sm-4">
-                <label class="control-label">Client's name</label>
-                  <p class="form-control-static">
-                   
-                  </p>
-                  <div class="help-block with-errors"></div>
-                </div>
-                <div class="form-group col-sm-8 ">
-                  <label class="control-label">Address</label>
-                    <p class="form-control-static">
-                     
-                  </p>
-                  <div class="help-block with-errors"></div>
-                </div>
-                <div class="form-group col-sm-4">
-                  <label class="control-label">Contact number</label>
-                   <p class="form-control-static">
-                     
-                   </p>
-                 <div class="help-block with-errors"></div>
-              </div>
-              <div class="form-group col-sm-4">
-                <label class="control-label">Email address</label>
-                 <p class="form-control-static"> </p>
-                 <div class="help-block with-errors"></div>
-              </div>
-
-              <div class="form-group col-sm-4">
-                <label class="control-label">Requested service</label>
-                <p class="form-control-static">
-                  
-                </p>
-              <div class="help-block with-errors"></div>
-            </div>
-            <div class="form-group col-sm-5">
-             <label class="control-label">Description of Requested service</label>
-              <p class="form-control-static">
-                    
-              </p>
-             <div class="help-block with-errors"></div>
-            </div>
-            <div class="form-group col-sm-3">
-             <label class="control-label">Meeting place</label>
-                 <p class="form-control-static">
-                    
-                 </p>
-             <div class="help-block with-errors"></div>
-            </div>
-              <div class="form-group col-sm-4">
-               <label class="control-label">Meeting schedule</label>
-                   <p class="form-control-static">
-                    
-                   </p>
-               <div class="help-block with-errors"></div>
-              </div>
-
-            </div>
-            <div class="help-block with-errors"></div>
-          </div>
-        
-          <div class="modal-footer">
-           @if($serviceRequest->status == 'done')
-              <button disabled="true" type="submit" class="btn btn-info waves-effect waves-light">Process Request</button>
-            @else
-              <button type="submit" class="btn btn-info waves-effect waves-light">Process Request</button>
-            @endif
-              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-          </div>
-        </form>
-      </div>
-    </div>  <!-- /.modal-content -->
-  </div> <!-- /.modal-dialog -->
-</div> <!-- /Add military service modal -->
-
 
 
               @endif
@@ -211,6 +137,9 @@
   </div>  <!-- class="col-lg-12 " -- >
 </div>  <!-- row -->
 
+
+
+
 <!-- Deliver guns -->
     @foreach($serviceRequests as $serviceRequest)
       @if($serviceRequest->status != 'deleted')
@@ -222,8 +151,22 @@
 
       @endif
     @endforeach
-  @endsection
+  
   <input type="hidden" name="hidden_delete" id="hidden_delete" value="ServiceRequest-remove">
+
+  @endsection
+@section('modals')
+<div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog">
+    <div class="modal-content viewrequest">
+      
+    </div>
+  </div> <!-- /.modal-dialog -->
+</div>
+@endsection
+    
+  
+  @section('script')
 <script>
   function fun_delete(id)
    {
@@ -261,3 +204,28 @@
      
    }
 </script>
+
+<script type="text/javascript">
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $(document).ready(function(){
+      $('.viewReqetails').on('click',function(){
+       $.ajax({
+        url : "{{route('serviceRequest.viewModal')}}",
+        type : 'GET',
+        data : {serviceRequestID:this.value},
+        success : function(data){
+          //alert(data);
+          console.log(data);
+            $('.viewrequest').empty();
+            $('.viewrequest').html(data);
+            $('#modalview').modal('show');
+        }
+       });
+      });
+    });
+</script>
+@endsection

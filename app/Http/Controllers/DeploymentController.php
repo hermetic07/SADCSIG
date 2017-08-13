@@ -21,6 +21,7 @@ use App\TempDeploymentDetails;
 use App\ClientDeploymentNotif;
 use App\AcceptedGuards;
 use App\NotifResponse;
+use App\EstabGuards;
 
 class DeploymentController extends Controller
 {
@@ -57,7 +58,7 @@ class DeploymentController extends Controller
         
       return redirect('/Dashboard');
         //return $request->clientID;*/
-        $message_ID = 'MSSGS-'.$request->contractID;
+        $message_ID = 'NOTIF-'.$request->contractID;
         $temp_deployment_id = 'TMPDPLY-'.$request->contractID;
         $temp_deployment_details_id ='';
         $client_inbox_id = '';
@@ -124,6 +125,8 @@ class DeploymentController extends Controller
                 $ac = AcceptedGuards::where('guard_id',$request->employeeID)->update(['guard_reponse'=>'deployed']);
                 $nr = NotifResponse::where('guard_id',$request->employeeID)->update(['status'=>'deployed']);
                 $emp = Employee::findOrFail($request->employeeID)->update(['deployed'=>'1']);
+
+                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo]);
                 return response($nr);
         }
     }

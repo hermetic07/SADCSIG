@@ -133,7 +133,7 @@
                         {{ $gun->name }}
                       </td>
                       <td>
-                        <input id="{{ $gun->id }}" class="checkbox" type="checkbox" name="{{ $gunCtr }}" value="{{ $gun->strGunID }}">
+                        <input id="{{ $gun->id }}" class="checkbox" type="checkbox" name="{{ $gunCtr }}" value="{{ $gun->id }}">
                       </td>
                       <td>
                         <input type="number" class="form-control qty" id="{{ $gun->id }}" name="quantity{{ $gunCtr }}" min="1"  step="0.01"  required>

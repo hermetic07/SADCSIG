@@ -29,6 +29,7 @@ use App\NotifResponse;
 use App\AcceptedGuards;
 use App\ClientsPic;
 use App\ClaimedDelivery;
+use App\EstabGuards;
 
 class ClientPortalHomeController extends Controller
 {
@@ -76,8 +77,22 @@ class ClientPortalHomeController extends Controller
     $Services = Service::all();
     $contracts = Contracts::all();
     $clientRegistrations = ClientRegistration::all();
+    $estabGuards = EstabGuards::all();
+    $establishments = Establishments::all();
+    $estabGuards = EstabGuards::all();
 
-    return view('ClientPortal.ClientPortalGuardsDTR')->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('serviceRequests',$serviceRequests)->with('client',$client)->with('services',$Services)->with('contracts',$contracts)->with('clientRegistrations',$clientRegistrations);
+    return view('ClientPortal.ClientPortalGuardsDTR')
+            ->with('deployments',$deployments)
+            ->with('deploymentDetails',$deploymentDetails)
+            ->with('employees',$employees)
+            ->with('serviceRequests',$serviceRequests)
+            ->with('client',$client)
+            ->with('services',$Services)
+            ->with('contracts',$contracts)
+            ->with('clientRegistrations',$clientRegistrations)
+            ->with('estabGuards',$estabGuards)
+            ->with('establishments',$establishments)
+            ->with('estabGuards',$estabGuards);
   }
 
   public function gunDeliveries($id,Request $request){
@@ -191,8 +206,18 @@ class ClientPortalHomeController extends Controller
         $areas = Area::all();
         $provinces = Province::all();
         $clientPic = ClientsPic::all();
+        $estabGuards = EstabGuards::all();
 
-      return view('ClientPortal.ClientPortalEstablishments')->with('client',$client)->with('establishments',$establishments)->with('clientRegistrations',$clientRegistrations)->with('contracts',$contracts)->with('natures',$natures)->with('areas',$areas)->with('provinces',$provinces)->with('clientPic',$clientPic);
+      return view('ClientPortal.ClientPortalEstablishments')
+            ->with('client',$client)
+            ->with('establishments',$establishments)
+            ->with('clientRegistrations',$clientRegistrations)
+            ->with('contracts',$contracts)
+            ->with('natures',$natures)
+            ->with('areas',$areas)
+            ->with('provinces',$provinces)
+            ->with('estabGuards',$estabGuards)
+            ->with('clientPic',$clientPic);
     }
 
     public function clientEstablishmentsdetails($id,$estabID){
@@ -201,7 +226,8 @@ class ClientPortalHomeController extends Controller
       $clientRegistrations = ClientRegistration::where('client_id',$id)->get();
       $es = Establishments::findOrFail($estabID);
       $estabContracts = Establishments::all();
-      
+      $estabGuards = EstabGuards::all();
+      $guardDeployed = EstabGuards::where('strEstablishmentID',$estabID)->get()->count();
        $clientPic = ClientsPic::all();
       $estabID;
       $estab_name;
@@ -262,6 +288,8 @@ class ClientPortalHomeController extends Controller
             ->with('contractID',$es->contract_id)
             ->with('area_size',$area_size)
             ->with('population',$population)
+            ->with('estabGuards',$estabGuards)
+            ->with('guardDeployed',$guardDeployed)
             ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic);
           
     }
@@ -287,7 +315,7 @@ class ClientPortalHomeController extends Controller
     }
     public function messages($id){
       $client = Clients::findOrFail($id);
-      $clientInbox = ClientDeploymentNotif::where('client_id',$client->id)->get();
+      $clientInbox = ClientDeploymentNotif::where('client_id',$client->id)->latest('created_at')->get();
       $adminMessages = DeploymentNotifForClient::all();
       $tempDeployment = TempDeployments::all();
       $tempDeploymentDetails = TempDeploymentDetails::all();
@@ -349,8 +377,7 @@ class ClientPortalHomeController extends Controller
           return response(1);
         }
         
-        $c = new ClientDeploymentNotif();
-        $c->update(['status'=>'done']);
+        ClientDeploymentNotif::findOrFail($request->client_notif_id)->update(['status'=>'done']);
         return response(1);
       }
     }

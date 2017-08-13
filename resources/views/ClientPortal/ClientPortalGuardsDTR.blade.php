@@ -26,7 +26,11 @@
 
 @section('content')
 
-
+@php
+  $estabID = "";
+  $estabName = "";
+  $shifts = "";
+@endphp
 
 <div class="row">
   <div class="col-lg-12 ">
@@ -58,16 +62,27 @@
           </div>
           <tbody>
          @foreach($deployments as $deployment)
+          @foreach($establishments as $establishment)
+            @if($establishment->id == $deployment->establishment_id)
+              @php
+                $estabID = $establishment->id;
+                $estabName = $establishment->name;
+              @endphp
+            @endif
+          @endforeach
             @if($deployment->clients_id == $client->id)
               @foreach($deploymentDetails as $deploymentDetail)
                 @if($deploymentDetail->deployments_id == $deployment->id)
+                  @php
+                    $shifts = $deploymentDetail->shift_from."-".$deploymentDetail->shift_to;
+                  @endphp
                   @foreach($employees as $employee)
                     @if($employee->id == $deploymentDetail->employees_id)
                           <tr>
                               <td>                
                                 <div class="el-card-item">
                                   <div class="el-card-avatar el-overlay-1">
-                                    <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+                                    <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-circle img-responsive"></a>
                                     <div class="el-overlay">
                                       <ul class="el-info">
                                         <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
@@ -80,10 +95,10 @@
                                 {{$employee->first_name}}, {{$employee->last_name}}
                               </td>
                               <td>
-                               
+                               {{$shifts}}
                               </td>
                               <td>
-                                
+                                <a href="/ClientsDetails-{{$client->id}}+{{$estabID}}" target="_blank">{{$estabName}}</a>
                               </td>
                               <td>
                                 {{ $deploymentDetail->role }}

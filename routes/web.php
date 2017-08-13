@@ -82,9 +82,7 @@ Route::get('/Announcements', function () {
 
 
 
-Route::get('/ClientsDetails', function () {
-    return view('AdminPortal/ClientsDetails');
-});
+Route::get('/ClientsDetails-{id}+{estabID}','AdminController@estabDetails')->name('admin.estab.details');
 
 Route::get('/BillingPeriod', function () {
     return view('AdminPortal/BillingPeriod');
@@ -137,10 +135,16 @@ Route::get('/GuardPool', function () {
 
 
 /// ---------  Admin Client Requests  --------------------////
+Route::group(['prefix'=>''], function(){
+    Route::get('ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');
+    Route::get('ServiceRequest/viewModal','ServiceRequestController@viewModal')->name('serviceRequest.viewModal');
+    
+});
 
-Route::get('/ServiceRequest','ServiceRequestController@index');  // All services requested from clients
-Route::get('/NewContract-{id}','ServiceRequestController@newContract');
-Route::post('NewContract-Save','ServiceRequestController@saveContract');
+//Route::get('/ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');  // All services requested from clients
+Route::get('/NewContract-{id}','ServiceRequestController@newContract')->name('newcontract');
+Route::post('NewContract-Save','ServiceRequestController@saveContract')->name('save.newcontract');
+Route::get('/NewContract+UploadPics-{id}','ServiceRequestController@uploadPic')->name('newcontract.uploadpic');
 Route::get('/GunRequest','GunRequestController@index');     //  All gun requests from clients
 Route::get('/GunRequest-view','GunRequestController@viewGunRequest')->name('view.gunRequest');
 Route::get('/GunRequest-status','GunRequestController@deliveryStats')->name('delivery.status');
@@ -149,7 +153,7 @@ Route::get('GunDeliveries','GunDeliveryController@adminDeliveries');
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
 Route::get('/DeployGuards','DeploymentController@deploy')->name('deploy');
 Route::post('/DeployGuards/Save','DeploymentController@saveDepl')->name('deployment.save');
-Route::get('/ClientRegistration','ContractController@register');
+Route::get('/ClientRegistration','ContractController@register')->name('client.reg');
 Route::post('/ClientRegistration-Save','ContractController@save');
 Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
 Route::get('select/Shifts','AdminController@selectShifts')->name('select.shifts');
@@ -161,7 +165,7 @@ Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change
 Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')->name('save.changes');
 
 Route::get('/ActiveClient', 'ContractController@allCLients');
-Route::get('/ClientEstablishment-{contractID}','AdminController@activeClientDetails');
+Route::get('/ClientEstablishment-{contractID}','AdminController@activeClientDetails')->name('admin.client.estab');
 
 /** -----------------  CLIENTS --------------------- **/
 
