@@ -1,38 +1,5 @@
-@extends('ClientPortal.master3')
-
-@section('Title') Establishments @endsection
-@section('clientName')
-   {{  $client->name }}
-@endsection
-@section('link_rqst')
-  href="/Request-{{$client->id}}"
-@endsection
-@section('link_guardsDTR')
-  href="/ClientPortalGuardsDTR-{{$client->id}}"
-@endsection
-@section('link_estab')
-   href="/ClientPortalEstablishments-{{$client->id}}"
-@endsection
-@section('link_home')
-  href="/ClientPortalHome-{{$client->id}}"
-@endsection
-@section('link_messages')
-  href="/ClientPortalMessages-{{$client->id}}"
-@endsection
-@section('mtitle') Establishments @endsection
-@section('adminPic')
-  src = "uploads/{{$client->image}}"
-@endsection
-
-@section('content')
 
 
-
-
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 content">
-      <div class="white-box">
 
         @php
           $estabCtr = 0;
@@ -41,7 +8,7 @@
           $l = 0;
           $imageCtr = 0;
           $estabImage = array();
-          $personInChargeImage = array();
+          $personic = array();
           $guardsDeployed = 0;
         @endphp
        
@@ -55,7 +22,7 @@
                       @php
                       
                           $estabImage[$imageCtr] = $clientP->stringestablishment;
-                          $personInChargeImage[$imageCtr] = $clientP->stringpic;
+                          $personic[$imageCtr] = $clientP->stringpic;
                           $imageCtr++;
                       @endphp
                   @endif
@@ -90,7 +57,7 @@
               @endphp
               <div class="white-box p-0 pro-box pro-horizontal" style="border: 1px solid black;">
                 <div class="col-sm-4 pro-list-img" style="background: url(uploads/{{$estabImage[$f]}}) center center / cover no-repeat;">
-                  <span class="pro-label label label-inverse"><a class="text-white"  href="/ClientPortalEstablishmentsDetails-{{$client->id}}+{{$arr[$f]}}"><i class="icon-info"></i>&nbsp;&nbsp;More info</a></span>
+                  <span class="pro-label label label-inverse"><a class="text-white" href="{{$href}}{{$arr[$f]}}"><i class="icon-info"></i>&nbsp;&nbsp;More info</a></span>
                 </div>
                   <div class="col-sm-8">
                     <div class="pro-content">
@@ -125,9 +92,8 @@
                         </div>
                           <div class="pro-list-info col-sm-6">
                             <ul class="pro-info text-muted m-b-0">
-                              <li> 
-                                <span><img src="plugins/images/Clients/Active/security-guard.png"></span> <span>Security guards</span><span class="pull-right text-inverse">
-                                @foreach($estabGuards as $estabGuard)
+                              <li> <span><img src="plugins/images/Clients/Active/security-guard.png"></span> <span>Security guards</span><span class="pull-right text-inverse">
+                              @foreach($estabGuards as $estabGuard)
                                   @if($estabGuard->strEstablishmentID == $arr[$f])
                                     @php
                                       $guardsDeployed++;
@@ -150,7 +116,7 @@
                           <div class="col-sm-12">
                             <div class="pro-agent">
                               <div class="agent-img">
-                                <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="uploads/{{$personInChargeImage[$f]}}"></a>
+                                <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="uploads/{{$personic[$f]}}"></a>
                               </div>
                               <div class="agent-name">
                                 <h5 class="m-b-0">{{$pic}}</h5> <small class="text-muted">Person in charge</small>
@@ -179,15 +145,5 @@
 
         @endphp
         
-      </div>
-     </div>
-    </div>
-</div>
-
-@endsection
-
-
-@section('script')
-
-
- @endsection
+      
+     

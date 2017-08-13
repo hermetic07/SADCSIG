@@ -723,7 +723,13 @@
 
 
 
-
+@if($errors->any())
+        <ul class="alert alert-danger col-md-6">
+          @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      @endif
 
 
     </div>
@@ -1031,6 +1037,7 @@ $('#firstcal').removeAttr("disabled");
                   $.each($(".shiftend"), function(){
                       allend.push($(this).val());
                   });
+                  alert($('.excom').val());
                   $.ajax({
                     type: 'post',
                     url: '/ClientRegistration-Save',
@@ -1066,6 +1073,7 @@ $('#firstcal').removeAttr("disabled");
                         prefBody:allAttrib,
                         prefLicense:allLicense,
                         prefReq:allReq,
+                        exp_date:$('input[name=exp_date]').val()
                     },
                     success: function(data){
                       if(data==="Success")

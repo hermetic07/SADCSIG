@@ -268,9 +268,9 @@
                     <th data-toggle="true">ID</th>
                     <th>Client Name</th>
                     
-                    <th>Date Requested</th>
-                    <th>Status</th>
-                    <th width="500px">Actions</th>
+                    <th width="150px">Date Requested</th>
+                    <th width="100px">Status</th>
+                    <th width="495px">Actions</th>
                   </tr>
                 </thead>
                 <div class="form-inline padding-bottom-15">
@@ -290,7 +290,7 @@
                   @if($gunRequest->status != 'deleted')
                     @if($gunRequest->status == 'done')
                     <tr  style="background: gray; color: black;">
-                      <td> {{ $gunRequest->id }}</td>
+                      <td> {{ $gunRequest->strGunReqID }}</td>
                       <td>
                         
                        
@@ -301,33 +301,40 @@
                         {{ $gunRequest->created_at }}
                       </td>
                       <td>
+                        <button type="button" value="{{$gunRequest->strGunReqID}}" class="btn btn-success delStats">Delivery Status</button>
+                      </td>
+                      <td>
                         {{ $gunRequest->status }}
                       </td>
                       <td>
-                        <button class="btn btn-info"  data-toggle="modal" data-target="#view{{ $gunRequest->id }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> View Details</button>
-                        <button disabled="true" class="btn btn-danger"  data-toggle="modal" data-target="#decline{{ $gunRequest->id }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Decline Request</button>
-                        <button disabled="true" class="btn btn-success"  data-toggle="modal" data-target="#{{ $gunRequest->id }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Deliver guns</button>
-                        <button class="btn btn-danger" type="button" data-target=".bs-example-modal-lg" onclick="fun_delete('{!!$gunRequest->id!!}')">X</button>
+                        <button class="btn btn-info viewGunReq" value="{{ $gunRequest->strGunReqID }}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> View Details</button>
+                        <button disabled="true" class="btn btn-danger"  data-toggle="modal" data-target="#decline{{ $gunRequest->strGunReqID }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Decline Request</button>
+                        <button disabled="true" class="btn btn-success"  data-toggle="modal" data-target="#{{ $gunRequest->strGunReqID }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Deliver guns</button>
+                        <button class="btn btn-danger" type="button" data-target=".bs-example-modal-lg" onclick="fun_delete('{!!$gunRequest->strGunReqID!!}')">X</button>
                       </td>
                     </tr>
                     @else
                     <tr>
-                      <td> {{ $gunRequest->id }}</td>
+                      <td> {{ $gunRequest->strGunReqID }}</td>
                       <td>
-                         
+                         @foreach($clients as $client)
+                          @if($client->id == $gunRequest->strClientID)
+                            {{$client->name}}
+                          @endif
+                         @endforeach
                       </td>
                       
                       <td>
                         {{ $gunRequest->created_at }}
                       </td>
                       <td>
-                        {{ $gunRequest->status }}
+                        <button type="button" value="{{$gunRequest->strGunReqID}}" class="btn btn-success delStats">Delivery Status</button>
                       </td>
                       <td>
-                        <button class="btn btn-info"  data-toggle="modal" data-target="#view{{ $gunRequest->id }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> View Details</button>
-                        <button class="btn btn-danger"  data-toggle="modal" data-target="#decline{{ $gunRequest->id }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Decline Request</button>
-                        <button class="btn btn-success"  data-toggle="modal" data-target="#{{ $gunRequest->id }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Deliver guns</button>
-                        <button class="btn btn-danger" type="button" data-target=".bs-example-modal-lg" onclick="fun_delete('{!!$gunRequest->id!!}')">X</button>
+                        <button class="btn btn-info viewGunReq" value="{{ $gunRequest->strGunReqID }}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> View Details</button>
+                        <button class="btn btn-danger"  data-toggle="modal" data-target="#decline{{ $gunRequest->strGunReqID }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Decline Request</button>
+                        <button class="btn btn-success"  data-toggle="modal" data-target="#{{ $gunRequest->strGunReqID }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Deliver guns</button>
+                        <button class="btn btn-danger" type="button" data-target=".bs-example-modal-lg" onclick="fun_delete('{!!$gunRequest->strGunReqID!!}')">X</button>
                       </td>
                     </tr>
                     
@@ -372,7 +379,7 @@
  @foreach($gunRequests as $gunRequest)
   @if($gunRequest->status != 'deleted')
     <!-- Deliver guns -->
-  <div id="{{ $gunRequest->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div id="{{ $gunRequest->strGunReqID }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -425,14 +432,14 @@
                     $gunCtr = 0;
                   @endphp
                     @foreach($gunRequestsDetails as $gunRequestsDetail)
-                            @if($gunRequestsDetail->gun_requests_id == $gunRequest->id)
+                            @if($gunRequestsDetail->strGunReqID == $gunRequest->strGunReqID)
                             @php
                               $qty = $gunRequestsDetail->quantity;
                             @endphp
                             <tr>
                               <td>
                                 @foreach($guns as $gun)
-                                  @if($gunRequestsDetail->guns_id == $gun->id)
+                                  @if($gunRequestsDetail->strGunID == $gun->id)
                                     {{ $gun->name }}
                                     @php
                                       $avGuns = $gun->quantity;
@@ -458,7 +465,7 @@
                           @endforeach
                   </tbody>
                 </table>
-                <input type="hidden" name="gunReqstID" value="{{ $gunRequest->id }}">
+                <input type="hidden" name="gunReqstID" value="{{ $gunRequest->strGunReqID }}">
                 <input type="hidden" name="gunCount" value="{{ $gunCtr }}">
                 <div class="form-group col-sm-8">
                   <label class="control-label">Delivered by</label>
@@ -493,92 +500,16 @@
 </div><!-- /Add military service modal -->
 
 
-<div id="view{{ $gunRequest->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="view" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Request Details</strong></center></h4>
-        </div>
-        <div class="modal-body">
-          <form data-toggle="validator">
-            <div class="form-group">
-              <div class="row">
-                <div class="fom-group">
-                  <div class="col-md-6"></div>
-                  <div class="col-md-6">
-                    <label class="control-label col-md-6">Order ID: </label>
-                    <div class="col-md-6"><b style="color: black;">{{ $gunRequest->id }}</b></div>
-                  </div>
-                  
-                </div>
-                <h3><b>Clients's Info</b></h3>
-                <div class="form-group col-sm-7">
-                  <label class="control-label">Client name</label>
-                    <p></p>
-                    <div class="help-block with-errors"></div>
-                </div>
-                <div class="form-group col-sm-3">
-                  <label class="control-label">Contact number</label>
-                    <p class="form-control-static">  </p>
-                    <div class="help-block with-errors"></div>
-                </div>
-                <div class="form-group">
-                  <h4 class="control-label col-md-6">Establishment Name</h4>
-                  <h4 class="control-label col-md-6">Establishment Address</h4>
-                </div>
-                <div class="form-group">
-                  <p class="form-control-static col-md-6">
-                    
-                  </p>
-                  <p class="form-control-static col-md-6">
-                    
-                  </p>
-                  <div class="help-block with-errors"></div>
-                </div>
-                <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-                  <thead>
-                    <tr>
-                      <th  data-sort-ignore="true">Gun Name</th>
-                      <th data-sort-ignore="true" width="120px">Quantity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($gunRequestsDetails as $gunRequestsDetail)
-                            @if($gunRequestsDetail->gun_requests_id == $gunRequest->id)
-                            @php
-                              $qty = $gunRequestsDetail->quantity;
-                            @endphp
-                            <tr>
-                              <td>
-                                @foreach($guns as $gun)
-                                  @if($gunRequestsDetail->guns_id == $gun->id)
-                                    {{ $gun->name }}
-                                  @endif
-                                @endforeach
-                              </td>
-                              <td>
-                                {{ $qty }}
-                              </td>
-                            </tr>
-                            @endif
-                          @endforeach
-                  </tbody>
-                </table>
-                
-              </div>
-            <div class="help-block with-errors"></div>
-          </div>
-         <div class="modal-footer">
-          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-         </div>
-        </form>
-      </div>
+      <div class="modal-content view-content">
+        
+        
     </div>  <!-- /.modal-content -->
   </div>  <!-- /.modal-dialog -->
 </div><!-- /Add military service modal -->
 
-<div id="decline{{ $gunRequest->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="decline{{ $gunRequest->strGunReqID }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" style="background-color:firebrick;">
@@ -722,7 +653,42 @@
      
    }
 </script>
-
+<script type="text/javascript">
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $(document).ready(function(){
+      $('.viewGunReq').on('click',function(){
+        $.ajax({
+          url : "{{route('view.gunRequest')}}",
+          type : 'GET',
+          data : {gunReqstID:this.value},
+          success:function(data){
+            $('.view-content').text('');
+            $('.view-content').append(data);
+            $('#view').modal('show');
+            console.log(data);
+          }
+        });
+      });
+      $('.delStats').on('click',function(){
+        //alert(this.value);
+        $.ajax({
+          url : "{{route('delivery.status')}}",
+          type : "GET",
+          data : {gunReqstID:this.value},
+          success : function(data){
+            $('.view-content').text('');
+            $('.view-content').append(data);
+            $('#view').modal('show');
+            console.log(data);
+          }
+        });
+      });
+    });
+</script>
 
 
 </body>

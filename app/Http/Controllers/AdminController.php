@@ -23,9 +23,11 @@ use App\TempDeployments;
 use App\TempDeploymentDetails;
 use App\AcceptedGuards;
 use Carbon\Carbon;
-use App\Deployment;
+use App\Deployments;
 use App\DeploymentDetails;
 use App\ClientsPic;
+use App\EstabGuards;
+
 class AdminController extends Controller
 {
     public function dashboardIndex(){
@@ -43,10 +45,9 @@ class AdminController extends Controller
         $employees = Employee::all();
         $clientRegistrations = ClientRegistration::all();
         $shifts = Shifts::all();
-
-
-
-        return view('AdminPortal.Deploy')->with('clients',$clients)->with('contracts',$contracts)->with('areas',$areas)->with('provinces',$provinces)->with('establishments',$establishments)->with('services',$services)->with('employees',$employees)->with('clientRegistrations',$clientRegistrations)->with('shifts',$shifts);
+        $clientPic = ClientsPic::all();
+    
+        return view('AdminPortal.Deploy')->with('clients',$clients)->with('contracts',$contracts)->with('areas',$areas)->with('provinces',$provinces)->with('establishments',$establishments)->with('services',$services)->with('employees',$employees)->with('clientRegistrations',$clientRegistrations)->with('shifts',$shifts)->with('clientPic',$clientPic);
     }
     public function selectShifts(Request $request){
         if($request->ajax()){
@@ -70,6 +71,8 @@ class AdminController extends Controller
         $acceptedGuards = AcceptedGuards::all();
         $clientDeploymentNotifs = ClientDeploymentNotif::all();
         $clientPic = ClientsPic::all();
+        $clientRegistrations = ClientRegistration::all();
+        $clients = Clients::all();
 
         return view('AdminPortal/PendingClientRequests')
                 ->with('contracts',$contracts)
@@ -81,7 +84,10 @@ class AdminController extends Controller
                 ->with('tempDeploymentDetails',$tempDeploymentDetails)
                 ->with('acceptedGuards',$acceptedGuards)
                 ->with('clientDeploymentNotifs',$clientDeploymentNotifs)
-                ->with('clientPic',$clientPic);
+                ->with('clientPic',$clientPic)
+                ->with('clientRegistrations',$clientRegistrations)
+                ->with('clients',$clients);
+                
 
     }
 
@@ -104,7 +110,8 @@ class AdminController extends Controller
         $natures = Nature::findOrFail($establishment[0]->natures_id);
         $shifts = Shifts::where('estab_id',$establishment[0]->id)->get();
         $area = Area::findOrFail($establishment[0]->areas_id);
-        $province = Province::findOrFail($establishment[0]->province_id);
+        $province = Province::findOrFail($area->provinces_id);
+        $completeAdd = $establishment[0]->address.",".$area->name." ,".$province->name;       
 
         return view('AdminPortal.DeploymentStatus')
                     ->with('tempDeployments',$tempDeployments)
@@ -119,9 +126,8 @@ class AdminController extends Controller
                     ->with('natures',$natures)
                     ->with('shifts',$shifts)
                     ->with('contract',$contract)
-                    ->with('area',$area)
-                    ->with('province',$province);
-      //  return $province;
+                    ->with('completeAdd',$completeAdd);
+
         //return $tempDeployments;
     }
     public function changeRejectedGuards(Request $request){
@@ -204,28 +210,114 @@ class AdminController extends Controller
     }
     public function notifications(Request $request){
         $contracts = Contracts::latest('created_at')->get();
+        $clientPic = ClientsPic::all();
+        $clients = Clients::all();
+        $clientRegistrations = ClientRegistration::all();
+        $establishments = Establishments::all();
         return view('AdminPortal.notification')
-                ->with('contracts',$contracts);
+                ->with('contracts',$contracts)
+                ->with('clientPic',$clientPic)
+                ->with('clients',$clients)
+                ->with('clientRegistrations',$clientRegistrations)
+                ->with('establishments',$establishments);
     }
 
     public function activeClientDetails($contractID){
         $client = Clients::findOrFail($contractID);
-        $clientRegistrations = ClientRegistration::where('client_id',$contractID)->get();
-        $establishment = Establishments::where('contract_id', $clientRegistrations[0]->contract_id)->get();
-        $natures = Nature::findOrFail($establishment[0]->natures_id);
-        $areas = Area::findOrFail($establishment[0]->areas_id);
-        $provinces = Province::findOrFail($establishment[0]->province_id);
-        $clientPic = ClientsPic::where('stringContractId',$clientRegistrations[0]->contract_id)->get();
-        $picture = $clientPic[0]->stringestablishment;
+        $establishments = Establishments::all();
+        $contracts = Contracts::all();
+        $clientRegistrations = ClientRegistration::all();
+        $natures = Nature::all();
+        $areas = Area::all();
+        $provinces = Province::all();
+        $clientPic = ClientsPic::all();
+        $estabGuards = EstabGuards::all();
         return view('AdminPortal.ClientEstablishment')
-                ->with('establishment',$establishment)
+                ->with('establishments',$establishments)
                 ->with('natures',$natures)
                 ->with('provinces',$provinces)
                 ->with('client',$client)
-                ->with('picture',$picture)
+                ->with('clientRegistrations',$clientRegistrations)
+                ->with('contracts',$contracts)
+                ->with('clientPic',$clientPic)
+                ->with('areas',$areas)
+                ->with('estabGuards',$estabGuards)
                 ;
        // return $picture;
 
+    }
+    public function estabDetails($id,$estabID){
+        $client = Clients::findOrFail($id);
+      $establishments = Establishments::findOrFail($estabID)->get();
+      $clientRegistrations = ClientRegistration::where('client_id',$id)->get();
+      $es = Establishments::findOrFail($estabID);
+      $estabContracts = Establishments::all();
+      $estabGuards = EstabGuards::all();
+      $guardDeployed = EstabGuards::where('strEstablishmentID',$estabID)->get()->count();
+
+       $clientPic = ClientsPic::all();
+      $estabID;
+      $estab_name;
+      $pic;
+      $contactNo;
+      $email;
+      $adress;
+      $natures_id;
+      $areas_id;
+      $provinces_id;
+      $area_size;
+      $population;
+
+      $deployments = Deployments::all();
+      $deploymentDetails = DeploymentDetails::all();
+      $employees = Employee::all();
+
+      foreach($establishments as $establishment){
+        if($establishment->id == $estabID){
+          $estabID = $establishment->id;
+          $estab_name = $establishment->name;
+          $pic = $establishment->person_in_charge;
+          $contactNo = $establishment->contactNo;
+          $email = $establishment->email;
+          $adress = $establishment->address;
+          $natures_id = $establishment->natures_id;
+          $areas_id = $establishment->areas_id;
+          $provinces_id = $establishment->province_id;
+          $area_size = $establishment->area_size;
+          $population = $establishment->population;
+          break;
+        }
+      }
+
+      $contracts = Contracts::all();
+      $clientRegistrations = ClientRegistration::all();
+      $natures = Nature::findOrFail('2');
+      $nature_name = $natures->name;
+      $areas = Area::findOrFail($areas_id);
+      $area_name = $areas->name;
+      $provinces = Province::where('id',$provinces_id)->get();
+
+     // return $es->contract_id;
+      return view('AdminPortal.ClientsDetails')
+            ->with('estabID',$estabID)
+            ->with('client',$client)
+            ->with('estabContracts',$estabContracts)
+            ->with('clientRegistrations',$clientRegistrations)
+            ->with('contracts',$contracts)
+            ->with('estab_name',$estab_name)
+            ->with('pic',$pic)
+            ->with('contactNo',$contactNo)
+            ->with('email',$email)
+            ->with('adress',$adress)
+            ->with('nature_name',$nature_name)
+            ->with('area_name',$area_name)
+            ->with('clientPic',$clientPic)
+            ->with('contractID',$es->contract_id)
+            ->with('area_size',$area_size)
+            ->with('population',$population)
+            ->with('estabGuards',$estabGuards)
+            ->with('guardDeployed',$guardDeployed)
+            ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic);
     }
 
 }

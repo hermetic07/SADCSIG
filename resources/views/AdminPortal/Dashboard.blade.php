@@ -108,7 +108,7 @@
                     </div>
                   </div>
                 </div>
-                <center><a href="{{url('/ServiceRequest')}}"><button class="btn btn-info btn-rounded waves-effect waves-light" >See all</button></a></center>
+                <center><a href="{{route('serviceRequest.index')}}"><button class="btn btn-info btn-rounded waves-effect waves-light" >See all</button></a></center>
               </div>
 
           </div>

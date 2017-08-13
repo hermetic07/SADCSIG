@@ -19,7 +19,9 @@
   href="/ClientPortalMessages-{{$client->id}}"
 @endsection
 @section('mtitle') Requests @endsection
-
+@section('adminPic')
+  src = "uploads/{{$client->image}}"
+@endsection
 
 @section('content')
 <form class="form-horizontal" method="GET" action="{{ url('/Request-sent') }}">
