@@ -18,11 +18,38 @@
 @php
     $deployedCtr = 0;
     $estabImage = "";
+    $pic_image = "";
+    $clientID = "";
+    $establID = "";
+    $nature =  "";
+    $clientName = "";
+    $clientIamge = "";
 @endphp
 
 <div class="row">
     @foreach($contracts as $contract)
         @if($contract->status == 'pending')
+            @foreach($clientRegistrations as $clientRegistration)
+                @if($clientRegistration->contract_id == $contract->id)
+                    @php
+                        $clientID = $clientRegistration->client_id;
+                    @endphp
+                @endif
+            @endforeach
+            @foreach($establishments as $establishment)
+                @if($establishment->contract_id == $contract->id)
+                    @php
+                        $establID = $establishment->id;
+                    @endphp
+                    @foreach($natures as $nature)
+                        @if($nature->id == $establishment->natures_id)
+                            @php
+                            $nature = $nature->name;
+                            @endphp
+                        @endif
+                    @endforeach
+                @endif
+            @endforeach
             @foreach($tempDeployments as $tempDeployment)
                 @if($tempDeployment->contract_ID == $contract->id)
                     @foreach($tempDeploymentDetails as $tempDeploymentDetail)
@@ -49,6 +76,15 @@
                 @if($clientP->stringContractId == $contract->id)
                     @php
                         $estabImage = $clientP->stringestablishment;
+                        $pic_image = $clientP->stringpic;
+                    @endphp
+                @endif
+            @endforeach
+            @foreach($clients as $client)
+                @if($client->id == $clientID)
+                    @php
+                        $clientName = $client->name;
+                        $clientImage = $client->image;
                     @endphp
                 @endif
             @endforeach
@@ -57,7 +93,7 @@
                 <div class="white-box p-0 pro-box pro-horizontal" style="border: 1px solid black;">
                     <div class="col-sm-4 pro-list-img" style="background: url(uploads/{{$estabImage}}) center center / cover no-repeat;">
                         <span class="pro-label label label-inverse">
-                            <a class="text-white"  href="ClientDetails.html">
+                            <a class="text-white"  href="/ClientsDetails-{{$clientID}}+{{$establID}}">
                                 <i class="icon-info"></i>&nbsp;&nbsp;More info
                             </a>
                         </span> 
@@ -69,15 +105,7 @@
                                     <a class="text-dark" href="javascript:void(0)">{{$contract->establishment_name}}</a>
                                 </h4>
                                 <h4 class="text-danger">
-                                    @foreach($establishments as $establishment)
-                                        @if($establishment->contract_id == $contract->id)
-                                            @foreach($natures as $nature)
-                                                @if($nature->id == $establishment->natures_id)
-                                                    {{$nature->name}}
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    @endforeach
+                                    {{$nature}}
                                 </h4>
                             </div>
                             <div class="pro-list-info col-sm-6">
@@ -92,7 +120,7 @@
                                     
                                     <br>
                                     <div class="progress progress-md">
-                                        <div class="progress-bar progress-bar-info active progress-bar-striped" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">{{$deployedCtr}} / {{$contract->guard_count}}
+                                        <div class="progress-bar progress-bar-info active progress-bar-striped uuuuu" value="9" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">{{$deployedCtr}} / {{$contract->guard_count}}
                                         </div>
                                     </div>
                                     <center><a id="deployedGuards" href="/DeploymentStatus+{{$contract->id}}" name="{{$contract->id}}"> <small> Security guards deployed </small></a> </center>
@@ -101,7 +129,13 @@
                                 <div class="col-sm-12">
                                     <div class="pro-agent">
                                         <div class="agent-img">
-                                            <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="plugins/images/Clients/Active/chris.jpg"></a>
+                                            <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="uploads/{{$clientImage}}"></a>
+                                        </div>
+                                        <div class="agent-name">
+                                            <h5 class="m-b-0">{{$clientName}}</h5> <small class="text-muted">Client</small>
+                                        </div>
+                                        <div class="agent-img">
+                                            <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="uploads/{{$pic_image}}"></a>
                                         </div>
                                         <div class="agent-name">
                                             <h5 class="m-b-0">{{$contract->pic_fname}},{{$contract->pic_lname}}</h5> <small class="text-muted">Person in charge</small>
@@ -113,7 +147,7 @@
                                             @foreach($areas as $area)
                                                 @if($area->id == $contract->areas_id)
                                                     @foreach($provinces as $province)
-                                                        @if($area->province_id == $province->id)
+                                                        @if($area->provinces_id == $province->id)
                                                             {{$contract->address}},{{$area->name}}, {{$province->name}}
                                                         @endif
                                                     @endforeach
@@ -161,5 +195,14 @@
     </script>
   @endsection
   @section('script')
-
+  <script type="text/javascript">
+      $(document).ready(function(){
+        var id = [];
+        $.each($(".uuuuu"), function(){
+          id.push($(this).value);
+          //alert(this.text)
+      });
+        //alert(id.join(","));
+      });
+  </script>
   @endsection

@@ -79,13 +79,13 @@ class ContractController extends Controller
         $person_in_charge;
         $ctr = 0; $ctr2 = 0;
         $explod = explode('/',$request->from);
-
         $startDate = "$explod[2]-$explod[0]-$explod[1]";
-
         $explod = explode('/',$request->to);
         $endDate = "$explod[2]-$explod[0]-$explod[1]";
+        $parse_exp_date = explode('/',$request->exp_date);
+        $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
 
-        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$request->exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
         $contracts = Contracts::latest('created_at')->get();
 
@@ -101,7 +101,7 @@ class ContractController extends Controller
 
         $establishment_id = 'ESTAB-'.$request->client_code;
 
-        Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'person_in_charge'=>'Earl','contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
+        Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'person_in_charge'=>$person_in_charge,'contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
 
         ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
 
@@ -238,7 +238,7 @@ class ContractController extends Controller
         }
         $request->session()->forget('client');
         $request->session()->forget('contract');
-        return "success";
+        return redirect('/Dashboard');
       } catch (Exception $e) {
         return $e;
       }

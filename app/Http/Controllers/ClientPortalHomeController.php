@@ -28,11 +28,16 @@ use App\ClientDeploymentNotif;
 use App\NotifResponse;
 use App\AcceptedGuards;
 use App\ClientsPic;
+use App\ClaimedDelivery;
+use App\EstabGuards;
 
 class ClientPortalHomeController extends Controller
 {
+    public function clientImage(Request $request){
+      
+    }
 
-    public function index($clientID,Request $request){
+    public function index($id,Request $request){
       $value = $request->session()->get('client');
       if ($value!=="") {
         $Services = Service::all();
@@ -72,8 +77,22 @@ class ClientPortalHomeController extends Controller
     $Services = Service::all();
     $contracts = Contracts::all();
     $clientRegistrations = ClientRegistration::all();
+    $estabGuards = EstabGuards::all();
+    $establishments = Establishments::all();
+    $estabGuards = EstabGuards::all();
 
-    return view('ClientPortal.ClientPortalGuardsDTR')->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('serviceRequests',$serviceRequests)->with('client',$client)->with('services',$Services)->with('contracts',$contracts)->with('clientRegistrations',$clientRegistrations);
+    return view('ClientPortal.ClientPortalGuardsDTR')
+            ->with('deployments',$deployments)
+            ->with('deploymentDetails',$deploymentDetails)
+            ->with('employees',$employees)
+            ->with('serviceRequests',$serviceRequests)
+            ->with('client',$client)
+            ->with('services',$Services)
+            ->with('contracts',$contracts)
+            ->with('clientRegistrations',$clientRegistrations)
+            ->with('estabGuards',$estabGuards)
+            ->with('establishments',$establishments)
+            ->with('estabGuards',$estabGuards);
   }
 
   public function gunDeliveries($id,Request $request){
@@ -83,13 +102,74 @@ class ClientPortalHomeController extends Controller
     $establishment = Establishments::all();
     $client_id = $client->id;
     $guns = Gun::all();
-    $gunRequests = GunRequest::where('client_id',$client_id)->get();
+    $gunRequests = GunRequest::where('strClientID',$client_id)->get();
     $gunRequestsDetails = GunRequestsDetails::all();
     $gunDeliveries= GunDelivery::latest('created_at')->get();
     $gunDeliveryDetails = GunDeliveryDetails::all();
     return view('ClientPortal.ClientPortalGunDeliveries')->with('client',$client)->with('guns',$guns)->with('establishment',$establishment)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('establishment',$establishment)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails);
+    //return $id;
   }
+  public function claimDeliveryModal(Request $request){
+    if($request->ajax()){
+      $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID);
+      $gunDeliveryDetails = GunDeliveryDetails::all();
+      $guns = Gun::all();
+      $gunRequests = GunRequest::where('strGunReqID',$gunDeliveries->strGunReqID)->get();
 
+      return view('ClientPortal.formcomponents.claimDeliveryModal')
+              ->with('gunDelivery',$gunDeliveries)
+              ->with('gunDeliveryDetails',$gunDeliveryDetails)
+              ->with('guns',$guns)
+              ->with('gunRequests',$gunRequests[0]);
+     // return $gunRequests[0];
+    }
+  }
+  public function claimDelivery(Request $request){
+    $gunID = "";
+    $qtyClaimed = "";
+    $qtyDelivered = "";
+    $success = 0;
+    $partial =0;
+    $claimedDeliveryID = "CLAIMEDDEL-".ClaimedDelivery::get()->count();
+    for($i = 0; $i < $request->ctr; $i++){
+      $gunID = "gunID".((string)$i);
+      $qtyClaimed = "qtyClaimed".((string)$i);
+      $qtyDelivered = "qtyDelivered".((string)$i);
+      $claimedDelivery = new ClaimedDelivery();
+      $claimedDelivery['strClaimedDelID'] = $claimedDeliveryID;
+      $claimedDelivery['strGunDeliveryID'] = $request->gunDeliveryID;
+      $claimedDelivery['strGunID'] = $request->$gunID;
+      $claimedDelivery['intQtyClaimed'] = $request->$qtyClaimed;
+      if($request->$qtyClaimed == $request->$qtyDelivered){
+        $partial =0;
+      }else{
+        $partial =1;
+      }
+      if($claimedDelivery->save()){
+        $success = 0;
+      }else{
+        $success = 1;
+      }
+      
+    }
+    if($partial == 0){
+      $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'CLAIMED']);
+    }else{
+      $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'PARTIALCLAIMED']);
+    }
+    
+    //return $partial;
+    return redirect('/ClientPortalHome-GunDelivery-'.$request->gunRequestsID);
+    if($request->ajax()){
+      if($success == 0){
+        return response("Success");
+      }else{
+        return response($success);
+      }
+    }
+    
+    
+  }
   public function requests($id)
     {
       $Services = Service::all();
@@ -126,8 +206,18 @@ class ClientPortalHomeController extends Controller
         $areas = Area::all();
         $provinces = Province::all();
         $clientPic = ClientsPic::all();
+        $estabGuards = EstabGuards::all();
 
-      return view('ClientPortal.ClientPortalEstablishments')->with('client',$client)->with('establishments',$establishments)->with('clientRegistrations',$clientRegistrations)->with('contracts',$contracts)->with('natures',$natures)->with('areas',$areas)->with('provinces',$provinces)->with('clientPic',$clientPic);
+      return view('ClientPortal.ClientPortalEstablishments')
+            ->with('client',$client)
+            ->with('establishments',$establishments)
+            ->with('clientRegistrations',$clientRegistrations)
+            ->with('contracts',$contracts)
+            ->with('natures',$natures)
+            ->with('areas',$areas)
+            ->with('provinces',$provinces)
+            ->with('estabGuards',$estabGuards)
+            ->with('clientPic',$clientPic);
     }
 
     public function clientEstablishmentsdetails($id,$estabID){
@@ -136,7 +226,8 @@ class ClientPortalHomeController extends Controller
       $clientRegistrations = ClientRegistration::where('client_id',$id)->get();
       $es = Establishments::findOrFail($estabID);
       $estabContracts = Establishments::all();
-      
+      $estabGuards = EstabGuards::all();
+      $guardDeployed = EstabGuards::where('strEstablishmentID',$estabID)->get()->count();
        $clientPic = ClientsPic::all();
       $estabID;
       $estab_name;
@@ -197,6 +288,8 @@ class ClientPortalHomeController extends Controller
             ->with('contractID',$es->contract_id)
             ->with('area_size',$area_size)
             ->with('population',$population)
+            ->with('estabGuards',$estabGuards)
+            ->with('guardDeployed',$guardDeployed)
             ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic);
           
     }
@@ -222,7 +315,7 @@ class ClientPortalHomeController extends Controller
     }
     public function messages($id){
       $client = Clients::findOrFail($id);
-      $clientInbox = ClientDeploymentNotif::where('client_id',$client->id)->get();
+      $clientInbox = ClientDeploymentNotif::where('client_id',$client->id)->latest('created_at')->get();
       $adminMessages = DeploymentNotifForClient::all();
       $tempDeployment = TempDeployments::all();
       $tempDeploymentDetails = TempDeploymentDetails::all();
@@ -284,8 +377,7 @@ class ClientPortalHomeController extends Controller
           return response(1);
         }
         
-        $c = new ClientDeploymentNotif();
-        $c->update(['status'=>'done']);
+        ClientDeploymentNotif::findOrFail($request->client_notif_id)->update(['status'=>'done']);
         return response(1);
       }
     }

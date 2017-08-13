@@ -113,27 +113,23 @@ class LastControl extends Controller
     public function saveGunReq($id, Request $request){
       $ctr2 = 0;
       $ctr3 = 0;
-      $gunReqstID;
+      $gunReqID = "GUNREQ-".GunRequest::get()->count();
+      
+     
       
       for($ctr = 0; $ctr < $request->gunCount; $ctr++){
         if($request->$ctr != null){
-          //echo $request->$ctr;
+          
           $ctr2++;
           if($ctr2==1){
-            GunRequest::create(['client_id'=>$id,'establishment_id'=>$request->establishment_id,'status'=>"active",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+            GunRequest::create(['strGunReqID'=>$gunReqID,'strAdmin'=>'Earl Pogi','strClientID'=>$id,'establishments_id'=>$request->establishment_id,'status'=>"active",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
             $GunRequests = GunRequest::latest('created_at')->get();
-
-            foreach($GunRequests as $gunRequest){
-              $ctr3++;
-              if($ctr3 == 1){
-                 $gunReqstID = $gunRequest->id;
-              }
-              
-            }
+           
 
           }
+          $strGunReqDetailsID = "GUNREQDTLS-".GunRequestsDetails::get()->count();
           $quantity = "quantity".((string)$ctr);
-          GunRequestsDetails::create(['gun_requests_id'=>$gunReqstID,'guns_id'=>$request->$ctr,'quantity'=>$request->$quantity,'status'=>"active"]);
+          GunRequestsDetails::create(['strGunReqDetailsID'=>$strGunReqDetailsID,'strGunReqID'=>$gunReqID,'strGunID'=>$request->$ctr,'quantity'=>$request->$quantity,'status'=>"active"]);
 
         }
       }
@@ -141,6 +137,7 @@ class LastControl extends Controller
      /* GunRequest::create(['establishments_id'=>$id,'gun_for'=>$request->service_requested,'guns_id'=>$gun->id,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 */
       return redirect('Request-'.$id);
+     //return $GunRequests;
  
     }
 

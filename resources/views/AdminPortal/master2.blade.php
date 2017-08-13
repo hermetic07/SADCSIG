@@ -293,7 +293,7 @@
             </li>
             <li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
             </li>
-            <li> <a href="{{url('/ServiceRequest')}}" class="waves-effect">Client Requests<span class="label label-rouded label-info pull-right"> @yield('ServReqstCnt')</span></a>
+            <li> <a href="{{route('serviceRequest.index')}}" class="waves-effect">Service Requests<span class="label label-rouded label-info pull-right"> @yield('ServReqstCnt')</span></a>
             </li>
             <li> <a href="{{url('/GunRequest')}}" class="waves-effect">Gun Requests<span class="label label-rouded label-info pull-right"> @yield('GunReqstCnt')</span></a>
             </li>
@@ -385,6 +385,7 @@
     <!-- /.container-fluid -->
     <footer class="footer text-center"> 2016 &copy; Evacle </footer>
   </div>
+
 
 
   <!-- jQuery and switch -->
@@ -503,8 +504,8 @@ console.log(query);
            });
        });
  </script>
- <script>
-</script>
  @yield('script')
+ @yield('modals')
 </body>
+
 </html>

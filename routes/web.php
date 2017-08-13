@@ -82,9 +82,7 @@ Route::get('/Announcements', function () {
 
 
 
-Route::get('/ClientsDetails', function () {
-    return view('AdminPortal/ClientsDetails');
-});
+Route::get('/ClientsDetails-{id}+{estabID}','AdminController@estabDetails')->name('admin.estab.details');
 
 Route::get('/BillingPeriod', function () {
     return view('AdminPortal/BillingPeriod');
@@ -100,11 +98,9 @@ Route::get('/Quotation', function () {
 
 Route::get('/ServiceRequest','ServiceRequestController@index');
 
-Route::get('/GunRequest','GunRequestController@index');
-
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index');
 
-Route::get('/ClientPortalHome-{clientID}','ClientPortalHomeController@index');
+
 
 Route::get('/ClientPortalEstablishments', function () {
     return view('ClientPortal/ClientPortalEstablishments');
@@ -141,17 +137,25 @@ Route::get('/GuardPool', function () {
 
 
 /// ---------  Admin Client Requests  --------------------////
+Route::group(['prefix'=>''], function(){
+    Route::get('ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');
+    Route::get('ServiceRequest/viewModal','ServiceRequestController@viewModal')->name('serviceRequest.viewModal');
+    
+});
 
-Route::get('/ServiceRequest','ServiceRequestController@index');  // All services requested from clients
-Route::get('/NewContract-{id}','ServiceRequestController@newContract');
-Route::post('NewContract-Save','ServiceRequestController@saveContract');
+//Route::get('/ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');  // All services requested from clients
+Route::get('/NewContract-{id}','ServiceRequestController@newContract')->name('newcontract');
+Route::post('NewContract-Save','ServiceRequestController@saveContract')->name('save.newcontract');
+Route::get('/NewContract+UploadPics-{id}','ServiceRequestController@uploadPic')->name('newcontract.uploadpic');
 Route::get('/GunRequest','GunRequestController@index');     //  All gun requests from clients
+Route::get('/GunRequest-view','GunRequestController@viewGunRequest')->name('view.gunRequest');
+Route::get('/GunRequest-status','GunRequestController@deliveryStats')->name('delivery.status');
 Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery');  // Save Gun Delivery into Database
 Route::get('GunDeliveries','GunDeliveryController@adminDeliveries');
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
 Route::get('/DeployGuards','DeploymentController@deploy')->name('deploy');
 Route::post('/DeployGuards/Save','DeploymentController@saveDepl')->name('deployment.save');
-Route::get('/ClientRegistration','ContractController@register');
+Route::get('/ClientRegistration','ContractController@register')->name('client.reg');
 Route::post('/ClientRegistration-Save','ContractController@save');
 Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
 Route::get('select/Shifts','AdminController@selectShifts')->name('select.shifts');
@@ -163,7 +167,7 @@ Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change
 Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')->name('save.changes');
 
 Route::get('/ActiveClient', 'ContractController@allCLients');
-Route::get('/ClientEstablishment-{contractID}','AdminController@activeClientDetails');
+Route::get('/ClientEstablishment-{contractID}','AdminController@activeClientDetails')->name('admin.client.estab');
 
 /** -----------------  CLIENTS --------------------- **/
 
@@ -185,6 +189,8 @@ Route::post('ServiceRequest-remove', 'ServiceRequestController@remove');
 Route::post('AddGuardRequest-remove', 'AdditionalGuardRequesController@remove');
 
 Route::get('/ClientPortalHome-GunDelivery-{id}','ClientPortalHomeController@gunDeliveries');
+Route::get('/ClaimDeliveryModdal','ClientPortalHomeController@claimDeliveryModal')->name('claim.delivery.modal');
+Route::post('/ClaimDelivery','ClientPortalHomeController@claimDelivery')->name('claim.delivery');
 Route::post('GunDelivery-claim', 'GunDeliveryController@claim');
 
 Route::get('/ClientPortalGuardsDTR-{id}','ClientPortalHomeController@guardDtr');
@@ -204,6 +210,7 @@ Route::get('/ClientPortalSettings', function () {
     return view('ClientPortal/ClientPortalSettings');
 });
 
+Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index');
 Route::get('/ClientLogin','LastControl@clientAuth');
 Route::post('/Client-auth','LastControl@authenticate');
 
