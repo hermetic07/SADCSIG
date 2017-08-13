@@ -21,6 +21,16 @@
 @endphp
 
 <div class="row">
+   <div class="sttabs tabs-style-linetriangle white-box">
+       <nav>
+            <ul>
+              <li><a href="#section-linetriangle-1"><span>Deployment</span></a></li>
+               <li><a href="#section-linetriangle-2"><span>Guard replacement</span></a></li>
+               <li><a href="#section-linetriangle-3"><span>Service</span></a></li>
+             </ul>
+           </nav>
+             <div class="content-wrap">
+               <section id="section-linetriangle-1">
     @foreach($contracts as $contract)
         @if($contract->status == 'pending')
             @foreach($tempDeployments as $tempDeployment)
@@ -139,7 +149,89 @@
             </ul>
         </div>
     </div>
-</div>
+
+       </section>
+       
+<section id="section-linetriangle-2">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                   <div class="row  el-element-overlay">
+						<div class="col-md-4 col-sm-4 content">
+							<div class="white-box">
+                                    <div class="row">
+                        				<div class="col-md-4 col-sm-4 text-center">
+                          						<div class="el-card-item">
+													<div class="el-card-avatar el-overlay-1">
+                             							 <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
+																<div class="el-overlay">
+																	<ul class="el-info">
+																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
+                                                    					<li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                                  									</ul>
+																</div>
+													</div>
+												</div>
+                                                <span class="label label-rouded label-warning center">Pending</span>
+
+										</div>
+                          
+										
+
+												<div class="col-md-8 col-sm-8">
+							
+										 				<h3 class="box-title m-b-0">Ernest john maskarino</h3>
+						
+														<div class="row m-t-1">
+															<div class="col-md-12 b-r">
+																<p>Pureza, sta.mesa, manila, philippines.</p>
+                                        					</div>
+														</div>
+														<div class="row m-t-6">
+                                        					<div class="col-md-6 b-r">
+																<strong>Mobile</strong>
+																<p>9999999999</p>
+                                        					</div>
+															<div class="col-md-6">
+																<strong>Telephone</strong>
+																<p>99999999999</p>
+															</div>
+														</div>
+												</div>
+
+								</div>
+                                <div class="pro-agent-col-3">
+                                <div class="agent-img">
+                                    <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="plugins/images/Clients/establishments/pup.jpg"></a>
+                                </div>
+                                <div class="agent-name">
+                                    <h5 class="m-b-0">Polytechnic university of the philippines</h5> <small class="text-muted">Client</small> </div>
+                            </div>
+						
+		
+                             </div>
+                             	<div class="row">
+													<button data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-block btn-info" >
+                                                    replace guards</button>
+
+											                         
+								</div>
+			  			</div>
+			
+			  
+			  
+     				<div class="row">
+                        <div class="col-md-12 text-center">
+                            <ul class="pagination pagination-split">
+                                <li class="pag_prev"> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
+                                <li class="pag_next"> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+</section>
+                               <section id="section-linetriangle-3"><h2>Tabbing 3</h2></section>
+                             </div><!-- /content -->
+                           </div><!-- /tabs -->
 <script type="text/javascript">
     // $.ajaxSetup({
     //   headers: {
