@@ -28,6 +28,7 @@
 <div id="image-popups" class="row"
             <h4>{{$establishment->name}}</h4>
             <h5><span class="text-muted"><i class="fa fa-map-marker text-danger m-r-10" aria-hidden="true"></i>{{$completeAdd}}</span></h5>
+
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">Client's approval</div>

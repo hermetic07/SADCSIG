@@ -124,6 +124,8 @@ Route::get('/ClientPortalDetails', function () {
 Route::get('/SecurityGuardsPortalHome', function () {
     return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
 });
+
+
 Route::get('/GuardPool', function () {
     return view('ClientPortal/Guardpool');
 });
@@ -404,7 +406,17 @@ Route::post ( '/SecurityGuardsLogin', 'EmployeeControl@SLogin' );
 Route::get ( '/SecurityGuardsLogOut', 'EmployeeControl@SLogout' );
 Route::get ( '/SecurityGuardsPortalHome', 'EmployeeControl@home' );
 Route::get('/SecurityGuardsPortalProfile', 'EmployeeControl@profile');
+Route::get('/SecurityGuardsPortalNotifications', 'EmployeeControl@notifications');
 Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
+Route::get('/SecurityGuardsPortalRequest', 'EmployeeControl@requests');
+Route::post('/GetLeaveInfo', 'EmployeeControl@leaveInfo');
+
+Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
+Route::get('/Admin-Guard-Leave', 'EmployeeControl@allLeave');
+Route::post('/Admin-Leave-Accept', 'EmployeeControl@acceptLeave');
+Route::post('/Admin-Leave-Reject', 'EmployeeControl@rejectLeave');
+Route::get('/View-Leave-Request', 'EmployeeControl@viewLeave');
+
 // Earl :D ---------------------------------------------------------------------
 Route::get('/SecurityGuardsPortalMessages/modal','EmployeeControl@showModal')->name('SGMessage.modal');
 Route::post('/saveGuardResponse','EmployeeControl@saveResponse')->name('save.guard.response');
@@ -418,7 +430,7 @@ Route::get('/SecurityGuardsPortalAttendance', 'EmployeeControl@attendance');
 Route::get('Guard-Registration','LastControl@index6');
 Route::post ( '/GetProvinceAreas', 'AreaControl@getArea' );
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
-Route::post('/Applicants','RegisterControl@saveImage');
+Route::post('/Applicant','RegisterControl@saveImage');
 //admin guard (evander)
 Route::post('/HireEmployee','RegisterControl@approve');
 Route::post('/HireEmployee2','RegisterControl@approve2');

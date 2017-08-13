@@ -248,11 +248,7 @@ class ContractController extends Controller
 
     public function allCLients()
     {
-      $clientlist =  DB::table('clients')
-                      ->join('client_registrations', 'clients.id', '=', 'client_registrations.client_id')
-                      ->select('clients.id', 'clients.name as name',  'clients.image as image', 'clients.email as email','clients.contactNo as contact', DB::raw("count(client_registrations.contract_id) as count"))
-                      ->groupBy('clients.id')
-                      ->get();
+      $clientlist =  Clients::all();  
       return view('AdminPortal/ActiveClient')->with('client', $clientlist);
     }
 }

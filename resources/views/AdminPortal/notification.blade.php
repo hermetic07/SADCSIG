@@ -122,7 +122,27 @@
                   <div class="clearfix"></div>
                   </div>
                   <div id="22" class="tab-pane">
-                     <p>2.</p>
+                    <div class="col-lg-12 col-sm-6 col-xs-6">
+                    <div class="comment-center">
+                      <div class="comment-body">
+                        <div class="user-img"> <img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user" class="img-circle"></div>
+                        <div class="mail-contnet">
+                          <h5>Guard 1</h5>
+                          <span class="mail-desc">Requesting for a sick leave from 07/17/17 to 08/15/17.</span>
+                          <span class="label label-rounded label-info">Polytechnic university of the philippines</span>
+                          <span class="time pull-right">April 14, 2016 6:30 pm</span></div>
+                      </div>
+                      <div class="comment-body">
+                        <div class="user-img"> <img src="plugins/images/SecurityGuards/2x2.jpg" alt="user" class="img-circle"></div>
+                        <div class="mail-contnet">
+                          <h5>Guard 2 </h5>
+                          <span class="mail-desc">equesting for a vacation leave from 07/17/17 to 08/15/17.</span>
+                          <span class="label label-rounded label-info">Petron</span>
+                          <span class="time pull-right">April 14, 2016 6:30 pm</span>
+                        </div>
+                      </div>
+                    </div>
+                       </div>
                   </div>
                   <div id="33" class="tab-pane">
                    <p>3</p>
@@ -134,5 +154,7 @@
                </div><!-- /tabs -->
 
 
-        </div>
   @endsection
+        </div>
+
+     

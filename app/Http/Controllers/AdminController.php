@@ -46,8 +46,7 @@ class AdminController extends Controller
         $clientRegistrations = ClientRegistration::all();
         $shifts = Shifts::all();
         $clientPic = ClientsPic::all();
-        
-
+    
         return view('AdminPortal.Deploy')->with('clients',$clients)->with('contracts',$contracts)->with('areas',$areas)->with('provinces',$provinces)->with('establishments',$establishments)->with('services',$services)->with('employees',$employees)->with('clientRegistrations',$clientRegistrations)->with('shifts',$shifts)->with('clientPic',$clientPic);
     }
     public function selectShifts(Request $request){
@@ -89,6 +88,7 @@ class AdminController extends Controller
                 ->with('clientRegistrations',$clientRegistrations)
                 ->with('clients',$clients);
                 
+
     }
 
     public function deploymentStatus($contractID){
@@ -111,8 +111,8 @@ class AdminController extends Controller
         $shifts = Shifts::where('estab_id',$establishment[0]->id)->get();
         $area = Area::findOrFail($establishment[0]->areas_id);
         $province = Province::findOrFail($area->provinces_id);
-        $completeAdd = $establishment[0]->address.",".$area->name." ,".$province->name;
-        
+        $completeAdd = $establishment[0]->address.",".$area->name." ,".$province->name;       
+
         return view('AdminPortal.DeploymentStatus')
                     ->with('tempDeployments',$tempDeployments)
                     ->with('tempDeploymentDetails',$tempDeploymentDetails)
@@ -127,6 +127,7 @@ class AdminController extends Controller
                     ->with('shifts',$shifts)
                     ->with('contract',$contract)
                     ->with('completeAdd',$completeAdd);
+
         //return $tempDeployments;
     }
     public function changeRejectedGuards(Request $request){
@@ -163,7 +164,7 @@ class AdminController extends Controller
 
         $l = $request->avGuards;
         $ctr2 = 0;
-        
+
         //$deploymentsID = random_int(1, 100);
         //echo $deploymentsID;
         for($ctr = 0; $ctr < $l; $ctr++){
@@ -179,14 +180,14 @@ class AdminController extends Controller
                 $explod = explode(',',$request->$shift);
                 $from = $explod[0];
                 $secuID = $explod[2];
-                
+
                 $to = $explod[1];
                 $client_inbox_id = 'CLNTNTF'.ClientDeploymentNotif::get()->count().'-'.$request->clientID;
                 $temp_deployment_details_id= 'TMPDPLY-DTLS'.TempDeploymentDetails::get()->count().'-'.$request->contractID.((string)$ctr);
                 TempDeploymentDetails::create(['temp_deployment_details_id'=>$temp_deployment_details_id,'temp_deployments_id'=>$temp_deployment_id,'employees_id'=>$secuID,'shift_from'=>$from,'shift_to'=>$to,'role'=>$request->$role,'status'=>'active']);
                // Employee::findOrFail($secuID)->update(['deployed'=>1]);
-               
-                
+
+
             }
         }
          ClientDeploymentNotif::create(['client_deloyment_notif_id'=>$client_inbox_id,'client_id'=>$request->clientID,'notif_id'=>$notif_id,'date_received'=>Carbon::now()]);
@@ -203,7 +204,7 @@ class AdminController extends Controller
             NotifResponse::where('guard_id',$refused[$c])->update(['status'=>'changed']);
         }
         }
-        
+
         //return $rejected[0];
          return redirect('/PendingClientRequests');
     }

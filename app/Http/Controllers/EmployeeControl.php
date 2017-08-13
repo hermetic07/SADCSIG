@@ -25,6 +25,8 @@ use App\Contracts;
 use App\Establishments;
 use App\Area;
 use App\Province;
+use App\Leave;
+use App\LeaveRequest;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeControl extends Controller
@@ -69,6 +71,53 @@ class EmployeeControl extends Controller
 
     }
 
+    public function requests(Request $request)
+    {
+      try {
+        $value = $request->session()->get('user');
+        $u = Employee::find($value);
+        $L = Leave::All();
+        return view('SecurityGuardsPortal/SecurityGuardsPortalRequest')->with('employee',$u)->with('leave',$L);
+      } catch (Exception $e) {
+        return view('clientloginform');
+      }
+
+    }
+
+    public function leaveInfo(Request $request)
+    {
+      try {
+        $L = Leave::find($request->leave);
+        return $L;
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
+
+    public function saveLeave(Request $request)
+    {
+      try {
+
+        $LR = new LeaveRequest();
+        $LR->employees_id=$request->id;
+        $LR->leaves_id=$request->leave;
+        $explod = explode('/',$request->notday);
+        $LR->notif_date="$explod[2]-$explod[0]-$explod[1]";
+        $explod = explode('/',$request->startday);
+        $LR->start_date="$explod[2]-$explod[0]-$explod[1]";
+        $explod = explode('/',$request->endday);
+        $LR->end_date="$explod[2]-$explod[0]-$explod[1]";
+        $LR->reason = $request->reason;
+        $LR->status="pending";
+        $LR->save();
+        return "Request has been sent";
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
+
     public function profile(Request $request)
     {
       try {
@@ -92,6 +141,27 @@ class EmployeeControl extends Controller
 
     }
 
+    public function notifications(Request $request)
+    {
+
+      try {
+        $value = $request->session()->get('user');
+        if ($value!==null) {
+          $u = Employee::find($value);
+          $acceptedGuards = AcceptedGuards::where('guard_id',$u->id)->get();
+
+          return view('SecurityGuardsPortal/SecurityGuardsPortalNotifications')
+                  ->with('employee',$u)
+                  ->with('acceptedGuards',$acceptedGuards);
+          //return $acceptedGuards;
+
+        }
+      } catch (Exception $e) {
+        return view($e);
+      }
+
+    }
+
     public function messages(Request $request)
     {
 
@@ -100,7 +170,7 @@ class EmployeeControl extends Controller
         if ($value!==null) {
           $u = Employee::find($value);
           $acceptedGuards = AcceptedGuards::where('guard_id',$u->id)->get();
-          
+
           return view('SecurityGuardsPortal/SecurityGuardsPortalMessages')
                   ->with('employee',$u)
                   ->with('acceptedGuards',$acceptedGuards);
@@ -145,7 +215,7 @@ class EmployeeControl extends Controller
     public function saveResponse(Request $request){
        $acceptedGuard2 = DB::table('accepted_guards')
                            ->where('guard_id', $request->secuID);
-                $acceptedGuard2->update(['guard_reponse'=>'reject']);           
+                $acceptedGuard2->update(['guard_reponse'=>'reject']);
       $acceptedGuard = DB::table('accepted_guards')
                            ->where('client_deployment_notif_id', $request->deployment_notif_id)
                            ->where('guard_id', $request->secuID);
@@ -161,14 +231,14 @@ class EmployeeControl extends Controller
         $acceptedGuard = DB::table('accepted_guards')
                            ->where('client_deployment_notif_id', $request->deployment_notif_id)
                            ->where('guard_id', $request->secuID);
-      
-        
+
+
           $acceptedGuard->update(['reasons'=>$request->reason]);
           $acceptedGuard->update(['guard_reponse'=>'reject']);
           return response("Success!! We've sent your reasons.");
-        
+
        // return response($request->deployment_notif_id);
-      
+
     }
   }
     public function getReason(Request $request){
@@ -262,6 +332,60 @@ class EmployeeControl extends Controller
             return "Old password doesn't match";
           }
         }
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
+
+    public function allLeave()
+    {
+      $leavelist =  DB::table('leave_request')
+                      ->join('leaves', 'leaves.id', '=', 'leave_request.leaves_id')
+                      ->join('employees', 'employees.id', '=', 'leave_request.employees_id')
+                      ->select('leave_request.id as id', 'employees.first_name as fname', 'employees.last_name as lname', 'employees.cellphone as cp', 'employees.telephone as telephone', 'employees.street as street', 'employees.city as city', 'employees.barangay as barangay', 'employees.image as image', 'leaves.name as leave', 'leave_request.reason as reason' , 'leave_request.notif_date as ndate', 'leave_request.start_date as sdate', 'leave_request.end_date as edate', 'leave_request.status as status' )
+                      ->groupBy('leave_request.id')
+                      ->get();
+                      
+      return view('AdminPortal.PendingGuardRequests')->with('leavelist',$leavelist);
+    }
+
+    public function viewLeave(Request $r)
+    {
+      $leavelist =  LeaveRequest::find( $r->id );
+      $leave = Leave::find($leavelist->leaves_id);
+      $data = [
+        'id'=>$leavelist->id,
+        'leave'=>$leave->name,
+        'status'=>$leavelist->status,
+        'notif_date'=>$leavelist->notif_date,
+        'start_date'=>$leavelist->start_date,
+        'end_date'=>$leavelist->end_date,
+        'reason'=>$leavelist->reason,
+      ];
+      return $data;
+    }
+
+    public function acceptLeave(Request $r)
+    {
+      try {
+        $leavelist =  LeaveRequest::find( $r->id );
+        $leavelist->status="accepted";
+        $leavelist->save();
+        return "Leave Accepted";
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
+
+    public function rejectLeave(Request $r)
+    {
+      try {
+        $leavelist =  LeaveRequest::find( $r->id );
+        $leavelist->status="rejected";
+        $leavelist->save();
+        return "Leave Rejected";
       } catch (Exception $e) {
         return $e;
       }
