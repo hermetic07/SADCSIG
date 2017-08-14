@@ -25,6 +25,7 @@
   <link href="css/animate.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link href="css/style.css" rel="stylesheet">
+      <link href="css/jquery-ui.css" rel="stylesheet">
   <!-- color CSS -->
   <link href="css/colors/MyThemeColor.css" id="theme"  rel="stylesheet">
   <!--alerts CSS -->

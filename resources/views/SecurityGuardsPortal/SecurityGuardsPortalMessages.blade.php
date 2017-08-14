@@ -144,7 +144,7 @@
 
           </div>
             </div>
-  <!-- Deliver guns -->
+  <!-- message info -->
 <div id="Message" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog">
     <div class="modal-content">
