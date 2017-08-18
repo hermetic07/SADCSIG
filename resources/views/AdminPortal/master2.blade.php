@@ -292,12 +292,11 @@
            <ul class="nav nav-second-level">
              <li> <a href="{{url('/ActiveClient')}}" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
             </li>
-            <li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
+            <li> <a href="{{url('/PendingDeployment')}}" class="waves-effect">Pending deployment<span class="label label-rouded label-info pull-right">3</span></a>
             </li>
-            <li> <a href="{{route('serviceRequest.index')}}" class="waves-effect">Service Requests<span class="label label-rouded label-info pull-right"> @yield('ServReqstCnt')</span></a>
+            <li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending Request<span class="label label-rouded label-info pull-right">4</span></a>
             </li>
-            <li> <a href="{{url('/GunRequest')}}" class="waves-effect">Gun Requests<span class="label label-rouded label-info pull-right"> @yield('GunReqstCnt')</span></a>
-            </li>
+
 
            </ul>
           </li>

@@ -131,6 +131,10 @@ Route::get('/GuardPool', function () {
 });
 
 
+Route::get('/PendingClientRequests', function () {
+    return view('AdminPortal/PendingClientRequests');
+});
+
 
 
 
@@ -164,7 +168,7 @@ Route::post('/ClientRegistration-Save','ContractController@save');
 Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
 Route::get('select/Shifts','AdminController@selectShifts')->name('select.shifts');
 
-Route::get('/PendingClientRequests','AdminController@pending_client_requests')->name('pending.client.requests');
+Route::get('/PendingDeployment','AdminController@pending_client_requests')->name('pending.client.requests');
 
 Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus');
 Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change.rejected');
