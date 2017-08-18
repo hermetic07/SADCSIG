@@ -135,6 +135,9 @@ Route::get('/PendingClientRequests', function () {
     return view('AdminPortal/PendingClientRequests');
 });
 
+Route::get('/DeliverGuns', function () {
+    return view('AdminPortal/DeliverGuns');
+});
 
 
 
