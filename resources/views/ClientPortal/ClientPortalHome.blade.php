@@ -78,7 +78,7 @@
                                 @endphp
                                 <!-- /.row -->
                                 <div class="col-md-6 col-sm-6 text-center">
-                                  <p class="text-purple">Establishment/s</p>
+                                  <p class="text-purple"><a href="/ClientPortalEstablishments-{{$client->id}}">Establishment/s</a></p>
                                   <h1>
                                     @foreach($clientRegistrations as $clientRegistration)
                                       @if($clientRegistration->client_id == $client->id)

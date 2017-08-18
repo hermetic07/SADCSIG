@@ -423,6 +423,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
 
           @foreach($employees as $employee)
             @if($employee->deployed == 0)
+              @if($employee->status == 'active')
             @php
               $ctr2 = $ctr2+1;
             @endphp
@@ -484,6 +485,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                           </div>
                         </div>
                       </div>
+              @endif
             @endif
           @endforeach
             <input type="hidden" name="exceeds" value="{{ $ctr2 }}">

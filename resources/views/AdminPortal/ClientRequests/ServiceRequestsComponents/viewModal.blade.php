@@ -10,14 +10,14 @@
               <div class="form-group col-sm-4">
                 <label class="control-label">Client's name</label>
                   <p class="form-control-static">
-                   
+                   {{$client->name}}
                   </p>
                   <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group col-sm-8 ">
                   <label class="control-label">Address</label>
                     <p class="form-control-static">
-                     
+                     {{$client->address}}
                   </p>
                   <div class="help-block with-errors"></div>
                 </div>

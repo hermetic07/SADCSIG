@@ -97,7 +97,7 @@ class ContractController extends Controller
             }
         }
 
-        Clients::create(['id'=>$request->client_code,'name'=>$request->client_name,'username'=>$request->client_username,'password'=>$request->client_password,'address'=>$request->street_add,'areas_id'=>$request->area,'email'=>$request->pic_email,'contactNo'=>$request->pic_no]);
+        Clients::create(['id'=>$request->client_code,'name'=>$request->client_name,'username'=>$request->client_username,'password'=>$request->client_password,'address'=>$request->street_add,'areas_id'=>$request->area,'email'=>$request->client_email,'contactNo'=>$request->client_telephone,'cellphoneNo'=>$request->client_cellphone]);
 
         $establishment_id = 'ESTAB-'.$request->client_code;
 
