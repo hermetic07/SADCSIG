@@ -59,7 +59,7 @@
                                 @if($clientDeploymentNotif->notif_id == $tempDeployment->messages_ID)
                                     @foreach($acceptedGuards as $acceptedGuard)
                                         @if($acceptedGuard->client_deployment_notif_id == $clientDeploymentNotif->client_deloyment_notif_id)
-                                            @if($acceptedGuard->guard_reponse == 'confirmed')
+                                            @if($acceptedGuard->guard_reponse == 'deployed')
                                                 @php
                                                     $deployedCtr++;
                                                 @endphp
@@ -212,10 +212,10 @@
              
              guardsRequested = $('#'+contractIDs[i]).val().split(",")[1];
              guardsDeployed = $('#'+contractIDs[i]).val().split(",")[0];
-
-             percent = (guardsDeployed*100)/guardsRequested;
+             //alert(guardsDeployed);
+             percent = (guardsDeployed*100)/guardsRequested+"%";
              
-
+             alert(percent);
              $('#'+contractIDs[i]).css('width',percent);
 
         }

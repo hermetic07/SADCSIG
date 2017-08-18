@@ -32,7 +32,7 @@
             <tr>
                
                 <th>Contract Code</th>
-                <th  width="220px" >Service</th>
+                <th  width="220px" >Description</th>
                 <th>Date Created</th>
                 <th data-sort-ignore="true" width="240px">Actions</th>
             </tr>
@@ -52,10 +52,9 @@
             $dateCreated;
           @endphp
           <tbody>
-          @foreach($establishments as $establishment)
-            @if($establishment->id == $estabID)
+          
               @foreach($contracts as $contract)
-            @if($contract->id == $establishment->contract_id)
+               @if($contract->strEstablishmentID == $estabID)
               @php
                     $dateCreated = $contract->created_at;
                   @endphp
@@ -65,11 +64,7 @@
               </td>
               <td>
                 
-                    @foreach($services as $service)
-                      @if($service->id == $contract->services_id)
-                        {{ $service->name }}
-                      @endif
-                    @endforeach
+                    
                   
               </td>
               <td>
@@ -80,34 +75,11 @@
                 <button class="btn btn-success"  type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> PDF</button>
               </td>
             </tr>
- <div id="{{ $contract->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Request details</strong></center></h4>
-      </div>
-      <div class="modal-body">
-        <form >
-        {!! csrf_field() !!}
-        <div class="form-group">
-          
-        </div>
-          
-        
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-          </div>
-        </form>
-      </div>
-    </div>  <!-- /.modal-content -->
-  </div> <!-- /.modal-dialog -->
-</div> <!-- /Add military service modal -->
+ 
 
                 @endif
               @endforeach
-            @endif
-          @endforeach
+            
 
           
           </tbody>
@@ -131,4 +103,28 @@
         </div>
          </div>
         </div>
+
+        <div id="{{ $contract->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Request details</strong></center></h4>
+      </div>
+      <div class="modal-body">
+        <form >
+        {!! csrf_field() !!}
+        <div class="form-group">
+          
+        </div>
+          
+        
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>  <!-- /.modal-content -->
+  </div> <!-- /.modal-dialog -->
+</div> <!-- /Add military service modal -->
 @endsection

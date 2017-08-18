@@ -330,9 +330,7 @@
             <li role="tab">
               <h4><span><i class="ti-check"></i></span>Qualifications</h4>
             </li>
-            <li role="tab">
-              <h4><span><i class="ti-check"></i></span>Account</h4>
-            </li>
+            
           </ul>
               </br>
           <form id="validation" class="form-horizontal"  style="border: 2px solid black; border-radius:15px;" method="POST" action="/ClientRegistration-Save">
@@ -343,7 +341,7 @@
                 <div class="form-group">
                   <label class="col-xs-1 control-label">Client name</label>
                     <div class="col-xs-3">
-                      <input type="text" class="form-control name"  name="client_name"  />
+                      <input type="text" class="form-control name"  name="client_name" value="{{$client->name}}" disabled="true" />
                     </div>
                     <label class="col-xs-1 control-label">Client Code</label>
                     <div class="col-xs-3">
@@ -410,7 +408,7 @@
                                                     <div class="col-xs-3">
                                                     <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                                          <input type="number" class="form-control"  id="numonly" name="clientTelephone" maxlength="9" >
+                                          <input type="number" value="{{$client->contactNo}}" class="form-control"  id="numonly" name="clientTelephone" maxlength="9" disabled>
                                     </div>
                                     <span class="font-13 text-muted">ex. 1234567<span>
                                   </div>
@@ -418,7 +416,7 @@
                                                     <div class="col-xs-3">
                                                     <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
-                                        <input type="number" class="form-control"  id="numonly" name="clientCellphone" maxlength="11">
+                                        <input type="number" value="{{$client->cellphoneNo}}" class="form-control"  id="numonly" name="clientCellphone" maxlength="11" disabled>
                                     </div>
                                     <span class="font-13 text-muted">ex. 09123456789<span>
                                   </div>
@@ -426,7 +424,7 @@
                                   <div class="col-xs-3">
                                                     <div class="input-group">
                                       <div class="input-group-addon"><i class="ti-email"></i></div>
-                                          <input type="text" class="form-control" name="email" id="clientEmail">
+                                          <input type="text" value="{{$client->email}}" class="form-control" name="email" id="clientEmail" disabled>
                                     </div>
                                     <span class="font-13 text-muted">ex. myemail@yahoo.com<span>
                                   </div>
@@ -653,18 +651,7 @@
               <br>
               <textarea id="txtArea" name="pref_note" class="form-control pref_note" rows="8"></textarea>
         </div>
-         <div class="wizard-pane" role="tabpanel">
-          <div class="form-group">
-            <label class="control-label col-md-2">Username:</label>
-            <div class="col-md-4">
-              <input type="text" name="username" id="username" class="form-control" >
-            </div>
-            <label for="password" class="col-md-2 control-label">Password</label>
-            <div class="col-md-4">
-              <input type="password" name="password" id="password" class="form-control">
-            </div>
-          </div>
-          </div>
+         
         </div>
         </form>
       </div>
@@ -1040,7 +1027,7 @@ $('#firstcal').removeAttr("disabled");
                   alert($('.excom').val());
                   $.ajax({
                     type: 'post',
-                    url: '/ClientRegistration-Save',
+                    url: "{{route('save.newcontract')}}",
                     data: {
                         '_token': $('input[name=_token]').val(),
                         client_name:$('input[name=client_name]').val(),
@@ -1083,7 +1070,7 @@ $('#firstcal').removeAttr("disabled");
                       if(data==="Success")
                       {
                         alert("Registration Success. Will now proceed to uploading of your pictures");
-                        window.location.href = "/UploadPics";
+                        window.location.href = '/NewContract+UploadPics-'+$('input[name=client_code]').val();
                       }
                       else {
                         alert(data);

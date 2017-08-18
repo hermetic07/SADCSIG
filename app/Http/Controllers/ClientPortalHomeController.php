@@ -296,7 +296,7 @@ class ClientPortalHomeController extends Controller
 
     public function clientContracts($id,$estabID){
       $client = Clients::findOrFail($id);
-      $establishments = Establishments::all();
+      $establishments = Establishments::findOrFail($estabID);
       $contracts = Contracts::all();
       $clientRegistrations = ClientRegistration::all();
       $natures = Nature::all();

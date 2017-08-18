@@ -333,7 +333,7 @@
             
           </ul>
               </br>
-          <form id="validation" class="form-horizontal"  style="border: 2px solid black; border-radius:15px;" method="POST" action="/ClientRegistration-Save">
+          <form id="validation" class="form-horizontal"  style="border: 2px solid black; border-radius:15px;" method="POST" >
                     {{ csrf_field() }}
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="wizard-content">
@@ -356,15 +356,10 @@
                   <div class="form-group">
                     <label class="col-xs-2 control-label">Establishment name</label>
                       <div class="col-xs-6">
-                          <input type="text" class="form-control name" name="estab_name" />
+                          <input type="text" class="form-control name" name="estab_name" value="{{$establishment->name}}" disabled />
                       </div>
                       <div class="col-xs-4">
-                          <select class="form-control" name="nature" id="nature" required>
-                            <option>Select Nature of Business</option>
-                            @foreach($natures as $nature)
-                              <option value="{{ $nature->id }}">{{ $nature->name }}</option>
-                            @endforeach
-                         </select>
+                          <input type="text" class="form-control name" name="estab_name" value="{{$nature->name}}" disabled />
                       </div>
                   </div>
 
@@ -373,31 +368,24 @@
                 <div class="form-group">
                   <label class="col-xs-1 control-label">Address</label>
                   <div class="col-xs-5">
-                      <input type="text" class="form-control name" placeholder="Street Address" name="street_add" />
+                      <input type="text" class="form-control name" placeholder="Street Address" name="street_add" value="{{$establishment->address}}" disabled/>
                   </div>
                   <div class="col-xs-3">
-                  <select class="form-control"  name="province" id="province">
-                    <option value="" disabled="" selected="">Select Province</option>
-                    @foreach($provinces as $province )
-                      <option value="{{$province->id}}">{{$province->name}}</option>
-                    @endforeach
-                  </select>
+                    <input type="text" class="form-control name" name="province" value="{{$province->name}}" disabled />
                   </div>
                   <div class="col-xs-3">
-                    <select class="form-control"  name="area" id="area">
-                      <option value="" disabled="" selected="">Select Area</option>
-                    </select>
+                    <input type="text" class="form-control name" name="{{$area->id}}" id="area" value="{{$area->name}}" disabled />
                   </div>
               </div>
 
               <div class="form-group">
                 <label class="col-xs-2 control-label">Area Size (approx. in square meters)</label>
                   <div class="col-xs-4">
-                    <input type="text" class="form-control name" name="area_size"  />
+                    <input type="text" class="form-control name" name="area_size" value="{{$establishment->area_size}}" disabled />
                   </div>
                 <label class="col-xs-2 control-label">Population (approx.)</label>
                 <div class="col-xs-4">
-                    <input type="text" class="form-control" name="population"  />
+                    <input type="text" class="form-control" name="population" value="{{$establishment->population}}" disabled />
                 </div>
               </div>
 
@@ -436,13 +424,17 @@
               <div class="form-group">
 
                   <div class="col-xs-4">
-                      <input type="text" class="form-control name"  name="firstName" placeholder="First Name" />
+                      <input type="text" class="form-control name"  name="firstName" placeholder="First Name" value="{{$pic_fname}}" disabled/>
+                      
                   </div>
                   <div class="col-xs-4">
-                      <input type="text" class="form-control name"  name="middleName" placeholder="Middle Name" />
+                      
+                      <input type="text" class="form-control name"  name="middleName" placeholder="First Name" value="{{$pic_mname}}" disabled/>
+                      
                   </div>
                   <div class="col-xs-4">
-                      <input type="text" class="form-control name"  name="lastName" placeholder="Last Name" />
+                      
+                      <input type="text" class="form-control name"  name="lastName" placeholder="First Name" value="{{$pic_lname}}" disabled/>
                   </div>
 
               </div>
@@ -451,10 +443,10 @@
 
                 </div>
                 <div class="col-xs-4">
-                    <input type="number" class="form-control" name="pic_no" placeholder="Contact Number" />
+                    <input type="number" class="form-control" name="pic_no" placeholder="Contact Number" value="{{$establishment->contactNo}}" disabled/>
                 </div>
                 <div class="col-xs-4">
-                    <input type="email" class="form-control" name="pic_email" placeholder="Email Address" />
+                    <input type="email" class="form-control" name="pic_email" placeholder="Email Address" value="{{$establishment->email}}" disabled/>
                 </div>
               </div>
               <hr>
@@ -477,7 +469,7 @@
                         </div>
                         <label class="col-xs-2 control-label">Operating hours</label>
                          <div class="col-xs-4">
-                         <input id="tch1" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" name="operating_hrs">
+                         <input id="tch1" type="text" value="{{$establishment->operating_hrs}}"  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" name="operating_hrs" disabled>
                         </div>
                       </div>
 
@@ -708,7 +700,7 @@
       <!--row -->
       <!-- /.row -->
 
-
+<input type="hidden" name="estabID" value="{{$estabID}}">
 
 @if($errors->any())
         <ul class="alert alert-danger col-md-6">
@@ -1024,10 +1016,10 @@ $('#firstcal').removeAttr("disabled");
                   $.each($(".shiftend"), function(){
                       allend.push($(this).val());
                   });
-                  alert($('.excom').val());
+                  alert($('#area').attr('name')+"ddddddddddd");
                   $.ajax({
                     type: 'post',
-                    url: "{{route('save.newcontract')}}",
+                    url: "{{route('newcontract.existing.save')}}",
                     data: {
                         '_token': $('input[name=_token]').val(),
                         client_name:$('input[name=client_name]').val(),
@@ -1037,9 +1029,10 @@ $('#firstcal').removeAttr("disabled");
                         client_cellphone:$('input[name=clientCellphone]').val(),
                         contract_code:$('input[name=contract_code]').val(),
                         estab_name:$('input[name=estab_name]').val(),
+                        estabID:$('input[name=estabID]').val(),
                         nature:$('#nature').val(),
                         street_add:$('input[name=street_add]').val(),
-                        area:$('#area').val(),
+                        area:$('#area').attr('name'),
                         province:$('#province').val(),
                         area_size:$('input[name=area_size]').val(),
                         population:$('input[name=population]').val(),
@@ -1069,7 +1062,7 @@ $('#firstcal').removeAttr("disabled");
                       if(data==="Success")
                       {
                         alert("Registration Success. Will now proceed to uploading of your pictures");
-                        window.location.href = '/NewContract+UploadPics-'+$('input[name=client_code]').val();
+                        window.location.href = '/Dashboard';
                       }
                       else {
                         alert(data);

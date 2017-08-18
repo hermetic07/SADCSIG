@@ -102,7 +102,46 @@ class ServiceRequestController extends Controller
         $requirements = Requirement::all();
         $count1 = "CONTRACTz".Contracts::get()->count();
 
-         return view('AdminPortal.ClientRequests.NewContract')->with('requirements',$requirements)->with('attributes',$attributes)->with('licenses',$licenses)->with('areas',$areas)->with('provinces',$provinces)->with('natures',$natures)->with('services',$services)->with('clcode',$client->id)->with('cncode',$count1)->with('client',$client);
+         return view('AdminPortal.ClientRequests.Contracts.NewContract')->with('requirements',$requirements)->with('attributes',$attributes)->with('licenses',$licenses)->with('areas',$areas)->with('provinces',$provinces)->with('natures',$natures)->with('services',$services)->with('clcode',$client->id)->with('cncode',$count1)->with('client',$client);
+
+     }
+     public function newContractExistingEstab($id,$estabID){
+
+        $client = Clients::findOrFail($id);
+        
+        
+        $establishment = Establishments::findOrFail($estabID);
+        $name = explode(" ",$establishment->person_in_charge);
+        $pic_fname = $name[0];
+        $pic_mname = $name[1];
+        $pic_lname = $name[2];
+        $province = Province::findOrFail($establishment->province_id);
+        $contract = Contracts::where('id',$establishment->contract_id)->get();
+        $area = Area::findOrFail($contract[0]->areas_id);
+        $nature = Nature::findOrFail($establishment->natures_id);
+        $services = Service::all();
+        $clientRegistrations = ClientRegistration::all();
+        $licenses = License::all();
+        $attributes = Attribute::all();
+        $requirements = Requirement::all();
+        $count1 = "CONTRACT".Contracts::get()->count();
+
+         return view('AdminPortal.ClientRequests.Contracts.NewContractForExistingEstab')
+                ->with('requirements',$requirements)
+                ->with('attributes',$attributes)
+                ->with('licenses',$licenses)
+                ->with('area',$area)
+                ->with('province',$province)
+                ->with('nature',$nature)
+                ->with('services',$services)
+                ->with('clcode',$client->id)
+                ->with('cncode',$count1)
+                ->with('establishment',$establishment)
+                ->with('pic_fname',$pic_fname)
+                ->with('pic_lname',$pic_lname)
+                ->with('pic_mname',$pic_mname)
+                ->with('estabID',$estabID)
+                ->with('client',$client);
 
      }
      public function saveContract(Request $request){
@@ -118,8 +157,9 @@ class ServiceRequestController extends Controller
         $endDate = "$explod[2]-$explod[0]-$explod[1]";
         $parse_exp_date = explode('/',$request->exp_date);
         $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
+        $establishment_id = 'ESTAB-NEW'.Establishments::get()->count();
 
-        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$establishment_id]);
 
         $contracts = Contracts::latest('created_at')->get();
 
@@ -131,9 +171,9 @@ class ServiceRequestController extends Controller
             }
         }
 
-        $establishment_id = 'ESTAB-'.$request->contract_code;
+        
 
-        Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'person_in_charge'=>'Earl','contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
+        Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'person_in_charge'=>$person_in_charge,'contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
 
         ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
 
@@ -232,8 +272,109 @@ class ServiceRequestController extends Controller
         return $e;
       }
     }
+    public function saveExistingEstabContract(Request $request){
+
+         try {
+
+        $clientID;
+        $person_in_charge;
+        $ctr = 0; $ctr2 = 0;
+        $explod = explode('/',$request->from);
+        $startDate = "$explod[2]-$explod[0]-$explod[1]";
+        $explod = explode('/',$request->to);
+        $endDate = "$explod[2]-$explod[0]-$explod[1]";
+        $parse_exp_date = explode('/',$request->exp_date);
+        $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
+
+        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$request->estabID]);
+
+        $contracts = Contracts::latest('created_at')->get();
+
+        foreach ($contracts as $contract) {
+            $ctr++;
+            if($ctr == 1){
+
+                $person_in_charge = $contract->pic_fname." ".$contract->pic_mname." ".$contract->pic_lname;
+            }
+        }
+
+        ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
+
+      
+
+        //basic preferences
+        try {
+          $prefBasic = new PrefBasic();
+          $prefBasic->stringContractId = $request->contract_code;
+          $prefBasic->stringSchoolLevel=$request->prefSchool;
+          $prefBasic->intAge=$request->prefAge;
+          $prefBasic->stringNote=$request->prefNote;
+          $prefBasic->save();
+        } catch (Exception $e) {
+          return "Pls Check the preferences tab";
+        }
+
+        //licenses preferences
+        try {
+          $allLicense = Input::get('prefLicense');
+          foreach ($allLicense as $a) {
+            $lic = new PrefLicense();
+            $lic->stringContractId = $request->contract_code;
+            $lic->intLicenseId = $a;
+            $lic->save();
+          }
+        } catch (Exception $e) {
+          return "No seleceted License";
+        }
+
+        //Requirement preferences
+        try {
+          $allreq = Input::get('prefReq');
+          foreach ($allreq as $a) {
+            $req = new PrefRequirement();
+            $req->stringContractId = $request->contract_code;
+            $req->intRequirementId = $a;
+            $req->save();
+          }
+        } catch (Exception $e) {
+          return "No seleceted Requirement";
+        }
+
+        //body preference
+        $index1 = 0;
+        $prefbody = Input::get('prefBody');
+        $attribute = Attribute::all();
+        try {
+          foreach($attribute as $a) {
+            $index2 = 0;
+            foreach($prefbody as $b)
+            {
+              if($index1===$index2)
+              {
+                $explod = explode('/',$b);
+                $s = new PrefAttrib();
+                $s->stringContractId = $request->contract_code;
+                $s->intAttributeId = $a->id;
+                $s->intLowest =(int)$explod[0];
+                $s->intGreatest = (int)$explod[1];;
+                $s->save();
+              }
+              $index2+=1;
+            }
+            $index1+=1;
+          }
+        } catch (Exception $e) {
+          return "All Prefered Body Attribute is Required";
+        }
+        session(['client' => $request->client_code]);
+        session(['contract' => $request->contract_code]);
+        return "Success";
+      } catch (Exception $e) {
+        return $e;
+      }
+    }
     public function uploadPic($id,Request $request){
         $client =  Clients::findOrFail($id);
-        return view('AdminPortal.ClientRequests.NewContractPics')->with('clientPic',$client->image);
+        return view('AdminPortal.ClientRequests.Contracts.NewContractPics')->with('clientPic',$client->image);
     }
 }
