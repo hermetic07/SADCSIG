@@ -24,6 +24,7 @@
     $nature =  "";
     $clientName = "";
     $clientIamge = "";
+    $contractIDs = "";
 @endphp
 
 <div class="row">
@@ -120,10 +121,14 @@
                                     
                                     <br>
                                     <div class="progress progress-md">
-                                        <div class="progress-bar progress-bar-info active progress-bar-striped uuuuu" value="9" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">{{$deployedCtr}} / {{$contract->guard_count}}
-                                        </div>
+                                        <button id="{{$contract->id}}" class="progress-bar progress-bar-info active progress-bar-striped" value="{{$deployedCtr}},{{$contract->guard_count}}" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">{{$deployedCtr}} / {{$contract->guard_count}}
+                                        </button>
+                                        @php
+                                            $contractIDs = $contractIDs.",".$contract->id;
+                                        @endphp
+                                        
                                     </div>
-                                    <center><a id="deployedGuards" href="/DeploymentStatus+{{$contract->id}}" name="{{$contract->id}}"> <small> Security guards deployed </small></a> </center>
+                                    <center><a id="deployedGuards" href="/DeploymentStatus+{{$contract->id}}" name="{{$contract->id}}"> <small> Deployment Status </small></a> </center>
                                 </ul>
                                 </div>
                                 <div class="col-sm-12">
@@ -174,6 +179,7 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="percentage" value="{{$contractIDs}}">
 <script type="text/javascript">
     // $.ajaxSetup({
     //   headers: {
@@ -196,13 +202,23 @@
   @endsection
   @section('script')
   <script type="text/javascript">
+    
       $(document).ready(function(){
-        var id = [];
-        $.each($(".uuuuu"), function(){
-          id.push($(this).value);
-          //alert(this.text)
-      });
-        //alert(id.join(","));
-      });
+        contractIDs = $('#percentage').val().split(",");
+        for(var i = 1; i < contractIDs.length; i++){
+            var guardsRequested = 0;
+            var guardsDeployed = 0;
+            var percent = 0;
+             
+             guardsRequested = $('#'+contractIDs[i]).val().split(",")[1];
+             guardsDeployed = $('#'+contractIDs[i]).val().split(",")[0];
+
+             percent = (guardsDeployed*100)/guardsRequested;
+             
+
+             $('#'+contractIDs[i]).css('width',percent);
+
+        }
+       });
   </script>
   @endsection

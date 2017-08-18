@@ -330,9 +330,7 @@
             <li role="tab">
               <h4><span><i class="ti-check"></i></span>Qualifications</h4>
             </li>
-            <li role="tab">
-              <h4><span><i class="ti-check"></i></span>Account</h4>
-            </li>
+            
           </ul>
               </br>
           <form id="validation" class="form-horizontal"  style="border: 2px solid black; border-radius:15px;" method="POST" action="/ClientRegistration-Save">
@@ -361,7 +359,7 @@
                           <input type="text" class="form-control name" name="estab_name" />
                       </div>
                       <div class="col-xs-4">
-                          <select class="form-control" name="nature" id="nature">
+                          <select class="form-control" name="nature" id="nature" required>
                             <option>Select Nature of Business</option>
                             @foreach($natures as $nature)
                               <option value="{{ $nature->id }}">{{ $nature->name }}</option>
@@ -410,7 +408,7 @@
                                                     <div class="col-xs-3">
                                                     <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                                          <input type="number" class="form-control"  id="numonly" name="telephone" maxlength="9" >
+                                          <input type="number" value="{{$client->contactNo}}" class="form-control"  id="numonly" name="clientTelephone" maxlength="9" disabled>
                                     </div>
                                     <span class="font-13 text-muted">ex. 1234567<span>
                                   </div>
@@ -418,7 +416,7 @@
                                                     <div class="col-xs-3">
                                                     <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
-                                        <input type="number" class="form-control"  id="numonly" name="cellphone" maxlength="11">
+                                        <input type="number" value="{{$client->cellphoneNo}}" class="form-control"  id="numonly" name="clientCellphone" maxlength="11" disabled>
                                     </div>
                                     <span class="font-13 text-muted">ex. 09123456789<span>
                                   </div>
@@ -426,7 +424,7 @@
                                   <div class="col-xs-3">
                                                     <div class="input-group">
                                       <div class="input-group-addon"><i class="ti-email"></i></div>
-                                          <input type="text" class="form-control" name="email">
+                                          <input type="text" value="{{$client->email}}" class="form-control" name="email" id="clientEmail" disabled>
                                     </div>
                                     <span class="font-13 text-muted">ex. myemail@yahoo.com<span>
                                   </div>
@@ -653,18 +651,7 @@
               <br>
               <textarea id="txtArea" name="pref_note" class="form-control pref_note" rows="8"></textarea>
         </div>
-         <div class="wizard-pane" role="tabpanel">
-          <div class="form-group">
-            <label class="control-label col-md-2">Username:</label>
-            <div class="col-md-4">
-              <input type="text" name="username" id="username" class="form-control" >
-            </div>
-            <label for="password" class="col-md-2 control-label">Password</label>
-            <div class="col-md-4">
-              <input type="password" name="password" id="password" class="form-control">
-            </div>
-          </div>
-          </div>
+         
         </div>
         </form>
       </div>
@@ -1045,6 +1032,9 @@ $('#firstcal').removeAttr("disabled");
                         '_token': $('input[name=_token]').val(),
                         client_name:$('input[name=client_name]').val(),
                         client_code:$('input[name=client_code]').val(),
+                        client_email:$('#clientEmail').val(),
+                        client_telephone:$('input[name=clientTelephone]').val(),
+                        client_cellphone:$('input[name=clientCellphone]').val(),
                         contract_code:$('input[name=contract_code]').val(),
                         estab_name:$('input[name=estab_name]').val(),
                         nature:$('#nature').val(),

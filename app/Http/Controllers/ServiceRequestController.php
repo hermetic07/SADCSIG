@@ -48,7 +48,9 @@ class ServiceRequestController extends Controller
     public function viewModal(Request $request){
         if($request->ajax()){
             $serviceRequests = ServiceRequest::findOrFail($request->serviceRequestID);
-            return view('AdminPortal.ClientRequests.ServiceRequestsComponents.viewModal');
+            $client = Clients::findOrFail($serviceRequests->client_id);
+            return view('AdminPortal.ClientRequests.ServiceRequestsComponents.viewModal')
+                    ->with('client',$client);
         }
     }
 
