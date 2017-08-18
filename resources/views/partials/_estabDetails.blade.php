@@ -45,8 +45,8 @@
                   <a href="/ClientPortalContracts-{{$client->id}}+{{$estabID}}">Contract</a>
                 </td>
                 <td>
-                  @foreach($estabContracts as $estabContract)
-                    @if($estabContract->id == $estabID)
+                  @foreach($contracts as $contract)
+                    @if($contract->strEstablishmentID == $estabID)
                       @php
                         $contractCtr++;
                       @endphp
