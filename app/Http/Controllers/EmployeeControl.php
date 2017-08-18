@@ -351,6 +351,37 @@ class EmployeeControl extends Controller
     public function viewLeave(Request $r)
     {
       $leavelist =  LeaveRequest::find( $r->id );
+      $collection = collect([$leavelist->employees_id]);
+      $secus = DB::table('employees')      
+          ->whereNotIn('id', $collection)
+          ->where('status','waiting')
+          ->get();
+      $test="";
+      foreach ($secus as $s) {
+        $test.="
+        <tr>
+        <td>
+                     <div class='el-card-item'>
+                       <div class='el-card-avatar el-overlay-1'>
+                         <a href='{{url('/SecuProfile')}}'><img src='uploads/$s->image' alt='user'  class='img-circle img-responsive'></a>
+                           <div class='el-overlay'>
+                             <ul class='el-info'>
+                               <li><a class='btn default btn-outline' href='{{url('/SecuProfile')}}' target='_blank'><i class='fa fa-info'></i></a></li>
+                             </ul>
+                           </div>
+                        </div>
+                      </div>
+         </td>
+         <td>$s->first_name $s->middle_name $s->last_name</td>
+         <td>$s->city</td>
+         <td>
+                         <div class='radio radio-info'>
+                           <input type='radio' name='select' id='radio3' value='$s->id'>
+                           <label for='radio3'> Select </label>
+                         </div>
+         </td>
+         </tr>";
+      }
       $leave = Leave::find($leavelist->leaves_id);
       $data = [
         'id'=>$leavelist->id,
@@ -360,6 +391,9 @@ class EmployeeControl extends Controller
         'start_date'=>$leavelist->start_date,
         'end_date'=>$leavelist->end_date,
         'reason'=>$leavelist->reason,
+        'notifdays'=>$leave->notification,
+        'allowdays'=>$leave->days,
+        'body'=>$test,
       ];
       return $data;
     }

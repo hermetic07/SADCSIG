@@ -120,7 +120,7 @@
 
 
           <!-- Leave info (pending) -->
-  <div id="pending" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div id="Swap" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -128,100 +128,109 @@
                     <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Leave request</strong></center></h4>
                   </div>
                   <div class="modal-body">
-              <form data-toggle="validator">
-                <input type="hidden" id="rid" value="">
-                <div class="form-group">
-                  <div class="row">
-
-					  			<div class="form-group col-sm-6">
-                       <label class="control-label">Leave type</label>
-                          <p class="form-control-static" id="leave"></p>
-                    </div>
-					  				  			<div class="form-group col-sm-6">
-                       <label class="control-label">Date Requested</label>
-                          <p class="form-control-static" id="daterequested"></p>
-
-                    </div>
-					  		<div class="form-group col-sm-6">
-                       <label class="control-label">Date start</label>
-                          <p class="form-control-static" id="datestart"></p>
-
-                    </div>
-					  		<div class="form-group col-sm-6">
-                       <label class="control-label">Date end</label>
+                    <form data-toggle="validator">
+                    <div class="form-group">
+                    <div class="row">  
+                    <label class="col-xs-3 control-label"></label>
+                    <div class="deploymentdate">                      
+                      <div class="col-md-12">
+                        <div class="row text-center">
+                         <div class="form-group col-sm-4">
+                           <label class="control-label">Leave type</label>
+                             <p class="form-control-static" id="leave"></p>
+                        </div>
+                         <div class="form-group col-sm-4">
+                            <label class="control-label">Notification period (days)</label>
+                             <p class="form-control-static" id="notifdays">3</p>
+                            <div class="help-block with-errors"></div>
+                         </div>
+                          <div class="form-group col-sm-4">
+                            <label class="control-label">Allowable days</label>
+                             <p class="form-control-static" id="allowdays">5</p>
+                            <div class="help-block with-errors"></div>
+                         </div>
+                       </div>
+                       <div class="row text-center"> 
+                        <div class="form-group col-sm-4">
+                          <label class="control-label">Notification date</label>
+                           <p class="form-control-static" id="daterequested"></p>
+                          <div class="help-block with-errors"></div>
+                        </div> 
+                        <div class="form-group col-sm-4">
+                          <label class="control-label">Start date</label>
+                           <p class="form-control-static" id="datestart"></p>
+                           <div class="help-block with-errors"></div>
+                        </div>  
+                        <div class="form-group col-sm-4">
+                          <label class="control-label">Requested end date</label>
                           <p class="form-control-static" id="dateend"></p>
-
-                    </div>
-                    					  		<div class="form-group col-sm-12">
-                       <label class="control-label">Reason</label>
+                          <div class="help-block with-errors"></div>
+                        </div>  
+                       </div>
+                       <div class="row text-center">
+                        <div class="form-group col-sm-12">
+                          <label class="control-label">Reason</label>
                           <p class="form-control-static" id="reason"></p>
-
+                          <div class="help-block with-errors"></div>
+                        </div>  
+                       </div>  
+                      </div>           
                     </div>
-					    </div>
-             <div class="modal-footer">
-              <button type="button" class="btn btn-success waves-effect waves-light" id="accept" >Accept</button>
-              <button type="button" class="btn btn-danger waves-effect waves-light" id="reject">Reject</button>
-              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-
+                         </br> </br>
+                         </div>
+             
+                        <h4><center><strong>List of available guards for replacement</strong></center></h4>
+                       <div class="row  el-element-overlay">
+                          <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                            <thead>
+                              <tr>
+                               <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="80px" ></th>
+                              <th>Guard's name</th>
+                              <th  data-sort-ignore="true">Location</th>
+                              <th data-sort-ignore="true" width="150px">Actions</th>
+                             </tr>
+                             </thead>
+             
+                 <div class="form-inline padding-bottom-15">
+                   <div class="row">
+                     <div class="col-sm-6">
+             
              </div>
-            </form>
-                  </div>
+                       <div class="col-sm-6 text-right m-b-20">
+                       <div class="form-group">
+                           <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                 autocomplete="off">
+              </div>
+                        </div>
+                    </div>
+                 </div>
+             
+             
+               <tbody id="table_body"> 
+                  
+               </tbody>
+               <tfoot>
+                 <tr>
+                   <td colspan="4"></td>
+                 </tr>
+               </tfoot>
+             </table>
+             
+             
+             
+             <div class="text-right">
+               <ul class="pagination">
+               </ul>
+             </div>
+                </div>
+                 </div>
+             </div>
                 </div>
                 <!-- /.modal-content -->
               </div>
               <!-- /.modal-dialog -->
             </div>
               </div>
-
-<!-- Leave info (done) -->
-  <div id="done" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Leave request</strong></center></h4>
-                  </div>
-                  <div class="modal-body">
-              <form data-toggle="validator">
-                <div class="form-group">
-                  <div class="row">
-
-					  			<div class="form-group col-sm-6">
-                       <label class="control-label">Leave type</label>
-                          <p class="form-control-static" id="leave2">Sick leave</p>
-                    </div>
-					  				  			<div class="form-group col-sm-6">
-                       <label class="control-label">Date Requested</label>
-                          <p class="form-control-static" id="daterequested2">14</p>
-
-                    </div>
-					  		<div class="form-group col-sm-6">
-                       <label class="control-label">Date start</label>
-                          <p class="form-control-static" id="datestart2"> 07/11/17 </p>
-
-                    </div>
-					  		<div class="form-group col-sm-6">
-                       <label class="control-label">Date end</label>
-                          <p class="form-control-static" id="dateend2"> 07/25/17 </p>
-
-                    </div>
-                    					  		<div class="form-group col-sm-12">
-                       <label class="control-label">Reason</label>
-                          <p class="form-control-static" id="reason2"> confined </p>
-
-                    </div>
-					    </div>
-             <div class="modal-footer">
-              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-
-             </div>
-            </form>
-                  </div>
-                </div>
-                <!-- /.modal-content -->
-              </div>
-              <!-- /.modal-dialog -->
-            </div>
   @endsection
 
   @section('script')
@@ -241,6 +250,9 @@
         $("#datestart").html(result.start_date);
         $("#dateend").html(result.end_date);
         $("#reason").html(result.reason);
+        $("#notifdays").html(result.notifdays);
+        $("#allowdays").html(result.allowdays);
+        $("#table_body").html(result.body);
         if (result.status!=="pending") {
           $("#accept").hide();
           $("#reject").hide();
@@ -249,7 +261,8 @@
           $("#accept").show();
           $("#reject").show();
         }
-        $('#pending').modal('show');
+        
+        $('#Swap').modal('show');
       }
     });
   }
