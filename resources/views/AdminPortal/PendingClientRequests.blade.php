@@ -31,11 +31,69 @@
               <section id="section-linetriangle-1">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                    <div class="row ">
+
+
                    </div>
                    </div>
         </section>
 
-                               <section id="section-linetriangle-2"><h2>Tabbing 2</h2></section>
+                               <section id="section-linetriangle-2">
+                                <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+              <thead>
+                <tr>
+                <th data-sort-initial="true" data-toggle="true">Date requested</th>
+                  <th>Client's name</th>
+                  <th>Client's establishment</th>
+                  <th>location</th>        
+                  <th data-sort-ignore="true" width="150px">Actions</th>
+                </tr>
+              </thead>
+              	<div class="form-inline padding-bottom-15">
+                	<div class="row">
+						<div class="col-sm-6">
+						</div>
+                    	<div class="col-sm-6 text-right m-b-20">
+                    	<div class="form-group">
+                      		<input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+						    autocomplete="off">
+					   </div>
+                  	   </div>
+                   </div>
+                </div>
+              <tbody>
+                 <tr>
+                              <td>07/11/28 07:25</td>
+                              <td>Abel mandap</td>
+                              <td>pup</td>
+                              <td> sta. mesa, manila </td>
+                              <td>
+							  <button class="btn btn-block btn-info"  data-toggle="modal" data-target="#ReqInfo"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
+                              </td>
+                 </tr>
+                 <tr>
+                              <td>07/11/28 07:25</td>
+                              <td>Abel mandap</td>
+                              <td>pup</td>
+                              <td> sta. mesa, manila </td>
+                              <td>
+							  <button class="btn btn-block btn-info"  data-toggle="modal" data-target="#ReqInfo"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
+                              </td>
+                 </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="5"></td>
+                </tr>
+              </tfoot>
+        	</table>
+			  
+            <div class="text-right">
+              <ul class="pagination">
+              </ul>
+            </div>  
+
+                               
+                               </section>
                                <section id="section-linetriangle-3"><h2>Tabbing 3</h2></section>
                                     <section id="section-linetriangle-3"><h2>Tabbing 4</h2></section>
                              </div><!-- /content -->
@@ -46,111 +104,62 @@
         </div>
 
 
-          <!-- Leave info (pending) -->
-  <div id="Swap" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+          <!-- Reques info by client -->
+  <div id="ReqInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Leave request</strong></center></h4>
+                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Additional gun request</strong></center></h4>
                   </div>
                   <div class="modal-body">
                     <form data-toggle="validator">
                     <div class="form-group">
                     <div class="row">  
-                    <label class="col-xs-3 control-label"></label>
-                    <div class="deploymentdate">                      
-                      <div class="col-md-12">
-                        <div class="row text-center">
-                         <div class="form-group col-sm-4">
-                           <label class="control-label">Leave type</label>
-                             <p class="form-control-static" id="leave"></p>
-                        </div>
-                         <div class="form-group col-sm-4">
-                            <label class="control-label">Notification period (days)</label>
-                             <p class="form-control-static" id="notifdays">3</p>
-                            <div class="help-block with-errors"></div>
-                         </div>
-                          <div class="form-group col-sm-4">
-                            <label class="control-label">Allowable days</label>
-                             <p class="form-control-static" id="allowdays">5</p>
-                            <div class="help-block with-errors"></div>
-                         </div>
-                       </div>
-                       <div class="row text-center"> 
-                        <div class="form-group col-sm-4">
-                          <label class="control-label">Notification date</label>
-                           <p class="form-control-static" id="daterequested"></p>
-                          <div class="help-block with-errors"></div>
-                        </div> 
-                        <div class="form-group col-sm-4">
-                          <label class="control-label">Start date</label>
-                           <p class="form-control-static" id="datestart"></p>
-                           <div class="help-block with-errors"></div>
-                        </div>  
-                        <div class="form-group col-sm-4">
-                          <label class="control-label">Requested end date</label>
-                          <p class="form-control-static" id="dateend"></p>
-                          <div class="help-block with-errors"></div>
-                        </div>  
-                       </div>
-                       <div class="row text-center">
-                        <div class="form-group col-sm-12">
-                          <label class="control-label">Reason</label>
-                          <p class="form-control-static" id="reason"></p>
-                          <div class="help-block with-errors"></div>
-                        </div>  
-                       </div>  
-                      </div>           
-                    </div>
-                         </br> </br>
-                         </div>
-             
-                        <h4><center><strong>List of available guards for replacement</strong></center></h4>
-                       <div class="row  el-element-overlay">
-                          <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-                            <thead>
-                              <tr>
-                               <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="80px" ></th>
-                              <th>Guard's name</th>
-                              <th  data-sort-ignore="true">Location</th>
-                              <th data-sort-ignore="true" width="150px">Actions</th>
-                             </tr>
-                             </thead>
-             
-                 <div class="form-inline padding-bottom-15">
-                   <div class="row">
-                     <div class="col-sm-6">
-             
-             </div>
-                       <div class="col-sm-6 text-right m-b-20">
-                       <div class="form-group">
-                           <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
-                 autocomplete="off">
-              </div>
-                        </div>
-                    </div>
-                 </div>
-             
-             
-               <tbody id="table_body"> 
-                  
-               </tbody>
-               <tfoot>
-                 <tr>
-                   <td colspan="4"></td>
-                 </tr>
-               </tfoot>
-             </table>
-             
-             
-             
-             <div class="text-right">
-               <ul class="pagination">
-               </ul>
-             </div>
+                       <div style="padding: 40px; background: #fff;">
+      <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+        <tbody>
+          <tr>
+            <td><b>Abel mandap</b>
+              <p style="margin-top:0px;">Order #123</p></td>
+            <td align="right" width="100"> 07/11/28 07:25 </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding:20px 0; border-top:1px solid #f6f6f6;"><div>
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  <tbody>
+                    <tr>
+                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;">Dessert eagle</td>
+                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;"  align="right">x2</td>
+                    </tr>
+                                      <tr>
+                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;">m4a1</td>
+                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;"  align="right">x3</td>
+                    </tr>
+                                        <tr class="total">
+                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; border-top-width: 1px; border-top-color: #f6f6f6; border-top-style: solid; margin: 0; padding: 9px 0; font-weight:bold;" width="80%">Total</td>
+                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; border-top-width: 1px; border-top-color: #f6f6f6; border-top-style: solid; margin: 0; padding: 9px 0; font-weight:bold;" align="right">x5</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
                 </div>
                  </div>
+                          <div class="modal-footer">
+            <button type="submit" class="btn btn-info waves-effect waves-light" onClick="window.location='{{url('/DeliverGuns')}}';" >Process Delivery</button>
+                        <button type="submit" class="btn btn-danger waves-effect waves-light" onclick="reject();" >Reject request</button>
+          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+         </div>
              </div>
                 </div>
                 <!-- /.modal-content -->
@@ -162,89 +171,28 @@
 
   @section('script')
   <script type="text/javascript">
-  function view(id)
-  {
-    $.ajax({
-      url: "/View-Leave-Request",
-      type:"GET",
-      data: {
-        'id': id,
-        },
-      success: function(result){
-        $("#rid").val(result.id);
-        $("#leave").html(result.leave);
-        $("#daterequested").html(result.notif_date);
-        $("#datestart").html(result.start_date);
-        $("#dateend").html(result.end_date);
-        $("#reason").html(result.reason);
-        $("#notifdays").html(result.notifdays);
-        $("#allowdays").html(result.allowdays);
-        $("#table_body").html(result.body);
-        if (result.status!=="pending") {
-          $("#accept").hide();
-          $("#reject").hide();
-        }
-        else {
-          $("#accept").show();
-          $("#reject").show();
-        }
-        
-        $('#Swap').modal('show');
-      }
-    });
-  }
-  </script>
-  <script type="text/javascript">
-  $('#accept').on('click', function(e){
+  function reject()
+{
+    $('#ReqInfo').modal('hide');
+  swal({
+    title: "Reason for rejection",
+     text: "<textarea id='text'></textarea>",
+  html: true,
+    showCancelButton: true,
+    closeOnConfirm: false,
+    animation: "slide-from-top",
+    inputPlaceholder: "Write something"
+  },
+  function(inputValue){
+    if (inputValue === false) return false;
 
-    $.ajaxSetup({
-       headers: {
-         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
+    if (inputValue === "") {
+      swal.showInputError("You need to write something!");
+      return false
+    }
+   
+  });
 
-    $.ajax({
-      type: 'post',
-      url: '/Admin-Leave-Accept',
-      data: {
-          id:$('#rid').val(),
-      },
-      success: function(data){
-          if (data==="Leave Accepted") {
-            alert(data);
-            location.reload();
-          }
-          else {
-            alert(data);
-          }
-      }
-    });
-  })
-
-  $('#reject').on('click', function(e){
-
-    $.ajaxSetup({
-       headers: {
-         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-    $.ajax({
-      type: 'post',
-      url: '/Admin-Leave-Reject',
-      data: {
-          id:$('#rid').val(),
-      },
-      success: function(data){
-          if (data==="Leave Rejected") {
-            alert(data);
-            location.reload();
-          }
-          else {
-            alert(data);
-          }
-      }
-    });
-  })
+}
   </script>
   @endsection
