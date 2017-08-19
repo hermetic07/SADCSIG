@@ -11,8 +11,6 @@
 |
 */
 Route::get('/Request-sent','LastControl@viewSentReq');
-
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -414,6 +412,7 @@ Route::post('/GetLeaveInfo', 'EmployeeControl@leaveInfo');
 Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
 Route::get('/Admin-Guard-Leave', 'EmployeeControl@allLeave');
 Route::post('/Admin-Leave-Accept', 'EmployeeControl@acceptLeave');
+Route::post('/Guard-Leave-Accept', 'EmployeeControl@acceptLeave2');
 Route::post('/Admin-Leave-Reject', 'EmployeeControl@rejectLeave');
 Route::get('/View-Leave-Request', 'EmployeeControl@viewLeave');
 

@@ -141,6 +141,62 @@
            </div>
 
              </div>
+             <br>  <br>  <br>     <br>  <br>  <br>
+             <h3>Reliever Requests</h3>
+             <div class="row  el-element-overlay">
+               <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                 <thead>
+                   <tr>
+                     <th>Start Date</th>
+                     <th>End Date </th>
+                     <th>Status</th>
+                     <th width="20%"data-sort-ignore="true" >Actions</th>
+                   </tr>
+                 </thead>
+                 <div class="form-inline padding-bottom-15">
+                   <div class="row">
+                     <div class="col-sm-6"></div>
+                     <div class="col-sm-6 text-right m-b-20">
+                       <div class="form-group">
+                         <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                      autocomplete="off">
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+                 
+                 <tbody>
+                   @foreach($reliever as $r)
+                   <tr>
+                     <td>
+                       {{$r->sd}}
+                       <input type="hidden" id="lid" value="{{$r->li}}">
+                       <input type="hidden" id="rid" value="{{$r->lr}}">
+                     </td>
+                     <td>{{$r->ed}}</td>
+                     <td><p class="label label-rouded label-info center">{{$r->stat}}</p></td>
+                     @if($r->stat==="pending")
+                     <td><button id="accept" class="btn btn-success">ACCEPT</button> <button id="reject" class="btn btn-danger">REJECT</button></td>
+                     @else
+                     <td></td>
+                     @endif
+                   </tr>
+                   @endforeach
+                   
+                 </tbody>
+                 <tfoot>
+                  <tr>
+                    <td colspan="5"></td>
+                  </tr>
+                 </tfoot>
+                 </table>
+                 
+                  <div class="text-right">
+                    <ul class="pagination">
+                    </ul>
+                  </div>
+       
+                    </div>
 
           </div>
             </div>
@@ -234,5 +290,61 @@ function reject(e)
       });
     });
   });
+</script>
+
+<script>
+  $('#reject').on('click', function(e){
+
+    $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'post',
+      url: '/Admin-Leave-Reject',
+      data: {
+          rid:$('#rid').val(),
+          lid:$('#lid').val(),
+      },
+      success: function(data){
+          if (data==="Leave Rejected") {
+            alert(data);
+            location.reload();
+          }
+          else {
+            alert(data);
+          }
+      }
+    });
+  })
+
+  $('#accept').on('click', function(e){
+
+    $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'post',
+      url: '/Guard-Leave-Accept',
+      data: {
+          rid:$('#rid').val(),
+          lid:$('#lid').val(),
+      },
+      success: function(data){
+          if (data==="Leave Accepted") {
+            alert(data);
+            location.reload();
+          }
+          else {
+            alert(data);
+          }
+      }
+    });
+  })
 </script>
  @endsection

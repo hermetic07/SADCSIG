@@ -52,6 +52,8 @@
                   <span class="label label-rouded label-success center">ACCEPTED</span>
                   @elseif($l->status==='rejected')
                   <span class="label label-rouded label-danger center">REJECTED</span>
+                  @elseif($l->status==='rejected by reliever')
+                  <span class="label label-rouded label-danger center">REJECTED BY RELIEVER</span>
                   @endif
 
                 </div>
@@ -129,6 +131,7 @@
                   </div>
                   <div class="modal-body">
                     <form data-toggle="validator">
+                    <input type="hidden" id="rid" value="">
                     <div class="form-group">
                     <div class="row">  
                     <label class="col-xs-3 control-label"></label>
@@ -179,9 +182,11 @@
                          </br> </br>
                          </div>
              
-                        <h4><center><strong>List of available guards for replacement</strong></center></h4>
-                       <div class="row  el-element-overlay">
-                          <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                        <div class="hidtable">
+                        <h4 ><center><strong>List of available guards for replacement</strong></center></h4>
+                        </div>
+                       <div class="row  el-element-overlay hidtable">
+                          <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table hidtable" data-page-size="10">
                             <thead>
                               <tr>
                                <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="80px" ></th>
@@ -224,8 +229,13 @@
              </div>
                 </div>
                  </div>
+                 <div class="row text-center">
+                  <button id="sendreq" class="btn btn-danger hidtable">SEND REQUEST</button>  
+                 </div>
+                 
              </div>
                 </div>
+               
                 <!-- /.modal-content -->
               </div>
               <!-- /.modal-dialog -->
@@ -252,23 +262,22 @@
         $("#reason").html(result.reason);
         $("#notifdays").html(result.notifdays);
         $("#allowdays").html(result.allowdays);
-        $("#table_body").html(result.body);
-        if (result.status!=="pending") {
-          $("#accept").hide();
-          $("#reject").hide();
-        }
-        else {
-          $("#accept").show();
-          $("#reject").show();
-        }
         
+        if(result.status==="accepted"|| result.status==="rejected")
+        {
+          $('.hidtable').hide();  
+        }
+        else{
+          $('.hidtable').show();
+          $("#table_body").html(result.body);
+        }
         $('#Swap').modal('show');
       }
     });
   }
   </script>
   <script type="text/javascript">
-  $('#accept').on('click', function(e){
+  $('#sendreq').on('click', function(e){
 
     $.ajaxSetup({
        headers: {
@@ -281,15 +290,11 @@
       url: '/Admin-Leave-Accept',
       data: {
           id:$('#rid').val(),
+          empid:$('input[name="select"]:checked').val(),
       },
       success: function(data){
-          if (data==="Leave Accepted") {
-            alert(data);
-            location.reload();
-          }
-          else {
-            alert(data);
-          }
+          alert(data);
+          $('#Swap').modal('hide');
       }
     });
   })

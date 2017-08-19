@@ -471,11 +471,11 @@
                     					</div>
 										<label class="col-xs-1 control-label"></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text"  id="primaryfrom-date-range">
+                     						<input class="form-control" type="text" name="primaryf" id="primaryfrom-date-range">
                     					</div>
         								<label class="col-xs-1 control-label"> <center> To </center></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text"  id="primaryto-date-range">
+                     						<input class="form-control" type="text" name="primaryt" id="primaryto-date-range">
                     					</div>
 
                          		</div>
@@ -488,11 +488,11 @@
 										</div>
 										<label class="col-xs-1 control-label"></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text"  id="secondaryfrom-date-range">
+                     						<input class="form-control" type="text" name="secondf" id="secondaryfrom-date-range">
                     					</div>
 										<label class="col-xs-1 control-label"> <center> To </center></label>
 										<div class="col-xs-1">
-                     						<input class="form-control" type="text"  id="secondaryto-date-range">
+                     						<input class="form-control" type="text" name="secondt"  id="secondaryto-date-range">
                     					</div>
 
                                 </div>
@@ -501,15 +501,15 @@
                                  <label class="col-xs-2 control-label"><strong>Tertiary</strong></label>
         						 <label class="col-xs-1 control-label"></label>
 									<div class="col-xs-5">
-                            			<input type="text" class="form-control"  required />
+                            			<input type="text" class="form-control" name="tertiary"/>
                     				</div>
 									<label class="col-xs-1 control-label"></label>
 									<div class="col-xs-1">
-                     					<input class="form-control" type="text"  id="tertiaryfrom-date-range">
+                     					<input class="form-control" type="text" name="tertiaryf"  id="tertiaryfrom-date-range">
 									</div>
 									<label class="col-xs-1 control-label"> <center> To </center></label>
 									<div class="col-xs-1">
-                     					<input class="form-control" type="text"  id="tertiaryto-date-range">
+                     					<input class="form-control" type="text" name="tertiaryt"  id="tertiaryto-date-range">
                     				</div>
 
 							  </div>
