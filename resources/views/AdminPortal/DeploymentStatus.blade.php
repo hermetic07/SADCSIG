@@ -230,7 +230,7 @@
           <input type="hidden" name="rejectedIDs" value="{{$rejectID}}">
           <input type="hidden" name="accepted" value="{{$accepted}}">
           <input type="hidden" name="rejectedCtr" value="{{$rejectCtr}}">
-          <input type="hidden" name="contractID" value="{{$contractID}}">
+          <input type="hidden" id="contractID" name="contractID" value="{{$contractID}}">
           <input type="hidden" name="clientID" value="{{$client->id}}">
           <input type="hidden" name="changeID" value="{{$changeID}}">
           <input type="hidden" name="refuseID" value="{{$refuseID}}">
@@ -319,17 +319,18 @@
         $('#deploy').on('click',function(){
           clientID = $('#clientID').val();
           estabID = $('#estabID').val();
+          contractID = $('#contractID').val();
           num_guards = 1;
           shiftFrom = $('#shifts').val().split(",")[0];
           shiftTo = $('#shifts').val().split(",")[1];
           role = $('#role').val();
           employeeID = this.value;
-          alert(employeeID);
+          alert(contractID);
 
           $.ajax({
             url: '{{route("deploy")}}',
             type:'GET',
-            data:{clientID:clientID,estabID:estabID,num_guards:num_guards,shiftFrom:shiftFrom,shiftTo:shiftTo,role:role,employeeID:employeeID},
+            data:{clientID:clientID,contractID:contractID,estabID:estabID,num_guards:num_guards,shiftFrom:shiftFrom,shiftTo:shiftTo,role:role,employeeID:employeeID},
             success:function(data){
               alert(data);
               console.log(data);

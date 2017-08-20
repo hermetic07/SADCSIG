@@ -291,12 +291,12 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                         <tbody>
                           @foreach($contracts as $contract)
                            @foreach($establishments as $establishment)
-                              @if($establishment->contract_id == $contract->id)
+                              @if($establishment->id == $contract->strEstablishmentID)
                                 @php
                                   $establishmentID = $establishment->id;
+                                  $estabImage = $establishment->image;
                                 @endphp
-                              @endif
-                            @endforeach
+                              
                             @foreach($clientRegistrations as $clientRegistration)
                                   @if($clientRegistration->contract_id == $contract->id)
                                     @foreach($clients as $client)
@@ -312,18 +312,58 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                 @endforeach
                               @foreach($clientPic as $pic)
                                 @if($pic->stringContractId == $contract->id)
-                                  @php
-                                    $estabImage = $pic->stringestablishment;
-                                  @endphp
+                                  
                                 @endif
                               @endforeach
 
-
-                            <tr>
+                            @if($contract->status == "active")
+                            	<tr style="background-color: gray">
                               <td>
                                <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                  <a href="SecurityGuardsProfile.html"><img src="uploads/{{$estabImage}}" alt="user"  class=" img-responsive"></a>
+                                  <a href="SecurityGuardsProfile.html"><img src="uploads/{{$establishment->image}}" alt="user"  class=" img-responsive"></a>
+                                  <div class="el-overlay">
+                                    <ul class="el-info">
+                                      <li><a class="btn default btn-outline" href="/ClientsDetails-{{$client_id}}+{{$establishmentID}}" target="_blank"><i class="fa fa-info"></i></a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                               </div>
+                              </td>
+                              <td>
+                                <a href="{{route('admin.client.estab',$client_id)}}">{{$clientName}}</a>
+                              </td>
+                              
+                              <td>
+                                {{$contract->exp_date}}
+                              </td>
+                              <td>
+                                {{$contract->created_at}}
+                              </td>
+                              <td>
+                                {{$contract->status}}
+                                @php
+                                  $no_guards = $contract->guard_count;
+                                @endphp
+
+                              </td>
+                              <td>
+                                <div class="radio radio-info">
+                                <input type="radio" id="{{ $contract->id }}" class="radioBtn" value="{{ $contract->id }},{{ $establishmentID }},{{ $contract->guard_count }},{{$client_id}}" disabled>
+                                  <label for="select1"> Select</label>
+                                </div>
+                              </td>
+                              <td>
+                                <button class="btn btn-info btnView" value="{{$contract->id}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
+                                  <button class="btn btn-danger"><i class="fa fa-times"></i> </button>
+                              </td>
+                            </tr>
+                            @elseif($contract->status == "pending")
+                            	<tr>
+                              <td>
+                               <div class="el-card-item">
+                                <div class="el-card-avatar el-overlay-1">
+                                  <a href="SecurityGuardsProfile.html"><img src="uploads/{{$establishment->image}}" alt="user"  class=" img-responsive"></a>
                                   <div class="el-overlay">
                                     <ul class="el-info">
                                       <li><a class="btn default btn-outline" href="/ClientsDetails-{{$client_id}}+{{$establishmentID}}" target="_blank"><i class="fa fa-info"></i></a></li>
@@ -356,11 +396,15 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                 </div>
                               </td>
                               <td>
-                                <button class="btn btn-info btnView" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
+                                <button class="btn btn-info btnView" value="{{$contract->id}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
                                   <button class="btn btn-danger"><i class="fa fa-times"></i> </button>
                               </td>
                             </tr>
+                            @endif
 
+                            
+                            @endif
+                            @endforeach
                           @endforeach
                         </tbody>
                         <tfoot>
@@ -607,6 +651,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
 <!-- View Modal -->
 <div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
   <div class="modal-dialog viewrequest">
+  	
 
   </div> <!-- /.modal-dialog -->
 </div> <!-- /Add military service modal -->
@@ -805,14 +850,21 @@ $('.form-search .btn').on('click', function(e){
    }
   $(document).ready(function(){
     $('.btnView').on('click',function(){
-      $.ajax({
-        url : '',
-        type : '',
-        data : {},
-        success : function(){
-          
-        }
-      });
+    	//alert(this.value);
+    	contractID = this.value;
+
+    	$.ajax({
+    		url : '{{route("manual.view")}}',
+    		type : 'GET',
+    		data : {contractID:contractID},
+    		success : function(data){
+    			console.log(data);
+    			$('.viewrequest').text('');
+    			$('.viewrequest').append(data);
+    			$('#modalview').modal('show');
+    		}
+    	});
+      
     });
     $('.shifts').on('click',function(){
       //alert(this.id.split("-")[1]);

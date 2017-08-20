@@ -101,6 +101,8 @@ class DeploymentController extends Controller
         
          if($request->ajax()){
             $deployment = new Deployments();
+            $contract = Contracts::findOrFail($request->contractID);
+            $guardDeployedctr = 0;
             
             $deployment['clients_id'] = $request->clientID;
             $deployment['establishment_id'] = $request->estabID;
@@ -117,6 +119,7 @@ class DeploymentController extends Controller
                 $deploymentDetails['status'] = "active";
                 if($deploymentDetails->save()){
                      //return response("sucess");
+                    $guardDeployedctr++;
                 }else{
                     return response("OOOPS Something went wrong!");
                 }
@@ -126,8 +129,15 @@ class DeploymentController extends Controller
                 $nr = NotifResponse::where('guard_id',$request->employeeID)->update(['status'=>'deployed']);
                 $emp = Employee::findOrFail($request->employeeID)->update(['deployed'=>'1']);
 
-                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo]);
-                return response($nr);
+                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$request->contractID]);
+
+                $contract->guardDeployed = $guardDeployedctr;
+                $contract->save();
+                if($contract->guard_count == $contract->guardDeployed){
+                    $contract->status = "done";
+                    $contract->save();
+                }
+                return response($guardDeployedctr);
         }
     }
 }

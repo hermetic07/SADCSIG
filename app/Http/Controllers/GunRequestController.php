@@ -68,6 +68,13 @@ class GunRequestController extends Controller
                   
         }
     }
+    public function getGuns(Request $request){
+      if($request->ajax()){
+        $guns = Gun::where('guntype_id',$request->gunTypeID)->get();
+        return view('ClientPortal.formcomponents.table_guns_for_requests')
+                ->with('guns',$guns);
+      }
+    }
     public function remove(Request $request)
      {
          $id = $request -> id;

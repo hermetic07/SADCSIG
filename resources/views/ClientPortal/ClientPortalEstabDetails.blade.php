@@ -24,7 +24,7 @@
   src = "uploads/{{$client->image}}"
 @endsection
 @section('content')
-  @include('partials._estabDetails',['clientName'=>$client->name])
+  @include('partials._estabDetails',['clientName'=>$client->name,'route'=>'ClientPortalContracts'])
 @endsection
 
 

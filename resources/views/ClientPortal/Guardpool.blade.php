@@ -19,7 +19,10 @@
 @section('link_messages')
   href="/ClientPortalMessages-{{$client->id}}"
 @endsection
-@section('mtitle') Messages @endsection
+@section('mtitle') Establishment's details @endsection
+@section('adminPic')
+  src = "uploads/{{$client->image}}"
+@endsection
 
 @section('customstyle')
 

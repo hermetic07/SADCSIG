@@ -156,13 +156,7 @@
 
   @endsection
 @section('modals')
-<div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
-  <div class="modal-dialog">
-    <div class="modal-content viewrequest">
-      
-    </div>
-  </div> <!-- /.modal-dialog -->
-</div>
+
 @endsection
     
   
