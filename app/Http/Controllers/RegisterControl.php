@@ -53,7 +53,7 @@ class RegisterControl extends Controller
         $employee->cellphone = $request->cellphone;
         $employee->email = $request->email;
         session(['email' => $request->email]);
-        $employee->status = "pending";
+        $employee->status = "waiting";
 
         $employee->deployed = 0;
         $employee->save();
@@ -287,7 +287,7 @@ class RegisterControl extends Controller
 
      public function guards(Request $request)
      {
-        $employees = Employee::where("status" , "waiting" )->get();
+        $employees = Employee::where("status" ,"!=" , "deleted" )->get();
         return view('AdminPortal/SecurityGuards')->with('employee',$employees);
      }
 

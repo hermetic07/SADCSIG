@@ -149,8 +149,8 @@
                    <tr>
                      <th>Start Date</th>
                      <th>End Date </th>
-                     <th>Status</th>
-                     <th width="20%"data-sort-ignore="true" >Actions</th>
+                     <th width="15%" >Status</th>
+                     <th width="30%"data-sort-ignore="true" >Actions</th>
                    </tr>
                  </thead>
                  <div class="form-inline padding-bottom-15">
@@ -168,17 +168,13 @@
                  <tbody>
                    @foreach($reliever as $r)
                    <tr>
-                     <td>
-                       {{$r->sd}}
-                       <input type="hidden" id="lid" value="{{$r->li}}">
-                       <input type="hidden" id="rid" value="{{$r->lr}}">
-                     </td>
+                     <td>{{$r->sd}}</td>
                      <td>{{$r->ed}}</td>
-                     <td><p class="label label-rouded label-info center">{{$r->stat}}</p></td>
+                     <td class="text-center"><p class="label label-rouded label-info center">{{$r->stat}}</p></td>
                      @if($r->stat==="pending")
-                     <td><button id="accept" class="btn btn-success">ACCEPT</button> <button id="reject" class="btn btn-danger">REJECT</button></td>
+                     <td><button onclick="fun_view('{{$r->id2}}')" class="btn btn-info" type="">Information</button> <button id="accept" class="btn btn-success" onclick="fun_accept('{{$r->lr}}')">ACCEPT</button> <button id="reject" class="btn btn-danger" onclick="fun_reject('{{$r->lr}}')">REJECT</button></td>
                      @else
-                     <td></td>
+                     <td class="text-center"><button class="btn btn-info" onclick="fun_view('{{$r->id2}}')">Information</button> </td>
                      @endif
                    </tr>
                    @endforeach
@@ -186,7 +182,7 @@
                  </tbody>
                  <tfoot>
                   <tr>
-                    <td colspan="5"></td>
+                    <td colspan="4"></td>
                   </tr>
                  </tfoot>
                  </table>
@@ -210,6 +206,49 @@
       </div>
       <div class="modal-body">
                   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- leave info -->
+<div id="leave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Reliever Information</strong></center></h4>
+      </div>
+      <div class="modal-body text-center">
+          <div class="row" id="image">
+            
+          </div>
+          <div class="row" >
+            <h3 id="guard"></h3>
+          </div>
+          <br>
+          <div class="row">
+             <div class="col-sm-4">
+              <label for="notif">Notified Date</label>
+              <p id="notif"></p>
+             </div>
+             <div class="col-sm-4">
+              <label for="start">Start Date</label>
+              <p id="start"></p>
+             </div>
+             <div class="col-sm-4">
+              <label for="end">End Date</label>
+              <p id="end"></p>
+             </div>
+          </div>
+          <br>
+          <div class="row" >
+            <label for="information">Reason for Leave</label>
+            <p id="information"></p>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
@@ -293,8 +332,8 @@ function reject(e)
 </script>
 
 <script>
-  $('#reject').on('click', function(e){
-
+  function fun_view(id) 
+  { 
     $.ajaxSetup({
        headers: {
          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -303,25 +342,48 @@ function reject(e)
 
     $.ajax({
       type: 'post',
-      url: '/Admin-Leave-Reject',
+      url: '/Guard-Leave-View',
       data: {
-          rid:$('#rid').val(),
-          lid:$('#lid').val(),
+          id:id,
       },
       success: function(data){
-          if (data==="Leave Rejected") {
-            alert(data);
-            location.reload();
-          }
-          else {
-            alert(data);
-          }
+        $("#image").html(data.img);
+        $("#guard").html(data.name);
+        $("#information").html(data.reason);
+        $("#notif").html(data.notif);
+        $("#start").html(data.start);
+        $("#end").html(data.end);
       }
     });
-  })
-
-  $('#accept').on('click', function(e){
-
+    $('#leave').modal('show');  
+  }
+   function fun_reject(id)
+  {
+      $.ajaxSetup({
+           headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+  
+      $.ajax({
+        type: 'post',
+        url: '/Admin-Leave-Reject',
+        data: {
+            rid:id,
+        },
+        success: function(data){
+            if (data==="Leave Rejected") {
+              alert(data);
+              location.reload();
+            }
+            else {
+              alert(data);
+            }
+        }
+      });
+  }
+  function fun_accept(id) 
+  {
     $.ajaxSetup({
        headers: {
          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -332,8 +394,7 @@ function reject(e)
       type: 'post',
       url: '/Guard-Leave-Accept',
       data: {
-          rid:$('#rid').val(),
-          lid:$('#lid').val(),
+          rid:id,
       },
       success: function(data){
           if (data==="Leave Accepted") {
@@ -345,6 +406,6 @@ function reject(e)
           }
       }
     });
-  })
+  }
 </script>
  @endsection

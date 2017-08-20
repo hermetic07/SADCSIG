@@ -52,8 +52,10 @@
                   <span class="label label-rouded label-success center">ACCEPTED</span>
                   @elseif($l->status==='rejected')
                   <span class="label label-rouded label-danger center">REJECTED</span>
-                  @elseif($l->status==='rejected by reliever')
-                  <span class="label label-rouded label-danger center">REJECTED BY RELIEVER</span>
+                  @elseif($l->status==='denied')
+                  <span class="label label-rouded label-danger center">DENIED</span>
+                  @elseif($l->status==='ended')
+                  <span class="label label-rouded label-warning center">ENDED</span>
                   @endif
 
                 </div>
@@ -230,7 +232,8 @@
                 </div>
                  </div>
                  <div class="row text-center">
-                  <button id="sendreq" class="btn btn-danger hidtable">SEND REQUEST</button>  
+                  <button id="sendreq" class="btn btn-danger hidtable">SEND REQUEST</button> 
+                  <button id="end" class="btn btn-danger">END LEAVE</button>  
                  </div>
                  
              </div>
@@ -263,11 +266,23 @@
         $("#notifdays").html(result.notifdays);
         $("#allowdays").html(result.allowdays);
         
-        if(result.status==="accepted"|| result.status==="rejected")
+        if(result.status==="accepted")
         {
           $('.hidtable').hide();  
+          $('#end').show();
+        }
+        else if(result.status==="ended" )
+        {
+          $('.hidtable').hide();  
+          $('#end').hide();
+        }
+        else if(result.status==="rejected")
+        {
+          $('.hidtable').hide();  
+          $('#end').hide();
         }
         else{
+          $('#end').hide();
           $('.hidtable').show();
           $("#table_body").html(result.body);
         }
@@ -321,6 +336,27 @@
           else {
             alert(data);
           }
+      }
+    });
+  })
+
+  $('#end').on('click', function(e){
+
+    $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'post',
+      url: '/Admin-Leave-End',
+      data: {
+          id:$('#rid').val(),
+      },
+      success: function(data){
+          alert(data);
+          $('#Swap').modal('hide');
       }
     });
   })
