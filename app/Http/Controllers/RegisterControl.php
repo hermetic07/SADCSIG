@@ -22,13 +22,16 @@ use Exception;
 class RegisterControl extends Controller
 {
 
-
+    
     public function employeeReg(Request $request)
     {
 
       try {
         //basic info
-
+        $duplicate = Employee::where("email",'=',$request->email)->count();
+        if ($duplicate>0) {
+          return "email is already existing";
+        }
         $count = Employee::get()->count();
         $employee = new Employee();
         $employee->id = "SECU".$count;
@@ -50,7 +53,7 @@ class RegisterControl extends Controller
         $employee->cellphone = $request->cellphone;
         $employee->email = $request->email;
         session(['email' => $request->email]);
-        $employee->status = "pending";
+        $employee->status = "waiting";
 
         $employee->deployed = 0;
         $employee->save();
@@ -272,7 +275,7 @@ class RegisterControl extends Controller
        $request->session()->forget('key');
        $value2 = $request->session()->get('email');
        $request->session()->forget('email');
-      return $this->hire($request);
+       return redirect('/Applicants');
 
      }
 
@@ -284,7 +287,7 @@ class RegisterControl extends Controller
 
      public function guards(Request $request)
      {
-        $employees = Employee::where("status" , "waiting" )->get();
+        $employees = Employee::where("status" ,"!=" , "deleted" )->get();
         return view('AdminPortal/SecurityGuards')->with('employee',$employees);
      }
 
@@ -359,12 +362,12 @@ class RegisterControl extends Controller
      public function secuProfile($id)
      {
         $employee = Employee::find($id);
-        $education = EmployeeEducation::where("id",$id)->get();
-        $degree = EmployeeDegree::where("id",$id)->get();
-        $seminar = EmployeeSeminar::where("id",$id)->get();
-        $military = EmployeeMilitary::where("id",$id)->get();
-        $skill = EmployeeSkills::where("id",$id)->get();
-        $attr = EmployeeAttributes::where("id",$id)->get();
+        $education = EmployeeEducation::where("employees_id",$id)->get();
+        $degree = EmployeeDegree::where("employees_id",$id)->get();
+        $seminar = EmployeeSeminar::where("employees_id",$id)->get();
+        $military = EmployeeMilitary::where("employees_id",$id)->get();
+        $skill = EmployeeSkills::where("employees_id",$id)->get();
+        $attr = EmployeeAttributes::where("employees_id",$id)->get();
         $count = 1;
         return view('SecuProfile')->with('employee',$employee)->with('count',$count)->with('ed',$education)->with('d',$degree)->with('s',$seminar)->with('m',$military)->with('skill',$skill)->with('attr',$attr);
      }

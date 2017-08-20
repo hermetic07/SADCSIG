@@ -11,8 +11,6 @@
 |
 */
 Route::get('/Request-sent','LastControl@viewSentReq');
-
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -40,9 +38,7 @@ Route::get('/UploadPics', function () {
 Route::get('/Swap','GuardReplacementController@index');
 
 
-Route::get('/SecurityGuards', function () {
-    return view('AdminPortal/SecurityGuards');
-});
+
 
 Route::get('/GuardLicenses', function () {
     return view('AdminPortal/GuardLicenses');
@@ -424,8 +420,11 @@ Route::post('/GetLeaveInfo', 'EmployeeControl@leaveInfo');
 
 Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
 Route::get('/Admin-Guard-Leave', 'EmployeeControl@allLeave');
+Route::post('/Guard-Leave-View', 'EmployeeControl@viewLeave2');
 Route::post('/Admin-Leave-Accept', 'EmployeeControl@acceptLeave');
+Route::post('/Guard-Leave-Accept', 'EmployeeControl@acceptLeave2');
 Route::post('/Admin-Leave-Reject', 'EmployeeControl@rejectLeave');
+Route::post('/Admin-Leave-End', 'EmployeeControl@endLeave');
 Route::get('/View-Leave-Request', 'EmployeeControl@viewLeave');
 
 // Earl :D ---------------------------------------------------------------------

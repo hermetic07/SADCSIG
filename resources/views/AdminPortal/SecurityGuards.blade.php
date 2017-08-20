@@ -85,7 +85,13 @@
                                   <center>    <h4 class="text-danger"><small>{{$e->street}} {{$e->barangay}} {{$e->city}}</small></h4> </div></center>
                             </div>
 
+                            @if($e->status==="waiting")
                             <hr class="m-0"> <span class="label pro-col-label label label-table label-warning">{{$e->status}}</span>
+                            @elseif($e->status==="reliever")
+                            <hr class="m-0"> <span class="label pro-col-label label label-table label-danger">{{$e->status}}</span>
+                            @else
+                            <hr class="m-0"><p class="label pro-col-label text-center label-rouded label-info">{{$e->status}}</p>
+                            @endif
                             <div class="pro-list-info-3-col">
                                 <ul class="pro-info text-muted m-b-0">
                                     <li> <span><img src="plugins/images/SecurityGuards/license.png"></span> <span>Security license</span><span class="pull-right text-inverse">12345678910</span></li>
@@ -103,15 +109,23 @@
                                 <div class="agent-name">
                                     <h5 class="m-b-0">Stand by</h5> <small class="text-muted">Client</small> </div>
                             </div>
-                          @else
-                          <div class="pro-agent-col-3">
-                              <div class="agent-img">
-                                  <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src=""><!--Client's establishments --></a>
-                              </div>
-                              <div class="agent-name">
-                                  <h5 class="m-b-0"><!-- Client's name --></h5> <small class="text-muted">Client</small> </div>
-                          </div>\
-                          @endif
+                            @elseif ($e->status == "reliever")
+                            <div class="pro-agent-col-3">
+                                <div class="agent-img">
+                                    <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="plugins/images/Clients/establishment.jpg"></a>
+                                </div>
+                                <div class="agent-name">
+                                    <h5 class="m-b-0">Stand by</h5> <small class="text-muted">Client</small> </div>
+                            </div>
+                            @else
+                            <div class="pro-agent-col-3">
+                                <div class="agent-img">
+                                    <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src=""><!--Client's establishments --></a>
+                                </div>
+                                <div class="agent-name">
+                                    <h5 class="m-b-0"><!-- Client's name --></h5> <small class="text-muted">Client</small> </div>
+                            </div>\
+                            @endif
                             <div class="clearfix"></div>
                             </br>
             <button type="button" class="btn btn-block btn-info" ><i class="icon-user-unfollow"></i> </i> Resign </button>
