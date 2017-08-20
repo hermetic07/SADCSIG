@@ -82,7 +82,7 @@ class AdminController extends Controller
         $clientRegistrations = ClientRegistration::all();
         $clients = Clients::all();
 
-        return view('AdminPortal/PendingClientRequests')
+        return view('AdminPortal/PendingDeployment')
                 ->with('contracts',$contracts)
                 ->with('establishments',$establishments)
                 ->with('natures',$natures)
@@ -214,7 +214,7 @@ class AdminController extends Controller
         }
 
         //return $rejected[0];
-         return redirect('/PendingClientRequests');
+         return redirect('/PendingDeployment');
     }
     public function notifications(Request $request){
         $contracts = Contracts::latest('created_at')->get();

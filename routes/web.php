@@ -11,8 +11,6 @@
 |
 */
 Route::get('/Request-sent','LastControl@viewSentReq');
-
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -40,9 +38,7 @@ Route::get('/UploadPics', function () {
 Route::get('/Swap','GuardReplacementController@index');
 
 
-Route::get('/SecurityGuards', function () {
-    return view('AdminPortal/SecurityGuards');
-});
+
 
 Route::get('/GuardLicenses', function () {
     return view('AdminPortal/GuardLicenses');
@@ -131,6 +127,13 @@ Route::get('/GuardPool', function () {
 });
 
 
+Route::get('/PendingClientRequests', function () {
+    return view('AdminPortal/PendingClientRequests');
+});
+
+Route::get('/DeliverGuns', function () {
+    return view('AdminPortal/DeliverGuns');
+});
 
 
 
@@ -169,7 +172,7 @@ Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployme
 Route::get('ManualDeploy-view','AdminController@view')->name('manual.view');
 Route::get('select/Shifts','AdminController@selectShifts')->name('select.shifts');
 
-Route::get('/PendingClientRequests','AdminController@pending_client_requests')->name('pending.client.requests');
+Route::get('/PendingDeployment','AdminController@pending_client_requests')->name('pending.client.requests');
 
 Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus');
 Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change.rejected');
@@ -422,8 +425,11 @@ Route::post('/GetLeaveInfo', 'EmployeeControl@leaveInfo');
 
 Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
 Route::get('/Admin-Guard-Leave', 'EmployeeControl@allLeave');
+Route::post('/Guard-Leave-View', 'EmployeeControl@viewLeave2');
 Route::post('/Admin-Leave-Accept', 'EmployeeControl@acceptLeave');
+Route::post('/Guard-Leave-Accept', 'EmployeeControl@acceptLeave2');
 Route::post('/Admin-Leave-Reject', 'EmployeeControl@rejectLeave');
+Route::post('/Admin-Leave-End', 'EmployeeControl@endLeave');
 Route::get('/View-Leave-Request', 'EmployeeControl@viewLeave');
 
 // Earl :D ---------------------------------------------------------------------

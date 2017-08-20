@@ -292,12 +292,11 @@
            <ul class="nav nav-second-level">
              <li> <a href="{{url('/ActiveClient')}}" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
             </li>
-            <li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
+            <li> <a href="{{url('/PendingDeployment')}}" class="waves-effect">Pending deployment<span class="label label-rouded label-info pull-right">3</span></a>
             </li>
-            <li> <a href="{{route('serviceRequest.index')}}" class="waves-effect">Service Requests<span class="label label-rouded label-info pull-right"> @yield('ServReqstCnt')</span></a>
+            <li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending Request<span class="label label-rouded label-info pull-right">4</span></a>
             </li>
-            <li> <a href="{{url('/GunRequest')}}" class="waves-effect">Gun Requests<span class="label label-rouded label-info pull-right"> @yield('GunReqstCnt')</span></a>
-            </li>
+
 
            </ul>
           </li>
@@ -320,7 +319,7 @@
 
           <li> @yield('Del')<i class="fa fa-truck fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Delivery <span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
-            <li> <a href="Deliverguns.html" class="waves-effect">Guns</a>
+            <li> <a href="{{url('/DeliverGuns')}}" class="waves-effect">Guns</a>
             </li>
             <li> <a href="{{url('/Ammunition')}}" class="waves-effect">Ammunitions</a>
             </li>

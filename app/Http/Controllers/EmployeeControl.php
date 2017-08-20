@@ -27,6 +27,7 @@ use App\Area;
 use App\Province;
 use App\Leave;
 use App\LeaveRequest;
+use App\LeaveResponse;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeControl extends Controller
@@ -98,7 +99,8 @@ class EmployeeControl extends Controller
     public function saveLeave(Request $request)
     {
       try {
-
+        $value = $request->session()->get('user');
+        $u = Employee::find($value);
         $LR = new LeaveRequest();
         $LR->employees_id=$request->id;
         $LR->leaves_id=$request->leave;
@@ -110,6 +112,7 @@ class EmployeeControl extends Controller
         $LR->end_date="$explod[2]-$explod[0]-$explod[1]";
         $LR->reason = $request->reason;
         $LR->status="pending";
+        $LR->deployed=$u->status;
         $LR->save();
         return "Request has been sent";
       } catch (Exception $e) {
@@ -170,10 +173,15 @@ class EmployeeControl extends Controller
         if ($value!==null) {
           $u = Employee::find($value);
           $acceptedGuards = AcceptedGuards::where('guard_id',$u->id)->get();
-
+          $reliever = DB::table('leave_response')
+          ->join('leave_request', 'leave_request.id', '=', 'leave_response.leave_request_id')
+          ->select('leave_response.id as lr', 'leave_response.leave_request_id as id2', 'leave_request.start_date as sd', 'leave_request.end_date as ed','leave_response.status as stat'  )
+          ->where('leave_response.employees_id',$u->id)
+          ->get();
           return view('SecurityGuardsPortal/SecurityGuardsPortalMessages')
                   ->with('employee',$u)
-                  ->with('acceptedGuards',$acceptedGuards);
+                  ->with('acceptedGuards',$acceptedGuards)
+                  ->with('reliever',$reliever);
           //return $acceptedGuards;
 
         }
@@ -342,7 +350,7 @@ class EmployeeControl extends Controller
     {
       $leavelist =  DB::table('leave_request')
                       ->join('employees', 'employees.id', '=', 'leave_request.employees_id')
-                      ->select('leave_request.id as id', 'employees.first_name as fname', 'employees.last_name as lname', 'employees.cellphone as cp', 'employees.telephone as telephone', 'employees.street as street', 'employees.city as city', 'employees.barangay as barangay', 'employees.image as image', 'leave_request.reason as reason' , 'leave_request.notif_date as ndate', 'leave_request.start_date as sdate', 'leave_request.end_date as edate', 'leave_request.status as status' )
+                      ->select('leave_request.id as id',  'employees.first_name as fname', 'employees.last_name as lname', 'employees.cellphone as cp', 'employees.telephone as telephone', 'employees.street as street', 'employees.city as city', 'employees.barangay as barangay', 'employees.image as image', 'leave_request.reason as reason' , 'leave_request.notif_date as ndate', 'leave_request.start_date as sdate', 'leave_request.end_date as edate', 'leave_request.status as status' )
                       ->get();
                       
       return view('AdminPortal.PendingGuardRequests')->with('leavelist',$leavelist);
@@ -401,10 +409,12 @@ class EmployeeControl extends Controller
     public function acceptLeave(Request $r)
     {
       try {
-        $leavelist =  LeaveRequest::find( $r->id );
-        $leavelist->status="accepted";
-        $leavelist->save();
-        return "Leave Accepted";
+        $l = new LeaveResponse();
+        $l->leave_request_id = $r->id;
+        $l->employees_id= $r->empid;
+        $l->status= "pending";
+        $l->save();
+        return "Reliever Request Sent";
       } catch (Exception $e) {
         return $e;
       }
@@ -414,9 +424,13 @@ class EmployeeControl extends Controller
     public function rejectLeave(Request $r)
     {
       try {
-        $leavelist =  LeaveRequest::find( $r->id );
-        $leavelist->status="rejected";
+        $leave =  LeaveResponse::find( $r->rid );
+        $leave->status="REJECTED";
+        $leave->save();
+        $leavelist =  LeaveRequest::find( $leave->leave_request_id );
+        $leavelist->status="denied";
         $leavelist->save();
+        
         return "Leave Rejected";
       } catch (Exception $e) {
         return $e;
@@ -424,4 +438,74 @@ class EmployeeControl extends Controller
 
     }
 
+    public function acceptLeave2(Request $r)
+    {
+      $value = $r->session()->get('user');
+      $u = Employee::find($value);
+      if($u->status==="reliever"){
+          return "You cant accept this because you are already a reliever";
+      }
+      else if ($u->status==="leave"){
+        return "You cant accept this because you are in leave";
+      }
+      try {
+        $leave =  LeaveResponse::find( $r->rid );
+        $leave->status="ACCEPTED";
+        $leave->save();
+        $leavelist =  LeaveRequest::find( $leave->leave_request_id );
+        $leavelist->status="accepted";
+        $leavelist->save();
+        $emp = Employee::find($leavelist->employees_id);
+        $emp->status = "Leaving";
+        $emp->save();
+        $u->status = "reliever";
+        $u->save();
+        return "Leave Accepted";
+      } catch (Exception $e) {
+        return $e;
+      }
+    }
+
+    public function viewLeave2(Request $r)
+    {
+      try {
+        
+        $leave =  LeaveRequest::find( $r->id );
+        $emp = Employee::find($leave->employees_id);
+        $img = "<img src='uploads/$emp->image' alt=''>";
+        $data = [
+          'img'=>$img,
+          'name'=> $emp->first_name." ". $emp->middle_name." ". $emp->last_name." ",
+          'notif'=>$leave->notif_date,
+          'start'=>$leave->start_date,
+          'end'=>$leave->end_date,
+          'reason'=>$leave->reason,
+        ];
+        return $data;
+        
+      } catch (Exception $e) {
+        return $e;
+      }
+    }
+
+    public function endLeave(Request $r)
+    {
+      try {
+        
+        $leavelist =  LeaveRequest::find( $r->id );
+        $leavelist->status="ended";
+        $leavelist->save();
+        $employee = Employee::find($leavelist->employees_id);
+        $employee->status=$leavelist->deployed;
+        $employee->save();
+        $lr = LeaveResponse::All()->where('leave_request_id', $r->id )->where('status', "ACCEPTED" )->first();
+        $emp = Employee::find($lr->employees_id);
+        $emp->status="waiting";
+        $emp->save();
+        return "Leave Ended";
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
 }
