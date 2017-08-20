@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\AddGuardRequests;
 use App\Clients;
 use App\Establishments;
@@ -27,6 +28,7 @@ use App\Deployments;
 use App\DeploymentDetails;
 use App\ClientsPic;
 use App\EstabGuards;
+
 
 class AdminController extends Controller
 {
@@ -346,6 +348,35 @@ class AdminController extends Controller
                 ->with('provinces',$provinces)
                 ->with('estabID',$estabID)
                 ->with('services',$services);
+    }
+
+    public function viewContract(Request $request){
+        if($request->ajax()){
+            $contract = DB::table('contracts')
+                        ->where('contracts.id','=',$request->contractID)
+                        ->join('establishments','contracts.strEstablishmentID','=','establishments.id')
+                        ->join('areas','areas.id','=','establishments.areas_id')
+                        ->join('natures','natures.id','=','establishments.natures_id')
+                        ->join('provinces','provinces.id','=','areas.provinces_id')
+                        ->select('contracts.id','contracts.start_date','contracts.end_date','contracts.year_span','contracts.guardDeployed','establishments.name','establishments.pic_fname','establishments.pic_mname','establishments.pic_lname','establishments.address','areas.name as area','provinces.name as province','natures.name as nature')
+                        ->get();
+
+            $guards = DB::table('contracts')
+                        ->where('contracts.id','=',$request->contractID)
+                        ->join('establishments','contracts.strEstablishmentID','=','establishments.id')
+                        ->join('tblestabGuards',function($join){
+                            $join->on('tblestabGuards.strEstablishmentID','=','establishments.id')
+                                 ->on('tblestabGuards.contractID','=','contracts.id');
+                        })
+                        ->join('employees','tblestabGuards.strGuardID','=','employees.id')
+                        ->select('employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo')
+                        ->get();
+
+            return view('AdminPortal.ClientRequests.Contracts.viewModal')
+                    ->with('contract',$contract[0])
+                    ->with('guards',$guards);
+            
+        }
     }
 
 }

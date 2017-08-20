@@ -44,7 +44,7 @@
           <tbody>
             @foreach($acceptedGuards as $acceptedGuard)
               @if($acceptedGuard->guard_id == $employee->id)
-                @if($acceptedGuard->guard_reponse == "confirmed")
+                @if($acceptedGuard->guard_reponse == "deployed")
                   <tr style="background-color:gray ">
                   <td>
                     <center>

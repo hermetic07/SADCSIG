@@ -386,7 +386,13 @@
     <!-- /.container-fluid -->
     <footer class="footer text-center"> 2016 &copy; Evacle </footer>
   </div>
-
+  <!-- View Modal -->
+<div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog viewrequest">
+    
+  </div> <!-- /.modal-dialog -->
+</div> <!-- View Modal -->
+  
 
 
   <!-- jQuery and switch -->

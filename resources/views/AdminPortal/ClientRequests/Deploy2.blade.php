@@ -680,12 +680,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
   </div>    <!-- id="page-wrapper2" -->
 </div>  <!-- /#wrapper -->
 
-<!-- View Modal -->
-<div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
-  <div class="modal-dialog viewrequest">
-    
-  </div> <!-- /.modal-dialog -->
-</div> <!-- /Add military service modal -->
+
 
 <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
@@ -891,7 +886,7 @@ $('.form-search .btn').on('click', function(e){
       success:function(data){
         console.log(data);
        $('.viewrequest').empty();
-       $('.viewrequest').html(data);
+       $('.viewrequest').append(data);
        $('#modalview').modal('show');
       }
    });
