@@ -67,6 +67,37 @@ class AdminController extends Controller
             //return response($request->employeeID);
         }
     }
+    public function pending_deployments(){
+        $contracts = Contracts::latest('created_at')->get();
+        $establishments = Establishments::all();
+        $natures = Nature::all();
+        $areas = Area::all();
+        $provinces = Province::all();
+        $shifts = Shifts::all();
+        $tempDeployments = TempDeployments::all();
+        $tempDeploymentDetails = TempDeploymentDetails::all();
+        $acceptedGuards = AcceptedGuards::all();
+        $clientDeploymentNotifs = ClientDeploymentNotif::all();
+        $clientPic = ClientsPic::all();
+        $clientRegistrations = ClientRegistration::all();
+        $clients = Clients::all();
+
+        return view('AdminPortal.PendingDeployment')
+                ->with('contracts',$contracts)
+                ->with('establishments',$establishments)
+                ->with('natures',$natures)
+                ->with('areas',$areas)
+                ->with('provinces',$provinces)
+                ->with('tempDeployments',$tempDeployments)
+                ->with('tempDeploymentDetails',$tempDeploymentDetails)
+                ->with('acceptedGuards',$acceptedGuards)
+                ->with('clientDeploymentNotifs',$clientDeploymentNotifs)
+                ->with('clientPic',$clientPic)
+                ->with('clientRegistrations',$clientRegistrations)
+                ->with('clients',$clients);
+                
+
+    }
     public function pending_client_requests(){
         $contracts = Contracts::latest('created_at')->get();
         $establishments = Establishments::all();
@@ -82,7 +113,7 @@ class AdminController extends Controller
         $clientRegistrations = ClientRegistration::all();
         $clients = Clients::all();
 
-        return view('AdminPortal/PendingDeployment')
+        return view('AdminPortal.PendingClientRequests')
                 ->with('contracts',$contracts)
                 ->with('establishments',$establishments)
                 ->with('natures',$natures)

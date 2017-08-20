@@ -1,4 +1,4 @@
- @extends('AdminPortal.master2')
+@extends('AdminPortal.master2')
 
 @section('Title') Pending clients request @endsection
 
@@ -25,6 +25,7 @@
     $clientName = "";
     $clientIamge = "";
     $contractIDs = "";
+    $pic = "";
 @endphp
 
 <div class="row">
@@ -37,15 +38,20 @@
                     @endphp
                 @endif
             @endforeach
+            @php
+                        $establID = $contract->strEstablishmentID;
+                    @endphp
             @foreach($establishments as $establishment)
-                @if($establishment->contract_id == $contract->id)
+                @if($establishment->id == $establID)
                     @php
-                        $establID = $establishment->id;
+                        $estabImage = $establishment->image;
+                        $pic_image = $establishment->pic_image;
+                        $pic = $establishment->pic_fname." ".$establishment->pic_mname." ".$establishment->pic_lname;
                     @endphp
                     @foreach($natures as $nature)
                         @if($nature->id == $establishment->natures_id)
                             @php
-                            $nature = $nature->name;
+                                $nature = $nature->name;
                             @endphp
                         @endif
                     @endforeach
@@ -73,14 +79,7 @@
                     @endforeach
                 @endif
             @endforeach
-            @foreach($clientPic as $clientP)
-                @if($clientP->stringContractId == $contract->id)
-                    @php
-                        $estabImage = $clientP->stringestablishment;
-                        $pic_image = $clientP->stringpic;
-                    @endphp
-                @endif
-            @endforeach
+           
             @foreach($clients as $client)
                 @if($client->id == $clientID)
                     @php
@@ -143,7 +142,7 @@
                                             <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="uploads/{{$pic_image}}"></a>
                                         </div>
                                         <div class="agent-name">
-                                            <h5 class="m-b-0">{{$contract->pic_fname}},{{$contract->pic_lname}}</h5> <small class="text-muted">Person in charge</small>
+                                            <h5 class="m-b-0">{{$pic}}</h5> <small class="text-muted">Person in charge</small>
                                         </div>
                                     </div>
                                     <div class="pro-location hidden-xs hidden-xs hidden-xs">
@@ -215,7 +214,7 @@
              //alert(guardsDeployed);
              percent = (guardsDeployed*100)/guardsRequested+"%";
              
-             alert(percent);
+             // alert(percent);
              $('#'+contractIDs[i]).css('width',percent);
 
         }

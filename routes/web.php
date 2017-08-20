@@ -127,9 +127,6 @@ Route::get('/GuardPool', function () {
 });
 
 
-Route::get('/PendingClientRequests', function () {
-    return view('AdminPortal/PendingClientRequests');
-});
 
 Route::get('/DeliverGuns', function () {
     return view('AdminPortal/DeliverGuns');
@@ -172,7 +169,8 @@ Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployme
 Route::get('ManualDeploy-view','AdminController@view')->name('manual.view');
 Route::get('select/Shifts','AdminController@selectShifts')->name('select.shifts');
 
-Route::get('/PendingDeployment','AdminController@pending_client_requests')->name('pending.client.requests');
+Route::get('/PendingDeployment','AdminController@pending_deployments')->name('pending.deployments');
+Route::get('/PendingClientRequests','AdminController@pending_client_requests')->name('pending.client.requests');
 
 Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus');
 Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change.rejected');
