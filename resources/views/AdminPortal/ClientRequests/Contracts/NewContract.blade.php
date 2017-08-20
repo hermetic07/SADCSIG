@@ -230,7 +230,7 @@
              <ul class="nav nav-second-level">
                <li> <a href="{{url('/ActiveClient')}}" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
               </li>
-              <li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
+              <li> <a href="{{url('/PendingDeployment')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
               </li>
               <li> <a href="{{url('/ServiceRequest')}}" class="waves-effect">Client Requests<span class="label label-rouded label-info pull-right"><a href="javascript:void(0);" class="waves-effect"> </span></a>
               </li>
@@ -1063,7 +1063,8 @@ $('#firstcal').removeAttr("disabled");
                         prefBody:allAttrib,
                         prefLicense:allLicense,
                         prefReq:allReq,
-                        exp_date:$('input[name=exp_date]').val()
+                        exp_date:$('input[name=exp_date]').val(),
+                        operating_hrs:$('input[name=operating_hrs]').val()
                     },
                     success: function(data){
                       if(data==="Success")

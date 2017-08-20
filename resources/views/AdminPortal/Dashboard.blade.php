@@ -130,7 +130,7 @@
                     </div>
                   </div>
                 </div>
-            <center><a href="{{url('/PendingClientRequests')}}"><button class="btn btn-info btn-rounded waves-effect waves-light" >See all</button></a></center>
+            <center><a href="{{url('/PendingDeployment')}}"><button class="btn btn-info btn-rounded waves-effect waves-light" >See all</button></a></center>
               </div>
 
 				              <div class="col-lg-3 col-sm-6 row-in-br">

@@ -127,6 +127,13 @@ Route::get('/GuardPool', function () {
 });
 
 
+Route::get('/PendingClientRequests', function () {
+    return view('AdminPortal/PendingClientRequests');
+});
+
+Route::get('/DeliverGuns', function () {
+    return view('AdminPortal/DeliverGuns');
+});
 
 
 
@@ -136,13 +143,17 @@ Route::get('/GuardPool', function () {
 Route::group(['prefix'=>''], function(){
     Route::get('ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');
     Route::get('ServiceRequest/viewModal','ServiceRequestController@viewModal')->name('serviceRequest.viewModal');
-    
 });
 
 //Route::get('/ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');  // All services requested from clients
+
+Route::get('/NewContract-ExistingEstablishment-{id}-{estabID}','ServiceRequestController@newContractExistingEstab')->name('newcontract.existing');
+Route::post('/NewContract-ExistingEstablishment-save}','ServiceRequestController@saveExistingEstabContract')->name('newcontract.existing.save');
+
 Route::get('/NewContract-{id}','ServiceRequestController@newContract')->name('newcontract');
 Route::post('NewContract-Save','ServiceRequestController@saveContract')->name('save.newcontract');
 Route::get('/NewContract+UploadPics-{id}','ServiceRequestController@uploadPic')->name('newcontract.uploadpic');
+
 Route::get('/GunRequest','GunRequestController@index');     //  All gun requests from clients
 Route::get('/GunRequest-view','GunRequestController@viewGunRequest')->name('view.gunRequest');
 Route::get('/GunRequest-status','GunRequestController@deliveryStats')->name('delivery.status');
@@ -156,7 +167,7 @@ Route::post('/ClientRegistration-Save','ContractController@save');
 Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
 Route::get('select/Shifts','AdminController@selectShifts')->name('select.shifts');
 
-Route::get('/PendingClientRequests','AdminController@pending_client_requests')->name('pending.client.requests');
+Route::get('/PendingDeployment','AdminController@pending_client_requests')->name('pending.client.requests');
 
 Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus');
 Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change.rejected');

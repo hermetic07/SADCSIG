@@ -28,6 +28,9 @@
 <link href="plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 <!-- Calendar CSS -->
 <link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
+<!-- datatable -->
+<link href="plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
 <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
 @yield('customstyle')
 </head>
@@ -147,6 +150,7 @@
 <script src="plugins/bower_components/moment/moment.js"></script>
 <script src="plugins/bower_components/calendar/dist/fullcalendar.min.js"></script>
 <script src="plugins/bower_components/calendar/dist/jquery.fullcalendar.js"></script>
+<script src="plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
 
 
 

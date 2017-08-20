@@ -221,13 +221,13 @@ class EmployeeControl extends Controller
       }
     }
     public function saveResponse(Request $request){
-       $acceptedGuard2 = DB::table('accepted_guards')
+        $acceptedGuard2 = DB::table('accepted_guards')
                            ->where('guard_id', $request->secuID);
-                $acceptedGuard2->update(['guard_reponse'=>'reject']);
-      $acceptedGuard = DB::table('accepted_guards')
+        $acceptedGuard2->update(['guard_reponse'=>'reject']);
+        $acceptedGuard = DB::table('accepted_guards')
                            ->where('client_deployment_notif_id', $request->deployment_notif_id)
                            ->where('guard_id', $request->secuID);
-      $acceptedGuard->update(['guard_reponse'=>'confirmed']);
+        $acceptedGuard->update(['guard_reponse'=>'confirmed']);
      // AcceptedGuards::where('client_deployment_notif_id','!=',$request->deployment_notif_id)->update(['guard_reponse'=>'reject']);
 
 

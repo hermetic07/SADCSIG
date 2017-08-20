@@ -91,62 +91,38 @@
 
                 <label class="col-xs-6 control-label"></label>  <a class="btn btn-info m-t-10" data-toggle="modal" data-target="#guardReplacement" type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
 
+
               </div>
             </div>
           </div>
         </div>
+        
       </div>
+
+      
       <!-- /.container-fluid -->
       <footer class="footer text-center"> 2017 </footer>
     </div>    <!-- /#page-wrapper -->
   </div>    <!-- /#wrapper -->
 
 <!-- Deliver guns -->
-  <div id="reqGuns" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
+  <div id="reqGuns" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Fill up the following</strong></center></h4>
+          <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Additional gun request</strong></center></h4>
         </div>
         <div class="modal-body">
+
           <form data-toggle="validator" method="POST" action="{{ url('/GunRequest-Save',$client->id) }}">
             {!! csrf_field() !!}
-            <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-              <thead>
-                <tr id="earl">
-                  
-                  
-                  <th  data-sort-ignore="true">Gun Name</th>
-                  <th  data-sort-ignore="true">Action</th>  
-                  <th data-sort-ignore="true" width="120px">Quantity</th>
-                </tr>
-                </thead>
-                <tbody class="gunReq">
-                  @php
-                    $gunCtr = 0;
-                  @endphp
-                  @foreach($guns as $gun)
-                    
-                    <tr>
-                      <td>
-                        {{ $gun->name }}
-                      </td>
-                      <td>
-                        <input id="{{ $gun->id }}" class="checkbox" type="checkbox" name="{{ $gunCtr }}" value="{{ $gun->id }}">
-                      </td>
-                      <td>
-                        <input type="number" class="form-control qty" id="{{ $gun->id }}" name="quantity{{ $gunCtr }}" min="1"  step="0.01"  required>
-                      </td>
-                    </tr>
-                    @php
-                      $gunCtr++;
-                    @endphp
-                  @endforeach
-                </tbody>
-               </table> 
-               <select class="form-control"  name="establishment_id" required>
-                <option value="" disabled="" selected="">~~~ Your Establishments</option>
+             <div class="form-group">
+               <div class="row">
+                 <div class="form-group col-sm-12">
+                  <label class="control-label">Establishment</label>
+                                           <select class="form-control"  name="establishment_id" required>
+                <option value="" disabled="" selected="">Your Establishments</option>
                   @php
                     $estabCtr = 0;
                     $arr = array();
@@ -199,7 +175,71 @@
 
                   @endphp
               </select>
-               <input type="hidden" name="gunCount" value="{{ $gunCtr }}">         
+              </div>  
+                <div class="form-group col-sm-6">
+
+                        <label class="control-label">Gun type</label>
+                        <select class="form-control">
+                        <option> pistol </option>
+                        <option> shotgun </option>
+                        </select>
+            </div>
+            </br>       </br>
+
+                <div class="form-group col-sm-12">
+                </br>
+            <center>
+             <label class="control-label">List of available guns</label>   
+            </center>
+            <div class="table-responsive">
+            <table id="Table" class="table table-bordered table-hover toggle-circle color-bordered-table muted-bordered-table">
+              <thead>
+                <tr >
+                  <th>Gun name</th>
+                  <th width="100px">Action</th>
+                  <th width="100px">Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td >pew pew gun</td>
+                  <td>
+                                  <div class="checkbox checkbox-info">
+                  <input id="checkbox1" type="checkbox">
+                  <label for="checkbox1"> Select </label>
+                </div>
+
+                  </td>
+
+                  <td>
+                            <input type="number" class="form-control qty"  min="1"  step="1" >
+                      </td>
+                  </td>
+                </tr>
+ <tr>
+                  <td >pew pew shotgun</td>
+                  <td>
+                                  <div class="checkbox checkbox-info">
+                  <input id="checkbox2" type="checkbox">
+                  <label for="checkbox2"> Select </label>
+                </div>
+
+                  </td>
+
+                  <td>
+                            <input type="number" class="form-control qty"  min="1"  step="1" >
+                      </td>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+                
+                </div>
+                 </div>
+                </div>
+              </div>
             <div class="modal-footer">
               <button type="submit" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
@@ -531,8 +571,6 @@
 
 
 
-
-
 <input class="earlearl" type="checkbox" name="faith" value="jejej">
 
   <script type="text/javascript">
@@ -556,6 +594,28 @@
 
       }
     
+        $(document).ready(function(){
+          $('#Table').DataTable({
+
+            "columnDefs": [
+           {
+            "targets": 2,
+            "orderable": false
+            },
+            {
+            "targets": 1,
+            "orderable": false
+            },
+            
+            { "searchable": false, "targets": 1 },
+            ]
+
+            
+
+
+          });
+      });
+
   </script>
 @endsection
 @section('script')

@@ -6,7 +6,7 @@
 @section('mtitle') Deployment status @endsection
 
 @section('mtitle2') <li>Clients</li>
-                        <li class="active"><a href="{{url('/PendingClientRequests')}}"> Pending request</a></li>  @endsection
+                        <li class="active"><a href="{{url('/PendingDeployment')}}"> Pending request</a></li>  @endsection
 
 @section('Dep')<a href="javascript:void(0);" class="waves-effect"> @endsection
   @section('Cli')<a href="javascript:void(0);" class="waves-effect active"> @endsection

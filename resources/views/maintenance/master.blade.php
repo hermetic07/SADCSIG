@@ -206,7 +206,7 @@
             <ul class="nav nav-second-level">
  						 <li> <a href="{{url('/ActiveClient')}}" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
  						</li>
- 						<li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
+ 						<li> <a href="{{url('/PendingDeployment')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
  						</li>
 
  					 </ul>
