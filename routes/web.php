@@ -133,6 +133,10 @@ Route::get('/DeliverGuns', function () {
 });
 
 
+Route::get('/Tax', function () {
+    return view('Utilities/Tax');
+});
+
 
 
 
