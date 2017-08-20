@@ -30,6 +30,7 @@ use App\AcceptedGuards;
 use App\ClientsPic;
 use App\ClaimedDelivery;
 use App\EstabGuards;
+use App\GunType;
 
 class ClientPortalHomeController extends Controller
 {
@@ -182,6 +183,7 @@ class ClientPortalHomeController extends Controller
       $deploymentDetails = DeploymentDetails::all();
       $employees = Employee::all();
       $clientRegistrations = ClientRegistration::all();
+      $gunType = GunType::all();
 
 
       return view('ClientPortal.ClientPortalRequest
@@ -194,6 +196,7 @@ class ClientPortalHomeController extends Controller
           ->with('deployments',$deployments)
           ->with('deploymentDetails',$deploymentDetails)
           ->with('employees',$employees)
+          ->with('gunType',$gunType)
           ->with('clientRegistrations',$clientRegistrations);
      // return $client;
     }
@@ -342,7 +345,7 @@ class ClientPortalHomeController extends Controller
       $clientPic = ClientsPic::where('stringContractId',$tempDeployment->contract_ID)->get();
       
       $employees = Employee::all();
-       return view('ClientPortal.Guardpool')->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('client',$client)->with('employees',$employees)->with('client_notif_id',$client_notif_id)->with('picture',$clientPic[0]->stringpic);
+       return view('ClientPortal.Guardpool')->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('client',$client)->with('employees',$employees)->with('client_notif_id',$client_notif_id);
       //return $clientPic[0]->stringpic;
       
     }

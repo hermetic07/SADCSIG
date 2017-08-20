@@ -470,7 +470,7 @@
                       <div class="form-group">
                         <label class="col-xs-2 control-label">Type of Service</label>
                         <div class="col-md-4">
-                          <select class="form-control"  name="service" id="service">
+                          <select class="form-control"  name="service" id="service" required>
                             <option value="" disabled="" selected="">Select Type of Service</option>
                             @foreach($services as $s )
                             <option value="{{$s->id}}">{{$s->name}}</option>
@@ -479,37 +479,37 @@
                         </div>
                         <label class="col-xs-2 control-label">Operating hours</label>
                          <div class="col-xs-4">
-                         <input id="tch1" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" name="operating_hrs">
+                         <input id="tch1" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" name="operating_hrs" required>
                         </div>
                       </div>
 
                       <div class="form-group">
                       <label class="col-xs-1 control-label">Span (months) </label>
                       <div class="col-xs-3">
-                        <input id="tch3" type="text" name="span_mo" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
+                        <input id="tch3" type="text" name="span_mo" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" required>
                       </div>
                       <label class="col-xs-1 control-label">Starts from </label>
                        <div class="col-xs-3">
                           <div class="input-group">
-                            <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly/>
+                            <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly required />
                           </div>
                         </div>
                         <label class="col-xs-1 control-label"> Ends to </label>
                         <div class="col-xs-3">
                            <div class="input-group">
-                             <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control secondcal" id="secondcal" placeholder="yyyy/mm/dd" name="to" disabled>
+                             <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control secondcal" id="secondcal" placeholder="yyyy/mm/dd" name="to" disabled required>
                            </div>
                          </div>
                     </div>
                     <div class="form-group">
                       <label class="col-xs-2 control-label">Number of guards needed</label>
                        <div class="col-xs-4">
-                       <input id="tch4" type="text" value="" name="no_guards" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
+                       <input id="tch4" type="text" value="" name="no_guards" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" required>
                       </div>
                       <label class="col-xs-2 control-label">Expected complete date</label>
                        <div class="col-xs-4">
                          <div class="input-group">
-                           <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control excom" placeholder="mm/dd/yyyy" name="exp_date" />
+                           <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control excom" placeholder="mm/dd/yyyy" name="exp_date" required />
                          </div>
                       </div>
                     </div>

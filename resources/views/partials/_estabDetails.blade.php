@@ -42,7 +42,7 @@
                   $contractCtr = 0;
                 @endphp
                 <td>
-                  <a href="/ClientPortalContracts-{{$client->id}}+{{$estabID}}">Contract</a>
+                  <a href="/{{$route}}-{{$client->id}}+{{$estabID}}">Contract</a>
                 </td>
                 <td>
                   @foreach($contracts as $contract)

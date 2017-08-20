@@ -49,10 +49,16 @@ class AdminController extends Controller
     
         return view('AdminPortal.Deploy')->with('clients',$clients)->with('contracts',$contracts)->with('areas',$areas)->with('provinces',$provinces)->with('establishments',$establishments)->with('services',$services)->with('employees',$employees)->with('clientRegistrations',$clientRegistrations)->with('shifts',$shifts)->with('clientPic',$clientPic);
     }
+    public function view(Request $request){
+        if($request->ajax()){
+            return view('AdminPortal.Deployments.viewModal');
+        }
+    }
     public function selectShifts(Request $request){
         if($request->ajax()){
-            $establishment = Establishments::where('contract_id',$request->contractID)->get();
-            $shifts = Shifts::where('estab_id',$establishment[0]->id)->get();
+            $contract = Contracts::findOrFail($request->contractID);
+            $establishment = Establishments::findOrFail($contract->strEstablishmentID);
+            $shifts = Shifts::where('estab_id',$establishment->id)->get();
             return view('AdminPortal.selectShifts')
                     ->with('shifts',$shifts)
                     ->with('employeeID',$request->employeeID);
@@ -96,7 +102,7 @@ class AdminController extends Controller
         $clientRegistration = ClientRegistration::where('contract_id',$contractID)->get();
         $client = Clients::findOrFail($clientRegistration[0]->client_id);
         $tempDeployments = TempDeployments::all();
-        $establishment = Establishments::where('contract_id',$contractID)->get();
+        $establishment = Establishments::findOrFail($contract->strEstablishmentID);
         // if($tempDeployments->isEmpty()){
         //     $tempDeployments = collect([]);
         // }
@@ -107,11 +113,11 @@ class AdminController extends Controller
         $notif_response = NotifResponse::all();
         $acceptedGuards = AcceptedGuards::all();
         $employees = Employee::all();
-        $natures = Nature::findOrFail($establishment[0]->natures_id);
-        $shifts = Shifts::where('estab_id',$establishment[0]->id)->get();
-        $area = Area::findOrFail($establishment[0]->areas_id);
+        $natures = Nature::findOrFail($establishment->natures_id);
+        $shifts = Shifts::where('estab_id',$establishment->id)->get();
+        $area = Area::findOrFail($establishment->areas_id);
         $province = Province::findOrFail($area->provinces_id);
-        $completeAdd = $establishment[0]->address.",".$area->name." ,".$province->name;       
+        $completeAdd = $establishment->address.",".$area->name." ,".$province->name;       
 
         return view('AdminPortal.DeploymentStatus')
                     ->with('tempDeployments',$tempDeployments)
@@ -121,7 +127,7 @@ class AdminController extends Controller
                     ->with('employees',$employees)
                     ->with('acceptedGuards',$acceptedGuards)
                     ->with('contractID',$contractID)
-                    ->with('establishment',$establishment[0])
+                    ->with('establishment',$establishment)
                     ->with('client',$client)
                     ->with('natures',$natures)
                     ->with('shifts',$shifts)
@@ -318,6 +324,28 @@ class AdminController extends Controller
             ->with('estabGuards',$estabGuards)
             ->with('guardDeployed',$guardDeployed)
             ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic);
+    }
+
+    public function contracts($id,$estabID){
+      $client = Clients::findOrFail($id);
+      $establishments = Establishments::findOrFail($estabID);
+      $contracts = Contracts::all();
+      $clientRegistrations = ClientRegistration::all();
+      $natures = Nature::all();
+      $areas = Area::all();
+      $provinces = Province::all();
+      $services = Service::all();
+
+        return view('AdminPortal.ClientEstablishmentsContracts')
+                ->with('client',$client)
+                ->with('establishments',$establishments)
+                ->with('clientRegistrations',$clientRegistrations)
+                ->with('contracts',$contracts)
+                ->with('natures',$natures)
+                ->with('areas',$areas)
+                ->with('provinces',$provinces)
+                ->with('estabID',$estabID)
+                ->with('services',$services);
     }
 
 }

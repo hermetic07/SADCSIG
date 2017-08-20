@@ -80,7 +80,7 @@
                         {{ $establishment->name }}
                         @php
                           
-                          $personInCharge = $establishment->person_in_charge;
+                          $personInCharge = $establishment->pic_fname." ".$establishment->pic_mname." ".$establishment->pic_lname;
                           $area_id = $establishment->areas_id;
                           $province_id = $establishment->province_id;
                           $address = $establishment->address;

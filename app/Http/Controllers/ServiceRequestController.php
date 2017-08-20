@@ -111,10 +111,10 @@ class ServiceRequestController extends Controller
         
         
         $establishment = Establishments::findOrFail($estabID);
-        $name = explode(" ",$establishment->person_in_charge);
-        $pic_fname = $name[0];
-        $pic_mname = $name[1];
-        $pic_lname = $name[2];
+        
+        $pic_fname = $establishment->pic_fname;
+        $pic_mname = $establishment->pic_mname;
+        $pic_lname = $establishment->pic_lname;
         $province = Province::findOrFail($establishment->province_id);
         $contract = Contracts::where('id',$establishment->contract_id)->get();
         $area = Area::findOrFail($contract[0]->areas_id);
@@ -159,7 +159,7 @@ class ServiceRequestController extends Controller
         $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
         $establishment_id = 'ESTAB-NEW'.Establishments::get()->count();
 
-        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$establishment_id]);
+        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'guardDeployed'=>'0','status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$establishment_id]);
 
         $contracts = Contracts::latest('created_at')->get();
 
@@ -173,7 +173,7 @@ class ServiceRequestController extends Controller
 
         
 
-        Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'person_in_charge'=>$person_in_charge,'contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
+        Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
 
         ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
 
@@ -286,17 +286,7 @@ class ServiceRequestController extends Controller
         $parse_exp_date = explode('/',$request->exp_date);
         $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
 
-        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$request->estabID]);
-
-        $contracts = Contracts::latest('created_at')->get();
-
-        foreach ($contracts as $contract) {
-            $ctr++;
-            if($ctr == 1){
-
-                $person_in_charge = $contract->pic_fname." ".$contract->pic_mname." ".$contract->pic_lname;
-            }
-        }
+        Contracts::create(['id'=>$request->contract_code,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'guardDeployed'=>'0','status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$request->estabID]);
 
         ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
 

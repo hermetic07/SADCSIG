@@ -24,7 +24,7 @@
                     <tr>
                       <td>
                         @foreach($guns as $gun)
-                          @if($claimedDelivery->strGunID == $gun->strGunID)
+                          @if($claimedDelivery->strGunID == $gun->id)
                             {{ $gun->name }}
                           @endif
                         @endforeach
@@ -34,7 +34,7 @@
 			                    @if($gunRequestsDetail->strGunReqID == $gunRequestID)
 			                    
 			                        @foreach($guns as $gun)
-			                          @if($gunRequestsDetail->strGunID == $gun->strGunID)
+			                          @if($gunRequestsDetail->strGunID == $gun->id)
 			                            {{ $gunRequestsDetail->quantity }}
 			                          @endif
 			                        @endforeach

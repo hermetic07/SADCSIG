@@ -179,9 +179,13 @@
                 <div class="form-group col-sm-6">
 
                         <label class="control-label">Gun type</label>
-                        <select class="form-control">
-                        <option> pistol </option>
-                        <option> shotgun </option>
+                        <select class="form-control" onchange="getGuns(this.value)">
+                        <option>~~~ Select Gun Type</option>
+                        @foreach($gunType as $type)
+                          @if($type->status == "active")
+                            <option value="{{$type->id}}">{{$type->name}}</option>
+                          @endif
+                        @endforeach
                         </select>
             </div>
             </br>       </br>
@@ -200,38 +204,9 @@
                   <th width="100px">Quantity</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="gunsTable">
               
-                <tr>
-                  <td >pew pew gun</td>
-                  <td>
-                                  <div class="checkbox checkbox-info">
-                  <input id="checkbox1" type="checkbox">
-                  <label for="checkbox1"> Select </label>
-                </div>
-
-                  </td>
-
-                  <td>
-                            <input type="number" class="form-control qty"  min="1"  step="1" >
-                      </td>
-                  </td>
-                </tr>
- <tr>
-                  <td >pew pew shotgun</td>
-                  <td>
-                                  <div class="checkbox checkbox-info">
-                  <input id="checkbox2" type="checkbox">
-                  <label for="checkbox2"> Select </label>
-                </div>
-
-                  </td>
-
-                  <td>
-                            <input type="number" class="form-control qty"  min="1"  step="1" >
-                      </td>
-                  </td>
-                </tr>
+                
               </tbody>
             </table>
             </div>
@@ -579,6 +554,20 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
+
+      function getGuns(id){
+        $.ajax({
+          url : "{{route('getGuns')}}",
+          type : 'GET',
+          data : {gunTypeID:id},
+          success : function(data){
+            // alert(data);
+            // console.log(data);
+            $('#gunsTable').empty();
+            $('#gunsTable').append(data);
+          }
+        });
+      }
       function getShifts(id){
         //console.log('url("/ClientPortalEstablishments-shifts-'+id+'")');
 

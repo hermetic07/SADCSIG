@@ -89,21 +89,10 @@ class ContractController extends Controller
 
         $establishment_id = 'ESTAB-'.$request->client_code;
 
-        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$establishment_id]);
+        Contracts::create(['id'=>$request->contract_code,'strEstablishmentID'=>$establishment_id,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'guardDeployed'=>'0','status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$establishment_id]);
 
-        $contracts = Contracts::latest('created_at')->get();
 
-        foreach ($contracts as $contract) {
-            $ctr++;
-            if($ctr == 1){
-
-                $person_in_charge = $contract->pic_fname." ".$contract->pic_mname." ".$contract->pic_lname;
-            }
-        }
-
-        
-
-        Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'person_in_charge'=>$person_in_charge,'contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
+        Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
 
         ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
 
@@ -209,6 +198,8 @@ class ContractController extends Controller
         $value = $request->session()->get('client');
         $value2 = $request->session()->get('contract');
         $client = Clients::find($value);
+        $contract = Contracts::findOrFail($value2);
+        $establishment = Establishments::findOrFail($contract->strEstablishmentID);
         if (Input::hasFile('clientpicture')) {
           $file = Input::file('clientpicture');
           $file->move('uploads', $value."cli".$file->getClientOriginalName());
@@ -221,21 +212,25 @@ class ContractController extends Controller
           $file = Input::file('location');
           $file->move('uploads', $value."loc".$file->getClientOriginalName());
           $clientspic->stringlocation = $value."loc".$file->getClientOriginalName();
+          $establishment->loc_image = $value."loc".$file->getClientOriginalName();
           $count+=1;
         }
         if (Input::hasFile('picpicture')) {
           $file = Input::file('picpicture');
           $file->move('uploads', $value."pic".$file->getClientOriginalName());
           $clientspic->stringpic = $value."pic".$file->getClientOriginalName();
+          $establishment->pic_image = $value."pic".$file->getClientOriginalName();
           $count+=1;
         }
         if (Input::hasFile('establishment')) {
           $file = Input::file('establishment');
           $file->move('uploads', $value."es".$file->getClientOriginalName());
           $clientspic->stringestablishment = $value."es".$file->getClientOriginalName();
+          $establishment->image = $value."es".$file->getClientOriginalName();
           $count+=1;
         }
         if ($count!==0) {
+          $establishment->save();
           $clientspic->save();
         }
         $request->session()->forget('client');

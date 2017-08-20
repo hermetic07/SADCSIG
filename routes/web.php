@@ -150,8 +150,11 @@ Route::post('/NewContract-ExistingEstablishment-save}','ServiceRequestController
 Route::get('/NewContract-{id}','ServiceRequestController@newContract')->name('newcontract');
 Route::post('NewContract-Save','ServiceRequestController@saveContract')->name('save.newcontract');
 Route::get('/NewContract+UploadPics-{id}','ServiceRequestController@uploadPic')->name('newcontract.uploadpic');
+Route::get('/ClientContracts-{id}+{estabID}','AdminController@contracts')->name('admin.clientContracts');
+Route::get('/Contract-View','AdminController@viewContract')->name('contract.view');
 
 Route::get('/GunRequest','GunRequestController@index');     //  All gun requests from clients
+Route::get('/GetGunsTable','GunRequestController@getGuns')->name('getGuns');
 Route::get('/GunRequest-view','GunRequestController@viewGunRequest')->name('view.gunRequest');
 Route::get('/GunRequest-status','GunRequestController@deliveryStats')->name('delivery.status');
 Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery');  // Save Gun Delivery into Database
@@ -161,7 +164,9 @@ Route::get('/DeployGuards','DeploymentController@deploy')->name('deploy');
 Route::post('/DeployGuards/Save','DeploymentController@saveDepl')->name('deployment.save');
 Route::get('/ClientRegistration','ContractController@register')->name('client.reg');
 Route::post('/ClientRegistration-Save','ContractController@save');
+
 Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
+Route::get('ManualDeploy-view','AdminController@view')->name('manual.view');
 Route::get('select/Shifts','AdminController@selectShifts')->name('select.shifts');
 
 Route::get('/PendingClientRequests','AdminController@pending_client_requests')->name('pending.client.requests');
