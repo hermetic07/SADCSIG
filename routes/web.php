@@ -78,7 +78,7 @@ Route::get('/Announcements', function () {
 
 
 
-Route::get('/ClientsDetails-{id}+{estabID}','AdminController@estabDetails')->name('admin.estab.details');
+
 
 Route::get('/BillingPeriod', function () {
     return view('AdminPortal/BillingPeriod');
@@ -178,6 +178,7 @@ Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')->name('sav
 
 Route::get('/ActiveClient', 'ContractController@allCLients');
 Route::get('/ClientEstablishment-{contractID}','AdminController@activeClientDetails')->name('admin.client.estab');
+Route::get('/ClientsDetails-{id}+{estabID}','AdminController@estabDetails')->name('admin.estab.details');
 
 /** -----------------  CLIENTS --------------------- **/
 

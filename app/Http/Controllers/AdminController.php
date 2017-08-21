@@ -248,17 +248,18 @@ class AdminController extends Controller
          return redirect('/PendingDeployment');
     }
     public function notifications(Request $request){
-        $contracts = Contracts::latest('created_at')->get();
-        $clientPic = ClientsPic::all();
-        $clients = Clients::all();
-        $clientRegistrations = ClientRegistration::all();
-        $establishments = Establishments::all();
+       
+        $notifications = DB::table('contracts')
+                           ->join('client_registrations','contracts.id','=','client_registrations.contract_id')
+                           ->join('clients','client_registrations.client_id','=','clients.id')
+                           ->join('establishments','contracts.strEstablishmentID','=','establishments.id')
+                           ->select('establishments.name as establishment','establishments.id as estab_id','clients.id as client_id','clients.name','clients.image','contracts.guard_count','contracts.created_at as date','contracts.updated_at as date','contracts.status')
+                           //->where('contracts.status','=','pending')
+                           ->orderBy('contracts.updated_at','desc')
+                          // ->orderBy('contracts.updated_at','asc')
+                           ->get(); 
         return view('AdminPortal.notification')
-                ->with('contracts',$contracts)
-                ->with('clientPic',$clientPic)
-                ->with('clients',$clients)
-                ->with('clientRegistrations',$clientRegistrations)
-                ->with('establishments',$establishments);
+                ->with('notifications',$notifications);
     }
 
     public function activeClientDetails($contractID){

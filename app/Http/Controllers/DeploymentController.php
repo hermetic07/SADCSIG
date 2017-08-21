@@ -134,7 +134,7 @@ class DeploymentController extends Controller
                 $contract->guardDeployed = $guardDeployedctr;
                 $contract->save();
                 if($contract->guard_count == $contract->guardDeployed){
-                    $contract->status = "done";
+                    $contract->status = "active";
                     $contract->save();
                 }
                 return response($guardDeployedctr);
