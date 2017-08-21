@@ -1,12 +1,12 @@
 @extends('AdminPortal.master2')
 
-@section('Title') Pending clients request @endsection
+@section('Title') Pending deployment @endsection
 
 
-@section('mtitle') Pending clients request @endsection
+@section('mtitle') Pending deployment @endsection
 
 @section('mtitle2') <li>Clients</li>
-                        <li class="active"><a href="{{url('/PendingClientRequests')}}"> Pending request</a></li>  @endsection
+                        <li class="active"><a href="{{url('/Pendingdeployment')}}"> Pending deployment</a></li>  @endsection
 
 @section('Dep')<a href="javascript:void(0);" class="waves-effect"> @endsection
   @section('Cli')<a href="javascript:void(0);" class="waves-effect active"> @endsection

@@ -30,7 +30,8 @@
 <link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
 <!-- datatable -->
 <link href="plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-
+  <!--alerts CSS -->
+  <link href="js/Alert/sweetalert.css" rel="stylesheet" type="text/css">
 <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
 @yield('customstyle')
 </head>
@@ -151,7 +152,9 @@
 <script src="plugins/bower_components/calendar/dist/fullcalendar.min.js"></script>
 <script src="plugins/bower_components/calendar/dist/jquery.fullcalendar.js"></script>
 <script src="plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
-
+<!-- Sweet-Alert  -->
+ <script src="js/Alert/sweetalert.min.js"></script>
+    <script src="js/Alert/jquery-alertcustom.js"></script>
 
 
 
