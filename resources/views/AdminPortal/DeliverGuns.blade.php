@@ -19,6 +19,7 @@
 
 
 <div class="row">
+<div class="row">
            <div class="col-lg-12">
                <div class="white-box">
                                 <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
@@ -49,7 +50,7 @@
                               <td> sta. mesa, manila </td>
                               <td>
 			<button class="btn btn-info"  data-toggle="modal" data-target="#ReqInfo"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                              <button class="btn  btn-success"  data-toggle="modal" data-target="#Delgun"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Deliver guns</button>
+                              <button class="btn  btn-success " id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
                               </td>
                  </tr>
                  <tr>
@@ -58,7 +59,7 @@
                               <td> sta. mesa, manila </td>
                               <td>
 							  <button class="btn btn-info"  data-toggle="modal" data-target="#ReqInfo"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                              <button class="btn  btn-success"  data-toggle="modal" data-target="#Delgun"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Deliver guns</button>
+                           <button class="btn  btn-success " id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
                               </td>
                  </tr>
               </tbody>
@@ -75,7 +76,83 @@
             </div>  
 
           </div>
-       </div>
+
+
+
+
+
+              <div class="col-lg-5 animated slideInRight guards" style="display:none">
+
+      <div class="white-box">
+    
+       <h4><center><strong>Items	</strong></center></h4>
+       </br>
+                  <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="100">
+          <thead>
+            <tr>
+            <th data-sort-initial="true" data-toggle="true" width="10px">Select</th>
+              <th>Guntype</th>
+                <th >gun</th>
+              <th data-sort-ignore="true" >Serial number</th>
+            </tr>
+          </thead>
+          <tbody>
+             <tr>
+                          <td>
+            
+                          <div class="checkbox checkbox-success checkbox-circle">
+                           <input id="gun1" type="checkbox" >
+                           <label for="gun1"></label>
+                         </div>
+                          </td>
+                          <td>Pistol</td>
+                          <td>Glock 49</td>
+                          <td>
+                          <input type="text" class="form-control">
+                          </td>
+              </tr>
+              <tr>
+                          <td>
+                 
+                          <div class="checkbox checkbox-success checkbox-circle">
+                           <input id="gun2" type="checkbox" >
+                           <label for="gun2"></label>
+                         </div>
+                          </td>
+                          <td>shotgun</td>
+                          <td>spas</td>
+                          <td>
+                          <input type="text" class="form-control">
+                          </td>
+                      </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4"></td>
+            </tr>
+          </tfoot>
+      </table>
+
+       </br>
+
+        <center><button class="btn  btn-success "   data-toggle="modal" data-target="#Delgun"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" ><i class="fa fa-sign-in"></i> Deliver</button></center>
+
+          </div>
+
+              </div>
+
+
+         </div>
+
+
+
+
+
+
+
+
+
+
     <!-- Reques info by client -->
   <div id="ReqInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
               <div class="modal-dialog">
@@ -165,11 +242,18 @@
                                             <td>Pistol</td>
                                             <td>Dessert eagle</td>
                                             <td>
-                                                 <input type="number" class="form-control"  min="1"  step="1" >
+                                                 1
        
                                             </td>
                                         </tr>
-
+                                         <tr>
+                                            <td>shotgun</td>
+                                            <td>spas</td>
+                                            <td>
+                                                 1
+       
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -218,5 +302,23 @@
   @endsection
 
   @section('script')
+ <script type="text/javascript">
+jQuery(document).ready(function($){
+ var click =0;
+ $('#show').on('click', function(e){
+   if (click == 0){
 
+         click++;
+   $(".guards").show();
+   $(this).parent().parent().parent().parent().parent().toggleClass('col-lg-12').toggleClass('col-lg-7');
+   }
+
+
+ });
+
+
+});
+
+
+</script>
   @endsection
