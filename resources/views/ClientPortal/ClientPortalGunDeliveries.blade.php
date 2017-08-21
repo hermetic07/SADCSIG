@@ -53,76 +53,27 @@
               </div>
           </div>
           <tbody>
-          @foreach($gunDeliveries as $gunDelivery)
-            @if($gunDelivery->status == "ONDELIVERY" || "CLAIMED")
-              @foreach($gunRequests as $gunRequest)
-                @if($gunRequest->strGunReqID == $gunDelivery->strGunReqID)
-                  @if($gunDelivery->status == "CLAIMED")
-                    <tr  style="background: gray; color: black;">
-                      <td>
-                        {{ $gunDelivery->strGunReqID }}
-                      </td>
-                      <td>
-                        {{ $gunDelivery->status }}
-                      </td>
-                      <td>
-                       {{ $gunRequest->created_at }}
-                            @php
-                              $dateRequested = $gunRequest->created_at;
-                            @endphp
-                      </td>
-                      <td>
-                        <button class="btn btn-info"  data-toggle="modal" data-target="#{{ $gunDelivery->id }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> View Details</button>
-                        <button class="btn btn-success claimDel" disabled="true"  type="button"data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Claim Delivery</button>
-                        <button class="btn btn-danger" type="button" data-target=".bs-example-modal-lg" onclick="fun_delete('{!!$gunDelivery->id!!}')">X</button>
-                      </td>
-                    </tr>
-                  @elseif($gunDelivery->status == "ONDELIVERY")
                     <tr>
+                    <td> 
+                    12333131231
+                    </td>
+                    <td>
+                    06/15/17 07:26pm
+                    </td>
+                    <td>
+                    Abel mandap
+                    </td>
+                    <td>
+                    on delivery
+                    </td>
+                    
                       <td>
-                        {{ $gunDelivery->strGunReqID }}
-                      </td>
-                      <td>
-                        {{ $gunDelivery->status }}
-                      </td>
-                      <td>
-                       {{ $gunRequest->created_at }}
-                            @php
-                              $dateRequested = $gunRequest->created_at;
-                            @endphp
-                      </td>
-                      <td>
-                        <button class="btn btn-info"  data-toggle="modal" data-target="#{{ $gunDelivery->id }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> View Details</button>
-                        <button class="btn btn-success claimDel" value="{{$gunDelivery->strGunDeliveryID}}" type="button" data-target=".bs-example-modal-lg" ><i class="fa fa-truck"></i> Claim Delivery</button>
-                        <button class="btn btn-danger" type="button" data-target=".bs-example-modal-lg" onclick="fun_delete('{!!$gunDelivery->id!!}')">X</button>
-                      </td>
-                    </tr>
-                    @else($gunDelivery->status == "PARTIALCLAIMED")
-                    <tr  style="background: gray; color: black;">
-                      <td>
-                        {{ $gunDelivery->strGunReqID }}
-                      </td>
-                      <td>
-                        {{ $gunDelivery->status }}
-                      </td>
-                      <td>
-                       {{ $gunRequest->created_at }}
-                            @php
-                              $dateRequested = $gunRequest->created_at;
-                            @endphp
-                      </td>
-                      <td>
-                        <button class="btn btn-info"  data-toggle="modal" data-target="#{{ $gunDelivery->id }}"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> View Details</button>
-                        <button class="btn btn-success claimDel" disabled="true"  type="button"data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Claim Delivery</button>
-                        <button class="btn btn-danger" type="button" data-target=".bs-example-modal-lg" onclick="fun_delete('{!!$gunDelivery->id!!}')">X</button>
+                        <button class="btn btn-info"  data-toggle="modal" data-target="#DelSlip"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View Delivery slip</button>
+                        <button class="btn btn-success"  data-toggle="modal" data-target="#ClaimDel"  type="button" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Claim Delivery</button>
+                       
                       </td>
                     </tr>
-                  @endif
-                @endif
-              @endforeach
-            @endif
-          @endforeach
-          </tr>
+>
 
         </tbody>
         <tfoot>
