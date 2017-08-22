@@ -61,25 +61,20 @@
                    </div>
                 </div>
               <tbody>
-                 <tr>
-                              <td>07/11/28 07:25</td>
-                              <td>Abel mandap</td>
-                              <td>pup</td>
-                              <td> sta. mesa, manila </td>
+                 
+                  @foreach($gunRequests as $gunRequest)
+                  <tr>
+                    <td>{{$gunRequest->created_at}}</td>
+                              <td>{{$gunRequest->client}}</td>
+                              <td>{{$gunRequest->establishment}}</td>
+                              <td>{{$gunRequest->address}},{{$gunRequest->area}},{{$gunRequest->province}}</td>
                               <td>
-							  <button class="btn btn-block btn-info"  data-toggle="modal" data-target="#ReqInfo"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
+                <button class="btn btn-block btn-info viewReq" type="button" value="{{$gunRequest->strGunReqID}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
                               </td>
-                 </tr>
-                 <tr>
-                              <td>07/11/28 07:25</td>
-                              <td>Abel mandap</td>
-                              <td>pup</td>
-                              <td> sta. mesa, manila </td>
-                              <td>
-							  <button class="btn btn-block btn-info"  data-toggle="modal" data-target="#ReqInfo"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
-                              </td>
-                 </tr>
-              </tbody>
+                  @endforeach
+                              </tr>
+                 
+                </tbody>
               <tfoot>
                 <tr>
                   <td colspan="5"></td>
@@ -107,63 +102,7 @@
           <!-- Reques info by client -->
   <div id="ReqInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
               <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Additional gun request</strong></center></h4>
-                  </div>
-                  <div class="modal-body">
-                    <form data-toggle="validator">
-                    <div class="form-group">
-                    <div class="row">  
-                       <div style="padding: 40px; background: #fff;">
-      <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
-        <tbody>
-          <tr>
-            <td><b>Abel mandap</b>
-              <p style="margin-top:0px;">Order #123</p></td>
-            <td align="right" width="100"> 07/11/28 07:25 </td>
-          </tr>
-          <tr>
-            <td colspan="2" style="padding:20px 0; border-top:1px solid #f6f6f6;"><div>
-                <table width="100%" cellpadding="0" cellspacing="0">
-                  <tbody>
-                    <tr>
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;">Dessert eagle</td>
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;"  align="right">x2</td>
-                    </tr>
-                                      <tr>
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;">m4a1</td>
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;"  align="right">x3</td>
-                    </tr>
-                                        <tr class="total">
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; border-top-width: 1px; border-top-color: #f6f6f6; border-top-style: solid; margin: 0; padding: 9px 0; font-weight:bold;" width="80%">Total</td>
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; border-top-width: 1px; border-top-color: #f6f6f6; border-top-style: solid; margin: 0; padding: 9px 0; font-weight:bold;" align="right">x5</td>
-                    </tr>
-
-                  </tbody>
-                </table>
-              </div></td>
-          </tr>
-          <tr>
-            <td colspan="2">
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-
-                </div>
-                 </div>
-                          <div class="modal-footer">
-            <button type="submit" class="btn btn-info waves-effect waves-light" onClick="window.location='{{url('/DeliverGuns')}}';" >Process Delivery</button>
-                        <button type="submit" class="btn btn-danger waves-effect waves-light" onclick="reject();" >Reject request</button>
-          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-         </div>
-             </div>
-                </div>
-                <!-- /.modal-content -->
-              </div>
+                
               <!-- /.modal-dialog -->
             </div>
               </div>
@@ -171,6 +110,28 @@
 
   @section('script')
   <script type="text/javascript">
+  $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+  $(document).ready(function(){
+    $('.viewReq').on('click',function(){
+      $.ajax({
+        url : "{{route('view.gunRequest')}}",
+        type : 'GET',
+        data : {gunReqstID:this.value},
+        success : function(data){
+          $('.viewrequest').text('');
+          $('.viewrequest').append(data);
+          $('#modalview').modal('show');
+          console.log(data);
+        }
+
+      });
+      
+    });
+  });
   function reject()
 {
     $('#ReqInfo').modal('hide');

@@ -112,20 +112,16 @@ class AdminController extends Controller
         $clientPic = ClientsPic::all();
         $clientRegistrations = ClientRegistration::all();
         $clients = Clients::all();
+        $gunRequests = DB::table('tblGunRequests')
+                        ->join('clients','clients.id','=','tblGunRequests.strClientID')
+                        ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
+                        ->join('areas','areas.id','=','establishments.areas_id')
+                        ->join('provinces','provinces.id','=','areas.provinces_id')
+                        ->select('tblGunRequests.strGunReqID','tblGunRequests.created_at','clients.name as client','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province')
+                        ->get();
 
         return view('AdminPortal.PendingClientRequests')
-                ->with('contracts',$contracts)
-                ->with('establishments',$establishments)
-                ->with('natures',$natures)
-                ->with('areas',$areas)
-                ->with('provinces',$provinces)
-                ->with('tempDeployments',$tempDeployments)
-                ->with('tempDeploymentDetails',$tempDeploymentDetails)
-                ->with('acceptedGuards',$acceptedGuards)
-                ->with('clientDeploymentNotifs',$clientDeploymentNotifs)
-                ->with('clientPic',$clientPic)
-                ->with('clientRegistrations',$clientRegistrations)
-                ->with('clients',$clients);
+                ->with('gunRequests',$gunRequests);
                 
 
     }
