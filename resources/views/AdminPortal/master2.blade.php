@@ -255,7 +255,7 @@
     <footer class="footer text-center"> 2016 &copy; Evacle </footer>
   </div>
   <!-- View Modal -->
-<div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+<div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog viewrequest">
     
   </div> <!-- /.modal-dialog -->

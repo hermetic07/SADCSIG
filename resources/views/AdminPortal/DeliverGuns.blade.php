@@ -21,55 +21,68 @@
 <div class="row">
 <div class="row">
            <div class="col-lg-12">
-               <div class="white-box">
-                                <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+               <div id="table-container" class="white-box">
+                                
+			 <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
               <thead>
                 <tr>
                   <th>Client's name</th>
                   <th>Client's establishment</th>
-                  <th>location</th>        
+                  <th>location</th>   
+                  <th>Status</th>     
                   <th data-sort-ignore="true" width="310px">Actions</th>
                 </tr>
               </thead>
-              	<div class="form-inline padding-bottom-15">
-                	<div class="row">
-						<div class="col-sm-6">
-						</div>
-                    	<div class="col-sm-6 text-right m-b-20">
-                    	<div class="form-group">
-                      		<input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
-						    autocomplete="off">
-					   </div>
-                  	   </div>
+                <div class="form-inline padding-bottom-15">
+                  <div class="row">
+            <div class="col-sm-6">
+            </div>
+                      <div class="col-sm-6 text-right m-b-20">
+                      <div class="form-group">
+                          <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                autocomplete="off">
+             </div>
+                       </div>
                    </div>
                 </div>
               <tbody>
-                 <tr>
-                              <td>Abel mandap</td>
-                              <td>pup</td>
-                              <td> sta. mesa, manila </td>
+              @foreach($gunRequests as $gunRequest)
+                @if($gunRequest->strGunReqID == $gunRequestID)
+
+                 <tr style="background-color: gray;">
+                              <td>{{$gunRequest->strGunReqID}}</td>
+                              <td>{{$gunRequest->establishment}}</td>
+                              <td>{{$gunRequest->address}},{{$gunRequest->area}},{{$gunRequest->province}}</td>
                               <td>
-			<button class="btn btn-info"  data-toggle="modal" data-target="#ReqInfo"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
+                                {{$gunRequest->status}}
+                              </td>
+                              <td>
+      <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
                               <button class="btn  btn-success " id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
                               </td>
                  </tr>
+                 @else
                  <tr>
-                              <td>Abel mandap</td>
-                              <td>pup</td>
-                              <td> sta. mesa, manila </td>
+                              <td>{{$gunRequest->strGunReqID}}</td>
+                              <td>{{$gunRequest->establishment}}</td>
+                              <td>{{$gunRequest->address}},{{$gunRequest->area}},{{$gunRequest->province}}</td>
                               <td>
-							  <button class="btn btn-info"  data-toggle="modal" data-target="#ReqInfo"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                           <button class="btn  btn-success " id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
+                                {{$gunRequest->status}}
+                              </td>
+                              <td>
+      <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
+                              <button class="btn  btn-success " id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
                               </td>
                  </tr>
+                 @endif
+                 @endforeach
               </tbody>
               <tfoot>
                 <tr>
-                  <td colspan="4"></td>
+                  <td colspan="5"></td>
                 </tr>
               </tfoot>
-        	</table>
-			  
+          </table>
             <div class="text-right">
               <ul class="pagination">
               </ul>
@@ -78,7 +91,7 @@
           </div>
 
 
-
+<input type="hidden" id="gunRequestID" value="{{$gunRequestID}}">
 
 
               <div class="col-lg-5 animated slideInRight guards" style="display:none">
@@ -154,67 +167,7 @@
 
 
     <!-- Reques info by client -->
-  <div id="ReqInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Order slip</strong></center></h4>
-                  </div>
-                  <div class="modal-body">
-                    <form data-toggle="validator">
-                    <div class="form-group">
-                    <div class="row">  
-                       <div style="padding: 40px; background: #fff;">
-      <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
-        <tbody>
-          <tr>
-            <td><b>Abel mandap</b>
-              <p style="margin-top:0px;">Order #123</p></td>
-            <td align="right" width="100"> 07/11/28 07:25 </td>
-          </tr>
-          <tr>
-            <td colspan="2" style="padding:20px 0; border-top:1px solid #f6f6f6;"><div>
-                <table width="100%" cellpadding="0" cellspacing="0">
-                  <tbody>
-                    <tr>
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;">Dessert eagle</td>
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;"  align="right">x2</td>
-                    </tr>
-                                      <tr>
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;">m4a1</td>
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;"  align="right">x3</td>
-                    </tr>
-                                        <tr class="total">
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; border-top-width: 1px; border-top-color: #f6f6f6; border-top-style: solid; margin: 0; padding: 9px 0; font-weight:bold;" width="80%">Total</td>
-                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; border-top-width: 1px; border-top-color: #f6f6f6; border-top-style: solid; margin: 0; padding: 9px 0; font-weight:bold;" align="right">x5</td>
-                    </tr>
-
-                  </tbody>
-                </table>
-              </div></td>
-          </tr>
-          <tr>
-            <td colspan="2">
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-
-                </div>
-                 </div>
-                          <div class="modal-footer">
-      
-          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-         </div>
-             </div>
-                </div>
-                <!-- /.modal-content -->
-              </div>
-              <!-- /.modal-dialog -->
-            </div>
-              </div>
+  
 
                   <!-- Gun delivery -->
   <div id="Delgun" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -303,6 +256,45 @@
 
   @section('script')
  <script type="text/javascript">
+ $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+ $(document).ready(function(){
+  gunRequestID = $('#gunRequestID').val();
+  //alert(gunRequestID);
+
+   $('.viewReq').on('click',function(){
+      $.ajax({
+        url : "{{route('gun.delivery.view')}}",
+        type : 'GET',
+        data : {gunReqstID:this.value},
+        success : function(data){
+          $('.viewrequest').text('');
+          $('.viewrequest').append(data);
+          $('#modalview').modal('show');
+          console.log(data);
+        }
+
+      });
+      
+    });
+  
+ });
+ // function loadTable(){
+ //      $.ajax({
+ //          type: 'get',
+ //          url: "{{ route('gun.delivery.table') }}",
+ //          dataType: 'html',
+ //          data : {gunRequestID:gunRequestID},
+ //          success:function(data)
+ //          {
+ //              $('#table-container').html(data);
+ //              //$('#dataTable').DataTable();
+ //          }
+ //      });
+ //  }
 jQuery(document).ready(function($){
  var click =0;
  $('#show').on('click', function(e){

@@ -44,7 +44,8 @@
                 <th data-sort-initial="true" data-toggle="true">Date requested</th>
                   <th>Client's name</th>
                   <th>Client's establishment</th>
-                  <th>location</th>        
+                  <th>location</th> 
+                  <th>Status</th>    
                   <th data-sort-ignore="true" width="150px">Actions</th>
                 </tr>
               </thead>
@@ -63,21 +64,40 @@
               <tbody>
                  
                   @foreach($gunRequests as $gunRequest)
-                  <tr>
+                    @if($gunRequest->isRead == 1)
+                  <tr style="background-color: gray;">
                     <td>{{$gunRequest->created_at}}</td>
                               <td>{{$gunRequest->client}}</td>
                               <td>{{$gunRequest->establishment}}</td>
                               <td>{{$gunRequest->address}},{{$gunRequest->area}},{{$gunRequest->province}}</td>
                               <td>
+                                {{$gunRequest->status}}
+                              </td>
+                              <td>
                 <button class="btn btn-block btn-info viewReq" type="button" value="{{$gunRequest->strGunReqID}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
                               </td>
-                  @endforeach
+                  
                               </tr>
-                 
+                      @else
+                        <tr>
+                    <td>{{$gunRequest->created_at}}</td>
+                              <td>{{$gunRequest->client}}</td>
+                              <td>{{$gunRequest->establishment}}</td>
+                              <td>{{$gunRequest->address}},{{$gunRequest->area}},{{$gunRequest->province}}</td>
+                              <td>
+                                {{$gunRequest->status}}
+                              </td>
+                              <td>
+                <button class="btn btn-block btn-info viewReq" type="button" value="{{$gunRequest->strGunReqID}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
+                              </td>
+                  
+                              </tr>
+                      @endif
+                 @endforeach
                 </tbody>
               <tfoot>
                 <tr>
-                  <td colspan="5"></td>
+                  <td colspan="6"></td>
                 </tr>
               </tfoot>
         	</table>
