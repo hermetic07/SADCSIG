@@ -8,6 +8,8 @@ use App\AddGuardRequests;
 use App\Clients;
 use App\Establishments;
 use App\Area;
+use App\vat;
+use App\ewt;
 use App\Service;
 use App\Province;
 use App\Contracts;
@@ -407,4 +409,62 @@ class AdminController extends Controller
         }
     }
 
+    public function vatupdate(Request $r){
+        
+        try{
+            $count = vat::get()->count();
+            if ($count>0) {
+                $id = $r->get('pk');
+                $v = vat::findOrFail($id);
+                $name = $r->get('name');
+                $value = $r->get('value');
+                $v->$name = $value;
+                $v->save();
+            }
+            else {
+                $v = new vat();
+                $id = $r->get('pk');
+                $v->id = $id;
+                $v->name = "vat";
+                $value = $r->get('value');
+                $v->value = $value;
+                $v->save();
+            }
+        }catch(Exception $e){
+            return $e;
+        }
+    }
+
+    public function ewtupdate(Request $r){
+        
+        try{
+            $count = ewt::get()->count();
+            if ($count>0) {
+                $id = $r->get('pk');
+                $e = ewt::findOrFail($id);
+                $name = $r->get('name');
+                $value = $r->get('value');
+                $e->$name = $value;
+                $e->save();
+            }
+            else {
+                $e = new ewt();
+                $id = $r->get('pk');
+                $e->id = $id;
+                $e->name = "vat";
+                $value = $r->get('value');
+                $e->value = $value;
+                $e->save();
+            }
+        }catch(Exception $e){
+            return $e;
+        }
+    }
+
+    public function tax(){
+        $v = vat::All()->first();
+        $e = ewt::All()->first();
+
+        return view('Utilities/Tax')->with('v',$v)->with('e',$e);
+    }
 }

@@ -133,9 +133,7 @@ Route::get('/DeliverGuns', function () {
 });
 
 
-Route::get('/Tax', function () {
-    return view('Utilities/Tax');
-});
+Route::get('/Tax','AdminController@tax' );
 
 
 
@@ -147,7 +145,8 @@ Route::group(['prefix'=>''], function(){
 });
 
 //Route::get('/ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');  // All services requested from clients
-
+Route::post('/Admin-update-tax', 'AdminController@vatupdate');
+Route::post('/Admin-update-ewt', 'AdminController@ewtupdate');
 Route::get('/NewContract-ExistingEstablishment-{id}-{estabID}','ServiceRequestController@newContractExistingEstab')->name('newcontract.existing');
 Route::post('/NewContract-ExistingEstablishment-save}','ServiceRequestController@saveExistingEstabContract')->name('newcontract.existing.save');
 

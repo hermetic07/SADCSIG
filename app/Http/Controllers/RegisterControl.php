@@ -53,7 +53,7 @@ class RegisterControl extends Controller
         $employee->cellphone = $request->cellphone;
         $employee->email = $request->email;
         session(['email' => $request->email]);
-        $employee->status = "waiting";
+        $employee->status = "pending";
 
         $employee->deployed = 0;
         $employee->save();

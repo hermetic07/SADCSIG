@@ -31,12 +31,12 @@
 <table style="clear: both" class="table table-bordered table-striped" id="user" >
                   <tbody>
                     <tr>
-                      <td width="35%">VAT</td>
-                      <td width="65%"><a href="#" id="tax" data-type="text" data-pk="1" data-title="Enter a value">14%</a></td>
+                      <td width="35%">VAT(%)</td>
+                      <td width="65%"><a href="#" id="tax" data-type="text" data-pk="1" data-title="Enter a value">{{$v->value or none}}</a></td>
                     </tr>
                     <tr>
-                      <td>EWT</td>
-                      <td><a href="#" id="ewt" data-type="text" data-pk="1" data-placement="right"  data-title="Enter a value">12%</a></td>
+                      <td>EWT(%)</td>
+                      <td><a href="#" id="ewt" data-type="text" data-pk="1" data-placement="right"  data-title="Enter a value">{{$e->value or none}}</a></td>
                     </tr>
                     
                   </tbody>
@@ -56,21 +56,29 @@
 
 $(function(){
 
+  $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
   $('#tax').editable({
      type: 'text',
      pk: 1,
-     name: 'username',
+     name: 'value',
+     url:'/Admin-update-tax',
      title: 'Enter username',
      mode: 'inline',
-           validate: function(value) {
+     validate: function(value) {
        if($.trim(value) == '') return 'This field is required';
-     }
+     },
    });
 
   $('#ewt').editable({
      type: 'text',
      pk: 1,
-     name: 'username',
+     name: 'value',
+     url:'/Admin-update-ewt',
      title: 'Enter username',
      mode: 'inline',
            validate: function(value) {
