@@ -162,7 +162,7 @@ Route::get('/GetGunsTable','GunRequestController@getGuns')->name('getGuns');
 Route::get('/GunRequest-view','GunRequestController@viewGunRequest')->name('view.gunRequest');
 Route::get('/GunRequest-status','GunRequestController@deliveryStats')->name('delivery.status');
 Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery');  // Save Gun Delivery into Database
-Route::get('GunDeliveries','GunDeliveryController@adminDeliveries');
+
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
 Route::get('/DeployGuards','DeploymentController@deploy')->name('deploy');
 Route::post('/DeployGuards/Save','DeploymentController@saveDepl')->name('deployment.save');

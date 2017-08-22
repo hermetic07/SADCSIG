@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Clients;
 use App\Establishments;
 use App\Gun;
@@ -35,21 +36,18 @@ class GunRequestController extends Controller
     }
     public function viewGunRequest(Request $request){
         if($request->ajax()){
-            $guns = Gun::all();
-            $gunRequests = GunRequest::findOrFail($request->gunReqstID);
-            $gunRequestsDetails = GunRequestsDetails::where('strGunReqID',$request->gunReqstID)->get();
-            $establishment = Establishments::where('id',$gunRequests->establishments_id)->get();
-            $clients = Clients::findOrFail($gunRequests->strClientID);
-            $areas = Area::findOrFail($establishment[0]->areas_id);
-            $provinces = Province::findOrFail($establishment[0]->province_id);
+            $gunRequest = GunRequest::findOrFail($request->gunReqstID);
+            $gunRequestDetails = DB::table('tblGunRequests')
+                                ->where('tblGunRequests.strGunReqID','=',$request->gunReqstID)
+                                ->join('tblGunReqDetails','tblGunReqDetails.strGunReqID','=','tblGunRequests.strGunReqID')
+                                //->join('clients','clients.id','=','tblGunRequests.strClientID')
+                                ->join('guns','guns.id','=','tblGunReqDetails.strGunID')
+                                ->select('tblGunRequests.strGunReqID as orderNo','tblGunReqDetails.quantity','guns.name as gun')
+                                ->get();
+            
             return view('AdminPortal.ClientRequests.GunRequestComponents.viewModal')
-                    ->with('gunRequestsDetails',$gunRequestsDetails)
-                    ->with('establishment',$establishment[0])
-                    ->with('gunRequest',$gunRequests)
-                    ->with('guns',$guns)
-                    ->with('client',$clients)
-                    ->with('areas',$areas)
-                    ->with('provinces',$provinces);
+                    ->with('gunRequest',$gunRequest)
+                    ->with('gunRequestDetails',$gunRequestDetails);
         }
     }
     public function deliveryStats(Request $request){

@@ -1,82 +1,66 @@
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-  <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Request Details</strong></center></h4>
-</div>
-<div class="modal-body">
-  <div class="form-group">
-    <div class="col-md-6">
-      <div class="col-md-5">
-          <label class="control-label"><b>Client Name:</b></label>
-        </div>
-        <div class="col-md-7">
-          <label class="">{{$client->name}}</label>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="col-md-4">
-          <label class="control-label"><b>Order No.</b></label>
-        </div>
-        
-        <div class="col-md-8">
-          <label class="" style="font-size: 16px; color: black;"><b>{{$gunRequest->strGunReqID}}</b></label>
-        </div>
-      </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-6">
-      <label class="control-label">Contact No:</label>
-      <label class="control-label">{{$client->contactNo}}</label>
-    </div>
-    <div class="col-md-6">
-      <label class="control-label">Establishment:</label>
-      <label class="control-label">{{$establishment->name}}</label>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-6">
-      <label class="control-label">Email:</label>
-      <label class="control-label">{{$client->email}}</label>
-    </div>
-    <div class="col-md-6">
-      <label class="control-label">Address:</label>
-      <label class="control-label">{{$establishment->address}},{{$areas->name}},{{$provinces->name}}</label>
-    </div>
-  </div>
-  <br>
-  <div class="form-group">
-    <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-          <thead>
+<div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Additional gun request</strong></center></h4>
+                  </div>
+                  <div class="modal-body">
+                  
+
+                  
+                    <form data-toggle="validator">
+                    <div class="form-group">
+                    <div class="row">  
+                       <div style="padding: 40px; background: #fff;">
+              @php
+                $qtyOrderedTotal = 0;
+              @endphp
+      <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+        <tbody>
+          <tr>
+            <td><b></b>
+              <p style="margin-top:0px;">Order No: {{$gunRequest->strGunReqID}}</p></td>
+            <td align="right" width="100"> {{$gunRequest->created_at}} </td>
+          </tr>
+          
             <tr>
-              <th  data-sort-ignore="true">Gun Name</th>
-              <th data-sort-ignore="true" width="120px">Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($gunRequestsDetails as $gunRequestsDetail)
-                    @if($gunRequestsDetail->strGunReqID == $gunRequest->strGunReqID)
-                    @php
-                      $qty = $gunRequestsDetail->quantity;
-                    @endphp
+            <td colspan="2" style="padding:20px 0; border-top:1px solid #f6f6f6;"><div>
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  <tbody>
+                  @foreach($gunRequestDetails as $gunRequestDetail)
                     <tr>
-                      <td>
-                        @foreach($guns as $gun)
-                          @if($gunRequestsDetail->strGunID == $gun->strGunID)
-                            {{ $gun->name }}
-                          @endif
-                        @endforeach
-                      </td>
-                      <td>
-                        {{ $qty }}
-                      </td>
+                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;">{{$gunRequestDetail->gun}}</td>
+                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; margin: 0; padding: 9px 0;"  align="right">{{$gunRequestDetail->quantity}}x</td>
                     </tr>
-                    @endif
-                  @endforeach
-          </tbody>
-        </table>
-  </div>
-</div>
-<br>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  
-</div>
+                        @php
+                          $qtyOrderedTotal = $qtyOrderedTotal + $gunRequestDetail->quantity;
+                        @endphp        
+                    @endforeach
+                                        <tr class="total">
+                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; border-top-width: 1px; border-top-color: #f6f6f6; border-top-style: solid; margin: 0; padding: 9px 0; font-weight:bold;" width="80%">Total</td>
+                      <td style="font-family: 'arial'; font-size: 14px; vertical-align: middle; border-top-width: 1px; border-top-color: #f6f6f6; border-top-style: solid; margin: 0; padding: 9px 0; font-weight:bold;" align="right">x{{$qtyOrderedTotal}}</td>
+                    </tr>
+         
+
+                  </tbody>
+                </table>
+              </div></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+                </div>
+                 </div>
+                          <div class="modal-footer">
+            <button type="submit" class="btn btn-info waves-effect waves-light" onClick="window.location='{{url('/DeliverGuns')}}';" >Process Delivery</button>
+                        <button type="submit" class="btn btn-danger waves-effect waves-light" onclick="reject();" >Reject request</button>
+          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+         </div>
+             </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
