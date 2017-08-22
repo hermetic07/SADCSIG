@@ -96,10 +96,25 @@
             </div>
           </div>
         </div>
-        
+      
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-info-circle"></i> Qoutation</div>
+            <div class="panel-wrapper collapse in">
+              <div class="panel-body">
+
+                <p>Curious about our different service fees? Fill up the form and automaticaly know our prices</p>
+
+                <label class="col-xs-6 control-label"></label>  <a class="btn btn-info m-t-10" data-toggle="modal" data-target="#qout" type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Request</a>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      
       <!-- /.container-fluid -->
       <footer class="footer text-center"> 2017 </footer>
     </div>    <!-- /#page-wrapper -->
@@ -541,6 +556,54 @@
     </div>     <!-- modal-dialog -->
   </div>      <!-- Guard Replacement-->
 
+  <!-- qout Modal -->
+<div id="qout" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Leave request</strong></center></h4>
+                </div>
+                <div class="modal-body">
+            <form data-toggle="validator" method="POST" action="{{URL::to('/Client-Qoute')}}">
+              <div class="form-group">
+                <div class="row">
+                  {{csrf_field()}}
+                  <div class="form-group col-sm-4">
+                    <label class="control-label">Nature of Business</label>
+                    <select class="form-control"  name="nature" id="nature">
+                      <option value="" disabled="" selected="">---</option>
+                      @foreach($nature as $n)
+                      <option value="{{$n->id}}">{{$n->name}}</option>
+                      @endforeach
+                    </select>
+                    <div class="help-block with-errors"></div>
+                 </div>
+                 <div class="form-group col-sm-4">
+                     <label class="control-label">Number of Guards</label>
+                      <input class="form-control" type="number" name="gnum" placeholder="0">
+                     <div class="help-block with-errors"></div>
+                  </div>
+                   <div class="form-group col-sm-4">
+                     <label class="control-label">Months</label>
+                     <input class="form-control" type="number" name="months" placeholder="0">
+                     <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                
+          </div>
+           <div class="modal-footer">
+            <button type="submit" id="edd" class="btn btn-info waves-effect waves-light" onclick="">Submit</button>
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+           </div>
+          </form>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+<!-- /leave -->
 
 
 
