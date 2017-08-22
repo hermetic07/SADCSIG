@@ -108,11 +108,11 @@
                       </tr>
                      <tr>
                           <td>Received by:</td>
-                          <td>Pending</td>
+                          <td>Claimed</td>
                       </tr>
                        <tr>
                           <td>Item:</td>
-                          <td>Ammo</td>
+                          <td>Guns</td>
                       </tr>
 
           </tbody>
@@ -123,33 +123,35 @@
           </tfoot>
       </table>
   </br>
-       <h4><center><strong>Items	</strong></center></h4>
+       <h4><center><strong>Items</strong></center></h4>
 
                   <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="100">
           <thead>
             <tr>
-            <th data-sort-initial="true" data-toggle="true">ID</th>
               <th>Guntype</th>
       <th >gun</th>
-              <th data-sort-ignore="true" width="150px">Rounds/ammo</th>
+      <th >serial number</th>
+              <th data-sort-ignore="true" width="150px">status</th>
             </tr>
           </thead>
           <tbody>
              <tr>
-                          <td>1</td>
+                
                           <td>Pistol</td>
             <td>Glock 49</td>
+                      <td>1223312</td>
                           <td>
-                50
+                          claimed
 
                           </td>
                       </tr>
      <tr>
-                          <td>2</td>
+  
                           <td>shotgun</td>
             <td>spas</td>
+              <td>1223312</td>
                           <td>
-  50
+                          unclaimed
                           </td>
                       </tr>
           </tbody>

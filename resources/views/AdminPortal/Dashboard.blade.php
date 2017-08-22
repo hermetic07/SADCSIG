@@ -5,10 +5,7 @@
 
 @section('mtitle') Dashboard @endsection
 
-@section('Dep')<a href="javascript:void(0);" class="waves-effect"> @endsection
-  @section('Cli')<a href="javascript:void(0);" class="waves-effect"> @endsection
-    @section('Sec')<a href="javascript:void(0);" class="waves-effect"> @endsection
-      @section('Del')<a href="javascript:void(0);" class="waves-effect"> @endsection
+
 
 
 @php
