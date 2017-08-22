@@ -119,7 +119,7 @@ class AdminController extends Controller
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')
                         ->join('provinces','provinces.id','=','areas.provinces_id')
-                        ->select('tblGunRequests.strGunReqID','tblGunRequests.created_at','clients.name as client','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province')
+                        ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.isRead','tblGunRequests.created_at','clients.name as client','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province')
                         ->get();
 
         return view('AdminPortal.PendingClientRequests')

@@ -128,9 +128,7 @@ Route::get('/GuardPool', function () {
 
 
 
-Route::get('/DeliverGuns', function () {
-    return view('AdminPortal/DeliverGuns');
-});
+
 
 
 Route::get('/Tax','AdminController@tax' );
@@ -196,6 +194,12 @@ Route::post('/AddGuardRequests-Save/{id}','LastControl@saveAddGuardReq');
 Route::get('viewModal','AdditionalGuardRequesController@view')->name('addguardrequests.view');
 Route::post('/GuardReplcRequest-Save/{id}','LastControl@saveGuardReplReqst');
 
+Route::get('/DeliverGuns', function () {
+    return view('AdminPortal/DeliverGuns');
+});
+Route::get('/DeliverGuns-table','GunDeliveryController@table')->name('gun.delivery.table');
+Route::get('/DeliverGuns-view','GunDeliveryController@view')->name('gun.delivery.view');
+Route::get('/DeliverGuns-{gunRequestID}','GunDeliveryController@index');
 
 Route::post('GunDelivery-remove', 'GunDeliveryController@remove');
 Route::post('GunRequest-remove', 'GunRequestController@remove');
