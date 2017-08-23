@@ -126,7 +126,9 @@ Route::get('/GuardPool', function () {
     return view('ClientPortal/Guardpool');
 });
 
-
+Route::get('/Home', function () {
+    return view('Website/Home');
+});
 
 
 
