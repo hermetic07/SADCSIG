@@ -22,7 +22,7 @@ class GunDeliveryController extends Controller
         $gunRequest = GunRequest::findOrFail($gunRequestID);
         $gunRequest['isRead'] = 1;
         $gunRequests = DB::table('tblGunRequests')
-                        
+                        //->where('isRead','=','1')
                         ->join('clients','clients.id','=','tblGunRequests.strClientID')
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')
@@ -52,6 +52,19 @@ class GunDeliveryController extends Controller
             
             return view('AdminPortal.ClientRequests.GunDeliveries.viewModal')
                     ->with('gunRequest',$gunRequest)
+                    ->with('gunRequestDetails',$gunRequestDetails);
+        }
+    }
+    public function deliver(Request $request){
+        if($request->ajax()){
+            $gunRequestDetails = DB::table('tblGunReqDetails')
+                                ->where('strGunReqID','=',$request->gunReqstID)
+                                ->join('guns','guns.id','=','tblGunReqDetails.strGunID')
+                                ->join('gunType','guns.guntype_id','=','gunType.id')
+                                ->select('guns.name as gun','guns.id as gunID','gunType.name as gunType')
+                                ->get();
+            return view('AdminPortal.ClientRequests.GunDeliveries.deliver')
+                    ->with('gunReqstID',$request->gunReqstID)
                     ->with('gunRequestDetails',$gunRequestDetails);
         }
     }

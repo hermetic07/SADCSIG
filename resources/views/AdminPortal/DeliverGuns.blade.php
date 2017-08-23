@@ -58,7 +58,7 @@
                               </td>
                               <td>
       <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                              <button class="btn  btn-success " id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
+                              <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
                               </td>
                  </tr>
                  @else
@@ -71,7 +71,7 @@
                               </td>
                               <td>
       <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                              <button class="btn  btn-success " id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
+                              <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
                               </td>
                  </tr>
                  @endif
@@ -94,68 +94,11 @@
 <input type="hidden" id="gunRequestID" value="{{$gunRequestID}}">
 
 
-              <div class="col-lg-5 animated slideInRight guards" style="display:none">
+    <div class="col-lg-5 animated slideInRight guards" style="display:none">
+      <div class="white-box deliverContent">
 
-      <div class="white-box">
-    
-       <h4><center><strong>Items	</strong></center></h4>
-       </br>
-                  <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="100">
-          <thead>
-            <tr>
-            <th data-sort-initial="true" data-toggle="true" width="10px">Select</th>
-              <th>Guntype</th>
-                <th >gun</th>
-              <th data-sort-ignore="true" >Serial number</th>
-            </tr>
-          </thead>
-          <tbody>
-             <tr>
-                          <td>
-            
-                          <div class="checkbox checkbox-success checkbox-circle">
-                           <input id="gun1" type="checkbox" >
-                           <label for="gun1"></label>
-                         </div>
-                          </td>
-                          <td>Pistol</td>
-                          <td>Glock 49</td>
-                          <td>
-                          <input type="text" class="form-control">
-                          </td>
-              </tr>
-              <tr>
-                          <td>
-                 
-                          <div class="checkbox checkbox-success checkbox-circle">
-                           <input id="gun2" type="checkbox" >
-                           <label for="gun2"></label>
-                         </div>
-                          </td>
-                          <td>shotgun</td>
-                          <td>spas</td>
-                          <td>
-                          <input type="text" class="form-control">
-                          </td>
-                      </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="4"></td>
-            </tr>
-          </tfoot>
-      </table>
-
-       </br>
-
-        <center><button class="btn  btn-success "   data-toggle="modal" data-target="#Delgun"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" ><i class="fa fa-sign-in"></i> Deliver</button></center>
-
-          </div>
-
-              </div>
-
-
-         </div>
+      </div>
+    </div>
 
 
 
@@ -275,6 +218,27 @@
           $('.viewrequest').append(data);
           $('#modalview').modal('show');
           console.log(data);
+        }
+
+      });
+      
+    });
+   $('.deliver').on('click',function(){
+      $.ajax({
+        url : "{{route('gun.delivery.deliver')}}",
+        type : 'GET',
+        data : {gunReqstID:this.value},
+        success : function(data){
+         var click =0;
+          console.log(data);
+          $('.deliverContent').text('');
+          $('.deliverContent').append(data);
+          if (click == 0){
+
+               click++;
+         $(".guards").show();
+         $(this).parent().parent().parent().parent().parent().toggleClass('col-lg-12').toggleClass('col-lg-7');
+         }
         }
 
       });
