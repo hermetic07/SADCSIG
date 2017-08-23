@@ -31,7 +31,7 @@
                         </tr>
                         <tr>
                             <td>&nbsp;&nbsp;&nbsp;Nature of Business fee ({{$nature}})</td>
-                            <td class="text-right">{{$price}}</td>
+                            <td class="text-right">{{number_format($price, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td>&nbsp;&nbsp;&nbsp;Number of Guards</td>
@@ -39,7 +39,7 @@
                         </tr>
                         <tr>
                             <td><b>Sub Total:</b></td>
-                            <td class="text-right">{{$total}}</td>
+                            <td class="text-right">{{number_format($total, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td><b>Additional Fees</b></td>
@@ -47,23 +47,23 @@
                         </tr>
                         <tr>
                             <td>&nbsp;&nbsp;&nbsp;Agency Fee</td>
-                            <td class="text-right">2000</td>
+                            <td class="text-right">2,000.00</td>
                         </tr>
                         <tr>
                             <td>&nbsp;&nbsp;&nbsp;VAT ({{$vat}}%)</td>
-                            <td class="text-right">{{$totalvat}}</td>
+                            <td class="text-right">{{number_format($totalvat, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td>&nbsp;&nbsp;&nbsp;EWT ({{$ewt}}%)</td>
-                            <td class="text-right">{{$totalewt}}</td>
+                            <td class="text-right">{{number_format($totalewt, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td><b>TOTAL</b></td>
-                            <td class="text-right">{{$sumtotal}}</td>
+                            <td class="text-right">{{number_format($sumtotal, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td><b>In {{$months}} month(s)</b></td>
-                            <td class="text-right">{{$inmonths}}</td>
+                            <td class="text-right">{{number_format($inmonths, 2, '.', ',')}}</td>
                         </tr>
                     </tbody>
                 </table>
