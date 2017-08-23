@@ -199,6 +199,8 @@ Route::get('/DeliverGuns', function () {
 });
 Route::get('/DeliverGuns-table','GunDeliveryController@table')->name('gun.delivery.table');
 Route::get('/DeliverGuns-view','GunDeliveryController@view')->name('gun.delivery.view');
+Route::get('/DeliverGuns-deliver','GunDeliveryController@deliver')->name('gun.delivery.deliver');
+
 Route::get('/DeliverGuns-{gunRequestID}','GunDeliveryController@index');
 
 Route::post('GunDelivery-remove', 'GunDeliveryController@remove');
