@@ -345,31 +345,31 @@
                 <p>We will respond with 2h hours OR call us at<strong> 696-696-69696</strong></p>
               </div>
             </div>
-            <form class="b-form-request__form">
+            <form class="b-form-request__form" method="POST" action="{{URL::to('/Client-Qoute')}}">
+            {{csrf_field()}}
               <div class="row">
 				  		 <div class="col-sm-12">
-											<select class="form-control">
+											<select class="form-control" name="nature" id="nature">
 												<option disabled selected>Choose Nature of business</option>
-                          						<option>Subdivision</option>
-                    							<option>Bank</option>
-												<option>School</option>
-                    							<option>Condiminium</option>	
+                        @foreach($n as $n)
+                        <option value="{{$n->id}}" style="color:black">{{$n->name}}</option>	
+                        @endforeach
 											</select>
 						</div>
               </div>
               <div class="row">
                 <div class="col-sm-6">
-                  <input type="number" placeholder="Number of guards" class="form-control"/>
+                  <input type="number" placeholder="Number of guards" class="form-control" name="gnum"/>
                 </div>
                 <div class="col-sm-6">
-                  <input type="number" placeholder="Months" class="form-control"/>
+                  <input type="number" placeholder="Months" class="form-control" name="months"/>
                 </div>
               </div>
             </br>
               <div class="row">
                 <div class="col-xs-12">
             
-                  <center><button class="btn btn-default btn-sm btn-effect">Submit request</button></center>
+                  <center><button class="btn btn-default btn-sm btn-effect" type="submit">Submit request</button></center>
                 </div>
               </div><i class="b-form-request__icon pe-7s-note2"></i>
             </form>

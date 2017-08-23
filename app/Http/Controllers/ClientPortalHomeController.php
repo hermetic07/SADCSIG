@@ -415,6 +415,11 @@ class ClientPortalHomeController extends Controller
               
       return $pdf->stream('quote.pdf');
     }
+
+    public function homeview(){
+      $nature = Nature::All();
+      return view('Website/Home')->with('n',$nature);
+    }
 }
 // for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){
 //             $notifResponse['guard_id'] = $guards_accepted[$ctr];
