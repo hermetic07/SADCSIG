@@ -32,11 +32,11 @@
                   <tbody>
                     <tr>
                       <td width="35%">VAT(%)</td>
-                      <td width="65%"><a href="#" id="tax" data-type="text" data-pk="1" data-title="Enter a value">{{$v->value or none}}</a></td>
+                      <td width="65%"><a href="#" id="tax" data-type="text" data-pk="1" data-title="Enter a value">{{$v->value or "0"}}</a></td>
                     </tr>
                     <tr>
                       <td>EWT(%)</td>
-                      <td><a href="#" id="ewt" data-type="text" data-pk="1" data-placement="right"  data-title="Enter a value">{{$e->value or none}}</a></td>
+                      <td><a href="#" id="ewt" data-type="text" data-pk="1" data-placement="right"  data-title="Enter a value">{{$e->value or "0"}}</a></td>
                     </tr>
                     
                   </tbody>
