@@ -123,7 +123,7 @@ Route::get('/GuardPool', function () {
     return view('ClientPortal/Guardpool');
 });
 
-
+Route::get('/Home', 'ClientPortalHomeController@homeview');
 
 
 
@@ -237,7 +237,7 @@ Route::get('/ClientPortalSettings', function () {
 Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index');
 Route::get('/ClientLogin','LastControl@clientAuth');
 Route::post('/Client-auth','LastControl@authenticate');
-
+Route::post('/Client-Qoute','ClientPortalHomeController@qout');
 
 //Route::get('/Request','LastControl@login');
 //Route::get('/Request-view','ServiceRequestController@view');

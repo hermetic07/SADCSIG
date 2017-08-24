@@ -32,6 +32,9 @@ use App\ClientsPic;
 use App\ClaimedDelivery;
 use App\EstabGuards;
 use App\GunType;
+use App\vat;
+use App\ewt;
+use PDF;
 
 class ClientPortalHomeController extends Controller
 {
@@ -193,7 +196,7 @@ class ClientPortalHomeController extends Controller
       $employees = Employee::all();
       $clientRegistrations = ClientRegistration::all();
       $gunType = GunType::all();
-
+      $nature = Nature::all();
 
       return view('ClientPortal.ClientPortalRequest
         ')->with('services',$Services)
@@ -206,6 +209,7 @@ class ClientPortalHomeController extends Controller
           ->with('deploymentDetails',$deploymentDetails)
           ->with('employees',$employees)
           ->with('gunType',$gunType)
+          ->with('nature',$nature)
           ->with('clientRegistrations',$clientRegistrations);
      // return $client;
     }
@@ -392,6 +396,38 @@ class ClientPortalHomeController extends Controller
         ClientDeploymentNotif::findOrFail($request->client_notif_id)->update(['status'=>'done']);
         return response(1);
       }
+    }
+
+    public function qout(Request $r){
+      $nature = Nature::find($r->nature);
+      $total = $r->gnum*$nature->price;
+      $vat = vat::all()->first();
+      $vattotal = 2000*($vat->value/100); //2000 is just sample agancee fee
+      $ewt = ewt::all()->first();
+      $ewttotal = 2000*($ewt->value/100);//2000 is just sample agancee fee
+      $sumtotal = $total + 2000 + $vattotal + $ewttotal;
+      $inmonths = $sumtotal *  $r->months;
+      
+      $pdf = PDF::loadView('ClientPortal.qoute', [
+        "months"=>$r->months,
+        "sumtotal"=>$sumtotal,
+        "inmonths"=>$inmonths,
+        "vat"=>$vat->value,
+        "ewt"=>$ewt->value,
+        "totalvat"=>$vattotal,
+        "totalewt"=>$ewttotal,
+        "total"=>$total,
+        "num"=>$r->gnum,
+        "nature"=>$nature->name,
+        "price"=>$nature->price,
+      ]);
+              
+      return $pdf->stream('quote.pdf');
+    }
+
+    public function homeview(){
+      $nature = Nature::All();
+      return view('Website/Home')->with('n',$nature);
     }
 }
 // for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){
