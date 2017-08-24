@@ -176,7 +176,7 @@
                   @endphp
 
                   <li class="text-right"><span class="counter">
-                  <a class="loadDelivery" href="/ClientPortalHome-GunDelivery-{{$client->id}}">
+                  <a class="loadDelivery" href="/ClientPortal-GunDelivery-{{$client->id}}">
                   
                   {{ $gunDeliveriesCtr }}
                    

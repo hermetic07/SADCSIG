@@ -193,6 +193,12 @@ Route::get('/ActiveClient', 'ContractController@allCLients');
 Route::get('/ClientEstablishment-{contractID}','AdminController@activeClientDetails')->name('admin.client.estab');
 Route::get('/ClientsDetails-{id}+{estabID}','AdminController@estabDetails')->name('admin.estab.details');
 
+
+Route::post('GunDelivery-remove', 'GunDeliveryController@remove');
+Route::post('GunRequest-remove', 'GunRequestController@remove');
+Route::post('ServiceRequest-remove', 'ServiceRequestController@remove');
+Route::post('AddGuardRequest-remove', 'AdditionalGuardRequesController@remove');
+
 /** -----------------  CLIENTS --------------------- **/
 
 // Check before deleting Route::get('/SendGun','LastControl@index3');
@@ -207,12 +213,10 @@ Route::get('viewModal','AdditionalGuardRequesController@view')->name('addguardre
 Route::post('/GuardReplcRequest-Save/{id}','LastControl@saveGuardReplReqst');
 
 
-Route::post('GunDelivery-remove', 'GunDeliveryController@remove');
-Route::post('GunRequest-remove', 'GunRequestController@remove');
-Route::post('ServiceRequest-remove', 'ServiceRequestController@remove');
-Route::post('AddGuardRequest-remove', 'AdditionalGuardRequesController@remove');
-
-Route::get('/ClientPortalHome-GunDelivery-{id}','ClientPortalHomeController@gunDeliveries');
+Route::get('/ClientPortal-GunDelivery-view','ClientPortalHomeController@viewGunDel')->name('client.view.gunDel');
+Route::get('/ClientPortal-GunDelivery-claim','ClientPortalHomeController@claimDeliveryModal')->name('client.claim.modal');
+Route::post('/ClientPortal-GunDelivery-save','ClientPortalHomeController@save')->name('client.save.claim');
+Route::get('/ClientPortal-GunDelivery-{id}','ClientPortalHomeController@gunDeliveries');
 Route::get('/ClaimDeliveryModdal','ClientPortalHomeController@claimDeliveryModal')->name('claim.delivery.modal');
 Route::post('/ClaimDelivery','ClientPortalHomeController@claimDelivery')->name('claim.delivery');
 Route::post('GunDelivery-claim', 'GunDeliveryController@claim');
