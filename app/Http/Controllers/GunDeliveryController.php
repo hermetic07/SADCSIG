@@ -9,6 +9,7 @@ use App\GunDeliveryDetails;
 use App\Gun;
 use App\GunRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
 
 class GunDeliveryController extends Controller
 {
@@ -68,6 +69,40 @@ class GunDeliveryController extends Controller
                     ->with('gunRequestDetails',$gunRequestDetails);
         }
     }
+    public function deliverModal(Request $request){
+        if($request->ajax()){
+            $quantity = Input::get('quantity');
+            $gunsIDs = Input::get('gunsID');
+
+            $gunDeliveryID = "GUNDELV-".GunDelivery::get()->count();
+            // $guns = DB::table('Guns')
+            //             ->join('gunType','guns.guntype_id','=','gunType.id')
+            //             ->join('tblGunReqDetails',function($join){
+            //                 $join->on('tblGunReqDetails.strGunReqDetailsID','=',$request->gunReqstID)
+            //                      ->on('tblGunReqDetails.strGunID','=','Guns.id');
+            //             })
+            //             ->select('guns.name as gun','guns.id as gunID','gunType.name as gunType','tblGunReqDetails.quantity as qtyOrdered')
+            //             ->get();
+
+            $guns = DB::table('tblGunRequests')
+                                ->where('tblGunRequests.strGunReqID','=',$request->gunReqstID)
+                                ->join('tblGunReqDetails','tblGunReqDetails.strGunReqID','=','tblGunRequests.strGunReqID')
+                                //->join('clients','clients.id','=','tblGunRequests.strClientID')
+                                ->join('guns','guns.id','=','tblGunReqDetails.strGunID')
+                                ->join('gunType','guns.guntype_id','=','gunType.id')
+                                ->select('guns.name as gun','guns.id as gunID','gunType.name as gunType','tblGunReqDetails.quantity as qtyOrdered')
+                                ->get();
+            return view('AdminPortal.ClientRequests.GunDeliveries.deliver_modal')
+                    ->with('quantity',$quantity)
+                    ->with('gunsIDs',$gunsIDs)
+                    ->with('guns',$guns)
+                    ->with('gunDeliveryID',$gunDeliveryID)
+                    ->with('gunReqID',$request->gunReqstID);
+                       // return response($gunRequestDetails);
+
+            
+        }
+    }
     public function table(Request $request){
         if($request->ajax()){
             $gunRequests = DB::table('tblGunRequests')
@@ -87,25 +122,54 @@ class GunDeliveryController extends Controller
         }
     }
     public function saveDelivery(Request $request){
-    	 $ctr2 = 0;
-     	 $ctr3 = 0;
+        if($request->ajax()){
+            $isSuccess = 0;
+            $gunIDs = Input::get('gunIDs');
+            $qtyToBeDel = Input::get('qtyToBeDel');
+            $serialNo = Input::get('serialNo');
+            $gunDeliveryID = $request->delCode;
 
-     	 $gunDeliveryID = "GUNDELV-".GunDelivery::get()->count();;
-    	for($ctr = 0; $ctr<$request->gunCount ; $ctr++){
-            $qtyOrder = "qtyOrder".((string)$ctr);
-    		$qty = "qty".((string)$ctr);
-    		$gunID = "gunID".((string)$ctr);
-    		if($request->$qty != null){
-    			$ctr2++;
-    			if($ctr2 == 1){
-    				GunDelivery::create(['strGunDeliveryID'=>$gunDeliveryID,'strGunReqID'=>$request->gunReqstID,'status'=>"ONDELIVERY",'dateTimeReceived'=>Carbon::now()]);
-    			}
-    			$strGunDelivDetailsID = "GUNDELVDTLS-".GunDeliveryDetails::get()->count();
-    			GunDeliveryDetails::create(['strGunDeliveryDetailsID'=>$strGunDelivDetailsID,'strGunDeliveryID'=>$gunDeliveryID,'strGunID'=>$request->$gunID,'qtyOrdered'=>$request->$qtyOrder,'quantity'=>$request->$qty]);
-                GunRequest::findOrFail($request->gunReqstID)->update(['status'=>'active']);
-    		}
-    	}
-    	return redirect('/GunRequest');
+            
+            //GunDelivery::create(['strGunDeliveryID'=>$gunDeliveryID,'strGunReqID'=>$request->gunReqstID,'status'=>"ONDELIVERY",'dateTimeReceived'=>Carbon::now()]);
+            $gunDelivery = new GunDelivery();
+            $gunDelivery['strGunDeliveryID'] = $gunDeliveryID;
+            $gunDelivery['strGunReqID'] = $request->gunReqstID;
+            $gunDelivery['status'] = "ONDELIVERY";
+            $gunDelivery['deliveryPerson'] = $request->delBoy;
+            $gunDelivery['deliveryPersonContact'] = $request->delBoyContact;
+            $gunDelivery['dateTimeReceived'] = Carbon::now();
+            if(!$gunDelivery->save()){
+                $isSuccess = 1;
+            }
+            for($ctr = 0; $ctr < count($gunIDs); $ctr++){
+                $qtyOrdered = DB::table('tblGunRequests')
+                                ->where('tblGunRequests.strGunReqID','=',$request->gunReqstID)
+                                ->join('tblGunReqDetails','tblGunReqDetails.strGunReqID','=','tblGunRequests.strGunReqID')
+                                //->join('clients','clients.id','=','tblGunRequests.strClientID')
+                                ->join('guns','guns.id','=','tblGunReqDetails.strGunID')
+                                ->where('guns.id','=',$gunIDs[$ctr])
+                                ->join('gunType','guns.guntype_id','=','gunType.id')
+                                ->select('tblGunReqDetails.quantity as qtyOrdered','guns.id as gunID')
+                                ->get();
+                $strGunDelivDetailsID = "GUNDELVDTLS-".GunDeliveryDetails::get()->count();
+
+                $gunDeliveryDetails = new GunDeliveryDetails();
+                $gunDeliveryDetails['strGunDeliveryDetailsID'] = $strGunDelivDetailsID;
+                $gunDeliveryDetails['strGunDeliveryID'] = $gunDeliveryID;
+                $gunDeliveryDetails['strGunID'] = $gunIDs[$ctr];
+                $gunDeliveryDetails['serialNo'] = $serialNo[$ctr];
+                $gunDeliveryDetails['qtyOrdered'] = $qtyOrdered[0]->qtyOrdered;
+                $gunDeliveryDetails['quantity'] = $qtyToBeDel[$ctr];
+                if(!$gunDeliveryDetails->save()){
+                    $isSuccess = 1;
+                }
+               // GunDeliveryDetails::create(['strGunDeliveryDetailsID'=>$strGunDelivDetailsID,'strGunDeliveryID'=>$gunDeliveryID,'strGunID'=>$gunIDs[$ctr],'qtyOrdered'=>$qtyOrdered[0]->qtyOrdered,'quantity'=>$qtyToBeDel[$ctr]]);
+                
+            }
+            GunRequest::findOrFail($request->gunReqstID)->update(['status'=>'active']);
+
+            return response($isSuccess);
+        }
     }
 
     public function claim(Request $request)

@@ -18,7 +18,7 @@
 @section('content')
 
 
-<div class="row">
+
 <div class="row">
            <div class="col-lg-12">
                <div id="table-container" class="white-box">
@@ -112,89 +112,30 @@
     <!-- Reques info by client -->
   
 
-                  <!-- Gun delivery -->
+
+            </div>
+              </div>
+
+
+
+                               <!-- Gun delivery -->
   <div id="Delgun" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-              <div class="modal-dialog">
+              <div class="modal-dialog  modal-lg">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Deliver guns</strong></center></h4>
                   </div>
-                  <div class="modal-body">
-                    <form data-toggle="validator">
-                    <div class="form-group">
-                    <div class="row">  
-                             <div class="table-responsive">
-                                 <table class="table color-bordered-table dark-bordered-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Gun type</th>
-                                            <th>Gun name</th>
-                                            <th width="150px">Quantity</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Pistol</td>
-                                            <td>Dessert eagle</td>
-                                            <td>
-                                                 1
-       
-                                            </td>
-                                        </tr>
-                                         <tr>
-                                            <td>shotgun</td>
-                                            <td>spas</td>
-                                            <td>
-                                                 1
-       
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            </br>
-                            <div class="form-group col-sm-8">
-                      <label class="control-label">Delivered by</label>
-                       <input type="text" class="form-control" required>
-                      <div class="help-block with-errors"></div>
-                   </div>
-					   <div class="form-group col-sm-4">
-                       <label class="control-label">Contact number</label>
-                       <input type="text" class="form-control" required>
-                       <div class="help-block with-errors"></div>
+                  <div class="modal-body deliverModal">
+                    
+                  
+                  
                     </div>
-					  		  				  			<div class="form-group col-sm-9">
-                       <label class="control-label">Delivery code</label>
-                          <p class="form-control-static">6C4NpIo1</p>
-                       <div class="help-block with-errors"></div>
-					  </div>
-					 <div class="col-sm-3">
-						 </br>
-         <button type="button" class="btn btn-info waves-effect waves-light" >Generate code</button>
-					  </div>
-                 </div>
-                   <div class="help-block with-errors"></div>
-                </div>
-
-                        </div>
-
-
-
-           
-        
-                          <div class="modal-footer">
-          <button type="button" class="btn btn-info waves-effect waves-light" >Deliver</button>
-
-          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-         </div>
-             </div>
+                  </div>
                 </div>
                 <!-- /.modal-content -->
               </div>
               <!-- /.modal-dialog -->
-            </div>
-              </div>
   @endsection
 
   @section('script')
@@ -207,6 +148,8 @@
  $(document).ready(function(){
   gunRequestID = $('#gunRequestID').val();
   //alert(gunRequestID);
+
+  
 
    $('.viewReq').on('click',function(){
       $.ajax({
@@ -244,8 +187,86 @@
       });
       
     });
-  
+   
  });
+ var serialNo = "";
+ quantity = [];
+ function getSerial(id){
+    $('#del'+id).removeAttr('disabled'); 
+    //$('#del'+id).attr('required'); 
+    //alert($('#del'+id).val());
+ }
+ function funShowDelivModal(gunReqstID){
+    // alert(gunReqstID);
+    // console.log(this.value);
+    var gunsID = [];
+     
+    
+    $.each($(".serialCheck"), function(){
+      if($(this).is(':checked')){
+        gunsID.push($(this).val());
+      }
+          
+    });
+    for(var i = 0; i < gunsID.length; i++){
+     quantity.push($('#del'+gunsID[i]).val());
+     alert($('#del'+gunsID[i]).val());
+    }
+    //alert(quantity.length)
+    $.ajax({
+      url : '{{route("gun.delivery.deliverModal")}}',
+      type : 'GET',
+      data : {
+              gunReqstID:gunReqstID,
+              gunsID:gunsID,
+              quantity:quantity
+            },
+      success : function(data){
+        $('.deliverModal').text('');
+        $('.deliverModal').append(data);
+        $('#Delgun').modal('show');
+        console.log(data);
+      }
+    });
+  }
+  function proceedDelivery(id){
+
+    var qtyToBeDel = [];
+    var gunIDs = [];
+    var delBoy = "";
+    var delBoyContact = "";
+    var delCode = "";
+    var gunReqstID = id;
+    $.each($(".qtyToBeDel"), function(){
+          qtyToBeDel.push($(this).val());
+          gunIDs.push($(this).attr('id'));
+          //alert($(this).attr('id'));
+    });
+    delBoy = $('#deliveredBy').val();
+    delBoyContact = $('#delBoyContact').val();
+    delCode = $('#delCode').val();
+    // alert(delBoyContact);
+     alert(quantity.length);
+     $.ajax({
+       url : '{{route("gun.delivery.save")}}',
+        type : 'POST',
+        data : {
+                qtyToBeDel:qtyToBeDel,
+                gunIDs:gunIDs,
+                delBoy:delBoy,
+                delBoyContact:delBoyContact,
+                delCode:delCode,
+                gunReqstID:gunReqstID,
+                serialNo:quantity,
+                
+              },
+        success : function(data){
+          alert(data);
+          console.log(data);
+        }
+    });
+
+  }
  // function loadTable(){
  //      $.ajax({
  //          type: 'get',

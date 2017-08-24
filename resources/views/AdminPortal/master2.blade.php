@@ -152,7 +152,7 @@
                  <h5>Evander</h5>
                  <span class="mail-desc">Rejected guards  </span> <span class="time">9:10 AM</span> </div>
            </li>
-           <li> <a class="text-center" href="{{url('/Messages')}}"> <strong>See all notifications</strong> <i class="fa fa-angle-right"></i> </a></li>
+           <li> <a class="text-center" href="{{url('/Notifications')}}"> <strong>See all notifications</strong> <i class="fa fa-angle-right"></i> </a></li>
          </ul>
            </li>
 

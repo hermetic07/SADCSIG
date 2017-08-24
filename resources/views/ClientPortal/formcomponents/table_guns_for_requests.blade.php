@@ -7,12 +7,13 @@
           <td >{{$gun->name}}</td>
           <td>
           	<div class="checkbox checkbox-info">
-          		<input id="{{ $gun->id }}" type="checkbox"  name="{{ $gunCtr }}" value="{{ $gun->id }}">
+          		<input type="checkbox"  name="{{ $gunCtr }}" value="{{ $gun->id }}">
+              <!-- <input onchange="setEnable({{$gun->id}})" type="checkbox"  name="{{ $gunCtr }}" value="{{ $gun->id }}"> -->
           		<label for="checkbox1"> Select </label>
         	</div>
         	</td>
         	<td>
-        		<input type="number" class="form-control qty" id="{{ $gun->id }}" name="quantity{{ $gunCtr }}" min="1"  step="0.01"  required>
+        		<input type="number" class="form-control qty" id="{{ $gun->id }}" name="quantity{{ $gunCtr }}" min="1"  step="0.01" >
              </td>
           </td>
         </tr>

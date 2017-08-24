@@ -300,7 +300,7 @@ class AdminController extends Controller
       $contactNo;
       $email;
       $adress;
-      $natures_id;
+      $natures_id = "";
       $areas_id;
       $provinces_id;
       $area_size;
@@ -314,7 +314,7 @@ class AdminController extends Controller
         if($establishment->id == $estabID){
           $estabID = $establishment->id;
           $estab_name = $establishment->name;
-          $pic = $establishment->person_in_charge;
+          $pic = $establishment->pic_fname." ".$establishment->pic_mname."".$establishment->pic_lname;
           $contactNo = $establishment->contactNo;
           $email = $establishment->email;
           $adress = $establishment->address;
@@ -329,7 +329,7 @@ class AdminController extends Controller
 
       $contracts = Contracts::all();
       $clientRegistrations = ClientRegistration::all();
-      $natures = Nature::findOrFail('2');
+      $natures = Nature::findOrFail($natures_id);
       $nature_name = $natures->name;
       $areas = Area::findOrFail($areas_id);
       $area_name = $areas->name;

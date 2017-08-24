@@ -554,7 +554,9 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-
+      function setEnable(gunID){
+        alert(gunID);
+      }
       function getGuns(id){
         $.ajax({
           url : "{{route('getGuns')}}",
