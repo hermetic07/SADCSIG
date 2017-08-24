@@ -97,7 +97,7 @@
 
           <li> <a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-truck fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Delivery <span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
-            <li> <a href="{{url('/DeliverGuns')}}" class="waves-effect">Guns</a>
+            <li> <a href="{{url('/DeliverGuns-index')}}" class="waves-effect">Guns</a>
             </li>
             <li> <a href="{{url('/Ammunition')}}" class="waves-effect">Ammunitions</a>
             </li>

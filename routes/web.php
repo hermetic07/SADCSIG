@@ -56,9 +56,6 @@ Route::get('/Ammunition', function () {
     return view('AdminPortal/Ammunition');
 });
 
-Route::get('/Pickups', function () {
-    return view('AdminPortal/Pickups');
-});
 
 Route::get('/Reports', function () {
     return view('AdminPortal/Reports');
@@ -159,9 +156,8 @@ Route::get('/GetGunsTable','GunRequestController@getGuns')->name('getGuns');
 Route::get('/GunRequest-view','GunRequestController@viewGunRequest')->name('view.gunRequest');
 Route::get('/GunRequest-status','GunRequestController@deliveryStats')->name('delivery.status');
 
-Route::get('/DeliverGuns', function () {
-    return view('AdminPortal/DeliverGuns');
-});
+Route::get('/DeliverGuns-index','GunDeliveryController@index2');
+
 Route::get('/DeliverGuns-table','GunDeliveryController@table')->name('gun.delivery.table');
 Route::get('/DeliverGuns-view','GunDeliveryController@view')->name('gun.delivery.view');
 Route::get('/DeliverGuns-deliver','GunDeliveryController@deliver')->name('gun.delivery.deliver');
@@ -170,6 +166,11 @@ Route::get('/DeliverGuns-deliverModal','GunDeliveryController@deliverModal')->na
 Route::get('/DeliverGuns-{gunRequestID}','GunDeliveryController@index');
 
 Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery')->name('gun.delivery.save');  // Save Gun Delivery into Database
+
+
+
+Route::get('/Pickups','PickupsController@index2')->name('pickups.index2');
+Route::get('/Pickups-{gunDeliveryId}','PickupsController@index')->name('pickups.index');
 
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
 Route::get('/DeployGuards','DeploymentController@deploy')->name('deploy');

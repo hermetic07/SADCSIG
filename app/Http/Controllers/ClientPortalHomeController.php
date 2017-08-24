@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\ServiceRequest;
 use App\Clients;
 use App\Establishments;
@@ -39,6 +40,14 @@ class ClientPortalHomeController extends Controller
     }
 
     public function index($id,Request $request){
+
+      $gunDeliveries2 = DB::table('tblGunRequests')
+                        ->where('tblGunRequests.strClientID','=',$id)
+                        ->join('clients','clients.id','=','tblGunRequests.strClientID')
+                        ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
+                        ->get();
+      $gunDeliveriesCtr = $gunDeliveries2->count();
+
       $value = $request->session()->get('client');
       if ($value!=="") {
         $Services = Service::all();
@@ -65,7 +74,7 @@ class ClientPortalHomeController extends Controller
 
 
         return view('ClientPortal.ClientPortalHome
-          ')->with('services',$Services)->with('client',$client)->with('guns',$guns)->with('contracts',$contracts)->with('establishments',$establishments)->with('serviceRequests',$serviceRequests)->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('areas',$areas)->with('provinces',$provinces)->with('clientRegistrations',$clientRegistrations)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails)->with('clientPic',$clientPic);
+          ')->with('services',$Services)->with('client',$client)->with('guns',$guns)->with('contracts',$contracts)->with('establishments',$establishments)->with('serviceRequests',$serviceRequests)->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('areas',$areas)->with('provinces',$provinces)->with('clientRegistrations',$clientRegistrations)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails)->with('clientPic',$clientPic)->with('gunDeliveriesCtr',$gunDeliveriesCtr);
       }
    }
 

@@ -37,8 +37,19 @@ class GunDeliveryController extends Controller
             }else{
                 return "Earl Pogi- Something Went wrong!!";
             }
-
-        
+    }
+    public function index2(){
+        $gunRequests = DB::table('tblGunRequests')
+                        ->where('isRead','=','1')
+                        ->join('clients','clients.id','=','tblGunRequests.strClientID')
+                        ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
+                        ->join('areas','areas.id','=','establishments.areas_id')
+                        ->join('provinces','provinces.id','=','areas.provinces_id')
+                        ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.created_at','clients.name as client','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province')
+                        ->get();
+                return view('AdminPortal/DeliverGuns2')
+                
+                ->with('gunRequests',$gunRequests);
     }
     public function view(Request $request){
         if($request->ajax()){

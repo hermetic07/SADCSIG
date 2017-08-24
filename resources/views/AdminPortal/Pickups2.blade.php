@@ -47,29 +47,16 @@
             </div>
           <tbody>
             @foreach($clients as $client)
-              @if($client->deliveryCode == $gunDeliveryId)
-                <tr style="background-color: gray">
-                  <td>{{$client->deliveryCode}}</td>
-                  <td>{{$client->client}}</td>
-                  <td>{{$client->establishment}}</td>
-                  <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
-                  <td>{{$client->dateDelivered}}</td>
-                  <td>
-                    <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
-                  </td>
-                </tr>
-              @else
-                <tr>
-                  <td>{{$client->deliveryCode}}</td>
-                  <td>{{$client->client}}</td>
-                  <td>{{$client->establishment}}</td>
-                  <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
-                  <td>{{$client->dateDelivered}}</td>
-                  <td>
-                    <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
-                  </td>
-                </tr>
-              @endif
+              <tr>
+                <td>{{$client->deliveryCode}}</td>
+                <td>{{$client->client}}</td>
+                <td>{{$client->establishment}}</td>
+                <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
+                <td>{{$client->dateDelivered}}</td>
+                <td>
+                  <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
+                </td>
+              </tr>
             @endforeach
           </tbody>
           <tfoot>
