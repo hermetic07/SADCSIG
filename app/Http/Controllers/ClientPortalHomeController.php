@@ -109,32 +109,73 @@ class ClientPortalHomeController extends Controller
   }
 
   public function gunDeliveries($id,Request $request){
-   // return $id;
-    $establishments_id;
     $client = Clients::findOrFail($id);
-    $establishment = Establishments::all();
-    $client_id = $client->id;
-    $guns = Gun::all();
-    $gunRequests = GunRequest::where('strClientID',$client_id)->get();
-    $gunRequestsDetails = GunRequestsDetails::all();
-    $gunDeliveries= GunDelivery::latest('created_at')->get();
-    $gunDeliveryDetails = GunDeliveryDetails::all();
-    return view('ClientPortal.ClientPortalGunDeliveries')->with('client',$client)->with('guns',$guns)->with('establishment',$establishment)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('establishment',$establishment)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails);
+    $gunDeliveryDetails = DB::table('tblGunRequests')
+                        ->where('tblGunRequests.strClientID','=',$id)
+                        ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
+                        ->join('clients','clients.id','=','tblGunRequests.strClientID')
+                        ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
+                        ->join('areas','areas.id','=','establishments.areas_id')
+                        ->join('provinces','provinces.id','=','areas.provinces_id')
+                        ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.created_at','clients.name as client','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province','tblGunDeliveries.strGunDeliveryID as deliveryCode','tblGunDeliveries.created_at as dateDelivered','tblGunDeliveries.deliveryPerson as deliveryPerson','tblGunDeliveries.status as deliveryStatus')
+                        ->get();
+   // return $id;
+    
+    return view('ClientPortal.ClientPortalGunDeliveries')
+            ->with('client',$client)
+            ->with('gunDeliveryDetails',$gunDeliveryDetails);
     //return $id;
+  }
+  public function viewGunDel(Request $requests){
+    if($requests->ajax()){
+      $gunDeliveryDetails = DB::table('tblGunDeliveries')
+                          ->where('tblGunDeliveries.strGunDeliveryID','=',$requests->gunDeliveryID)
+                          ->join('tblGunDeliveryDetails','tblGunDeliveryDetails.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
+                          ->join('guns','guns.id','=','tblGunDeliveryDetails.strGunID')
+                          ->join('gunType','gunType.id','=','guns.guntype_id')
+                          ->select('tblGunDeliveries.created_at as deliveryDate',
+                            'tblGunDeliveries.deliveryPerson as deliveryPerson',
+                            'tblGunDeliveries.strGunDeliveryID as deliveryCode',
+                            'tblGunDeliveryDetails.qtyOrdered as qtyOrdered',
+                            'tblGunDeliveryDetails.quantity as qtyDelivered',
+                            'tblGunDeliveryDetails.serialNo as serialNo',
+                            'guns.name as gun',
+                            'gunType.name as gunType')
+                          ->get();
+      return view('ClientPortal.formcomponents.view_gundel_modal')
+              ->with('gunDeliveryDetails',$gunDeliveryDetails);
+    }
   }
   public function claimDeliveryModal(Request $request){
     if($request->ajax()){
-      $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID);
-      $gunDeliveryDetails = GunDeliveryDetails::all();
-      $guns = Gun::all();
-      $gunRequests = GunRequest::where('strGunReqID',$gunDeliveries->strGunReqID)->get();
-
-      return view('ClientPortal.formcomponents.claimDeliveryModal')
-              ->with('gunDelivery',$gunDeliveries)
-              ->with('gunDeliveryDetails',$gunDeliveryDetails)
-              ->with('guns',$guns)
-              ->with('gunRequests',$gunRequests[0]);
+      $gunDeliveryDetails = DB::table('tblGunDeliveries')
+                          ->where('tblGunDeliveries.strGunDeliveryID','=',$request->gunDeliveryID)
+                          ->join('tblGunDeliveryDetails','tblGunDeliveryDetails.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
+                          ->join('guns','guns.id','=','tblGunDeliveryDetails.strGunID')
+                          ->join('gunType','gunType.id','=','guns.guntype_id')
+                          ->select('tblGunDeliveries.created_at as deliveryDate',
+                            'tblGunDeliveries.deliveryPerson as deliveryPerson',
+                            'tblGunDeliveries.deliveryPersonContact as deliveryPersonContact',
+                            'tblGunDeliveries.strGunDeliveryID as deliveryCode',
+                            'tblGunDeliveryDetails.qtyOrdered as qtyOrdered',
+                            'tblGunDeliveryDetails.quantity as qtyDelivered',
+                            'tblGunDeliveryDetails.serialNo as serialNo',
+                            'guns.name as gun',
+                            'guns.id as gunID',
+                            'gunType.name as gunType')
+                          ->get();
+      return view('ClientPortal.formcomponents.claim_gundel_modal')
+              ->with('gunDeliveryDetails',$gunDeliveryDetails);
+              
      // return $gunRequests[0];
+    }
+  }
+
+  public function save(Request $requests){
+    if($request->ajax()){
+      
+              
+     
     }
   }
   public function claimDelivery(Request $request){
