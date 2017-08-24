@@ -47,9 +47,9 @@
                 </div>
               <tbody>
               @foreach($gunRequests as $gunRequest)
-                @if($gunRequest->strGunReqID == $gunRequestID)
+                
 
-                 <tr style="background-color: gray;">
+                 <tr >
                               <td>{{$gunRequest->strGunReqID}}</td>
                               <td>{{$gunRequest->establishment}}</td>
                               <td>{{$gunRequest->address}},{{$gunRequest->area}},{{$gunRequest->province}}</td>
@@ -61,20 +61,8 @@
                               <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
                               </td>
                  </tr>
-                 @else
-                 <tr>
-                              <td>{{$gunRequest->strGunReqID}}</td>
-                              <td>{{$gunRequest->establishment}}</td>
-                              <td>{{$gunRequest->address}},{{$gunRequest->area}},{{$gunRequest->province}}</td>
-                              <td>
-                                {{$gunRequest->status}}
-                              </td>
-                              <td>
-      <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                              <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
-                              </td>
-                 </tr>
-                 @endif
+                 
+                 
                  @endforeach
               </tbody>
               <tfoot>

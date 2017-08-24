@@ -1,3 +1,4 @@
+<form id="form-deliver">
 <h4><center><strong>Items</strong></center></h4>
        </br>
                   <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="100">
@@ -9,35 +10,38 @@
               <th data-sort-ignore="true" >Serial number</th>
             </tr>
           </thead>
+          
           <tbody>
             @foreach($gunRequestDetails as $gunRequestDetail)
               <tr>
                 <td>
   
                 <div class="checkbox checkbox-success checkbox-circle">
-                 <input id="{{$gunRequestDetail->gunID}}" type="checkbox" >
+                 <input id="{{$gunRequestDetail->gunID}}" class="serialCheck" type="checkbox" onchange="getSerial('{{$gunRequestDetail->gunID}}')" value="{{$gunRequestDetail->gunID}}">
                  <label for="{{$gunRequestDetail->gun}}"></label>
                </div>
                 </td>
                 <td>{{$gunRequestDetail->gun}}</td>
                 <td>{{$gunRequestDetail->gunType}}</td>
                 <td>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control serialVal" id="del{{$gunRequestDetail->gunID}}"  disabled>
                 </td>
               </tr>
             @endforeach
              
               
           </tbody>
+          
           <tfoot>
             <tr>
               <td colspan="4"></td>
             </tr>
           </tfoot>
       </table>
+      </form>
 
        </br>
 
-        <center><button class="btn  btn-success " value="{{$gunReqstID}}"  data-toggle="modal" data-target="#Delgun"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" ><i class="fa fa-sign-in"></i> Deliver</button></center>
+        <center><button class="btn btn-success" onclick="funShowDelivModal('{{$gunReqstID}}')" value="{{$gunReqstID}}" type="button" data-target=".bs-example-modal-lg" ><i class="fa fa-sign-in"></i> Deliver</button></center>
 
-          </div>
+         

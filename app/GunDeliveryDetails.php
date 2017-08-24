@@ -8,7 +8,7 @@ class GunDeliveryDetails extends Model
 {
 	protected $table = "tblGunDeliveryDetails";
     protected $fillable =  [
-    	'strGunDeliveryDetailsID','strGunDeliveryID','strGunID','qtyOrdered','quantity'
+    	'strGunDeliveryDetailsID','strGunDeliveryID','strGunID','qtyOrdered','quantity','serialNo'
     ];
     protected $primaryKey = 'strGunDeliveryDetailsID';
     public $incrementing = false; 

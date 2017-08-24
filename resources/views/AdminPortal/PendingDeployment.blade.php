@@ -21,7 +21,7 @@
     $pic_image = "";
     $clientID = "";
     $establID = "";
-    $nature =  "";
+    $natureName =  "";
     $clientName = "";
     $clientIamge = "";
     $contractIDs = "";
@@ -51,7 +51,7 @@
                     @foreach($natures as $nature)
                         @if($nature->id == $establishment->natures_id)
                             @php
-                                $nature = $nature->name;
+                                $natureName = $nature->name;
                             @endphp
                         @endif
                     @endforeach
@@ -105,7 +105,7 @@
                                     <a class="text-dark" href="javascript:void(0)">{{$contract->establishment_name}}</a>
                                 </h4>
                                 <h4 class="text-danger">
-                                    {{$nature}}
+                                    {{$natureName}}
                                 </h4>
                             </div>
                             <div class="pro-list-info col-sm-6">

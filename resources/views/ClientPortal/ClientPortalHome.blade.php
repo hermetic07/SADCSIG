@@ -177,30 +177,8 @@
 
                   <li class="text-right"><span class="counter">
                   <a class="loadDelivery" href="/ClientPortalHome-GunDelivery-{{$client->id}}">
-                  @foreach($gunRequests as $gunRequest)
-                    @if($gunRequest->strClientID == $client->id)
-                      @foreach($clientRegistrations as $clientRegistration)
-                        @if($clientRegistration->client_id == $gunRequest->strClientID)
-                          @foreach($contracts as $contract)
-                            @if($contract->id == $clientRegistration->contract_id)
-                              @foreach($gunDeliveries as $gunDelivery)
-                                @if($gunDelivery->status == "ONDELIVERY")
-                                  @if($gunDelivery->strGunReqID == $gunRequest->strGunReqID)
-                                  
-                                        @php
-                                          $deliveryCtr++;
-                                        @endphp
-                                  @endif
-                                @endif
-                                
-                              @endforeach
-                            @endif
-                          @endforeach
-                        @endif
-                      @endforeach
-                    @endif
-                  @endforeach
-                  {{ $deliveryCtr }}
+                  
+                  {{ $gunDeliveriesCtr }}
                    
             </a>
                   </span></li>
