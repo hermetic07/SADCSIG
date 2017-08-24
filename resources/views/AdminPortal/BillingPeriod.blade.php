@@ -127,10 +127,8 @@
                        <div class="help-block with-errors"></div>
                     </div>
 					  								<div class="col-xs-12">
-														           <label class="control-label">Statement of account</label>
-                                  <input type="file" id="input-file-max-fs" class="dropify-fr"  accept=
-"application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-text/plain, application/pdf, image/*">
+														    
+                                  	  <button class="btn btn-block btn-success"  onclick=" window.open('{{url('/SOA')}}','_blank')" ><i class="ti-receipt"></i> View SOA</button>
 							    </div>
 
                    <div class="help-block with-errors"></div>

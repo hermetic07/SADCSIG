@@ -123,6 +123,15 @@ Route::get('/GuardPool', function () {
     return view('ClientPortal/Guardpool');
 });
 
+
+
+
+Route::get('/SOA', function () {
+    return view('AdminPortal/SOA');
+});
+
+
+
 Route::get('/Home', 'ClientPortalHomeController@homeview');
 
 
