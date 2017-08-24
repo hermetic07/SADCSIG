@@ -25,10 +25,10 @@
             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
               <thead>
                 <tr>
-                <th data-sort-initial="true" data-toggle="true">ID</th>
                   <th>Name</th>
+                  <th>Establishment</th>
 				  <th data-hide="phone, tablet" >Due date</th>
-                  <th data-sort-ignore="true" width="150px">Actions</th>
+                  <th data-sort-ignore="true" width="300px">Actions</th>
                 </tr>
               </thead>
               	<div class="form-inline padding-bottom-15">
@@ -45,20 +45,23 @@
                 </div>
               <tbody>
                  <tr>
-                              <td>1</td>
+                           
                               <td>Daisy ronquillo</td>
-					 		  <td>March 17,2017</td>
+                              <td> PUP </td>
+					 		                <td>March 15,2017</td>
                               <td>
-							 			  <button class="btn btn-block btn-info"  data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-receipt"></i> Send invoice</button>
-
+							 			  <button class="btn btn-info"  data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-receipt"></i> Send invoice</button>
+                      <button class="btn btn-success"  ><i class="fa fa-list"></i> View records</button>
                               </td>
                           </tr>
 				 <tr>
-                              <td>2</td>
+                            
                               <td>Luigi lacsina</td>
-					 		  <td>March 17,2017</td>
+                               <td> UP </td>
+					 		  <td>March 15,2017</td>
                               <td>
-       	  <button class="btn btn-block btn-info"  data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-receipt"></i> Send invoice</button>
+       	  <button class="btn btn-info"  data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-receipt"></i> Send invoice</button>
+                         <button class="btn btn-success"  ><i class="fa fa-list" onclick="location.href='/ClientPayment'"></i> View records</button>
                               </td>
                           </tr>
               </tbody>
