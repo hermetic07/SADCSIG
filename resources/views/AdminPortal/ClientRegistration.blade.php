@@ -491,7 +491,7 @@
                       <label class="col-xs-1 control-label">Starts from </label>
                        <div class="col-xs-3">
                           <div class="input-group">
-                            <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly required />
+                            <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly required />
                           </div>
                         </div>
                         <label class="col-xs-1 control-label"> Ends to </label>
@@ -504,13 +504,30 @@
                     <div class="form-group">
                       <label class="col-xs-2 control-label">Number of guards needed</label>
                        <div class="col-xs-4">
-                       <input id="tch4" type="text" value="" name="no_guards" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" required>
+                       <input id="tch4" type="text" name="no_guards" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" required>
                       </div>
                       <label class="col-xs-2 control-label">Expected complete date</label>
                        <div class="col-xs-4">
                          <div class="input-group">
                            <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control excom" placeholder="mm/dd/yyyy" name="exp_date" required />
                          </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-xs-2 control-label">Monthly CP</label>
+                       <div class="col-xs-4">
+                         <div class="input-group">
+                         <span class="input-group-addon">₱</span> <input id="mcp" type="number" class="form-control" min="0.01" step="0.01" value="1000.00" />
+                      
+                      </div>
+                         <span class="font-13 text-muted">per guard<span>
+                             </div>
+                      <label class="col-xs-2 control-label">Total payment</label>
+                       <div class="col-xs-4">
+     <div class="input-group">
+                         <span class="input-group-addon">₱</span> <input id="tp" type="number" class="form-control" min="0.01" step="0.01" />
+                      </div>
+                      <span class="font-13 text-muted">per month<span>
                       </div>
                     </div>
                   </div>
@@ -785,6 +802,8 @@
 });
 
  $(function() {
+
+
      $(".firstcal").datepicker({
          dateFormat: "mm/dd/yy",
          onSelect: function(dateText, instance) {
@@ -815,6 +834,8 @@
   $('.firstcal').attr("disabled", "disabled")
    //Scrollbar
     jQuery(document).ready(function() {
+          var guardnum = $('#tch4').val();
+    var mcp = $('#mcp').val();
       $("input[id='tch1']").TouchSpin({
                  min: 1  ,
                  max: 24,
@@ -827,12 +848,29 @@
                         stepinterval: 50,
                         maxboostedstep: 10000000,
                     });
-                    $("input[id='tch4']").TouchSpin({
-                               min: 1  ,
-                               max: 1000000000,
-                               stepinterval: 50,
-                               maxboostedstep: 10000000,
-                           });
+
+     $("input[id='tch4']").TouchSpin({
+                min: 1  ,
+                max: 1000000000,
+                stepinterval: 50,
+                maxboostedstep: 10000000,
+            }).on('change', function () {
+                          var guardnum = $('#tch4').val();
+    var mcp = $('#mcp').val();
+              var tp = guardnum * mcp;
+ 
+              document.getElementById("tp").value = tp.toFixed(2); 
+
+            });
+
+$('#mcp').keyup(function() {
+                          var guardnum = $('#tch4').val();
+    var mcp = $('#mcp').val();
+              var tp = guardnum * mcp;
+ 
+              document.getElementById("tp").value = tp.toFixed(2); 
+});
+
      $("input[id='tch3']").TouchSpin({
                 min: 1  ,
                 max: 1000000000,
