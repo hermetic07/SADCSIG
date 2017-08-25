@@ -32,6 +32,7 @@
                                             <td>{{$gunDeliveryDetail->serialNo}}</td>
                                             <td>
                                               <input type="text" class="claimQty" id="clm{{$gunDeliveryDetail->gunID}}">
+                                              <input type="hidden" id="qtyDel{{$gunDeliveryDetail->gunID}}" value="{{$gunDeliveryDetail->gunID}}">
                                             </td>
                                             
                                         </tr>
@@ -56,7 +57,7 @@
                    <div class="help-block with-errors"></div>
                 </div>
                           <div class="modal-footer">
-                        <button id="btnClaim" type="button" class="btn btn-success waves-effect waves-light" onclick="claim();">Claim</button>
+                        <button type="button" class="btn btn-success waves-effect waves-light" onclick="claim('{{$gunDeliveryDetails[0]->deliveryCode}}');">Claim</button>
           <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
          </div>
          </div>
