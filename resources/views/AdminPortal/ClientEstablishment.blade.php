@@ -34,8 +34,8 @@
                                 <br> <i class="fa fa-envelope-o text-danger p-r-10 m-t-10" aria-hidden="true"></i> {{$client->email}}
                                 <br> </div>
                                 <br>
-                                  <h4>New Contract for:</h4>
-                                <div class="pd-agent-contact text-center" style="background-color: maroon"> 
+                                  <h4 class=" text-center" >New Contract for:</h4>
+                                <div class="pd-agent-contact text-center" > 
                                     <!-- <a href="{{route('newcontract',$client->id)}}" type="button" class="btn btn-info">
                                         <i class="fa fa-list-alt"></i> New contract</a>   -->
                                         <button class="btn btn-info" data-toggle="modal" data-target="#existing">
