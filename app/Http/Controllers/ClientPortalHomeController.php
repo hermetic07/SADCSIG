@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use App\ServiceRequest;
 use App\Clients;
@@ -171,30 +172,23 @@ class ClientPortalHomeController extends Controller
     }
   }
 
-  public function save(Request $requests){
+  public function save(Request $request){
     if($request->ajax()){
-      
-              
-     
-    }
-  }
-  public function claimDelivery(Request $request){
-    $gunID = "";
-    $qtyClaimed = "";
-    $qtyDelivered = "";
-    $success = 0;
+      $success = 0;
     $partial =0;
-    $claimedDeliveryID = "CLAIMEDDEL-".ClaimedDelivery::get()->count();
-    for($i = 0; $i < $request->ctr; $i++){
-      $gunID = "gunID".((string)$i);
-      $qtyClaimed = "qtyClaimed".((string)$i);
-      $qtyDelivered = "qtyDelivered".((string)$i);
+
+    $qtyClaimed = Input::get('qtyClaimed');
+    $gunIDs = Input::get('gunIDs');
+    $qtyDelv = Input::get('qtyDelv');
+    
+    for($i = 0; $i < count($gunIDs); $i++){
+      $claimedDeliveryID = "CLAIMEDDEL-".ClaimedDelivery::get()->count();
       $claimedDelivery = new ClaimedDelivery();
       $claimedDelivery['strClaimedDelID'] = $claimedDeliveryID;
       $claimedDelivery['strGunDeliveryID'] = $request->gunDeliveryID;
-      $claimedDelivery['strGunID'] = $request->$gunID;
-      $claimedDelivery['intQtyClaimed'] = $request->$qtyClaimed;
-      if($request->$qtyClaimed == $request->$qtyDelivered){
+      $claimedDelivery['strGunID'] = $gunIDs[$i];
+      $claimedDelivery['intQtyClaimed'] = $qtyClaimed[$i];
+      if($qtyClaimed[$i] == $qtyDelv[$i]){
         $partial =0;
       }else{
         $partial =1;
@@ -210,7 +204,13 @@ class ClientPortalHomeController extends Controller
       $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'CLAIMED']);
     }else{
       $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'PARTIALCLAIMED']);
+    }  
+     
     }
+  }
+  public function claimDelivery(Request $request){
+   
+    
     
     //return $partial;
     return redirect('/ClientPortalHome-GunDelivery-'.$request->gunRequestsID);

@@ -66,6 +66,7 @@
                     </td>
                     <td>
                     {{$gunDeliveryDetail->deliveryStatus}}
+                    
                     </td>
                     
                       <td>
@@ -172,13 +173,15 @@
     });
   });
 
-   function claim()
+   function claim(id)
 {
   var qtyClaimed = [];
+  var qtyDelv = [];
   var gunIDs = [];
   $.each($(".claimChckBx"), function(){
       if($(this).is(':checked')){
         gunIDs.push($(this).val());
+        
        // alert($(this).val());
       }
           
@@ -186,9 +189,10 @@
   for(var i = 0; i < gunIDs.length; i++){
     //alert(gunIDs.length);
      qtyClaimed.push($('#clm'+gunIDs[i]).val());
-     //alert($('#clm'+gunIDs[i]).val());
+     qtyDelv.push($('#qtyDel'+gunIDs[i]).val());
+     //alert($('#qtyDel'+gunIDs[i]).val());
     }
- 
+ alert(id);
   
     $('#ClaimDel').modal('hide');
   swal({
@@ -214,7 +218,7 @@
             $.ajax({
               url:"{{route('client.save.claim')}}",
               type : 'POST',
-              data : {qtyClaimed:qtyClaimed,gunIDs:gunIDs},
+              data : {qtyClaimed:qtyClaimed,gunIDs:gunIDs,qtyDelv:qtyDelv,gunDeliveryID:id},
               success : function(data){
                  swal("Delivery ClaImed!", "Thank you for your efforts!", "success");
               }
