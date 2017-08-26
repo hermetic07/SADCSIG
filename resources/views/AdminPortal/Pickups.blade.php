@@ -50,7 +50,7 @@
               @if($client->deliveryCode == $gunDeliveryId)
                 <tr style="background-color: gray">
                   <td>{{$client->deliveryCode}}</td>
-                  <td>{{$client->client}}</td>
+                  <td>{{$client->client_fname}} {{$client->client_mname}} {{$client->client_lname}}</td>
                   <td>{{$client->establishment}}</td>
                   <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
                   <td>{{$client->dateDelivered}}</td>
@@ -61,7 +61,7 @@
               @else
                 <tr>
                   <td>{{$client->deliveryCode}}</td>
-                  <td>{{$client->client}}</td>
+                  <td>{{$client->client_fname}} {{$client->client_mname}} {{$client->client_lname}}</td>
                   <td>{{$client->establishment}}</td>
                   <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
                   <td>{{$client->dateDelivered}}</td>
