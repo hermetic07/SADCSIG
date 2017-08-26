@@ -49,6 +49,7 @@ class ClientPortalHomeController extends Controller
                         ->where('tblGunRequests.strClientID','=',$id)
                         ->join('clients','clients.id','=','tblGunRequests.strClientID')
                         ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
+                        ->where('tblGunDeliveries.status','!=','CLAIMED')
                         ->get();
       $gunDeliveriesCtr = $gunDeliveries2->count();
 
@@ -181,6 +182,8 @@ class ClientPortalHomeController extends Controller
 
     $serialNos = Input::get('serialNos');
     $gunIDs = Input::get('gunIDs');
+    $unchecked_serialNos = Input::get('unchecked_serialNos');
+    $unchecked_gunIDs = Input::get('unchecked_gunIDs');
     
     
     for($i = 0; $i < count($gunIDs); $i++){
@@ -190,7 +193,23 @@ class ClientPortalHomeController extends Controller
       $claimedDelivery['strGunDeliveryID'] = $request->gunDeliveryID;
       $claimedDelivery['strGunID'] = $gunIDs[$i];
       $claimedDelivery['serialNo'] = $serialNos[$i];
+      $claimedDelivery['status'] = "CLAIMED";
       
+      if($claimedDelivery->save()){
+        $success = 0;
+      }else{
+        $success = 1;
+      }
+      
+    }
+      for($i = 0; $i < count($unchecked_gunIDs); $i++){
+      $claimedDeliveryID = "CLAIMEDDEL-".ClaimedDelivery::get()->count();
+      $claimedDelivery = new ClaimedDelivery();
+      $claimedDelivery['strClaimedDelID'] = $claimedDeliveryID;
+      $claimedDelivery['strGunDeliveryID'] = $request->gunDeliveryID;
+      $claimedDelivery['strGunID'] = $unchecked_gunIDs[$i];
+      $claimedDelivery['serialNo'] = $unchecked_serialNos[$i];
+      $claimedDelivery['status'] = "UNCLAIMED";
       if($claimedDelivery->save()){
         $success = 0;
       }else{
