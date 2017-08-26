@@ -54,7 +54,7 @@
                 <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
                 <td>{{$client->dateDelivered}}</td>
                 <td>
-                  <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
+                  <button type="button" value="{{{{$client->deliveryCode}}}}" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
                 </td>
               </tr>
             @endforeach
@@ -288,6 +288,7 @@
 jQuery(document).ready(function($){
  var click =0;
  $('.show').on('click', function(e){
+    alert(this.val());
    if (click == 0){
 
          click++;
