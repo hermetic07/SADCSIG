@@ -26,7 +26,7 @@
                             <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 content">
                                                                    <div class="pd-agent-info text-center">
                                 <a href="javascript:void(0)"><img alt="img" class="thumb-lg img-circle" src="uploads/{{$client->image}}"></a>
-                                <h4>{{$client->name}}</h4>
+                                <h4>{{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}</h4>
                                 <h6>Client's name</h6> </div>
 
                             <hr class="m-0">

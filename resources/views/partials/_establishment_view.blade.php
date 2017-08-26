@@ -69,7 +69,7 @@
                               {{ $establishment->name }}
                               @php
                                 $nature_id = $establishment->natures_id;
-                                $pic = $establishment->person_in_charge;
+                                $pic = $establishment->pic_fname.' '.$establishment->pic_mname.' '.$establishment->pic_lname;
                                 $area_id = $establishment->areas_id;
                                 $province_id = $establishment->province_id;
                                 $address = $establishment->address;

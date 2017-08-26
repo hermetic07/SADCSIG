@@ -2,7 +2,7 @@
 
 @section('Title') Home @endsection
 @section('clientName')
-  {{  $client->name }}
+  {{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}
 @endsection
 @section('link_rqst')
   href="/Request-{{$client->id}}"
@@ -43,7 +43,7 @@
                 <div class="user-content"> <a href="javascript:void(0)"><img src = "uploads/{{$client->image}}" class="thumb-lg img-circle" alt="img"></a>
                   <h4 class="text-white">
                     
-                        {{ $client->name }}
+                        {{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}
                       
                   </h4>
                   <h5 class="text-white">Client</h5>

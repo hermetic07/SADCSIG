@@ -13,6 +13,7 @@
           
           <tbody>
             @foreach($gunRequestDetails as $gunRequestDetail)
+              @for($i = 0; $i< $gunRequestDetail->quantity; $i++)
               <tr>
                 <td>
   
@@ -27,6 +28,7 @@
                 <input type="text" class="form-control serialVal" id="del{{$gunRequestDetail->gunID}}"  disabled>
                 </td>
               </tr>
+              @endfor
             @endforeach
              
               

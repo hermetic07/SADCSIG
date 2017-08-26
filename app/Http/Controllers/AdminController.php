@@ -119,7 +119,15 @@ class AdminController extends Controller
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')
                         ->join('provinces','provinces.id','=','areas.provinces_id')
-                        ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.isRead','tblGunRequests.created_at','clients.name as client','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province')
+                        ->select('tblGunRequests.strGunReqID','tblGunRequests.status',
+                            'tblGunRequests.isRead','tblGunRequests.created_at',
+                            'clients.first_name as client_fname',
+                            'clients.middle_name as client_mname',
+                            'clients.last_name as client_lname',
+                            'establishments.name as establishment',
+                            'establishments.address as address',
+                            'areas.name as area',
+                            'provinces.name as province')
                         ->get();
 
         return view('AdminPortal.PendingClientRequests')
@@ -251,7 +259,16 @@ class AdminController extends Controller
                            ->join('client_registrations','contracts.id','=','client_registrations.contract_id')
                            ->join('clients','client_registrations.client_id','=','clients.id')
                            ->join('establishments','contracts.strEstablishmentID','=','establishments.id')
-                           ->select('establishments.name as establishment','establishments.id as estab_id','clients.id as client_id','clients.name','clients.image','contracts.guard_count','contracts.created_at as date','contracts.updated_at as date','contracts.status')
+                           ->select('establishments.name as establishment',
+                            'establishments.id as estab_id',
+                            'clients.id as client_id',
+                            'clients.first_name as client_fname',
+                            'clients.middle_name as client_mname',
+                            'clients.last_name as client_lname',
+                            'clients.image','contracts.guard_count',
+                            'contracts.created_at as date',
+                            'contracts.updated_at as date',
+                            'contracts.status')
                            //->where('contracts.status','=','pending')
                            ->orderBy('contracts.updated_at','desc')
                           // ->orderBy('contracts.updated_at','asc')

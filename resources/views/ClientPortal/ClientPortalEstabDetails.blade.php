@@ -2,7 +2,7 @@
 
 @section('Title') Establishment's details @endsection
 @section('clientName')
-   {{  $client->name }}
+   {{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}
 @endsection
 @section('link_rqst')
   href="/Request-{{$client->id}}"
@@ -24,7 +24,7 @@
   src = "uploads/{{$client->image}}"
 @endsection
 @section('content')
-  @include('partials._estabDetails',['clientName'=>$client->name,'route'=>'ClientPortalContracts'])
+  @include('partials._estabDetails',['clientName'=>$client->first_name.' '.$client->middle_name.' '.$client->last_name,'route'=>'ClientPortalContracts'])
 @endsection
 
 

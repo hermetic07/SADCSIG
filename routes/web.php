@@ -184,8 +184,10 @@ Route::get('/Pickups-{gunDeliveryId}','PickupsController@index')->name('pickups.
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
 Route::get('/DeployGuards','DeploymentController@deploy')->name('deploy');
 Route::post('/DeployGuards/Save','DeploymentController@saveDepl')->name('deployment.save');
+
 Route::get('/ClientRegistration','ContractController@register')->name('client.reg');
 Route::post('/ClientRegistration-Save','ContractController@save');
+Route::get('/ClientRegistration-getServiceRate','ContractController@getServiceRate')->name('getservrate');
 
 Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
 Route::get('ManualDeploy-view','AdminController@view')->name('manual.view');

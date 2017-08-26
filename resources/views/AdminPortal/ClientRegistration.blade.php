@@ -343,7 +343,13 @@
                 <div class="form-group">
                   <label class="col-xs-1 control-label">Client name</label>
                     <div class="col-xs-3">
-                      <input type="text" class="form-control name"  name="client_name"  />
+                      <input type="text" class="form-control name"  name="client_fname" placeholder="First Name" />
+                    </div>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control name"  name="client_mname" placeholder="Middle Name" />
+                    </div>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control name"  name="client_lname" placeholder="last Name" />
                     </div>
                     <label class="col-xs-1 control-label">Client Code</label>
                     <div class="col-xs-3">
@@ -470,7 +476,7 @@
                       <div class="form-group">
                         <label class="col-xs-2 control-label">Type of Service</label>
                         <div class="col-md-4">
-                          <select class="form-control"  name="service" id="service" required>
+                          <select class="form-control"  name="service" id="service" onchange="getRate(this.value)" required>
                             <option value="" disabled="" selected="">Select Type of Service</option>
                             @foreach($services as $s )
                             <option value="{{$s->id}}">{{$s->name}}</option>
@@ -793,6 +799,22 @@
 
  <script>
 
+  function getRate(id){
+    //alert(id);
+    $.ajax({
+          url : "{{route('getservrate')}}",
+          type : 'GET',
+          data : {serviceID:id},
+          success : function(data){
+              alert(typeof data);
+            // console.log(data);
+            $('#mcp').val(parseFloat(data));
+            
+          }
+        });
+  }
+ 
+
  $('.clockpicker').clockpicker({
     donetext: 'Done',
 
@@ -1081,7 +1103,9 @@ $('#firstcal').removeAttr("disabled");
                     url: '/ClientRegistration-Save',
                     data: {
                         '_token': $('input[name=_token]').val(),
-                        client_name:$('input[name=client_name]').val(),
+                        client_fname:$('input[name=client_fname]').val(),
+                        client_mname:$('input[name=client_mname]').val(),
+                        client_lname:$('input[name=client_lname]').val(),
                         client_code:$('input[name=client_code]').val(),
                         client_email:$('#clientEmail').val(),
                         client_telephone:$('input[name=clientTelephone]').val(),
@@ -1115,7 +1139,9 @@ $('#firstcal').removeAttr("disabled");
                         prefLicense:allLicense,
                         prefReq:allReq,
                         exp_date:$('input[name=exp_date]').val(),
-                        operating_hrs:$('input[name=operating_hrs]').val()
+                        operating_hrs:$('input[name=operating_hrs]').val(),
+                        mcp:$('#mcp').val(),
+                        tp:$('#tp').val()
                     },
                     success: function(data){
                       if(data==="Success")

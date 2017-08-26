@@ -67,7 +67,7 @@
                     @if($gunRequest->isRead == 1)
                   <tr style="background-color: gray;">
                     <td>{{$gunRequest->created_at}}</td>
-                              <td>{{$gunRequest->client}}</td>
+                              <td>{{$gunRequest->client_fname}},{{$gunRequest->client_mname}},{{$gunRequest->client_lname}}</td>
                               <td>{{$gunRequest->establishment}}</td>
                               <td>{{$gunRequest->address}},{{$gunRequest->area}},{{$gunRequest->province}}</td>
                               <td>
@@ -81,7 +81,7 @@
                       @else
                         <tr>
                     <td>{{$gunRequest->created_at}}</td>
-                              <td>{{$gunRequest->client}}</td>
+                              <td>{{$gunRequest->client_fname}},{{$gunRequest->client_mname}},{{$gunRequest->client_lname}}</td>
                               <td>{{$gunRequest->establishment}}</td>
                               <td>{{$gunRequest->address}},{{$gunRequest->area}},{{$gunRequest->province}}</td>
                               <td>
