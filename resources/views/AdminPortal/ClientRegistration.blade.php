@@ -45,7 +45,7 @@
 <link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
 <link href="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <script src="{{asset('js/jquery.min.js')}}"></script>
-  <script src="{{asset('js/jquery.validate.js')}}"></script>
+<script src="{{asset('js/jquery.validate.js')}}"></script>
  <script type="text/javascript">
 
     $(document).ready(function(){

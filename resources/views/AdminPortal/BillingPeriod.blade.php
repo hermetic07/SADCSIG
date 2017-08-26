@@ -94,17 +94,12 @@
               <form data-toggle="validator">
                 <div class="form-group">
                   <div class="row">
-					                  <div class="form-group col-sm-2">
-                      <label class="control-label">ID</label>
-                           <p class="form-control-static"> 2 </p>
-                      <div class="help-block with-errors"></div>
-                   </div>
-					<div class="form-group col-sm-5">
+					          <div class="form-group col-sm-6">
                        <label class="control-label">Client name</label>
                           <p class="form-control-static"> Daisy ronquillo </p>
                        <div class="help-block with-errors"></div>
                     </div>
-										<div class="form-group col-sm-5">
+										<div class="form-group col-sm-6">
                        <label class="control-label">Contact number</label>
                            <p class="form-control-static"> 09123456789 </p>
                        <div class="help-block with-errors"></div>
@@ -123,12 +118,24 @@
                        <label class="control-label">Guards deployed</label>
                           <p class="form-control-static"> 10 </p>
                        <div class="help-block with-errors"></div>
-                    </div>
-										<div class="form-group col-sm-6">
-                       <label class="control-label">Service period</label>
-                           <p class="form-control-static"> March 1-15, 2017 </p>
-                       <div class="help-block with-errors"></div>
-                    </div>
+                </div>
+								<div class="form-group col-sm-6">
+                  <label class="control-label">Contract Date</label>
+                      <p class="form-control-static"> March 1, 2017 </p>
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <label class="control-label">Service period from</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly required />
+                  </div>
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <label class="control-label">Service period to</label>
+                      <p class="form-control-static"> March 15, 2017 </p>
+                  <div class="help-block with-errors"></div>
+                </div>
 					  								<div class="col-xs-12">
 														    
                                   	  <button class="btn btn-block btn-success"  onclick=" window.open('{{url('/SOA')}}','_blank')" ><i class="ti-receipt"></i> View SOA</button>
@@ -156,6 +163,30 @@
   @endsection
 
   @section('script')
+  <script>
+  
+  $(function() {
+
+
+     $(".firstcal").datepicker({
+         dateFormat: "mm/dd/yy",
+         onSelect: function(dateText, instance) {
+           var a = $('input[name=span_mo]').val();
+         var number = parseInt(a);
+
+             date = $.datepicker.parseDate(instance.settings.dateFormat, dateText, instance.settings);
+             date.setMonth(date.getMonth() + number);
+             $(".secondcal").datepicker("setDate", date);
+         }
+     });
+     $(".secondcal").datepicker({
+         dateFormat: "mm/dd/yy"
+     });
+     $(".excom").datepicker({
+         dateFormat: "mm/dd/yy"
+     });
+ });
+  </script>
   <script>
               $(document).ready(function(){
                   // Basic
