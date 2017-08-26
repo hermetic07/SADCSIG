@@ -83,7 +83,7 @@
             @foreach($clients as $client)
                 @if($client->id == $clientID)
                     @php
-                        $clientName = $client->name;
+                        $clientName = $client->first_name.",".$client->middle_name.",".$client->last_name;
                         $clientImage = $client->image;
                     @endphp
                 @endif

@@ -2,7 +2,7 @@
 
 @section('Title') Client Messages @endsection
 @section('clientName')
-   {{  $client->name }}
+   {{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}
 @endsection
 @section('link_rqst')
   href="/Request-{{$client->id}}"

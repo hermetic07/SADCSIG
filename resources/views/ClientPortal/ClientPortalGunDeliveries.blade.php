@@ -2,7 +2,7 @@
 
 @section('Title') Gun Deliveries @endsection
 @section('clientName')
-  {{  $client->name }}
+  {{$client->client_fname}} {{$client->client_mname}} {{$client->client_lname}}
 @endsection
 @section('link_rqst')
   href="/Request-{{$client->id}}"

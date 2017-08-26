@@ -28,7 +28,15 @@ class GunDeliveryController extends Controller
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')
                         ->join('provinces','provinces.id','=','areas.provinces_id')
-                        ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.created_at','clients.name as client','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province')
+                        ->select('tblGunRequests.strGunReqID',
+                        	'tblGunRequests.status','tblGunRequests.created_at',
+                        	'clients.first_name as client_fname',
+                        	'clients.middle_name as client_mname',
+                        	'clients.last_name as client_lname',
+                        	'establishments.name as establishment',
+                        	'establishments.address as address',
+                        	'areas.name as area',
+                        	'provinces.name as province')
                         ->get();
         if($gunRequest->save()){
             return view('AdminPortal/DeliverGuns')
@@ -45,7 +53,15 @@ class GunDeliveryController extends Controller
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')
                         ->join('provinces','provinces.id','=','areas.provinces_id')
-                        ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.created_at','clients.name as client','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province')
+                        ->select('tblGunRequests.strGunReqID',
+                        	'tblGunRequests.status',
+                        	'tblGunRequests.created_at',
+                        	'clients.first_name as client_fname',
+                        	'clients.middle_name as client_mname',
+                        	'clients.last_name as client_lname',
+                        	'establishments.name as establishment',
+                        	'establishments.address as address',
+                        	'areas.name as area','provinces.name as province')
                         ->get();
                 return view('AdminPortal/DeliverGuns2')
                 
@@ -73,7 +89,7 @@ class GunDeliveryController extends Controller
                                 ->where('strGunReqID','=',$request->gunReqstID)
                                 ->join('guns','guns.id','=','tblGunReqDetails.strGunID')
                                 ->join('gunType','guns.guntype_id','=','gunType.id')
-                                ->select('guns.name as gun','guns.id as gunID','gunType.name as gunType')
+                                ->select('guns.name as gun','guns.id as gunID','gunType.name as gunType','tblGunReqDetails.quantity')
                                 ->get();
             return view('AdminPortal.ClientRequests.GunDeliveries.deliver')
                     ->with('gunReqstID',$request->gunReqstID)
@@ -122,7 +138,15 @@ class GunDeliveryController extends Controller
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')
                         ->join('provinces','provinces.id','=','areas.provinces_id')
-                        ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.created_at','clients.name as client','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province')
+                        ->select('tblGunRequests.strGunReqID',
+                        	'tblGunRequests.status',
+                        	'tblGunRequests.created_at',
+                        	'clients.first_name as client_fname',
+                        	'clients.middle_name as client_mname',
+                        	'clients.last_name as client_lname',
+                        	'establishments.name as establishment',
+                        	'establishments.address as address',
+                        	'areas.name as area','provinces.name as province')
                         ->get();
             return view('AdminPortal.ClientRequests.GunDeliveries.table_gunDeliveries')
                     ->with('gunRequests',$gunRequests)

@@ -341,7 +341,7 @@
                 <div class="form-group">
                   <label class="col-xs-1 control-label">Client name</label>
                     <div class="col-xs-3">
-                      <input type="text" class="form-control name"  name="client_name" value="{{$client->name}}" disabled="true" />
+                      <input type="text" class="form-control name"  name="client_name" value="{{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}" disabled="true" />
                     </div>
                     <label class="col-xs-1 control-label">Client Code</label>
                     <div class="col-xs-3">

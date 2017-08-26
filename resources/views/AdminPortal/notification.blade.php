@@ -59,7 +59,7 @@
                             <div class="comment-body">
                               <div class="user-img"> <img src="uploads/{{$notification->image}}" alt="user" class="img-circle"></div>
                               <div class="mail-contnet">
-                                <h5>{{$notification->name}} ({{$notification->establishment}})</h5>
+                                <h5>{{$notification->client_fname}} {{$notification->client_mname}} {{$notification->client_lname}} ({{$notification->establishment}})</h5>
                                 <span class="mail-desc">All Guards are deployed. </span>
                                 <span class="label label-rounded label-success">Complete</span>
                                 <span class="time"><h6>{{$notification->date}}</h6></span>
@@ -71,7 +71,7 @@
                             <div class="comment-body">
                               <div class="user-img"> <img src="uploads/{{$notification->image}}" alt="user" class="img-circle"></div>
                               <div class="mail-contnet">
-                                <h5>{{$notification->name}} ({{$notification->establishment}})</h5>
+                                <h5>{{$notification->client_fname}} {{$notification->client_mname}} {{$notification->client_lname}} ({{$notification->establishment}})</h5>
                                 <span class="mail-desc">New establisment to serve. Need {{$notification->guard_count}} initial guards.</span>
                                 <span class="label label-rounded label-danger">Initial deployment</span>
                                 <span class="time"><h6>{{$notification->date}}</h6></span>

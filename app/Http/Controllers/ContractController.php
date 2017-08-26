@@ -70,7 +70,12 @@ class ContractController extends Controller
       $request->session()->forget('client');
       return view('clientloginform');
     }
-
+    public function getServiceRate(Request $request){
+        if($request->ajax()){
+          $service = Service::findOrFail($request->serviceID);
+          return response($service->serviceRate);
+        }
+    }
     public function save(Request $request){
       //return $request->from;
       try {
@@ -85,11 +90,11 @@ class ContractController extends Controller
         $parse_exp_date = explode('/',$request->exp_date);
         $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
 
-        Clients::create(['id'=>$request->client_code,'name'=>$request->client_name,'username'=>$request->client_username,'password'=>$request->client_password,'address'=>$request->street_add,'areas_id'=>$request->area,'email'=>$request->client_email,'contactNo'=>$request->client_telephone,'cellphoneNo'=>$request->client_cellphone]);
+        Clients::create(['id'=>$request->client_code,'first_name'=>$request->client_fname,'middle_name'=>$request->client_mname,'last_name'=>$request->client_lname,'username'=>$request->client_username,'password'=>$request->client_password,'address'=>$request->street_add,'areas_id'=>$request->area,'email'=>$request->client_email,'contactNo'=>$request->client_telephone,'cellphoneNo'=>$request->client_cellphone]);
 
         $establishment_id = 'ESTAB-'.$request->client_code;
 
-        Contracts::create(['id'=>$request->contract_code,'strEstablishmentID'=>$establishment_id,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'guardDeployed'=>'0','status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$establishment_id]);
+        Contracts::create(['id'=>$request->contract_code,'strEstablishmentID'=>$establishment_id,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'guardDeployed'=>'0','status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$establishment_id,'monthlyCP'=>$request->mcp,'totalPayment'=>$request->tp]);
 
 
         Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
