@@ -11,7 +11,7 @@ use App\Area;
 use App\Province;
 use App\vat;
 use App\ewt;
-
+use App\Agencyfee;
 use App\Contracts;
 
 use App\Collections;
@@ -111,23 +111,26 @@ class BillingControl extends Controller
         $area = Area::find($estab->areas_id);
         $prov = Province::find($estab->province_id);
         $collection = Collections::where('intid',$col)->first();
+        $ac = Agencyfee::all()->first();
         $vat = vat::all()->first();
-        $vattotal = 2956.71*($vat->value/100); //2000 is just sample agancee fee
+        $vattotal = $ac->value*($vat->value/100); 
         $ewt = ewt::all()->first();
-        $ewttotal = 2956.71*($ewt->value/100);//2000 is just sample agancee fee
-        $subtotal = ($contract->monthlyCP/30*$diff)*$contract->guard_count+2956.71+$vattotal;
+        $subtotal = (($contract->monthlyCP+$ac->value+$vattotal)/30*$diff)*$contract->guard_count;
+        $month = $contract->monthlyCP+$ac->value+$vattotal;
+        $ewttotal = $subtotal*($ewt->value/100);
         $sumtotal = $subtotal - $ewttotal;
         $collection->intdays = $diff;
         $collection->dateInvoice = $date;
         $collection->dateFrom = $date1;
         $collection->decTotal = $sumtotal;
         $collection->save();
-
-        $pdf = PDF::loadView('AdminPortal/SOA', [
+        $pdf = PDF::loadView('StatementOA', [
             'sumtotal'=>$sumtotal,
             'subtotal'=>$subtotal,
             'es'=>$estab,
             'vat'=>$vat,
+            'ac'=>$ac,
+            'month'=>$month,
             'totalvat'=>$vattotal,
             'ewt'=>$ewt,
             'totalewt'=>$ewttotal,
@@ -142,7 +145,7 @@ class BillingControl extends Controller
             'date'=>$date,
           ]);
                   
-          return $pdf->stream('StatementOfAccount.pdf');
+          return $pdf->stream('Statement.pdf');
 
        
     }

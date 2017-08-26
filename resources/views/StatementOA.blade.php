@@ -60,9 +60,9 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td class="text-center">{{number_format($con->monthlyCP, 2, '.', ',')}}</td>
+                        <td class="text-center">{{number_format($month, 2, '.', ',')}}</td>
                         <td class="text-center">{{$con->guard_count}}</td>
-                        <td class="text-center">{{$diff}} </td>
+                        <td class="text-center">{{$diff}}</td>
                       </tr>
 
                     </tbody>
@@ -75,7 +75,7 @@
               </br>
               </br>
                 <div class="">
-                <p>Agency fee  : 2,956.71</p>
+                <p>Agency fee  : {{$ac->value}}</p>
                 <p>VAT ({{$vat->value}}%) : {{number_format($totalvat, 2, '.', ',')}}</p>
                 <p>Sub-Total amount: {{number_format($subtotal, 2, '.', ',')}} </p>
                 </br>
