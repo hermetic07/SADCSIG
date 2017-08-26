@@ -2,7 +2,7 @@
 
 @section('Title') Gun Deliveries @endsection
 @section('clientName')
-  {{$client->client_fname}} {{$client->client_mname}} {{$client->client_lname}}
+  {{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}
 @endsection
 @section('link_rqst')
   href="/Request-{{$client->id}}"
@@ -54,6 +54,29 @@
           </div>
           <tbody>
             @foreach($gunDeliveryDetails as $gunDeliveryDetail)
+              @if($gunDeliveryDetail->deliveryStatus == "CLAIMED")
+                <tr style="background-color: gray;">
+                    <td> 
+                      {{$gunDeliveryDetail->deliveryCode}}
+                    </td>
+                    <td>
+                    {{$gunDeliveryDetail->dateDelivered}}
+                    </td>
+                    <td>
+                    {{$gunDeliveryDetail->deliveryPerson}}
+                    </td>
+                    <td>
+                    {{$gunDeliveryDetail->deliveryStatus}}
+                    
+                    </td>
+                    
+                      <td>
+                        <button class="btn btn-info view" type="button" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View Delivery slip</button>
+                        <button disabled class="btn btn-success claimDel" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Claim Delivery</button>
+                       
+                      </td>
+                    </tr>
+              @else
               <tr>
                     <td> 
                       {{$gunDeliveryDetail->deliveryCode}}
@@ -75,6 +98,8 @@
                        
                       </td>
                     </tr>
+              @endif
+              
             @endforeach
         </tbody>
         <tfoot>
@@ -175,24 +200,18 @@
 
    function claim(id)
 {
-  var qtyClaimed = [];
-  var qtyDelv = [];
+  var serialNos = [];
+  
   var gunIDs = [];
   $.each($(".claimChckBx"), function(){
       if($(this).is(':checked')){
-        gunIDs.push($(this).val());
-        
-       // alert($(this).val());
+        gunIDs.push($(this).attr('id'));
+        serialNos.push($(this).val());
+        alert($(this).val());
       }
           
     });
-  for(var i = 0; i < gunIDs.length; i++){
-    //alert(gunIDs.length);
-     qtyClaimed.push($('#clm'+gunIDs[i]).val());
-     qtyDelv.push($('#qtyDel'+gunIDs[i]).val());
-     //alert($('#qtyDel'+gunIDs[i]).val());
-    }
- alert(id);
+  
   
     $('#ClaimDel').modal('hide');
   swal({
@@ -218,9 +237,10 @@
             $.ajax({
               url:"{{route('client.save.claim')}}",
               type : 'POST',
-              data : {qtyClaimed:qtyClaimed,gunIDs:gunIDs,qtyDelv:qtyDelv,gunDeliveryID:id},
+              data : {serialNos:serialNos,gunIDs:gunIDs,gunDeliveryID:id},
               success : function(data){
                  swal("Delivery ClaImed!", "Thank you for your efforts!", "success");
+                 location.reload();
               }
             });
     

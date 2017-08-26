@@ -12,10 +12,10 @@
                                     <thead>
                                         <tr>
                                             <th width="10px">Claimed</th>
-                                            <th>Gun type</th>
                                             <th>Gun name</th>
+                                            <th>Gun type</th>
                                             <th>Serial No.</th>
-                                            <th>Claim qty</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -23,17 +23,13 @@
                                         <tr>
                                             <td>
                                               <div class="checkbox checkbox-success checkbox-circle">
-                                                <input id="gun1" type="checkbox" class="claimChckBx" value="{{$gunDeliveryDetail->gunID}}" >
+                                                <input id="{{$gunDeliveryDetail->gunID}}" type="checkbox" class="claimChckBx" value="{{$gunDeliveryDetail->serialNo}}" >
                                                  <label for="gun1"></label>
                                               </div>
                                             </td>
                                              <td>{{$gunDeliveryDetail->gun}}</td>
                                             <td>{{$gunDeliveryDetail->gunType}}</td>
                                             <td>{{$gunDeliveryDetail->serialNo}}</td>
-                                            <td>
-                                              <input type="text" class="claimQty" id="clm{{$gunDeliveryDetail->gunID}}">
-                                              <input type="hidden" id="qtyDel{{$gunDeliveryDetail->gunID}}" value="{{$gunDeliveryDetail->gunID}}">
-                                            </td>
                                             
                                         </tr>
                                         @endforeach

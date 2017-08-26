@@ -50,4 +50,20 @@ class PickupsController extends Controller
 			   ->with('clients',$clients);
 			   
     }
+    public function show(Request $request){
+        if($request->ajax()){
+            $claimedDeliveries = DB::table('tblClaimeddelivery')
+                                 ->where('tblClaimeddelivery.strGunDeliveryID','=',$request->deliveryCode)
+                                ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
+                                ->join('gunType','guns.guntype_id','=','gunType.id')
+                                ->select('guns.name as gun','gunType.name as gunType','tblClaimeddelivery.serialNo as serialNo')
+                                 ->get();   
+            $delivery = DB::table('tblGunDeliveries')
+                            ->where('tblGunDeliveries.strGunDeliveryID','=',$request->deliveryCode)
+                            ->get();
+            return view('AdminPortal.ClientRequests.Pickups.showDetail_modal')
+                        ->with('claimedDeliveries',$claimedDeliveries)
+                        ->with('delivery',$delivery[0]);
+        }
+    }
 }

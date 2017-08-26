@@ -174,14 +174,14 @@ class ClientPortalHomeController extends Controller
     }
   }
 
-  public function save(Request $request){
+  public function saveClaim(Request $request){
     if($request->ajax()){
       $success = 0;
     $partial =0;
 
-    $qtyClaimed = Input::get('qtyClaimed');
+    $serialNos = Input::get('serialNos');
     $gunIDs = Input::get('gunIDs');
-    $qtyDelv = Input::get('qtyDelv');
+    
     
     for($i = 0; $i < count($gunIDs); $i++){
       $claimedDeliveryID = "CLAIMEDDEL-".ClaimedDelivery::get()->count();
@@ -189,12 +189,8 @@ class ClientPortalHomeController extends Controller
       $claimedDelivery['strClaimedDelID'] = $claimedDeliveryID;
       $claimedDelivery['strGunDeliveryID'] = $request->gunDeliveryID;
       $claimedDelivery['strGunID'] = $gunIDs[$i];
-      $claimedDelivery['intQtyClaimed'] = $qtyClaimed[$i];
-      if($qtyClaimed[$i] == $qtyDelv[$i]){
-        $partial =0;
-      }else{
-        $partial =1;
-      }
+      $claimedDelivery['serialNo'] = $serialNos[$i];
+      
       if($claimedDelivery->save()){
         $success = 0;
       }else{
@@ -202,11 +198,9 @@ class ClientPortalHomeController extends Controller
       }
       
     }
-    if($partial == 0){
+   
       $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'CLAIMED']);
-    }else{
-      $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'PARTIALCLAIMED']);
-    }  
+    
      
     }
   }
