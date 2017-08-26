@@ -203,11 +203,19 @@
   var serialNos = [];
   
   var gunIDs = [];
+  var unchecked_serialNos = [];
+  
+  var unchecked_gunIDs = [];
   $.each($(".claimChckBx"), function(){
       if($(this).is(':checked')){
         gunIDs.push($(this).attr('id'));
         serialNos.push($(this).val());
+      //  alert($(this).val());
+      }else {
+        unchecked_gunIDs.push($(this).attr('id'));
+        unchecked_serialNos.push($(this).val());
         alert($(this).val());
+
       }
           
     });
@@ -237,7 +245,7 @@
             $.ajax({
               url:"{{route('client.save.claim')}}",
               type : 'POST',
-              data : {serialNos:serialNos,gunIDs:gunIDs,gunDeliveryID:id},
+              data : {serialNos:serialNos,gunIDs:gunIDs,gunDeliveryID:id,unchecked_gunIDs:unchecked_gunIDs,unchecked_serialNos:unchecked_serialNos},
               success : function(data){
                  swal("Delivery ClaImed!", "Thank you for your efforts!", "success");
                  location.reload();
