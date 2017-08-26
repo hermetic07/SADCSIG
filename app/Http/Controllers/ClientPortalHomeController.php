@@ -448,7 +448,7 @@ class ClientPortalHomeController extends Controller
       $vattotal = 2000*($vat->value/100); //2000 is just sample agancee fee
       $ewt = ewt::all()->first();
       $ewttotal = 2000*($ewt->value/100);//2000 is just sample agancee fee
-      $sumtotal = $total + 2000 + $vattotal + $ewttotal;
+      $sumtotal = $total + 2000 + $vattotal - $ewttotal;
       $inmonths = $sumtotal *  $r->months;
       
       $pdf = PDF::loadView('ClientPortal.qoute', [
