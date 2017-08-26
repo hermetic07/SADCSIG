@@ -342,25 +342,27 @@
               <div class="wizard-pane active" role="tabpanel">
                 <div class="form-group">
                   <label class="col-xs-1 control-label">Client name</label>
-                    <div class="col-xs-3">
+                    <div class="col-xs-4">
                       <input type="text" class="form-control name"  name="client_fname" placeholder="First Name" />
                     </div>
                     <div class="col-xs-3">
                       <input type="text" class="form-control name"  name="client_mname" placeholder="Middle Name" />
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-4">
                       <input type="text" class="form-control name"  name="client_lname" placeholder="last Name" />
                     </div>
+                    
+                  </div>
+                  <div class="form-group">
                     <label class="col-xs-1 control-label">Client Code</label>
-                    <div class="col-xs-3">
+                    <div class="col-xs-5">
                         <input type="text" class="form-control name"  name="client_code" value="{{$clcode}}"  disabled/>
                     </div>
                     <label class="col-xs-1 control-label">Contract Code</label>
-                    <div class="col-xs-3">
+                    <div class="col-xs-5">
                       <input type="text" class="form-control name"  name="contract_code" value="{{$cncode}}" disabled/>
                     </div>
                   </div>
-
                   <div class="form-group">
                     <label class="col-xs-2 control-label">Establishment name</label>
                       <div class="col-xs-6">

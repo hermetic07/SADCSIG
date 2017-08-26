@@ -26,7 +26,7 @@
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Establishment</th>
+                  <th>Contract Code</th>
 				  <th data-hide="phone, tablet" >Due date</th>
                   <th data-sort-ignore="true" width="300px">Actions</th>
                 </tr>
@@ -43,28 +43,19 @@
                   	   </div>
                    </div>
                 </div>
-              <tbody>
-                 <tr>
-                           
-                              <td>Daisy ronquillo</td>
-                              <td> PUP </td>
-					 		                <td>March 15,2017</td>
+                  <tbody>
+                        @foreach($all as $a)
+                          <tr> 
+                              <td>{{$a->first}} {{$a->last}}</td>
+                              <td> {{$a->cid}} </td>
+					 		                <td> {{$a->due}} </td>
                               <td>
-							 			  <button class="btn btn-info"  data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-receipt"></i> Send invoice</button>
-                      <button class="btn btn-success"  ><i class="fa fa-list"></i> View records</button>
+							 			          <button class="btn btn-info" onclick="fun_view('{{$a->cid}}','{{$a->client}}','{{$a->collection}}','{{$a->bill}}')" data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-receipt"></i> Send invoice</button>
+                              <button class="btn btn-success"  ><i class="fa fa-list"></i> View records</button>
                               </td>
                           </tr>
-				 <tr>
-                            
-                              <td>Luigi lacsina</td>
-                               <td> UP </td>
-					 		  <td>March 15,2017</td>
-                              <td>
-       	  <button class="btn btn-info"  data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-receipt"></i> Send invoice</button>
-                         <button class="btn btn-success"  ><i class="fa fa-list" onclick="location.href='/ClientPayment'"></i> View records</button>
-                              </td>
-                          </tr>
-              </tbody>
+                        @endforeach
+                  </tbody>
               <tfoot>
                 <tr>
                   <td colspan="4"></td>
@@ -88,7 +79,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Send Statement of account</strong></center></h4>
+                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Send Statement of Account</strong></center></h4>
                   </div>
                   <div class="modal-body">
               <form data-toggle="validator">
@@ -96,44 +87,44 @@
                   <div class="row">
 					          <div class="form-group col-sm-6">
                        <label class="control-label">Client name</label>
-                          <p class="form-control-static"> Daisy ronquillo </p>
+                          <p class="form-control-static" id="name">  </p>
                        <div class="help-block with-errors"></div>
                     </div>
 										<div class="form-group col-sm-6">
                        <label class="control-label">Contact number</label>
-                           <p class="form-control-static"> 09123456789 </p>
+                           <p class="form-control-static" id="cn">  </p>
                        <div class="help-block with-errors"></div>
                     </div>
 					  			<div class="form-group col-sm-6">
                        <label class="control-label">Establishment name</label>
-                          <p class="form-control-static"> Polytechnic university of the philippines</p>
+                          <p class="form-control-static" id="es"> </p>
                        <div class="help-block with-errors"></div>
                     </div>
 					  				  			<div class="form-group col-sm-6">
                        <label class="control-label">Address</label>
-                          <p class="form-control-static"> Anonas, Santa Mesa, Maynila, Kalakhang Maynila</p>
+                          <p class="form-control-static" id="ad"> </p>
                        <div class="help-block with-errors"></div>
                     </div>
 					  		<div class="form-group col-sm-6">
                        <label class="control-label">Guards deployed</label>
-                          <p class="form-control-static"> 10 </p>
+                          <p class="form-control-static" id="gd">  </p>
                        <div class="help-block with-errors"></div>
                 </div>
 								<div class="form-group col-sm-6">
                   <label class="control-label">Contract Date</label>
-                      <p class="form-control-static"> March 1, 2017 </p>
+                      <p class="form-control-static" id="cd"> </p>
                   <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group col-sm-6">
                   <label class="control-label">Service period from</label>
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly required />
+                    <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="yyyy/mm/dd" name="from"   readonly required />
                   </div>
                   <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group col-sm-6">
                   <label class="control-label">Service period to</label>
-                      <p class="form-control-static"> March 15, 2017 </p>
+                      <p class="form-control-static" id="st"> </p>
                   <div class="help-block with-errors"></div>
                 </div>
 					  								<div class="col-xs-12">
@@ -164,27 +155,42 @@
 
   @section('script')
   <script>
+    function fun_view(contract,client,collection,bill){
+      $.ajaxSetup({
+          headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }); 
+        $.ajax({
+          type: 'post',
+          url: '/GetBilling',
+          data: {
+              'client':client,
+              'contract':contract,
+          },
+          success: function(data){
+              	
+            $( "#name" ).html(data.name);
+            $( "#cn" ).html(data.con);
+            $( "#es" ).html(data.es);
+            $( "#ad" ).html(data.add);
+            $( "#gd" ).html(data.gd);
+            $( "#cd" ).html(data.cd);
+            $( "#st" ).html(bill);
+          }
+        });
+    }
+  </script>
+  <script>
   
   $(function() {
 
 
      $(".firstcal").datepicker({
-         dateFormat: "mm/dd/yy",
-         onSelect: function(dateText, instance) {
-           var a = $('input[name=span_mo]').val();
-         var number = parseInt(a);
-
-             date = $.datepicker.parseDate(instance.settings.dateFormat, dateText, instance.settings);
-             date.setMonth(date.getMonth() + number);
-             $(".secondcal").datepicker("setDate", date);
-         }
+         dateFormat: "yy-mm-dd",
+         
      });
-     $(".secondcal").datepicker({
-         dateFormat: "mm/dd/yy"
-     });
-     $(".excom").datepicker({
-         dateFormat: "mm/dd/yy"
-     });
+     
  });
   </script>
   <script>

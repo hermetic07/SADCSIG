@@ -77,10 +77,8 @@ Route::get('/Announcements', function () {
 
 
 
-Route::get('/BillingPeriod', function () {
-    return view('AdminPortal/BillingPeriod');
-});
-
+Route::get('/BillingPeriod', "BillingControl@index");
+Route::post('/GetBilling', "BillingControl@getRecord");
 Route::get('/ClientPayment', function () {
     return view('AdminPortal/ClientPayment');
 });
@@ -264,6 +262,7 @@ Route::post('/Client-Qoute','ClientPortalHomeController@qout');
 //Route::get('/ClientsReg','LastControl@index2');
 //Route::post('ClientRegs/Save','LastControl@save');
 //Route::get('/SendGun','LastControl@index3');
+Route::post('/Billing-Start','BillingControl@BillingPeriod');
 Route::get('/Deploy','LastControl@index4');
 Route::get('/Secus','LastControl@index6');
 

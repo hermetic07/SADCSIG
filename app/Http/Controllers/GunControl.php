@@ -39,6 +39,7 @@ class GunControl extends Controller
             }
             return response ()->json ( $data );
           } catch (Exception $e) {
+            return $e;
             $s = Gun::where('name',trim($request->name," "))->value('id');
              $old = Gun::find($s);
              if ($old->status==="deleted") {

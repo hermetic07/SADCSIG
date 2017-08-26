@@ -391,9 +391,35 @@ console.log(query);
     window.onload = function() {
       var d = new Date();
       var day = d.getDate();
-      if (day===15||day===30) {
+      if (day===26||day===30) {
         $( ".notifs" ).append("<span class='heartbit'></span><span class='point'></span>");
         $( ".inner" ).append( "<a href='#'><div class='user-img'> <img src='plugins\\images\\Clients\\Active\\evander.jpg' alt='user' class='img-circle'>  </div><div class='mail-contnet'><h5>SYSTEM</h5><span class='mail-desc'>Billing Period on going</span> <span class='time'>9:10 AM</span> </div> </a>" );
+        var today = new Date();
+        var mm = today.getMonth()+1;
+        if(day<10) {
+          day = '0'+dd
+        } 
+      
+        if(mm<10) {
+            mm = '0'+mm
+        } 
+        var date = today.getFullYear()+'-'+mm+'-'+day;
+        $.ajaxSetup({
+          headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }); 
+        $.ajax({
+          type: 'post',
+          url: '/Billing-Start',
+          data: {
+              'id':date,
+          },
+          success: function(data){
+              alert(data);
+          }
+        });
+      
       } 
       
     };

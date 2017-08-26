@@ -127,12 +127,12 @@ class EmployeeControl extends Controller
         $value = $request->session()->get('user');
         if($value!==null){
           $u = Employee::find($value);
-          $education = EmployeeEducation::where("id",$value)->get();
-          $degree = EmployeeDegree::where("id",$value)->get();
-          $seminar = EmployeeSeminar::where("id",$value)->get();
-          $military = EmployeeMilitary::where("id",$value)->get();
-          $skill = EmployeeSkills::where("id",$value)->get();
-          $attr = EmployeeAttributes::where("id",$value)->get();
+          $education = EmployeeEducation::where("employees_id",$value)->get();
+          $degree = EmployeeDegree::where("employees_id",$value)->get();
+          $seminar = EmployeeSeminar::where("employees_id",$value)->get();
+          $military = EmployeeMilitary::where("employees_id",$value)->get();
+          $skill = EmployeeSkills::where("employees_id",$value)->get();
+          $attr = EmployeeAttributes::where("employees_id",$value)->get();
           $count = 1;
           return view('SecurityGuardsPortal.SecurityGuardsPortalProfile')->with('employee',$u)->with('count',$count)->with('ed',$education)->with('d',$degree)->with('s',$seminar)->with('m',$military)->with('skill',$skill)->with('attr',$attr);
         }
