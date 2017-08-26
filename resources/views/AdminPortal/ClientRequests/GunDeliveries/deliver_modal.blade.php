@@ -8,8 +8,7 @@
                 <th>Gun type</th>
                 <th>Gun name</th>
                 <th width="150px">Serial No</th>
-                <th>Qyt. Ordered</th>
-                <th>Qyt. To be Del.</th>
+                
             </tr>
           </thead>
           @php
@@ -26,12 +25,8 @@
                          {{$quantity[$ctr]}}
 
                     </td>
-                    <td>
-                      {{$gun->qtyOrdered}}
-                    </td>
-                    <td>
-                      <input type="text" name="qtyDel{{$ctr}}" id="{{$gun->gunID}}" class="qtyToBeDel">
-                    </td>
+                    <input type="hidden" name="srl{{$ctr}}" class="gunsID" value="{{$gun->gunID}}">
+                    <input type="hidden" id="srl{{$ctr}}" class="serialNos" value="{{$quantity[$ctr]}}">
                 </tr>
                 @php
                   $ctr++;

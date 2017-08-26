@@ -190,24 +190,29 @@
  quantity = [];
  function getSerial(id){
     $('#del'+id).removeAttr('disabled'); 
+   // var a = $(this).parent().parent().parent().find().text();
     //$('#del'+id).attr('required'); 
     //alert($('#del'+id).val());
+    //alert(a);
  }
  function funShowDelivModal(gunReqstID){
     // alert(gunReqstID);
     // console.log(this.value);
     var gunsID = [];
-     
+    var a = [];
     
     $.each($(".serialCheck"), function(){
       if($(this).is(':checked')){
+        alert($(this).attr('name')
+          );
         gunsID.push($(this).val());
+        a.push($(this).attr('name'));
       }
           
     });
-    for(var i = 0; i < gunsID.length; i++){
-     quantity.push($('#del'+gunsID[i]).val());
-     alert($('#del'+gunsID[i]).val());
+    for(var i = 0; i < a.length; i++){
+     quantity.push($('#del'+a[i]).val());
+     alert($('#del'+a[i]).val());
     }
     //alert(quantity.length)
     $.ajax({
@@ -228,17 +233,26 @@
   }
   function proceedDelivery(id){
 
-    var qtyToBeDel = [];
+    var qtyToBeDel = 0;
     var gunIDs = [];
+    var b = [];
+    var serialNos = [];
     var delBoy = "";
     var delBoyContact = "";
     var delCode = "";
     var gunReqstID = id;
-    $.each($(".qtyToBeDel"), function(){
-          qtyToBeDel.push($(this).val());
-          gunIDs.push($(this).attr('id'));
+    $.each($(".gunsID"), function(){
+          qtyToBeDel = qtyToBeDel + 1;
+          
+          gunIDs.push($(this).val());
+
+          b.push($(this).attr('name'));
           //alert($(this).attr('id'));
     });
+    for(var i = 0; i < b.length; i++){
+     serialNos.push($('#'+b[i]).val());
+     alert(serialNos[i]);
+    }
     delBoy = $('#deliveredBy').val();
     delBoyContact = $('#delBoyContact').val();
     delCode = $('#delCode').val();
@@ -254,7 +268,7 @@
                 delBoyContact:delBoyContact,
                 delCode:delCode,
                 gunReqstID:gunReqstID,
-                serialNo:quantity,
+                serialNo:serialNos,
                 
               },
         success : function(data){
