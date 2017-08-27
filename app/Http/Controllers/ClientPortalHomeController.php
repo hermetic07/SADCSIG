@@ -50,6 +50,7 @@ class ClientPortalHomeController extends Controller
                         ->where('tblGunRequests.strClientID','=',$id)
                         ->join('clients','clients.id','=','tblGunRequests.strClientID')
                         ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
+                        ->where('tblGunDeliveries.status','!=','CLAIMED')
                         ->get();
       $gunDeliveriesCtr = $gunDeliveries2->count();
 
@@ -119,7 +120,9 @@ class ClientPortalHomeController extends Controller
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')
                         ->join('provinces','provinces.id','=','areas.provinces_id')
-                        ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.created_at','clients.name as client','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province','tblGunDeliveries.strGunDeliveryID as deliveryCode','tblGunDeliveries.created_at as dateDelivered','tblGunDeliveries.deliveryPerson as deliveryPerson','tblGunDeliveries.status as deliveryStatus')
+                        ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.created_at',
+                            'clients.first_name as client_fname',
+                            'clients.middle_name as client_mname','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province','tblGunDeliveries.strGunDeliveryID as deliveryCode','tblGunDeliveries.created_at as dateDelivered','tblGunDeliveries.deliveryPerson as deliveryPerson','tblGunDeliveries.status as deliveryStatus')
                         ->get();
    // return $id;
     
@@ -173,14 +176,16 @@ class ClientPortalHomeController extends Controller
     }
   }
 
-  public function save(Request $request){
+  public function saveClaim(Request $request){
     if($request->ajax()){
       $success = 0;
     $partial =0;
 
-    $qtyClaimed = Input::get('qtyClaimed');
+    $serialNos = Input::get('serialNos');
     $gunIDs = Input::get('gunIDs');
-    $qtyDelv = Input::get('qtyDelv');
+    $unchecked_serialNos = Input::get('unchecked_serialNos');
+    $unchecked_gunIDs = Input::get('unchecked_gunIDs');
+    
     
     for($i = 0; $i < count($gunIDs); $i++){
       $claimedDeliveryID = "CLAIMEDDEL-".ClaimedDelivery::get()->count();
@@ -188,12 +193,9 @@ class ClientPortalHomeController extends Controller
       $claimedDelivery['strClaimedDelID'] = $claimedDeliveryID;
       $claimedDelivery['strGunDeliveryID'] = $request->gunDeliveryID;
       $claimedDelivery['strGunID'] = $gunIDs[$i];
-      $claimedDelivery['intQtyClaimed'] = $qtyClaimed[$i];
-      if($qtyClaimed[$i] == $qtyDelv[$i]){
-        $partial =0;
-      }else{
-        $partial =1;
-      }
+      $claimedDelivery['serialNo'] = $serialNos[$i];
+      $claimedDelivery['status'] = "CLAIMED";
+      
       if($claimedDelivery->save()){
         $success = 0;
       }else{
@@ -201,11 +203,24 @@ class ClientPortalHomeController extends Controller
       }
       
     }
-    if($partial == 0){
+      for($i = 0; $i < count($unchecked_gunIDs); $i++){
+      $claimedDeliveryID = "CLAIMEDDEL-".ClaimedDelivery::get()->count();
+      $claimedDelivery = new ClaimedDelivery();
+      $claimedDelivery['strClaimedDelID'] = $claimedDeliveryID;
+      $claimedDelivery['strGunDeliveryID'] = $request->gunDeliveryID;
+      $claimedDelivery['strGunID'] = $unchecked_gunIDs[$i];
+      $claimedDelivery['serialNo'] = $unchecked_serialNos[$i];
+      $claimedDelivery['status'] = "UNCLAIMED";
+      if($claimedDelivery->save()){
+        $success = 0;
+      }else{
+        $success = 1;
+      }
+      
+    }
+   
       $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'CLAIMED']);
-    }else{
-      $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'PARTIALCLAIMED']);
-    }  
+    
      
     }
   }

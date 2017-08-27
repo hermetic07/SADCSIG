@@ -50,23 +50,23 @@
               @if($client->deliveryCode == $gunDeliveryId)
                 <tr style="background-color: gray">
                   <td>{{$client->deliveryCode}}</td>
-                  <td>{{$client->client}}</td>
+                  <td>{{$client->client_fname}} {{$client->client_mname}} {{$client->client_lname}}</td>
                   <td>{{$client->establishment}}</td>
                   <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
                   <td>{{$client->dateDelivered}}</td>
                   <td>
-                    <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
+                    <button type="button" value="{{$gunDeliveryId}}" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
                   </td>
                 </tr>
               @else
                 <tr>
                   <td>{{$client->deliveryCode}}</td>
-                  <td>{{$client->client}}</td>
+                  <td>{{$client->client_fname}} {{$client->client_mname}} {{$client->client_lname}}</td>
                   <td>{{$client->establishment}}</td>
                   <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
                   <td>{{$client->dateDelivered}}</td>
                   <td>
-                    <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
+                    <button type="button" value="{{$gunDeliveryId}}" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
                   </td>
                 </tr>
               @endif
@@ -87,90 +87,9 @@
           </div>
 
 
-              <div class="col-lg-6 animated slideInRight guards" style="display:none">
+          <div class="col-lg-6 animated slideInRight guards" style="display:none">
 
-      <div class="white-box">
-     <h4><center><strong>Delivery details</strong></center></h4>
-          </br>		  </br>		  </br>
-        <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="100">
-
-          <tbody>
-             <tr>
-                          <td>Delivered by: </td>
-                          <td>Daisy ronquillo</td>
-
-                      </tr>
-     <tr>
-                          <td>Contact number:</td>
-                          <td>091234567890</td>
-                      </tr>
-             <tr>
-                          <td>Delivery code:</td>
-                          <td>lxvLERIH</td>
-                      </tr>
-           <tr>
-                          <td>Status:</td>
-                          <td>On delivery</td>
-                      </tr>
-                     <tr>
-                          <td>Received by:</td>
-                          <td>Claimed</td>
-                      </tr>
-                       <tr>
-                          <td>Item:</td>
-                          <td>Guns</td>
-                      </tr>
-
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="2"></td>
-            </tr>
-          </tfoot>
-      </table>
-  </br>
-       <h4><center><strong>Items</strong></center></h4>
-
-                  <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="100">
-          <thead>
-            <tr>
-              <th>Guntype</th>
-      <th >gun</th>
-      <th >serial number</th>
-              <th data-sort-ignore="true" width="150px">status</th>
-            </tr>
-          </thead>
-          <tbody>
-             <tr>
-                
-                          <td>Pistol</td>
-            <td>Glock 49</td>
-                      <td>1223312</td>
-                          <td>
-                          claimed
-
-                          </td>
-                      </tr>
-     <tr>
-  
-                          <td>shotgun</td>
-            <td>spas</td>
-              <td>1223312</td>
-                          <td>
-                          unclaimed
-                          </td>
-                      </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="4"></td>
-            </tr>
-          </tfoot>
-      </table>
-
-          </div>
-
-              </div>
+      
          </div>
 
   <!-- Add military service modal -->
@@ -298,15 +217,34 @@
   @endsection
   @section('script')
   <script type="text/javascript">
-jQuery(document).ready(function($){
- var click =0;
- $('.show').on('click', function(e){
-   if (click == 0){
+    $(document).ready(function(){
+      $('.show').on('click',function(){
+       // alert($('.show').val());
+        $.ajax({
+          url : "{{route('pickups.show')}}",
+          type : 'GET',
+          data : {deliveryCode:$(this).val()},
+          success : function(data){
+            var click =0;
+            $('.guards').text('');
+            $('.guards').append(data);
+           if (click == 0){
 
-         click++;
-   $(".guards").show();
-   $(this).parent().parent().parent().parent().parent().toggleClass('col-lg-12').toggleClass('col-lg-6');
-   }
+                 click++;
+           $(".guards").show();
+           $(this).parent().parent().parent().parent().parent().toggleClass('col-lg-12').toggleClass('col-lg-6');
+           }
+          }
+        });
+      });
+    });
+  </script>
+  <script type="text/javascript">
+jQuery(document).ready(function($){
+ 
+ $('.show').on('click', function(e){
+  
+   
 
 
  });

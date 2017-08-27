@@ -160,11 +160,11 @@ class GunDeliveryController extends Controller
         if($request->ajax()){
             $isSuccess = 0;
             $gunIDs = Input::get('gunIDs');
-            $qtyToBeDel = Input::get('qtyToBeDel');
+            $qtyToBeDel = $request->qtyToBeDel;
             $serialNo = Input::get('serialNo');
             $gunDeliveryID = $request->delCode;
 
-            
+           
             //GunDelivery::create(['strGunDeliveryID'=>$gunDeliveryID,'strGunReqID'=>$request->gunReqstID,'status'=>"ONDELIVERY",'dateTimeReceived'=>Carbon::now()]);
             $gunDelivery = new GunDelivery();
             $gunDelivery['strGunDeliveryID'] = $gunDeliveryID;
@@ -194,7 +194,7 @@ class GunDeliveryController extends Controller
                 $gunDeliveryDetails['strGunID'] = $gunIDs[$ctr];
                 $gunDeliveryDetails['serialNo'] = $serialNo[$ctr];
                 $gunDeliveryDetails['qtyOrdered'] = $qtyOrdered[0]->qtyOrdered;
-                $gunDeliveryDetails['quantity'] = $qtyToBeDel[$ctr];
+                $gunDeliveryDetails['quantity'] = $qtyToBeDel;
                 if(!$gunDeliveryDetails->save()){
                     $isSuccess = 1;
                 }

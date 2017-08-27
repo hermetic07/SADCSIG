@@ -12,22 +12,28 @@
           </thead>
           
           <tbody>
+          @php
+            $ctr = 0;
+          @endphp
             @foreach($gunRequestDetails as $gunRequestDetail)
               @for($i = 0; $i< $gunRequestDetail->quantity; $i++)
               <tr>
                 <td>
   
                 <div class="checkbox checkbox-success checkbox-circle">
-                 <input id="{{$gunRequestDetail->gunID}}" class="serialCheck" type="checkbox" onchange="getSerial('{{$gunRequestDetail->gunID}}')" value="{{$gunRequestDetail->gunID}}">
+                 <input  class="serialCheck" name="{{$ctr}}" type="checkbox" onchange="getSerial('{{$ctr}}')" value="{{$gunRequestDetail->gunID}}">
                  <label for="{{$gunRequestDetail->gun}}"></label>
                </div>
                 </td>
                 <td>{{$gunRequestDetail->gun}}</td>
                 <td>{{$gunRequestDetail->gunType}}</td>
                 <td>
-                <input type="text" class="form-control serialVal" id="del{{$gunRequestDetail->gunID}}"  disabled>
+                <input type="text" class="form-control serialVal" id="del{{$ctr}}" disabled>
                 </td>
               </tr>
+              @php
+                $ctr++;
+              @endphp
               @endfor
             @endforeach
              

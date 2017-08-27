@@ -175,6 +175,7 @@ Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery')->name('gun
 
 
 Route::get('/Pickups','PickupsController@index2')->name('pickups.index2');
+Route::get('/Pickups-show','PickupsController@show')->name('pickups.show');
 Route::get('/Pickups-{gunDeliveryId}','PickupsController@index')->name('pickups.index');
 
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
@@ -222,7 +223,7 @@ Route::post('/GuardReplcRequest-Save/{id}','LastControl@saveGuardReplReqst');
 
 Route::get('/ClientPortal-GunDelivery-view','ClientPortalHomeController@viewGunDel')->name('client.view.gunDel');
 Route::get('/ClientPortal-GunDelivery-claim','ClientPortalHomeController@claimDeliveryModal')->name('client.claim.modal');
-Route::post('/ClientPortal-GunDelivery-save','ClientPortalHomeController@save')->name('client.save.claim');
+Route::post('/ClientPortal-GunDelivery-save','ClientPortalHomeController@saveClaim')->name('client.save.claim');
 Route::get('/ClientPortal-GunDelivery-{id}','ClientPortalHomeController@gunDeliveries');
 Route::get('/ClaimDeliveryModdal','ClientPortalHomeController@claimDeliveryModal')->name('claim.delivery.modal');
 Route::post('/ClaimDelivery','ClientPortalHomeController@claimDelivery')->name('claim.delivery');
