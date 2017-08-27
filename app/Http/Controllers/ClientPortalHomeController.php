@@ -35,6 +35,7 @@ use App\EstabGuards;
 use App\GunType;
 use App\vat;
 use App\ewt;
+use App\Collections;
 use PDF;
 
 class ClientPortalHomeController extends Controller
@@ -395,9 +396,9 @@ class ClientPortalHomeController extends Controller
       
       $contracts = Contracts::all();
       $clientPic = ClientsPic::all();
+      $collection = Collections::where('strClientId',$id)->where('strStatus','!=','notsent')->get();
 
-
-      return view('ClientPortal/ClientPortalMessages')->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic);
+      return view('ClientPortal/ClientPortalMessages')->with('all',$collection)->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic);
     }
     public function messagesModal(Request $request,$messageID){
       if($request->ajax()){

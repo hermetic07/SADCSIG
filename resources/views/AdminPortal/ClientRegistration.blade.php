@@ -45,7 +45,7 @@
 <link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
 <link href="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <script src="{{asset('js/jquery.min.js')}}"></script>
-  <script src="{{asset('js/jquery.validate.js')}}"></script>
+<script src="{{asset('js/jquery.validate.js')}}"></script>
  <script type="text/javascript">
 
     $(document).ready(function(){
@@ -132,16 +132,19 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="wizard-content">
               <div class="wizard-pane active" role="tabpanel">
+
                     <div class="form-group">
 
                     <label class="col-xs-3 control-label">Client Code</label>
                     <div class="col-xs-3">
                         <input type="text" class="form-control name"  id="client_code" value="{{$clcode}}"  disabled/>
+
                     </div>
                     <label class="col-xs-1 control-label">Contract Code</label>
                     <div class="col-xs-3">
                       <input type="text" class="form-control name"  id="contract_code" value="{{$cncode}}" disabled/>
                     </div>
+
                 </div>
 
                 <div class="form-group">
@@ -154,10 +157,10 @@
                     </div>
                     <div class="col-xs-3">
                       <input type="text" class="form-control name"  id="client_lname" name="name" placeholder="last Name" />
+
                     </div>
 
                   </div>
-
                   <div class="form-group">
                     <label class="col-xs-2 control-label">Establishment name</label>
                       <div class="col-xs-6">
