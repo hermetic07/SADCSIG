@@ -71,6 +71,7 @@
         <div class="content-wrap">
           <section id="section-flip-1">
             <form class="form-horizontal form-material animated slideInLeft" id="loginform"  action="{{url('/CLogin')}}" method="post">
+            {!! csrf_field() !!}
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group m-t-40">
                 <div class="col-xs-12">

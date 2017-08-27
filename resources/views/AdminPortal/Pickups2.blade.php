@@ -67,7 +67,7 @@
             </tr>
           </tfoot>
       </table>
-
+      <input type="hidden" name="" id="gunDeliveryID" value="{{$client->deliveryCode}}">
         <div class="text-right">
           <ul class="pagination">
           </ul>
@@ -203,10 +203,74 @@
 
  </div>
 
+   <div id="Delgun" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+              <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Deliver guns</strong></center></h4>
+                  </div>
+                  <div class="modal-body deliverModal">
+                    
+                  
+                  
+                    </div>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+
   @endsection
   @section('script')
   <script type="text/javascript">
+  function funcDeliverRelacement(){
+    alert($('#gunDeliveryID').val());
+     var unclaimed_items_id = [];
+        var unclaimed_items_serials = [];
+        var gunDeliveryID = $('#gunDeliveryID').val();
+
+        $.each($(".UNCLAIMED"), function(){
+        
+         
+          unclaimed_items_id.push($(this).val());
+          unclaimed_items_serials.push($(this).attr('name'));
+        
+            
+     });
+
+        $.ajax({
+          url : '{{route("pickups.delRepl")}}',
+          type : 'GET',
+          data : {
+                  unclaimed_items_id:unclaimed_items_id,
+                  unclaimed_items_serials:unclaimed_items_serials,
+                  gunDeliveryID:gunDeliveryID
+                },
+          success : function(data){
+            $('.deliverModal').text('');
+            $('.deliverModal').append(data);
+            $('#Delgun').modal('show');
+            console.log(data);
+          }
+        });
+  }
     $(document).ready(function(){
+     //  $('.delRepl').on('click',function(){
+     //    alert("Earl");
+     //    // var unclaimed_items_id = [];
+     //    // var unclaimed_items_serials = [];
+
+     //    // $.each($(".UNCLAIMED"), function(){
+        
+     //    //   alert($(this).attr('name')
+     //    //     );
+     //    //   unclaimed_items_id.push($(this).val());
+     //    //   unclaimed_items_serials.push($(this).attr('name'));
+        
+            
+     // // });
+
+     //  });
       $('.show').on('click',function(){
        // alert($('.show').val());
         $.ajax({
