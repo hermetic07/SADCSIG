@@ -391,11 +391,12 @@ console.log(query);
     window.onload = function() {
       var d = new Date();
       var day = d.getDate();
-      if (day===26||day===30) {
+      if (day===13||day===27) {
         $( ".notifs" ).append("<span class='heartbit'></span><span class='point'></span>");
         $( ".inner" ).append( "<a href='#'><div class='user-img'> <img src='plugins\\images\\Clients\\Active\\evander.jpg' alt='user' class='img-circle'>  </div><div class='mail-contnet'><h5>SYSTEM</h5><span class='mail-desc'>Billing Period on going</span> <span class='time'>9:10 AM</span> </div> </a>" );
         var today = new Date();
         var mm = today.getMonth()+1;
+        day = day + 3;
         if(day<10) {
           day = '0'+dd
         } 
@@ -416,7 +417,9 @@ console.log(query);
               'id':date,
           },
           success: function(data){
-              alert(data);
+              if(data!==null&&data!==""){
+                alert(data);
+              }
           }
         });
       

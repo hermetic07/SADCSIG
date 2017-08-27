@@ -79,9 +79,7 @@ Route::get('/Announcements', function () {
 
 Route::get('/BillingPeriod', "BillingControl@index");
 Route::post('/GetBilling', "BillingControl@getRecord");
-Route::get('/ClientPayment', function () {
-    return view('AdminPortal/ClientPayment');
-});
+Route::get('/ClientPayment',"BillingControl@allSOA" );
 
 Route::get('/Quotation', function () {
     return view('AdminPortal/Quotation');
@@ -124,11 +122,11 @@ Route::get('/GuardPool', function () {
 
 
 
-Route::get('/SOA', function () {
-    return view('AdminPortal/SOA');
-});
-
-
+Route::get('/SOA/{con}/{col}/{cli}/{diff}/{date}/{date1}/{date2}', 'BillingControl@soa');
+Route::post('/Submit-Billing', 'BillingControl@submitSOA');
+Route::post('/GetPaymentInfo', 'BillingControl@paymentInfo');
+Route::post('/PaymentPaid', 'BillingControl@paymentPaid');
+Route::post('/Client-download-soa', 'BillingControl@getLinks');
 
 Route::get('/Home', 'ClientPortalHomeController@homeview');
 

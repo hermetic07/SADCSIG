@@ -83,6 +83,9 @@
                   </div>
                   <div class="modal-body">
               <form data-toggle="validator">
+                <input type="hidden" id="col_id">
+                <input type="hidden" id="cli_id">
+                <input type="hidden" id="con_id">
                 <div class="form-group">
                   <div class="row">
 					          <div class="form-group col-sm-6">
@@ -118,7 +121,7 @@
                 <div class="form-group col-sm-6">
                   <label class="control-label">Service period from</label>
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="yyyy/mm/dd" name="from"   readonly required />
+                    <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="yyyy/mm/dd" name="from"  required />
                   </div>
                   <div class="help-block with-errors"></div>
                 </div>
@@ -129,7 +132,7 @@
                 </div>
 					  								<div class="col-xs-12">
 														    
-                                  	  <button class="btn btn-block btn-success"  onclick=" window.open('{{url('/SOA')}}','_blank')" ><i class="ti-receipt"></i> View SOA</button>
+                  <button class="btn btn-block btn-success"  onclick="fun_soa()" ><i class="ti-receipt"></i> CREATE SOA</button>
 							    </div>
 
                    <div class="help-block with-errors"></div>
@@ -137,7 +140,7 @@
             </div>
              <div class="modal-footer">
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <button type="button" class="btn btn-info waves-effect waves-light" onclick="fun_submit()">Submit</button>
              </div>
             </form>
                   </div>
@@ -152,14 +155,61 @@
 
 
   @endsection
-
+  
   @section('script')
   <script>
-    function fun_view(contract,client,collection,bill){
+    function fun_submit(params) {
+      var id = $( "#col_id" ).val();
       $.ajaxSetup({
-          headers: {
-           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+      }); 
+      $.ajax({
+          type: 'post',
+          url: '/Submit-Billing',
+          data: {
+              'id':id,
+          },
+          success: function(data){
+            alert(data);
+            if(data==="SOA SENT"){
+              location.reload();
             }
+          }
+      });
+    }
+
+    function fun_soa() {
+      var con =$( "#con_id" ).val();
+      var cli =$( "#cli_id" ).val();
+      var col =$( "#col_id" ).val();
+      var date1 = $( "#firstcal" ).val();
+      var date2 = $( "#st" ).html();
+      var diff =  Math.floor(( Date.parse(date2) - Date.parse(date1) ) / 86400000);
+
+      var d = new Date();
+      var day = d.getDate();
+      var today = new Date();
+      var mm = today.getMonth()+1;
+      if(day<10) {
+          day = '0'+dd
+      } 
+      
+      if(mm<10) {
+            mm = '0'+mm
+      } 
+      var date = today.getFullYear()+'-'+mm+'-'+day;
+
+      var ur = '/SOA/'+con+'/'+col+'/'+cli+'/'+diff+'/'+date+'/'+date1+'/'+date2;
+      window.open(ur,"_blank");    
+    }
+
+    function fun_view(contract,client,collection,bill){
+        $.ajaxSetup({
+            headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
         }); 
         $.ajax({
           type: 'post',
@@ -169,7 +219,10 @@
               'contract':contract,
           },
           success: function(data){
-              	
+            $( "#col_id" ).val(collection);
+            $( "#cli_id" ).val(client);
+            $( "#con_id" ).val(contract);
+
             $( "#name" ).html(data.name);
             $( "#cn" ).html(data.con);
             $( "#es" ).html(data.es);

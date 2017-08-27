@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Clients;
 use App\Establishments;
-
+use App\Area;
+use App\Province;
 use App\vat;
 use App\ewt;
 
@@ -15,7 +16,7 @@ use App\Contracts;
 
 use App\Collections;
 use App\Billings;
-
+use PDF;
 
 class BillingControl extends Controller
 {
@@ -46,6 +47,104 @@ class BillingControl extends Controller
           "cd"=>$contract->start_date,
       ];
       return $data;
+    }
+
+    public function submitSOA(Request $r)
+    {
+      $collection = Collections::where('intid',$r->id)->first();
+      if($collection->decTotal!==null&&$collection->decTotal!==""){
+        $collection->strStatus = "sent";
+        $collection->save();
+        return "SOA SENT";
+      }
+      else{
+        return "Create a SOA first before submitting";
+      }
+    }
+
+    public function allSOA(){
+        $all = Collections::orderBy('strbillingId','DESC')->get();
+        return view('AdminPortal/ClientPayment')->with('all',$all);
+    }
+
+    public function paymentInfo(Request $r){
+        $all = Collections::find($r->id);
+        $con = Contracts::find($all->strContractId);
+        $data = [
+            'guards'=>$con->guard_count,
+            'amount'=>number_format($all->decTotal, 2, '.', ',')
+        ];
+        return $data;
+    }
+
+    public function paymentPaid(Request $r){
+        $all = Collections::find($r->id);
+        $all->strStatus = "paid";
+        $all->datePaid = $r->date;
+        $all->save();
+        return "Billing mark as paid";
+    }
+
+    public function getLinks(Request $r){
+        $col = Collections::find($r->id);
+        $con = $col->strContractId;
+        $cli = $col->strClientId;
+        $diff = $col->intdays;
+        $date = $col->dateInvoice;
+        $date1 = $col->dateFrom;
+        $date2 = $col->strbillingId;
+        $data = [
+            'con'=>$con,
+            'col'=>$r->id,
+            'cli'=>$cli,
+            'diff'=>$diff,
+            'date'=>$date,
+            'date1'=>$date1,
+            'date2'=>$date2,
+        ];
+        return $data;
+    }
+    public function soa($con,$col,$cli,$diff,$date,$date1,$date2){
+        $client = Clients::find($cli);
+        $contract = Contracts::find($con);
+        $estab = Establishments::where('contract_id',$con)->first();
+        $area = Area::find($estab->areas_id);
+        $prov = Province::find($estab->province_id);
+        $collection = Collections::where('intid',$col)->first();
+        $vat = vat::all()->first();
+        $vattotal = 2956.71*($vat->value/100); //2000 is just sample agancee fee
+        $ewt = ewt::all()->first();
+        $ewttotal = 2956.71*($ewt->value/100);//2000 is just sample agancee fee
+        $subtotal = ($contract->monthlyCP/30*$diff)*$contract->guard_count+2956.71+$vattotal;
+        $sumtotal = $subtotal - $ewttotal;
+        $collection->intdays = $diff;
+        $collection->dateInvoice = $date;
+        $collection->dateFrom = $date1;
+        $collection->decTotal = $sumtotal;
+        $collection->save();
+
+        $pdf = PDF::loadView('AdminPortal/SOA', [
+            'sumtotal'=>$sumtotal,
+            'subtotal'=>$subtotal,
+            'es'=>$estab,
+            'vat'=>$vat,
+            'totalvat'=>$vattotal,
+            'ewt'=>$ewt,
+            'totalewt'=>$ewttotal,
+            'area'=>$area,
+            'prov'=>$prov,
+            'con'=>$contract,
+            'col'=>$collection,
+            'cli'=>$client,
+            'diff'=>$diff,
+            'date1'=>$date1,
+            'date2'=>$date2,
+            'date'=>$date,
+          ]);
+                  
+          return $pdf->stream('StatementOfAccount.pdf');
+
+       
     }
 
     public function BillingPeriod(Request $req){
