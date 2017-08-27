@@ -442,7 +442,7 @@
 
                       <tr>
                         <td>{{$a->name}}<input type="hidden" name="aname" value="{{$a->name}}"></td>
-                        <td><input type="text" class="form-control atts" name="noblank" /></td>
+                        <td><input type="text" class="form-control atts" name="noblank" required/></td>
                         <td>{{$a->measurement}}</td>
                       </tr>
                                           @endforeach
@@ -1175,12 +1175,7 @@
               },
               onFinish: function(){
                   $('#validation').submit();
-                  $('div.blockdiv').block({
-              message: '<h4><img src="../plugins/images/busy.gif" /> Just a moment...</h4>'
-              , css: {
-                  border: '1px solid #fff'
-              }
-          });
+
                   var allLicense = [];
                   var allReq = [];
                   var allattrib = [];
@@ -1292,6 +1287,12 @@
                         req: allReq,
                     },
                     success: function(data){
+                                          $('div.blockdiv').block({
+              message: '<h4><img src="../plugins/images/busy.gif" /> Just a moment...</h4>'
+              , css: {
+                  border: '1px solid #fff'
+              }
+          });
                       if (data==="Registration Complete. Pls wait for the company to contact you") {
 
                         window.location.href = "/test";
