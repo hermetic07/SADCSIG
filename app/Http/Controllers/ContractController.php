@@ -52,12 +52,14 @@ class ContractController extends Controller
         return redirect('/ClientPortalHome-'.$key);
       }
       else {
-          return view('clientloginform');
+         $stat= 1;
+          return view('clientloginform')->with('stat',$stat);
       }
     }
 
     public function signin(){
-      return view('clientloginform');
+        $stat= 0;
+      return view('clientloginform')->with('stat',$stat);
     }
 
     public function home(Request $request){
@@ -67,8 +69,9 @@ class ContractController extends Controller
     }
 
     public function logout(Request $request){
+         $stat= 0;
       $request->session()->forget('client');
-      return view('clientloginform');
+      return view('clientloginform')->with('stat',$stat);
     }
     public function getServiceRate(Request $request){
         if($request->ajax()){

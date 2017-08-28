@@ -61,6 +61,7 @@
 
         <a href="javascript:void(0)" class="text-center db"><img src="plugins/images/users/logoicon2.png"width="90px"  alt="Home" /><br/><img src="plugins/images/users/logotext2.png" width="200px" alt="Home" /></a>
 		  </br>  </br> </br>
+
       <div class="sttabs tabs-style-flip">
         <nav>
           <ul>
@@ -69,10 +70,19 @@
           </ul>
         </nav>
         <div class="content-wrap">
+        
           <section id="section-flip-1">
+      @if($stat == 1)
+   <div class="alert alert-danger alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              The email you've entered doesn't match any account or check your password</div>
+
+            @endif
             <form class="form-horizontal form-material animated slideInLeft" id="loginform"  action="{{url('/CLogin')}}" method="post">
             {!! csrf_field() !!}
+            
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
+           
               <div class="form-group m-t-40">
                 <div class="col-xs-12">
                   <input class="form-control" type="text" name="client_username" required="" placeholder="Email address">
