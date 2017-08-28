@@ -49,12 +49,14 @@ class EmployeeControl extends Controller
           return view('SecurityGuardsPortal.SecurityGuardsPortalHome')->with('employee',$e);
         }
         else {
-            return view('clientloginform');
+                   $stat= 1;
+          return view('clientloginform')->with('stat',$stat);
         }
       }
       catch (Exception $e)
       {
-        return view('clientloginform');
+          $stat= 0;
+          return view('clientloginform')->with('stat',$stat);
       }
 
 
@@ -67,7 +69,8 @@ class EmployeeControl extends Controller
         $u = Employee::find($value);
         return view('SecurityGuardsPortal/SecurityGuardsPortalHome')->with('employee',$u);
       } catch (Exception $e) {
-        return view('clientloginform');
+          $stat= 0;
+          return view('clientloginform')->with('stat',$stat);
       }
 
     }
@@ -80,7 +83,8 @@ class EmployeeControl extends Controller
         $L = Leave::All();
         return view('SecurityGuardsPortal/SecurityGuardsPortalRequest')->with('employee',$u)->with('leave',$L);
       } catch (Exception $e) {
-        return view('clientloginform');
+            $stat= 0;
+          return view('clientloginform')->with('stat',$stat);
       }
 
     }
@@ -136,10 +140,12 @@ class EmployeeControl extends Controller
           $count = 1;
           return view('SecurityGuardsPortal.SecurityGuardsPortalProfile')->with('employee',$u)->with('count',$count)->with('ed',$education)->with('d',$degree)->with('s',$seminar)->with('m',$military)->with('skill',$skill)->with('attr',$attr);
         }
-        return view('clientloginform');
+          $stat= 0;
+          return view('clientloginform')->with('stat',$stat);
 
       } catch (Exception $e) {
-        return view('clientloginform');
+            $stat= 0;
+          return view('clientloginform')->with('stat',$stat);
       }
 
     }
@@ -266,7 +272,8 @@ class EmployeeControl extends Controller
           return view('SecurityGuardsPortal.SecurityGuardsPortalProfile')->with('employee',$u);
         }
       } catch (Exception $e) {
-        return view('clientloginform');
+        $stat= 0;
+          return view('clientloginform')->with('stat',$stat);
       }
 
     }
@@ -280,7 +287,8 @@ class EmployeeControl extends Controller
           return view('SecurityGuardsPortal/SecurityGuardsPortalAttendance')->with('employee',$u);
         }
       } catch (Exception $e) {
-        return view('clientloginform');
+          $stat= 0;
+          return view('clientloginform')->with('stat',$stat);
       }
 
     }
@@ -294,7 +302,8 @@ class EmployeeControl extends Controller
           return view('SecurityGuardsPortal/SecurityGuardsPortalSettings')->with('employee',$u);
         }
       } catch (Exception $e) {
-        return view('clientloginform');
+        $stat= 0;
+          return view('clientloginform')->with('stat',$stat);
       }
 
     }
@@ -302,7 +311,8 @@ class EmployeeControl extends Controller
     public function SLogout(Request $request)
     {
       $request->session()->forget('user');
-      return view('clientloginform');
+    $stat= 0;
+          return view('clientloginform')->with('stat',$stat);
     }
 
     public function UpdateProfile(Request $request)
