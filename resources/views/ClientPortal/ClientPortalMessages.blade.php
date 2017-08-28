@@ -44,8 +44,8 @@
         <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
           <thead>
             <tr>
-              <th width="100px">Sender</th>
-              <th>Name</th>
+              <th width="100px"></th>
+              <th>Sender</th>
               <th> Date </th>
               <th>Subject</th>
               <th width="50px"data-sort-ignore="true" >Actions</th>
@@ -90,7 +90,7 @@
                 <td>
                   @foreach($adminMessages as $adminMessage)
                     @if($adminMessage->notif_id == $clientInboxMessage->notif_id)
-                      {{$clientInboxMessage->client_deloyment_notif_id}}
+                      Earl Pogi
                       @php
                          $client_notif_id = $clientInboxMessage->client_deloyment_notif_id;
                       @endphp
@@ -140,7 +140,7 @@
                 <td>
                   @foreach($adminMessages as $adminMessage)
                     @if($adminMessage->notif_id == $clientInboxMessage->notif_id)
-                      {{$clientInboxMessage->client_deloyment_notif_id}}
+                      Earl Pogi
                       @php
                          $client_notif_id = $clientInboxMessage->client_deloyment_notif_id;
                       @endphp
@@ -333,7 +333,7 @@
                         </div>
                         <div class="form-group col-sm-12 ">
                           <label class="control-label">Content:</label>
-                          <p class="form-control-static"> Good morning! We got you the best of our security team! Select guards and we will deploy them to you.</p>
+                          <p class="form-control-static"> Good Day! We got you the best of our security team! Select guards and we will deploy them to you.</p>
                           <br>
                           <center>
                             <button  type="button" onclick="location.href='/GuardPool+'+'{{$tempDeploymentID}}+'+'{{$client->id}}'+'+{{$client_notif_id}}'" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button>

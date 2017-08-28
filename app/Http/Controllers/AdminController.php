@@ -30,6 +30,7 @@ use App\Deployments;
 use App\DeploymentDetails;
 use App\ClientsPic;
 use App\EstabGuards;
+use App\Role;
 
 
 class AdminController extends Controller
@@ -50,12 +51,49 @@ class AdminController extends Controller
         $clientRegistrations = ClientRegistration::all();
         $shifts = Shifts::all();
         $clientPic = ClientsPic::all();
+        $roles = Role::all();
     
-        return view('AdminPortal.Deploy')->with('clients',$clients)->with('contracts',$contracts)->with('areas',$areas)->with('provinces',$provinces)->with('establishments',$establishments)->with('services',$services)->with('employees',$employees)->with('clientRegistrations',$clientRegistrations)->with('shifts',$shifts)->with('clientPic',$clientPic);
+        return view('AdminPortal.Deploy')
+                ->with('clients',$clients)
+                ->with('contracts',$contracts)
+                ->with('areas',$areas)
+                ->with('provinces',$provinces)
+                ->with('establishments',$establishments)
+                ->with('services',$services)
+                ->with('employees',$employees)
+                ->with('clientRegistrations',$clientRegistrations)
+                ->with('shifts',$shifts)
+                ->with('roles',$roles)
+                ->with('clientPic',$clientPic);
     }
     public function view(Request $request){
         if($request->ajax()){
-            return view('AdminPortal.Deployments.viewModal');
+            $clientBodyPreferences = DB::table('tbl_clientbodypreference')
+                               ->where('tbl_clientbodypreference.stringContractId','=',$request->contractID) 
+                               ->join('attributes','attributes.id','=','tbl_clientbodypreference.intAttributeId')
+                               ->select('attributes.name as attribute',
+                                'attributes.measurement as measurement',
+                                'tbl_clientbodypreference.intLowest as low',
+                                'tbl_clientbodypreference.intGreatest as high')
+                               ->get();  
+            $clientLicensePreferences = DB::table('tbl_clientlicensepreference')
+                                     ->where('tbl_clientlicensepreference.stringContractId','=',$request->contractID)
+                                     ->join('licences','licences.id','=','tbl_clientlicensepreference.intLicenseId')
+                                     ->select('licences.name as license')
+                                     ->get();   
+            $clientPeferences = DB::table('tbl_clientpreference')
+                                    ->where('tbl_clientpreference.stringContractId','=',$request->contractID)
+                                  ->get(); 
+            $tbl_clientrequirementpreferences = DB::table('tbl_clientrequirementpreference')
+                                        ->where('tbl_clientrequirementpreference.stringContractId','=',$request->contractID)
+                                        ->join('requirements','requirements.id','=','tbl_clientrequirementpreference.intRequirementId')
+                                        ->select('requirements.name as requirement')
+                                               ->get();                       
+            return view('AdminPortal.Deployments.viewModal')
+                        ->with('clientBodyPreferences',$clientBodyPreferences)
+                        ->with('clientPeferences',$clientPeferences)
+                        ->with('tbl_clientrequirementpreferences',$tbl_clientrequirementpreferences)
+                        ->with('clientLicensePreferences',$clientLicensePreferences);
         }
     }
     public function selectShifts(Request $request){

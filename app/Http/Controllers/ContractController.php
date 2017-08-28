@@ -35,7 +35,7 @@ class ContractController extends Controller
         $licenses = License::all();
         $attributes = Attribute::all();
         $requirements = Requirement::all();
-        $count1 = "CONTRACTz".Contracts::get()->count();
+        $count1 = "CONTRACT".Contracts::get()->count();
         $count2 = "CLIENTz".Clients::get()->count();
         return view('AdminPortal.ClientRegistration')->with('requirements',$requirements)->with('attributes',$attributes)->with('licenses',$licenses)->with('areas',$areas)->with('provinces',$provinces)->with('natures',$natures)->with('services',$services)->with('clcode',$count2)->with('cncode',$count1);
     }

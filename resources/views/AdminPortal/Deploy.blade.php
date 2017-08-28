@@ -257,6 +257,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                           <tr>
                             <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="10px" >Establishment
                             </th>
+                            <th>Contract</th>
                             <th>Client</th>
                             <th >Guard's needed</th>
                             <th>Date Requested</th>
@@ -304,7 +305,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                         
                                         @php
                                         $client_id = $client->id;
-                                        $clientName = $client->name;
+                                        $clientName = $client->first_name." ".$client->middle_name." ".$client->last_name;
                                         @endphp
                                       @endif
                                     @endforeach
@@ -316,49 +317,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                 @endif
                               @endforeach
 
-                            @if($contract->status == "active")
-                            	<tr style="background-color: gray">
-                              <td>
-                               <div class="el-card-item">
-                                <div class="el-card-avatar el-overlay-1">
-                                  <a href="SecurityGuardsProfile.html"><img src="uploads/{{$establishment->image}}" alt="user"  class=" img-responsive"></a>
-                                  <div class="el-overlay">
-                                    <ul class="el-info">
-                                      <li><a class="btn default btn-outline" href="/ClientsDetails-{{$client_id}}+{{$establishmentID}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                    </ul>
-                                  </div>
-                                </div>
-                               </div>
-                              </td>
-                              <td>
-                                <a href="{{route('admin.client.estab',$client_id)}}">{{$clientName}}</a>
-                              </td>
-                              
-                              <td>
-                                {{$contract->exp_date}}
-                              </td>
-                              <td>
-                                {{$contract->created_at}}
-                              </td>
-                              <td>
-                                {{$contract->status}}
-                                @php
-                                  $no_guards = $contract->guard_count;
-                                @endphp
-
-                              </td>
-                              <td>
-                                <div class="radio radio-info">
-                                <input type="radio" id="{{ $contract->id }}" class="radioBtn" value="{{ $contract->id }},{{ $establishmentID }},{{ $contract->guard_count }},{{$client_id}}" disabled>
-                                  <label for="select1"> Select</label>
-                                </div>
-                              </td>
-                              <td>
-                                <button class="btn btn-info btnView" value="{{$contract->id}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
-                                  <button class="btn btn-danger"><i class="fa fa-times"></i> </button>
-                              </td>
-                            </tr>
-                            @elseif($contract->status == "pending")
+                            
                             	<tr>
                               <td>
                                <div class="el-card-item">
@@ -373,11 +332,14 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                </div>
                               </td>
                               <td>
+                                {{$contract->id}}
+                              </td>
+                              <td>
                                 <a href="{{route('admin.client.estab',$client_id)}}">{{$clientName}}</a>
                               </td>
                               
                               <td>
-                                {{$contract->exp_date}}
+                                {{$contract->guard_count}}
                               </td>
                               <td>
                                 {{$contract->created_at}}
@@ -397,10 +359,10 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                               </td>
                               <td>
                                 <button class="btn btn-info btnView" value="{{$contract->id}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
-                                  <button class="btn btn-danger"><i class="fa fa-times"></i> </button>
+                                  
                               </td>
                             </tr>
-                            @endif
+                            
 
                             
                             @endif
@@ -467,7 +429,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
 
           @foreach($employees as $employee)
             @if($employee->deployed == 0)
-              @if($employee->status == 'waiting')
+              @if($employee->status == 'active')
             @php
               $ctr2 = $ctr2+1;
             @endphp
@@ -596,10 +558,11 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                     <td>
                                       <select class="form-control" name="role{{$ctr}}" id="role">
                                         <option value="" disabled="" selected="">---</option>
-                                        <option value="Security guard">Security guard</option>
-                                        <option value="Lady guard">Lady guard</option>
-                                        <option value="Security officer">Security officer</option>
-                                        <option value="Team leader">Team leader</option>
+                                        @foreach($roles as $role)
+                                          @if($role->status == "active")
+                                            <option value="{{$role->name}}">{{$role->name}}</option>
+                                          @endif
+                                        @endforeach
                                       </select>
                                     </td>
                                   </tr>
@@ -791,7 +754,22 @@ $('.form-search .btn').on('click', function(e){
 </script>
 
 <script type="text/javascript">
-
+$('#deployguards').on('click',function(){
+  // alert($('.shifts').attr('id').split("-")[1]);
+      employeeID = $('.shifts').attr('id').split("-")[1];
+      contractID = $('#contractID').val();
+      $.ajax({
+        url:'{{route("select.shifts")}}',
+        type:'GET',
+        data : {contractID:contractID,employeeID:employeeID},
+        success:function(data){
+          //alert(data);
+           $('#shift-'+employeeID).text('');
+           $('#shift-'+employeeID).append(data);
+          console.log(data);
+        }
+      });
+});
   // the count of guards for alert info
    $('#deployguards').attr("disabled", "disabled");
         var limit=$("#guardsCount").text();
@@ -866,22 +844,7 @@ $('.form-search .btn').on('click', function(e){
     	});
       
     });
-    $('.shifts').on('click',function(){
-      //alert(this.id.split("-")[1]);
-      employeeID = this.id.split("-")[1];
-      contractID = $('#contractID').val();
-      $.ajax({
-        url:'{{route("select.shifts")}}',
-        type:'GET',
-        data : {contractID:contractID,employeeID:employeeID},
-        success:function(data){
-          //alert(data);
-           $('select'+'#shift-'+employeeID).text('');
-           $('select'+'#shift-'+employeeID).html(data);
-          console.log(data);
-        }
-      });
-    });
+    
     // $('.shifts').change(function(){
     //   value = this.value;
     //   //alert(value);
@@ -889,6 +852,7 @@ $('.form-search .btn').on('click', function(e){
     //   $('.shifts').val(value).attr("selected", "selected");
     // });
   });
+  
 </script>
 
 
