@@ -45,7 +45,7 @@
 <link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
 <link href="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <script src="{{asset('js/jquery.min.js')}}"></script>
-  <script src="{{asset('js/jquery.validate.js')}}"></script>
+<script src="{{asset('js/jquery.validate.js')}}"></script>
  <script type="text/javascript">
 
     $(document).ready(function(){
@@ -75,222 +75,14 @@
 
 
     <div id="wrapper">
-        <!-- Top Navigation -->
-      <nav class="navbar navbar-default navbar-static-top m-b-0">
-      <!-- navbar-header -->
-        <div class="navbar-header">
-      <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+    <!-- Top Navigation -->
+     @include('includes.AdminTopNav')
+    <!-- End Top Navigation -->
 
-            <ul class="nav navbar-top-links navbar-left hidden-xs">
-              <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
-        </ul>
-
-            <ul class="nav navbar-top-links navbar-right pull-right">
-
-             <!-- Incident report -->
-         <li class="dropdown">
-           <a class="waves-effect waves-light" href="{{url('/IncidentReports')}}">
-           <span class="mytooltip tooltip-effect-7">
-                      <span class="tooltip-item">
-              <i class="fa fa-warning"></i>
-                <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-            </span>
-                      <span class="tooltip-table2 clearfix">
-                        <span class="tooltip-texth2">
-         Reports
-              </span>
-                      </span>
-                   </span>
-           </a>
-             </li>
-         <!-- Messages-->
-         <li class="dropdown">
-           <a class="waves-effect waves-light" href="{{url('/Messages')}}">
-           <span class="mytooltip tooltip-effect-7">
-                      <span class="tooltip-item">
-              <i class="icon-envelope"></i>
-                <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-            </span>
-                      <span class="tooltip-table2 clearfix">
-                        <span class="tooltip-texth2">
-              Messages
-              </span>
-                      </span>
-                   </span>
-           </a>
-             </li>
-
-         <!-- Announcements-->
-         <li class="dropdown">
-           <a class="waves-effect waves-light" href="{{url('/Announcements')}}">
-             <span class="mytooltip tooltip-effect-7">
-               <span class="tooltip-item">
-                 <i class="fa fa-bullhorn"></i>
-             </span>
-                        <span class="tooltip-table2 clearfix">
-                        <span class="tooltip-texth">
-              Announcements
-              </span>
-                        </span>
-                      </span>
-          </a>
-               </li>
-
-
-
-         <!-- Admin account-->
-               <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/users/admin.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Ernest</b> <small>(Admin)</small>  </a>
-                  <ul class="dropdown-menu dropdown-user animated flipInY">
-                      <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a href="#"><i class="ti-settings"></i> Account Setting</a> </li>
-                      <li role="separator" class="divider"></li>
-                      <li><a href="login.html"><i class="fa fa-power-off"></i> Logout</a></li>
-                  </ul>
-              </li>
-          </ul>
-
-       <!-- System logo-->
-           <div class="top-left-part"><a class="logo" href="Dashboard.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
-           </div>
-
-       </div>
-        <!-- /.navbar-header -->
-      </nav>
-      <!-- End Top Navigation -->
-
-       <!-- Left navbar-header -->
-      <div class="navbar-default sidebar" role="navigation">
-        <div class="sidebar-nav navbar-collapse" id="slimtest4">
-        <ul class="nav" id="side-menu">
-
-                      <li class="user-pro">
-                          <a href="#" class="waves-effect"><img src="plugins/images/LandingPage/JUCEBER.png" alt="user-img" class="img-circle"><span class="hide-menu text-white">Jubecer security</span>
-                          </a>
-                      </li>
-
-          <li> <a href="{{url('/Dashboard')}}" class="waves-effect"><i class="fa fa-dashboard fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Dashboard </span> </a>
-                </li>
-
-                <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-wrench fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Maintenance  <span class="fa arrow"></span></a>
-                  <ul class="nav nav-second-level">
-              <li> <a href="javascript:void(0)" class="waves-effect">Clients <span class="fa arrow"></span></a>
-                <ul class="nav nav-third-level">
-                    <li> <a href="{{url('/Nature')}}">Nature of business</a></li>
-                  <li> <a href="{{url('/Service')}}">Services</a> </li>
-
-                          </ul>
-                      </li>
-                      <li> <a href="javascript:void(0)" class="waves-effect">Security guards <span class="fa arrow"></span></a>
-                          <ul class="nav nav-third-level">
-
-                            <li> <a href="{{url('/License')}}">Licences and clearances</a> </li>
-                            <li> <a href="{{url('/Attribute')}}">Body attributes</a></li>
-                            <li> <a href="{{url('/Military')}}">Military services</a></li>
-                            <li> <a href="{{url('/Rank')}}">Rank</a></li>
-                            <li> <a href="{{url('/Requirement')}}">Requirements</a></li>
-                            <li> <a href="{{url('/Role')}}">Role</a></li>
-                            <li> <a href="{{url('/Leave')}}">Leave</a></li>
-                </ul>
-              </li>
-                      <li> <a href="javascript:void(0)" class="waves-effect">Others<span class="fa arrow"></span></a>
-                <ul class="nav nav-third-level">
-                  <li> <a href="{{url('/Measurement')}}">Measurements</a></li>
-                  <li> <a href="{{url('/Province')}}">Provinces</a></li>
-                  <li> <a href="{{url('/Area')}}">Area</a></li>
-                  <li> <a href="{{url('/GunType')}}">Gun Type</a></li>
-                  <li> <a href="{{url('/Gun')}}">Guns</a></li>
-                </ul>
-              </li>
-                  </ul>
-            </li>
-
-
-                  <li> <a href="javascript:void(0);" class="waves-effect active"><i class="fa fa-pencil-square-o fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Registration <span class="fa arrow"></span> </a>
-              <ul class="nav nav-second-level">
-                <li> <a href="{{url('/ClientsRegistration')}}" class="waves-effect active">Clients</a>
-                </li>
-                <li> <a href="{{url('/Guard-Registration')}}" class="waves-effect">Security guards</a>
-                </li>
-                    </ul>
-            </li>
-
-                <li><a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-exchange fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Deployment<span class="fa arrow"></span></a>
-              <ul class="nav nav-second-level">
-                <li> <a href="{{route('manual.deployment')}}" class="waves-effect">Deploy</a>
-                </li>
-                <li> <a href="{{url('/Replace')}}" class="waves-effect">Replace</a>
-                </li>
-                  <li> <a href="{{url('/Swap')}}" class="waves-effect">Swap</a>
-                </li>
-                  </ul>
-                </li>
-
-            <li><a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-users fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Clients <span class="fa arrow"></span></a>
-             <ul class="nav nav-second-level">
-               <li> <a href="{{url('/ActiveClient')}}" class="waves-effect">Active<span class="label label-rouded label-info pull-right">4</span></a>
-              </li>
-              <li> <a href="{{url('/PendingDeployment')}}" class="waves-effect">Pending request<span class="label label-rouded label-info pull-right">3</span></a>
-              </li>
-              <li> <a href="{{url('/ServiceRequest')}}" class="waves-effect">Client Requests<span class="label label-rouded label-info pull-right"><a href="javascript:void(0);" class="waves-effect"> </span></a>
-              </li>
-              <li> <a href="{{url('/GunRequest')}}" class="waves-effect">Gun Requests<span class="label label-rouded label-info pull-right"><a href="javascript:void(0);" class="waves-effect"> </span></a>
-              </li>
-
-             </ul>
-            </li>
-
-            <li> <a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-shield fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Security guards<span class="fa arrow"></span> </a>
-             <ul class="nav nav-second-level">
-              <li> <a href="{{url('/SecurityGuards')}}" class="waves-effect">Guards<span class="label label-rouded label-info pull-right"></span></a>
-              </li>
-              <li> <a href="{{url('/GuardLicenses')}}" class="waves-effect">Guard licenses<span class="label label-rouded label-info pull-right"></span></a>
-              </li>
-                <li> <a href="{{url('/GuardsDTR')}}" class="waves-effect">Guard's DTR</a>
-              </li>
-             </ul>
-            </li>
-
-            <li><a href="{{url('/Applicants')}}" class="waves-effect"><i class="icon-user-follow fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Applicants  </a>
-            </li>
-
-            <li><a href="javascript:void(0);" class="waves-effect"> <i class="fa fa-truck fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Delivery <span class="fa arrow"></span></a>
-              <ul class="nav nav-second-level">
-              <li> <a href="Deliverguns.html" class="waves-effect">Guns</a>
-              </li>
-              <li> <a href="{{url('/Ammunition')}}" class="waves-effect">Ammunitions</a>
-              </li>
-              <li> <a href="{{url('/Pickups')}}" class="waves-effect">Pickups</a>
-              </li>
-             </ul>
-            </li>
-
-
-
-            <li> <a href="{{url('/Reports')}}" class="waves-effect"><i class="fa fa-file-text fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Reports</span></a>
-            </li>
-
-            <li> <a href="#" class="waves-effect"><i class="fa fa-search fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Queries</span><span class="fa arrow"></span></a>
-              <ul class="nav nav-second-level">
-                <li> <a href="#" class="waves-effect">Clients</a>
-                </li>
-                <li> <a href="#" class="waves-effect">Security guards</a>
-                </li>
-                  <li> <a href="#" class="waves-effect">Recapitulation</a>
-                </li>
-                  </ul>
-            </li>
-
-
-            <li> <a href="#" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Utilities<span class="fa arrow"></span></span></a>
-            <ul class="nav nav-second-level">
-              <li><a href="#">Account settings</a></li>
-            </ul>
-            </li>
-            </ul>
-          </div>
-      </div>
+    <!-- Left navbar-header -->
+      @include('includes.AdminNavBar')
     <!-- Left navbar-header end -->
+
  <div id="page-wrapper">
     <div class="container-fluid">
       <div class="row bg-title">
@@ -340,34 +132,42 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="wizard-content">
               <div class="wizard-pane active" role="tabpanel">
-                <div class="form-group">
-                  <label class="col-xs-1 control-label">Client name</label>
+
+                    <div class="form-group">
+
+                    <label class="col-xs-3 control-label">Client Code</label>
                     <div class="col-xs-3">
-                      <input type="text" class="form-control name"  name="client_fname" placeholder="First Name" />
-                    </div>
-                    <div class="col-xs-3">
-                      <input type="text" class="form-control name"  name="client_mname" placeholder="Middle Name" />
-                    </div>
-                    <div class="col-xs-3">
-                      <input type="text" class="form-control name"  name="client_lname" placeholder="last Name" />
-                    </div>
-                    <label class="col-xs-1 control-label">Client Code</label>
-                    <div class="col-xs-3">
-                        <input type="text" class="form-control name"  name="client_code" value="{{$clcode}}"  disabled/>
+                        <input type="text" class="form-control name"  id="client_code" value="{{$clcode}}"  disabled/>
+
                     </div>
                     <label class="col-xs-1 control-label">Contract Code</label>
                     <div class="col-xs-3">
-                      <input type="text" class="form-control name"  name="contract_code" value="{{$cncode}}" disabled/>
+                      <input type="text" class="form-control name"  id="contract_code" value="{{$cncode}}" disabled/>
                     </div>
-                  </div>
 
+                </div>
+
+                <div class="form-group">
+                  <label class="col-xs-2 control-label">Client name</label>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control name "  id="client_fname" name="name" placeholder="First Name" />
+                    </div>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control name"  id="client_mname" placeholder="Middle Name" />
+                    </div>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control name"  id="client_lname" name="name" placeholder="last Name" />
+
+                    </div>
+
+                  </div>
                   <div class="form-group">
                     <label class="col-xs-2 control-label">Establishment name</label>
                       <div class="col-xs-6">
-                          <input type="text" class="form-control name" name="estab_name" />
+                          <input type="text" class="form-control name required" id="estab_name"  name="noblank">
                       </div>
                       <div class="col-xs-4">
-                          <select class="form-control" name="nature" id="nature" required>
+                          <select class="form-control" name="nature" id="nature" >
                             <option>Select Nature of Business</option>
                             @foreach($natures as $nature)
                               <option value="{{ $nature->id }}">{{ $nature->name }}</option>
@@ -381,10 +181,10 @@
                 <div class="form-group">
                   <label class="col-xs-1 control-label">Address</label>
                   <div class="col-xs-5">
-                      <input type="text" class="form-control name" placeholder="Street Address" name="street_add" />
+                      <input type="text" class="form-control name" placeholder="Street Address" id="street_add"  name="noblank" />
                   </div>
                   <div class="col-xs-3">
-                  <select class="form-control"  name="province" id="province">
+                  <select class="form-control"   name="noblank" id="province">
                     <option value="" disabled="" selected="">Select Province</option>
                     @foreach($provinces as $province )
                       <option value="{{$province->id}}">{{$province->name}}</option>
@@ -392,7 +192,7 @@
                   </select>
                   </div>
                   <div class="col-xs-3">
-                    <select class="form-control"  name="area" id="area">
+                    <select class="form-control"   name="noblank" id="area">
                       <option value="" disabled="" selected="">Select Area</option>
                     </select>
                   </div>
@@ -401,11 +201,11 @@
               <div class="form-group">
                 <label class="col-xs-2 control-label">Area Size (approx. in square meters)</label>
                   <div class="col-xs-4">
-                    <input type="text" class="form-control name" name="area_size"  />
+                    <input type="number" class="form-control name" id="area_size"  name="numonly" />
                   </div>
                 <label class="col-xs-2 control-label">Population (approx.)</label>
                 <div class="col-xs-4">
-                    <input type="text" class="form-control" name="population"  />
+                    <input type="number" class="form-control" id="population" name="numonly" />
                 </div>
               </div>
 
@@ -416,7 +216,7 @@
                                                     <div class="col-xs-3">
                                                     <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                                          <input type="number" class="form-control"  id="numonly" name="clientTelephone" maxlength="9" >
+                                          <input type="text" class="form-control"  id="clientTelephone" maxlength="9" name="numonly">
                                     </div>
                                     <span class="font-13 text-muted">ex. 1234567<span>
                                   </div>
@@ -424,7 +224,7 @@
                                                     <div class="col-xs-3">
                                                     <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
-                                        <input type="number" class="form-control"  id="numonly" name="clientCellphone" maxlength="11">
+                                        <input type="text" class="form-control"   id="clientCellphone" maxlength="11" name="numonly">
                                     </div>
                                     <span class="font-13 text-muted">ex. 09123456789<span>
                                   </div>
@@ -444,13 +244,13 @@
               <div class="form-group">
 
                   <div class="col-xs-4">
-                      <input type="text" class="form-control name"  name="firstName" placeholder="First Name" />
+                      <input type="text" class="form-control name"  name="name"  id="firstName" placeholder="First Name" />
                   </div>
                   <div class="col-xs-4">
-                      <input type="text" class="form-control name"  name="middleName" placeholder="Middle Name" />
+                      <input type="text" class="form-control name"  id="middleName" placeholder="Middle Name" />
                   </div>
                   <div class="col-xs-4">
-                      <input type="text" class="form-control name"  name="lastName" placeholder="Last Name" />
+                      <input type="text" class="form-control name" name="name"  id="lastName" placeholder="Last Name" />
                   </div>
 
               </div>
@@ -459,10 +259,10 @@
 
                 </div>
                 <div class="col-xs-4">
-                    <input type="number" class="form-control" name="pic_no" placeholder="Contact Number" />
+                    <input type="text" class="form-control" id="pic_no" placeholder="Contact Number" maxlength="11" name="numonly" />
                 </div>
                 <div class="col-xs-4">
-                    <input type="email" class="form-control" name="pic_email" placeholder="Email Address" />
+                    <input type="email" class="form-control" id="pic_email"   name="email" placeholder="Email Address" />
                 </div>
               </div>
               <hr>
@@ -476,7 +276,7 @@
                       <div class="form-group">
                         <label class="col-xs-2 control-label">Type of Service</label>
                         <div class="col-md-4">
-                          <select class="form-control"  name="service" id="service" onchange="getRate(this.value)" required>
+                          <select class="form-control"  name="service" id="service" onchange="getRate(this.value)" required >
                             <option value="" disabled="" selected="">Select Type of Service</option>
                             @foreach($services as $s )
                             <option value="{{$s->id}}">{{$s->name}}</option>
@@ -485,25 +285,25 @@
                         </div>
                         <label class="col-xs-2 control-label">Operating hours</label>
                          <div class="col-xs-4">
-                         <input id="tch1" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" name="operating_hrs" required>
+                         <input id="tch1" type="text" value=""  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" name="operating_hrs" required >
                         </div>
                       </div>
 
                       <div class="form-group">
                       <label class="col-xs-1 control-label">Span (months) </label>
                       <div class="col-xs-3">
-                        <input id="tch3" type="text" name="span_mo" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" required>
+                        <input id="tch3" type="text" name="span_mo" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" required >
                       </div>
                       <label class="col-xs-1 control-label">Starts from </label>
                        <div class="col-xs-3">
                           <div class="input-group">
-                            <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly required />
+                            <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy"  readonly required  />
                           </div>
                         </div>
                         <label class="col-xs-1 control-label"> Ends to </label>
                         <div class="col-xs-3">
                            <div class="input-group">
-                             <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control secondcal" id="secondcal" placeholder="yyyy/mm/dd" name="to" disabled required>
+                             <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control secondcal" id="secondcal" placeholder="yyyy/mm/dd"  disabled >
                            </div>
                          </div>
                     </div>
@@ -515,7 +315,7 @@
                       <label class="col-xs-2 control-label">Expected complete date</label>
                        <div class="col-xs-4">
                          <div class="input-group">
-                           <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control excom" placeholder="mm/dd/yyyy" name="exp_date" required />
+                           <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control excom" placeholder="mm/dd/yyyy" id="exp_date" readonly />
                          </div>
                       </div>
                     </div>
@@ -523,15 +323,15 @@
                       <label class="col-xs-2 control-label">Monthly CP</label>
                        <div class="col-xs-4">
                          <div class="input-group">
-                         <span class="input-group-addon">₱</span> <input id="mcp" type="number" class="form-control" min="0.01" step="0.01" value="1000.00" />
-                      
+                         <span class="input-group-addon">₱</span> <input id="mcp" type="number" class="form-control" min="0.01" step="0.01" value="1000.00"  name="noblank"/>
+
                       </div>
                          <span class="font-13 text-muted">per guard<span>
                              </div>
                       <label class="col-xs-2 control-label">Total payment</label>
                        <div class="col-xs-4">
      <div class="input-group">
-                         <span class="input-group-addon">₱</span> <input id="tp" type="number" class="form-control" min="0.01" step="0.01" />
+                         <span class="input-group-addon">₱</span> <input id="tp" type="number" class="form-control" min="0.01" step="0.01"  name="noblank" />
                       </div>
                       <span class="font-13 text-muted">per month<span>
                       </div>
@@ -570,18 +370,18 @@
                   <td id="data1">1</td>
                   <td>
         <div class="input-group" data-placement="left" data-align="top" data-autoclose="true">
-          <input type="time" class="form-control shiftstart" ><span class="input-group-addon">
+          <input type="time" class="form-control shiftstart" name="noblank" /><span class="input-group-addon"  >
             <span class="glyphicon glyphicon-time"></span></span></div>
 
           </td>
                   <td>
             <div class="input-group" data-placement="left" data-align="top" data-autoclose="true">
-              <input type="time" class="form-control shiftend" ><span class="input-group-addon">
+              <input type="time" class="form-control shiftend" name="noblank2"/><span class="input-group-addon"  >
                 <span class="glyphicon glyphicon-time"></span></span></div>
           </td>
+          <td>
+          </td>
 
-          </tr>
-          <tr>
 
           </tr>
 
@@ -603,7 +403,7 @@
                     </div>
                    <label class="col-xs-1 control-label">Age</label>
                       <div class="col-xs-4">
-                         <input type="number" class="form-control" id="pref_age">
+                         <input type="number" class="form-control" id="pref_age" name="noblank">
                     </div>
                   </div>
 
@@ -641,6 +441,7 @@
            </div>
          </br>
            <div class="form-group">
+            <div class="col-xs-3"></div>
               <div class="col-xs-6">
                 <center> <h4> <strong>Licences and clearances</strong></h4> </center>
                 <br>
@@ -656,6 +457,10 @@
                 </div>
               </div>
 
+            </div>
+
+            <div class="form-group">
+    <div class="col-xs-3"></div>
               <div class="col-xs-6">
                 <center> <h4> <strong>Requirements</strong></h4> </center>
                 <br>
@@ -670,7 +475,9 @@
                       @endforeach
                 </div>
               </div>
+
             </div>
+
               <br>
               <center> <h4> <strong>Notes</strong></h4> </center>
               <br>
@@ -678,13 +485,10 @@
         </div>
          <div class="wizard-pane" role="tabpanel">
           <div class="form-group">
-            <label class="control-label col-md-2">Username:</label>
+
+            <label for="password" class="col-md-4 control-label">Password</label>
             <div class="col-md-4">
-              <input type="text" name="username" id="username" class="form-control" >
-            </div>
-            <label for="password" class="col-md-2 control-label">Password</label>
-            <div class="col-md-4">
-              <input type="password" name="password" id="password" class="form-control">
+              <input type="text" name="password" id="password" class="form-control">
             </div>
           </div>
           </div>
@@ -725,7 +529,7 @@
                     </div>
                   <div class="col-md-12">
                       <label class="control-label  col-md-12">Quantity</label>
-                                   <input id="tch3" type="text" value="" name="tch3" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" required>
+                                   <input id="tch3" type="text" value="" name="tch3" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" >
                   </div>
                  </div>
                    <div class="help-block with-errors"></div>
@@ -809,11 +613,11 @@
               alert(typeof data);
             // console.log(data);
             $('#mcp').val(parseFloat(data));
-            
+
           }
         });
   }
- 
+
 
  $('.clockpicker').clockpicker({
     donetext: 'Done',
@@ -880,8 +684,8 @@
                           var guardnum = $('#tch4').val();
     var mcp = $('#mcp').val();
               var tp = guardnum * mcp;
- 
-              document.getElementById("tp").value = tp.toFixed(2); 
+
+              document.getElementById("tp").value = tp.toFixed(2);
 
             });
 
@@ -889,8 +693,8 @@ $('#mcp').keyup(function() {
                           var guardnum = $('#tch4').val();
     var mcp = $('#mcp').val();
               var tp = guardnum * mcp;
- 
-              document.getElementById("tp").value = tp.toFixed(2); 
+
+              document.getElementById("tp").value = tp.toFixed(2);
 });
 
      $("input[id='tch3']").TouchSpin({
@@ -938,7 +742,7 @@ $('#firstcal').removeAttr("disabled");
     ctr++;
 
     //build up the row we are wanting to add
-    var newRow = '<tr><td class="count"></td><<td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control shiftstart" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control shiftend" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+    var newRow = '<tr><td class="count"></td><<td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control shiftstart" name="noblank"><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control shiftend" name="noblank2" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
 
 
     //add it
@@ -978,83 +782,91 @@ $('#firstcal').removeAttr("disabled");
 
             $('#exampleValidator').wizard({
                 onInit: function(){
-                    $('#validation').formValidation({
-                        framework: 'bootstrap',
-                        fields: {
-                name: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
-                  stringLength: {
-                                        min: 2,
-                                        message: '2 or more characters only'
-                                    },
-                  regexp: {
-                                            regexp: /^[a-zA-Z\s,-.]+$/,
-                                        message: 'Invalid characters'
-                                    }
-                                }
-                            },
-                            noblank: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
+                  $('#validation').formValidation({
+                      framework: 'bootstrap',
+                      fields: {
+            name: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'This field  is required'
+                                  },
+                stringLength: {
+                                      min: 2,
+                                      message: '2 or more characters only'
+                                  },
+                regexp: {
+                                          regexp: /^[a-zA-Z\s,-.]+$/,
+                                      message: 'Invalid characters'
+                                  }
+                              }
+                          },
+                          noblank: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'This field  is required'
+                                  },
 
-                                }
-                            },
-                            req: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
+                              }
+                          },
+                          noblank2: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'This field  is required'
+                                  },
 
-                                }
-                            },
-                            bday: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
+                              }
+                          },
+                          req: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'This field  is required'
+                                  },
 
-                                }
-                            },
-                            email: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'The email address is required'
-                                    },
-                                    emailAddress: {
-                                        message: 'The input is not a valid email address'
-                                    }
-                                }
-                            },
-                                numonly: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'This field  is required'
-                                    },
+                              }
+                          },
+                          bday: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'This field  is required'
+                                  },
 
-                                    regexp: {
-                                            regexp: /^[0-9]/,
-                                        message: 'Numbers only'
-                                    }
-                                }
-                            },
-                            password: {
-                                validators: {
-                                    notEmpty: {
-                                        message: 'The password is required'
-                                    },
-                                    different: {
-                                        field: 'username',
-                                        message: 'The password cannot be the same as username'
-                                    }
-                                }
-                            }
-                        }
-                    });
+                              }
+                          },
+                          email: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'The email address is required'
+                                  },
+                                  emailAddress: {
+                                      message: 'The input is not a valid email address'
+                                  }
+                              }
+                          },
+                              numonly: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'This field  is required'
+                                  },
+
+                                  regexp: {
+                                          regexp: /^[0-9]/,
+                                      message: 'Numbers only'
+                                  }
+                              }
+                          },
+                          password: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'The password is required'
+                                  },
+                                  different: {
+                                      field: 'username',
+                                      message: 'The password cannot be the same as username'
+                                  }
+                              }
+                          }
+                      }
+                  });
                 },
                 validator: function(){
                     var fv = $('#validation').data('formValidation');
@@ -1103,31 +915,31 @@ $('#firstcal').removeAttr("disabled");
                     url: '/ClientRegistration-Save',
                     data: {
                         '_token': $('input[name=_token]').val(),
-                        client_fname:$('input[name=client_fname]').val(),
-                        client_mname:$('input[name=client_mname]').val(),
-                        client_lname:$('input[name=client_lname]').val(),
-                        client_code:$('input[name=client_code]').val(),
+                        client_fname:$('#client_fname').val(),
+                        client_mname:$('#client_mname').val(),
+                        client_lname:$('#client_lname').val(),
+                        client_code:$('#client_code').val(),
                         client_email:$('#clientEmail').val(),
-                        client_telephone:$('input[name=clientTelephone]').val(),
-                        client_cellphone:$('input[name=clientCellphone]').val(),
-                        contract_code:$('input[name=contract_code]').val(),
-                        estab_name:$('input[name=estab_name]').val(),
+                        client_telephone:$('#clientTelephone').val(),
+                        client_cellphone:$('#clientCellphone').val(),
+                        contract_code:$('#contract_code').val(),
+                        estab_name:$('#estab_name').val(),
                         nature:$('#nature').val(),
-                        street_add:$('input[name=street_add]').val(),
+                        street_add:$('#street_add').val(),
                         area:$('#area').val(),
                         province:$('#province').val(),
-                        area_size:$('input[name=area_size]').val(),
-                        population:$('input[name=population]').val(),
-                        firstName:$('input[name=firstName]').val(),
-                        middleName:$('input[name=middleName]').val(),
-                        lastName:$('input[name=lastName]').val(),
-                        pic_no:$('input[name=pic_no]').val(),
-                        pic_email:$('input[name=pic_email]').val(),
+                        area_size:$('#area_size').val(),
+                        population:$('#population').val(),
+                        firstName:$('#firstName').val(),
+                        middleName:$('#middleName').val(),
+                        lastName:$('#lastName').val(),
+                        pic_no:$('#pic_no').val(),
+                        pic_email:$('#pic_email').val(),
                         service:$('#service').val(),
-                        no_guards:$('input[name=no_guards]').val(),
-                        span_mo:$('input[name=span_mo]').val(),
-                        from:$('input[name=from]').val(),
-                        to:$('input[name=to]').val(),
+                        no_guards:$('#tch4').val(),
+                        span_mo:$('#tch3').val(),
+                        from:$('#firstcal').val(),
+                        to:$('#secondcal').val(),
                         client_username:$('input[name=username]').val(),
                         client_password:$('input[name=password]').val(),
                         allend:allend,
@@ -1138,7 +950,7 @@ $('#firstcal').removeAttr("disabled");
                         prefBody:allAttrib,
                         prefLicense:allLicense,
                         prefReq:allReq,
-                        exp_date:$('input[name=exp_date]').val(),
+                        exp_date:$('#exp_date').val(),
                         operating_hrs:$('input[name=operating_hrs]').val(),
                         mcp:$('#mcp').val(),
                         tp:$('#tp').val()
@@ -1175,46 +987,7 @@ $("#txtArea").on("keypress",function(e) {
     }
 });
 
-            $(document).ready(function(){
-                // Basic
-                $('.dropify').dropify();
 
-                // Translated
-                $('.dropify-fr').dropify({
-                    messages: {
-              default: 'Drag and drop or click to insert picture',
-              replace: 'Drag and drop or click to replace picture',
-                        remove:  'Remove',
-                        error:   'Please upload a 2x2 picture'
-                    }
-                });
-
-                // Used events
-                var drEvent = $('#input-file-events').dropify();
-
-                drEvent.on('dropify.beforeClear', function(event, element){
-                    return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-                });
-
-                drEvent.on('dropify.afterClear', function(event, element){
-                    alert('File deleted');
-                });
-
-                drEvent.on('dropify.errors', function(event, element){
-                    console.log('Has Errors');
-                });
-
-                var drDestroy = $('#input-file-to-destroy').dropify();
-                drDestroy = drDestroy.data('dropify')
-                $('#toggleDropify').on('click', function(e){
-                    e.preventDefault();
-                    if (drDestroy.isDropified()) {
-                        drDestroy.destroy();
-                    } else {
-                        drDestroy.init();
-                    }
-                })
-            });
         </script>
 </body>
 </html>

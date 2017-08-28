@@ -45,7 +45,17 @@
 
 <link href="plugins/bower_components/owl.carousel/owl.carousel.min.css" rel="stylesheet" type="text/css" />
 <link href="plugins/bower_components/owl.carousel/owl.theme.default.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="plugins/bower_components/dropify/dist/css/dropify.min.css">
+<link rel="stylesheet" href="plugins/bower_components/dropify/dist/css/dropify.min.css">
+
+<!-- Date picker plugins css -->
+<link href="plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+<link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+
+<!-- Daterange picker plugins css -->
+<link href="plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+<link href="plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
   <script src="{{asset('js/jquery.min.js')}}"></script>
   <script src="{{asset('js/jquery.validate.js')}}"></script>
   </head>
@@ -135,22 +145,16 @@
            <li class="dropdown">
              <a class="waves-effect waves-light" data-toggle="dropdown" href="#">
                    <i class="fa fa-bell"></i>
+                   <div class="notify notifs"></div>
             </a>
             <ul class="dropdown-menu mailbox animated bounceInDown">
            <li>
              <div class="drop-title">4 new notifications</div>
            </li>
            <li>
-             <div class="message-center"> <a href="#">
-               <div class="user-img"> <img src="plugins\images\Clients\Active\luigi.jpg" alt="user" class="img-circle"> </div>
-               <div class="mail-contnet">
-                 <h5>Luigi Lacsina</h5>
-                 <span class="mail-desc">Additional guards request</span> <span class="time">9:30 AM</span> </div>
-               </a> <a href="#">
-               <div class="user-img"> <img src="plugins\images\Clients\Active\evander.jpg"alt="user" class="img-circle">  </div>
-               <div class="mail-contnet">
-                 <h5>Evander</h5>
-                 <span class="mail-desc">Rejected guards  </span> <span class="time">9:10 AM</span> </div>
+             <div class="message-center inner">
+
+             </div>
            </li>
            <li> <a class="text-center" href="{{url('/Notifications')}}"> <strong>See all notifications</strong> <i class="fa fa-angle-right"></i> </a></li>
          </ul>
@@ -382,6 +386,47 @@ console.log(query);
            });
        });
  </script>
+ <script type="text/javascript">
+    
+    window.onload = function() {
+      var d = new Date();
+      var day = d.getDate();
+      if (day===13||day===27) {
+        $( ".notifs" ).append("<span class='heartbit'></span><span class='point'></span>");
+        $( ".inner" ).append( "<a href='#'><div class='user-img'> <img src='plugins\\images\\Clients\\Active\\evander.jpg' alt='user' class='img-circle'>  </div><div class='mail-contnet'><h5>SYSTEM</h5><span class='mail-desc'>Billing Period on going</span> <span class='time'>9:10 AM</span> </div> </a>" );
+        var today = new Date();
+        var mm = today.getMonth()+1;
+        day = day + 3;
+        if(day<10) {
+          day = '0'+dd
+        } 
+      
+        if(mm<10) {
+            mm = '0'+mm
+        } 
+        var date = today.getFullYear()+'-'+mm+'-'+day;
+        $.ajaxSetup({
+          headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }); 
+        $.ajax({
+          type: 'post',
+          url: '/Billing-Start',
+          data: {
+              'id':date,
+          },
+          success: function(data){
+              if(data!==null&&data!==""){
+                alert(data);
+              }
+          }
+        });
+      
+      } 
+      
+    };
+  </script>
  @yield('script')
  @yield('modals')
 </body>

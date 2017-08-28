@@ -243,7 +243,72 @@
             </div>
             <input type="hidden" id="client_notif_id" value="{{$client_notif_id}}">
     
+            <div class="col-lg-12	">
 
+      <div class="white-box">
+         
+        <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+          <thead>
+            <tr>
+              <th width="150px">Reciept Number</th>
+              <th>Status</th>
+              <th>Contract Code</th>
+              <th>Service period</th>
+              <th>Due date</th>
+              <th data-sort-ignore="true" width="280px">Actions</th>
+            </tr>
+          </thead>
+            <div class="form-inline padding-bottom-15">
+              <div class="row">
+        <div class="col-sm-6">
+        </div>
+                  <div class="col-sm-6 text-right m-b-20">
+                  <div class="form-group">
+                      <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+            autocomplete="off">
+         </div>
+                   </div>
+               </div>
+            </div>
+          <tbody>
+                      @foreach($all as $a)
+                      <tr>
+                          <td>{{$a->intid}}</td>
+                          <td>
+                            @if($a->strStatus==="sent")
+                            <span class="label label-rouded label-info">SOA SENT</span>
+                            @elseif($a->strStatus==="paid")
+                            <span class="label label-rouded label-success">Paid</span>
+                            @else
+                            <span class="label label-rouded label-danger">{{$a->strStatus}}</span>
+                            @endif
+                          </td>
+                          <td>{{$a->strContractId}}</td>
+                          <td>{{$a->dateFrom}} - {{$a->strbillingId}}</td>
+                          <td>{{$a->strbillingId}}</td>
+                          <td>
+                             <button class="btn btn-success"  onclick="fun_download({{$a->intid}})" ><i class="ti-receipt"></i> Download SOA</button>
+                              
+                          </td>
+                      </tr>
+                      @endforeach
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6"></td>
+            </tr>
+          </tfoot>
+      </table>
+
+        <div class="text-right">
+          <ul class="pagination">
+          </ul>
+        </div>
+
+          </div>
+
+
+         </div>
 
      </div>
 
@@ -327,7 +392,26 @@
     
   </script>
 
-
+  <script>
+    function fun_download(id) {
+      $.ajaxSetup({
+        headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+    }); 
+    $.ajax({
+      type: 'post',
+      url: '/Client-download-soa',
+      data: {
+          'id':id,
+      },
+      success: function(data){
+        var ur = '/SOA/'+data.con+'/'+data.col+'/'+data.cli+'/'+data.diff+'/'+data.date+'/'+data.date1+'/'+data.date2;
+        window.open(ur,"_blank");
+      }
+    });
+    }
+  </script>
  @endsection
 <!-- @section('adminPic')
           src = "uploads/{{$clientPicture}}"

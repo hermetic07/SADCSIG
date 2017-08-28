@@ -22,21 +22,13 @@
           <div class="col-lg-12	">
 
       <div class="white-box">
-          <div class="pd-agent-info text-center">
-                                <a href="javascript:void(0)"><img alt="img" class="thumb-lg img-circle" src="plugins/images/Clients/Active/chris.jpg"></a>
-                                <h4>Chris jerico albino</h4>
-                                <h6>Client's name</h6> </div>
-									   
-                            <hr class="m-0">
-                            <div class="pd-agent-contact text-center"> <i class="fa fa-phone text-danger" aria-hidden="true"></i> 123456789
-                                <br> <i class="fa fa-envelope-o text-danger p-r-10 m-t-10" aria-hidden="true"></i> email@gmail.com 
-								</br> </div>
+         
         <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
           <thead>
             <tr>
-            <th>Contract code</th>
-               <th>Status</th>
-              <th>Establishment name</th>
+              <th width="150px">Reciept Number</th>
+              <th>Status</th>
+              <th>Contract Code</th>
               <th>Service period</th>
               <th>Due date</th>
               <th data-sort-ignore="true" width="280px">Actions</th>
@@ -55,56 +47,27 @@
                </div>
             </div>
           <tbody>
-                        <tr>
-                          <td>CONTRACTz0</td>
-                          <td><span class="label label-rouded label-info">SOA sent</span></td>
-                          <td>PUP</td>
-                          <td>March 01 - 15 2017 </td>
-                          <td>March 15 2017</td>
-                          <td>
-                             <button class="btn btn-success"  onclick=" window.open('{{url('/SOA')}}','_blank')" ><i class="ti-receipt"></i> View SOA</button>
-                  <button class="btn  btn-info"  data-toggle="modal" data-target="#Pay"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-list"></i> View details</button>
-
-                          </td>
-                      </tr>
-                        <tr>
-                          <td>CONTRACTz1</td>
-                          <td><span class="label label-rouded label-success">Paid</span></td>
-                          <td>PUP</td>
-                          <td>March 01 - 15 2017 </td>
-                          <td>March 15 2017</td>
-                          <td>
-                             <button class="btn  btn-success"  onclick=" window.open('{{url('/SOA')}}','_blank')" ><i class="ti-receipt"></i> View SOA</button>
-                  <button class="btn btn-info"  data-toggle="modal" data-target="#Paid"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-list"></i> View details</button>
-
-                          </td>
-                      </tr>
+                      @foreach($all as $a)
                       <tr>
-                          <td>CONTRACTz0</td>
-                          <td><span class="label label-rouded label-warning">send SOA</span></td>
-                          <td>PUP</td>
-                          <td>March 01 - 15 2017 </td>
-                          <td>March 15 2017</td>
+                          <td>{{$a->intid}}</td>
+                          <td>
+                            @if($a->strStatus==="sent")
+                            <span class="label label-rouded label-info">SOA SENT</span>
+                            @elseif($a->strStatus==="paid")
+                            <span class="label label-rouded label-success">Paid</span>
+                            @else
+                            <span class="label label-rouded label-danger">{{$a->strStatus}}</span>
+                            @endif
+                          </td>
+                          <td>{{$a->strContractId}}</td>
+                          <td>{{$a->dateFrom}} - {{$a->strbillingId}}</td>
+                          <td>{{$a->strbillingId}}</td>
                           <td>
                              <button class="btn btn-success"  onclick=" window.open('{{url('/SOA')}}','_blank')" ><i class="ti-receipt"></i> View SOA</button>
-                  <button class="btn btn-info" ><i class="fa fa-send"></i> Send SOA</button>
-
+                              <button class="btn  btn-info" onclick="fun_view({{$a->intid}})"   type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-list"></i> View details</button>
                           </td>
                       </tr>
-                                   <tr>
-                          <td>CONTRACTz0</td>
-                          <td><span class="label label-rouded label-danger">Penalize</span></td>
-                          <td>PUP</td>
-                          <td>March 01 - 15 2017 </td>
-                          <td>March 15 2017</td>
-                          <td>
-                             <button class="btn btn-success"  onclick=" window.open('{{url('/SOA')}}','_blank')" ><i class="ti-receipt"></i> View SOA</button>
-                  <button class="btn btn-info"  data-toggle="modal" data-target="#Pay"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-list"></i> View details</button>
-
-                          </td>
-                      </tr>
-
-
+                      @endforeach
           </tbody>
           <tfoot>
             <tr>
@@ -137,23 +100,25 @@
               <div class="row">
                                   <div class="form-group col-sm-6">
                   <label class="control-label">Total number of guards</label>
-                       <p class="form-control-static">2</p>
+                       <p class="form-control-static" id="guards"></p>
                   <div class="help-block with-errors"></div>
                </div>
                                                  <div class="form-group col-sm-6">
                   <label class="control-label">Total amount to pay</label>
-                       <p class="form-control-static">1000.00</p>
+                       <p class="form-control-static" id="amount"></p>
                   <div class="help-block with-errors"></div>
                </div>
 
                             <div class="form-group col-sm-6">
                   <label class="control-label">Payment date</label>
-                        <input type="text" class="form-control" required>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="yyyy/mm/dd" name="from"  required />
+                  </div>
                   <div class="help-block with-errors"></div>
                </div>
                         <div class="form-group col-sm-6">
                   <label class="control-label">Official receipt number</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control" id="receipt" disabled>
                   <div class="help-block with-errors"></div>
                </div>
 
@@ -163,7 +128,7 @@
         </div>
          <div class="modal-footer">
           <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-info waves-effect waves-light" >Submit</button>
+          <button type="button" onclick="fun_paid()" class="btn btn-info waves-effect waves-light" >Submit</button>
          </div>
         </form>
               </div>
@@ -192,8 +157,8 @@
                   <div class="help-block with-errors"></div>
                </div>
                                                  <div class="form-group col-sm-6">
-                  <label class="control-label">Total amount to pay</label>
-                       <p class="form-control-static">1000.00</p>
+                  <label class="control-label">Total amount paid</label>
+                       <p class="form-control-static" >1000.00</p>
                   <div class="help-block with-errors"></div>
                </div>
 
@@ -224,4 +189,61 @@
         </div>
 <!-- /Paid -->
  </div>
+<script>
+ $(function() {
+
+
+     $(".firstcal").datepicker({
+         dateFormat: "yy-mm-dd",
+         
+     });
+     
+ });
+  </script>
+  <script>
+    function fun_view(id) {
+      $.ajaxSetup({
+            headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+        }); 
+        $.ajax({
+          type: 'post',
+          url: '/GetPaymentInfo',
+          data: {
+              'id':id,
+          },
+          success: function(data){
+            $( "#receipt" ).val(id);
+
+            $( "#guards" ).html(data.guards);
+            $( "#amount" ).html(data.amount);
+            $('#Pay').modal('show');
+          }
+        });
+    }
+
+    function fun_paid() {
+      $.ajaxSetup({
+            headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+        }); 
+        $.ajax({
+          type: 'post',
+          url: '/PaymentPaid',
+          data: {
+              'id': $( "#receipt" ).val(),
+              'date':$( "#firstcal" ).val(),
+          },
+          success: function(data){
+            
+            alert(data);
+            if(data==="Billing mark as paid"){
+              location.reload();
+            }
+          }
+        });
+    }
+  </script>
   @endsection

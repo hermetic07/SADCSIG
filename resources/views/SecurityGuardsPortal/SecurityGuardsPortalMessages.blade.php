@@ -9,7 +9,7 @@
 
 
 
-<!-- /.row -->    
+<!-- /.row -->
 <div class="row">
   <div class="col-lg-12	">
     <div class="white-box">
@@ -40,7 +40,7 @@
               </div>
             </div>
           </div>
-          
+
           <tbody>
             @foreach($acceptedGuards as $acceptedGuard)
               @if($acceptedGuard->guard_id == $employee->id)
@@ -60,7 +60,7 @@
                           </div>
                         </div>
                       </div>
-                      <span class="label label-table label-danger">Agency</span> 
+                      <span class="label label-table label-danger">Agency</span>
                     </center>
                   </td>
                   <td>Ernest john maskarino</td>
@@ -70,7 +70,7 @@
                     <button disabled type="button" value="{{$acceptedGuard->guard_id}},{{$acceptedGuard->client_deployment_notif_id}}" class="btn btn-info btn-circle view" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
                   </td>
                 </tr>
-                  
+
                 @elseif($acceptedGuard->guard_reponse == "reject")
                   <tr>
                     <td>
@@ -87,7 +87,7 @@
                             </div>
                           </div>
                         </div>
-                        <span class="label label-table label-danger">Agency</span> 
+                        <span class="label label-table label-danger">Agency</span>
                       </center>
                     </td>
                     <td>Ernest john maskarino</td>
@@ -113,7 +113,7 @@
                           </div>
                         </div>
                       </div>
-                      <span class="label label-table label-danger">Agency</span> 
+                      <span class="label label-table label-danger">Agency</span>
                     </center>
                   </td>
                   <td>Ernest john maskarino</td>
@@ -126,7 +126,7 @@
                 @endif
               @endif
             @endforeach
-            
+
             </tbody>
             <tfoot>
                <tr>
@@ -134,7 +134,7 @@
                </tr>
             </tfoot>
           </table>
-          
+
            <div class="text-right">
              <ul class="pagination">
              </ul>
@@ -164,7 +164,7 @@
                      </div>
                    </div>
                  </div>
-                 
+
                  <tbody>
                    @foreach($reliever as $r)
                    <tr>
@@ -178,7 +178,7 @@
                      @endif
                    </tr>
                    @endforeach
-                   
+
                  </tbody>
                  <tfoot>
                   <tr>
@@ -186,12 +186,12 @@
                   </tr>
                  </tfoot>
                  </table>
-                 
+
                   <div class="text-right">
                     <ul class="pagination">
                     </ul>
                   </div>
-       
+
                     </div>
 
           </div>
@@ -205,7 +205,7 @@
         <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Message</strong></center></h4>
       </div>
       <div class="modal-body">
-                  
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
@@ -224,7 +224,7 @@
       </div>
       <div class="modal-body text-center">
           <div class="row" id="image">
-            
+
           </div>
           <div class="row" >
             <h3 id="guard"></h3>
@@ -289,14 +289,14 @@ function reject(e)
       type : 'POST',
       data : {reason:inputValue,secuID:secuID,deployment_notif_id:deployment_notif_id},
       success: function(data){
-        
-        
-        console.log(data);
+
+
+    
         swal("Thank you!", "Your reason: " + inputValue, "success");
         location.reload();
       }
     });
-    
+
   });
 
 }
@@ -310,9 +310,9 @@ function reject(e)
     });
   $(document).ready(function(){
 
-      
+
     $('.view').on('click',function(){
-      
+
       secuID = this.value.split(",")[0];
       deployment_notif_id = this.value.split(",")[1];
       //alert(secuID+","+deployment_notif_id);
@@ -332,8 +332,8 @@ function reject(e)
 </script>
 
 <script>
-  function fun_view(id) 
-  { 
+  function fun_view(id)
+  {
     $.ajaxSetup({
        headers: {
          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -355,7 +355,7 @@ function reject(e)
         $("#end").html(data.end);
       }
     });
-    $('#leave').modal('show');  
+    $('#leave').modal('show');
   }
    function fun_reject(id)
   {
@@ -364,7 +364,7 @@ function reject(e)
              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
       });
-  
+
       $.ajax({
         type: 'post',
         url: '/Admin-Leave-Reject',
@@ -382,7 +382,7 @@ function reject(e)
         }
       });
   }
-  function fun_accept(id) 
+  function fun_accept(id)
   {
     $.ajaxSetup({
        headers: {
