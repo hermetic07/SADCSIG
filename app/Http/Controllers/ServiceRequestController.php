@@ -159,7 +159,7 @@ class ServiceRequestController extends Controller
         $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
         $establishment_id = 'ESTAB-NEW'.Establishments::get()->count();
 
-        Contracts::create(['id'=>$request->contract_code,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'guardDeployed'=>'0','status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$establishment_id]);
+        Contracts::create(['id'=>$request->contract_code,'strEstablishmentID'=>$establishment_id,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'guardDeployed'=>'0','status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'monthlyCP'=>$request->mcp,'totalPayment'=>$request->tp]);
 
         $contracts = Contracts::latest('created_at')->get();
 
@@ -286,7 +286,7 @@ class ServiceRequestController extends Controller
         $parse_exp_date = explode('/',$request->exp_date);
         $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
 
-        Contracts::create(['id'=>$request->contract_code,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'guardDeployed'=>'0','status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'strEstablishmentID'=>$request->estabID]);
+        Contracts::create(['id'=>$request->contract_code,'strEstablishmentID'=>$request->estabID,'establishment_name'=>$request->estab_name,'services_id'=>$request->service,'address'=>$request->street_add,'areas_id'=>$request->area,'guard_count'=>$request->no_guards,'guardDeployed'=>'0','status'=>"pending",'year_span'=>$request->span_mo,'start_date'=>$startDate,'end_date'=>$endDate,'exp_date'=>$exp_date,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'monthlyCP'=>$request->mcp,'totalPayment'=>$request->tp]);
 
         ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
 

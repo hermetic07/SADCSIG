@@ -460,7 +460,7 @@
                       <div class="form-group">
                         <label class="col-xs-2 control-label">Type of Service</label>
                         <div class="col-md-4">
-                          <select class="form-control"  name="service" id="service">
+                          <select class="form-control"  name="service" id="service" onchange="getRate(this.value)" required>
                             <option value="" disabled="" selected="">Select Type of Service</option>
                             @foreach($services as $s )
                             <option value="{{$s->id}}">{{$s->name}}</option>
@@ -469,38 +469,55 @@
                         </div>
                         <label class="col-xs-2 control-label">Operating hours</label>
                          <div class="col-xs-4">
-                         <input id="tch1" type="text" value="{{$establishment->operating_hrs}}"  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" name="operating_hrs" disabled>
+                         <input id="tch1" type="text" value="{{$establishment->operating_hrs}}"  data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" name="operating_hrs" required disabled>
                         </div>
                       </div>
 
                       <div class="form-group">
                       <label class="col-xs-1 control-label">Span (months) </label>
                       <div class="col-xs-3">
-                        <input id="tch3" type="text" name="span_mo" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
+                        <input id="tch3" type="text" name="span_mo" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" required>
                       </div>
                       <label class="col-xs-1 control-label">Starts from </label>
                        <div class="col-xs-3">
                           <div class="input-group">
-                            <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly/>
+                            <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"   readonly required />
                           </div>
                         </div>
                         <label class="col-xs-1 control-label"> Ends to </label>
                         <div class="col-xs-3">
                            <div class="input-group">
-                             <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control secondcal" id="secondcal" placeholder="yyyy/mm/dd" name="to" disabled>
+                             <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control secondcal" id="secondcal" placeholder="yyyy/mm/dd" name="to" disabled required>
                            </div>
                          </div>
                     </div>
                     <div class="form-group">
                       <label class="col-xs-2 control-label">Number of guards needed</label>
                        <div class="col-xs-4">
-                       <input id="tch4" type="text" value="" name="no_guards" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline">
+                       <input id="tch4" type="text" name="no_guards" data-bts-button-down-class="btn btn-default btn-outline" data-bts-button-up-class="btn btn-default btn-outline" required>
                       </div>
                       <label class="col-xs-2 control-label">Expected complete date</label>
                        <div class="col-xs-4">
                          <div class="input-group">
-                           <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control excom" placeholder="mm/dd/yyyy" name="exp_date" />
+                           <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control excom" placeholder="mm/dd/yyyy" name="exp_date" required />
                          </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-xs-2 control-label">Monthly CP</label>
+                       <div class="col-xs-4">
+                         <div class="input-group">
+                         <span class="input-group-addon">₱</span> <input id="mcp" type="number" class="form-control" min="0.01" step="0.01" value="1000.00" />
+                      
+                      </div>
+                         <span class="font-13 text-muted">per guard<span>
+                             </div>
+                      <label class="col-xs-2 control-label">Total payment</label>
+                       <div class="col-xs-4">
+     <div class="input-group">
+                         <span class="input-group-addon">₱</span> <input id="tp" type="number" class="form-control" min="0.01" step="0.01" />
+                      </div>
+                      <span class="font-13 text-muted">per month<span>
                       </div>
                     </div>
                   </div>
@@ -755,6 +772,21 @@
 
  <script>
 
+function getRate(id){
+    //alert(id);
+    $.ajax({
+          url : "{{route('getservrate')}}",
+          type : 'GET',
+          data : {serviceID:id},
+          success : function(data){
+              alert(typeof data);
+            // console.log(data);
+            $('#mcp').val(parseFloat(data));
+            
+          }
+        });
+  }
+
  $('.clockpicker').clockpicker({
     donetext: 'Done',
 
@@ -764,6 +796,8 @@
 });
 
  $(function() {
+
+
      $(".firstcal").datepicker({
          dateFormat: "mm/dd/yy",
          onSelect: function(dateText, instance) {
@@ -794,6 +828,8 @@
   $('.firstcal').attr("disabled", "disabled")
    //Scrollbar
     jQuery(document).ready(function() {
+          var guardnum = $('#tch4').val();
+    var mcp = $('#mcp').val();
       $("input[id='tch1']").TouchSpin({
                  min: 1  ,
                  max: 24,
@@ -806,12 +842,29 @@
                         stepinterval: 50,
                         maxboostedstep: 10000000,
                     });
-                    $("input[id='tch4']").TouchSpin({
-                               min: 1  ,
-                               max: 1000000000,
-                               stepinterval: 50,
-                               maxboostedstep: 10000000,
-                           });
+
+     $("input[id='tch4']").TouchSpin({
+                min: 1  ,
+                max: 1000000000,
+                stepinterval: 50,
+                maxboostedstep: 10000000,
+            }).on('change', function () {
+                          var guardnum = $('#tch4').val();
+    var mcp = $('#mcp').val();
+              var tp = guardnum * mcp;
+ 
+              document.getElementById("tp").value = tp.toFixed(2); 
+
+            });
+
+$('#mcp').keyup(function() {
+                          var guardnum = $('#tch4').val();
+    var mcp = $('#mcp').val();
+              var tp = guardnum * mcp;
+ 
+              document.getElementById("tp").value = tp.toFixed(2); 
+});
+
      $("input[id='tch3']").TouchSpin({
                 min: 1  ,
                 max: 1000000000,
@@ -1022,14 +1075,15 @@ $('#firstcal').removeAttr("disabled");
                     url: "{{route('newcontract.existing.save')}}",
                     data: {
                         '_token': $('input[name=_token]').val(),
-                        client_name:$('input[name=client_name]').val(),
+                        client_fname:$('input[name=client_fname]').val(),
+                        client_mname:$('input[name=client_mname]').val(),
+                        client_lname:$('input[name=client_lname]').val(),
                         client_code:$('input[name=client_code]').val(),
                         client_email:$('#clientEmail').val(),
                         client_telephone:$('input[name=clientTelephone]').val(),
                         client_cellphone:$('input[name=clientCellphone]').val(),
                         contract_code:$('input[name=contract_code]').val(),
                         estab_name:$('input[name=estab_name]').val(),
-                        estabID:$('input[name=estabID]').val(),
                         nature:$('#nature').val(),
                         street_add:$('input[name=street_add]').val(),
                         area:$('#area').attr('name'),
@@ -1056,7 +1110,11 @@ $('#firstcal').removeAttr("disabled");
                         prefBody:allAttrib,
                         prefLicense:allLicense,
                         prefReq:allReq,
-                        exp_date:$('input[name=exp_date]').val()
+                        exp_date:$('input[name=exp_date]').val(),
+                        estabID:$('input[name=estabID]').val(),
+                        operating_hrs:$('input[name=operating_hrs]').val(),
+                        mcp:$('#mcp').val(),
+                        tp:$('#tp').val()
                     },
                     success: function(data){
                       if(data==="Success")
