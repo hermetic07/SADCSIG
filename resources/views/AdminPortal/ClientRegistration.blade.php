@@ -216,7 +216,7 @@
                                                     <div class="col-xs-3">
                                                     <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                                          <input type="text" class="form-control"  id="clientTelephone" maxlength="9" name="numonly">
+                                          <input type="text" class="form-control"  id="clientTelephone" maxlength="11" name="tele">
                                     </div>
                                     <span class="font-13 text-muted">ex. 1234567<span>
                                   </div>
@@ -224,7 +224,7 @@
                                                     <div class="col-xs-3">
                                                     <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
-                                        <input type="text" class="form-control"   id="clientCellphone" maxlength="11" name="numonly">
+                                        <input type="text" class="form-control"   id="clientCellphone" maxlength="11" name="cp">
                                     </div>
                                     <span class="font-13 text-muted">ex. 09123456789<span>
                                   </div>
@@ -259,7 +259,7 @@
 
                 </div>
                 <div class="col-xs-4">
-                    <input type="text" class="form-control" id="pic_no" placeholder="Contact Number" maxlength="11" name="numonly" />
+                    <input type="text" class="form-control" id="pic_no" placeholder="Contact Number" maxlength="11" name="cp" />
                 </div>
                 <div class="col-xs-4">
                     <input type="email" class="form-control" id="pic_email"   name="email" placeholder="Email Address" />
@@ -816,22 +816,6 @@ $('#firstcal').removeAttr("disabled");
 
                               }
                           },
-                          req: {
-                              validators: {
-                                  notEmpty: {
-                                      message: 'This field  is required'
-                                  },
-
-                              }
-                          },
-                          bday: {
-                              validators: {
-                                  notEmpty: {
-                                      message: 'This field  is required'
-                                  },
-
-                              }
-                          },
                           email: {
                               validators: {
                                   notEmpty: {
@@ -842,16 +826,30 @@ $('#firstcal').removeAttr("disabled");
                                   }
                               }
                           },
-                              numonly: {
+                              tele: {
                               validators: {
                                   notEmpty: {
                                       message: 'This field  is required'
                                   },
+     regexp: {
+            regexp: /^([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]*\.[0-9]*[1-9][0-9]*)$/,
+            message: 'Invalid contact number'
+        }
 
-                                  regexp: {
-                                          regexp: /^[0-9]/,
-                                      message: 'Numbers only'
-                                  }
+             
+                              }
+                          },
+                                                        cp: {
+                              validators: {
+                                  notEmpty: {
+                                      message: 'This field  is required'
+                                  },
+     regexp: {
+            regexp: /^([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]*\.[0-9]*[1-9][0-9]*)$/,
+            message: 'Invalid contact number'
+        }
+
+             
                               }
                           },
                           password: {
