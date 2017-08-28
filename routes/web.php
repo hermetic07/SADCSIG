@@ -176,6 +176,7 @@ Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery')->name('gun
 
 Route::get('/Pickups','PickupsController@index2')->name('pickups.index2');
 Route::get('/Pickups-show','PickupsController@show')->name('pickups.show');
+Route::get('/Pickups-delReplc','PickupsController@deliverReplacement')->name('pickups.delRepl');
 Route::get('/Pickups-{gunDeliveryId}','PickupsController@index')->name('pickups.index');
 
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients

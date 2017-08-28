@@ -56,9 +56,15 @@
                               <td>
                                 {{$gunRequest->status}}
                               </td>
+                              
                               <td>
-      <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                              <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
+                                <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
+                                @if($gunRequest->status == "ONDELIVERY" || $gunRequest->status == "PARTIALCLAIMED")
+                                  <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button" disabled><i class="fa fa-truck" ></i>  Deliver guns</button>
+                                @else
+                                  <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
+                                @endif
+                                
                               </td>
                  </tr>
                  @else
@@ -70,8 +76,12 @@
                                 {{$gunRequest->status}}
                               </td>
                               <td>
-      <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                              <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
+                              <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
+                              @if($gunRequest->status == "ONDELIVERY" || $gunRequest->status == "PARTIALCLAIMED")
+                                  <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button" disabled><i class="fa fa-truck" ></i>  Deliver guns</button>
+                                @else
+                                  <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
+                                @endif
                               </td>
                  </tr>
                  @endif

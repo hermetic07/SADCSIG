@@ -56,7 +56,11 @@ class PickupsController extends Controller
                                  ->where('tblClaimeddelivery.strGunDeliveryID','=',$request->deliveryCode)
                                 ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
                                 ->join('gunType','guns.guntype_id','=','gunType.id')
-                                ->select('guns.name as gun','gunType.name as gunType','tblClaimeddelivery.serialNo as serialNo')
+                                ->select('guns.name as gun',
+                                    'guns.id as gunID',
+                                    'gunType.name as gunType',
+                                    'tblClaimeddelivery.serialNo as serialNo',
+                                    'tblClaimeddelivery.status as status')
                                  ->get();   
             $delivery = DB::table('tblGunDeliveries')
                             ->where('tblGunDeliveries.strGunDeliveryID','=',$request->deliveryCode)
@@ -64,6 +68,15 @@ class PickupsController extends Controller
             return view('AdminPortal.ClientRequests.Pickups.showDetail_modal')
                         ->with('claimedDeliveries',$claimedDeliveries)
                         ->with('delivery',$delivery[0]);
+        }
+    }
+    public function deliverReplacement(Request $request){
+        if($request->ajax()){
+            $unclaimed_items_serials = Input::get('unclaimed_items_serials');
+            $unclaimed_items_id = Input::get('unclaimed_items_id');
+
+            $gunDeliveryID = $request->gunDeliveryID;
+            
         }
     }
 }

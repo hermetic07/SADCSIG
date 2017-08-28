@@ -71,7 +71,7 @@
                                           <div class="pro-content-3-col">
                                               <div class="pro-list-details">
                                                   <h4>
-                                             <center> <a class="text-dark" href="javascript:void(0)">{{$c->first_name}},{{$c->middle_name}},{{$c->last_name}}</a> </center>
+                                             <center> <a class="text-dark" href="javascript:void(0)">{{$c->first_name}} {{$c->middle_name}},{{$c->last_name}}</a> </center>
                                           </h4>
                                           </div>
                                           <div class="pro-list-info-3-col">

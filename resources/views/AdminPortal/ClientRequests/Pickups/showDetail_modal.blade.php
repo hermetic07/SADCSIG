@@ -56,7 +56,8 @@
             <td>{{$claimedDelivery->gun}}</td>
               <td>{{$claimedDelivery->serialNo}}</td>
                           <td>
-                          claimed
+                          {{$claimedDelivery->status}}
+                          <input type="hidden" name="{{$claimedDelivery->serialNo}}" class="{{$claimedDelivery->status}}" value="{{$claimedDelivery->gunID}}">
                           </td>
                       </tr>
             @endforeach
@@ -67,6 +68,7 @@
             </tr>
           </tfoot>
       </table>
+      <button type="button" onclick="funcDeliverRelacement()" class="btn btn-info delRepl">Deliver Replacement</button>
 
           </div>
 
