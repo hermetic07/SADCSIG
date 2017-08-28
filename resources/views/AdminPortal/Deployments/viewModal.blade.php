@@ -1,62 +1,71 @@
 <div class="modal-content">
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-  <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Request Details</strong></center></h4>
+  <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Client Guard Preference</strong></center></h4>
 </div>
 <div class="modal-body">
   <div class="form-group">
-    <div class="col-md-6">
-      <div class="col-md-5">
-          <label class="control-label"><b>Client Name:</b></label>
-        </div>
-        <div class="col-md-7">
-          <label class=""></label>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="col-md-4">
-          <label class="control-label"><b>Order No.</b></label>
-        </div>
-        
-        <div class="col-md-8">
-          <label class="" style="font-size: 16px; color: black;"><b></b></label>
-        </div>
-      </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-6">
-      <label class="control-label">Contact No:</label>
-      <label class="control-label"></label>
-    </div>
-    <div class="col-md-6">
-      <label class="control-label">Establishment:</label>
-      <label class="control-label"></label>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-6">
-      <label class="control-label">Email:</label>
-      <label class="control-label"></label>
-    </div>
-    <div class="col-md-6">
-      <label class="control-label">Address:</label>
-      <label class="control-label"></label>
-    </div>
-  </div>
-  <br>
-  <div class="form-group">
+  <h3>Body Parts Preferences</h3>
     <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-          <thead>
-            <tr>
-              <th  data-sort-ignore="true">Gun Name</th>
-              <th data-sort-ignore="true" width="120px">Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-           
-          </tbody>
-        </table>
+      <thead>
+        <th>Body Parts</th>
+        <th>Atleast</th>
+        <th>Atmost</th>
+      </thead>
+      <tbody>
+         @foreach($clientBodyPreferences as $clientBodyPreference)
+          <tr>
+            <td>
+              {{$clientBodyPreference->attribute}}
+            </td>
+            <td>
+              {{$clientBodyPreference->low}}{{$clientBodyPreference->measurement}}
+            </td>
+            <td>
+              {{$clientBodyPreference->high}}{{$clientBodyPreference->measurement}}
+            </td>
+          </tr>
+          
+          
+        @endforeach
+
+
+      </tbody>
+    </table>
   </div>
+
+  <div class="form-group">
+    <div class="col-md-6">
+     <h3>Required Licences</h3>
+      <ul>
+        @foreach($tbl_clientrequirementpreferences as $tbl_clientrequirementpreference)
+          <li>{{$tbl_clientrequirementpreference->requirement}}</li>
+        @endforeach
+        
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h3>Required Licences</h3>
+      <ul>
+        @foreach($clientLicensePreferences as $clientLicensePreference)
+          <li>{{$clientLicensePreference->license}}</li>
+        @endforeach
+        
+      </ul>
+    </div>
+  </div>
+
+   <div class="form-group">
+  <h3>Personal Preference</h3>
+    <ul>
+      @foreach($clientPeferences as $clientPeference)
+        <label>Educational Attainment:</label>{{$clientPeference->stringSchoolLevel}} <br>
+        <label>Age:</label> {{$clientPeference->intAge}} <br>
+        <label>Notes:</label> <p>{{$clientPeference->stringNote}}</p>
+      @endforeach
+    </ul>
+  </div>
+  
 </div>
 <br>
 <div class="modal-footer">

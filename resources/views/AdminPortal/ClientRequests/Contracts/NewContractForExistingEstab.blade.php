@@ -324,9 +324,7 @@
             <li role="tab">
               <h4><span><i class="fa fa-file-text-o"></i></span>terms of contract</h4>
             </li>
-            <li role="tab">
-              <h4><span><i class="fa fa-clock-o"></i></span>Guard's shift</h4>
-            </li>
+           
             <li role="tab">
               <h4><span><i class="ti-check"></i></span>Qualifications</h4>
             </li>
@@ -522,57 +520,7 @@
                     </div>
                   </div>
               </div>
-              <div class="wizard-pane" role="tabpanel">
-                <div class="form-group">
-                  <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle table-responsive"
-              data-page-size="100">
-              <thead>
-                <tr>
-                  <th data-sort-ignore="true"  data-sort-initial="true" data-toggle="true">Shift</th>
-                  <th data-sort-ignore="true" >From</th>
-                  <th data-sort-ignore="true" >to</th>
-                  <th data-sort-ignore="true" class="min-width" width="50px">Delete</th>
-                </tr>
-              </thead>
-              <div class="form-inline padding-bottom-15">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <button id="demo-btn-addrow" class="btn btn-outline btn-info btn-sm"><i class="icon wb-plus" aria-hidden="true"></i>Add Shift</button>
-                      <small>New row will be added at the bottom.</small> </div>
-                  </div>
-                  <div class="col-sm-6 text-right m-b-20">
-                    <div class="form-group">
-                      <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
-                        autocomplete="off">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <tbody>
-                <tr>
-                  <td id="data1">1</td>
-                  <td>
-        <div class="input-group" data-placement="left" data-align="top" data-autoclose="true">
-          <input type="time" class="form-control shiftstart" ><span class="input-group-addon">
-            <span class="glyphicon glyphicon-time"></span></span></div>
-
-          </td>
-                  <td>
-            <div class="input-group" data-placement="left" data-align="top" data-autoclose="true">
-              <input type="time" class="form-control shiftend" ><span class="input-group-addon">
-                <span class="glyphicon glyphicon-time"></span></span></div>
-          </td>
-
-          </tr>
-          <tr>
-
-          </tr>
-
-          </tbody>
-        </table>
-        </div>
-        </div>
+              
         <div class="wizard-pane" role="tabpanel">
           <div class="form-group">
                    <label class="col-xs-2 control-label">School level</label>
