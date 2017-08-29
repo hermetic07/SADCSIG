@@ -120,9 +120,7 @@ Route::get('/GuardPool', function () {
 });
 
 
-Route::get('/AgencyFee', function () {
-    return view('Utilities/AgencyFee');
-});
+
 
 Route::get('/Penalty', function () {
     return view('Utilities/Penalty');
@@ -140,11 +138,15 @@ Route::get('/Home', 'ClientPortalHomeController@homeview');
 
 
 
-
-Route::get('/Tax','AdminController@tax' );
-
-
-
+/// ---------  UTILITIES  --------------------////
+Route::get('/Tax','UtilitiesControl@tax' );
+Route::post('/Admin-update-tax', 'UtilitiesControl@vatupdate');
+Route::post('/Admin-update-ewt', 'UtilitiesControl@ewtupdate');
+Route::get('/AgencyFee', 'UtilitiesControl@agencyfee');
+Route::post('/Admin-update-AgencyFee', 'UtilitiesControl@agencyfeeupdate');
+Route::get('/BillingDays', 'UtilitiesControl@dates');
+Route::post('/Admin-update-dayone', 'UtilitiesControl@dayoneupdate');
+Route::post('/Admin-update-daytwo', 'UtilitiesControl@daytwoupdate');
 
 /// ---------  Admin Client Requests  --------------------////
 Route::group(['prefix'=>''], function(){
@@ -153,8 +155,7 @@ Route::group(['prefix'=>''], function(){
 });
 
 //Route::get('/ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');  // All services requested from clients
-Route::post('/Admin-update-tax', 'AdminController@vatupdate');
-Route::post('/Admin-update-ewt', 'AdminController@ewtupdate');
+
 Route::get('/NewContract-ExistingEstablishment-{id}-{estabID}','ServiceRequestController@newContractExistingEstab')->name('newcontract.existing');
 Route::post('/NewContract-ExistingEstablishment-save}','ServiceRequestController@saveExistingEstabContract')->name('newcontract.existing.save');
 

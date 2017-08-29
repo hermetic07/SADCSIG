@@ -22,6 +22,7 @@
                       <a href="{{url('/Tax')}}" class="list-group-item">Tax</a>                           
                       <a href="{{url('/AgencyFee')}}" class="list-group-item active">Agency fee </a>
                       <a href="{{url('/Penalty')}}" class="list-group-item">Penalties</a>
+                      <a href="{{url('/BillingDays')}}" class="list-group-item">Billing Days</a>
                     </div>
                 </div>
                 <div class="col-md-7 col-sm-7  p-20 white-box" style="margin-left: 5%; height: 535px;" >
@@ -32,7 +33,7 @@
                   <tbody>
                     <tr>
                       <td width="35%">Agency Fee</td>
-                      <td width="65%"><a href="#" id="AF" data-type="text" data-pk="1" data-title="Enter a value">2222.00</a></td>
+                      <td width="65%"><a href="#" id="AF" data-type="text" data-pk="1" data-title="Enter a value">{{$a->value or "0"}}</a></td>
                     </tr>
                 
                     
@@ -53,19 +54,23 @@
 
 $(function(){
 
-
+  $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
 
   $('#AF').editable({
-     type: 'text',
-     pk: 1,
-     name: 'value',
-     url:'/Admin-update-tax',
-     title: 'Enter username',
-     mode: 'inline',
-     validate: function(value) {
-       if($.trim(value) == '') return 'This field is required';
-     },
-   });
+    type: 'text',
+    pk: 1,
+    name: 'value',
+    url:'/Admin-update-AgencyFee',
+    title: 'Enter username',
+    mode: 'inline',
+    validate: function(value) {
+      if($.trim(value) == '') return 'This field is required';
+    },
+  });
 
 
 
