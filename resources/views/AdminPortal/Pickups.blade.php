@@ -217,6 +217,9 @@
   @endsection
   @section('script')
   <script type="text/javascript">
+   function funcDeliverRelacement(){
+    alert("Earl");
+   }
     $(document).ready(function(){
       $('.show').on('click',function(){
        // alert($('.show').val());

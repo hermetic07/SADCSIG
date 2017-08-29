@@ -213,6 +213,10 @@ class ContractController extends Controller
           $file->move('uploads', $value."cli".$file->getClientOriginalName());
           $client->image = $value."cli".$file->getClientOriginalName();
           $client->save();
+          //return $value."cli".$file->getClientOriginalName();
+        }else{
+          $client->image = "personincharge.jpg";
+          $client->save();
         }
         $clientspic = new ClientsPic();
         $clientspic->stringContractId = $value2;
@@ -222,6 +226,10 @@ class ContractController extends Controller
           $clientspic->stringlocation = $value."loc".$file->getClientOriginalName();
           $establishment->loc_image = $value."loc".$file->getClientOriginalName();
           $count+=1;
+        }else{
+          $establishment->loc_image = "location.jpg";
+          $clientspic->stringlocation = "location.jpg";
+          $count+=1;
         }
         if (Input::hasFile('picpicture')) {
           $file = Input::file('picpicture');
@@ -229,12 +237,20 @@ class ContractController extends Controller
           $clientspic->stringpic = $value."pic".$file->getClientOriginalName();
           $establishment->pic_image = $value."pic".$file->getClientOriginalName();
           $count+=1;
+        }else{
+          $establishment->pic_image = "personincharge.jpg";
+          $clientspic->stringpic = "personincharge.jpg";
+          $count+=1;
         }
         if (Input::hasFile('establishment')) {
           $file = Input::file('establishment');
           $file->move('uploads', $value."es".$file->getClientOriginalName());
           $clientspic->stringestablishment = $value."es".$file->getClientOriginalName();
           $establishment->image = $value."es".$file->getClientOriginalName();
+          $count+=1;
+        }else{
+          $establishment->image = "establishment.jpg";
+          $clientspic->stringestablishment = "establishment.jpg";
           $count+=1;
         }
         if ($count!==0) {

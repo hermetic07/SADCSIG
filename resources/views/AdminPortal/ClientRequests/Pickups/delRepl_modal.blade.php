@@ -11,28 +11,29 @@
                 
             </tr>
           </thead>
-          @php
-            $ctr = 0;
-          @endphp
+                @php
+                  $ctr = 0;
+                @endphp
           <tbody>
-            @foreach($unclaimed_items_id as $unclaimed_items)
+            
               @foreach($guns as $gun)
-                @if($gun->gunID == $gunsID)
+               
                   <tr>
                     <td>{{$gun->gunType}}</td>
                     <td>{{$gun->gun}}</td>
                     <td>
-                         {{$unclaimed_items_serials[$ctr]}}
+                         <input type="text" name="" placeholder="{{$gun->serialNo}}">
 
                     </td>
                     <input type="hidden" name="srl{{$ctr}}" class="gunsID" value="{{$gun->gunID}}">
                     <input type="hidden" id="srl{{$ctr}}" class="serialNos" value="{{$unclaimed_items_serials[$ctr]}}">
                 </tr>
-                @php
+                
+                
+              
+              @php
                   $ctr++;
                 @endphp
-                @endif
-              @endforeach
             @endforeach
               
           </tbody>
