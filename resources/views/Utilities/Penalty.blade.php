@@ -19,25 +19,22 @@
                 <div class="col-md-4 col-sm-4 p-20 white-box" >
                     <h3 class="box-title">billing and collection </h3>
                     <div class="list-group">
-                      <a href="{{url('/Tax')}}" class="list-group-item active">Tax</a>                           
+                      <a href="{{url('/Tax')}}" class="list-group-item">Tax</a>                           
                       <a href="{{url('/AgencyFee')}}" class="list-group-item">Agency fee </a>
-                      <a href="{{url('/Penalties')}}" class="list-group-item">Penalties</a>
+                      <a href="{{url('/Penalty')}}" class="list-group-item active">Penalties</a>
                     </div>
                 </div>
                 <div class="col-md-7 col-sm-7  p-20 white-box" style="margin-left: 5%; height: 535px;" >
-                <h3 class="box-title m-b-0">Taxes</h3>
+                <h3 class="box-title m-b-0">Penalty</h3>
                 </br>
      
 <table style="clear: both" class="table table-bordered table-striped" id="user" >
                   <tbody>
                     <tr>
-                      <td width="35%">VAT(%)</td>
-                      <td width="65%"><a href="#" id="tax" data-type="text" data-pk="1" data-title="Enter a value">{{$v->value or "0"}}</a></td>
+                      <td width="35%">Penalty</td>
+                      <td width="65%"><a href="#" id="Pnlty" data-type="text" data-pk="1" data-title="Enter a value">2222.00</a></td>
                     </tr>
-                    <tr>
-                      <td>EWT(%)</td>
-                      <td><a href="#" id="ewt" data-type="text" data-pk="1" data-placement="right"  data-title="Enter a value">{{$e->value or "0"}}</a></td>
-                    </tr>
+                
                     
                   </tbody>
                 </table>
@@ -56,13 +53,9 @@
 
 $(function(){
 
-  $.ajaxSetup({
-       headers: {
-         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
 
-  $('#tax').editable({
+
+  $('#Pnlty').editable({
      type: 'text',
      pk: 1,
      name: 'value',
@@ -74,17 +67,8 @@ $(function(){
      },
    });
 
-  $('#ewt').editable({
-     type: 'text',
-     pk: 1,
-     name: 'value',
-     url:'/Admin-update-ewt',
-     title: 'Enter username',
-     mode: 'inline',
-           validate: function(value) {
-       if($.trim(value) == '') return 'This field is required';
-     }
-   });
+
+
 
 });
 

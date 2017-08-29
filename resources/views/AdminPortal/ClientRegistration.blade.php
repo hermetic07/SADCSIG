@@ -297,7 +297,7 @@
                       <label class="col-xs-1 control-label">Starts from </label>
                        <div class="col-xs-3">
                           <div class="input-group">
-                            <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy"  readonly required  />
+                            <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy"  readonly  />
                           </div>
                         </div>
                         <label class="col-xs-1 control-label"> Ends to </label>
@@ -852,6 +852,14 @@ $('#firstcal').removeAttr("disabled");
              
                               }
                           },
+                                 bday: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'This field  is required'
+                                    },
+
+                                }
+                            },
                           password: {
                               validators: {
                                   notEmpty: {

@@ -120,6 +120,14 @@ Route::get('/GuardPool', function () {
 });
 
 
+Route::get('/AgencyFee', function () {
+    return view('Utilities/AgencyFee');
+});
+
+Route::get('/Penalty', function () {
+    return view('Utilities/Penalty');
+});
+
 
 
 Route::get('/SOA/{con}/{col}/{cli}/{diff}/{date}/{date1}/{date2}', 'BillingControl@soa');
