@@ -605,17 +605,17 @@
 
   function getRate(id){
     //alert(id);
-    $.ajax({
-          url : "{{route('getservrate')}}",
-          type : 'GET',
-          data : {serviceID:id},
-          success : function(data){
-              alert(typeof data);
-            // console.log(data);
-            $('#mcp').val(parseFloat(data));
+    // $.ajax({
+    //       url : "{{route('getservrate')}}",
+    //       type : 'GET',
+    //       data : {serviceID:id},
+    //       success : function(data){
+    //           alert(typeof data);
+    //         // console.log(data);
+    //         $('#mcp').val(parseFloat(data));
 
-          }
-        });
+    //       }
+    //     });
   }
 
 

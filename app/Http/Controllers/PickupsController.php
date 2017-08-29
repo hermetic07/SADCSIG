@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use App\GunDelivery;
 
 class PickupsController extends Controller
 {
@@ -75,7 +77,36 @@ class PickupsController extends Controller
             $unclaimed_items_serials = Input::get('unclaimed_items_serials');
             $unclaimed_items_id = Input::get('unclaimed_items_id');
 
-            $gunDeliveryID = $request->gunDeliveryID;
+            //$gunDeliveryID = $request->gunDeliveryID;
+
+             $gunDeliveryID = "GUNDELV-".GunDelivery::get()->count();
+            // $guns = DB::table('Guns')
+            //             ->join('gunType','guns.guntype_id','=','gunType.id')
+            //             ->join('tblGunReqDetails',function($join){
+            //                 $join->on('tblGunReqDetails.strGunReqDetailsID','=',$request->gunReqstID)
+            //                      ->on('tblGunReqDetails.strGunID','=','Guns.id');
+            //             })
+            //             ->select('guns.name as gun','guns.id as gunID','gunType.name as gunType','tblGunReqDetails.quantity as qtyOrdered')
+            //             ->get();
+
+            $guns = DB::table('tblGunDeliveries')
+                                ->where('tblGunDeliveries.strGunDeliveryID','=',$request->gunDeliveryID)
+                                ->join('tblclaimeddelivery','tblGunDeliveries.strGunDeliveryID','=','tblclaimeddelivery.strGunDeliveryID')
+                                ->where('tblGunDeliveries.strGunDeliveryID','=',$request->gunDeliveryID)
+                                ->where('tblclaimeddelivery.status','=','UNCLAIMED')
+                                //->join('clients','clients.id','=','tblGunRequests.strClientID')
+                                ->join('guns','guns.id','=','tblclaimeddelivery.strGunID')
+                                ->join('gunType','guns.guntype_id','=','gunType.id')
+                                ->select('guns.name as gun','guns.id as gunID','gunType.name as gunType','tblclaimeddelivery.serialNo')
+                                ->get();
+            return view('AdminPortal.ClientRequests.Pickups.delRepl_modal')
+                                    ->with('guns',$guns)
+                                    ->with('unclaimed_items_serials',$unclaimed_items_serials)
+                                    ->with('unclaimed_items_id',$unclaimed_items_id)
+                                    ->with('gunDeliveryID',$gunDeliveryID)
+                    ;
+                       // return response($gunRequestDetails);
+
             
         }
     }

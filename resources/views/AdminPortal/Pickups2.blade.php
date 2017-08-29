@@ -234,7 +234,7 @@
          
           unclaimed_items_id.push($(this).val());
           unclaimed_items_serials.push($(this).attr('name'));
-        
+          alert($(this).attr('name'));
             
      });
 
