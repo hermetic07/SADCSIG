@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
+use App\SecurityLicense;
 use App\EmployeeAttributes;
 use App\EmployeeDegree;
 use App\EmployeeEducation;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Mail;
+use Illuminate\Support\Facades\DB;
 use Exception;
 class RegisterControl extends Controller
 {
@@ -57,7 +59,18 @@ class RegisterControl extends Controller
 
         $employee->deployed = 0;
         $employee->save();
-
+        //start of security license
+        $sl = new SecurityLicense();
+        $sl->employee_id = "SECU".$count;
+        $sl->license_num = $request->licensenum;
+        $sl->class= $request->licenseclass;
+        $explod = explode('/',$request->dateissued);
+        $di = "$explod[2]-$explod[0]-$explod[1]";
+        $sl->date_issued=$di ;
+        $explod = explode('/',$request->dateexpire);
+        $de = "$explod[2]-$explod[0]-$explod[1]";
+        $sl->date_expired= $de;
+        $sl->save();
         // start of body attributes
         $index1 = 0;
         $aname = Input::get('aname');
@@ -370,5 +383,16 @@ class RegisterControl extends Controller
         $attr = EmployeeAttributes::where("employees_id",$id)->get();
         $count = 1;
         return view('SecuProfile')->with('employee',$employee)->with('count',$count)->with('ed',$education)->with('d',$degree)->with('s',$seminar)->with('m',$military)->with('skill',$skill)->with('attr',$attr);
+     }
+
+     public function guardslicense(){
+
+      $all = DB::table('employees')
+      ->join('security_license', 'employees.id', '=', 'security_license.employee_id')
+      ->select('employees.image as image','employees.first_name as f', 'employees.middle_name as m', 'employees.last_name as l', 'security_license.license_num as licensenum', 'security_license.class as class', 'security_license.date_issued as date_issued', 'security_license.date_expired as date_expired' )
+      ->where('employees.status',"!=","pending")
+      ->where('employees.status',"!=","deleted")
+      ->get();
+      return view('AdminPortal/GuardLicenses')->with("all",$all);
      }
 }

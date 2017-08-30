@@ -77,9 +77,9 @@
                 <div class="">
                 <p>Agency fee  : {{$ac->value}}</p>
                 <p>VAT ({{$vat->value}}%) : {{number_format($totalvat, 2, '.', ',')}}</p>
-                <p>Sub-Total amount: {{number_format($subtotal, 2, '.', ',')}} </p>
+                <p> <b>Sub-Total amount:</b>  {{number_format($subtotal, 2, '.', ',')}} </p>
                 </br>
-                <p>EWT({{$ewt->value}}%) : {{number_format($totalewt, 2, '.', ',')}} </p>
+                <p>EWT({{$ewt->value}}% of Agency Fee) : {{number_format($totalewt, 2, '.', ',')}} </p>
                     
                   <hr>
                   </br>

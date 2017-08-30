@@ -312,6 +312,42 @@
 											<span class="font-13 text-muted">ex. myemail@yahoo.com<span>
 										</div>
                                 </div>
+                <div class="form-group">
+                            <h4> <strong>Security License</strong></h4>
+                            </br>
+                            <label class="col-xs-1 control-label">License No.</label>
+                            <div class="col-xs-5">
+                               	<div class="input-group">
+									<div class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></div>
+										 <input type="text" class="form-control"  id="numonly" name="licensenum" maxlength="100" required >
+									</div>
+								    
+                            </div>
+                            <label class="col-xs-1 control-label">License Class</label>
+                            <div class="col-xs-5">
+                                <select class="form-control"  name="noblank" id="licenseclass" required>
+                                    <option></option>
+                                    <option value="Class D">Class D</option>
+                                    <option value="Class G">Class G</option>
+                                </select>
+                            </div>
+                            
+                </div>
+                <div class="form-group">
+                            <label class="col-xs-1 control-label">Date Issued</label>
+                            <div class="col-xs-5">
+                            <div class="input-group">
+											<span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="yy/mm/dd"  required />
+										</div>
+                            </div>
+                            <label class="col-xs-1 control-label">Date Expired</label>
+                            <div class="col-xs-5">
+                            <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control secondcal" id="secondcal" placeholder="yy/mm/dd"   required />
+										</div>
+                            </div>
+
+                </div>
 				<div class="form-group">
 								    <h4> <strong>Body attributes</strong></h4>
                                  	</br>
@@ -836,6 +872,21 @@
 		footable.appendRow(newRow);
 	});
  </script>
+ <script>
+ $(function() {
+
+
+     $(".firstcal").datepicker({
+         dateFormat: "yy-mm-dd",
+         
+     });
+     $(".secondcal").datepicker({
+         dateFormat: "yy-mm-dd",
+         
+     });
+     
+ });
+  </script>
 <script>
 
 // Date Picker
@@ -1162,6 +1213,10 @@
                         tertiaryf:$('input[name=tertiaryf]').val(),
                         tertiaryt:$('input[name=tertiaryt]').val(),
                         degree:$('input[name=degree]').val(),
+                        licensenum:$('input[name=licensenum]').val(),
+                        licenseclass:$('#licenseclass').val(),
+                        dateissued:$('#firstcal').val(),
+                        dateexpire:$('#secondcal').val(),
                         license: allLicense,
                         allmilitary: allmilitary,
                         allrank: allrank,
