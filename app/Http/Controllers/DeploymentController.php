@@ -88,7 +88,7 @@ class DeploymentController extends Controller
                 
                 $to = $explod[1];
                 $client_inbox_id = 'CLNTNTF-'.$request->contractID.$count1;
-                $temp_deployment_details_id= 'TMPDPLY-DTLS-'.$request->contractID;
+                $temp_deployment_details_id= 'TMPDPLY-DTLS-'.$request->contractID."-".$count1."-".((string)$ctr);
                 TempDeploymentDetails::create(['temp_deployment_details_id'=>$temp_deployment_details_id,'temp_deployments_id'=>$temp_deployment_id,'employees_id'=>$secuID,'shift_from'=>$from,'shift_to'=>$to,'role'=>$request->$role,'status'=>'active']);
                 Employee::findOrFail($secuID)->update(['deployed'=>1]);
                
