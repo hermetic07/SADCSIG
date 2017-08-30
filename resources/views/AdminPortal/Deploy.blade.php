@@ -291,6 +291,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
 
                         <tbody>
                           @foreach($contracts as $contract)
+                          @if($contract->status != "active")
                            @foreach($establishments as $establishment)
                               @if($establishment->id == $contract->strEstablishmentID)
                                 @php
@@ -367,6 +368,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                             
                             @endif
                             @endforeach
+                          @endif
                           @endforeach
                         </tbody>
                         <tfoot>
@@ -429,7 +431,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
 
           @foreach($employees as $employee)
             @if($employee->deployed == 0)
-              @if($employee->status == 'active')
+              @if($employee->status == 'waiting')
             @php
               $ctr2 = $ctr2+1;
             @endphp
@@ -797,7 +799,7 @@ $('#deployguards').on('click',function(){
         type:'GET',
         data : {contractID:contractID,employeeID:employeeID},
         success:function(data){
-          alert(data);
+         // alert(data);
            $('select'+'#shift-'+employeeID).text('');
           $('select'+'#shift-'+employeeID).append(data);
           console.log(data);

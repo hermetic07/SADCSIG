@@ -322,7 +322,7 @@ class ClientPortalHomeController extends Controller
         if($establishment->id == $estabID){
           $estabID = $establishment->id;
           $estab_name = $establishment->name;
-          $pic = $establishment->person_in_charge;
+          $pic = $establishment->pic_fname." ".$establishment->pic_mname." ".$establishment->pic_lname;
           $contactNo = $establishment->contactNo;
           $email = $establishment->email;
           $adress = $establishment->address;
@@ -337,12 +337,20 @@ class ClientPortalHomeController extends Controller
 
       $contracts = Contracts::all();
       $clientRegistrations = ClientRegistration::all();
-      $natures = Nature::findOrFail('2');
+      $natures = Nature::findOrFail($es->natures_id);
       $nature_name = $natures->name;
       $areas = Area::findOrFail($areas_id);
       $area_name = $areas->name;
       $provinces = Province::where('id',$provinces_id)->get();
 
+      $clientGuns = DB::table('tblGunRequests')
+                      ->where('tblGunRequests.establishments_id','=',$estabID)
+                      ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
+                      ->join('tblClaimeddelivery','tblClaimeddelivery.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
+                      ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
+                      ->join('gunType','gunType.id','=','guns.guntype_id')
+                      ->select('guns.name as gun','gunType.name as gunType','tblClaimeddelivery.serialNo')
+                      ->get();
      // return $es->contract_id;
       return view('ClientPortal.ClientPortalEstabDetails')
             ->with('estabID',$estabID)
@@ -361,6 +369,7 @@ class ClientPortalHomeController extends Controller
             ->with('contractID',$es->contract_id)
             ->with('area_size',$area_size)
             ->with('population',$population)
+            ->with('clientGuns',$clientGuns)
             ->with('estabGuards',$estabGuards)
             ->with('guardDeployed',$guardDeployed)
             ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic);

@@ -62,6 +62,8 @@ class DeploymentController extends Controller
         $temp_deployment_id = 'TMPDPLY-'.$request->contractID;
         $temp_deployment_details_id ='';
         $client_inbox_id = '';
+
+        $count1 = Contracts::get()->count();
         //return $message_ID;
         DeploymentNotifForClient::create(['notif_id'=>$message_ID,'trans_id'=>$request->contractID,'sender'=>'Admin','receiver'=>$request->clientID,'subject'=>'DEPLOYMENT','status'=>'active']);
 
@@ -85,10 +87,10 @@ class DeploymentController extends Controller
                 $secuID = $explod[2];
                 
                 $to = $explod[1];
-                $client_inbox_id = 'CLNTNTF-'.$request->clientID;
-                $temp_deployment_details_id= 'TMPDPLY-DTLS-'.$request->contractID.((string)$ctr);
+                $client_inbox_id = 'CLNTNTF-'.$request->contractID.$count1;
+                $temp_deployment_details_id= 'TMPDPLY-DTLS-'.$request->contractID;
                 TempDeploymentDetails::create(['temp_deployment_details_id'=>$temp_deployment_details_id,'temp_deployments_id'=>$temp_deployment_id,'employees_id'=>$secuID,'shift_from'=>$from,'shift_to'=>$to,'role'=>$request->$role,'status'=>'active']);
-               // Employee::findOrFail($secuID)->update(['deployed'=>1]);
+                Employee::findOrFail($secuID)->update(['deployed'=>1]);
                
                 
             }
