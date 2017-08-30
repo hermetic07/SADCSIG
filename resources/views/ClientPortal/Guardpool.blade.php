@@ -228,7 +228,7 @@
                            <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}"  alt="user" ></a>
                             <div class="el-overlay">
                               <ul class="el-info">
-                                      <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank">More info </a></li>
+                                      <li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$employee->id)}}" target="_blank">More info </a></li>
                               </ul>
                         </div>
                       </div>
