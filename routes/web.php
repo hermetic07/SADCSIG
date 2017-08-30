@@ -26,6 +26,7 @@ Route::get('/ChangeGuards', function () {
     return view('AdminPortal/ChangeRejectedGuards');
 });
 Route::post('/Terminate','ContractController@terminate');
+Route::post('/GetNatureValue','BillingControl@getNature');
 
 Route::get('/Replace', function () {
     return view('AdminPortal/Replace');

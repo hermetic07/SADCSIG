@@ -603,20 +603,7 @@
 
  <script>
 
-  function getRate(id){
-    //alert(id);
-    // $.ajax({
-    //       url : "{{route('getservrate')}}",
-    //       type : 'GET',
-    //       data : {serviceID:id},
-    //       success : function(data){
-    //           alert(typeof data);
-    //         // console.log(data);
-    //         $('#mcp').val(parseFloat(data));
-
-    //       }
-    //     });
-  }
+  
 
 
  $('.clockpicker').clockpicker({
@@ -750,6 +737,25 @@ $('#firstcal').removeAttr("disabled");
   });
  </script>
  <script>
+$("#nature").change(function(){
+   $.ajaxSetup({
+     headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+   }); 
+   $.ajax({
+     type: 'post',
+     url: '/GetNatureValue',
+     data: {
+         id:$('#nature').val(),
+     },
+     success: function(data){
+         alert(data);
+         $('#mcp').val(data);
+     }
+   });
+ });
+
  $("#province").change(function(){
    $.ajaxSetup({
      headers: {
@@ -915,7 +921,6 @@ $('#firstcal').removeAttr("disabled");
                   $.each($(".shiftend"), function(){
                       allend.push($(this).val());
                   });
-                  alert($('.excom').val());
                   $.ajax({
                     type: 'post',
                     url: '/ClientRegistration-Save',

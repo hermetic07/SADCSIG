@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Clients;
 use App\Establishments;
 use App\Area;
+use App\Nature;
 use App\Province;
 use App\vat;
 use App\ewt;
@@ -115,16 +116,18 @@ class BillingControl extends Controller
         $vat = vat::all()->first();
         $vattotal = $ac->value*($vat->value/100); 
         $ewt = ewt::all()->first();
-        $subtotal = (($contract->monthlyCP+$ac->value+$vattotal)/30*$diff)*$contract->guard_count;
+        $subtotal = (($contract->monthlyCP+$ac->value+$vattotal)/30*$diff);
         $month = $contract->monthlyCP+$ac->value+$vattotal;
         $ewttotal = $ac->value*($ewt->value/100);
         $sumtotal = $subtotal - $ewttotal;
+        $total = $sumtotal*$contract->guard_count;
         $collection->intdays = $diff;
         $collection->dateInvoice = $date;
         $collection->dateFrom = $date1;
         $collection->decTotal = $sumtotal;
         $collection->save();
         $pdf = PDF::loadView('StatementOA', [
+            'total'=>$total,
             'sumtotal'=>$sumtotal,
             'subtotal'=>$subtotal,
             'es'=>$estab,
@@ -173,5 +176,10 @@ class BillingControl extends Controller
             }
         }
         
+    }
+
+    public function getNature(Request $r){
+        $n = Nature::find($r->id);
+        return $n->price;
     }
 }
