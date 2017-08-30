@@ -392,6 +392,14 @@ class AdminController extends Controller
       $area_name = $areas->name;
       $provinces = Province::where('id',$provinces_id)->get();
 
+      $clientGuns = DB::table('tblGunRequests')
+      ->where('tblGunRequests.establishments_id','=',$estabID)
+      ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
+      ->join('tblClaimeddelivery','tblClaimeddelivery.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
+      ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
+      ->join('gunType','gunType.id','=','guns.guntype_id')
+      ->select('guns.name as gun','gunType.name as gunType','tblClaimeddelivery.serialNo')
+      ->get();
      // return $es->contract_id;
       return view('AdminPortal.ClientsDetails')
             ->with('estabID',$estabID)
@@ -410,6 +418,7 @@ class AdminController extends Controller
             ->with('contractID',$es->contract_id)
             ->with('area_size',$area_size)
             ->with('population',$population)
+            ->with('clientGuns',$clientGuns)
             ->with('estabGuards',$estabGuards)
             ->with('guardDeployed',$guardDeployed)
             ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic);

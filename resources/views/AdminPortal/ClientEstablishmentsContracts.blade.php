@@ -39,4 +39,25 @@
       });
     });
   </script>
+  <script>
+  function fun_terminate(id) {
+    $.ajaxSetup({
+          headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+    }); 
+    $.ajax({
+          type: 'post',
+          url: '/Billing-Start',
+          data: {
+              'id':date,
+          },
+          success: function(data){
+              if(data!==null&&data!==""){
+                alert(data);
+              }
+          }
+    });
+  }
+  </script>
 @endsection

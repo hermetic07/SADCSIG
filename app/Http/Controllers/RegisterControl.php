@@ -300,7 +300,7 @@ class RegisterControl extends Controller
 
      public function guards(Request $request)
      {
-        $employees = Employee::where("status" ,"!=" , "deleted" )->get();
+        $employees = Employee::where("status" ,"!=" , "deleted" )->where("status" ,"!=" , "pending" )->get();
         return view('AdminPortal/SecurityGuards')->with('employee',$employees);
      }
 
