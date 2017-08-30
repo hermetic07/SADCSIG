@@ -429,7 +429,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
 
           @foreach($employees as $employee)
             @if($employee->deployed == 0)
-              @if($employee->status == 'waiting')
+              @if($employee->status == 'active')
             @php
               $ctr2 = $ctr2+1;
             @endphp
@@ -763,17 +763,7 @@ $('#deployguards').on('click',function(){
     });
      // employeeID = $('.shifts').attr('id').split("-")[1];
       contractID = $('#contractID').val();
-      $.ajax({
-        url:'{{route("select.shifts")}}',
-        type:'GET',
-        data : {contractID:contractID,employeesID:employeesID},
-        success:function(data){
-          //alert(data);
-           $('.shifts').text('');
-           $('.shifts').append(data);
-          console.log(data);
-        }
-      });
+     
 });
   // the count of guards for alert info
    $('#deployguards').attr("disabled", "disabled");
@@ -797,6 +787,22 @@ $('#deployguards').on('click',function(){
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
+    });
+    $('.shifts').on('click',function(){
+      //alert("Earl");
+      employeeID = this.id.split("-")[1];
+      contractID = $('#contractID').val();
+       $.ajax({
+        url:'{{route("select.shifts")}}',
+        type:'GET',
+        data : {contractID:contractID,employeeID:employeeID},
+        success:function(data){
+          alert(data);
+           $('select'+'#shift-'+employeeID).text('');
+          $('select'+'#shift-'+employeeID).append(data);
+          console.log(data);
+        }
+      });
     });
   function fun_delete(id)
    {

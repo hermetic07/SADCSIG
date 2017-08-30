@@ -102,7 +102,7 @@ class DeploymentController extends Controller
          if($request->ajax()){
             $deployment = new Deployments();
             $contract = Contracts::findOrFail($request->contractID);
-            $guardDeployedctr = 0;
+            $guardDeployedctr =  (int)$contract->guardDeployed;
             
             $deployment['clients_id'] = $request->clientID;
             $deployment['establishment_id'] = $request->estabID;
@@ -128,7 +128,7 @@ class DeploymentController extends Controller
                 $ac = AcceptedGuards::where('guard_id',$request->employeeID)->update(['guard_reponse'=>'deployed']);
                 $nr = NotifResponse::where('guard_id',$request->employeeID)->update(['status'=>'deployed']);
                 $emp = Employee::findOrFail($request->employeeID)->update(['deployed'=>'1']);
-
+                $emp = Employee::findOrFail($request->employeeID)->update(['status'=>'active']);
                 EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$request->contractID]);
 
                 $contract->guardDeployed = $guardDeployedctr;
