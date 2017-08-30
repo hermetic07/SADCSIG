@@ -48,13 +48,14 @@
     }); 
     $.ajax({
           type: 'post',
-          url: '/Billing-Start',
+          url: '/Terminate',
           data: {
-              'id':date,
+              'id':id,
           },
           success: function(data){
               if(data!==null&&data!==""){
                 alert(data);
+                location.reload();
               }
           }
     });

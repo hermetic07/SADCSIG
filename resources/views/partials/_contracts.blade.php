@@ -7,11 +7,11 @@
           <thead>
             <tr>
                
-                <th>Contract Code</th>
+                <th >Contract Code</th>
                 
                 <th>Date Created</th>
                 <th>Status</th>
-                <th data-sort-ignore="true" width="240px">Actions</th>
+                <th data-sort-ignore="true" width="400px">Actions</th>
             </tr>
           </thead>
           <div class="form-inline padding-bottom-15">
@@ -51,7 +51,9 @@
               <td>
                 <button class="btn btn-info view" type="button" value="{{$contract->id}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
                 <button class="btn btn-success"  type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> PDF</button>
-                <button class="btn btn-success"  onclick="fun_terminate()" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> Terminate</button>
+                @if($contract->status!=="terminated")
+                <button class="btn btn-danger"  onclick="fun_terminate('{{$contract->id}}')" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> Terminate</button>
+                @endif
               </td>
               
             </tr>

@@ -25,7 +25,7 @@ Route::get('/Notifications','AdminController@notifications');
 Route::get('/ChangeGuards', function () {
     return view('AdminPortal/ChangeRejectedGuards');
 });
-
+Route::post('/Terminate','ContractController@terminate');
 
 Route::get('/Replace', function () {
     return view('AdminPortal/Replace');
