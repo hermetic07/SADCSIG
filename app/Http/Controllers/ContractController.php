@@ -272,4 +272,12 @@ class ContractController extends Controller
       $clientlist =  Clients::all();  
       return view('AdminPortal/ActiveClient')->with('client', $clientlist);
     }
+
+    public function terminate(Request $r)
+    {
+      $c = Contracts::find($r->id);
+      $c->status = "terminated";
+      $c->save();
+      return "Contract Terminated";
+    }
 }
