@@ -117,7 +117,7 @@ class BillingControl extends Controller
         $ewt = ewt::all()->first();
         $subtotal = (($contract->monthlyCP+$ac->value+$vattotal)/30*$diff)*$contract->guard_count;
         $month = $contract->monthlyCP+$ac->value+$vattotal;
-        $ewttotal = $subtotal*($ewt->value/100);
+        $ewttotal = $ac->value*($ewt->value/100);
         $sumtotal = $subtotal - $ewttotal;
         $collection->intdays = $diff;
         $collection->dateInvoice = $date;

@@ -40,9 +40,7 @@ Route::get('/Swap','GuardReplacementController@index');
 
 
 
-Route::get('/GuardLicenses', function () {
-    return view('AdminPortal/GuardLicenses');
-});
+Route::get('/GuardLicenses', 'RegisterControl@guardslicense');
 
 
 Route::get('/GuardsDTR', function () {
