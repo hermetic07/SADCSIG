@@ -37,6 +37,7 @@ use App\vat;
 use App\ewt;
 use App\Collections;
 use PDF;
+use App\Agencyfee;
 
 class ClientPortalHomeController extends Controller
 {
@@ -465,18 +466,22 @@ class ClientPortalHomeController extends Controller
     }
 
     public function qout(Request $r){
+      $ac = Agencyfee::all()->first();
       $nature = Nature::find($r->nature);
-      $total = $r->gnum*$nature->price;
-      $vat = vat::all()->first();
-      $vattotal = 2000*($vat->value/100); //2000 is just sample agancee fee
-      $ewt = ewt::all()->first();
-      $ewttotal = 2000*($ewt->value/100);//2000 is just sample agancee fee
-      $sumtotal = $total + 2000 + $vattotal - $ewttotal;
-      $inmonths = $sumtotal *  $r->months;
       
+      $vat = vat::all()->first();
+      $vattotal = $ac->value*($vat->value/100); //2000 is just sample agancee fee
+      $ewt = ewt::all()->first();
+      $ewttotal = $ac->value*($ewt->value/100);//2000 is just sample agancee fee
+      $total = $nature->price+$ac->value+$vattotal;
+      $sumtotal = $total - $ewttotal;
+      $sumtotal2 =$sumtotal*$r->gnum;
+      $inmonths = $sumtotal2 *  $r->months;
+      $agencyfee = 
       $pdf = PDF::loadView('ClientPortal.qoute', [
         "months"=>$r->months,
         "sumtotal"=>$sumtotal,
+        "sumtotal2"=>$sumtotal2,
         "inmonths"=>$inmonths,
         "vat"=>$vat->value,
         "ewt"=>$ewt->value,
@@ -486,6 +491,7 @@ class ClientPortalHomeController extends Controller
         "num"=>$r->gnum,
         "nature"=>$nature->name,
         "price"=>$nature->price,
+        "ac"=>number_format($ac->value, 2, '.', ','),
       ]);
               
       return $pdf->stream('quote.pdf');
