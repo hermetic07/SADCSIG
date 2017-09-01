@@ -340,7 +340,7 @@ class RegisterControl extends Controller
      public function approve2(Request $request)
      {
        $employee = Employee::find($request->id);
-       $employee->status = "active";
+       $employee->status = "waiting";
        $employee->save();
        $data = [
                   'email'   => $employee->email,
