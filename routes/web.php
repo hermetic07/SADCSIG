@@ -14,9 +14,11 @@ Route::get('/Request-sent','LastControl@viewSentReq');
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/home', function () {
+    return view('welcome2');
+});
 //Admin portal
-Route::get('/Dashboard','AdminController@dashboardIndex')->name('dashboard');
+Route::get('/Dashboard','AdminController@dashboardIndex')->name('dashboard')->middleware('auth');
 
 Route::get('/DeploymentStatus', function () {
     return view('AdminPortal/DeploymentStatus');
@@ -90,9 +92,7 @@ Route::get('/AddGuardRequests','AdditionalGuardRequesController@index');
 
 
 
-Route::get('/ClientPortalEstablishments', function () {
-    return view('ClientPortal/ClientPortalEstablishments');
-});
+
 
 Route::get('/ClientPortalMessages', function () {
     return view('ClientPortal/ClientPortalMessages');
@@ -238,15 +238,15 @@ Route::get('/ClaimDeliveryModdal','ClientPortalHomeController@claimDeliveryModal
 Route::post('/ClaimDelivery','ClientPortalHomeController@claimDelivery')->name('claim.delivery');
 Route::post('GunDelivery-claim', 'GunDeliveryController@claim');
 
-Route::get('/ClientPortalGuardsDTR-{id}','ClientPortalHomeController@guardDtr');
+Route::get('/ClientPortalGuardsDTR-{id}','ClientPortalHomeController@guardDtr')->middleware('auth:client');
 Route::get('/ClientPortalEstablishments-shifts+{id}','ClientPortalHomeController@shifts');
-Route::get('/ClientPortalEstablishments-{id}','ClientPortalHomeController@clientEstablishments');
+Route::get('/ClientPortalEstablishments-{id}','ClientPortalHomeController@clientEstablishments')->middleware('auth:client');
 
 Route::get('/ClientPortalEstablishmentsDetails-{id}+{estabID}','ClientPortalHomeController@clientEstablishmentsdetails');
 
 Route::get('/ClientPortalContracts-{id}+{estabID}','ClientPortalHomeController@clientContracts');
 
-Route::get('/ClientPortalMessages-{id}','ClientPortalHomeController@messages');
+Route::get('/ClientPortalMessages-{id}','ClientPortalHomeController@messages')->middleware('auth:client');
 Route::get('/ClientPortalMessages/modal/{messageID}','ClientPortalHomeController@messagesModal');
 Route::get('/GuardPool+{tempDeploymentID}+{clientID}+{client_notif_id}','ClientPortalHomeController@guardPool');
 Route::get('/GuardPool-save','ClientPortalHomeController@saveGuards')->name('saveguards');
@@ -255,7 +255,7 @@ Route::get('/ClientPortalSettings', function () {
     return view('ClientPortal/ClientPortalSettings');
 });
 
-Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index');
+Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index')->middleware('auth:client');
 Route::get('/ClientLogin','LastControl@clientAuth');
 Route::post('/Client-auth','LastControl@authenticate');
 Route::post('/Client-Qoute','ClientPortalHomeController@qout');
@@ -263,8 +263,7 @@ Route::post('/Client-Qoute','ClientPortalHomeController@qout');
 //Route::get('/Request','LastControl@login');
 //Route::get('/Request-view','ServiceRequestController@view');
 
-
-
+Auth::routes();
 
 
 //Route::get('/ClientsReg','LastControl@index2');
@@ -448,13 +447,13 @@ Route::get('Attribute2','Attribute2Controller@index');
 
 //Guard side (evander)
 Route::get ( '/test', 'RegisterControl@test' );
-Route::post ( '/SecurityGuardsLogin', 'EmployeeControl@SLogin' );
-Route::get ( '/SecurityGuardsLogOut', 'EmployeeControl@SLogout' );
-Route::get ( '/SecurityGuardsPortalHome', 'EmployeeControl@home' );
-Route::get('/SecurityGuardsPortalProfile', 'EmployeeControl@profile');
-Route::get('/SecurityGuardsPortalNotifications', 'EmployeeControl@notifications');
-Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages');
-Route::get('/SecurityGuardsPortalRequest', 'EmployeeControl@requests');
+Route::post ( '/SecurityGuardsLogin', 'EmployeeAuthControl@login' );
+Route::get ( '/SecurityGuardsLogOut', 'EmployeeAuthControl@logout' );
+Route::get ( '/SecurityGuardsPortalHome', 'EmployeeControl@home' )->name('/SecurityGuardsPortalHome')->middleware('auth:employee');
+Route::get('/SecurityGuardsPortalProfile', 'EmployeeControl@profile')->middleware('auth:employee');
+Route::get('/SecurityGuardsPortalNotifications', 'EmployeeControl@notifications')->middleware('auth:employee');
+Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages')->middleware('auth:employee');
+Route::get('/SecurityGuardsPortalRequest', 'EmployeeControl@requests')->middleware('auth:employee');
 Route::post('/GetLeaveInfo', 'EmployeeControl@leaveInfo');
 
 Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
@@ -472,10 +471,10 @@ Route::post('/saveGuardResponse','EmployeeControl@saveResponse')->name('save.gua
 Route::post('/saveGuardReject','EmployeeControl@guardReject')->name('guard.reject');
 Route::get('/getReason','EmployeeControl@getReason')->name('getreason');
 // -- end Earl :D ----------------------------------------------------------------
-Route::get('/SecurityGuardsPortalSettings', 'EmployeeControl@settings');
+Route::get('/SecurityGuardsPortalSettings', 'EmployeeControl@settings')->middleware('auth:employee');
 Route::post ( '/EmployeeUpdateProfile', 'EmployeeControl@UpdateProfile' );
 Route::post ( '/EmployeeUpdatePassword', 'EmployeeControl@UpdatePassword' );
-Route::get('/SecurityGuardsPortalAttendance', 'EmployeeControl@attendance');
+Route::get('/SecurityGuardsPortalAttendance', 'EmployeeControl@attendance')->middleware('auth:employee');
 Route::get('Guard-Registration','LastControl@index6');
 Route::post ( '/GetProvinceAreas', 'AreaControl@getArea' );
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
@@ -489,11 +488,15 @@ Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
 //
 Route::get('send','sendEmail@send');
 //log In
-Route::get('/login','ContractController@signin');
-Route::post('/CLogin','ContractController@login');
-Route::get('/ClientHome','ContractController@home');
-Route::get('/ClientOut','ContractController@logout');
+Route::get('/Login','ContractController@signin');
+Route::post('/CLogin','ClientAuthControl@login');
+Route::get('/ClientHome','ClientPortalHomeController@index')->name('/ClientHome')->middleware('auth:client');
+Route::get('/ClientOut','ClientAuthControl@logout');
 
 Route::get('/AdminLogIn', function () {
     return view('AdminLogIn');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

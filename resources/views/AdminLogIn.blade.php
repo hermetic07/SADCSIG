@@ -35,16 +35,26 @@
     <div class="white-box">
               <a href="javascript:void(0)" class="text-center db"><img src="plugins/images/users/logoicon2.png"width="90px"  alt="Home" /><br/><img src="plugins/images/users/logotext2.png" width="200px" alt="Home" /></a>
             </br>            </br>
-      <form class="form-horizontal form-material" id="loginform" action="index.html">
-        <h3 class="box-title m-b-20">Log In</h3>
+      <form class="form-horizontal form-material" id="loginform" role="form" method="POST" action="{{ url('/login') }}">
+      {{ csrf_field() }}  
+      <h3 class="box-title m-b-20">Log In</h3>
         <div class="form-group ">
           <div class="col-xs-12">
-            <input class="form-control" type="text" required="" placeholder="Username">
+            <input id="email" type="email" class="form-control" name="email" value="" required autofocus placeholder="Username">
           </div>
         </div>
         <div class="form-group">
           <div class="col-xs-12">
-            <input class="form-control" type="password" required="" placeholder="Password">
+            <input id="password" type="password" class="form-control" name="password" required placeholder="Password">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-12">
+            @if($errors->has('password'))
+            <span class="help-block">
+              <strong>{{$errors->first('password')}}</strong>
+            </span>
+            @endif
           </div>
         </div>
         <div class="form-group">

@@ -85,7 +85,7 @@
            
               <div class="form-group m-t-40">
                 <div class="col-xs-12">
-                  <input class="form-control" type="text" name="client_username" required="" placeholder="Email address">
+                  <input class="form-control" type="email" name="client_username" required="" placeholder="Email address">
                 </div>
               </div>
               <div class="form-group">
