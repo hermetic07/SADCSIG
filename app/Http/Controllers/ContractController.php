@@ -93,7 +93,7 @@ class ContractController extends Controller
         $parse_exp_date = explode('/',$request->exp_date);
         $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
 
-        Clients::create(['id'=>$request->client_code,'first_name'=>$request->client_fname,'middle_name'=>$request->client_mname,'last_name'=>$request->client_lname,'username'=>$request->client_username,'password'=>$request->client_password,'address'=>$request->street_add,'areas_id'=>$request->area,'email'=>$request->client_email,'contactNo'=>$request->client_telephone,'cellphoneNo'=>$request->client_cellphone]);
+        Clients::create(['id'=>$request->client_code,'first_name'=>$request->client_fname,'middle_name'=>$request->client_mname,'last_name'=>$request->client_lname,'username'=>$request->client_username,'password'=>bcrypt($request->client_password),'address'=>$request->street_add,'areas_id'=>$request->area,'email'=>$request->client_email,'contactNo'=>$request->client_telephone,'cellphoneNo'=>$request->client_cellphone]);
 
         $establishment_id = 'ESTAB-'.$request->client_code;
 

@@ -39,7 +39,7 @@ class RegisterControl extends Controller
         $employee->id = "SECU".$count;
         $test = "SECU".$count;
         session(['key' => $test]);
-        $employee->password = "password";
+        $employee->password = bcrypt("password");
         $employee->first_name = $request->fname;
         $employee->middle_name = $request->mname;
         $employee->last_name = $request->lname;
