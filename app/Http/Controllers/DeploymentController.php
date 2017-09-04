@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Clients;
+use Illuminate\Support\Facades\DB;
 use App\Area;
 use App\Province;
 use App\Contracts;
@@ -109,6 +110,12 @@ class DeploymentController extends Controller
          if($request->ajax()){
             $deployment = new Deployments();
             $contract = Contracts::findOrFail($request->contractID);
+            $guardDetails = DB::table('temp_deployments')
+                            ->where('temp_deployments.contract_ID','=',$request->contractID)
+                            ->join('temp_deployment_details','temp_deployments.temp_deployment_id','=','temp_deployment_details.temp_deployments_id')
+                            ->where('temp_deployment_details.employees_id','=',$request->employeeID)
+                            ->select('shift_from as shiftFrom','shift_to as shiftTo')
+                            ->get();
             $guardDeployedctr =  (int)$contract->guardDeployed;
             
             $deployment['clients_id'] = $request->clientID;
@@ -120,8 +127,8 @@ class DeploymentController extends Controller
              $deploymentDetails = new DeploymentDetails();
                 $deploymentDetails['deployments_id'] = $dep[0]->id;
                 $deploymentDetails['employees_id'] = $request->employeeID;
-                $deploymentDetails['shift_from'] = $request->shiftFrom;
-                $deploymentDetails['shift_to'] = $request->shiftTo;
+                $deploymentDetails['shift_from'] = $guardDetails[0]->shiftFrom;
+                $deploymentDetails['shift_to'] = $guardDetails[0]->shiftTo;
                 $deploymentDetails['role'] = $request->role;
                 $deploymentDetails['status'] = "active";
                 if($deploymentDetails->save()){
