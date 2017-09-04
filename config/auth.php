@@ -45,6 +45,26 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        'employee' => [
+            'driver' => 'session',
+            'provider' => 'employees',
+        ],
+
+        'employe-api' => [
+            'driver' => 'token',
+            'provider' => 'employees',
+        ],
+
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+        ],
+
+        'client-api' => [
+            'driver' => 'token',
+            'provider' => 'clients',
+        ],
     ],
 
     /*
@@ -69,7 +89,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
+        'employees' => [
+            'driver' => 'eloquent',
+            'model' => App\Employee::class,
+        ],
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Clients::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -94,6 +121,16 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'employee' => [
+            'provider' => 'employees',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'client' => [
+            'provider' => 'clients',
             'table' => 'password_resets',
             'expire' => 60,
         ],

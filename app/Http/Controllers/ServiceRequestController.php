@@ -100,7 +100,7 @@ class ServiceRequestController extends Controller
         $licenses = License::all();
         $attributes = Attribute::all();
         $requirements = Requirement::all();
-        $count1 = "CONTRACTz".Contracts::get()->count();
+        $count1 = "CONTRACT".Contracts::get()->count();
 
          return view('AdminPortal.ClientRequests.Contracts.NewContract')->with('requirements',$requirements)->with('attributes',$attributes)->with('licenses',$licenses)->with('areas',$areas)->with('provinces',$provinces)->with('natures',$natures)->with('services',$services)->with('clcode',$client->id)->with('cncode',$count1)->with('client',$client);
 

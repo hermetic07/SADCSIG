@@ -60,9 +60,9 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td class="text-center">{{number_format($con->monthlyCP, 2, '.', ',')}}</td>
+                        <td class="text-center">{{number_format($month, 2, '.', ',')}} php</td>
                         <td class="text-center">{{$con->guard_count}}</td>
-                        <td class="text-center">{{$diff}} </td>
+                        <td class="text-center">{{$diff}}</td>
                       </tr>
 
                     </tbody>
@@ -75,15 +75,16 @@
               </br>
               </br>
                 <div class="">
-                <p>Agency fee  : 2,956.71</p>
-                <p>VAT ({{$vat->value}}%) : {{number_format($totalvat, 2, '.', ',')}}</p>
-                <p>Sub-Total amount: {{number_format($subtotal, 2, '.', ',')}} </p>
+                <p>Agency fee  : {{number_format($ac->value, 2, '.', ',')}} php</p>
+                <p>VAT ({{$vat->value}}%) : {{number_format($totalvat, 2, '.', ',')}} php</p>
+                <p> <b>Sub-Total amount:</b>  {{number_format($subtotal, 2, '.', ',')}} php</p>
                 </br>
-                <p>EWT({{$ewt->value}}%) : {{number_format($totalewt, 2, '.', ',')}} </p>
-                    
+                <p>EWT({{$ewt->value}}% of Agency Fee) : {{number_format($totalewt, 2, '.', ',')}} php</p>
+                <h4><b>Total (per guard) :</b> {{number_format($sumtotal, 2, '.', ',')}} php</h4>
                   <hr>
                   </br>
-                  <h3><b>Total :</b> {{number_format($sumtotal, 2, '.', ',')}}</h3>
+                  
+                  <h3><b>Sum Total ({{$con->guard_count}} Guard/s) :</b> {{number_format($total, 2, '.', ',')}} php</h3>
                 </div>
                 <div class=""></div>
                 <hr>

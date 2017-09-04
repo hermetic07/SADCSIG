@@ -26,44 +26,61 @@
                     </thead>
                     <tbody>
                         <tr>
+                            <td>Number of Guards</td>
+                            <td class="text-right">{{$num}}</td>
+                        </tr>
+                        <tr>
                             <td><b>General Fees</b></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>&nbsp;&nbsp;&nbsp;Nature of Business fee ({{$nature}})</td>
-                            <td class="text-right">{{number_format($price, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($price, 2, '.', ',')}} php</td>
                         </tr>
                         <tr>
-                            <td>&nbsp;&nbsp;&nbsp;Number of Guards</td>
-                            <td class="text-right">{{$num}}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
-                        <tr>
-                            <td><b>Sub Total:</b></td>
-                            <td class="text-right">{{number_format($total, 2, '.', ',')}}</td>
-                        </tr>
+                        
                         <tr>
                             <td><b>Additional Fees</b></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>&nbsp;&nbsp;&nbsp;Agency Fee</td>
-                            <td class="text-right">2,000.00</td>
+                            <td class="text-right">{{$ac}} php</td>
                         </tr>
                         <tr>
-                            <td>&nbsp;&nbsp;&nbsp;VAT ({{$vat}}%)</td>
-                            <td class="text-right">{{number_format($totalvat, 2, '.', ',')}}</td>
+                            <td>&nbsp;&nbsp;&nbsp;VAT ({{$vat}}% of Agency Fee)</td>
+                            <td class="text-right">{{number_format($totalvat, 2, '.', ',')}} php</td>
                         </tr>
                         <tr>
-                            <td>&nbsp;&nbsp;&nbsp;EWT ({{$ewt}}%)</td>
-                            <td class="text-right">{{number_format($totalewt, 2, '.', ',')}}</td>
+                            <td><b>Sub Total:</b></td>
+                            <td class="text-right">{{number_format($total, 2, '.', ',')}} php</td>
                         </tr>
                         <tr>
-                            <td><b>TOTAL</b></td>
-                            <td class="text-right">{{number_format($sumtotal, 2, '.', ',')}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;EWT ({{$ewt}}% of Agency Fee)</td>
+                            <td class="text-right">{{number_format($totalewt, 2, '.', ',')}} php</td>
+                        </tr>
+                        <tr>
+                            <td><b>Total (per guard)</b></td>
+                            <td class="text-right">{{number_format($sumtotal, 2, '.', ',')}} php</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><b>Sum Total ({{$num}} guard/s)</b></td>
+                            <td class="text-right">{{number_format($sumtotal2, 2, '.', ',')}} php</td>
                         </tr>
                         <tr>
                             <td><b>In {{$months}} month(s)</b></td>
-                            <td class="text-right">{{number_format($inmonths, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($inmonths, 2, '.', ',')}} php</td>
                         </tr>
                     </tbody>
                 </table>

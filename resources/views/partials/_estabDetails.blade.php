@@ -205,6 +205,7 @@
         <tr>
         <th>Gun type</th>
           <th  data-sort-ignore="true">Gun</th>
+          <th>Serial No</th>
         </tr>
       </thead>
         <div class="form-inline padding-bottom-15">
@@ -223,26 +224,17 @@
 
 
       <tbody>
-         <tr>
-                      <td>Pistol</td>
-        <td>Glock-49</td>
-                  </tr>
-       <tr>
-                      <td>Pistol</td>
-        <td>Glock-49</td>
-                  </tr>
-
-       <tr>
-                      <td>Pistol</td>
-        <td>Glock-49</td>
-                  </tr>
-
-
-
+        @foreach($clientGuns as $clientGun)
+          <tr>
+            <td> {{$clientGun->gunType}} </td>
+            <td> {{$clientGun->gun}} </td>
+            <td> {{$clientGun->serialNo}} </td>
+          </tr>
+        @endforeach
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="2"></td>
+          <td colspan="3"></td>
         </tr>
       </tfoot>
   </table>

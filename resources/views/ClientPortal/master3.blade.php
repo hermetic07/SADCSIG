@@ -40,7 +40,7 @@
   <div class="preloader">
     <div class="cssload-speeding-wheel"></div>
   </div>
-  <div id="wrapper">
+  <div id="wrapper" class="blockdiv">
   <!-- Top Navigation -->
   <nav class="navbar navbar-default navbar-static-top m-b-0">
   <!-- navbar-header -->
@@ -155,6 +155,9 @@
 <!-- Sweet-Alert  -->
  <script src="js/Alert/sweetalert.min.js"></script>
     <script src="js/Alert/jquery-alertcustom.js"></script>
+        <!--BlockUI Script -->
+    <script src="plugins/bower_components/blockUI/jquery.blockUI.js"></script>
+
 
 
 

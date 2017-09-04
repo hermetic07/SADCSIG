@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use App\AddGuardRequests;
 use App\Clients;
@@ -98,12 +99,13 @@ class AdminController extends Controller
     }
     public function selectShifts(Request $request){
         if($request->ajax()){
+           
             $contract = Contracts::findOrFail($request->contractID);
             $establishment = Establishments::findOrFail($contract->strEstablishmentID);
             $shifts = Shifts::where('estab_id',$establishment->id)->get();
             return view('AdminPortal.selectShifts')
-                    ->with('shifts',$shifts)
-                    ->with('employeeID',$request->employeeID);
+                    ->with('shifts',$shifts);
+                    
             //return response($request->employeeID);
         }
     }
@@ -390,6 +392,14 @@ class AdminController extends Controller
       $area_name = $areas->name;
       $provinces = Province::where('id',$provinces_id)->get();
 
+      $clientGuns = DB::table('tblGunRequests')
+      ->where('tblGunRequests.establishments_id','=',$estabID)
+      ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
+      ->join('tblClaimeddelivery','tblClaimeddelivery.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
+      ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
+      ->join('gunType','gunType.id','=','guns.guntype_id')
+      ->select('guns.name as gun','gunType.name as gunType','tblClaimeddelivery.serialNo')
+      ->get();
      // return $es->contract_id;
       return view('AdminPortal.ClientsDetails')
             ->with('estabID',$estabID)
@@ -408,6 +418,7 @@ class AdminController extends Controller
             ->with('contractID',$es->contract_id)
             ->with('area_size',$area_size)
             ->with('population',$population)
+            ->with('clientGuns',$clientGuns)
             ->with('estabGuards',$estabGuards)
             ->with('guardDeployed',$guardDeployed)
             ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic);
@@ -464,62 +475,5 @@ class AdminController extends Controller
         }
     }
 
-    public function vatupdate(Request $r){
-        
-        try{
-            $count = vat::get()->count();
-            if ($count>0) {
-                $id = $r->get('pk');
-                $v = vat::findOrFail($id);
-                $name = $r->get('name');
-                $value = $r->get('value');
-                $v->$name = $value;
-                $v->save();
-            }
-            else {
-                $v = new vat();
-                $id = $r->get('pk');
-                $v->id = $id;
-                $v->name = "vat";
-                $value = $r->get('value');
-                $v->value = $value;
-                $v->save();
-            }
-        }catch(Exception $e){
-            return $e;
-        }
-    }
-
-    public function ewtupdate(Request $r){
-        
-        try{
-            $count = ewt::get()->count();
-            if ($count>0) {
-                $id = $r->get('pk');
-                $e = ewt::findOrFail($id);
-                $name = $r->get('name');
-                $value = $r->get('value');
-                $e->$name = $value;
-                $e->save();
-            }
-            else {
-                $e = new ewt();
-                $id = $r->get('pk');
-                $e->id = $id;
-                $e->name = "vat";
-                $value = $r->get('value');
-                $e->value = $value;
-                $e->save();
-            }
-        }catch(Exception $e){
-            return $e;
-        }
-    }
-
-    public function tax(){
-        $v = vat::All()->first();
-        $e = ewt::All()->first();
-
-        return view('Utilities/Tax')->with('v',$v)->with('e',$e);
-    }
+    
 }

@@ -727,7 +727,7 @@ function getRate(id){
           type : 'GET',
           data : {serviceID:id},
           success : function(data){
-              alert(typeof data);
+             // alert(typeof data);
             // console.log(data);
             $('#mcp').val(parseFloat(data));
             
@@ -1017,7 +1017,7 @@ $('#firstcal').removeAttr("disabled");
                   $.each($(".shiftend"), function(){
                       allend.push($(this).val());
                   });
-                  alert($('#area').attr('name')+"ddddddddddd");
+                 // alert($('#area').attr('name')+"ddddddddddd");
                   $.ajax({
                     type: 'post',
                     url: "{{route('newcontract.existing.save')}}",
@@ -1067,7 +1067,7 @@ $('#firstcal').removeAttr("disabled");
                     success: function(data){
                       if(data==="Success")
                       {
-                        alert("Registration Success. Will now proceed to uploading of your pictures");
+                        alert("Registration Success!");
                         window.location.href = '/Dashboard';
                       }
                       else {

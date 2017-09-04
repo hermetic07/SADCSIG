@@ -209,7 +209,7 @@
 
               <h3 class="m-t-20 m-b-20">Welcome!</h3>
               <p>On this page you will select your guards to deploy them to your area. You can view their informations and hire them base on your qualifications</p>
-            <center>  <span class="label label-rouded label-info">5 more</span> </center>
+   
             </div>
             @php
               $checker = 0;
@@ -220,7 +220,7 @@
                   @php
                     $checker++;
                   @endphp
-                  <div class="carousel-cell">
+                  <div class="carousel-cell acpt rjct">
 
                 <div class="our-team">
                   <div class="el-card-item" style="padding-bottom: 5px;" >
@@ -228,7 +228,7 @@
                            <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}"  alt="user" ></a>
                             <div class="el-overlay">
                               <ul class="el-info">
-                                      <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank">More info </a></li>
+                                      <li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$employee->id)}}" target="_blank">More info </a></li>
                               </ul>
                         </div>
                       </div>
@@ -245,10 +245,10 @@
             <div class="col-xs-12">
             <div class="form-group">
                   <div class="col-xs-6">
-                    <button id="{{$employee->id}}" class="btn btn-block btn-outline btn-rounded btn-success acc">Accept</button>
+                    <button id="{{$employee->id}}"  onclick="acc()"  class="btn btn-block btn-outline btn-rounded btn-success acc">Accept</button>
                   </div>
                   <div class="col-xs-6"> 
-                    <button id="{{$employee->id}}" class="btn btn-block btn-outline btn-rounded btn-danger rej">Reject</button>
+                    <button id="{{$employee->id}}"  onclick="rej()"  class="btn btn-block btn-outline btn-rounded btn-danger rej">Reject</button>
                   </div>
                </div> 
               </div>
@@ -258,9 +258,7 @@
             @endforeach
               <div class="carousel-cell">
 
-        <a href="javascript:void(0)"><img alt="img" class="img-circle img-responsive" src="plugins/images/Clients/establishments/pup.jpg"></a>
-
-
+              </br> </br> </br> </br> </br> </br>
               <h3 class="m-t-20 m-b-20">Click Finish if you are done!</h3>
               <button type="button" class="btn btn-info btn-block finish">Finish</button>
             </div>
@@ -281,6 +279,8 @@
       }
     });
 
+       
+
       $(document).ready(function(){
         accepted_gaurds = [];
         rejected_guards = [];
@@ -290,20 +290,36 @@
         $('.rej').on('click', function() {
               rejected_guards.push(this.id);
               rejected_guards_ids = rejected_guards.join(",");
-              
-              $(this).closest('.carousel-cell').fadeOut(1000, function () {
-                  $(this).remove();
-              });
+               
+                          $(this).closest('.rjct').block({
+                message: '<p style="margin:0;padding:8px;font-size:24px;"><i class="fa fa-times"></i></p>'
+                , css: {
+                    color: '#fff'
+                    , border: '1px solid #fb9678'
+                    , backgroundColor: '#fb9678'
+                }
+            });
+
 
         });
 
         $('.acc').on('click', function() {
               accepted_gaurds.push(this.id);
               accepted_guards_ids = accepted_gaurds.join(",");
-              
-            $(this).closest('.carousel-cell').fadeOut(1000, function () {
-                $(this).remove();
+            
+                        $(this).closest('.acpt').block({
+                message: '<p style="margin:0;padding:8px;font-size:24px;"><i class="fa fa-check"></i></p>'
+                , css: {
+                    color: '#fff'
+                    , border: '1px solid #fb9678'
+                    , backgroundColor: '#00c292'
+                }
             });
+
+                          
+     
+
+      
           });
         $('.finish').hover(function(){
           // var total_selected = accepted_gaurds.length + rejected_guards.length;
@@ -315,6 +331,13 @@
           // }
         });
         $('.finish').on('click',function(e){
+  $('div.blockdiv').block({
+                message: '<h4><img src="plugins/images/busy.gif"/> We are processing your response. </h4>'
+                , css: {
+                   color: '#fff',
+                    border: '1px solid #fff'
+                }
+            });
 
         var client_notif_id = $('#client_notif_id').val();
         //alert(client_notif_id);
@@ -324,9 +347,17 @@
           url : '{{route("saveguards")}}',
           success : function(data){
            if(data == 0){
-            alert("Success! We'll notify you once we completed the guards");
+             swal({
+      title: "Thank you!",
+      text: "Success! We'll notify you once we completed the guards",
+      type: "success"
+  });
            }else{
-            alert("Success! We'll notify you once we completed the guards");
+                    swal({
+      title: "Thank you!",
+      text: "Success! We'll notify you once we completed the guards",
+      type: "success"
+  });
             location.href="/ClientPortalHome-{{$client->id}}";
             console.log(data);
            }

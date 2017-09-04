@@ -20,8 +20,9 @@
                     <h3 class="box-title">billing and collection </h3>
                     <div class="list-group">
                       <a href="{{url('/Tax')}}" class="list-group-item active">Tax</a>                           
-                      <a href="javascript:void(0)" class="list-group-item">Agency fee </a>
-                      <a href="javascript:void(0)" class="list-group-item">Penalties</a>
+                      <a href="{{url('/AgencyFee')}}" class="list-group-item">Agency fee </a>
+                      <a href="{{url('/Penalties')}}" class="list-group-item">Penalties</a>
+                      <a href="{{url('/BillingDays')}}" class="list-group-item">Billing Days</a>
                     </div>
                 </div>
                 <div class="col-md-7 col-sm-7  p-20 white-box" style="margin-left: 5%; height: 535px;" >

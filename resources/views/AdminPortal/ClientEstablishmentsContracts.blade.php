@@ -39,4 +39,26 @@
       });
     });
   </script>
+  <script>
+  function fun_terminate(id) {
+    $.ajaxSetup({
+          headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+    }); 
+    $.ajax({
+          type: 'post',
+          url: '/Terminate',
+          data: {
+              'id':id,
+          },
+          success: function(data){
+              if(data!==null&&data!==""){
+                alert(data);
+                location.reload();
+              }
+          }
+    });
+  }
+  </script>
 @endsection

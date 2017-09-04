@@ -52,12 +52,14 @@ class ContractController extends Controller
         return redirect('/ClientPortalHome-'.$key);
       }
       else {
-          return view('clientloginform');
+         $stat= 1;
+          return view('clientloginform')->with('stat',$stat);
       }
     }
 
     public function signin(){
-      return view('clientloginform');
+        $stat= 0;
+      return view('clientloginform')->with('stat',$stat);
     }
 
     public function home(Request $request){
@@ -67,8 +69,9 @@ class ContractController extends Controller
     }
 
     public function logout(Request $request){
+         $stat= 0;
       $request->session()->forget('client');
-      return view('clientloginform');
+      return view('clientloginform')->with('stat',$stat);
     }
     public function getServiceRate(Request $request){
         if($request->ajax()){
@@ -90,7 +93,7 @@ class ContractController extends Controller
         $parse_exp_date = explode('/',$request->exp_date);
         $exp_date = "$parse_exp_date[2]-$parse_exp_date[0]-$parse_exp_date[1]";
 
-        Clients::create(['id'=>$request->client_code,'first_name'=>$request->client_fname,'middle_name'=>$request->client_mname,'last_name'=>$request->client_lname,'username'=>$request->client_username,'password'=>$request->client_password,'address'=>$request->street_add,'areas_id'=>$request->area,'email'=>$request->client_email,'contactNo'=>$request->client_telephone,'cellphoneNo'=>$request->client_cellphone]);
+        Clients::create(['id'=>$request->client_code,'first_name'=>$request->client_fname,'middle_name'=>$request->client_mname,'last_name'=>$request->client_lname,'username'=>$request->client_username,'password'=>bcrypt($request->client_password),'address'=>$request->street_add,'areas_id'=>$request->area,'email'=>$request->client_email,'contactNo'=>$request->client_telephone,'cellphoneNo'=>$request->client_cellphone]);
 
         $establishment_id = 'ESTAB-'.$request->client_code;
 
@@ -268,5 +271,13 @@ class ContractController extends Controller
     {
       $clientlist =  Clients::all();  
       return view('AdminPortal/ActiveClient')->with('client', $clientlist);
+    }
+
+    public function terminate(Request $r)
+    {
+      $c = Contracts::find($r->id);
+      $c->status = "terminated";
+      $c->save();
+      return "Contract Terminated";
     }
 }

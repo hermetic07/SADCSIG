@@ -1,9 +1,9 @@
 @extends('AdminPortal.master2')
 
-@section('Title') Security guards' licenses @endsection
+@section('Title') Security Guards' Licenses @endsection
 
 
-@section('mtitle') Security guards' licenses  @endsection
+@section('mtitle') Security Gsuards' Licenses  @endsection
 
 @section('mtitle2')
                         <li><a href="{{url('/SecurityGuards')}}"> Security guards</a></li>
@@ -43,16 +43,21 @@
                 </div>
 
                     <div class="row  el-element-overlay">
+					@foreach($all as $a)
 						<div class="col-md-4 col-sm-4 content">
 							<div class="white-box">
                                     <div class="row">
                         				<div class="col-md-4 col-sm-4 text-center">
                           						<div class="el-card-item">
 													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
+														@if($a->image!==null)
+														  <a href="{{url('/SecuProfile')}}"><img src="uploads/{{$a->image}}" alt="uploads/secu.png"  class="img-circle img-responsive"></a>
+														@else  
+														  <a href="{{url('/SecuProfile')}}"><img src="default/secu.png" alt="uploads/secu.png"  class="img-circle img-responsive"></a>
+														@endif		
+														  		<div class="el-overlay">
 																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
+																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="uploads/{{$a->image}}"><i class="icon-magnifier"></i></a></li>
                                                     					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                   									</ul>
 																</div>
@@ -63,17 +68,17 @@
 
 										<div class="col-md-8 col-sm-8">
 
-                              			<h3 class="box-title m-b-0">Evander Macandog</h3>
-                                        <small>	12312321213</small>
-
+                              			<h3 class="box-title m-b-0">{{$a->f}} {{$a->m}} {{$a->l}}</h3>
+                                        <small>	{{$a->licensenum}}</small><br>
+										<small>	{{$a->class}}</small>
 										<div class="row m-t-20">
                                          	<div class="col-md-6 b-r">
                                   				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
+                                  				<p>{{$a->date_issued}}</p>
                                             </div>
                                 			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
+												<strong>Date Expired</strong>
+												<p>{{$a->date_expired}}</p>
                                 			</div>
                               			</div>
 										</div>
@@ -82,446 +87,7 @@
                                  	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
                              </div>
 			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Abel mandap</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 4.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Luigi lacsina</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Evander Macandog</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Abel mandap</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 4.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Luigi lacsina</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Evander Macandog</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Abel mandap</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 4.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Luigi lacsina</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Evander Macandog</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 2.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Abel mandap</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
-
-						<div class="col-md-4 col-sm-4 content">
-							<div class="white-box">
-                                    <div class="row">
-                        				<div class="col-md-4 col-sm-4 text-center">
-                          						<div class="el-card-item">
-													<div class="el-card-avatar el-overlay-1">
-                             							 <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 4.jpg" alt="user"  class="img-circle img-responsive"></a>
-																<div class="el-overlay">
-																	<ul class="el-info">
-																		<li><a class="btn default btn-outline image-popup-vertical-fit" href="plugins/images/SecurityGuards/2x2 4.jpg"><i class="icon-magnifier"></i></a></li>
-                                                    					<li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                  									</ul>
-																</div>
-													</div>
-												</div>
-										</div>
-
-
-										<div class="col-md-8 col-sm-8">
-
-                              			<h3 class="box-title m-b-0">Luigi lacsina</h3>
-                                        <small>	12312321213</small>
-
-										<div class="row m-t-20">
-                                         	<div class="col-md-6 b-r">
-                                  				<strong>Date issued</strong>
-                                  				<p>January 15,2015</p>
-                                            </div>
-                                			<div class="col-md-6">
-												<strong>Expiration date</strong>
-												<p>Febuary 12,2016</p>
-                                			</div>
-                              			</div>
-										</div>
-
-								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
-                             </div>
-			  			</div>
+						@endforeach
 
 
 

@@ -291,6 +291,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
 
                         <tbody>
                           @foreach($contracts as $contract)
+                          @if($contract->status != "active")
                            @foreach($establishments as $establishment)
                               @if($establishment->id == $contract->strEstablishmentID)
                                 @php
@@ -367,6 +368,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                             
                             @endif
                             @endforeach
+                          @endif
                           @endforeach
                         </tbody>
                         <tfoot>
@@ -429,7 +431,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
 
           @foreach($employees as $employee)
             @if($employee->deployed == 0)
-              @if($employee->status == 'active')
+              @if($employee->status == 'waiting')
             @php
               $ctr2 = $ctr2+1;
             @endphp
@@ -560,7 +562,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                         <option value="" disabled="" selected="">---</option>
                                         @foreach($roles as $role)
                                           @if($role->status == "active")
-                                            <option value="{{$role->name}}">{{$role->name}}</option>
+                                            <option value="{{$role->name}},{{$employee->id}}">{{$role->name}}</option>
                                           @endif
                                         @endforeach
                                       </select>
@@ -755,20 +757,20 @@ $('.form-search .btn').on('click', function(e){
 
 <script type="text/javascript">
 $('#deployguards').on('click',function(){
-  // alert($('.shifts').attr('id').split("-")[1]);
-      employeeID = $('.shifts').attr('id').split("-")[1];
+  
       contractID = $('#contractID').val();
-      $.ajax({
+       $.ajax({
         url:'{{route("select.shifts")}}',
         type:'GET',
-        data : {contractID:contractID,employeeID:employeeID},
+        data : {contractID:contractID},
         success:function(data){
-          //alert(data);
-           $('#shift-'+employeeID).text('');
-           $('#shift-'+employeeID).append(data);
+         // alert(data);
+           $('.shifts').text('');
+          $('.shifts').append(data);
           console.log(data);
         }
       });
+     
 });
   // the count of guards for alert info
    $('#deployguards').attr("disabled", "disabled");
@@ -792,6 +794,22 @@ $('#deployguards').on('click',function(){
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
+    });
+    $('.shifts').on('click',function(){
+      //alert("Earl");
+      // employeeID = this.id.split("-")[1];
+      // contractID = $('#contractID').val();
+      //  $.ajax({
+      //   url:'{{route("select.shifts")}}',
+      //   type:'GET',
+      //   data : {contractID:contractID,employeeID:employeeID},
+      //   success:function(data){
+      //    // alert(data);
+      //      $('select'+'#shift-'+employeeID).text('');
+      //     $('select'+'#shift-'+employeeID).append(data);
+      //     console.log(data);
+      //   }
+      // });
     });
   function fun_delete(id)
    {

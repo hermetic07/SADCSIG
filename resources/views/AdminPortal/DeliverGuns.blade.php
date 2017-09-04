@@ -213,8 +213,7 @@
     
     $.each($(".serialCheck"), function(){
       if($(this).is(':checked')){
-        alert($(this).attr('name')
-          );
+       
         gunsID.push($(this).val());
         a.push($(this).attr('name'));
       }
@@ -222,7 +221,7 @@
     });
     for(var i = 0; i < a.length; i++){
      quantity.push($('#del'+a[i]).val());
-     alert($('#del'+a[i]).val());
+    // alert($('#del'+a[i]).val());
     }
     //alert(quantity.length)
     $.ajax({
@@ -261,13 +260,13 @@
     });
     for(var i = 0; i < b.length; i++){
      serialNos.push($('#'+b[i]).val());
-     alert(serialNos[i]);
+     //alert(serialNos[i]);
     }
     delBoy = $('#deliveredBy').val();
     delBoyContact = $('#delBoyContact').val();
     delCode = $('#delCode').val();
     // alert(delBoyContact);
-     alert(quantity.length);
+    // alert(quantity.length);
      $.ajax({
        url : '{{route("gun.delivery.save")}}',
         type : 'POST',
