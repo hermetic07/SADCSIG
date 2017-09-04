@@ -99,13 +99,13 @@ class AdminController extends Controller
     }
     public function selectShifts(Request $request){
         if($request->ajax()){
-            $employeesID = $request->employeeID;
+           
             $contract = Contracts::findOrFail($request->contractID);
             $establishment = Establishments::findOrFail($contract->strEstablishmentID);
             $shifts = Shifts::where('estab_id',$establishment->id)->get();
             return view('AdminPortal.selectShifts')
-                    ->with('shifts',$shifts)
-                    ->with('employeesID',$employeesID);
+                    ->with('shifts',$shifts);
+                    
             //return response($request->employeeID);
         }
     }

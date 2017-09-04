@@ -562,7 +562,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                                         <option value="" disabled="" selected="">---</option>
                                         @foreach($roles as $role)
                                           @if($role->status == "active")
-                                            <option value="{{$role->name}}">{{$role->name}}</option>
+                                            <option value="{{$role->name}},{{$employee->id}}">{{$role->name}}</option>
                                           @endif
                                         @endforeach
                                       </select>
@@ -757,14 +757,19 @@ $('.form-search .btn').on('click', function(e){
 
 <script type="text/javascript">
 $('#deployguards').on('click',function(){
-  // alert($('.shifts').attr('id').split("-")[1]);
-    var employeesID =[];
-    $.each($(".shifts"), function(){
-      employeesID.push($(this).attr('id').split("-")[1]);
-          
-    });
-     // employeeID = $('.shifts').attr('id').split("-")[1];
+  
       contractID = $('#contractID').val();
+       $.ajax({
+        url:'{{route("select.shifts")}}',
+        type:'GET',
+        data : {contractID:contractID},
+        success:function(data){
+         // alert(data);
+           $('.shifts').text('');
+          $('.shifts').append(data);
+          console.log(data);
+        }
+      });
      
 });
   // the count of guards for alert info
@@ -792,19 +797,19 @@ $('#deployguards').on('click',function(){
     });
     $('.shifts').on('click',function(){
       //alert("Earl");
-      employeeID = this.id.split("-")[1];
-      contractID = $('#contractID').val();
-       $.ajax({
-        url:'{{route("select.shifts")}}',
-        type:'GET',
-        data : {contractID:contractID,employeeID:employeeID},
-        success:function(data){
-         // alert(data);
-           $('select'+'#shift-'+employeeID).text('');
-          $('select'+'#shift-'+employeeID).append(data);
-          console.log(data);
-        }
-      });
+      // employeeID = this.id.split("-")[1];
+      // contractID = $('#contractID').val();
+      //  $.ajax({
+      //   url:'{{route("select.shifts")}}',
+      //   type:'GET',
+      //   data : {contractID:contractID,employeeID:employeeID},
+      //   success:function(data){
+      //    // alert(data);
+      //      $('select'+'#shift-'+employeeID).text('');
+      //     $('select'+'#shift-'+employeeID).append(data);
+      //     console.log(data);
+      //   }
+      // });
     });
   function fun_delete(id)
    {

@@ -1,11 +1,7 @@
-@php
-	$ctr = 0;
-@endphp
+
 
 @foreach($shifts as $shift)
 	
-	<option value="{{$shift->start}},{{$shift->end}},{{$employeesID}}">From:{{$shift->start}}am - To:{{$shift->end}}pm</option>
-	@php
-	$ctr++;
-@endphp
+	<option value="{{$shift->start}},{{$shift->end}}">From:{{$shift->start}}am - To:{{$shift->end}}pm</option>
+	
 @endforeach

@@ -75,7 +75,7 @@ class DeploymentController extends Controller
         for($ctr = 0; $ctr < $l; $ctr++){
             $shift = "shift".((string)$ctr);
             $role = "role".((string)$ctr);
-            if($request->$shift != null){
+            if($request->$role != null){
               // echo $request->$shiftFrom ."--". $request->$shiftTo."<br><br>";
                 $ctr2++;
                 //echo $ctr2;
@@ -84,12 +84,17 @@ class DeploymentController extends Controller
                 }
                 $explod = explode(',',$request->$shift);
                 $from = $explod[0];
-                $secuID = $explod[2];
+                $explod2 = explode(',',$request->$role);
+
+                $secuID = $explod2[1];
+                $guadrole = $explod2[0];
+
+                
                 
                 $to = $explod[1];
                 $client_inbox_id = 'CLNTNTF-'.$request->contractID.$count1;
                 $temp_deployment_details_id= 'TMPDPLY-DTLS-'.$request->contractID."-".$count1."-".((string)$ctr);
-                TempDeploymentDetails::create(['temp_deployment_details_id'=>$temp_deployment_details_id,'temp_deployments_id'=>$temp_deployment_id,'employees_id'=>$secuID,'shift_from'=>$from,'shift_to'=>$to,'role'=>$request->$role,'status'=>'active']);
+                TempDeploymentDetails::create(['temp_deployment_details_id'=>$temp_deployment_details_id,'temp_deployments_id'=>$temp_deployment_id,'employees_id'=>$secuID,'shift_from'=>$from,'shift_to'=>$to,'role'=>$guadrole,'status'=>'active']);
                 Employee::findOrFail($secuID)->update(['deployed'=>1]);
                
                 

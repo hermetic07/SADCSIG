@@ -200,6 +200,7 @@
                     </ul>
 							</br>
                     <form id="validation" class="form-horizontal animated fadeInUp"  style="border: 2px solid black; border-radius:15px;">
+                      {!! csrf_field() !!}
                         <div class="wizard-content">
                             <div class="wizard-pane active" role="tabpanel">
                                 <div class="form-group">
@@ -218,6 +219,8 @@
                                         <input type="text" class="form-control name"   />
                                     </div>
                                 </div>
+                      }
+                      }
 								<div class="form-group">
                                     <label class="col-xs-3 control-label">Client name</label>
                                     <div class="col-xs-3">
