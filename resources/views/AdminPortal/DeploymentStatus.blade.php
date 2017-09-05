@@ -284,7 +284,7 @@
     </tbody>
 </table>
 </div>
-<button type="button" class="btn btn-block  btn-info" ><i class="fa fa-edit"></i> </i>More info</button>
+<button type="button" class="btn btn-block  btn-info" ><i class="fa fa-edit"></i> </i><a href="/ClientsDetails-{{$client->id}}+{{$establishment->id}}">More info</a></button>
 </div>
 
 </div>

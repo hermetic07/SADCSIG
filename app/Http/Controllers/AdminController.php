@@ -220,6 +220,7 @@ class AdminController extends Controller
         $shifts = Shifts::all();
         $establishments = Establishments::all();
         $empCtr = 0;
+        $roles = Role::all();
         foreach($employees as $employee){
             $empCtr = $empCtr + 1;
         }
@@ -235,6 +236,7 @@ class AdminController extends Controller
                 ->with('accepted',$request->accepted)
                 ->with('changeID',$request->changeID)
                 ->with('refuseID',$request->refuseID)
+                ->with('roles',$roles)
                 ->with('refuseCtr',$request->refuseCtr)
                 ;
         //return $request->clientID;
