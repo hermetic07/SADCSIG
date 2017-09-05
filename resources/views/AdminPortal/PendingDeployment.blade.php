@@ -120,7 +120,7 @@
                                     
                                     <br>
                                     <div class="progress progress-md">
-                                        <button id="{{$contract->id}}" class="progress-bar progress-bar-info active progress-bar-striped" value="{{$deployedCtr}},{{$contract->guard_count}}" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">{{$deployedCtr}} / {{$contract->guard_count}}
+                                        <button id="{{$contract->id}}" class="progress-bar progress-bar-info active progress-bar-striped" value="{{$contract->guardDeployed}},{{$contract->guard_count}}" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 50%" role="progressbar">{{$contract->guardDeployed}} / {{$contract->guard_count}}
                                         </button>
                                         @php
                                             $contractIDs = $contractIDs.",".$contract->id;
