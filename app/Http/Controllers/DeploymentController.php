@@ -141,8 +141,14 @@ class DeploymentController extends Controller
             //return response($dep);
                 $ac = AcceptedGuards::where('guard_id',$request->employeeID)->update(['guard_reponse'=>'deployed']);
                 $nr = NotifResponse::where('guard_id',$request->employeeID)->update(['status'=>'deployed']);
-                $emp = Employee::findOrFail($request->employeeID)->update(['deployed'=>'1']);
-                $emp = Employee::findOrFail($request->employeeID)->update(['status'=>'deployed']);
+                $emp = Employee::findOrFail($request->employeeID)->update(['deployed'=>'1','status'=>'deployed']);
+                $emp2 = new Employee();
+                $emp2 = Employee::findOrFail($request->employeeID);
+                $emp2['status'] = 'deployed';
+                if(!$emp2->save()){
+                    return "Ear";
+                }
+                //Employee::findOrFail($request->employeeID)->update(['status'=>'deployed']);
                 EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$request->contractID]);
 
                 $contract->guardDeployed = $guardDeployedctr;
