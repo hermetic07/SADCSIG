@@ -467,7 +467,7 @@ class AdminController extends Controller
                                  ->on('tblestabGuards.contractID','=','contracts.id');
                         })
                         ->join('employees','tblestabGuards.strGuardID','=','employees.id')
-                        ->select('employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo')
+                        ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo')
                         ->get();
 
             return view('AdminPortal.ClientRequests.Contracts.viewModal')
