@@ -12,30 +12,27 @@
 */
 Route::get('/Request-sent','LastControl@viewSentReq');
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 Route::get('/home', function () {
-    return view('welcome2');
+	return view('welcome2');
 });
 //Admin portal
 Route::get('/Dashboard','AdminController@dashboardIndex')->name('dashboard')->middleware('auth');
 
-Route::get('/DeploymentStatus', function () {
-    return view('AdminPortal/DeploymentStatus');
-});
-Route::get('/Notifications','AdminController@notifications');
+Route::get('/Notifications','AdminController@notifications')->middleware('auth');
 Route::get('/ChangeGuards', function () {
-    return view('AdminPortal/ChangeRejectedGuards');
+	return view('AdminPortal/ChangeRejectedGuards');
 });
 Route::post('/Terminate','ContractController@terminate');
 Route::post('/GetNatureValue','BillingControl@getNature');
 
 Route::get('/Replace', function () {
-    return view('AdminPortal/Replace');
+	return view('AdminPortal/Replace');
 });
 
 Route::get('/UploadPics', function () {
-    return view('AdminPortal/ClientPics');
+	return view('AdminPortal/ClientPics');
 });
 
 Route::get('/Swap','GuardReplacementController@index');
@@ -47,31 +44,31 @@ Route::get('/GuardLicenses', 'RegisterControl@guardslicense');
 
 
 Route::get('/GuardsDTR', function () {
-    return view('AdminPortal/GuardsDTR');
+	return view('AdminPortal/GuardsDTR');
 });
 
 Route::get('/Applicants', 'RegisterControl@hire');
 Route::get('/SecurityGuards', 'RegisterControl@guards');
 
 Route::get('/Ammunition', function () {
-    return view('AdminPortal/Ammunition');
+	return view('AdminPortal/Ammunition');
 });
 
 
 Route::get('/Reports', function () {
-    return view('AdminPortal/Reports');
+	return view('AdminPortal/Reports');
 });
 
 Route::get('/IncidentReports', function () {
-    return view('AdminPortal/IncidentReports');
+	return view('AdminPortal/IncidentReports');
 });
 
 Route::get('/Messages', function () {
-    return view('AdminPortal/Messages');
+	return view('AdminPortal/Messages');
 });
 
 Route::get('/Announcements', function () {
-    return view('AdminPortal/Announcements');
+	return view('AdminPortal/Announcements');
 });
 
 
@@ -83,7 +80,7 @@ Route::post('/GetBilling', "BillingControl@getRecord");
 Route::get('/ClientPayment',"BillingControl@allSOA" );
 
 Route::get('/Quotation', function () {
-    return view('AdminPortal/Quotation');
+	return view('AdminPortal/Quotation');
 });
 
 Route::get('/ServiceRequest','ServiceRequestController@index');
@@ -95,34 +92,34 @@ Route::get('/AddGuardRequests','AdditionalGuardRequesController@index');
 
 
 Route::get('/ClientPortalMessages', function () {
-    return view('ClientPortal/ClientPortalMessages');
+	return view('ClientPortal/ClientPortalMessages');
 });
 
 Route::get('/ClientPortalGuardsDTR','ClientPortalHomeController@guardDtr');
 
 Route::get('/ClientPortalSettings', function () {
-    return view('ClientPortal/ClientPortalSettings');
+	return view('ClientPortal/ClientPortalSettings');
 });
 
 Route::get('/ClientPortalDetails', function () {
-    return view('ClientPortal/ClientPortalDetails');
+	return view('ClientPortal/ClientPortalDetails');
 });
 
 
 Route::get('/SecurityGuardsPortalHome', function () {
-    return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
+	return view('SecurityGuardsPortal/SecurityGuardsPortalHome');
 });
 
 
 Route::get('/GuardPool', function () {
-    return view('ClientPortal/Guardpool');
+	return view('ClientPortal/Guardpool');
 });
 
 
 
 
 Route::get('/Penalty', function () {
-    return view('Utilities/Penalty');
+	return view('Utilities/Penalty');
 });
 
 
@@ -149,66 +146,132 @@ Route::post('/Admin-update-daytwo', 'UtilitiesControl@daytwoupdate');
 
 /// ---------  Admin Client Requests  --------------------////
 Route::group(['prefix'=>''], function(){
-    Route::get('ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');
-    Route::get('ServiceRequest/viewModal','ServiceRequestController@viewModal')->name('serviceRequest.viewModal');
+	Route::get('ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');
+	Route::get('ServiceRequest/viewModal','ServiceRequestController@viewModal')->name('serviceRequest.viewModal');
 });
 
 //Route::get('/ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');  // All services requested from clients
 
-Route::get('/NewContract-ExistingEstablishment-{id}-{estabID}','ServiceRequestController@newContractExistingEstab')->name('newcontract.existing');
-Route::post('/NewContract-ExistingEstablishment-save}','ServiceRequestController@saveExistingEstabContract')->name('newcontract.existing.save');
+/**-------------------------     Contracts    ---------------------*/
+Route::get('/NewContract-ExistingEstablishment-{id}-{estabID}','ServiceRequestController@newContractExistingEstab')
+							->name('newcontract.existing')
+							->middleware('auth');
+Route::post('/NewContract-ExistingEstablishment-save}','ServiceRequestController@saveExistingEstabContract')
+							->name('newcontract.existing.save');
 
-Route::get('/NewContract-{id}','ServiceRequestController@newContract')->name('newcontract');
+Route::get('/NewContract-{id}','ServiceRequestController@newContract')
+							->name('newcontract')
+							->middleware('auth');
 Route::post('NewContract-Save','ServiceRequestController@saveContract')->name('save.newcontract');
-Route::get('/NewContract+UploadPics-{id}','ServiceRequestController@uploadPic')->name('newcontract.uploadpic');
-Route::get('/ClientContracts-{id}+{estabID}','AdminController@contracts')->name('admin.clientContracts');
+Route::get('/NewContract+UploadPics-{id}','ServiceRequestController@uploadPic')
+							->name('newcontract.uploadpic')
+							->middleware('auth');
+Route::get('/ClientContracts-{id}+{estabID}','AdminController@contracts')
+							->name('admin.clientContracts')
+							->middleware('auth');
 Route::get('/Contract-View','AdminController@viewContract')->name('contract.view');
+/**-------------------------     Contracts-End    ---------------------*/
 
-Route::get('/GunRequest','GunRequestController@index');     //  All gun requests from clients
-Route::get('/GetGunsTable','GunRequestController@getGuns')->name('getGuns');
-Route::get('/GunRequest-view','GunRequestController@viewGunRequest')->name('view.gunRequest');
-Route::get('/GunRequest-status','GunRequestController@deliveryStats')->name('delivery.status');
 
+
+/**-------------------------     Gun Request(old)    ---------------------*/
+Route::get('/GunRequest','GunRequestController@index');     
+Route::get('/GetGunsTable','GunRequestController@getGuns')
+							->name('getGuns')
+							->middleware('auth');
+Route::get('/GunRequest-view','GunRequestController@viewGunRequest')
+							->name('view.gunRequest')
+							->middleware('auth');
+Route::get('/GunRequest-status','GunRequestController@deliveryStats')
+							->name('delivery.status')
+							->middleware('auth');
+/**-------------------------     Gun Request(old)-End    ---------------------*/
+
+
+/**-------------------------     Gun Request(new)    ---------------------*/
 Route::get('/DeliverGuns-index','GunDeliveryController@index2');
 
-Route::get('/DeliverGuns-table','GunDeliveryController@table')->name('gun.delivery.table');
-Route::get('/DeliverGuns-view','GunDeliveryController@view')->name('gun.delivery.view');
-Route::get('/DeliverGuns-deliver','GunDeliveryController@deliver')->name('gun.delivery.deliver');
-Route::get('/DeliverGuns-deliverModal','GunDeliveryController@deliverModal')->name('gun.delivery.deliverModal');
-
+Route::get('/DeliverGuns-table','GunDeliveryController@table')
+							->name('gun.delivery.table')
+							->middleware('auth');               
+Route::get('/DeliverGuns-view','GunDeliveryController@view')
+							->name('gun.delivery.view')
+							->middleware('auth');
+Route::get('/DeliverGuns-deliver','GunDeliveryController@deliver')
+							->name('gun.delivery.deliver')
+							->middleware('auth');
+Route::get('/DeliverGuns-deliverModal','GunDeliveryController@deliverModal')
+							->name('gun.delivery.deliverModal')
+							->middleware('auth');
 Route::get('/DeliverGuns-{gunRequestID}','GunDeliveryController@index');
+Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery')
+							->name('gun.delivery.save');  
+Route::get('/Pickups','PickupsController@index2')
+							->name('pickups.index2')
+					        ->middleware('auth');
+Route::get('/Pickups-show','PickupsController@show')
+					        ->name('pickups.show')
+							->middleware('auth');
+Route::get('/Pickups-delReplc','PickupsController@deliverReplacement')
+							->name('pickups.delRepl')
+							->middleware('auth');
+Route::get('/Pickups-{gunDeliveryId}','PickupsController@index')
+							->name('pickups.index')
+							->middleware('auth');
 
-Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery')->name('gun.delivery.save');  // Save Gun Delivery into Database
+Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2')
+							->middleware('auth'); 
+
+/**-------------------------     Gun Request(new)    ---------------------*/
 
 
 
-Route::get('/Pickups','PickupsController@index2')->name('pickups.index2');
-Route::get('/Pickups-show','PickupsController@show')->name('pickups.show');
-Route::get('/Pickups-delReplc','PickupsController@deliverReplacement')->name('pickups.delRepl');
-Route::get('/Pickups-{gunDeliveryId}','PickupsController@index')->name('pickups.index');
 
-Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2');  //  All additional guards from clients
-Route::get('/DeployGuards','DeploymentController@deploy')->name('deploy');
+
+Route::get('/DeployGuards','DeploymentController@deploy')
+							->name('deploy')
+							->middleware('auth');
 Route::post('/DeployGuards/Save','DeploymentController@saveDepl')->name('deployment.save');
 
-Route::get('/ClientRegistration','ContractController@register')->name('client.reg');
+Route::get('/ClientRegistration','ContractController@register')
+							->name('client.reg')
+							->middleware('auth');
 Route::post('/ClientRegistration-Save','ContractController@save');
-Route::get('/ClientRegistration-getServiceRate','ContractController@getServiceRate')->name('getservrate');
+Route::get('/ClientRegistration-getServiceRate','ContractController@getServiceRate')
+							->name('getservrate')
+							->middleware('auth');
 
-Route::get('ManualDeploy','AdminController@manualDeploy')->name('manual.deployment');
-Route::get('ManualDeploy-view','AdminController@view')->name('manual.view');
-Route::get('select/Shifts','AdminController@selectShifts')->name('select.shifts');
+Route::get('ManualDeploy','AdminController@manualDeploy')
+							->name('manual.deployment')
+							->middleware('auth');
+Route::get('ManualDeploy-view','AdminController@view')
+						    ->name('manual.view')
+							->middleware('auth');
+Route::get('select/Shifts','AdminController@selectShifts')
+							->name('select.shifts')
+							->middleware('auth');
 
-Route::get('/PendingDeployment','AdminController@pending_deployments')->name('pending.deployments');
-Route::get('/PendingClientRequests','AdminController@pending_client_requests')->name('pending.client.requests');
+Route::get('/PendingDeployment','AdminController@pending_deployments')
+							->name('pending.deployments')
+							->middleware('auth');
+Route::get('/PendingClientRequests','AdminController@pending_client_requests')
+							->name('pending.client.requests')
+							->middleware('auth');
 
-Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus');
-Route::get('/ChangeGuards','AdminController@changeRejectedGuards')->name('change.rejected');
-Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')->name('save.changes');
+Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus')
+							->middleware('auth');
+Route::get('/ChangeGuards','AdminController@changeRejectedGuards')
+							->name('change.rejected')
+							->middleware('auth');
+Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')
+							->name('save.changes');
 
-Route::get('/ActiveClient', 'ContractController@allCLients');
-Route::get('/ClientEstablishment-{contractID}','AdminController@activeClientDetails')->name('admin.client.estab');
-Route::get('/ClientsDetails-{id}+{estabID}','AdminController@estabDetails')->name('admin.estab.details');
+Route::get('/ActiveClient', 'ContractController@allCLients')
+							->middleware('auth');
+Route::get('/ClientEstablishment-{contractID}','AdminController@activeClientDetails')
+							->name('admin.client.estab');
+Route::get('/ClientsDetails-{id}+{estabID}','AdminController@estabDetails')
+							->name('admin.estab.details');
 
 
 Route::post('GunDelivery-remove', 'GunDeliveryController@remove');
@@ -252,7 +315,7 @@ Route::get('/GuardPool+{tempDeploymentID}+{clientID}+{client_notif_id}','ClientP
 Route::get('/GuardPool-save','ClientPortalHomeController@saveGuards')->name('saveguards');
 
 Route::get('/ClientPortalSettings', function () {
-    return view('ClientPortal/ClientPortalSettings');
+	return view('ClientPortal/ClientPortalSettings');
 });
 
 Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index')->middleware('auth:client');
@@ -494,7 +557,7 @@ Route::get('/ClientHome','ClientPortalHomeController@index')->name('/ClientHome'
 Route::get('/ClientOut','ClientAuthControl@logout');
 
 Route::get('/AdminLogIn', function () {
-    return view('AdminLogIn');
+	return view('AdminLogIn');
 });
 
 Auth::routes();
