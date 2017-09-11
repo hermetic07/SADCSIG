@@ -170,8 +170,13 @@ class AdminController extends Controller
                             'provinces.name as province')
                         ->get();
 
+        $add_guard_requests = DB::table('add_guard_requests')
+
+                            ->get();
+
         return view('AdminPortal.PendingClientRequests')
-                ->with('gunRequests',$gunRequests);
+                ->with('gunRequests',$gunRequests)
+                ->with('add_guard_requests',$add_guard_requests);
                 
 
     }
