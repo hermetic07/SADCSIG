@@ -171,7 +171,21 @@ class AdminController extends Controller
                         ->get();
 
         $add_guard_requests = DB::table('add_guard_requests')
-
+                            ->join('clients','clients.id','=','add_guard_requests.client_id')
+                            ->join('establishments','establishments.id','=','add_guard_requests.establishments_id')
+                            ->join('areas','areas.id','=','establishments.areas_id')
+                            ->join('provinces','provinces.id','=','areas.provinces_id')
+                            ->select('add_guard_requests.id','add_guard_requests.no_guards','add_guard_requests.status',
+                                'add_guard_requests.created_at',
+                                'clients.id as client_id',
+                                'clients.first_name as client_fname',
+                                'clients.middle_name as client_mname',
+                                'clients.last_name as client_lname',
+                                'establishments.id as establishmentID',
+                                'establishments.name as establishment',
+                                'establishments.address as address',
+                                'areas.name as area',
+                                'provinces.name as province')
                             ->get();
 
         return view('AdminPortal.PendingClientRequests')
