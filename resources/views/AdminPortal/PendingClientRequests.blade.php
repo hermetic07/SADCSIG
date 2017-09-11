@@ -109,7 +109,43 @@
 
                                
                                </section>
-                               <section id="section-linetriangle-3"><h2>Tabbing 3</h2></section>
+<section id="section-linetriangle-3">
+
+  <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+              <thead>
+                <tr>
+                <th data-sort-initial="true" data-toggle="true">Date requested</th>
+                  <th>Client's name</th>
+                  <th>Client's establishment</th>
+                  <th>location</th> 
+                  <th>Status</th>    
+                  <th data-sort-ignore="true" width="150px">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($add_guard_requests as $add_guard_request)
+                  <tr>
+                    <td>
+                      {{$add_guard_request->id}}
+                    </td>
+                    <td>
+                    
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  </tr>
+                @endforeach
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="6"></td>
+                </tr>
+              </tfoot>
+            </table>
+
+</section>
                                     <section id="section-linetriangle-3"><h2>Tabbing 4</h2></section>
                              </div><!-- /content -->
                            </div><!-- /tabs -->
