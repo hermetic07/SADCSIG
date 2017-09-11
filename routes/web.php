@@ -225,7 +225,13 @@ Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2')
 /**-------------------------     Gun Request(new)    ---------------------*/
 
 
+/**-------------------------     Add Guard Requests    ---------------------*/
 
+Route::get('AddGuardRequests-view','AdditionalGuardRequesController@view')	
+							->name('addGuard.view')
+							->middleware('auth');
+
+/**-------------------------     Add Guard Requests-end    ---------------------*/
 
 
 Route::get('/DeployGuards','DeploymentController@deploy')

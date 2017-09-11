@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\AddGuardRequests;
 use App\Clients;
 use App\Establishments;
@@ -36,16 +37,27 @@ class AdditionalGuardRequesController extends Controller
     }
     public function view(Request $request){
         if($request->ajax()){
-            $addGuardRequest = AddGuardRequests::findOrFail($request->id);
-            $establishment = Establishments::findOrFail($addGuardRequest->establishments_id);
-            $area = Area::findOrFail($establishment->areas_id);
-            $province = $area->province;
-            $completeAdd = $establishment->address.",".$area->name." ,".$province->name;
-             return view('AdminPortal.ClientRequests.modal')
-                        ->with('addGuardRequest',$addGuardRequest)
-                        ->with('establishment',$establishment)
-                        ->with('completeAdd',$completeAdd);
-            //return response($completeAdd);
+            $add_guard_requests = DB::table('add_guard_requests')
+                            ->where('add_guard_requests.id','=',$request->id)
+                            ->join('clients','clients.id','=','add_guard_requests.client_id')
+                            ->join('establishments','establishments.id','=','add_guard_requests.establishments_id')
+                            ->join('areas','areas.id','=','establishments.areas_id')
+                            ->join('provinces','provinces.id','=','areas.provinces_id')
+                            ->select('add_guard_requests.id','add_guard_requests.no_guards','add_guard_requests.status',
+                                'add_guard_requests.created_at',
+                                'clients.id as client_id',
+                                'clients.first_name as client_fname',
+                                'clients.middle_name as client_mname',
+                                'clients.last_name as client_lname',
+                                'establishments.id as establishmentID',
+                                'establishments.name as establishment',
+                                'establishments.address as address',
+                                'areas.name as area',
+                                'provinces.name as province')
+                            ->get();
+            //return response($add_guard_requests);
+            return view('AdminPortal.ClientRequests.AddGuardRequests.viewModal')
+                    ->with('add_guard_request',$add_guard_requests[0]);
         }
     }
     public function remove(Request $request)

@@ -114,27 +114,46 @@
   <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
               <thead>
                 <tr>
-                <th data-sort-initial="true" data-toggle="true">Date requested</th>
-                  <th>Client's name</th>
-                  <th>Client's establishment</th>
-                  <th>location</th> 
+                <th data-sort-initial="true" data-toggle="true">Client</th>
+                  
+                  <th>Establishment</th>
+                  <th>Guards Requested</th>
+                  <th>Date Requested</th>
                   <th>Status</th>    
-                  <th data-sort-ignore="true" width="150px">Actions</th>
+                  <th data-sort-ignore="true" width="250px">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach($add_guard_requests as $add_guard_request)
                   <tr>
                     <td>
-                      {{$add_guard_request->id}}
+                      <a href="{{route('admin.client.estab',$add_guard_request->client_id)}}">
+                        {{$add_guard_request->client_fname}},{{$add_guard_request->client_mname}},{{$add_guard_request->client_lname}}
+                      </a>
                     </td>
                     <td>
+                      <a href="/ClientsDetails-{{$add_guard_request->client_id}}+{{$add_guard_request->establishmentID}}">
+                        {{$add_guard_request->establishment}}
+                      </a>
+                    </td>
+                    <td>
+                      {{$add_guard_request->no_guards}}
+                    </td>
+                    <td>
+                      {{$add_guard_request->created_at}}
+                    </td>
                     
-                  </td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                    
+                    <!-- <td>{{$add_guard_request->address}},{{$add_guard_request->area}},{{$add_guard_request->province}}</td>
+                    <td> -->
+                    <td>
+                      {{$add_guard_request->status}}
+                    </td>
+                      
+                    <td>
+                      <button type="button" class="btn btn-primary addGuardView">View Details</button>
+                      <button type="button" class="btn btn-info">Deployment</button>
+                    </td>
                   </tr>
                 @endforeach
               </tbody>
@@ -162,6 +181,7 @@
               <!-- /.modal-dialog -->
             </div>
               </div>
+  <input type="hidden" id="addGaurdID" value="{{$add_guard_request->id}}">
   @endsection
 
   @section('script')
@@ -186,6 +206,21 @@
 
       });
       
+    });
+
+    $('.addGuardView').on('click',function(){
+      //alert($('#addGaurdID').val());
+      $.ajax({
+        url : "{{route('addGuard.view')}}",
+        type : "GET",
+        data : {id:$('#addGaurdID').val()},
+        success : function(data){
+          $('.viewrequest').text('');
+          $('.viewrequest').append(data);
+          $('#modalview').modal('show');
+          console.log(data);
+        }
+      });
     });
   });
   function reject()
