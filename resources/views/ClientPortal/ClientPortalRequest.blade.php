@@ -362,7 +362,7 @@
                     </div>
 
                     <div class="form-group text-center">
-                      <label for="shifts" id="chooseContract" class="control-label col-md-10">You have 3 contract(s) on this establishment.Please choose where you want to add the new Guards.</label>
+                      <label for="shifts" id="chooseContract" class="control-label col-md-10">You have 3 contract(s) on this establishment. choose where you want to add the new Guards.</label>
                     </div>
 
                     <div class="form-group">
