@@ -19,7 +19,7 @@
 
 <div class="row">
     <div class="sttabs tabs-style-linetriangle white-box">
-      <nav>
+        <nav>
             <ul>
               <li><a href="#section-linetriangle-1"><span>Service</span></a></li>
               <li><a href="#section-linetriangle-2"><span>Additional guns</span></a></li>
@@ -31,26 +31,68 @@
               <section id="section-linetriangle-1">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                    <div class="row ">
-
+                        <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                          <thead>
+                            <tr>
+                              <th>Client's name</th>
+                              <th>Date Requested</th> 
+                              <th>Status</th>    
+                              <th data-sort-ignore="true" width="200px">Actions</th>
+                            </tr>
+                          </thead>
+                          <div class="form-inline padding-bottom-15">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-6 text-right m-b-20">
+                                    <div class="form-group">
+                                        <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                                                autocomplete="off">
+                                    </div>
+                                   </div>
+                               </div>
+                            </div>
+                          <tbody>
+                                @foreach($service_requests as $service_request)
+                                    <tr>
+                                        <td>
+                                            <a href="{{route('admin.client.estab',$service_request->client_id)}}">
+                                                {{$service_request->client_fname}},{{$service_request->client_mname}},{{$service_request->client_lname}}
+                                              </a>
+                                        </td>
+                                        <td>
+                                            {{$service_request->dateRequested}}
+                                        </td>
+                                        <td>
+                                            {{$service_request->status}}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info">View</button>
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                          </tbody>
+                          </table>
 
                    </div>
-                   </div>
-        </section>
+                </div>
+            </section>
 
-                               <section id="section-linetriangle-2">
-                                <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-              <thead>
-                <tr>
-                <th data-sort-initial="true" data-toggle="true">Date requested</th>
-                  <th>Client's name</th>
-                  <th>Client's establishment</th>
-                  <th>location</th> 
-                  <th>Status</th>    
-                  <th data-sort-ignore="true" width="150px">Actions</th>
-                </tr>
-              </thead>
-              	<div class="form-inline padding-bottom-15">
-                	<div class="row">
+<section id="section-linetriangle-2">
+  <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+      <thead>
+        <tr>
+        <th data-sort-initial="true" data-toggle="true">Date requested</th>
+          <th>Client's name</th>
+          <th>Client's establishment</th>
+          <th>location</th> 
+          <th>Status</th>    
+          <th data-sort-ignore="true" width="150px">Actions</th>
+        </tr>
+      </thead>
+      <div class="form-inline padding-bottom-15">
+        <div class="row">
 						<div class="col-sm-6">
 						</div>
                     	<div class="col-sm-6 text-right m-b-20">
@@ -152,7 +194,7 @@
                       
                     <td>
                       <button type="button" class="btn btn-primary addGuardView">View Details</button>
-                      <button type="button" class="btn btn-info">Deployment</button>
+                      <button type="button" class="btn btn-info" onclick="location.href='/Dashboard'">Deployment</button>
                     </td>
                   </tr>
                 @endforeach

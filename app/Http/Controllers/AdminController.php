@@ -170,6 +170,22 @@ class AdminController extends Controller
                             'provinces.name as province')
                         ->get();
 
+        $service_requests = DB::table('service_requests')
+                        ->join('clients','clients.id','=','service_requests.client_id')
+                        ->join('services','services.id','=','service_requests.services_id')
+                        ->select('service_requests.id as requestCode',
+                                 'service_requests.status as status', 
+                                 'service_requests.client_id as client_id',
+                                 'service_requests.created_at as dateRequested', 
+                                 'service_requests.meetingPlace',
+                                 'service_requests.meetingSchedule',
+                                 'clients.id as client_id',
+                                 'clients.first_name as client_fname',
+                                 'clients.middle_name as client_mname',
+                                 'clients.last_name as client_lname',
+                                 'services.name' )
+                        ->get(); 
+
         $add_guard_requests = DB::table('add_guard_requests')
                             ->join('clients','clients.id','=','add_guard_requests.client_id')
                             ->join('establishments','establishments.id','=','add_guard_requests.establishments_id')
@@ -190,6 +206,7 @@ class AdminController extends Controller
 
         return view('AdminPortal.PendingClientRequests')
                 ->with('gunRequests',$gunRequests)
+                ->with('service_requests',$service_requests)
                 ->with('add_guard_requests',$add_guard_requests);
                 
 
