@@ -189,7 +189,7 @@
                     <!-- <td>{{$add_guard_request->address}},{{$add_guard_request->area}},{{$add_guard_request->province}}</td>
                     <td> -->
                     <td>
-                      {{$add_guard_request->status}}
+                      <a href="/AddGuards-DeployStatus-{{$add_guard_request->id}}">{{$add_guard_request->status}}</a>
                     </td>
                       
                     <td>

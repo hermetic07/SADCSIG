@@ -231,6 +231,9 @@ Route::get('AddGuardRequests-view','AdditionalGuardRequesController@view')
 							->name('addGuard.view')
 							->middleware('auth');
 Route::get('Deploy-AddGuards-{addGuardReqID}','AdditionalGuardRequesController@deployAddGuards');
+Route::get('AddGuards-DeployStatus-{addGuardReqID}','AdditionalGuardRequesController@deploymentStatus');
+
+
 /**-------------------------     Add Guard Requests-end    ---------------------*/
 
 

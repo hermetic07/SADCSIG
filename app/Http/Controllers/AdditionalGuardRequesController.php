@@ -15,7 +15,15 @@ use App\ServiceRequest;
 use App\Employees;
 use App\ClientRegistration;
 use App\Role;
+use App\NotifResponse;
+use App\ClientDeploymentNotif;
+use App\DeploymentNotifForClient;
+use App\TempDeployments;
+use App\TempDeploymentDetails;
 use App\Shifts;
+use App\AcceptedGuards;
+use App\Employee;
+use App\Nature;
 
 class AdditionalGuardRequesController extends Controller
 {
@@ -36,6 +44,47 @@ class AdditionalGuardRequesController extends Controller
         return view('AdminPortal.ClientRequests.Deploy2')->with('clients',$clients)->with('contracts',$contracts)->with('addGuardRequest',$addGuardRequests)->with('areas',$areas)->with('provinces',$provinces)->with('serviceRequests',$serviceRequests)->with('establishments',$establishments)->with('services',$services)->with('employees',$employees)->with('clientRegistrations',$clientRegistrations);
 
         //return view('AdminPortal.Deploy');
+    }
+
+    public function deploymentStatus($requestID){
+        //$contract = Contracts::findOrFail($contractID);
+        $addGuardRequests = AddGuardRequests::findOrFail($requestID);
+        //$clientRegistration = ClientRegistration::where('contract_id',$contractID)->get();
+        $client = Clients::findOrFail($addGuardRequests->client_id);
+        $tempDeployments = TempDeployments::all();
+        $establishment = Establishments::findOrFail($addGuardRequests->establishments_id);
+        // if($tempDeployments->isEmpty()){
+        //     $tempDeployments = collect([]);
+        // }
+        //$message_ID = $tempDeployment[3]->messages_ID;
+        $tempDeploymentDetails = TempDeploymentDetails::all();
+        $clientDeploymentNotifs = ClientDeploymentNotif::all();
+        //$client_deployment_notif_id = $clientDeploymentNotifs[0]->client_deloyment_notif_id;
+        $notif_response = NotifResponse::all();
+        $acceptedGuards = AcceptedGuards::all();
+        $employees = Employee::all();
+        $natures = Nature::findOrFail($establishment->natures_id);
+        $shifts = Shifts::where('estab_id',$establishment->id)->get();
+        $area = Area::findOrFail($establishment->areas_id);
+        $province = Province::findOrFail($area->provinces_id);
+        $completeAdd = $establishment->address.",".$area->name." ,".$province->name;       
+
+        return view('AdminPortal.ClientRequests.AddGuardRequests.DeploymentStatus')
+                    ->with('tempDeployments',$tempDeployments)
+                    ->with('tempDeploymentDetails',$tempDeploymentDetails)
+                    ->with('notif_response',$notif_response)
+                    ->with('clientDeploymentNotifs',$clientDeploymentNotifs)
+                    ->with('employees',$employees)
+                    ->with('acceptedGuards',$acceptedGuards)
+                    ->with('requestID',$requestID)
+                    ->with('establishment',$establishment)
+                    ->with('client',$client)
+                    ->with('natures',$natures)
+                    ->with('shifts',$shifts)
+                    ->with('addGuardRequests',$addGuardRequests)
+                    ->with('completeAdd',$completeAdd);
+
+        //return $tempDeployments;
     }
     public function view(Request $request){
         if($request->ajax()){
@@ -71,10 +120,11 @@ class AdditionalGuardRequesController extends Controller
         $shifts = Shifts::all();
         return view('AdminPortal.ClientRequests.AddGuardRequests.deployAddGuards')
                 ->with('employees',$employees)
-                ->with('clientID',$addGuardRequest->client_ide)
-                ->with('establishmentID',$addGuardRequest->establishments_id)
+                ->with('clientID',$addGuardRequest->client_id)
+                ->with('estabID',$addGuardRequest->establishments_id)
                 ->with('shifts',$shifts)
                 ->with('no_guards',$addGuardRequest->no_guards)
+                ->with('contractID',$addGuardRequest->id)
                 ->with('roles',$roles);
                
     }

@@ -173,7 +173,7 @@
             </div>
             <br>
 
-                @include('partials._clientPics',['disabled'=>'','clientpic'=>'plugins/images/Clients/personincharge.jpg'])
+                @include('partials._clientPics',['disabled'=>'','clientpic'=>'plugins/images/Clients/personincharge.jpg','data'=>'0'])
       </div>
     </div>
   </div>

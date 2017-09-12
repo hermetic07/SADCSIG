@@ -260,7 +260,7 @@
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">Ckients registration</h4>
+        <h4 class="page-title">Clients registration</h4>
       </div>
       <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
@@ -284,7 +284,7 @@
             </div>
             <br>
 
-                @include('partials._clientPics',['disabled'=>'disabled','clientpic'=>'uploads/'.$clientPic])
+                @include('partials._clientPics',['disabled'=>'disabled','clientpic'=>'uploads/'.$clientPic,'data'=>'1'])
       </div>
     </div>
   </div>

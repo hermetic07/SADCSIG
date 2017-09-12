@@ -208,16 +208,19 @@ class ContractController extends Controller
         $client = Clients::find($value);
         $contract = Contracts::findOrFail($value2);
         $establishment = Establishments::findOrFail($contract->strEstablishmentID);
-        if (Input::hasFile('clientpicture')) {
+        if($request->verifier == 0){
+          if (Input::hasFile('clientpicture')) {
           $file = Input::file('clientpicture');
           $file->move('uploads', $value."cli".$file->getClientOriginalName());
           $client->image = $value."cli".$file->getClientOriginalName();
           $client->save();
           //return $value."cli".$file->getClientOriginalName();
-        }else{
-          $client->image = "personincharge.jpg";
-          $client->save();
+          }else{
+            $client->image = "personincharge.jpg";
+            $client->save();
+          }
         }
+        
         $clientspic = new ClientsPic();
         $clientspic->stringContractId = $value2;
         if (Input::hasFile('location')) {

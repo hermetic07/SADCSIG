@@ -284,7 +284,8 @@ $(document).ready(function(){
                         @endphp
           
 	            @php
-	              $establishmentID = $establishmentID;
+	              $establishmentID = $estabID;
+                
 	            @endphp
 	          
           @foreach($employees as $employee)
@@ -366,7 +367,7 @@ $(document).ready(function(){
                           <center><h5 class="box-title fw-500">List of guards</h5></center> 
                           <center><h5>Guards deployed: 2</h5></center> 
                           <br> 
-                            <form id="deploy" data-toggle="validator" method="POST" action="{{ route('save.changes') }}">
+                            <form id="deploy" data-toggle="validator" method="POST" action="{{ route('deployment.save') }}">
                             {!! csrf_field() !!}
                             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
                               <thead>
@@ -422,7 +423,7 @@ $(document).ready(function(){
                                         <option value="" disabled="" selected="">---</option>
                                         @foreach($roles as $role)
                                           @if($role->status == "active")
-                                            <option value="{{$role->name}}">{{$role->name}}</option>
+                                            <option value="{{$role->name}},{{$employee->id}}">{{$role->name}}</option>
                                           @endif
                                         @endforeach
                                       </select>
@@ -442,7 +443,7 @@ $(document).ready(function(){
                               </table>
                               <input type="hidden" name="avGuards" value="{{ $ctr }}">
                              <input type="hidden" name="establishmentID" name="establishmentID" value="{{$establishmentID}}">
-                             
+                             <input type="hidden" id="contractID" name="contractID" value="{{$contractID}}">
                              <input type="hidden" id="clientID" name="clientID" value="{{$clientID}}">
                              
 

@@ -1,5 +1,6 @@
 <form id="validation" class="form-horizontal animated fadeInUp" method="post" action="{{URL::to('clientupload')}}" enctype="multipart/form-data">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="verifier" value="{{ $data }}">
          				</br>	</br>
          					<div class="form-group">
                     <label class="col-xs-1 control-label">Client's picture</label>

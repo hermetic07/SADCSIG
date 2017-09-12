@@ -83,6 +83,7 @@ class DeploymentController extends Controller
                 if($ctr2==1){
                     TempDeployments::create(['temp_deployment_id'=> $temp_deployment_id,'messages_ID'=>$message_ID,'admin'=>'Earl','clients_id'=>$request->clientID,'contract_ID'=>$request->contractID,'establishment_id'=>$request->establishmentID,'num_guards'=>$request->numGuards]);
                 }
+
                 $explod = explode(',',$request->$shift);
                 $from = $explod[0];
                 $explod2 = explode(',',$request->$role);
@@ -102,7 +103,7 @@ class DeploymentController extends Controller
             }
         }
          ClientDeploymentNotif::create(['client_deloyment_notif_id'=>$client_inbox_id,'client_id'=>$request->clientID,'notif_id'=>$message_ID,'date_received'=>Carbon::now()]);
-                Contracts::findOrFail($request->contractID)->update(['init_deploy_status'=>'pending']);
+                
          return redirect('/Dashboard');
     }
     public function deploy(Request $request){
