@@ -184,6 +184,7 @@ class AdminController extends Controller
                                  'clients.middle_name as client_mname',
                                  'clients.last_name as client_lname',
                                  'services.name' )
+                         ->orderBy('service_requests.created_at','desc')
                         ->get(); 
 
         $add_guard_requests = DB::table('add_guard_requests')
@@ -202,6 +203,7 @@ class AdminController extends Controller
                                 'establishments.address as address',
                                 'areas.name as area',
                                 'provinces.name as province')
+                            ->orderBy('add_guard_requests.created_at','desc')
                             ->get();
 
         return view('AdminPortal.PendingClientRequests')

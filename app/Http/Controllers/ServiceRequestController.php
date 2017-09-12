@@ -50,6 +50,7 @@ class ServiceRequestController extends Controller
             $serviceRequests = ServiceRequest::findOrFail($request->serviceRequestID);
             $client = Clients::findOrFail($serviceRequests->client_id);
             return view('AdminPortal.ClientRequests.ServiceRequestsComponents.viewModal')
+                    ->with('serviceRequests',$serviceRequests)
                     ->with('client',$client);
         }
     }

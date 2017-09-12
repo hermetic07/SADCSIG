@@ -67,7 +67,7 @@
                                             {{$service_request->status}}
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-info">View</button>
+                                            <button type="button" class="btn btn-info servReView" value="{{$service_request->requestCode}}">View</button>
                                             <button type="button" class="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
@@ -263,6 +263,21 @@
           console.log(data);
         }
       });
+    });
+
+    $('.servReView').on('click',function(){
+        $.ajax({
+            url : "{{route('serviceRequest.viewModal')}}",
+            type : 'GET',
+            data : {serviceRequestID:this.value},
+            success : function(data){
+              //alert(data);
+              console.log(data);
+                $('.viewrequest').empty();
+                $('.viewrequest').html(data);
+                $('#modalview').modal('show');
+            }
+       });
     });
   });
   function reject()
