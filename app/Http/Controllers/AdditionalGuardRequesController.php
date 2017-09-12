@@ -86,6 +86,63 @@ class AdditionalGuardRequesController extends Controller
 
         //return $tempDeployments;
     }
+
+    public function deploy(Request $request){
+        
+         if($request->ajax()){
+            $deployment = new Deployments();
+            $addGuardRequest = AddGuardRequests::findOrFail($request->addGuardID);
+            $guardDetails = DB::table('temp_deployments')
+                            ->where('temp_deployments.contract_ID','=',$request->addGuardID)
+                            ->join('temp_deployment_details','temp_deployments.temp_deployment_id','=','temp_deployment_details.temp_deployments_id')
+                            ->where('temp_deployment_details.employees_id','=',$request->employeeID)
+                            ->select('shift_from as shiftFrom','shift_to as shiftTo')
+                            ->get();
+            $guardDeployedctr =  (int)$addGuardRequest->guardDeployed;
+            
+            $deployment['clients_id'] = $request->clientID;
+            $deployment['establishment_id'] = $request->estabID;
+            $deployment['num_guards'] = $request->num_guards;
+            $deployment->save();
+
+            $dep = Deployments::latest('created_at')->get();
+             $deploymentDetails = new DeploymentDetails();
+                $deploymentDetails['deployments_id'] = $dep[0]->id;
+                $deploymentDetails['employees_id'] = $request->employeeID;
+                $deploymentDetails['shift_from'] = $guardDetails[0]->shiftFrom;
+                $deploymentDetails['shift_to'] = $guardDetails[0]->shiftTo;
+                $deploymentDetails['role'] = $request->role;
+                $deploymentDetails['status'] = "active";
+                if($deploymentDetails->save()){
+                     //return response("sucess");
+                    $guardDeployedctr++;
+                }else{
+                    return response("OOOPS Something went wrong!");
+                }
+            
+            //return response($dep);
+                $ac = AcceptedGuards::where('guard_id',$request->employeeID)->update(['guard_reponse'=>'deployed']);
+                $nr = NotifResponse::where('guard_id',$request->employeeID)->update(['status'=>'deployed']);
+                $emp = Employee::findOrFail($request->employeeID)->update(['deployed'=>'1','status'=>'deployed']);
+                $emp2 = new Employee();
+                $emp2 = Employee::findOrFail($request->employeeID);
+                $emp2['status'] = 'deployed';
+                if(!$emp2->save()){
+                    return "Ear";
+                }
+                //Employee::findOrFail($request->employeeID)->update(['status'=>'deployed']);
+                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$request->contractID]);
+
+                $addGuardRequest->guardDeployed = $guardDeployedctr;
+                $addGuardRequest->save();
+                if($addGuardRequest->no_guards == $addGuardRequest->guardDeployed){
+                    $addGuardRequest->status = "done";
+                    $contract->save();
+                }
+                return response($guardDeployedctr);
+        }
+    }
+
     public function view(Request $request){
         if($request->ajax()){
             $add_guard_requests = DB::table('add_guard_requests')
@@ -95,6 +152,7 @@ class AdditionalGuardRequesController extends Controller
                             ->join('areas','areas.id','=','establishments.areas_id')
                             ->join('provinces','provinces.id','=','areas.provinces_id')
                             ->select('add_guard_requests.id','add_guard_requests.no_guards','add_guard_requests.status',
+                                'add_guard_requests.contract as contract',
                                 'add_guard_requests.created_at',
                                 'clients.id as client_id',
                                 'clients.first_name as client_fname',
@@ -106,7 +164,7 @@ class AdditionalGuardRequesController extends Controller
                                 'areas.name as area',
                                 'provinces.name as province')
                             ->get();
-            //return response($add_guard_requests);
+           
             return view('AdminPortal.ClientRequests.AddGuardRequests.viewModal')
                     ->with('add_guard_request',$add_guard_requests[0]);
         }

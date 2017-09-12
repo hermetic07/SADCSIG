@@ -30,10 +30,11 @@
               <label class="from-control"><b>{{$add_guard_request->client_fname}},{{$add_guard_request->client_mname}},{{$add_guard_request->client_lname}}</b></label>
             </div>
           </div>
+          
           <div class="form-group">
-            <label class="control-lable col-md-4">Contact No:</label>
+            <label class="control-lable col-md-4">Contract</label>
             <div class="col-md-8">
-              <label class="from-control"><b></b></label>
+              <label class="from-control"><a href="/ClientContracts-{{$add_guard_request->client_id}}+{{$add_guard_request->establishmentID}}">{{$add_guard_request->contract}}</a></label>
             </div>
           </div>
       </div>

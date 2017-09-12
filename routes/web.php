@@ -227,12 +227,12 @@ Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2')
 
 /**-------------------------     Add Guard Requests    ---------------------*/
 
-Route::get('AddGuardRequests-view','AdditionalGuardRequesController@view')	
+Route::get('/AddGuardRequests-view','AdditionalGuardRequesController@view')	
 							->name('addGuard.view')
 							->middleware('auth');
-Route::get('Deploy-AddGuards-{addGuardReqID}','AdditionalGuardRequesController@deployAddGuards');
-Route::get('AddGuards-DeployStatus-{addGuardReqID}','AdditionalGuardRequesController@deploymentStatus');
-
+Route::get('/Deploy-AddGuards-{addGuardReqID}','AdditionalGuardRequesController@deployAddGuards');
+Route::get('/AddGuards-DeployStatus-{addGuardReqID}','AdditionalGuardRequesController@deploymentStatus');
+Route::get('/AddGuard-deploy','AdditionalGuardRequesController@deploy');
 
 /**-------------------------     Add Guard Requests-end    ---------------------*/
 

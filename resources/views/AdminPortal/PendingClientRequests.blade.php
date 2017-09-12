@@ -193,7 +193,7 @@
                     </td>
                       
                     <td>
-                      <button type="button" class="btn btn-primary addGuardView">View Details</button>
+                      <button type="button" class="btn btn-primary addGuardView" value="{{$add_guard_request->id}}">View Details</button>
                       <button type="button" class="btn btn-danger">Delete</button>
                     </td>
                   </tr>
@@ -223,7 +223,7 @@
               <!-- /.modal-dialog -->
             </div>
               </div>
-  <input type="hidden" id="addGaurdID" value="{{$add_guard_request->id}}">
+  
   @endsection
 
   @section('script')
@@ -251,11 +251,11 @@
     });
 
     $('.addGuardView').on('click',function(){
-      //alert($('#addGaurdID').val());
+      //alert($(this).val());
       $.ajax({
         url : "{{route('addGuard.view')}}",
         type : "GET",
-        data : {id:$('#addGaurdID').val()},
+        data : {id:$(this).val()},
         success : function(data){
           $('.viewrequest').text('');
           $('.viewrequest').append(data);

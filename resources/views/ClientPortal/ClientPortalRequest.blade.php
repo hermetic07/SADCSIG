@@ -360,6 +360,20 @@
                         </select>
                       </div>
                     </div>
+
+                    <div class="form-group text-center">
+                      <label for="shifts" id="chooseContract" class="control-label col-md-10">You have 3 contract(s) on this establishment.Please choose where you want to add the new Guards.</label>
+                    </div>
+
+                    <div class="form-group">
+                      
+                      <div class="col-md-8">
+                        <ul id="contracts">
+                          
+                        </ul>
+                      </div>
+                    </div>
+
                     <div class="form-group">
                       <label for="date_needed" class="col-md-3 control-label">Date needed</label>
                       <div class="col-md-8">
@@ -609,7 +623,7 @@
 
 
 
-<input class="earlearl" type="checkbox" name="faith" value="jejej">
+<input type="hidden" id="clientID" value="{{$client->id}}">
 
   <script type="text/javascript">
     $.ajaxSetup({
@@ -641,8 +655,14 @@
           url: '/ClientPortalEstablishments-shifts+'+id,
           success:function(data){
             $('#shifts').text('');
-            $('#shifts').append(data);
-            console.log(data);
+            $('#shifts').append(data[0]);
+
+            $('#contracts').text('');
+            $('#contracts').append(data[1]);
+
+            $('#chooseContract').text('');
+            $('#chooseContract').append('You have '+'<a href="/ClientPortalContracts-'+$('#clientID').val()+'+'+id+'">'+data[2]+'</a>'+' contract(s) on this establishment.Please choose where you want to add the new Guards.');
+            console.log(data[1]);
           }
         });
 

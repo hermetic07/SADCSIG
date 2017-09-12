@@ -67,6 +67,7 @@
                   <td>{{$acceptedGuard->created_at}}</td>
                   <td>DEPLOYMENT</td>
                   <td>   &nbsp;
+
                     <button disabled type="button" value="{{$acceptedGuard->guard_id}},{{$acceptedGuard->client_deployment_notif_id}}" class="btn btn-info btn-circle view" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
                   </td>
                 </tr>

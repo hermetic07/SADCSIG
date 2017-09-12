@@ -266,7 +266,7 @@
     <tbody class="text-dark">
         <tr>
             <td>No. of guards needed</td>
-            <td></td>
+            <td>{{$addGuardRequests->no_guards}}</td>
         </tr>
 <tr>
             <td>Status (Accepted/rejected)</td>
@@ -290,7 +290,7 @@
 </div>
 
 <input type="hidden" id="rejectedCtr" value="{{$rejectCtr}}">
-
+<input type="hidden" id="addGuardID" value="{{$requestID}}">
 <input type="hidden" id="clientID" value="{{$client->id}}">
 <input type="hidden" id="estabID" value="{{$establishment->id}}">
 <input type="hidden" id="shifts" value="{{$shiftTo}},{{$shiftFrom}}">
@@ -319,18 +319,18 @@
         $('#deploy').on('click',function(){
           clientID = $('#clientID').val();
           estabID = $('#estabID').val();
-          contractID = $('#contractID').val();
+          requestID = $('#requestID').val();
           num_guards = 1;
           shiftFrom = $('#shifts').val().split(",")[0];
           shiftTo = $('#shifts').val().split(",")[1];
           role = $('#role').val();
           employeeID = this.value;
-          alert(contractID);
+          alert(requestID);
 
           $.ajax({
-            url: '{{route("deploy")}}',
+            url: '{{route("AddGuard-deploy")}}',
             type:'GET',
-            data:{clientID:clientID,contractID:contractID,estabID:estabID,num_guards:num_guards,shiftFrom:shiftFrom,shiftTo:shiftTo,role:role,employeeID:employeeID},
+            data:{clientID:clientID,addGuardID:requestID,estabID:estabID,num_guards:num_guards,shiftFrom:shiftFrom,shiftTo:shiftTo,role:role,employeeID:employeeID},
             success:function(data){
               alert(data);
               console.log(data);

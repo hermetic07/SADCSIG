@@ -256,6 +256,11 @@ class ClientPortalHomeController extends Controller
       $gunType = GunType::all();
       $nature = Nature::all();
       $estabGuards = EstabGuards::all();
+      $clientContracts = DB::table('client_registrations')
+                       ->where('client_registrations.client_id','=',$id)
+                       ->join('contracts','contracts.id','=','client_registrations.contract_id')
+                       ->select('contracts.id as contractCode')
+                       ->get(); 
 
       return view('ClientPortal.ClientPortalRequest
         ')->with('services',$Services)
@@ -269,6 +274,7 @@ class ClientPortalHomeController extends Controller
           ->with('employees',$employees)
           ->with('gunType',$gunType)
           ->with('nature',$nature)
+          ->with('clientContracts',$clientContracts)
           ->with('clientRegistrations',$clientRegistrations);
      // return $client;
     }
@@ -393,8 +399,20 @@ class ClientPortalHomeController extends Controller
     public function shifts(Request $request,$id){
       if($request->ajax()){
         $shifts = Shifts::where('estab_id',$id)->get();
+        $contracts = Contracts::where('strEstablishmentID',$id)->get();
+        $contracts2 = "";
+        $shift2 = "";
+        $count = 0;
 
-        return view('ClientPortal.select')->with('shifts',$shifts);
+        foreach($shifts as $shift){
+          $shift2 = $shift2.'<option value="'.$shift->start.','.$shift->end.'">From: '.$shift->start.' - To:'.$shift->end.'</option>'.' ';
+        }
+        foreach($contracts as $contract){
+          $contracts2 = $contracts2.'<li>'.$contract->id.' '.'<input type="radio" name="contracts" value="'.$contract->id.'"></li> '.' ';
+          $count = $count + 1;
+        }
+        //return view('ClientPortal.select')->with('shifts',$shifts);
+        return response([$shift2,$contracts2,$count]);
       }
     }
     public function messages($id){

@@ -26,13 +26,29 @@
 
 @section('content')
   @include('partials._contracts')
+
+  <div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog viewrequest">
+    
+  </div> <!-- /.modal-dialog -->
+</div> <!-- View Modal -->
 @endsection
 @section('script')
   <script type="text/javascript">
-    $(document).ready(function(){
-      $('.view').on('click',function(){
-        alert(this.value);
+    $('.view').on('click',function(){
+        // alert(this.value);
+        contractID = this.value;
+        $.ajax({
+          url : '{{route("contract.view")}}',
+          type : 'GET',
+          data : {contractID:contractID},
+          success : function(data){
+            console.log(data);
+          $('.viewrequest').text('');
+          $('.viewrequest').append(data);
+          $('#modalview').modal('show');
+          }
+        });
       });
-    });
   </script>
 @endsection
