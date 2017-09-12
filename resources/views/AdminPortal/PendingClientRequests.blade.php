@@ -194,7 +194,7 @@
                       
                     <td>
                       <button type="button" class="btn btn-primary addGuardView">View Details</button>
-                      <button type="button" class="btn btn-info" onclick="location.href='/Dashboard'">Deployment</button>
+                      <button type="button" class="btn btn-danger">Delete</button>
                     </td>
                   </tr>
                 @endforeach

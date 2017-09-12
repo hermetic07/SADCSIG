@@ -14,6 +14,8 @@ use App\Contracts;
 use App\ServiceRequest;
 use App\Employees;
 use App\ClientRegistration;
+use App\Role;
+use App\Shifts;
 
 class AdditionalGuardRequesController extends Controller
 {
@@ -59,6 +61,22 @@ class AdditionalGuardRequesController extends Controller
             return view('AdminPortal.ClientRequests.AddGuardRequests.viewModal')
                     ->with('add_guard_request',$add_guard_requests[0]);
         }
+    }
+
+    public function deployAddGuards($addGuardRequestsID){
+        //return $addGuardRequestsID;
+        $addGuardRequest = AddGuardRequests::findOrFail($addGuardRequestsID);
+        $employees = Employees::all();
+        $roles = Role::all();
+        $shifts = Shifts::all();
+        return view('AdminPortal.ClientRequests.AddGuardRequests.deployAddGuards')
+                ->with('employees',$employees)
+                ->with('clientID',$addGuardRequest->client_ide)
+                ->with('establishmentID',$addGuardRequest->establishments_id)
+                ->with('shifts',$shifts)
+                ->with('no_guards',$addGuardRequest->no_guards)
+                ->with('roles',$roles);
+               
     }
     public function remove(Request $request)
      {

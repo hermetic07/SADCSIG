@@ -230,7 +230,7 @@ Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2')
 Route::get('AddGuardRequests-view','AdditionalGuardRequesController@view')	
 							->name('addGuard.view')
 							->middleware('auth');
-
+Route::get('Deploy-AddGuards-{addGuardReqID}','AdditionalGuardRequesController@deployAddGuards');
 /**-------------------------     Add Guard Requests-end    ---------------------*/
 
 
