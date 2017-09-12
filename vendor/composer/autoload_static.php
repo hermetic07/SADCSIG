@@ -305,6 +305,7 @@ class ComposerStaticInit0c67443a19260e0f8b2dcc8258700844
     );
 
     public static $classMap = array (
+        'AddDescOfServcToServiceTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_12_034445_add_desc_of_servc_to_service_table.php',
         'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',

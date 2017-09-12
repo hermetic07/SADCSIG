@@ -103,9 +103,10 @@ class LastControl extends Controller
       $meetDt = "$explod[2]-$explod[0]-$explod[1]";
 
       
-      ServiceRequest::create(['client_id'=>$id,'services_id'=>$request->service,'date_start'=>Carbon::now(),'meetingPlace'=>$request->meeting,'meetingSchedule'=>$meetDt,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+      ServiceRequest::create(['client_id'=>$id,'services_id'=>$request->service,'desc_of_service'=>$request->servDesc,'date_start'=>Carbon::now(),'meetingPlace'=>$request->meeting,'meetingSchedule'=>$meetDt,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
-     return redirect('Request-'.$id);
+      return redirect('Request-'.$id);
+      //return $request->toArray();
     
        
     }

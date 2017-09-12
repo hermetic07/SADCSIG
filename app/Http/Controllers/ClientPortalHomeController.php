@@ -255,6 +255,7 @@ class ClientPortalHomeController extends Controller
       $clientRegistrations = ClientRegistration::all();
       $gunType = GunType::all();
       $nature = Nature::all();
+      $estabGuards = EstabGuards::all();
 
       return view('ClientPortal.ClientPortalRequest
         ')->with('services',$Services)
