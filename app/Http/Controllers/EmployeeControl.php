@@ -201,7 +201,7 @@ class EmployeeControl extends Controller
         $clientDeploymentNotif = ClientDeploymentNotif::findOrFail($request->deployment_notif_id);
         $tempDeployments = TempDeployments::where('messages_ID',$clientDeploymentNotif->notif_id)->get();
         $client = Clients::findOrFail($tempDeployments[0]->clients_id);
-        $contract = Contracts::findOrFail($tempDeployments[0]->contract_ID);
+       // $contract = Contracts::findOrFail($tempDeployments[0]->contract_ID);
         $establishment = Establishments::findOrFail($tempDeployments[0]->establishment_id);
         $tempDeploymentDetails = TempDeploymentDetails::where('temp_deployments_id',$tempDeployments[0]->temp_deployment_id)->get();
         $area = Area::findOrFail($establishment->areas_id);
@@ -216,7 +216,7 @@ class EmployeeControl extends Controller
         }
         return view('SecurityGuardsPortal.modal')
                 ->with('client',$client)
-                ->with('contract',$contract)
+                //->with('contract',$contract)
                 ->with('shift',$shift)
                 ->with('clientDeploymentNotif',$clientDeploymentNotif)
                 ->with('completeAdd',$completeAdd)

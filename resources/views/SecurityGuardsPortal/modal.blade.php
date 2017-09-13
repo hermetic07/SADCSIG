@@ -28,14 +28,7 @@
                         <td>Client name</td>
                         <td>{{$client->name}}</td>
                       </tr>
-                      <tr>
-                        <td>Starting date</td>
-                        <td>{{$contract->start_date}}</td>
-                      </tr>
-                      <tr>
-                        <td>Guards</td>
-                        <td>{{$contract->guard_count}}</td>
-                      </tr>
+                      
                     </tbody>
                   </table>
                 </div>
