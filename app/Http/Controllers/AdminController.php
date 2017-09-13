@@ -267,7 +267,7 @@ class AdminController extends Controller
                 ->with('rejects',$request->rejectedIDs)
                 ->with('rejectCtr',$request->rejectedCtr)
                 ->with('empCtr',$empCtr)
-                ->with('contractID',$request->contractID)
+                ->with('contract_ID',$request->contractID)
                 ->with('clientID',$request->clientID)
                 ->with('establishments',$establishments)
                 ->with('shifts',$shifts)

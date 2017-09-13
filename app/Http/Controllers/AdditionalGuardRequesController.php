@@ -143,7 +143,7 @@ class AdditionalGuardRequesController extends Controller
                 $addGuardRequest->save();
                 if($addGuardRequest->no_guards == $addGuardRequest->guardDeployed){
                     $addGuardRequest->status = "done";
-                    $contract->save();
+                    $addGuardRequest->save();
                 }
                 return response($guardDeployedctr);
         }
@@ -191,6 +191,35 @@ class AdditionalGuardRequesController extends Controller
                 ->with('contractID',$addGuardRequest->id)
                 ->with('roles',$roles);
                
+    }
+
+    public function changeRejectedGuards(Request $request){
+        $employees = Employee::all();
+        $shifts = Shifts::all();
+        $addGuardRequest = AddGuardRequests::findOrFail($request->contractID);
+        $establishments = Establishments::all();
+        $empCtr = 0;
+        $roles = Role::all();
+        foreach($employees as $employee){
+            $empCtr = $empCtr + 1;
+        }
+        return view('AdminPortal.ChangeRejectedGuards')
+                ->with('employees',$employees)
+                ->with('rejects',$request->rejectedIDs)
+                ->with('rejectCtr',$request->rejectedCtr)
+                ->with('empCtr',$empCtr)
+                ->with('contract_ID',$addGuardRequest->contract)
+                ->with('clientID',$request->clientID)
+                ->with('establishments',$establishments)
+                ->with('shifts',$shifts)
+                ->with('accepted',$request->accepted)
+                ->with('changeID',$request->changeID)
+                ->with('refuseID',$request->refuseID)
+                ->with('roles',$roles)
+                ->with('contractID',$addGuardRequest->id)
+                ->with('refuseCtr',$request->refuseCtr)
+                ;
+        //return $request->clientID;
     }
     public function remove(Request $request)
      {

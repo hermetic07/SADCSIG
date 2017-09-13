@@ -234,6 +234,10 @@ Route::get('/Deploy-AddGuards-{addGuardReqID}','AdditionalGuardRequesController@
 Route::get('/AddGuards-DeployStatus-{addGuardReqID}','AdditionalGuardRequesController@deploymentStatus');
 Route::get('/AddGuard-deploy','AdditionalGuardRequesController@deploy');
 
+Route::get('/AddGuard-ChangeGuards','AdditionalGuardRequesController@changeRejectedGuards')
+							
+							->middleware('auth');
+
 /**-------------------------     Add Guard Requests-end    ---------------------*/
 
 

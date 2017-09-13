@@ -33,7 +33,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">Client's approval</div>
 
-<form method="GET" action="{{ url('/ChangeGuards') }}">
+<form method="GET" action="{{ url('/AddGuard-ChangeGuards') }}">
   <div class="panel-wrapper p-b-10 collapse in">
     <div class="row  el-element-overlay">
 <div id="client" class="owl-carousel owl-theme ">
@@ -124,7 +124,7 @@
 <input type="hidden" name="rejectedIDs" value="{{$rejectID}}">
 <input type="hidden" name="accepted" value="{{$accepted}}">
 <input type="hidden" name="rejectedCtr" value="{{$rejectCtr}}">
-
+<input type="hidden" name="contractID" value="{{$requestID}}">
 <input type="hidden" name="clientID" value="{{$client->id}}">
 
 <label class="col-xs-3"></label>        <div class="col-xs-6"> <button type="submit" id="rejected" class="btn btn-block btn-outline btn-rounded btn-danger">Change {{$rejectCtr}} rejected guards</button> </div>
@@ -133,7 +133,7 @@
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">Security guard's approval</div>
-<form method="GET" action="{{ url('/ChangeGuards') }}">
+<form method="GET" action="{{ url('/AddGuard-ChangeGuards') }}">
 <div class="panel-wrapper p-b-10 collapse in">
     <div class="row  el-element-overlay">
 <div id="secus" class="owl-carousel owl-theme ">
@@ -230,7 +230,7 @@
           <input type="hidden" name="rejectedIDs" value="{{$rejectID}}">
           <input type="hidden" name="accepted" value="{{$accepted}}">
           <input type="hidden" name="rejectedCtr" value="{{$rejectCtr}}">
-          
+          <input type="hidden" name="contractID" value="{{$requestID}}">
           <input type="hidden" name="clientID" value="{{$client->id}}">
           <input type="hidden" name="changeID" value="{{$changeID}}">
           <input type="hidden" name="refuseID" value="{{$refuseID}}">

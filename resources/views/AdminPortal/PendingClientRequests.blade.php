@@ -167,36 +167,69 @@
               </thead>
               <tbody>
                 @foreach($add_guard_requests as $add_guard_request)
-                  <tr>
-                    <td>
-                      <a href="{{route('admin.client.estab',$add_guard_request->client_id)}}">
-                        {{$add_guard_request->client_fname}},{{$add_guard_request->client_mname}},{{$add_guard_request->client_lname}}
-                      </a>
-                    </td>
-                    <td>
-                      <a href="/ClientsDetails-{{$add_guard_request->client_id}}+{{$add_guard_request->establishmentID}}">
-                        {{$add_guard_request->establishment}}
-                      </a>
-                    </td>
-                    <td>
-                      {{$add_guard_request->no_guards}}
-                    </td>
-                    <td>
-                      {{$add_guard_request->created_at}}
-                    </td>
-                    
-                    
-                    <!-- <td>{{$add_guard_request->address}},{{$add_guard_request->area}},{{$add_guard_request->province}}</td>
-                    <td> -->
-                    <td>
-                      <a href="/AddGuards-DeployStatus-{{$add_guard_request->id}}">{{$add_guard_request->status}}</a>
-                    </td>
+                  @if($add_guard_request->status == "done")
+                    <tr style="background-color: gray">
+                      <td>
+                        <a href="{{route('admin.client.estab',$add_guard_request->client_id)}}">
+                          {{$add_guard_request->client_fname}},{{$add_guard_request->client_mname}},{{$add_guard_request->client_lname}}
+                        </a>
+                      </td>
+                      <td>
+                        <a href="/ClientsDetails-{{$add_guard_request->client_id}}+{{$add_guard_request->establishmentID}}">
+                          {{$add_guard_request->establishment}}
+                        </a>
+                      </td>
+                      <td>
+                        {{$add_guard_request->no_guards}}
+                      </td>
+                      <td>
+                        {{$add_guard_request->created_at}}
+                      </td>
                       
-                    <td>
-                      <button type="button" class="btn btn-primary addGuardView" value="{{$add_guard_request->id}}">View Details</button>
-                      <button type="button" class="btn btn-danger">Delete</button>
-                    </td>
-                  </tr>
+                      
+                      <!-- <td>{{$add_guard_request->address}},{{$add_guard_request->area}},{{$add_guard_request->province}}</td>
+                      <td> -->
+                      <td>
+                        <a href="/AddGuards-DeployStatus-{{$add_guard_request->id}}">{{$add_guard_request->status}}</a>
+                      </td>
+                        
+                      <td>
+                        <button disabled type="button" class="btn btn-primary addGuardView" value="{{$add_guard_request->id}}">View Details</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                      </td>
+                    </tr>
+                  @else
+                    <tr>
+                      <td>
+                        <a href="{{route('admin.client.estab',$add_guard_request->client_id)}}">
+                          {{$add_guard_request->client_fname}},{{$add_guard_request->client_mname}},{{$add_guard_request->client_lname}}
+                        </a>
+                      </td>
+                      <td>
+                        <a href="/ClientsDetails-{{$add_guard_request->client_id}}+{{$add_guard_request->establishmentID}}">
+                          {{$add_guard_request->establishment}}
+                        </a>
+                      </td>
+                      <td>
+                        {{$add_guard_request->no_guards}}
+                      </td>
+                      <td>
+                        {{$add_guard_request->created_at}}
+                      </td>
+                      
+                      
+                      <!-- <td>{{$add_guard_request->address}},{{$add_guard_request->area}},{{$add_guard_request->province}}</td>
+                      <td> -->
+                      <td>
+                        <a href="/AddGuards-DeployStatus-{{$add_guard_request->id}}">{{$add_guard_request->status}}</a>
+                      </td>
+                        
+                      <td>
+                        <button type="button" class="btn btn-primary addGuardView" value="{{$add_guard_request->id}}">View Details</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                      </td>
+                    </tr>
+                    @endif
                 @endforeach
               </tbody>
               <tfoot>
