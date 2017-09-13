@@ -124,6 +124,7 @@ class ClientPortalHomeController extends Controller
                         ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.created_at',
                             'clients.first_name as client_fname',
                             'clients.middle_name as client_mname','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province','tblGunDeliveries.strGunDeliveryID as deliveryCode','tblGunDeliveries.created_at as dateDelivered','tblGunDeliveries.deliveryPerson as deliveryPerson','tblGunDeliveries.status as deliveryStatus')
+                          ->orderBy('tblGunDeliveries.created_at','desc')
                         ->get();
    // return $id;
     
@@ -186,7 +187,7 @@ class ClientPortalHomeController extends Controller
     $gunIDs = Input::get('gunIDs');
     $unchecked_serialNos = Input::get('unchecked_serialNos');
     $unchecked_gunIDs = Input::get('unchecked_gunIDs');
-    
+    $unclaimedCheck = 0;
     
     for($i = 0; $i < count($gunIDs); $i++){
       $claimedDeliveryID = "CLAIMEDDEL-".ClaimedDelivery::get()->count();
@@ -205,6 +206,7 @@ class ClientPortalHomeController extends Controller
       
     }
       for($i = 0; $i < count($unchecked_gunIDs); $i++){
+        $unclaimedCheck = 1;
       $claimedDeliveryID = "CLAIMEDDEL-".ClaimedDelivery::get()->count();
       $claimedDelivery = new ClaimedDelivery();
       $claimedDelivery['strClaimedDelID'] = $claimedDeliveryID;
@@ -214,13 +216,20 @@ class ClientPortalHomeController extends Controller
       $claimedDelivery['status'] = "UNCLAIMED";
       if($claimedDelivery->save()){
         $success = 0;
+
       }else{
         $success = 1;
       }
       
     }
-   
+    if( $unclaimedCheck == 1){
+      //return $request->gunDeliveryID;
+      $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'PARTIALCLAIMED']);
+    }else{
       $gunDeliveries= GunDelivery::findOrFail($request->gunDeliveryID)->update(['status'=>'CLAIMED']);
+    }
+   
+      
     
      
     }

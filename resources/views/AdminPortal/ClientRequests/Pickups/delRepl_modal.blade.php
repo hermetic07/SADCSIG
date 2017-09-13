@@ -1,4 +1,4 @@
-<form data-toggle="validator">
+  <input type="hidden" name="_token" value="{{ csrf_token() }}">
   <div class="form-group">
     <div class="row">
       <div class="table-responsive">
@@ -71,4 +71,4 @@
       <button type="button" class="btn btn-info waves-effect waves-light" onclick="proceedDelivery()" >Deliver</button>
       <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
     </div>
-  </form>
+  

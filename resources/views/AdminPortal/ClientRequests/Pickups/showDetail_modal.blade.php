@@ -68,7 +68,12 @@
             </tr>
           </tfoot>
       </table>
-      <button type="button" onclick="funcDeliverRelacement()" class="btn btn-info delRepl">Deliver Replacement</button>
+      @if($delivery->status == "REDELIVERED")
+        <button disabled type="button" onclick="funcDeliverRelacement()" class="btn btn-info delRepl">Deliver 
+      @else
+        <button type="button" onclick="funcDeliverRelacement()" class="btn btn-info delRepl">Deliver 
+      @endif
+      Replacement</button>
 
           </div>
 

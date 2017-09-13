@@ -307,11 +307,13 @@
        url : '{{route("gun.delivery.save")}}',
         type : 'POST',
         data : {
+                '_token': $('input[name=_token]').val(),
                 qtyToBeDel:qtyToBeDel,
                 gunIDs:gunIDs,
                 delBoy:delBoy,
                 delBoyContact:delBoyContact,
                 delCode:delCode,
+                deliveryID:gunDeliveryID,
                 gunReqstID:gunReqID,
                 serialNo:serialNos,
                 

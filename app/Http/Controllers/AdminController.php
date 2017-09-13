@@ -168,6 +168,7 @@ class AdminController extends Controller
                             'establishments.address as address',
                             'areas.name as area',
                             'provinces.name as province')
+                        ->orderBy('tblGunRequests.created_at','desc')
                         ->get();
 
         $service_requests = DB::table('service_requests')

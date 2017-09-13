@@ -191,7 +191,7 @@
             </tr>
           </tfoot>
       </table>
-<input type="hidden" name="" id="gunDeliveryID" value="{{$client->deliveryCode}}">
+
         <div class="text-right">
           <ul class="pagination">
           </ul>
@@ -213,7 +213,7 @@
 <!-- /Add military service modal -->
 
  </div>
-
+<input type="hidden" name="" id="gunDeliveryID" value="{{$client->deliveryCode}}">
 <div id="Delgun" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog  modal-md">
     <div class="modal-content">
@@ -245,6 +245,7 @@
     var delBoyContact = $('#delBoyContact').val();
     var delCode = $('#delCode').val();
     var gunReqID = gunRequestID;
+   // alert(gunDeliveryID+','+delCode);
 
     $.each($(".newGunSerial"), function(){
           qtyToBeDel = qtyToBeDel + 1;
@@ -258,11 +259,13 @@
        url : '{{route("gun.delivery.save")}}',
         type : 'POST',
         data : {
+                '_token': $('input[name=_token]').val(),
                 qtyToBeDel:qtyToBeDel,
                 gunIDs:gunIDs,
                 delBoy:delBoy,
                 delBoyContact:delBoyContact,
                 delCode:delCode,
+                deliveryID:gunDeliveryID,
                 gunReqstID:gunReqID,
                 serialNo:serialNos,
                 

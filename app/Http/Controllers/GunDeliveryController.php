@@ -37,6 +37,7 @@ class GunDeliveryController extends Controller
                         	'establishments.address as address',
                         	'areas.name as area',
                         	'provinces.name as province')
+                        ->orderBy('tblGunRequests.created_at','desc')
                         ->get();
         if($gunRequest->save()){
             return view('AdminPortal/DeliverGuns')
@@ -62,6 +63,7 @@ class GunDeliveryController extends Controller
                         	'establishments.name as establishment',
                         	'establishments.address as address',
                         	'areas.name as area','provinces.name as province')
+                        ->orderBy('tblGunRequests.created_at','desc')
                         ->get();
                 return view('AdminPortal/DeliverGuns2')
                 
@@ -202,7 +204,9 @@ class GunDeliveryController extends Controller
                 
             }
             GunRequest::findOrFail($request->gunReqstID)->update(['status'=>'ONDELIVERY']);
-
+            if($request->deliveryID != ''){
+                GunDelivery::findOrFail($request->deliveryID)->update(['status'=>'REDELIVERED']);
+            }
             return response($isSuccess);
         }
     }
