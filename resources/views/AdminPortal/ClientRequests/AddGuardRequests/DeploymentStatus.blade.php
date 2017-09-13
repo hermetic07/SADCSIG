@@ -319,7 +319,7 @@
         $('#deploy').on('click',function(){
           clientID = $('#clientID').val();
           estabID = $('#estabID').val();
-          requestID = $('#requestID').val();
+          requestID = $('#addGuardID').val();
           num_guards = 1;
           shiftFrom = $('#shifts').val().split(",")[0];
           shiftTo = $('#shifts').val().split(",")[1];
@@ -328,7 +328,7 @@
           alert(requestID);
 
           $.ajax({
-            url: '{{route("AddGuard-deploy")}}',
+            url: '/AddGuard-deploy',
             type:'GET',
             data:{clientID:clientID,addGuardID:requestID,estabID:estabID,num_guards:num_guards,shiftFrom:shiftFrom,shiftTo:shiftTo,role:role,employeeID:employeeID},
             success:function(data){

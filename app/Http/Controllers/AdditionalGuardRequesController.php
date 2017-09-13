@@ -24,6 +24,10 @@ use App\Shifts;
 use App\AcceptedGuards;
 use App\Employee;
 use App\Nature;
+use App\Deployments;
+use App\DeploymentDetails;
+use App\EstabGuards;
+use Carbon\Carbon;
 
 class AdditionalGuardRequesController extends Controller
 {
@@ -90,6 +94,7 @@ class AdditionalGuardRequesController extends Controller
     public function deploy(Request $request){
         
          if($request->ajax()){
+
             $deployment = new Deployments();
             $addGuardRequest = AddGuardRequests::findOrFail($request->addGuardID);
             $guardDetails = DB::table('temp_deployments')
@@ -98,9 +103,10 @@ class AdditionalGuardRequesController extends Controller
                             ->where('temp_deployment_details.employees_id','=',$request->employeeID)
                             ->select('shift_from as shiftFrom','shift_to as shiftTo')
                             ->get();
+                             
             $guardDeployedctr =  (int)$addGuardRequest->guardDeployed;
-            
-            $deployment['clients_id'] = $request->clientID;
+            //return $guardDeployedctr;
+            $deployment['clients_id'] = $addGuardRequest->client_id;
             $deployment['establishment_id'] = $request->estabID;
             $deployment['num_guards'] = $request->num_guards;
             $deployment->save();
@@ -131,7 +137,7 @@ class AdditionalGuardRequesController extends Controller
                     return "Ear";
                 }
                 //Employee::findOrFail($request->employeeID)->update(['status'=>'deployed']);
-                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$request->contractID]);
+                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$addGuardRequest->contract]);
 
                 $addGuardRequest->guardDeployed = $guardDeployedctr;
                 $addGuardRequest->save();
