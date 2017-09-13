@@ -55,7 +55,7 @@
                   <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
                   <td>{{$client->dateDelivered}}</td>
                   <td>
-                    <button type="button" value="{{$gunDeliveryId}}" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
+                    <button type="button" name="{{$client->strGunReqID}}" value="{{$gunDeliveryId}}" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
                   </td>
                 </tr>
               @else
@@ -66,7 +66,7 @@
                   <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
                   <td>{{$client->dateDelivered}}</td>
                   <td>
-                    <button type="button" value="{{$gunDeliveryId}}" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
+                    <button type="button" name="{{$client->strGunReqID}}" value="{{$gunDeliveryId}}" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
                   </td>
                 </tr>
               @endif
@@ -191,7 +191,7 @@
             </tr>
           </tfoot>
       </table>
-
+<input type="hidden" name="" id="gunDeliveryID" value="{{$client->deliveryCode}}">
         <div class="text-right">
           <ul class="pagination">
           </ul>
@@ -214,15 +214,108 @@
 
  </div>
 
+<div id="Delgun" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog  modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Deliver guns</strong></center></h4>
+      </div>
+      <div class="modal-body deliverModal">
+        
+      
+      
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+
   @endsection
   @section('script')
+
   <script type="text/javascript">
+  gunDeliveryID = "";
+  gunRequestID = "";
+  function proceedDelivery(){
+    var qtyToBeDel = 0;
+    var gunIDs = [];
+    var serialNos = [];
+    var delBoy = $('#deliveredBy').val();
+    var delBoyContact = $('#delBoyContact').val();
+    var delCode = $('#delCode').val();
+    var gunReqID = gunRequestID;
+
+    $.each($(".newGunSerial"), function(){
+          qtyToBeDel = qtyToBeDel + 1;
+          gunIDs.push($(this).attr('id'));
+          serialNos.push($(this).val());
+          //alert($(this).val());
+            
+     });
+
+    $.ajax({
+       url : '{{route("gun.delivery.save")}}',
+        type : 'POST',
+        data : {
+                qtyToBeDel:qtyToBeDel,
+                gunIDs:gunIDs,
+                delBoy:delBoy,
+                delBoyContact:delBoyContact,
+                delCode:delCode,
+                gunReqstID:gunReqID,
+                serialNo:serialNos,
+                
+              },
+        success : function(data){
+          //alert(data);
+          if(data == 0){
+            alert("Delivery Sent Successfully!!");
+            window.location.href = '/Pickups-'+delCode;
+            console.log(data);
+          }
+          
+        }
+    });
+
+    //alert(gunReqID);
+  }
    function funcDeliverRelacement(){
-    alert("Earl");
+    alert($('#gunDeliveryID').val());
+     var unclaimed_items_id = [];
+        var unclaimed_items_serials = [];
+        var gunDeliveryID = $('#gunDeliveryID').val();
+
+        $.each($(".UNCLAIMED"), function(){
+        
+         
+          unclaimed_items_id.push($(this).val());
+          unclaimed_items_serials.push($(this).attr('name'));
+          alert($(this).attr('name'));
+            
+     });
+
+        $.ajax({
+          url : '{{route("pickups.delRepl")}}',
+          type : 'GET',
+          data : {
+                  unclaimed_items_id:unclaimed_items_id,
+                  unclaimed_items_serials:unclaimed_items_serials,
+                  gunDeliveryID:gunDeliveryID
+                },
+          success : function(data){
+            $('.deliverModal').text('');
+            $('.deliverModal').append(data);
+            $('#Delgun').modal('show');
+            console.log(data);
+          }
+        });
    }
     $(document).ready(function(){
       $('.show').on('click',function(){
-       // alert($('.show').val());
+        //alert($('.show').attr('name'));
+        gunDeliveryID = $('.show').val();
+        gunRequestID = $('.show').attr('name');
         $.ajax({
           url : "{{route('pickups.show')}}",
           type : 'GET',
@@ -245,13 +338,7 @@
   <script type="text/javascript">
 jQuery(document).ready(function($){
  
- $('.show').on('click', function(e){
-  
-   
-
-
- });
-
+ 
 
 });
     $( document ).ready(function() {

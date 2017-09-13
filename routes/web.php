@@ -218,6 +218,9 @@ Route::get('/Pickups-delReplc','PickupsController@deliverReplacement')
 Route::get('/Pickups-{gunDeliveryId}','PickupsController@index')
 							->name('pickups.index')
 							->middleware('auth');
+Route::get('/Pickups-redelivery','PickupsController@redelivery')
+							
+							->middleware('auth');
 
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2')
 							->middleware('auth'); 

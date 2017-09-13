@@ -60,10 +60,7 @@
         
       </div>
     </div>
-    <div class="col-sm-3">
-      <br>
-      <button type="button" class="btn btn-info waves-effect waves-light" >Generate code</button>
-    </div>
+    
     </div>
       <div class="help-block with-errors"></div>
     </div>

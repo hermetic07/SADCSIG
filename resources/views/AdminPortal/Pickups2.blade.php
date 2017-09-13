@@ -25,12 +25,12 @@
         <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
           <thead>
             <tr>
-            <th data-sort-initial="true" data-toggle="true">Delivery Code</th>
+            <th >Delivery Code</th>
               <th>Name</th>
               <th>Establsihment</th>
       <th data-hide="phone, tablet" >Location</th>
     <th>Date delivered</th>
-              <th data-sort-ignore="true" width="150px">Actions</th>
+              <th>Actions</th>
             </tr>
           </thead>
             <div class="form-inline padding-bottom-15">
@@ -46,6 +46,9 @@
                </div>
             </div>
           <tbody>
+          @php
+            $ctr = 0;
+          @endphp
             @foreach($clients as $client)
               
                 <tr>
@@ -55,10 +58,12 @@
                   <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
                   <td>{{$client->dateDelivered}}</td>
                   <td>
-                    <button type="button" value="{{$client->deliveryCode}}" class="btn btn-block btn-info show" ><i class="fa fa-list"></i> Show details </button>
+                    <button type="button" name="{{$client->strGunReqID}}" value="{{$client->deliveryCode}}" class="btn btn-block btn-info show" onclick="funcShit('{{$client->strGunReqID}}','{{$client->deliveryCode}}')"><i class="fa fa-list"></i> Show details </button>
                   </td>
                 </tr>
-              
+              @php
+            $ctr++;
+          @endphp
             @endforeach
           </tbody>
           <tfoot>
@@ -67,7 +72,7 @@
             </tr>
           </tfoot>
       </table>
-      <input type="hidden" name="" id="gunDeliveryID" value="{{$client->deliveryCode}}">
+      
         <div class="text-right">
           <ul class="pagination">
           </ul>
@@ -223,18 +228,44 @@
   @endsection
   @section('script')
   <script type="text/javascript">
+  gunDeliveryID = "";
+  gunRequestID = "";
+
+  function funcShit(gunreqid,gundelvid){
+    //alert(kk+','+ll);
+
+    //alert($('.show').attr('name'));
+        gunRequestID = gunreqid;
+       gunDeliveryID = gundelvid;
+       alert(gunDeliveryID);
+        $.ajax({
+          url : "{{route('pickups.show')}}",
+          type : 'GET',
+          data : {deliveryCode:gunDeliveryID},
+          success : function(data){
+            var click =0;
+            $('.guards').text('');
+            $('.guards').append(data);
+           if (click == 0){
+
+                 click++;
+           $(".guards").show();
+           $(this).parent().parent().parent().parent().parent().toggleClass('col-lg-12').toggleClass('col-lg-6');
+           }
+          }
+        });
+  }
   function funcDeliverRelacement(){
-    alert($('#gunDeliveryID').val());
+    alert(gunDeliveryID);
      var unclaimed_items_id = [];
         var unclaimed_items_serials = [];
-        var gunDeliveryID = $('#gunDeliveryID').val();
-
+        
         $.each($(".UNCLAIMED"), function(){
         
          
           unclaimed_items_id.push($(this).val());
           unclaimed_items_serials.push($(this).attr('name'));
-          alert($(this).attr('name'));
+          alert($(this).val());
             
      });
 
@@ -254,6 +285,50 @@
           }
         });
   }
+
+  function proceedDelivery(){
+    var qtyToBeDel = 0;
+    var gunIDs = [];
+    var serialNos = [];
+    var delBoy = $('#deliveredBy').val();
+    var delBoyContact = $('#delBoyContact').val();
+    var delCode = $('#delCode').val();
+    var gunReqID = gunRequestID;
+
+    $.each($(".newGunSerial"), function(){
+          qtyToBeDel = qtyToBeDel + 1;
+          gunIDs.push($(this).attr('id'));
+          serialNos.push($(this).val());
+          //alert($(this).val());
+            
+     });
+
+    $.ajax({
+       url : '{{route("gun.delivery.save")}}',
+        type : 'POST',
+        data : {
+                qtyToBeDel:qtyToBeDel,
+                gunIDs:gunIDs,
+                delBoy:delBoy,
+                delBoyContact:delBoyContact,
+                delCode:delCode,
+                gunReqstID:gunReqID,
+                serialNo:serialNos,
+                
+              },
+        success : function(data){
+          //alert(data);
+          if(data == 0){
+            alert("Delivery Sent Successfully!!");
+            window.location.href = '/Pickups-'+delCode;
+            console.log(data);
+          }
+          
+        }
+    });
+
+    //alert(gunReqID);
+  }
     $(document).ready(function(){
      //  $('.delRepl').on('click',function(){
      //    alert("Earl");
@@ -271,36 +346,35 @@
      // // });
 
      //  });
-      $('.show').on('click',function(){
-       // alert($('.show').val());
-        $.ajax({
-          url : "{{route('pickups.show')}}",
-          type : 'GET',
-          data : {deliveryCode:$(this).val()},
-          success : function(data){
-            var click =0;
-            $('.guards').text('');
-            $('.guards').append(data);
-           if (click == 0){
+      // $('.show').on('click',function(){
+      //   alert($('.show').attr('name'));
+      //   gunRequestID = $('.show').attr('name');
+      //  gunDeliveryID = $(this).val();
+      //   $.ajax({
+      //     url : "{{route('pickups.show')}}",
+      //     type : 'GET',
+      //     data : {deliveryCode:$(this).val()},
+      //     success : function(data){
+      //       var click =0;
+      //       $('.guards').text('');
+      //       $('.guards').append(data);
+      //      if (click == 0){
 
-                 click++;
-           $(".guards").show();
-           $(this).parent().parent().parent().parent().parent().toggleClass('col-lg-12').toggleClass('col-lg-6');
-           }
-          }
-        });
-      });
+      //            click++;
+      //      $(".guards").show();
+      //      $(this).parent().parent().parent().parent().parent().toggleClass('col-lg-12').toggleClass('col-lg-6');
+      //      }
+      //     }
+      //   });
+      // });
+
+      
     });
   </script>
   <script type="text/javascript">
 jQuery(document).ready(function($){
  
- $('.show').on('click', function(e){
-  
-   
-
-
- });
+ 
 
 
 });

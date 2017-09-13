@@ -22,7 +22,8 @@
                     <td>{{$gun->gunType}}</td>
                     <td>{{$gun->gun}}</td>
                     <td>
-                         <input type="text" name="" placeholder="{{$gun->serialNo}}">
+                         <!-- <input type="text" name="" placeholder="{{$gun->serialNo}}"> -->
+                         <input class="newGunSerial" id="{{$gun->gunID}}" type="text" name="">
 
                     </td>
                     <input type="hidden" name="srl{{$ctr}}" class="gunsID" value="{{$gun->gunID}}">
@@ -61,10 +62,7 @@
         
       </div>
     </div>
-    <div class="col-sm-3">
-      <br>
-      <button type="button" class="btn btn-info waves-effect waves-light" >Generate code</button>
-    </div>
+    
     </div>
       <div class="help-block with-errors"></div>
     </div>

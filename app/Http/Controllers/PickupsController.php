@@ -76,7 +76,7 @@ class PickupsController extends Controller
         if($request->ajax()){
             $unclaimed_items_serials = Input::get('unclaimed_items_serials');
             $unclaimed_items_id = Input::get('unclaimed_items_id');
-
+            //return $request->toArray();
             //$gunDeliveryID = $request->gunDeliveryID;
 
              $gunDeliveryID = "GUNDELV-".GunDelivery::get()->count();
@@ -92,13 +92,14 @@ class PickupsController extends Controller
             $guns = DB::table('tblGunDeliveries')
                                 ->where('tblGunDeliveries.strGunDeliveryID','=',$request->gunDeliveryID)
                                 ->join('tblclaimeddelivery','tblGunDeliveries.strGunDeliveryID','=','tblclaimeddelivery.strGunDeliveryID')
-                                ->where('tblGunDeliveries.strGunDeliveryID','=',$request->gunDeliveryID)
+                                
                                 ->where('tblclaimeddelivery.status','=','UNCLAIMED')
                                 //->join('clients','clients.id','=','tblGunRequests.strClientID')
                                 ->join('guns','guns.id','=','tblclaimeddelivery.strGunID')
                                 ->join('gunType','guns.guntype_id','=','gunType.id')
                                 ->select('guns.name as gun','guns.id as gunID','gunType.name as gunType','tblclaimeddelivery.serialNo')
                                 ->get();
+
             return view('AdminPortal.ClientRequests.Pickups.delRepl_modal')
                                     ->with('guns',$guns)
                                     ->with('unclaimed_items_serials',$unclaimed_items_serials)
@@ -109,5 +110,9 @@ class PickupsController extends Controller
 
             
         }
+    }
+
+    public function redelivery(){
+        
     }
 }
