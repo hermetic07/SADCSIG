@@ -287,6 +287,7 @@ class AdminController extends Controller
         //return $message_ID;
         DeploymentNotifForClient::create(['notif_id'=>$notif_id,'trans_id'=>$request->contractID,'sender'=>'Admin','receiver'=>$request->clientID,'subject'=>'DEPLOYMENT','status'=>'active']);
 
+
         $l = $request->avGuards;
         $ctr2 = 0;
 
@@ -315,8 +316,9 @@ class AdminController extends Controller
 
             }
         }
+        
          ClientDeploymentNotif::create(['client_deloyment_notif_id'=>$client_inbox_id,'client_id'=>$request->clientID,'notif_id'=>$notif_id,'date_received'=>Carbon::now()]);
-                Contracts::findOrFail($request->contractID)->update(['init_deploy_status'=>'pending']);
+                
 
         $rejected = explode(',.',$request->rejects);
         for($c = 0; $c < sizeof($rejected); $c++){
@@ -331,7 +333,7 @@ class AdminController extends Controller
         }
 
         //return $rejected[0];
-         return redirect('/PendingDeployment');
+         return redirect('/PendingClientRequests');
     }
     public function notifications(Request $request){
        
