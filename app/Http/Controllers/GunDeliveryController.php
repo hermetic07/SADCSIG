@@ -50,6 +50,7 @@ class GunDeliveryController extends Controller
     public function index2(){
         $gunRequests = DB::table('tblGunRequests')
                         ->where('isRead','=','1')
+                        ->where('tblGunRequests.status','!=','deleted')
                         ->join('clients','clients.id','=','tblGunRequests.strClientID')
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')
@@ -227,7 +228,19 @@ class GunDeliveryController extends Controller
      {
          $id = $request -> id;
          $data = GunDelivery::findOrFail($id);
-         $data->status = "deleted";
+         $data->admin_del = 1;
+         $response = $data -> save();
+         if($response)
+             echo "Record Removed successfully.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
+
+     public function client_delete(Request $request)
+     {
+         $id = $request -> id;
+         $data = GunDelivery::findOrFail($id);
+         $data->client_del = 1;
          $response = $data -> save();
          if($response)
              echo "Record Removed successfully.";

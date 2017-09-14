@@ -164,7 +164,7 @@
                   <th>Guards Requested</th>
                   <th>Date Requested</th>
                   <th>Status</th>    
-                  <th data-sort-ignore="true" width="250px">Actions</th>
+                  <th data-sort-ignore="true" width="230px">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -196,8 +196,8 @@
                       </td>
                         
                       <td>
-                        <button disabled type="button" class="btn btn-primary addGuardView" value="{{$add_guard_request->id}}">View Details</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-primary addGuardView" value="{{$add_guard_request->id}}">View Details</button>
+                        <button type="button" class="btn btn-danger" onclick="func_delete('{{$add_guard_request->id}}','addguardrequests')"><i class="fa fa-times"></i> Delete</button>
                       </td>
                     </tr>
                   @else
@@ -227,8 +227,8 @@
                       </td>
                         
                       <td>
-                        <button type="button" class="btn btn-primary addGuardView" value="{{$add_guard_request->id}}">View Details</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-block btn-primary addGuardView" value="{{$add_guard_request->id}}">View Details</button>
+                        
                       </td>
                     </tr>
                     @endif

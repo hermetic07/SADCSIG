@@ -116,7 +116,10 @@ class ClientPortalHomeController extends Controller
     $client = Clients::findOrFail($id);
     $gunDeliveryDetails = DB::table('tblGunRequests')
                         ->where('tblGunRequests.strClientID','=',$id)
+
                         ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
+                        
+                        ->where('tblGunDeliveries.client_del','!=','1')
                         ->join('clients','clients.id','=','tblGunRequests.strClientID')
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')

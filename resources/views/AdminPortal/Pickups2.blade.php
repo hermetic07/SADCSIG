@@ -60,7 +60,7 @@
                   <td>
                     <button type="button" name="{{$client->strGunReqID}}" value="{{$client->deliveryCode}}" class="btn btn-info show" onclick="funcShit('{{$client->strGunReqID}}','{{$client->deliveryCode}}')"><i class="fa fa-list"></i> Show details </button>
                     @if($client->gunDelvStatus == 'CLAIMED' || $client->gunDelvStatus == 'REDELIVERED')
-                      <button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                      <button type="button" class="btn btn-danger" onclick="func_delete('{{$client->deliveryCode}}')"><i class="fa fa-times"></i></button>
                     @endif
                   </td>
                 </tr>
@@ -401,6 +401,36 @@ jQuery(document).ready(function($){
      });
 
 });
+
+  function func_delete(id){
+   // alert(id+','+route);
+    swal({
+          title: "Are you sure?",
+          text: "Delete this item?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+      }, function(){
+        var delete_url = "/delete-gundelivery";
+                $.ajax({
+                  url: delete_url,
+                  type:"POST",
+                  data: {"id":id,_token: "{{ csrf_token() }}"},
+                  success : function(data){
+                    swal({
+                          title: "Deleted",
+                          text: "This item has been successfully deleted",
+                          type: "success"
+                      
+                    });
+                    location.reload();
+                  }
+                });
+              }
+            );
+  }
 
 </script>
   @endsection

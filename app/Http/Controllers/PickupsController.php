@@ -38,7 +38,7 @@ class PickupsController extends Controller
     public function index2(){
     	$clients = DB::table('tblGunRequests')
                         ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
-                        
+                        ->where('tblGunDeliveries.admin_del','!=','1')
                         ->join('clients','clients.id','=','tblGunRequests.strClientID')
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')

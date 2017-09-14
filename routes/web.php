@@ -224,6 +224,8 @@ Route::get('/Pickups-redelivery','PickupsController@redelivery')
 
 
 Route::post('/delete-gunrequests','GunRequestController@remove');
+Route::post('/delete-gundelivery','GunDeliveryController@remove');
+Route::post('/cdelete-gundelivery','GunDeliveryController@client_delete');
 
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2')
 							->middleware('auth'); 
@@ -243,6 +245,9 @@ Route::get('/AddGuard-deploy','AdditionalGuardRequesController@deploy');
 Route::get('/AddGuard-ChangeGuards','AdditionalGuardRequesController@changeRejectedGuards')
 							
 							->middleware('auth');
+
+Route::post('/delete-addguardrequests','AdditionalGuardRequesController@remove');
+
 
 /**-------------------------     Add Guard Requests-end    ---------------------*/
 

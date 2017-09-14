@@ -30,7 +30,7 @@
                   <th>Client's establishment</th>
                   <th>location</th>   
                   <th>Status</th>     
-                  <th data-sort-ignore="true" width="310px">Actions</th>
+                  <th data-sort-ignore="true" width="270px">Actions</th>
                 </tr>
               </thead>
                 <div class="form-inline padding-bottom-15">
@@ -59,7 +59,7 @@
                               <td>
                                 <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
                                 
-                                <button type="button" class="btn btn-danger"><i class="fa fa-times"></i> Delete</button>
+                                <button type="button" class="btn btn-danger" onclick="func_delete('{{$gunRequest->strGunReqID}}')"><i class="fa fa-times"></i> Delete</button>
                               </td>
                  </tr>
                  @else
@@ -72,7 +72,7 @@
                               </td>
                               <td>
                                 <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                                <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
+                                <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver</button>
 
                               </td>
                  </tr>
@@ -315,6 +315,34 @@ jQuery(document).ready(function($){
 
 });
 
-
+function func_delete(id){
+   // alert(id+','+route);
+    swal({
+          title: "Are you sure?",
+          text: "Delete this item?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+      }, function(){
+        var delete_url = "/delete-gunrequests";
+                $.ajax({
+                  url: delete_url,
+                  type:"POST",
+                  data: {"id":id,_token: "{{ csrf_token() }}"},
+                  success : function(data){
+                    swal({
+                          title: "Deleted",
+                          text: "This item has been successfully deleted",
+                          type: "success"
+                      
+                    });
+                    location.reload();
+                  }
+                });
+              }
+            );
+  }
 </script>
   @endsection

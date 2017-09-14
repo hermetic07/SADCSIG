@@ -40,7 +40,12 @@
       </div>
       <br>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info" onclick="location.href='Deploy-AddGuards-{{$add_guard_request->id}}'">Deployment</button>
+        @if($add_guard_request->status == "done")
+          <button disabled type="button" class="btn btn-info" onclick="location.href='Deploy-AddGuards-{{$add_guard_request->id}}'">Deployment</button>
+        @else
+          <button type="button" class="btn btn-info" onclick="location.href='Deploy-AddGuards-{{$add_guard_request->id}}'">Deployment</button>
+        @endif
+        
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div> 

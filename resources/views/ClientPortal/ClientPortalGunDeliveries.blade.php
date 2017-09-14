@@ -72,7 +72,7 @@
                     
                       <td>
                         <button class="btn btn-info view" type="button" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View Delivery slip</button>
-                        <button disabled class="btn btn-success claimDel" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Claim Delivery</button>
+                        <button type="button" class="btn btn-danger" onclick="func_delete('{{$gunDeliveryDetail->deliveryCode}}')"><i class="fa fa-times"></i></button>
                        
                       </td>
                     </tr>
@@ -255,5 +255,37 @@
     }
   });
 }
+
+function func_delete(id){
+   // alert(id+','+route);
+    swal({
+          title: "Are you sure?",
+          text: "Delete this item?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+      }, function(){
+        var delete_url = "/cdelete-gundelivery";
+                $.ajax({
+                  url: delete_url,
+                  type:"POST",
+                  data: {"id":id,_token: "{{ csrf_token() }}"},
+                  success : function(data){
+                    swal({
+                          title: "Deleted",
+                          text: "This item has been successfully deleted",
+                          type: "success"
+                      
+                    });
+                    location.reload();
+                  }
+                });
+              }
+            );
+  }
+
+</script>
 </script>
 @endsection
