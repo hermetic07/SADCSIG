@@ -54,7 +54,7 @@
           </div>
           <tbody>
             @foreach($gunDeliveryDetails as $gunDeliveryDetail)
-              @if($gunDeliveryDetail->deliveryStatus == "CLAIMED")
+              @if($gunDeliveryDetail->deliveryStatus == "CLAIMED" || $gunDeliveryDetail->deliveryStatus == "PARTIALCLAIMED" || $gunDeliveryDetail->deliveryStatus == "REDELIVERED")
                 <tr style="background-color: gray;">
                     <td> 
                       {{$gunDeliveryDetail->deliveryCode}}

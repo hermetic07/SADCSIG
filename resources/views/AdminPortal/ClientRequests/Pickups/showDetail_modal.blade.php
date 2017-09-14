@@ -68,7 +68,7 @@
             </tr>
           </tfoot>
       </table>
-      @if($delivery->status == "REDELIVERED")
+      @if($delivery->status == "REDELIVERED" || $delivery->status == "CLAIMED")
         <button disabled type="button" onclick="funcDeliverRelacement()" class="btn btn-info delRepl">Deliver 
       @else
         <button type="button" onclick="funcDeliverRelacement()" class="btn btn-info delRepl">Deliver 

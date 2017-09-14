@@ -27,6 +27,7 @@ class PickupsController extends Controller
                             'clients.first_name as client_fname',
                             'clients.middle_name as client_mname',
                             'clients.last_name as client_lname','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province','tblGunDeliveries.strGunDeliveryID as deliveryCode','tblGunDeliveries.created_at as dateDelivered')
+                        ->orderBy('tblGunDeliveries.created_at','desc')
                         ->get();
          // return $client;
           return view('AdminPortal.Pickups')
@@ -46,6 +47,7 @@ class PickupsController extends Controller
                             'clients.first_name as client_fname',
                             'clients.middle_name as client_mname',
                             'clients.last_name as client_lname','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province','tblGunDeliveries.strGunDeliveryID as deliveryCode','tblGunDeliveries.created_at as dateDelivered')
+                        ->orderBy('tblGunDeliveries.created_at','desc')
                         ->get();
          // return $client;
           return view('AdminPortal.Pickups2')

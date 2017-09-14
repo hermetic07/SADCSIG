@@ -51,7 +51,7 @@ class ClientPortalHomeController extends Controller
                         ->where('tblGunRequests.strClientID','=',$id)
                         ->join('clients','clients.id','=','tblGunRequests.strClientID')
                         ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
-                        ->where('tblGunDeliveries.status','!=','CLAIMED')
+                        ->where('tblGunDeliveries.status','=','ONDELIVERY')
                         ->get();
       $gunDeliveriesCtr = $gunDeliveries2->count();
 
