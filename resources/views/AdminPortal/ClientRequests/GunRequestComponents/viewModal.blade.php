@@ -55,10 +55,18 @@
 
                 </div>
                  </div>
-                          <div class="modal-footer">
-            <button type="button" class="btn btn-info waves-effect waves-light" onClick="window.location='/DeliverGuns-{{$gunRequest->strGunReqID}}';" >Process Delivery</button>
-                        <button type="button" class="btn btn-danger waves-effect waves-light" onclick="reject();" >Reject request</button>
-          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+          <div class="modal-footer">
+            @if($gunRequest->status == "ONDELIVERY")
+
+            <button disabled type="button" class="btn btn-info waves-effect waves-light" onClick="window.location='/DeliverGuns-{{$gunRequest->strGunReqID}}';" >Process Delivery</button>
+              <button disabled type="button" class="btn btn-danger waves-effect waves-light" onclick="reject();" >Reject request</button>
+              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            @else
+              <button type="button" class="btn btn-info waves-effect waves-light" onClick="window.location='/DeliverGuns-{{$gunRequest->strGunReqID}}';" >Process Delivery</button>
+              <button type="button" class="btn btn-danger waves-effect waves-light" onclick="reject();" >Reject request</button>
+              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            @endif
+            
          </div>
              </div>
                 </div>

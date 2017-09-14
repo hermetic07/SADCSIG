@@ -30,7 +30,7 @@
               <th>Establsihment</th>
       <th data-hide="phone, tablet" >Location</th>
     <th>Date delivered</th>
-              <th>Actions</th>
+              <th width="200px">Actions</th>
             </tr>
           </thead>
             <div class="form-inline padding-bottom-15">
@@ -58,7 +58,10 @@
                   <td>{{$client->address}},{{$client->area}},{{$client->province}}</td>
                   <td>{{$client->dateDelivered}}</td>
                   <td>
-                    <button type="button" name="{{$client->strGunReqID}}" value="{{$client->deliveryCode}}" class="btn btn-block btn-info show" onclick="funcShit('{{$client->strGunReqID}}','{{$client->deliveryCode}}')"><i class="fa fa-list"></i> Show details </button>
+                    <button type="button" name="{{$client->strGunReqID}}" value="{{$client->deliveryCode}}" class="btn btn-info show" onclick="funcShit('{{$client->strGunReqID}}','{{$client->deliveryCode}}')"><i class="fa fa-list"></i> Show details </button>
+                    @if($client->gunDelvStatus == 'CLAIMED' || $client->gunDelvStatus == 'REDELIVERED')
+                      <button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                    @endif
                   </td>
                 </tr>
               @php

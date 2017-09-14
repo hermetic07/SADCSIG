@@ -57,8 +57,9 @@
                                 {{$gunRequest->status}}
                               </td>
                               <td>
-      <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                              <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button" disabled><i class="fa fa-truck"></i>  Deliver guns</button>
+                                <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
+                                
+                                <button type="button" class="btn btn-danger"><i class="fa fa-times"></i> Delete</button>
                               </td>
                  </tr>
                  @else
@@ -70,8 +71,9 @@
                                 {{$gunRequest->status}}
                               </td>
                               <td>
-      <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
-                              <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
+                                <button class="btn btn-info viewReq" value="{{$gunRequest->strGunReqID}}" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View order slip</button>
+                                <button class="btn  btn-success deliver " value="{{$gunRequest->strGunReqID}}" id="show" type="button"><i class="fa fa-truck"></i>  Deliver guns</button>
+
                               </td>
                  </tr>
                  @endif

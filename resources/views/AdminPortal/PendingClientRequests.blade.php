@@ -88,7 +88,7 @@
           <th>Client's establishment</th>
           <th>location</th> 
           <th>Status</th>    
-          <th data-sort-ignore="true" width="150px">Actions</th>
+          <th data-sort-ignore="true" width="250px">Actions</th>
         </tr>
       </thead>
       <div class="form-inline padding-bottom-15">
@@ -116,7 +116,8 @@
                                 {{$gunRequest->status}}
                               </td>
                               <td>
-                <button class="btn btn-block btn-info viewReq" type="button" value="{{$gunRequest->strGunReqID}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
+                                <button class="btn btn-info viewReq" type="button" value="{{$gunRequest->strGunReqID}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
+                                <button type="button" class="btn btn-danger"><i class="fa fa-times"></i> Delete</button>
                               </td>
                   
                               </tr>
@@ -130,7 +131,8 @@
                                 {{$gunRequest->status}}
                               </td>
                               <td>
-                <button class="btn btn-block btn-info viewReq" type="button" value="{{$gunRequest->strGunReqID}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
+                                <button class="btn btn-block btn-info viewReq" type="button" value="{{$gunRequest->strGunReqID}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
+                                
                               </td>
                   
                               </tr>

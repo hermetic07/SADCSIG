@@ -46,7 +46,8 @@ class PickupsController extends Controller
                         ->select('tblGunRequests.strGunReqID','tblGunRequests.status','tblGunRequests.created_at',
                             'clients.first_name as client_fname',
                             'clients.middle_name as client_mname',
-                            'clients.last_name as client_lname','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province','tblGunDeliveries.strGunDeliveryID as deliveryCode','tblGunDeliveries.created_at as dateDelivered')
+                            'clients.last_name as client_lname','establishments.name as establishment','establishments.address as address','areas.name as area','provinces.name as province','tblGunDeliveries.strGunDeliveryID as deliveryCode','tblGunDeliveries.created_at as dateDelivered',
+                                'tblGunDeliveries.status as gunDelvStatus')
                         ->orderBy('tblGunDeliveries.created_at','desc')
                         ->get();
          // return $client;
