@@ -222,6 +222,9 @@ Route::get('/Pickups-redelivery','PickupsController@redelivery')
 							
 							->middleware('auth');
 
+
+Route::post('/delete-gunrequests','GunRequestController@remove');
+
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2')
 							->middleware('auth'); 
 

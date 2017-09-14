@@ -155,6 +155,7 @@ class AdminController extends Controller
         $clientRegistrations = ClientRegistration::all();
         $clients = Clients::all();
         $gunRequests = DB::table('tblGunRequests')
+                        ->where('tblGunRequests.status','!=','deleted')
                         ->join('clients','clients.id','=','tblGunRequests.strClientID')
                         ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
                         ->join('areas','areas.id','=','establishments.areas_id')

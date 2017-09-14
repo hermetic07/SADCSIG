@@ -117,7 +117,7 @@
                               </td>
                               <td>
                                 <button class="btn btn-info viewReq" type="button" value="{{$gunRequest->strGunReqID}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
-                                <button type="button" class="btn btn-danger"><i class="fa fa-times"></i> Delete</button>
+                                <button type="button" class="btn btn-danger" onclick="func_delete('{{$gunRequest->strGunReqID}}','gunrequests')"><i class="fa fa-times"></i> Delete</button>
                               </td>
                   
                               </tr>
@@ -336,5 +336,38 @@
    
   });
 }
+  
+  function func_delete(id,route){
+   // alert(id+','+route);
+    swal({
+          title: "Are you sure?",
+          text: "Delete this item?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+      }, function(){
+        var delete_url = "/delete-"+route;
+                $.ajax({
+                  url: delete_url,
+                  type:"POST",
+                  data: {"id":id,_token: "{{ csrf_token() }}"},
+                  success : function(data){
+                    swal({
+                          title: "Deleted",
+                          text: "This item has been successfully deleted",
+                          type: "success"
+                      
+                    });
+                    location.reload();
+                  }
+                });
+              }
+            );
+  }
+  
+  
+
   </script>
   @endsection
