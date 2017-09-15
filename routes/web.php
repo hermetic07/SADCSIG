@@ -542,7 +542,9 @@ Route::get('/SecurityGuardsPortalNotifications', 'EmployeeControl@notifications'
 Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages')->middleware('auth:employee');
 Route::get('/SecurityGuardsPortalRequest', 'EmployeeControl@requests')->middleware('auth:employee');
 Route::post('/GetLeaveInfo', 'EmployeeControl@leaveInfo');
-
+Route::get ( '/SwapRequest', 'SwapControl@index' );
+Route::get ( '/SwapRequestStepTwo/{id}', 'SwapControl@two' );
+Route::post ( '/RequestSwap', 'SwapControl@three' );
 Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
 Route::get('/Admin-Guard-Leave', 'EmployeeControl@allLeave');
 Route::post('/Guard-Leave-View', 'EmployeeControl@viewLeave2');

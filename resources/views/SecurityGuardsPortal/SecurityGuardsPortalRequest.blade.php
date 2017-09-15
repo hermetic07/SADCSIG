@@ -39,7 +39,7 @@
 
               <p>Request for a swap to another client but first your client, the security guard that you want to be swap with and his/her client must agree before the agency will confirm and process it.</p>
 
- <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10"  data-toggle="modal" data-target="#swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" >Request</a>
+ <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" href="/SwapRequest" >Request</a>
 
             </div>
 
@@ -392,11 +392,11 @@ $("#leaves").change(function(){
            $('#allow_days').html(data.days);
           notifday = data.notification;
           allowday = data.days;
-   $('.firstcal').datepicker('destroy');
-$(".firstcal").datepicker({
-         dateFormat: "mm/dd/yy",
-         minDate: notifday,
-         onSelect: function(dateText, instance) {
+          $('.firstcal').datepicker('destroy');
+          $(".firstcal").datepicker({
+          dateFormat: "mm/dd/yy",
+          minDate: notifday,
+          onSelect: function(dateText, instance) {
 
 
              date = $.datepicker.parseDate(instance.settings.dateFormat, dateText, instance.settings);
