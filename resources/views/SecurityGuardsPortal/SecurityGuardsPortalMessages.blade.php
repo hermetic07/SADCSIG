@@ -151,7 +151,7 @@
                   <td>DEPLOYMENT</td>
                   <td>   &nbsp;
                     <button type="button" class="btn btn-info btn-circle" onclick="func_open_msg('{{$inbox->contractID}}','{{$inbox->establishment_id}}','{{$inbox->guard_id}}')" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
-                    <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                    <button class="btn btn-danger" onclick="func_delete_messege('{{$inbox->messageID}}')"><i class="fa fa-times"></i></button>
                   </td>
                 </tr>
             @endforeach
@@ -455,6 +455,35 @@ function reject(e)
         $('#inboxModal').modal('show');
       }
     });
+  }
+  function func_delete_messege(messageID){
+   // alert(messageID);
+    swal({
+          title: "Are you sure?",
+          text: "Delete this item?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+      }, function(){
+        var delete_url = "deleteMessage";
+                $.ajax({
+                  url: delete_url,
+                  type:"POST",
+                  data: {"messageID":messageID,_token: "{{ csrf_token() }}"},
+                  success : function(data){
+                    swal({
+                          title: "Deleted",
+                          text: "This item has been successfully deleted",
+                          type: "success"
+                      
+                    });
+                    location.reload();
+                  }
+                });
+              }
+            );
   }
 </script>
  @endsection

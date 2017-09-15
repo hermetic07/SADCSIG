@@ -241,6 +241,18 @@ class EmployeeControl extends Controller
                 ->with('tblestabguards',$tblestabguards);
       }
     }
+    public function deleteMessage(Request $request){
+      if($request->ajax()){
+         $id = $request -> messageID;
+         $data = GuardMessagesInbox::findOrFail($id);
+         $data->status = "deleted";
+         $response = $data -> save();
+         if($response)
+             echo "Record Removed successfully.";
+         else
+             echo "There was a problem. Please try again later.";
+      }
+    }
     public function showModal(Request $request){
       if($request->ajax()){
         $clientDeploymentNotif = ClientDeploymentNotif::findOrFail($request->deployment_notif_id);

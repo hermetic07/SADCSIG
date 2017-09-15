@@ -160,7 +160,7 @@ class DeploymentController extends Controller
                     $contract->save();
                 }
                 $guardInbox = new GuardMessagesInbox();
-                $guardInbox['guard_messages_ID'] = 'GRDINBX-'.Contracts::get()->count();
+                $guardInbox['guard_messages_ID'] = 'GRDINBX-'.GuardMessagesInbox::get()->count();
                 $guardInbox['guard_id'] = $request->employeeID;
                 $guardInbox['subject'] = 'Deployment';
                 $guardInbox['content'] = '';
