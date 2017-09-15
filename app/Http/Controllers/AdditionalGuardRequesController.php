@@ -28,6 +28,7 @@ use App\Deployments;
 use App\DeploymentDetails;
 use App\EstabGuards;
 use Carbon\Carbon;
+use App\GuardMessagesInbox;
 
 class AdditionalGuardRequesController extends Controller
 {
