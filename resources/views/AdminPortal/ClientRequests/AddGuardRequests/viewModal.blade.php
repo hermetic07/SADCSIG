@@ -7,7 +7,7 @@
           <div class="form-group">
             <label class="control-lable col-md-3">Request Code</label>
             <div class="col-md-9">
-              <label class="from-control"><b>{{$add_guard_request->id}}</b></label>
+              <label class="from-control"><b>ADDGRDREQ-{{$add_guard_request->id}}</b></label>
             </div>
           </div>
           <div class="form-group">

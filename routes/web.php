@@ -557,6 +557,7 @@ Route::get('/SecurityGuardsPortalMessages/modal','EmployeeControl@showModal')->n
 Route::post('/saveGuardResponse','EmployeeControl@saveResponse')->name('save.guard.response');
 Route::post('/saveGuardReject','EmployeeControl@guardReject')->name('guard.reject');
 Route::get('/getReason','EmployeeControl@getReason')->name('getreason');
+Route::get('/openInbox','EmployeeControl@openInbox');
 // -- end Earl :D ----------------------------------------------------------------
 Route::get('/SecurityGuardsPortalSettings', 'EmployeeControl@settings')->middleware('auth:employee');
 Route::post ( '/EmployeeUpdateProfile', 'EmployeeControl@UpdateProfile' );

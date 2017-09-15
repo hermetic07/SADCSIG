@@ -29,6 +29,7 @@ use App\Leave;
 use App\LeaveRequest;
 use App\LeaveResponse;
 use Illuminate\Support\Facades\DB;
+use App\GuardMessagesInbox;
 
 class EmployeeControl extends Controller
 {
@@ -184,8 +185,23 @@ class EmployeeControl extends Controller
           ->select('leave_response.id as lr', 'leave_response.leave_request_id as id2', 'leave_request.start_date as sd', 'leave_request.end_date as ed','leave_response.status as stat'  )
           ->where('leave_response.employees_id',$u->id)
           ->get();
+
+          $inboxs = DB::table('guard_messages_inbox')
+                 ->where('guard_messages_inbox.status','!=','deleted')
+                 ->join('tblestabguards','tblestabguards.strGuardID','=','guard_messages_inbox.guard_id')
+                 ->select('guard_messages_inbox.guard_messages_ID as messageID',
+                          'guard_messages_inbox.subject as subject',
+                          'guard_messages_inbox.guard_id as guard_id',
+                          'guard_messages_inbox.created_at as created_at',
+                          'tblestabguards.strEstablishmentID as establishment_id',
+                          'tblestabguards.contractID as contractID',
+                          'tblestabguards.dtmDateDeployed as dateDeployed',
+                          'tblestabguards.shiftFrom',
+                          'tblestabguards.shiftTo')
+                 ->get();
           return view('SecurityGuardsPortal/SecurityGuardsPortalMessages')
                   ->with('employee',$u)
+                  ->with('inboxs',$inboxs)
                   ->with('acceptedGuards',$acceptedGuards)
                   ->with('reliever',$reliever);
           //return $acceptedGuards;
@@ -195,6 +211,35 @@ class EmployeeControl extends Controller
         return view($e);
       }
 
+    }
+    public function openInbox(Request $request){
+      if($request->ajax()){
+        $tblestabguards = DB::table('tblestabguards')
+                        ->where('tblestabguards.strEstablishmentID','=',$request->establishment_id)
+                        ->where('tblestabguards.contractID','=',$request->contractID)
+                        ->where('tblestabguards.strGuardID','=',$request->guard_id)
+                        ->join('establishments','establishments.id','=','tblestabguards.strEstablishmentID')
+                        ->join('areas','areas.id','=','establishments.areas_id')
+                        ->join('provinces','provinces.id','=','areas.provinces_id')
+                        ->join('natures','natures.id','=','establishments.natures_id')
+                        ->select('tblestabguards.contractID as contractID',
+                          'tblestabguards.dtmDateDeployed as dateDeployed',
+                          'tblestabguards.shiftFrom',
+                          'tblestabguards.shiftTo',
+                          'establishments.id as estabID',
+                          'establishments.image',
+                          'establishments.loc_image',
+                          'establishments.pic_fname',
+                          'establishments.pic_lname',
+                          'establishments.pic_mname',
+                          'establishments.name as establishment',
+                          'establishments.address as address',
+                          'areas.name as area',
+                          'provinces.name as province','natures.name as nature')
+                        ->get()[0];
+        return view('SecurityGuardsPortal.inbox_modal')
+                ->with('tblestabguards',$tblestabguards);
+      }
     }
     public function showModal(Request $request){
       if($request->ajax()){

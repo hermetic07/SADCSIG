@@ -145,7 +145,18 @@ class AdditionalGuardRequesController extends Controller
                     $addGuardRequest->status = "done";
                     $addGuardRequest->save();
                 }
-                return response($guardDeployedctr);
+                $guardInbox = new GuardMessagesInbox();
+                $guardInbox['guard_messages_ID'] = 'GRDINBX-'.Contracts::get()->count();
+                $guardInbox['guard_id'] = $request->employeeID;
+                $guardInbox['subject'] = 'Deployment';
+                $guardInbox['content'] = '';
+                $guardInbox['status'] = 'active';
+                $guardInbox['created_at'] = Carbon::now();
+                $guardInbox['updated_at'] = Carbon::now();
+
+                if($guardInbox->save()){
+                    return response($guardDeployedctr);
+                }
         }
     }
 

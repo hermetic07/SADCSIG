@@ -190,6 +190,7 @@ class AdminController extends Controller
                         ->get(); 
 
         $add_guard_requests = DB::table('add_guard_requests')
+                            ->where('add_guard_requests.status','!=','deleted')
                             ->join('clients','clients.id','=','add_guard_requests.client_id')
                             ->join('establishments','establishments.id','=','add_guard_requests.establishments_id')
                             ->join('areas','areas.id','=','establishments.areas_id')

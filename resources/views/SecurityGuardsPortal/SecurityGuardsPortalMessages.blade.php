@@ -26,7 +26,7 @@
               <th>Name</th>
               <th> Date </th>
               <th>Subject</th>
-              <th width="50px"data-sort-ignore="true" >Actions</th>
+              <th width="100px"data-sort-ignore="true" >Actions</th>
             </tr>
           </thead>
           <div class="form-inline padding-bottom-15">
@@ -127,7 +127,34 @@
                 @endif
               @endif
             @endforeach
-
+            @foreach($inboxs as $inbox)
+              <tr>
+                  <td>
+                    <center>
+                      <div class="el-card-item" style="padding-bottom: 5px;" >
+                        <div class="el-card-avatar el-overlay-1" style="width: 65%;">
+                          <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg"  alt="user"  class="img-circle img-responsive"></a>
+                          <div class="el-overlay">
+                            <ul class="el-info">
+                              <li>
+                                <a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <span class="label label-table label-danger">Agency</span>
+                    </center>
+                  </td>
+                  <td>Ernest john maskarino</td>
+                  <td>{{$inbox->created_at}}</td>
+                  <td>DEPLOYMENT</td>
+                  <td>   &nbsp;
+                    <button type="button" class="btn btn-info btn-circle" onclick="func_open_msg('{{$inbox->contractID}}','{{$inbox->establishment_id}}','{{$inbox->guard_id}}')" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                    <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                  </td>
+                </tr>
+            @endforeach
             </tbody>
             <tfoot>
                <tr>
@@ -257,6 +284,13 @@
     </div>
   </div>
 </div>
+
+<div id="inboxModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+              <div class="modal-dialog inboxModal-content">
+                
+              <!-- /.modal-dialog -->
+            </div>
+          </div>
 
 @endsection
 
@@ -405,6 +439,20 @@ function reject(e)
           else {
             alert(data);
           }
+      }
+    });
+  }
+
+  function func_open_msg(contractID, establishment_id,guard_id){
+    //alert(contractID+','+establishment_id);
+    $.ajax({
+      url : '/openInbox',
+      type : 'get',
+      data : {contractID:contractID,establishment_id:establishment_id,guard_id:guard_id},
+      success:function(data){
+        $('.inboxModal-content').empty();
+        $('.inboxModal-content').html(data);
+        $('#inboxModal').modal('show');
       }
     });
   }

@@ -23,6 +23,7 @@ use App\ClientDeploymentNotif;
 use App\AcceptedGuards;
 use App\NotifResponse;
 use App\EstabGuards;
+use App\GuardMessagesInbox;
 
 class DeploymentController extends Controller
 {
@@ -158,7 +159,19 @@ class DeploymentController extends Controller
                     $contract->status = "active";
                     $contract->save();
                 }
-                return response($guardDeployedctr);
+                $guardInbox = new GuardMessagesInbox();
+                $guardInbox['guard_messages_ID'] = 'GRDINBX-'.Contracts::get()->count();
+                $guardInbox['guard_id'] = $request->employeeID;
+                $guardInbox['subject'] = 'Deployment';
+                $guardInbox['content'] = '';
+                $guardInbox['status'] = 'active';
+                $guardInbox['created_at'] = Carbon::now();
+                $guardInbox['updated_at'] = Carbon::now();
+
+                if($guardInbox->save()){
+                    return response($guardDeployedctr);
+                }
+                
         }
     }
 }
