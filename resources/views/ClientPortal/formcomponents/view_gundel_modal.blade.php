@@ -26,7 +26,7 @@
                     <th>Gun Name</th>
                     <th>Gun Type</th>
                     <th>Serial No.</th>
-                    <th>Qty.</th>
+                    
                     </thead>
                   <tbody>
                   @php
@@ -37,10 +37,10 @@
                       <td>{{$gunDeliveryDetail->gun}}</td>
                       <td>{{$gunDeliveryDetail->gunType}}</td>
                       <td>{{$gunDeliveryDetail->serialNo}}</td>
-                      <td >{{$gunDeliveryDetail->qtyDelivered}}</td>
+                      
                     </tr>
                     @php
-                      $totalQtyDelivered = $totalQtyDelivered + $gunDeliveryDetail->qtyDelivered;
+                      $totalQtyDelivered++;
                     @endphp
                   @endforeach
                   </tbody>

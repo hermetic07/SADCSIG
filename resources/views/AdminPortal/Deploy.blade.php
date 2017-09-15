@@ -257,7 +257,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                           <tr>
                             <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="10px" >Establishment
                             </th>
-                            <th>Contract</th>
+                            <th>Address</th>
                             <th>Client</th>
                             <th >Guard's needed</th>
                             <th>Date Requested</th>

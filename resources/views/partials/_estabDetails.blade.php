@@ -197,8 +197,11 @@
 <div class="col-lg-4">
    <div class="white-box">
  <div class="row  el-element-overlay">
+  @php
+    $gunTaggedctr = 0;
+  @endphp
                    <center> <h5 class="box-title fw-500">Guns</h5>   </center>
-        <center> <h5>Gun tagged: 2</h5>   </center>
+        <center> <h5>Gun tagged: {{$gunTaggedctr}}</h5>   </center>
    </br>
     <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
       <thead>
@@ -230,6 +233,9 @@
             <td> {{$clientGun->gun}} </td>
             <td> {{$clientGun->serialNo}} </td>
           </tr>
+          @php
+            $gunTaggedctr++;
+          @endphp
         @endforeach
       </tbody>
       <tfoot>

@@ -21,10 +21,10 @@
                           <td>Status:</td>
                           <td>{{$delivery->status}}</td>
                       </tr>
-                     <tr>
+                     <!-- <tr>
                           <td>Received by:</td>
-                          <td>Claimed</td>
-                      </tr>
+                          <td>Client</td>
+                      </tr> -->
                        <tr>
                           <td>Item:</td>
                           <td>Guns</td>

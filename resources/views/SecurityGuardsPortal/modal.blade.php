@@ -26,9 +26,12 @@
                     <tbody class="text-dark">
                       <tr>
                         <td>Client name</td>
-                        <td>{{$client->name}}</td>
+                        <td>{{$client->first_name}} {{$client->middle_name}}, {{$client->last_name}}</td>
                       </tr>
-                      
+                      <tr>
+                        <td>Establishment</td>
+                        <td><a href="">{{$establishment->name}}</a></td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -44,7 +47,7 @@
                     </tr>
                     <tr>
                       <td>Person in charge</td>
-                      <td>{{$establishment->person_in_charge}}</td>
+                      <td>{{$establishment->pic_fname}} {{$establishment->pic_mname}}, {{$establishment->pic_lname}}</td>
                     </tr>
                     <tr>
                       <td>Shift</td>

@@ -36,7 +36,7 @@
 
   <div class="form-group">
     <div class="col-md-6">
-     <h3>Required Licences</h3>
+     <h3>Requirements</h3>
       <ul>
         @foreach($tbl_clientrequirementpreferences as $tbl_clientrequirementpreference)
           <li>{{$tbl_clientrequirementpreference->requirement}}</li>

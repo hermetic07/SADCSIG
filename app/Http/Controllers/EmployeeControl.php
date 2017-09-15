@@ -188,6 +188,7 @@ class EmployeeControl extends Controller
 
           $inboxs = DB::table('guard_messages_inbox')
                  ->where('guard_messages_inbox.status','!=','deleted')
+                 ->where('guard_messages_inbox.guard_id','=',$u->id)
                  ->join('tblestabguards','tblestabguards.strGuardID','=','guard_messages_inbox.guard_id')
                  ->select('guard_messages_inbox.guard_messages_ID as messageID',
                           'guard_messages_inbox.subject as subject',
