@@ -44,13 +44,7 @@
                       <span>Client's payment report</span>
                     </a>
                   </li>
-                  <li>
-                    <a href="#section-shape-3">
-                      <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                      <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                      <span>List of officers report</span>
-                    </a>
-                  </li>
+                  
                   <li>
                     <a href="#section-shape-4">
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
@@ -78,10 +72,10 @@
 
 
       </section>
-                <section id="section-shape-2"><h2>Tabbing 2</h2></section>
-                <section id="section-shape-3"><h2>Tabbing 3</h2></section>
-                <section id="section-shape-4"><h2>Tabbing 4</h2></section>
-                <section id="section-shape-5"><h2>Tabbing 5</h2></section>
+                <section id="section-shape-2"><p>History of Client Payments.</p></section>
+                <section id="section-shape-3"><p>it contains the information regarding the number of newly employed</p></section>
+                <section id="section-shape-4"><p>Contains the attendance of security guards at their respective posts.</p></section>
+                <section id="section-shape-5"><p>Contains the records of incidents during the Guard post duty.</p></section>
       <section id="section-shape-6"><h2>Tabbing 6</h2></section>
               </div><!-- /content -->
             </div><!-- /tabs -->

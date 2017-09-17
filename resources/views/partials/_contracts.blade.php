@@ -50,7 +50,7 @@
               </td>
               <td>
                 <button class="btn btn-info view" type="button" value="{{$contract->id}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
-                <button class="btn btn-success"  type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> PDF</button>
+                <button class="btn btn-success"  onclick="location.href='/getContractPDF-{{$contract->id}}'" target="_blank" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> PDF</button>
                 @if($contract->status!=="terminated")
                 <button class="btn btn-danger"  onclick="fun_terminate('{{$contract->id}}')" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> Terminate</button>
                 @endif

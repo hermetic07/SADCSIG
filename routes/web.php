@@ -170,6 +170,8 @@ Route::get('/ClientContracts-{id}+{estabID}','AdminController@contracts')
 							->name('admin.clientContracts')
 							->middleware('auth');
 Route::get('/Contract-View','AdminController@viewContract')->name('contract.view');
+
+Route::get('/getContractPDF-{contractID}','ContractController@getContractPDF');
 /**-------------------------     Contracts-End    ---------------------*/
 
 
@@ -460,75 +462,75 @@ Route::post('Gun-delete', 'GunControl@delete');
 
 
 
-Route::get ( '/Serv', 'ServiceController@readItems' );
-Route::post ( '/addService', 'ServiceController@addItem' );
-Route::post ( '/editService', 'ServiceController@editItem' );
-Route::post ( '/deleteService', 'ServiceController@deleteItem' );
+// Route::get ( '/Serv', 'ServiceController@readItems' );
+// Route::post ( '/addService', 'ServiceController@addItem' );
+// Route::post ( '/editService', 'ServiceController@editItem' );
+// Route::post ( '/deleteService', 'ServiceController@deleteItem' );
 
-Route::get ( '/Nat', 'NatureController@readItems' );
-Route::post ( '/addNature', 'NatureController@addItem' );
-Route::post ( '/editNature', 'NatureController@editItem' );
-Route::post ( '/deleteNature', 'NatureController@deleteItem' );
+// Route::get ( '/Nat', 'NatureController@readItems' );
+// Route::post ( '/addNature', 'NatureController@addItem' );
+// Route::post ( '/editNature', 'NatureController@editItem' );
+// Route::post ( '/deleteNature', 'NatureController@deleteItem' );
 
-Route::get ( '/Lic', 'LicenseController@readItems' );
-Route::post ( '/addLicense', 'LicenseController@addItem' );
-Route::post ( '/editLicense', 'LicenseController@editItem' );
-Route::post ( '/deleteLicense', 'LicenseController@deleteItem' );
+// Route::get ( '/Lic', 'LicenseController@readItems' );
+// Route::post ( '/addLicense', 'LicenseController@addItem' );
+// Route::post ( '/editLicense', 'LicenseController@editItem' );
+// Route::post ( '/deleteLicense', 'LicenseController@deleteItem' );
 
-Route::get ( '/Req', 'RequirementController@readItems' );
-Route::post ( '/addRequirement', 'RequirementController@addItem' );
-Route::post ( '/editRequirement', 'RequirementController@editItem' );
-Route::post ( '/deleteRequirement', 'RequirementController@deleteItem' );
+// Route::get ( '/Req', 'RequirementController@readItems' );
+// Route::post ( '/addRequirement', 'RequirementController@addItem' );
+// Route::post ( '/editRequirement', 'RequirementController@editItem' );
+// Route::post ( '/deleteRequirement', 'RequirementController@deleteItem' );
 
-Route::get ( '/mes', 'MeasurementController@readItems' );
-Route::post ( '/addMeasurement', 'MeasurementController@addItem' );
-Route::post ( '/editMeasurement', 'MeasurementController@editItem' );
-Route::post ( '/deleteMeasurement', 'MeasurementController@deleteItem' );
+// Route::get ( '/mes', 'MeasurementController@readItems' );
+// Route::post ( '/addMeasurement', 'MeasurementController@addItem' );
+// Route::post ( '/editMeasurement', 'MeasurementController@editItem' );
+// Route::post ( '/deleteMeasurement', 'MeasurementController@deleteItem' );
 
-Route::get ( '/Att', 'AttributeController@readItems' );
-Route::post ( '/addAttribute', 'AttributeController@addItem' );
-Route::post ( '/editAttribute', 'AttributeController@editItem' );
-Route::post ( '/deleteAttribute', 'AttributeController@deleteItem' );
+// Route::get ( '/Att', 'AttributeController@readItems' );
+// Route::post ( '/addAttribute', 'AttributeController@addItem' );
+// Route::post ( '/editAttribute', 'AttributeController@editItem' );
+// Route::post ( '/deleteAttribute', 'AttributeController@deleteItem' );
 
-Route::get ( '/Mil', 'MilitaryController@readItems' );
-Route::post ( '/addMilitary', 'MilitaryController@addItem' );
-Route::post ( '/editMilitary', 'MilitaryController@editItem' );
-Route::post ( '/deleteMilitary', 'MilitaryController@deleteItem' );
+// Route::get ( '/Mil', 'MilitaryController@readItems' );
+// Route::post ( '/addMilitary', 'MilitaryController@addItem' );
+// Route::post ( '/editMilitary', 'MilitaryController@editItem' );
+// Route::post ( '/deleteMilitary', 'MilitaryController@deleteItem' );
 
-Route::get ( '/Ran', 'RankController@readItems' );
-Route::post ( '/addRank', 'RankController@addItem' );
-Route::post ( '/editRank', 'RankController@editItem' );
-Route::post ( '/deleteRank', 'RankController@deleteItem' );
+// Route::get ( '/Ran', 'RankController@readItems' );
+// Route::post ( '/addRank', 'RankController@addItem' );
+// Route::post ( '/editRank', 'RankController@editItem' );
+// Route::post ( '/deleteRank', 'RankController@deleteItem' );
 
-Route::get ( '/Rol', 'RoleController@readItems' );
-Route::post ( '/addRole', 'RoleController@addItem' );
-Route::post ( '/editRole', 'RoleController@editItem' );
-Route::post ( '/deleteRole', 'RoleController@deleteItem' );
+// Route::get ( '/Rol', 'RoleController@readItems' );
+// Route::post ( '/addRole', 'RoleController@addItem' );
+// Route::post ( '/editRole', 'RoleController@editItem' );
+// Route::post ( '/deleteRole', 'RoleController@deleteItem' );
 
-Route::get ( '/Lea', 'LeaveController@readItems' );
-Route::post ( '/addLeave', 'LeaveController@addItem' );
-Route::post ( '/editLeave', 'LeaveController@editItem' );
-Route::post ( '/deleteLeave', 'LeaveController@deleteItem' );
+// Route::get ( '/Lea', 'LeaveController@readItems' );
+// Route::post ( '/addLeave', 'LeaveController@addItem' );
+// Route::post ( '/editLeave', 'LeaveController@editItem' );
+// Route::post ( '/deleteLeave', 'LeaveController@deleteItem' );
 
-Route::get ( '/Prov', 'ProvinceController@readItems' );
-Route::post ( '/addProvince', 'ProvinceController@addItem' );
-Route::post ( '/editProvince', 'ProvinceController@editItem' );
-Route::post ( '/deleteProvince', 'ProvinceController@deleteItem' );
+// Route::get ( '/Prov', 'ProvinceController@readItems' );
+// Route::post ( '/addProvince', 'ProvinceController@addItem' );
+// Route::post ( '/editProvince', 'ProvinceController@editItem' );
+// Route::post ( '/deleteProvince', 'ProvinceController@deleteItem' );
 
-Route::get ( '/Are', 'AreaController@readItems' );
-Route::post ( '/addArea', 'AreaController@addItem' );
-Route::post ( '/editArea', 'AreaController@editItem' );
-Route::post ( '/deleteArea', 'AreaController@deleteItem' );
+// Route::get ( '/Are', 'AreaController@readItems' );
+// Route::post ( '/addArea', 'AreaController@addItem' );
+// Route::post ( '/editArea', 'AreaController@editItem' );
+// Route::post ( '/deleteArea', 'AreaController@deleteItem' );
 
-Route::get ( '/Gut', 'GuntypeController@readItems' );  ///  GuntypeController doesn't exists??
-Route::post ( '/addGuntype', 'GuntypeController@addItem' );
-Route::post ( '/editGuntype', 'GuntypeController@editItem' );
-Route::post ( '/deleteGuntype', 'GuntypeController@deleteItem' );
+// Route::get ( '/Gut', 'GuntypeController@readItems' );  ///  GuntypeController doesn't exists??
+// Route::post ( '/addGuntype', 'GuntypeController@addItem' );
+// Route::post ( '/editGuntype', 'GuntypeController@editItem' );
+// Route::post ( '/deleteGuntype', 'GuntypeController@deleteItem' );
 
-Route::get ( '/Gu', 'GunController@readItems' );
-Route::post ( '/addGun', 'GunController@addItem' );
-Route::post ( '/editGun', 'GunController@editItem' );
-Route::post ( '/deleteGun', 'GunController@deleteItem' );
+// Route::get ( '/Gu', 'GunController@readItems' );
+// Route::post ( '/addGun', 'GunController@addItem' );
+// Route::post ( '/editGun', 'GunController@editItem' );
+// Route::post ( '/deleteGun', 'GunController@deleteItem' );
 
 Route::get('Attribute2','Attribute2Controller@index');
 

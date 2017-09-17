@@ -25,6 +25,7 @@ use App\ServiceRequest;
 use Exception;
 use DB;
 use Illuminate\Support\Facades\Input;
+use PDF;
 class ContractController extends Controller
 {
     public function register(){
@@ -282,5 +283,11 @@ class ContractController extends Controller
       $c->status = "terminated";
       $c->save();
       return "Contract Terminated";
+    }
+
+    public function getContractPDF($contractID){
+      $contract = Contracts::findOrFail($contractID);
+      $contractPDF = PDF::loadView('AdminPortal.ClientRequests.Contracts.Contract_pdf');
+      return $contractPDF->stream('Contract.pdf');
     }
 }
