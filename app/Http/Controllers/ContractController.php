@@ -287,7 +287,28 @@ class ContractController extends Controller
 
     public function getContractPDF($contractID){
       $contract = Contracts::findOrFail($contractID);
-      $contractPDF = PDF::loadView('AdminPortal.ClientRequests.Contracts.Contract_pdf');
+      $date = explode(' ',$contract->created_at)[0];
+      $day = explode('-',$date)[2];
+      $month = '';
+      $year = explode('-',$date)[0];
+      switch (explode('-',$date)[1]) {
+        case '1':
+          $month = 'January';
+          break;
+        case '9':
+          $month = 'September';
+          break;
+        default:
+          # code...
+          break;
+      }
+      $contractPDF = PDF::loadView('AdminPortal.ClientRequests.Contracts.Contract_pdf',
+                    [
+                      'contract'=>$contract,
+                      'day'=>$day,
+                      'month'=>$month,
+                      'year'=>$year
+                    ]);
       return $contractPDF->stream('Contract.pdf');
     }
 }

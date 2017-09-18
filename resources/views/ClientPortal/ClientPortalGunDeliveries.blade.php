@@ -214,7 +214,7 @@
       }else {
         unchecked_gunIDs.push($(this).attr('id'));
         unchecked_serialNos.push($(this).val());
-        alert($(this).val());
+      //  alert($(this).val());
 
       }
           

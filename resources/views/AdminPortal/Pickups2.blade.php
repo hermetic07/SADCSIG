@@ -240,7 +240,7 @@
     //alert($('.show').attr('name'));
         gunRequestID = gunreqid;
        gunDeliveryID = gundelvid;
-       alert(gunDeliveryID);
+      // alert(gunDeliveryID);
         $.ajax({
           url : "{{route('pickups.show')}}",
           type : 'GET',
@@ -259,7 +259,7 @@
         });
   }
   function funcDeliverRelacement(){
-    alert(gunDeliveryID);
+    //alert(gunDeliveryID);
      var unclaimed_items_id = [];
         var unclaimed_items_serials = [];
         
@@ -268,7 +268,7 @@
          
           unclaimed_items_id.push($(this).val());
           unclaimed_items_serials.push($(this).attr('name'));
-          alert($(this).val());
+         // alert($(this).val());
             
      });
 
