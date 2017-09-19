@@ -27,14 +27,16 @@
                                    </div>
                                   </td>
                                   <td>
-                                  
+                                    <b>Name: {{$estabGuard->first_name}} {{$estabGuard->middle_name}} {{$estabGuard->last_name}}</b> 
                                     <br> <b>Shift: </b>
-                                    
+                                    From: {{$estabGuard->shiftFrom}}  To: {{$estabGuard->shiftTo}} 
+                                    <br> <b>Role: {{$estabGuard->role}} </b>
+                                    <br> <b>Post: {{$estabGuard->establishment}}</b>
                                   </td>
                                   
                                   
                                   <td>
-                                    <button type="button" onclick="func_dont_replace('dnt{{$estabGuard->id}}')" class="btn btn-danger waves-effect waves-light" ><i class="glyphicon glyphicon-remove"></i> Don't Replace</button>
+                                    <button type="button" onclick="func_dont_replace('dnt{{$estabGuard->id}}','{{$totalGuards}}')" class="btn btn-danger waves-effect waves-light" ><i class="glyphicon glyphicon-remove"></i> Don't Replace</button>
                                   </td>
                                 </tr>
                                 @endif
@@ -47,7 +49,7 @@
             </table>
             <input type="hidden" name="numGuards" value="">
             <div class="modal-footer">
-              <button type="submit" id="" class="btn btn-info waves-effect waves-light" >Replace</button>
+              <button type="submit" id="replaceBtn" class="btn btn-info waves-effect waves-light" >Replace</button>
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
             </div>
           </form>

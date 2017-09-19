@@ -430,6 +430,7 @@
                                    </div>
                                   </td>
                                   <td>
+                                    <b>Name: {{$guard->first_name}} {{$guard->middle_name}} {{$guard->last_name}}</b> 
                                   <br> <b>Shift: </b>
                                     From: {{$guard->shiftFrom}}  To: {{$guard->shiftTo}} 
                                     <br> <b>Role: {{$guard->role}} </b>
@@ -536,6 +537,7 @@
       guardIDs = [];
       establishment_id = '';
       contract_id = '';
+      guardCount = 0;
       function func(id,estabID,contractID){
         establishment_id = estabID;
         contract_id = contractID;
@@ -545,7 +547,7 @@
         
       }
       $('#guardReplacementModal').on('click',function(){
-        alert("Earl");
+        
         $.ajax({
           url : 'guardReplacementModal',
           type : 'GET',
@@ -557,7 +559,12 @@
           }
         });
       });
-      function func_dont_replace(id){
+      function func_dont_replace(id,ctr){
+        guardCount = guardCount + 1;
+        
+        if(guardCount == ctr){
+          $('#replaceBtn').attr("disabled", "disabled"); 
+        }
         $('#'+id).hide();
       }
       function getGuns(id){

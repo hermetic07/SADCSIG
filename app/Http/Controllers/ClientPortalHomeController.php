@@ -558,12 +558,14 @@ class ClientPortalHomeController extends Controller
                           ->where('tblestabGuards.strEstablishmentID','=',$request->establishment_id)
                           ->where('tblestabGuards.contractID','=',$request->contract_id)
                           ->join('employees','tblestabGuards.strGuardID','=','employees.id')
-                          ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','tblestabGuards.role')
+                          ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
+                          ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','tblestabGuards.role','establishments.name as establishment')
                           ->get();
                           
         
         return view('ClientPortal.formcomponents.guard_replacement_modal')
                 ->with('guards',$guards)
+                ->with('totalGuards',count($guards))
                 ->with('estabGuards',$estabGuards);
       }
     }
