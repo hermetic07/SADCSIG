@@ -268,12 +268,27 @@ class ClientPortalHomeController extends Controller
       $gunType = GunType::all();
       $nature = Nature::all();
       $estabGuards = EstabGuards::all();
+
+
       $clientContracts = DB::table('client_registrations')
                        ->where('client_registrations.client_id','=',$id)
                        ->join('contracts','contracts.id','=','client_registrations.contract_id')
                        ->select('contracts.id as contractCode')
                        ->get(); 
-
+      $guards = DB::table('client_registrations')
+                        ->where('client_registrations.client_id','=',$id)
+                        ->join('contracts','contracts.id','=','client_registrations.contract_id')
+                        
+                        
+                        ->join('tblestabGuards',function($join){
+                            $join->on('tblestabGuards.strEstablishmentID','=','contracts.strEstablishmentID')
+                                 ->on('tblestabGuards.contractID','=','contracts.id');
+                        })
+                        ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
+                        ->join('employees','tblestabGuards.strGuardID','=','employees.id')
+                        ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','establishments.name as establishment','tblestabGuards.role','establishments.id as estabID','contracts.id as contractID')
+                        ->get();
+                        //return  $guards->toArray();
       return view('ClientPortal.ClientPortalRequest
         ')->with('services',$Services)
           ->with('client',$client)
@@ -287,6 +302,7 @@ class ClientPortalHomeController extends Controller
           ->with('gunType',$gunType)
           ->with('nature',$nature)
           ->with('clientContracts',$clientContracts)
+          ->with('guards',$guards)
           ->with('clientRegistrations',$clientRegistrations);
      // return $client;
     }
@@ -531,6 +547,25 @@ class ClientPortalHomeController extends Controller
     public function homeview(){
       $nature = Nature::All();
       return view('Website/Home')->with('n',$nature);
+    }
+
+    public function guardReplaceModal(Request $request){
+      if($request->ajax()){
+        
+        $guards = $request->guardIDs;
+        
+        $estabGuards = DB::table('tblestabGuards')
+                          ->where('tblestabGuards.strEstablishmentID','=',$request->establishment_id)
+                          ->where('tblestabGuards.contractID','=',$request->contract_id)
+                          ->join('employees','tblestabGuards.strGuardID','=','employees.id')
+                          ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','tblestabGuards.role')
+                          ->get();
+                          
+        
+        return view('ClientPortal.formcomponents.guard_replacement_modal')
+                ->with('guards',$guards)
+                ->with('estabGuards',$estabGuards);
+      }
     }
 }
 // for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){

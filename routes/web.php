@@ -253,6 +253,10 @@ Route::post('/delete-addguardrequests','AdditionalGuardRequesController@remove')
 
 /**-------------------------     Add Guard Requests-end    ---------------------*/
 
+/**-------------------------     Guard-Replacement Start    ---------------------*/
+Route::get('guardReplacementModal','ClientPortalHomeController@guardReplaceModal');
+/**-------------------------     Guard-Replacement Start    ---------------------*/
+
 
 Route::get('/DeployGuards','DeploymentController@deploy')
 							->name('deploy')
