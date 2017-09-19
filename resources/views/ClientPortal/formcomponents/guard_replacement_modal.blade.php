@@ -36,7 +36,7 @@
                                   
                                   
                                   <td>
-                                    <button type="button" onclick="func_dont_replace('dnt{{$estabGuard->id}}','{{$totalGuards}}')" class="btn btn-danger waves-effect waves-light" ><i class="glyphicon glyphicon-remove"></i> Don't Replace</button>
+                                    <button type="button" onclick="func_dont_replace('{{$estabGuard->id}}','{{$totalGuards}}')" class="btn btn-danger waves-effect waves-light" ><i class="glyphicon glyphicon-remove"></i> Don't Replace</button>
                                   </td>
                                 </tr>
                                 @endif

@@ -538,6 +538,7 @@
       establishment_id = '';
       contract_id = '';
       guardCount = 0;
+
       function func(id,estabID,contractID){
         establishment_id = estabID;
         contract_id = contractID;
@@ -561,11 +562,11 @@
       });
       function func_dont_replace(id,ctr){
         guardCount = guardCount + 1;
-        
+        alert($('#'+id).val());
         if(guardCount == ctr){
           $('#replaceBtn').attr("disabled", "disabled"); 
         }
-        $('#'+id).hide();
+        $('#dnt'+id).hide();
       }
       function getGuns(id){
         $.ajax({

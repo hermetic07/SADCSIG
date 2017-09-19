@@ -548,7 +548,7 @@ class ClientPortalHomeController extends Controller
       $nature = Nature::All();
       return view('Website/Home')->with('n',$nature);
     }
-
+    
     public function guardReplaceModal(Request $request){
       if($request->ajax()){
         
