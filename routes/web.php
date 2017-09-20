@@ -252,11 +252,9 @@ Route::post('/delete-addguardrequests','AdditionalGuardRequesController@remove')
 
 
 /**-------------------------     Add Guard Requests-end    ---------------------*/
-
+	Route::get('guard-ReplacementRequest-view','GuardReplacementController@view');
 /**-------------------------     Guard-Replacement Start    ---------------------*/
-Route::get('guardReplacementModal','ClientPortalHomeController@guardReplaceModal');
-Route::get('/guardReplacement-getGuards','ClientPortalHomeController@getGuards');
-Route::get('/guardReplacement-submit','ClientPortalHomeController@guardReplacementSubmit');
+
 /**-------------------------     Guard-Replacement Start    ---------------------*/
 
 
@@ -349,6 +347,10 @@ Route::get('/GuardPool-save','ClientPortalHomeController@saveGuards')->name('sav
 Route::get('/ClientPortalSettings', function () {
 	return view('ClientPortal/ClientPortalSettings');
 });
+
+Route::get('guardReplacementModal','ClientPortalHomeController@guardReplaceModal');
+Route::get('/guardReplacement-getGuards','ClientPortalHomeController@getGuards');
+Route::get('/guardReplacement-submit','ClientPortalHomeController@guardReplacementSubmit');
 
 Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index')->middleware('auth:client');
 Route::get('/ClientLogin','LastControl@clientAuth');

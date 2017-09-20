@@ -279,7 +279,7 @@
                                             {{$guard_replacement_requests->status}}
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-info servReView" value="{{$guard_replacement_requests->requestCode}}">View</button>
+                                            <button type="button" class="btn btn-info guardRepView" value="{{$guard_replacement_requests->requestCode}}">View</button>
                                             <button type="button" class="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
@@ -460,6 +460,19 @@ jQuery(document).ready(function($){
      });
 
 });
-
+    $('.guardRepView').on('click',function(){
+      //alert($(this).val());
+      $.ajax({
+        url : 'guard-ReplacementRequest-view',
+        type : 'GET',
+        data : {reqID:$(this).val()},
+        success : function(data){
+          $('.viewrequest').text('');
+          $('.viewrequest').append(data);
+          $('#modalview').modal('show');
+          console.log(data);
+        }
+      });
+    });
 </script>
   @endsection

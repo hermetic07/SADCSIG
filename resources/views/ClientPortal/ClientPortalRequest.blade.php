@@ -620,7 +620,7 @@
       function func_replace(){
         $.each($(".secuIDs"), function(){
           reasons.push($('#'+$(this).val()).val());
-        //  alert($(this).val());
+         // alert($(this).val());
           secuIDs.push($(this).val());
 
           
@@ -631,6 +631,7 @@
           data : {reasons:reasons,secuIDs:secuIDs,clientID:$('#clientID').val(),contractID:contract_ID},
           success:function(data){
             console.log(data);
+            location.reload();
           }
         });
       }
