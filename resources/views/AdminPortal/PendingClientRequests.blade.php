@@ -251,8 +251,8 @@
               <thead>
                 <tr>
                 <th data-sort-initial="true" data-toggle="true">ID</th>
-                  <th>Name</th>
-          <th data-hide="phone, tablet" >Location</th>
+                  <th>Client</th>
+          <th data-hide="phone, tablet" >Contract</th>
                   <th data-sort-ignore="true" width="150px">Actions</th>
                 </tr>
               </thead>
@@ -269,23 +269,18 @@
                    </div>
                 </div>
               <tbody>
-                 <tr>
-                              <td>1</td>
-                              <td>Daisy ronquillo</td>
-                <td>7</td>
-                              <td>
-                  <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-user"></i> Show guards </button>
+                 
+                    @foreach($guard_replacement_requests as $guard_replacement_request)
+                      <tr>
+                        <td>{{$guard_replacement_request->requestCode}}</td>
+                        <td>{{$guard_replacement_request->client_fname}},{{$guard_replacement_request->client_mname}},{{$guard_replacement_request->client_lname}}</td>
+                        <td><a href="/getContractPDF-{{$guard_replacement_request->contractID}}" target="_blank">{{$guard_replacement_request->contractID}}</a></li></td>
+                        <td>
+                          <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-user"></i> Show guards </button>
 
-                              </td>
-                          </tr>
-         <tr>
-                              <td>2</td>
-                              <td>Luigi lacsina</td>
-                <td>7</td>
-                              <td>
-        <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-user"></i> Show guards </button>
-                              </td>
-                          </tr>
+                        </td>
+                      </tr>
+                    @endforeach
               </tbody>
               <tfoot>
                 <tr>

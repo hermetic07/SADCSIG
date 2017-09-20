@@ -192,6 +192,21 @@ class AdminController extends Controller
                          ->orderBy('service_requests.created_at','desc')
                         ->get(); 
 
+    $guard_replacement_requests = DB::table('guard_replacement_requests')
+                                ->join('clients','clients.id','=','guard_replacement_requests.clients_id')
+                                ->join('contracts','contracts.id','=','guard_replacement_requests.contractID')
+                                ->select('guard_replacement_requests.requestID as requestCode',
+                                         'guard_replacement_requests.status as status', 
+                                         'guard_replacement_requests.clients_id as client_id',
+                                         'guard_replacement_requests.created_at as dateRequested', 
+                                         'guard_replacement_requests.contractID',
+                                         'clients.id as client_id',
+                                         'clients.first_name as client_fname',
+                                         'clients.middle_name as client_mname',
+                                         'clients.last_name as client_lname'
+                                         )
+                                 ->orderBy('guard_replacement_requests.created_at','desc')
+                                ->get();
         $add_guard_requests = DB::table('add_guard_requests')
                             ->where('add_guard_requests.status','!=','deleted')
                             ->join('clients','clients.id','=','add_guard_requests.client_id')
@@ -215,6 +230,7 @@ class AdminController extends Controller
         return view('AdminPortal.PendingClientRequests')
                 ->with('gunRequests',$gunRequests)
                 ->with('service_requests',$service_requests)
+                ->with('guard_replacement_requests',$guard_replacement_requests)
                 ->with('add_guard_requests',$add_guard_requests);
                 
 
