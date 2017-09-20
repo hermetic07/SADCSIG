@@ -402,6 +402,20 @@
           <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Choose Guards to Replace</strong></center></h4>
         </div>
         <div class="modal-body">
+          <div class="form-group text-center">
+            <label for="shifts" id="chooseContract" class="control-label col-md-10">You have already {{count($clientContracts)}} active contract(s). Please choose one to show the guards.</label>
+          </div>
+
+          <div class="form-group">
+            
+            <div class="col-md-8">
+              <ul id="contracts">
+                @foreach($clientContracts as $clientContract)
+                  <li><input type="radio" name="contracts" onchange="func_getGuards('{{$clientContract->contractCode}}')"> <a href="/getContractPDF-{{$contract->id}}" target="_blank">{{$clientContract->contractCode}}</a></li>
+                @endforeach
+              </ul>
+            </div>
+          </div>
           
             {!! csrf_field() !!}
             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
@@ -414,38 +428,9 @@
                   <th data-sort-ignore="true">Action</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="guard-table-body">
                   
-                    @foreach($guards as $guard)
-                                <tr>
-                                  <td>
-                                    <div class="el-card-item">
-                                      <div class="el-card-avatar el-overlay-1">
-                                        <a href="uploads/{{$guard->image}}"><img src="uploads/{{$guard->image}}" alt="user"  class="img-circle img-responsive"></a>
-                                        <div class="el-overlay">
-                                          <ul class="el-info">
-                                              <li><a class="btn default btn-outline" href="uploads/{{$guard->image}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                          </ul>
-                                        </div>
-                                      </div>
-                                   </div>
-                                  </td>
-                                  <td>
-                                    <b>Name: {{$guard->first_name}} {{$guard->middle_name}} {{$guard->last_name}}</b> 
-                                  <br> <b>Shift: </b>
-                                    From: {{$guard->shiftFrom}}  To: {{$guard->shiftTo}} 
-                                    <br> <b>Role: {{$guard->role}} </b>
-                                    <br> <b>Post: {{$guard->establishment}}</b>  
-                                  </td>
-                                  
-                                  <td>
-                                    <textarea id="{{$guard->id}}" name="" class="form-control" rows="3" placeholder="Reasons for replacing " disabled required="true"></textarea>
-                                  </td>
-                                  <td>
-                                    <input class="selectGuard" type="checkbox" name="" value="" onchange="func('{{$guard->id}}','{{$guard->estabID}}','{{$guard->contractID}}')">
-                                  </td>
-                                </tr>
-                        @endforeach
+                    
                       
                 </tbody>
               </thead>
@@ -647,6 +632,20 @@
             
           }
         });
+      }
+
+      function func_getGuards(id){
+       // alert(id);
+       $.ajax({
+        url : '/guardReplacement-getGuards',
+        type :'GET',
+        data : {contractID:id},
+        success : function(data){
+          console.log(data);
+          $('.guard-table-body').text('');
+          $('.guard-table-body').append(data);
+        }
+       });
       }
   </script>
 @endsection

@@ -255,6 +255,7 @@ Route::post('/delete-addguardrequests','AdditionalGuardRequesController@remove')
 
 /**-------------------------     Guard-Replacement Start    ---------------------*/
 Route::get('guardReplacementModal','ClientPortalHomeController@guardReplaceModal');
+Route::get('/guardReplacement-getGuards','ClientPortalHomeController@getGuards');
 Route::get('/guardReplacement-submit','ClientPortalHomeController@guardReplacementSubmit');
 /**-------------------------     Guard-Replacement Start    ---------------------*/
 
