@@ -13,6 +13,8 @@ use App\EmployeeSeminar;
 use App\EmployeeRequirements;
 use App\EmployeeSkills;
 use App\Swap;
+use App\swapestab;
+use App\swapnotif;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
@@ -89,6 +91,54 @@ class SwapControl extends Controller
     }
 
     public function guardaccept(Request $request){
+        $s = Swap::find($request->id);
+        $s->employeestatus = "accepted";
         
+        $emp1 = $s->emp_id;
+        $emp2 = $s->swap_emp_id;
+        $estab1 = $s->establishment_from;
+        $estab2 = $s->establishment_id;
+
+        $tblestab1 = swapestab::All()->where('strEstablishmentID',$estab1)->where('strGuardID',$emp1)->first();
+        $tblestab2 = swapestab::All()->where('strEstablishmentID',$estab2)->where('strGuardID',$emp2)->first();
+
+        try{
+            $swap1 = swapestab::find($tblestab1->strEstablishmentID)->where('strGuardID',$emp1)->first();
+            $swap2 = swapestab::find($tblestab2->strEstablishmentID)->where('strGuardID',$emp2)->first();
+            $swap1->strGuardID = $emp2;
+            $swap1->save();
+            $swap2->strGuardID = $emp1;
+            $swap2->save();
+        }catch(Exception $e){
+            return $e;
+        }
+        $s->save();
+        $notif = new swapnotif();
+        $notif->emp_id = $emp1;
+        $notif->message = "Congratulations your swap request has been approved, report to the agency to finalize your request";
+        $notif->save();
+        return "You have now been swaped to another establishment";
+    }
+
+    public function clientreject(Request $request){
+        $s = Swap::find($request->id);
+        $s->clientstatus = "rejected";
+        $s->save();
+        $notif = new swapnotif();
+        $notif->emp_id = $emp1;
+        $notif->message = "Sorry but your request has been rejected by the guard's employer";
+        $notif->save();
+        return "Request has been rejected";
+    }
+
+    public function guardreject(Request $request){
+        $s = Swap::find($request->id);
+        $s->employeestatus = "rejected";
+        $s->save();
+        $notif = new swapnotif();
+        $notif->emp_id = $emp1;
+        $notif->message = "Sorry but your request has been rejected by the guard";
+        $notif->save();
+        return "Request has been rejected";
     }
 }

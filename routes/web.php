@@ -550,7 +550,7 @@ Route::get('/Admin-Guard-Leave', 'EmployeeControl@allLeave');
 Route::post('/Guard-Leave-View', 'EmployeeControl@viewLeave2');
 Route::post('/Admin-Leave-Accept', 'EmployeeControl@acceptLeave');
 Route::post('/Guard-Leave-Accept', 'EmployeeControl@acceptLeave2');
-Route::post('/Admin-Leave-Reject', 'EmployeeControl@rejectLeave');
+Route::post('/Admin-Leave-Reject', 'EmployeeControl@rejectLeave');//dont put an auth here, both guard and admin use this link
 Route::post('/Admin-Leave-End', 'EmployeeControl@endLeave');
 Route::get('/View-Leave-Request', 'EmployeeControl@viewLeave');
 
@@ -591,3 +591,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::post('/Client-Accept-Swap','SwapControl@clientaccept');
+Route::post('/Guard-Accept-Swap','SwapControl@guardaccept');
+Route::post('/Client-Reject-Swap','SwapControl@clientreject');
+Route::post('/Guard-Reject-Swap','SwapControl@guardreject');

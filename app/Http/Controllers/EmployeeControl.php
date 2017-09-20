@@ -27,6 +27,7 @@ use App\Area;
 use App\Province;
 use App\Leave;
 use App\Swap;
+use App\swapnotif;
 use App\LeaveRequest;
 use App\LeaveResponse;
 use Illuminate\Support\Facades\DB;
@@ -160,9 +161,10 @@ class EmployeeControl extends Controller
         if ($value!==null) {
           $u = Employee::find($value);
           $acceptedGuards = AcceptedGuards::where('guard_id',$u->id)->get();
-
+          $swap = swapnotif::All()->where('emp_id',$u->id);
           return view('SecurityGuardsPortal/SecurityGuardsPortalNotifications')
                   ->with('employee',$u)
+                  ->with('swap',$swap)
                   ->with('acceptedGuards',$acceptedGuards);
           //return $acceptedGuards;
 

@@ -340,7 +340,7 @@
               <td>{{$r->estab}}</td>
               <td>{{$r->address}}</td>
               <td class="text-center"><p class="label label-rouded label-info center">PENDING</p></td>
-              <td><button id="info" class="btn btn-info" onclick="swap_info('{{$r->empid}}')">View</button> <button id="accept" class="btn btn-success" onclick="swap_accept('{{$r->id}}')">ACCEPT</button> <button id="reject" class="btn btn-danger" onclick="fun_reject('{{$r->id}}')">REJECT</button></td>
+              <td><button id="info" class="btn btn-info" onclick="swap_info('{{$r->empid}}')">View</button> <button id="accept" class="btn btn-success" onclick="swap_accept('{{$r->id}}')">ACCEPT</button> <button id="reject" class="btn btn-danger" onclick="swap_reject('{{$r->id}}')">REJECT</button></td>
             </tr>
             @endforeach
 
@@ -485,6 +485,7 @@
       
       $('#guardSwap').modal('show');
   }
+
   function swap_accept(id)
   {
     $.ajaxSetup({
@@ -504,7 +505,25 @@
       }
     });
   }
-  
+  function swap_reject(id)
+  {
+    $.ajaxSetup({
+        headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+    }); 
+    $.ajax({
+      type: 'post',
+      url: '/Client-Reject-Swap',
+      data: {
+          'id':id,
+      },
+      success: function(data){
+        alert(data);
+        location.reload();
+      }
+    });
+  }
     function fun_download(id) {
     $.ajaxSetup({
         headers: {

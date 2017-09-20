@@ -20,9 +20,11 @@
             <div class="panel-body">
 
               <p>Request for a leave to the agency and wait for their confirmation if it will be confirm. If not, it means there's no one available to relieve you or other reason.</p>
-
+              @if($employee->deployed===1)
               <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10"  data-toggle="modal" data-target="#leave"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" >Request</a>
-
+              @else
+              <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button> 
+              @endif
             </div>
           </div>
         </div>
@@ -38,9 +40,11 @@
             <div class="panel-body">
 
               <p>Request for a swap to another client but first your client, the security guard that you want to be swap with and his/her client must agree before the agency will confirm and process it.</p>
-
- <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" href="/SwapRequest" >Request</a>
-
+                    @if($employee->deployed===1)
+                    <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" href="/SwapRequest" >Request</a>
+                    @else
+                    <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button> 
+                    @endif
             </div>
 
         </div>
@@ -56,9 +60,11 @@
             <div class="panel-body">
 
               <p>Request for a resignation to notify the agency that you will leave and state your reason then visit the agency for you to process it.</p>
-
+                    @if($employee->deployed===1)
                     <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#resign"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" > Request</a>
-
+                    @else
+                    <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button> 
+                    @endif
             </div>
 
         </div>
@@ -71,9 +77,11 @@
             <div class="panel-body">
 
               <p>Request for a ammunition to the agency.</p>
-
+                    @if($employee->deployed===1)
                     <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#ammo"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" > Request</a>
-
+                    @else
+                    <label class="col-xs-5 control-label"></label> <button class="btn btn-info m-t-10" disabled>You are not yet deployed</button> 
+                    @endif
             </div>
 
         </div>
