@@ -149,10 +149,8 @@
             <div class="text-right">
               <ul class="pagination">
               </ul>
-            </div>  
-
-                               
-                               </section>
+            </div>
+</section>
 <section id="section-linetriangle-3">
 
   <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
@@ -241,266 +239,60 @@
               </tfoot>
             </table>
 
-</section>
-  <section id="section-linetriangle-3">
-    <div class="row">
-              <div class="col-lg-12 ">
+    </section>
+    <section id="section-linetriangle-3">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                   <div class="row ">
+                        <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                          <thead>
+                            <tr>
+                              <th>Client's name</th>
+                              <th>Date Requested</th> 
+                              <th>Status</th>    
+                              <th data-sort-ignore="true" width="200px">Actions</th>
+                            </tr>
+                          </thead>
+                          <div class="form-inline padding-bottom-15">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-6 text-right m-b-20">
+                                    <div class="form-group">
+                                        <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                                                autocomplete="off">
+                                    </div>
+                                   </div>
+                               </div>
+                            </div>
+                          <tbody>
+                                @foreach($guard_replacement_requests as $guard_replacement_requests)
+                                    <tr>
+                                        <td>
+                                            <a href="{{route('admin.client.estab',$guard_replacement_requests->client_id)}}">
+                                                {{$guard_replacement_requests->client_fname}},{{$guard_replacement_requests->client_mname}},{{$guard_replacement_requests->client_lname}}
+                                              </a>
+                                        </td>
+                                        <td>
+                                            {{$guard_replacement_requests->dateRequested}}
+                                        </td>
+                                        <td>
+                                            {{$guard_replacement_requests->status}}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info servReView" value="{{$guard_replacement_requests->requestCode}}">View</button>
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                          </tbody>
+                          </table>
 
-          <div class="white-box">
-            <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-              <thead>
-                <tr>
-                <th data-sort-initial="true" data-toggle="true">ID</th>
-                  <th>Client</th>
-          <th data-hide="phone, tablet" >Contract</th>
-                  <th data-sort-ignore="true" width="150px">Actions</th>
-                </tr>
-              </thead>
-                <div class="form-inline padding-bottom-15">
-                  <div class="row">
-            <div class="col-sm-6">
-            </div>
-                      <div class="col-sm-6 text-right m-b-20">
-                      <div class="form-group">
-                          <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
-                autocomplete="off">
-             </div>
-                       </div>
                    </div>
                 </div>
-              <tbody>
-                 
-                    @foreach($guard_replacement_requests as $guard_replacement_request)
-                      <tr>
-                        <td>{{$guard_replacement_request->requestCode}}</td>
-                        <td>{{$guard_replacement_request->client_fname}},{{$guard_replacement_request->client_mname}},{{$guard_replacement_request->client_lname}}</td>
-                        <td><a href="/getContractPDF-{{$guard_replacement_request->contractID}}" target="_blank">{{$guard_replacement_request->contractID}}</a></li></td>
-                        <td>
-                          <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-user"></i> Show guards </button>
-
-                        </td>
-                      </tr>
-                    @endforeach
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="4"></td>
-                </tr>
-              </tfoot>
-          </table>
-
-            <div class="text-right">
-              <ul class="pagination">
-              </ul>
-            </div>
-
-              </div>
-
-
-                  <div class="col-lg-6 animated slideInRight guards" style="display:none">
-
-          <div class="white-box">
-        
-            <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-              <thead>
-                <tr>
-                <th data-sort-initial="true" data-toggle="true">ID</th>
-                  <th>Name</th>
-                  <th data-sort-ignore="true" width="150px">Actions</th>
-                </tr>
-              </thead>
-                <div class="form-inline padding-bottom-15">
-                  <div class="row">
-            <div class="col-sm-6">
-            </div>
-                      <div class="col-sm-6 text-right m-b-20">
-                      <div class="form-group">
-                          <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
-                autocomplete="off">
-             </div>
-                       </div>
-                   </div>
-                </div>
-              <tbody>
-                 <tr>
-                              <td>1</td>
-                              <td>Daisy ronquillo</td>
-
-                              <td>
-                  <button class="btn btn-block btn-info"  data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="fa fa-exchange"></i> Swap</button>
-
-                              </td>
-                          </tr>
-         <tr>
-                              <td>2</td>
-                              <td>Luigi lacsina</td>
-                              <td>
-                      <button class="btn btn-block btn-info"  data-toggle="modal" data-target="#Swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-exchange"></i> Swap</button>
-                              </td>
-                          </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="3"></td>
-                </tr>
-              </tfoot>
-          </table>
-
-            <div class="text-right">
-              <ul class="pagination">
-              </ul>
-            </div>
-
-              </div>
-
-                  </div>
-             </div>
-
-      <!-- Add military service modal -->
-  <div id="Swap" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Luigi lacsina</strong></center></h4>
-                  </div>
-                  <div class="modal-body">
-              <form data-toggle="validator">
-                <div class="form-group">
-           <h4><center><strong>Clients</strong></center></h4>
-           <div class="row  el-element-overlay">
-                       <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-              <thead>
-                <tr>
-                <th data-sort-initial="true" data-toggle="true">ID</th>
-                  <th>Name</th>
-          <th data-hide="phone, tablet" >Location</th>
-                  <th data-sort-ignore="true" width="150px">Actions</th>
-                </tr>
-              </thead>
-                <div class="form-inline padding-bottom-15">
-                  <div class="row">
-            <div class="col-sm-6">
-            </div>
-                      <div class="col-sm-6 text-right m-b-20">
-                      <div class="form-group">
-                          <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
-                autocomplete="off">
-             </div>
-                       </div>
-                   </div>
-                </div>
-              <tbody>
-                 <tr>
-                              <td>1</td>
-                              <td>Daisy ronquillo</td>
-                <td>7</td>
-                              <td>
-                      <button type="button" class="btn btn-block btn-info showguards" ><i class="fa fa-user"></i> Show guards </button>
-                              </td>
-                          </tr>
-         <tr>
-                              <td>2</td>
-                              <td>Luigi lacsina</td>
-                <td>7</td>
-                              <td>
-        <button type="button" class="btn btn-block btn-info showguards" ><i class="fa fa-user"></i> Show guards </button>
-                              </td>
-                          </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="4"></td>
-                </tr>
-              </tfoot>
-          </table>
-             </br> </br>
-                        <div class="col-lg-12 animated slideInUp guardlist" style="display:none">
-                 <h4><center><strong>Daisy's list of security guards</strong></center></h4>
-           <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-              <thead>
-                <tr>
-
-          <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="80px" ></th>
-                <th>Guard's name</th>
-                  <th  data-sort-ignore="true">Location</th>
-            <th data-sort-ignore="true" width="150px">Actions</th>
-                </tr>
-              </thead>
-                <div class="form-inline padding-bottom-15">
-                  <div class="row">
-            <div class="col-sm-6">
-
-            </div>
-                      <div class="col-sm-6 text-right m-b-20">
-                      <div class="form-group">
-                          <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
-                autocomplete="off">
-             </div>
-                       </div>
-                   </div>
-                </div>
-
-
-              <tbody>
-                 <tr>
-
-                </div>
-                              <td>
-                <div class="el-card-item">
-                  <div class="el-card-avatar el-overlay-1">
-                                   <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-                        <div class="el-overlay">
-                          <ul class="el-info">
-                                                      <li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                            </ul>
-                        </div>
-                  </div>
-                </div>
-                 </td>
-                              <td>Abel mandap</td>
-                <td>Caloocan city</td>
-                        <td>
-                   <div class="radio radio-info">
-                  <input type="radio" id="select1">
-                  <label for="select1"> Select</label>
-                     </td>
-                          </tr>
-
-
-
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="4"></td>
-                </tr>
-              </tfoot>
-          </table>
-             </div>
-            <div class="text-right">
-              <ul class="pagination">
-              </ul>
-            </div>
-               </div>
-                </div>
-            </div>
-             <div class="modal-footer">
-              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-info waves-effect waves-light" >Submit</button>
-             </div>
-            </form>
-                  </div>
-                </div>
-                <!-- /.modal-content -->
-              </div>
-              <!-- /.modal-dialog -->
-  </section>
- </div><!-- /content -->
-</div><!-- /tabs -->
-
-
-
-        </div>
+    </section>
+   </div><!-- /content -->
+  </div><!-- /tabs -->
+</div>
 
 
           <!-- Reques info by client -->
