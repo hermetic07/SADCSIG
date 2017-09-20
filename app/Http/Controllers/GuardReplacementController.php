@@ -35,9 +35,15 @@ class GuardReplacementController extends Controller
                         					'employees.first_name',
                         					'employees.middle_name',
                         					'employees.last_name',
-                        					'employees.image')
+                        					'clients.last_name as c_lname',
+                        					'clients.first_name as c_fname',
+                        					'clients.middle_name as c_mname',
+                        					'employees.image',
+                        					'replacement_requests_details.reasons')
     								->get();
-    		return view('AdminPortal\ClientRequests\GuardReplacementRequests.viewModal');
+    		return view('AdminPortal\ClientRequests\GuardReplacementRequests.viewModal')
+    				->with('guardReplacementDetails',$guardReplacementDetails[0])
+    				->with('guards',$guardReplacementDetails);
     	}
     }	
 
