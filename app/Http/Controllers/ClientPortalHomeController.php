@@ -38,6 +38,9 @@ use App\ewt;
 use App\Collections;
 use PDF;
 use App\Agencyfee;
+use App\GuardReplacement;
+use App\GuardReplacementDetails;
+use Carbon\Carbon;
 
 class ClientPortalHomeController extends Controller
 {
@@ -585,15 +588,21 @@ class ClientPortalHomeController extends Controller
     }
     public function guardReplacementSubmit(Request $requests){
       if($requests->ajax()){
-        $contract = Contracts::findOrFail($requests->contractID);
-        $estabGuards = DB::table('tblestabGuards')
-                          ->where('tblestabGuards.strEstablishmentID','=',$contract->strEstablishmentID)
-                          ->where('tblestabGuards.contractID','=',$request->contractID)
-                          ->join('employees','tblestabGuards.strGuardID','=','employees.id')
-                          ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
-                          ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','tblestabGuards.role','establishments.name as establishment')
-                          ->get();
-        return $estabGuards->toArray();
+        
+        $guardReplacement = new GuardReplacement();
+        $guardReplacement['requestID'] = 'GRDRPLCMNT-'.GuardReplacement::get()->count();
+        $guardReplacement['clients_id'] = $requests->clientID;
+        $guardReplacement['contractID'] = $requests->contractID;
+        $guardReplacement['status'] = 'active';
+        $guardReplacement['contractID'] = $requests->contractID;
+        $guardReplacement['read'] = '1';
+        $guardReplacement['created_at'] = Carbon::now();
+        $guardReplacement['updated_at'] = Carbon::now();
+
+        if($guardReplacement->save()){
+          return $guardReplacement;
+        }
+        
 
       }
     }

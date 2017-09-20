@@ -25,7 +25,7 @@
 
 @section('content')
 <form class="form-horizontal" method="GET" action="{{ url('/Request-sent') }}">
-  <input type="hidden" name="establishments_id" value="{{ $client->id }}">
+  
   <button type="submit" class="btn btn-info pull-right">View Sent Request</button>
 </form>
    <!-- Page Content -->
@@ -616,10 +616,11 @@
   <script type="text/javascript">
     reasons = [];
       secuIDs = [];
+      contract_ID = '';
       function func_replace(){
         $.each($(".secuIDs"), function(){
           reasons.push($('#'+$(this).val()).val());
-          alert($(this).val());
+        //  alert($(this).val());
           secuIDs.push($(this).val());
 
           
@@ -627,14 +628,15 @@
         $.ajax({
           type : 'GET',
           url: '/guardReplacement-submit',
-          data : {reasons:reasons,secuIDs:secuIDs},
+          data : {reasons:reasons,secuIDs:secuIDs,clientID:$('#clientID').val(),contractID:contract_ID},
           success:function(data){
-            
+            console.log(data);
           }
         });
       }
 
       function func_getGuards(id){
+        contract_ID = id;
        // alert(id);
        $.ajax({
         url : '/guardReplacement-getGuards',
