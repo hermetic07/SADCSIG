@@ -36,6 +36,9 @@ use App\Role;
 
 class AdminController extends Controller
 {
+    public function shit(Request $request){
+        return "jhhj";
+    }
     public function dashboardIndex(){
     	$serviceRequests = ServiceRequest::latest('created_at')->get();
     	$gunRequests = GunRequest::latest('created_at')->get();

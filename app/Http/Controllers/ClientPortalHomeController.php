@@ -569,6 +569,11 @@ class ClientPortalHomeController extends Controller
                 ->with('estabGuards',$estabGuards);
       }
     }
+    public function guardReplacementSubmit(Request $requests){
+      if($requests->ajax()){
+        return $requests->toArray();
+      }
+    }
 }
 // for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){
 //             $notifResponse['guard_id'] = $guards_accepted[$ctr];

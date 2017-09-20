@@ -402,7 +402,7 @@
           <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Choose Guards to Replace</strong></center></h4>
         </div>
         <div class="modal-body">
-          <form data-toggle="validator" >
+          
             {!! csrf_field() !!}
             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
               <thead>
@@ -415,6 +415,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                  
                     @foreach($guards as $guard)
                                 <tr>
                                   <td>
@@ -438,22 +439,23 @@
                                   </td>
                                   
                                   <td>
-                                    <textarea id="{{$guard->id}}" name="" class="form-control" rows="3" placeholder="Reasons for replacing " disabled></textarea>
+                                    <textarea id="{{$guard->id}}" name="" class="form-control" rows="3" placeholder="Reasons for replacing " disabled required="true"></textarea>
                                   </td>
                                   <td>
                                     <input class="selectGuard" type="checkbox" name="" value="" onchange="func('{{$guard->id}}','{{$guard->estabID}}','{{$guard->contractID}}')">
                                   </td>
                                 </tr>
                         @endforeach
+                      
                 </tbody>
               </thead>
             </table>
             <input type="hidden" name="numGuards" value="">
             <div class="modal-footer">
-              <button type="button" id="guardReplacementModal" data-dismiss="modal" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <button type="button" id="guardReplacementModal" data-dismiss="modal" class="btn btn-info waves-effect waves-light" disabled>Submit</button>
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
             </div>
-          </form>
+          
         </div>
       </div>    <!-- /.modal-content -->
     </div>     <!-- modal-dialog -->
@@ -545,7 +547,7 @@
         guardIDs.push(id);
 
         $('#'+id).removeAttr("disabled");
-        
+        $('#guardReplacementModal').removeAttr("disabled");
       }
       $('#guardReplacementModal').on('click',function(){
         
@@ -562,12 +564,13 @@
       });
       function func_dont_replace(id,ctr){
         guardCount = guardCount + 1;
-        alert($('#'+id).val());
+        //alert($('#'+id).val());
         if(guardCount == ctr){
           $('#replaceBtn').attr("disabled", "disabled"); 
         }
         $('#dnt'+id).hide();
       }
+      
       function getGuns(id){
         $.ajax({
           url : "{{route('getGuns')}}",
@@ -624,6 +627,27 @@
           });
       });
 
+  </script>
+  <script type="text/javascript">
+    reasons = [];
+      secuIDs = [];
+      function func_replace(){
+        $.each($(".secuIDs"), function(){
+          reasons.push($('#'+$(this).val()).val());
+          alert($(this).val());
+          secuIDs.push($(this).val());
+
+          
+        });
+        $.ajax({
+          type : 'GET',
+          url: '/guardReplacement-submit',
+          data : {reasons:reasons,secuIDs:secuIDs},
+          success:function(data){
+            
+          }
+        });
+      }
   </script>
 @endsection
 @section('script')

@@ -1,5 +1,4 @@
-<form data-toggle="validator">
-            {!! csrf_field() !!}
+
             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
               <thead>
                 <tr id="earl">
@@ -39,6 +38,7 @@
                                     <button type="button" onclick="func_dont_replace('{{$estabGuard->id}}','{{$totalGuards}}')" class="btn btn-danger waves-effect waves-light" ><i class="glyphicon glyphicon-remove"></i> Don't Replace</button>
                                   </td>
                                 </tr>
+                                <input type="hidden" class="secuIDs" value="{{$estabGuard->id}}">
                                 @endif
                                 @endforeach
                                @endfor
@@ -49,7 +49,7 @@
             </table>
             <input type="hidden" name="numGuards" value="">
             <div class="modal-footer">
-              <button type="submit" id="replaceBtn" class="btn btn-info waves-effect waves-light" >Replace</button>
+              <button type="button" id="replaceBtn" class="btn btn-info waves-effect waves-light" onclick="func_replace()">Yes. Replace</button>
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
             </div>
-          </form>
+          
