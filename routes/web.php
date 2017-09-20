@@ -590,3 +590,4 @@ Route::get('/AdminLogIn', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::post('/Client-Accept-Swap','SwapControl@clientaccept');

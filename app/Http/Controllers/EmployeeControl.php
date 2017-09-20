@@ -26,6 +26,7 @@ use App\Establishments;
 use App\Area;
 use App\Province;
 use App\Leave;
+use App\Swap;
 use App\LeaveRequest;
 use App\LeaveResponse;
 use Illuminate\Support\Facades\DB;
@@ -186,6 +187,20 @@ class EmployeeControl extends Controller
           ->where('leave_response.employees_id',$u->id)
           ->get();
 
+          $swap = DB::table('tblswaprequest')
+          ->join('employees','employees.id','=','tblswaprequest.emp_id')
+          ->join('establishments','establishments.id','=','tblswaprequest.establishment_from')
+          ->select('employees.first_name as fname',
+                   'employees.image as image',
+                   'employees.last_name as lname',
+                   'establishments.name as estab',
+                   'establishments.address as address',
+                   'tblswaprequest.id as id')
+          ->where('tblswaprequest.swap_emp_id',$value)
+          ->where('tblswaprequest.clientstatus','accepted')
+          ->where('tblswaprequest.employeestatus','pending')
+          ->get();
+          
           $inboxs = DB::table('guard_messages_inbox')
                  ->where('guard_messages_inbox.status','!=','deleted')
                  ->join('tblestabguards','tblestabguards.strGuardID','=','guard_messages_inbox.guard_id')
@@ -203,7 +218,8 @@ class EmployeeControl extends Controller
                   ->with('employee',$u)
                   ->with('inboxs',$inboxs)
                   ->with('acceptedGuards',$acceptedGuards)
-                  ->with('reliever',$reliever);
+                  ->with('reliever',$reliever)
+                  ->with('swap',$swap);
           //return $acceptedGuards;
 
         }

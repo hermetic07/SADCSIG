@@ -64,13 +64,31 @@ class SwapControl extends Controller
         ->where('deployments.establishment_id',$request->est)
         ->first();
         $value = $request->session()->get('user');
+        $estabfrom = DB::table('tblestabguards')
+                    ->select('tblestabguards.strEstablishmentID as estabfrom')
+                    ->where('tblestabguards.strGuardID',$value)
+                    ->orderBy('updated_at', 'DESC')
+                    ->first();
         $s = new Swap();
         $s->emp_id= $value;
         $s->client_id=  $data->cid;
         $s->swap_emp_id= $request->emp;
+        $s->establishment_id= $request->est;
+        $s->establishment_from= $estabfrom->estabfrom;
         $s->clientstatus = "pending";
         $s->employeestatus= "pending";
         $s->save();
         return "true";
+    }
+
+    public function clientaccept(Request $request){
+        $s = Swap::find($request->id);
+        $s->clientstatus = "accepted";
+        $s->save();
+        return "success";
+    }
+
+    public function guardaccept(Request $request){
+        
     }
 }
