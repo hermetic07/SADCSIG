@@ -600,7 +600,21 @@ class ClientPortalHomeController extends Controller
         $guardReplacement['updated_at'] = Carbon::now();
 
         if($guardReplacement->save()){
-          return $guardReplacement;
+          //return $guardReplacement;
+        }
+        $secuIDs = Input::get('secuIDs');
+        $reasons = Input::get('reasons');
+        $guardReplacementDetails = new GuardReplacementDetails();
+        for($ctr = 0; $ctr < count($secuIDs); $ctr++){
+          $guardReplacementDetails['replacement_requests_details_ID'] = 'GRDRPLCMNTDTLS-'.GuardReplacementDetails::get()->count();
+          $guardReplacementDetails['replacement_requests_id'] = $guardReplacement->requestID;
+          $guardReplacementDetails['employees_id'] = $secuIDs[$ctr];
+          $guardReplacementDetails['reasons'] = $reasons[$ctr];
+          $guardReplacementDetails['created_at'] = Carbon::now();
+          $guardReplacementDetails['updated_at'] = Carbon::now();
+          if($guardReplacementDetails->save()){
+              return "Earl";
+            }
         }
         
 

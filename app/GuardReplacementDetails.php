@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GuardReplacementDetails extends Model
 {
-    protected $table = "guard_replacement_requests_details";
+    protected $table = "replacement_requests_details";
     protected $fillable =  [
 		'replacement_requests_details_ID',
 		'replacement_requests_id',
