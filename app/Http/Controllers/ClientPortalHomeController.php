@@ -458,7 +458,22 @@ class ClientPortalHomeController extends Controller
       $clientPic = ClientsPic::all();
       $collection = Collections::where('strClientId',$id)->where('strStatus','!=','notsent')->get();
 
-      return view('ClientPortal/ClientPortalMessages')->with('all',$collection)->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic);
+      $swap = DB::table('tblswaprequest')
+      ->join('employees','employees.id','=','tblswaprequest.emp_id')
+      ->join('establishments','establishments.id','=','tblswaprequest.establishment_from')
+      ->select('employees.first_name as fname',
+               'employees.image as image',
+               'employees.id as empid',
+               'employees.last_name as lname',
+               'establishments.name as estab',
+               'establishments.address as address',
+               'tblswaprequest.id as id')
+      ->where('tblswaprequest.client_id',$client->id)
+      ->where('tblswaprequest.clientstatus','pending')
+      ->where('tblswaprequest.employeestatus','pending')
+      ->get();
+
+      return view('ClientPortal/ClientPortalMessages')->with('swap',$swap)->with('all',$collection)->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic);
     }
     public function messagesModal(Request $request,$messageID){
       if($request->ajax()){

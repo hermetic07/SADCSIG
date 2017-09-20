@@ -213,7 +213,16 @@
                     <li role="separator" class="divider"></li>
                     <li><a href="#"><i class="ti-settings"></i> Account Setting</a> </li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                    <li><a href="http://localhost:8000/logout"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="http://localhost:8000/logout" method="POST" style="display: none;">
+                                            <input type="hidden" name="_token" value="cCCwqYueKe6VDDhKtTeyRokoOnaOKKxx4RcnunxH">
+                                        </form>
+                    </li>
                 </ul>
             </li>
         </ul>

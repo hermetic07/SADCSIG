@@ -11,25 +11,25 @@
   <link rel="icon" type="image/png" href="plugins/images/favicon-16x16.png" sizes="16x16" />
 <title>JCSGMS -  @yield('Title') </title>
 <!-- Bootstrap Core CSS -->
-<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{ URL::asset('bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
 <!-- Menu CSS -->
-<link href="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+<link href="{{ URL::asset('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css')}}" rel="stylesheet">
 <!-- toast CSS -->
-<link href="plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+<link href="{{ URL::asset('plugins/bower_components/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
 <!-- morris CSS -->
-<link href="plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+<link href="{{ URL::asset('plugins/bower_components/morrisjs/morris.css')}}" rel="stylesheet">
 <!-- animation CSS -->
-<link href="css/animate.css" rel="stylesheet">
+<link href="{{ URL::asset('css/animate.css')}}" rel="stylesheet">
 <!-- Custom CSS -->
-<link href="css/style2.css" rel="stylesheet">
+<link href="{{ URL::asset('css/style2.css')}}" rel="stylesheet">
 <!-- color CSS -->
-<link href="css/colors/megna.css" id="theme"  rel="stylesheet">
-    <link href="css/jquery-ui.css" rel="stylesheet">
+<link href="{{ URL::asset('css/colors/megna.css')}}" id="theme"  rel="stylesheet">
+    <link href="{{ URL::asset('css/jquery-ui.css')}}" rel="stylesheet">
 <!-- Popup CSS -->
-<link href="plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
+<link href="{{ URL::asset('plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css')}}" rel="stylesheet">
 <!-- Calendar CSS -->
-<link href="plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
-<link href="plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('plugins/bower_components/calendar/dist/fullcalendar.css')}}" rel="stylesheet" />
+<link href="{{ URL::asset('plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css" />
 <!--alerts CSS -->
 <link href="{{asset('js/Alert/sweetalert.css')}}" rel="stylesheet" type="text/css">
 <script src="{{asset('js/jquery.min.js')}}"></script>
@@ -51,7 +51,7 @@
         <ul class="nav navbar-top-links navbar-right pull-right">
 
 			 <!-- Security account-->
-			<li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="uploads/{{$employee->image}}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{$employee->first_name}}</b></a>
+			<li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src='{{ asset("uploads/$employee->image")}}' alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{$employee->first_name}}</b></a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
                     <li><a href="{{url('/SecurityGuardsPortalProfile')}}"><i class="ti-user"></i> My Profile</a></li>
                     <li role="separator" class="divider"></li>
@@ -64,7 +64,7 @@
         </ul>
 
 		 <!-- System logo-->
-         <div class="top-left-part"><a class="logo" href="index.html"><b><img src="plugins/images/users/logoicon2.png" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="plugins/images/users/logotext2.png" height="40" alt="Systemname" /></span></a>
+         <div class="top-left-part"><a class="logo" href="index.html"><b><img src="{{ URL::asset('plugins/images/users/logoicon2.png')}}" height="60" alt="Systemlogo" /></b><span class="hidden-xs"><img src="{{ URL::asset('plugins/images/users/logotext2.png')}}" height="40" alt="Systemname" /></span></a>
          </div>
 
      </div>
@@ -121,33 +121,33 @@
 <!-- /#wrapper -->
 <!-- jQuery -->
 
-<script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="{{ URL::asset('plugins/bower_components/jquery/dist/jquery.min.js')}}"></script>
 <!-- Bootstrap Core JavaScript -->
-<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="{{ URL::asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
 <!-- Menu Plugin JavaScript -->
-<script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+<script src="{{ URL::asset('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js')}}"></script>
 <!--slimscroll JavaScript -->
-<script src="js/jquery.slimscroll.js"></script>
+<script src="{{ URL::asset('js/jquery.slimscroll.js')}}"></script>
 <!--Wave Effects -->
-<script src="js/waves.js"></script>
+<script src="{{ URL::asset('js/waves.js')}}"></script>
 <!--Counter js -->
-<script src="plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
-<script src="plugins/bower_components/counterup/jquery.counterup.min.js"></script>
+<script src="{{ URL::asset('plugins/bower_components/waypoints/lib/jquery.waypoints.js')}}"></script>
+<script src="{{ URL::asset('plugins/bower_components/counterup/jquery.counterup.min.js')}}"></script>
 <!--Morris JavaScript -->
-<script src="plugins/bower_components/raphael/raphael-min.js"></script>
-<script src="plugins/bower_components/morrisjs/morris.js"></script>
+<script src="{{ URL::asset('plugins/bower_components/raphael/raphael-min.js')}}"></script>
+<script src="{{ URL::asset('plugins/bower_components/morrisjs/morris.js')}}"></script>
 <!-- Custom Theme JavaScript -->
-<script src="js/custom.min2.js"></script>
-<script src="js/dashboard1.js"></script>
+<script src="{{ URL::asset('js/custom.min2.js')}}"></script>
+<script src="{{ URL::asset('js/dashboard1.js')}}"></script>
 <!-- Sweet-Alert  -->
  <script src="{{asset('js/Alert/sweetalert.min.js')}}"></script>
-<script src="plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+<script src="{{ URL::asset('plugins/bower_components/toast-master/js/jquery.toast.js')}}"></script>
 <!-- Calendar JavaScript -->
-<script src="plugins/bower_components/calendar/jquery-ui.min.js"></script>
-<script src="plugins/bower_components/moment/moment.js"></script>
-<script src="plugins/bower_components/calendar/dist/fullcalendar.min.js"></script>
-<script src="plugins/bower_components/calendar/dist/jquery.fullcalendar.js"></script>
+<script src="{{ URL::asset('plugins/bower_components/calendar/jquery-ui.min.js')}}"></script>
+<script src="{{ URL::asset('plugins/bower_components/moment/moment.js')}}"></script>
+<script src="{{ URL::asset('plugins/bower_components/calendar/dist/fullcalendar.min.js')}}"></script>
+<script src="{{ URL::asset('plugins/bower_components/calendar/dist/jquery.fullcalendar.js')}}"></script>
 	<script>
 
 var canvas = document.getElementById("canvas");

@@ -222,6 +222,58 @@
 
                     </div>
 
+             <h3>Swap Requests</h3>
+             <div class="row  el-element-overlay">
+               <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                 <thead>
+                   <tr>
+                     <th width="10%">Image</th>
+                     <th>Guard Name</th>
+                     <th>Establishment</th>
+                     <th>Establishment Address</th>
+                     <th width="15%" >Status</th>
+                     <th width="15%"data-sort-ignore="true" >Actions</th>
+                   </tr>
+                 </thead>
+                 <div class="form-inline padding-bottom-15">
+                   <div class="row">
+                     <div class="col-sm-6"></div>
+                     <div class="col-sm-6 text-right m-b-20">
+                       <div class="form-group">
+                         <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                      autocomplete="off">
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+
+                 <tbody>
+                 @foreach($swap as $r)
+                   <tr>
+                     <td><img src='{{ asset("uploads/$r->image")}}' alt="user-img" width="100" class="img-circle"></td>
+                     <td>{{$r->fname}} {{$r->lname}}</td>
+                     <td>{{$r->estab}}</td>
+                     <td>{{$r->address}}</td>
+                     <td class="text-center"><p class="label label-rouded label-info center">PENDING</p></td>
+                     <td><button id="accept" class="btn btn-success" onclick="swap_accept('{{$r->id}}')">ACCEPT</button> <button id="reject" class="btn btn-danger" onclick="swap_reject('{{$r->id}}')">REJECT</button></td>
+                   </tr>
+                   @endforeach
+
+                 </tbody>
+                 <tfoot>
+                  <tr>
+                    <td colspan="6"></td>
+                  </tr>
+                 </tfoot>
+                 </table>
+
+                  <div class="text-right">
+                    <ul class="pagination">
+                    </ul>
+                  </div>
+
+                    </div>
+                
           </div>
             </div>
   <!-- message info -->
@@ -417,6 +469,47 @@ function reject(e)
         }
       });
   }
+
+  function swap_accept(id)
+  {
+    $.ajaxSetup({
+        headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+    }); 
+    $.ajax({
+      type: 'post',
+      url: '/Guard-Accept-Swap',
+      data: {
+          'id':id,
+      },
+      success: function(data){
+        alert(data);
+        location.reload();
+      }
+    });
+  }
+
+  function swap_reject(id)
+  {
+    $.ajaxSetup({
+        headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+    }); 
+    $.ajax({
+      type: 'post',
+      url: '/Guard-Reject-Swap',
+      data: {
+          'id':id,
+      },
+      success: function(data){
+        alert(data);
+        location.reload();
+      }
+    });
+  }
+
   function fun_accept(id)
   {
     $.ajaxSetup({
