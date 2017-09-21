@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use App\Establishments;
 use App\Employees;
+use App\Employee;
 use App\Role;
 use App\Shifts;
 use App\GuardReplacement;
@@ -21,6 +22,11 @@ use App\TempDeployments;
 use App\TempDeploymentDetails;
 use App\AcceptedGuards;
 use App\Nature;
+use App\Deployments;
+use App\DeploymentDetails;
+use App\EstabGuards;
+use Carbon\Carbon;
+use App\GuardMessagesInbox;
 
 class GuardReplacementController extends Controller
 {
@@ -124,5 +130,94 @@ class GuardReplacementController extends Controller
                     ->with('completeAdd',$completeAdd);
 
         //return $tempDeployments;
+    }
+    
+    public function deploy(Request $request){
+        
+         if($request->ajax()){
+
+            $deployment = new Deployments();
+            
+            $guardReplacementRequests = GuardReplacement::findOrFail($request->guardReplID);
+            $contract = Contracts::findOrFail($guardReplacementRequests->contractID);
+            $guardDetails = DB::table('temp_deployments')
+                            ->where('temp_deployments.contract_ID','=',$request->guardReplID)
+                            ->join('temp_deployment_details','temp_deployments.temp_deployment_id','=','temp_deployment_details.temp_deployments_id')
+                            ->where('temp_deployment_details.employees_id','=',$request->employeeID)
+                            ->select('shift_from as shiftFrom','shift_to as shiftTo')
+                            ->get();
+                             
+            $guardDeployedctr =  (int)$guardReplacementRequests->guards_deployed;
+            //return $guardDeployedctr;
+            $deployment['clients_id'] = $guardReplacementRequests->clients_id;
+            $deployment['establishment_id'] = $request->estabID;
+            $deployment['num_guards'] = $request->num_guards;
+            $deployment->save();
+
+            $dep = Deployments::latest('created_at')->get();
+             $deploymentDetails = new DeploymentDetails();
+                $deploymentDetails['deployments_id'] = $dep[0]->id;
+                $deploymentDetails['employees_id'] = $request->employeeID;
+                $deploymentDetails['shift_from'] = $guardDetails[0]->shiftFrom;
+                $deploymentDetails['shift_to'] = $guardDetails[0]->shiftTo;
+                $deploymentDetails['role'] = $request->role;
+                $deploymentDetails['status'] = "active";
+                if($deploymentDetails->save()){
+                     //return response("sucess");
+                    $guardDeployedctr++;
+                }else{
+                    return response("OOOPS Something went wrong!");
+                }
+            
+            //return response($dep);
+                $ac = AcceptedGuards::where('guard_id',$request->employeeID)->update(['guard_reponse'=>'deployed']);
+                $nr = NotifResponse::where('guard_id',$request->employeeID)->update(['status'=>'deployed']);
+                $emp = Employee::findOrFail($request->employeeID)->update(['deployed'=>'1','status'=>'deployed']);
+                $emp2 = new Employee();
+                $emp2 = Employee::findOrFail($request->employeeID);
+                $emp2['status'] = 'deployed';
+                if(!$emp2->save()){
+                    return "Ear";
+                }
+                //Employee::findOrFail($request->employeeID)->update(['status'=>'deployed']);
+                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$guardReplacementRequests->contractID,'role'=>$request->role]);
+
+                $guardReplacementRequests->guards_deployed = $guardDeployedctr;
+                $guardReplacementRequests->save();
+                if($guardReplacementRequests->no_guards == $guardReplacementRequests->guards_deployed){
+                    $guardReplacementRequests->status = "done";
+                    $guardReplacementRequests->save();
+
+                    $guardReplacementRequestsDetails = DB::table('replacement_requests_details')
+                                                    ->where('replacement_requests_details.replacement_requests_id','=',$guardReplacementRequests->requestID)
+                                                    ->get();
+                    foreach($guardReplacementRequestsDetails as $guardReplacementRequestsDetail){
+                        $emp3 = Employee::findOrFail($guardReplacementRequestsDetail->employees_id);
+                        $emp3['deployed'] = '0';
+                        $emp3['status'] = 'waiting';
+                        $emp3->save();
+
+                        $esatabGuards = EstabGuards::where('contractID',$guardReplacementRequests->contractID)->where('strGuardID',$request->employeeID)
+                                        ->update(['isReplaced'=>'1']);
+                       
+                    
+
+                    }
+                    // $esatabGuards = EstabGuards::where(['contractID'=>$guardReplacementRequests->contractID,'strGuardID'=>$request->employeeID]);
+                    // $estabGuards['isReplaced'] = '1';
+                }
+                $guardInbox = new GuardMessagesInbox();
+                $guardInbox['guard_messages_ID'] = 'GRDINBX-'.GuardMessagesInbox::get()->count();
+                $guardInbox['guard_id'] = $request->employeeID;
+                $guardInbox['subject'] = 'Deployment';
+                $guardInbox['content'] = '';
+                $guardInbox['status'] = 'active';
+                $guardInbox['created_at'] = Carbon::now();
+                $guardInbox['updated_at'] = Carbon::now();
+
+                if($guardInbox->save()){
+                    return response($guardDeployedctr);
+                }
+        }
     }
 }

@@ -257,6 +257,8 @@ Route::post('/delete-addguardrequests','AdditionalGuardRequesController@remove')
 	Route::get('guard-ReplacementRequest-view','GuardReplacementController@view');
 	Route::get('/Deploy-GuardReplacement-{guardReplacementID}','GuardReplacementController@deployReplacement');
 	Route::get('/GuardRepl-DeployStatus-{guardReplacementID}','GuardReplacementController@deploymentStatus');
+	Route::get('/GuardReplacement-deploy','GuardReplacementController@deploy');
+
 /**-------------------------     Guard-Replacement Start    ---------------------*/
 
 

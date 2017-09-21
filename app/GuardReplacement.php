@@ -18,6 +18,6 @@ class GuardReplacement extends Model
 		'created_at',
 		'updated_at'
     ];
-    protected $primaryKey = 'guard_replacement_requests';
+    protected $primaryKey = 'requestID';
     public $incrementing = false; 
 }
