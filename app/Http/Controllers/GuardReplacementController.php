@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
+use App\Establishments;
+use App\Employees;
+use App\Role;
+use App\Shifts;
+use App\GuardReplacement;
+use App\Contracts;
 
 class GuardReplacementController extends Controller
 {
@@ -47,4 +53,22 @@ class GuardReplacementController extends Controller
     	}
     }	
 
+    public function deployReplacement($guardReplacementID){
+
+        $guardReplacementRequests = DB::table('guard_replacement_requests')
+                                    ->where('guard_replacement_requests.requestID','=',$guardReplacementID)
+                                    ->get();
+        $contract = Contracts::findOrFail($guardReplacementRequests[0]->contractID);
+        $employees = Employees::all();
+        $roles = Role::all();
+        $shifts = Shifts::all();
+        return view('AdminPortal.ClientRequests.AddGuardRequests.deployAddGuards')
+                ->with('employees',$employees)
+                ->with('clientID',$guardReplacementRequests[0]->clients_id)
+                ->with('estabID',$contract->strEstablishmentID)
+                ->with('shifts',$shifts)
+                ->with('no_guards',$guardReplacementRequests[0]->no_guards)
+                ->with('contractID',$guardReplacementID)
+                ->with('roles',$roles);
+    }
 }

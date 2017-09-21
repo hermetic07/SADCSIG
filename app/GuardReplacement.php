@@ -13,6 +13,8 @@ class GuardReplacement extends Model
 		'contractID',
 		'status',
 		'read',
+		'no_guards',
+		'guardds_deployed',
 		'created_at',
 		'updated_at'
     ];
