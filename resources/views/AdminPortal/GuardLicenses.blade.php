@@ -14,7 +14,7 @@
     @section('Sec')<a href="javascript:void(0);" class="waves-effect active"> @endsection
       @section('Del')<a href="javascript:void(0);" class="waves-effect"> @endsection
 
-
+      
 @section('content')
 
 
@@ -84,7 +84,7 @@
 										</div>
 
 								</div>
-                                 	<button type="button" class="btn btn-block btn-info" ><i class="fa fa-list-alt"></i> </i> Renew license</button>
+                                <button type="button" class="btn btn-block btn-danger" onclick="send('{{$a->empid}}')" ><i class="fa fa-list-alt"></i> </i> Send Warning</button> <button type="button" class="btn btn-block btn-info" href="#renew" data-toggle="modal" data-target="#renew" onclick="view('{{$a->empid}}')"><i class="fa fa-list-alt"></i> </i> Renew license</button>
                              </div>
 			  			</div>
 						@endforeach
@@ -105,4 +105,112 @@
 <!-- /.row -->
 
      </div>
+
+     <!-- Leave Modal -->
+<div id="renew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Renew Guard License</strong></center></h4>
+                </div>
+                <div class="modal-body">
+            <form data-toggle="validator">
+              <div class="form-group">
+                  <input type="hidden" id="empid">
+                <div class="row">
+                  <div class="form-group col-sm-6">
+                    <label class="control-label">Date Issued</label>
+                    <div class="input-group">
+                     <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="mm/dd/yyyy" name="from"/>
+                    </div>
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <label class="control-label">Date Expire</label>
+                    <div class="input-group">
+                     <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control firstcal" id="secondcal" placeholder="mm/dd/yyyy" name="to"/>
+                    </div>
+                    <div class="help-block with-errors"></div>
+                  </div>
+               </div>
+                 <div class="help-block with-errors"></div>
+              </div>
+          </div>
+           <div class="modal-footer">
+            <button type="button" id="edd" class="btn btn-info waves-effect waves-light" onclick="update()">Submit</button>
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+           </div>
+          </form>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+  @endsection
+  @section('script')
+<script>
+    function view(id){
+        $('#empid').val(id);
+    }
+    function send(id){
+        $.ajaxSetup({
+          headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }); 
+        $.ajax({
+          type: 'post',
+          url: '/Send-License-Warning',
+          data: {
+              'id':id,
+          },
+          success: function(data){
+            alert(data);
+          }
+        });
+    }
+    function update(){
+        $.ajaxSetup({
+          headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }); 
+        $.ajax({
+          type: 'post',
+          url: '/Update-License-Info',
+          data: {
+              'id':$('#empid').val(),
+              'issued':$('#firstcal').val(),
+              'expire':$('#secondcal').val(),
+          },
+          success: function(data){
+            alert(data);
+          }
+        });
+    }
+</script>
+ <script>
+  
+  $(function() {
+
+
+     $(".firstcal").datepicker({
+         dateFormat: "yy-mm-dd",
+         
+     });
+     
+ });
+  </script>
+  <script>
+  
+  $(function() {
+
+
+     $(".secondcal").datepicker({
+         dateFormat: "yy-mm-dd",
+         
+     });
+     
+ });
+  </script>
   @endsection
