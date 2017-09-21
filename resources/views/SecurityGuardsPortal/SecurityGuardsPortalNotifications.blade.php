@@ -20,8 +20,15 @@
                       <div class="comment-body">
                         <div class="user-img"> <img src="plugins\images\Clients\Active\ernest.jpg" alt="user" class="img-circle"></div>
                         <div class="mail-contnet">
-                          <h5>(admin)</h5>
+                          <h5>Admin</h5>
                           <span class="mail-desc">{{$s->message}}</span>
+                          @if($s->status==="accepted")
+                          <span class="label label-rounded label-success">Accepted</span>
+                          @elseif($s->status==="rejected")
+                          <span class="label label-rounded label-danger">Rejected</span>
+                          @elseif($s->status==="warning")
+                          <span class="label label-rounded label-warning">Warning</span>
+                          @endif
                           <span class="time pull-right">{{$s->created_at}}</span></div>
                       </div>
                       @endforeach

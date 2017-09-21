@@ -4,17 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
-use App\EmployeeAttributes;
-use App\EmployeeDegree;
-use App\EmployeeEducation;
-use App\EmployeeLicense;
-use App\EmployeeMilitary;
-use App\EmployeeSeminar;
-use App\EmployeeRequirements;
-use App\EmployeeSkills;
 use App\Swap;
 use App\swapestab;
 use App\swapnotif;
+use App\SecurityLicense;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
@@ -33,7 +26,7 @@ use App\LeaveRequest;
 use App\LeaveResponse;
 use Illuminate\Support\Facades\DB;
 use App\GuardMessagesInbox;
-
+use Carbon\Carbon;
 class SwapControl extends Controller
 {
     public function index(Request $request){
@@ -116,6 +109,7 @@ class SwapControl extends Controller
         $notif = new swapnotif();
         $notif->emp_id = $emp1;
         $notif->message = "Congratulations your swap request has been approved, report to the agency to finalize your request";
+        $notif->status = "accepted";
         $notif->save();
         return "You have now been swaped to another establishment";
     }
@@ -127,6 +121,7 @@ class SwapControl extends Controller
         $notif = new swapnotif();
         $notif->emp_id = $emp1;
         $notif->message = "Sorry but your request has been rejected by the guard's employer";
+        $notif->status = "rejected";
         $notif->save();
         return "Request has been rejected";
     }
@@ -138,7 +133,13 @@ class SwapControl extends Controller
         $notif = new swapnotif();
         $notif->emp_id = $emp1;
         $notif->message = "Sorry but your request has been rejected by the guard";
+        $notif->status = "rejected";
         $notif->save();
         return "Request has been rejected";
+    }
+
+    public function sampledate(Request $request){
+        $s = SecurityLicense::All()->where('date_expired', '>=', date('2017-12-27'));
+        return Carbon::today()->toDateString();
     }
 }

@@ -605,3 +605,5 @@ Route::post('/Client-Accept-Swap','SwapControl@clientaccept');
 Route::post('/Guard-Accept-Swap','SwapControl@guardaccept');
 Route::post('/Client-Reject-Swap','SwapControl@clientreject');
 Route::post('/Guard-Reject-Swap','SwapControl@guardreject');
+Route::post('/Send-License-Warning','RenewLicenseControl@sendWarning');
+Route::post('/Update-License-Info','RenewLicenseControl@update');

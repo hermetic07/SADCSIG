@@ -220,7 +220,7 @@
                                         </a>
 
                                         <form id="logout-form" action="http://localhost:8000/logout" method="POST" style="display: none;">
-                                            <input type="hidden" name="_token" value="cCCwqYueKe6VDDhKtTeyRokoOnaOKKxx4RcnunxH">
+                                          {{ csrf_field() }}
                                         </form>
                     </li>
                 </ul>
