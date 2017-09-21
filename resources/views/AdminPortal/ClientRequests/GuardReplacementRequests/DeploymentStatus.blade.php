@@ -328,9 +328,9 @@
           alert(requestID);
 
           $.ajax({
-            // url: '/AddGuard-deploy',
-            // type:'GET',
-            // data:{clientID:clientID,addGuardID:requestID,estabID:estabID,num_guards:num_guards,shiftFrom:shiftFrom,shiftTo:shiftTo,role:role,employeeID:employeeID},
+            url: '/GuardReplacement-deploy',
+            type:'GET',
+            data:{clientID:clientID,guardReplID:requestID,estabID:estabID,num_guards:num_guards,shiftFrom:shiftFrom,shiftTo:shiftTo,role:role,employeeID:employeeID},
             success:function(data){
               alert(data);
               console.log(data);
