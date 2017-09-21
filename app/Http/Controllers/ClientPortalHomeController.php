@@ -38,6 +38,9 @@ use App\ewt;
 use App\Collections;
 use PDF;
 use App\Agencyfee;
+use App\GuardReplacement;
+use App\GuardReplacementDetails;
+use Carbon\Carbon;
 
 class ClientPortalHomeController extends Controller
 {
@@ -268,12 +271,27 @@ class ClientPortalHomeController extends Controller
       $gunType = GunType::all();
       $nature = Nature::all();
       $estabGuards = EstabGuards::all();
+
+
       $clientContracts = DB::table('client_registrations')
                        ->where('client_registrations.client_id','=',$id)
                        ->join('contracts','contracts.id','=','client_registrations.contract_id')
                        ->select('contracts.id as contractCode')
                        ->get(); 
-
+      $guards = DB::table('client_registrations')
+                        ->where('client_registrations.client_id','=',$id)
+                        ->join('contracts','contracts.id','=','client_registrations.contract_id')
+                        
+                        
+                        ->join('tblestabGuards',function($join){
+                            $join->on('tblestabGuards.strEstablishmentID','=','contracts.strEstablishmentID')
+                                 ->on('tblestabGuards.contractID','=','contracts.id');
+                        })
+                        ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
+                        ->join('employees','tblestabGuards.strGuardID','=','employees.id')
+                        ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','establishments.name as establishment','tblestabGuards.role','establishments.id as estabID','contracts.id as contractID')
+                        ->get();
+                        //return  $guards->toArray();
       return view('ClientPortal.ClientPortalRequest
         ')->with('services',$Services)
           ->with('client',$client)
@@ -287,6 +305,7 @@ class ClientPortalHomeController extends Controller
           ->with('gunType',$gunType)
           ->with('nature',$nature)
           ->with('clientContracts',$clientContracts)
+          ->with('guards',$guards)
           ->with('clientRegistrations',$clientRegistrations);
      // return $client;
     }
@@ -439,7 +458,22 @@ class ClientPortalHomeController extends Controller
       $clientPic = ClientsPic::all();
       $collection = Collections::where('strClientId',$id)->where('strStatus','!=','notsent')->get();
 
-      return view('ClientPortal/ClientPortalMessages')->with('all',$collection)->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic);
+      $swap = DB::table('tblswaprequest')
+      ->join('employees','employees.id','=','tblswaprequest.emp_id')
+      ->join('establishments','establishments.id','=','tblswaprequest.establishment_from')
+      ->select('employees.first_name as fname',
+               'employees.image as image',
+               'employees.id as empid',
+               'employees.last_name as lname',
+               'establishments.name as estab',
+               'establishments.address as address',
+               'tblswaprequest.id as id')
+      ->where('tblswaprequest.client_id',$client->id)
+      ->where('tblswaprequest.clientstatus','pending')
+      ->where('tblswaprequest.employeestatus','pending')
+      ->get();
+
+      return view('ClientPortal/ClientPortalMessages')->with('swap',$swap)->with('all',$collection)->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic);
     }
     public function messagesModal(Request $request,$messageID){
       if($request->ajax()){
@@ -531,6 +565,78 @@ class ClientPortalHomeController extends Controller
     public function homeview(){
       $nature = Nature::All();
       return view('Website/Home')->with('n',$nature);
+    }
+    
+    public function guardReplaceModal(Request $request){
+      if($request->ajax()){
+        
+        $guards = $request->guardIDs;
+        
+        $estabGuards = DB::table('tblestabGuards')
+                          ->where('tblestabGuards.strEstablishmentID','=',$request->establishment_id)
+                          ->where('tblestabGuards.contractID','=',$request->contract_id)
+                          ->join('employees','tblestabGuards.strGuardID','=','employees.id')
+                          ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
+                          ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','tblestabGuards.role','establishments.name as establishment')
+                          ->get();
+                          
+        
+        return view('ClientPortal.formcomponents.guard_replacement_modal')
+                ->with('guards',$guards)
+                ->with('totalGuards',count($guards))
+                ->with('estabGuards',$estabGuards);
+      }
+    }
+    public function getGuards(Request $requests){
+      if($requests->ajax()){
+        $contract = Contracts::findOrFail($requests->contractID);
+        $estabGuards = DB::table('tblestabGuards')
+                          ->where('tblestabGuards.strEstablishmentID','=',$contract->strEstablishmentID)
+                          ->where('tblestabGuards.contractID','=',$requests->contractID)
+                          ->join('employees','tblestabGuards.strGuardID','=','employees.id')
+                          ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
+                          ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','tblestabGuards.role','establishments.name as establishment','establishments.id as estabID','tblestabGuards.contractID as contractID')
+                          ->get();
+        return view('ClientPortal.formcomponents.guard_table')
+                ->with('estabGuards',$estabGuards);
+      }
+    }
+    public function guardReplacementSubmit(Request $requests){
+      if($requests->ajax()){
+        
+        $guardReplacement = new GuardReplacement();
+        $guardReplacement['requestID'] = 'GRDRPLCMNT-'.GuardReplacement::get()->count();
+        $guardReplacement['clients_id'] = $requests->clientID;
+        $guardReplacement['contractID'] = $requests->contractID;
+        $guardReplacement['status'] = 'active';
+        $guardReplacement['contractID'] = $requests->contractID;
+        $guardReplacement['read'] = '1';
+        $guardReplacement['created_at'] = Carbon::now();
+        $guardReplacement['updated_at'] = Carbon::now();
+
+        if($guardReplacement->save()){
+          //return $guardReplacement;
+        }
+        $secuIDs = Input::get('secuIDs');
+        $reasons = Input::get('reasons');
+
+
+        
+        for($ctr = 0; $ctr < count($secuIDs); $ctr++){
+          $guardReplacementDetails = new GuardReplacementDetails();
+          $guardReplacementDetails['replacement_requests_details_ID'] = 'GRDRPLCMNTDTLS-'.GuardReplacementDetails::get()->count();
+          $guardReplacementDetails['replacement_requests_id'] = $guardReplacement->requestID;
+          $guardReplacementDetails['employees_id'] = $secuIDs[$ctr];
+          $guardReplacementDetails['reasons'] = $reasons[$ctr];
+          $guardReplacementDetails['created_at'] = Carbon::now();
+          $guardReplacementDetails['updated_at'] = Carbon::now();
+          $guardReplacementDetails->save();
+             
+            
+        }
+        
+
+      }
     }
 }
 // for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){

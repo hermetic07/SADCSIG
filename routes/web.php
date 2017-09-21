@@ -252,6 +252,10 @@ Route::post('/delete-addguardrequests','AdditionalGuardRequesController@remove')
 
 
 /**-------------------------     Add Guard Requests-end    ---------------------*/
+	Route::get('guard-ReplacementRequest-view','GuardReplacementController@view');
+/**-------------------------     Guard-Replacement Start    ---------------------*/
+
+/**-------------------------     Guard-Replacement Start    ---------------------*/
 
 
 Route::get('/DeployGuards','DeploymentController@deploy')
@@ -343,6 +347,10 @@ Route::get('/GuardPool-save','ClientPortalHomeController@saveGuards')->name('sav
 Route::get('/ClientPortalSettings', function () {
 	return view('ClientPortal/ClientPortalSettings');
 });
+
+Route::get('guardReplacementModal','ClientPortalHomeController@guardReplaceModal');
+Route::get('/guardReplacement-getGuards','ClientPortalHomeController@getGuards');
+Route::get('/guardReplacement-submit','ClientPortalHomeController@guardReplacementSubmit');
 
 Route::get('/ClientPortalHome-{id}','ClientPortalHomeController@index')->middleware('auth:client');
 Route::get('/ClientLogin','LastControl@clientAuth');
@@ -544,13 +552,15 @@ Route::get('/SecurityGuardsPortalNotifications', 'EmployeeControl@notifications'
 Route::get('/SecurityGuardsPortalMessages', 'EmployeeControl@messages')->middleware('auth:employee');
 Route::get('/SecurityGuardsPortalRequest', 'EmployeeControl@requests')->middleware('auth:employee');
 Route::post('/GetLeaveInfo', 'EmployeeControl@leaveInfo');
-
+Route::get ( '/SwapRequest', 'SwapControl@index' )->middleware('auth:employee');
+Route::get ( '/SwapRequestStepTwo/{id}', 'SwapControl@two' )->middleware('auth:employee');
+Route::post ( '/RequestSwap', 'SwapControl@three' )->middleware('auth:employee');
 Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
 Route::get('/Admin-Guard-Leave', 'EmployeeControl@allLeave');
 Route::post('/Guard-Leave-View', 'EmployeeControl@viewLeave2');
 Route::post('/Admin-Leave-Accept', 'EmployeeControl@acceptLeave');
 Route::post('/Guard-Leave-Accept', 'EmployeeControl@acceptLeave2');
-Route::post('/Admin-Leave-Reject', 'EmployeeControl@rejectLeave');
+Route::post('/Admin-Leave-Reject', 'EmployeeControl@rejectLeave');//dont put an auth here, both guard and admin use this link
 Route::post('/Admin-Leave-End', 'EmployeeControl@endLeave');
 Route::get('/View-Leave-Request', 'EmployeeControl@viewLeave');
 
@@ -591,3 +601,9 @@ Route::get('/AdminLogIn', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::post('/Client-Accept-Swap','SwapControl@clientaccept');
+Route::post('/Guard-Accept-Swap','SwapControl@guardaccept');
+Route::post('/Client-Reject-Swap','SwapControl@clientreject');
+Route::post('/Guard-Reject-Swap','SwapControl@guardreject');
+Route::post('/Send-License-Warning','RenewLicenseControl@sendWarning');
+Route::post('/Update-License-Info','RenewLicenseControl@update');

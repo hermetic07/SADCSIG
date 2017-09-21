@@ -149,10 +149,8 @@
             <div class="text-right">
               <ul class="pagination">
               </ul>
-            </div>  
-
-                               
-                               </section>
+            </div>
+</section>
 <section id="section-linetriangle-3">
 
   <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
@@ -241,14 +239,60 @@
               </tfoot>
             </table>
 
-</section>
-                                    <section id="section-linetriangle-3"><h2>Tabbing 4</h2></section>
-                             </div><!-- /content -->
-                           </div><!-- /tabs -->
+    </section>
+    <section id="section-linetriangle-3">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                   <div class="row ">
+                        <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                          <thead>
+                            <tr>
+                              <th>Client's name</th>
+                              <th>Date Requested</th> 
+                              <th>Status</th>    
+                              <th data-sort-ignore="true" width="200px">Actions</th>
+                            </tr>
+                          </thead>
+                          <div class="form-inline padding-bottom-15">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-6 text-right m-b-20">
+                                    <div class="form-group">
+                                        <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                                                autocomplete="off">
+                                    </div>
+                                   </div>
+                               </div>
+                            </div>
+                          <tbody>
+                                @foreach($guard_replacement_requests as $guard_replacement_requests)
+                                    <tr>
+                                        <td>
+                                            <a href="{{route('admin.client.estab',$guard_replacement_requests->client_id)}}">
+                                                {{$guard_replacement_requests->client_fname}},{{$guard_replacement_requests->client_mname}},{{$guard_replacement_requests->client_lname}}
+                                              </a>
+                                        </td>
+                                        <td>
+                                            {{$guard_replacement_requests->dateRequested}}
+                                        </td>
+                                        <td>
+                                            {{$guard_replacement_requests->status}}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info guardRepView" value="{{$guard_replacement_requests->requestCode}}">View</button>
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                          </tbody>
+                          </table>
 
-
-
-        </div>
+                   </div>
+                </div>
+    </section>
+   </div><!-- /content -->
+  </div><!-- /tabs -->
+</div>
 
 
           <!-- Reques info by client -->
@@ -370,4 +414,65 @@
   
 
   </script>
+
+  <script type="text/javascript">
+jQuery(document).ready(function($){
+ var click =0;
+ $('.show').on('click', function(e){
+   if (click == 0){
+
+         click++;
+   $(".guards").show();
+   $(this).parent().parent().parent().parent().parent().toggleClass('col-lg-12').toggleClass('col-lg-6');
+   }
+
+
+ });
+
+   var click2 =0;
+ $('.showguards').on('click', function(e){
+   if (click2 == 0){
+
+         click++;
+   $(".guardlist").show();
+   }
+
+
+ });
+
+
+});
+    $( document ).ready(function() {
+
+         $('input[name="radio"]').click(function(){
+       if($(this).attr("value")=="2"){
+           $(".deploymentdate").show();
+         }else{
+          $(".deploymentdate").hide();
+         }
+       });
+
+      $('#slimtest4').slimScroll({
+           color: '#FFFFFF',
+           size: '10px',
+           height: '820px',
+           alwaysVisible: false
+     });
+
+});
+    $('.guardRepView').on('click',function(){
+      //alert($(this).val());
+      $.ajax({
+        url : 'guard-ReplacementRequest-view',
+        type : 'GET',
+        data : {reqID:$(this).val()},
+        success : function(data){
+          $('.viewrequest').text('');
+          $('.viewrequest').append(data);
+          $('#modalview').modal('show');
+          console.log(data);
+        }
+      });
+    });
+</script>
   @endsection

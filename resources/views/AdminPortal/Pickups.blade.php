@@ -284,7 +284,7 @@
     //alert(gunReqID);
   }
    function funcDeliverRelacement(){
-    alert($('#gunDeliveryID').val());
+   // alert($('#gunDeliveryID').val());
      var unclaimed_items_id = [];
         var unclaimed_items_serials = [];
         var gunDeliveryID = $('#gunDeliveryID').val();
@@ -294,7 +294,7 @@
          
           unclaimed_items_id.push($(this).val());
           unclaimed_items_serials.push($(this).attr('name'));
-          alert($(this).attr('name'));
+         // alert($(this).attr('name'));
             
      });
 

@@ -25,7 +25,7 @@
 
 @section('content')
 <form class="form-horizontal" method="GET" action="{{ url('/Request-sent') }}">
-  <input type="hidden" name="establishments_id" value="{{ $client->id }}">
+  
   <button type="submit" class="btn btn-info pull-right">View Sent Request</button>
 </form>
    <!-- Page Content -->
@@ -402,7 +402,21 @@
           <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Choose Guards to Replace</strong></center></h4>
         </div>
         <div class="modal-body">
-          <form data-toggle="validator" >
+          <div class="form-group text-center">
+            <label for="shifts" id="chooseContract" class="control-label col-md-10">You have already {{count($clientContracts)}} active contract(s). Please choose one to show the guards.</label>
+          </div>
+
+          <div class="form-group">
+            
+            <div class="col-md-8">
+              <ul id="contracts">
+                @foreach($clientContracts as $clientContract)
+                  <li><input type="radio" name="contracts" onchange="func_getGuards('{{$clientContract->contractCode}}')"> <a href="/getContractPDF-{{$contract->id}}" target="_blank">{{$clientContract->contractCode}}</a></li>
+                @endforeach
+              </ul>
+            </div>
+          </div>
+          
             {!! csrf_field() !!}
             <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
               <thead>
@@ -414,75 +428,19 @@
                   <th data-sort-ignore="true">Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                  @php
-                    $ctr = 0;
-                  @endphp
-                    @foreach($deploymentDetails as $deploymentDetail)
-                      @foreach($deployments as $deployment)
-                        @if($deploymentDetail->deployments_id == $deployment->id)
-                          @foreach($serviceRequests as $serviceRequest)
-                            @if($deployment->service_requests_id == $serviceRequest->id)
-                              @if($serviceRequest->establishments_id == $establishment->id)
-                                @if($deploymentDetail->status == 'active')
-                                @php
-                                  $ctr = $ctr+1;
-                                @endphp
-                                <tr>
-                                  <td>
-                                    <div class="el-card-item">
-                                      <div class="el-card-avatar el-overlay-1">
-                                        <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-                                        <div class="el-overlay">
-                                          <ul class="el-info">
-                                              <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                          </ul>
-                                        </div>
-                                      </div>
-                                   </div>
-                                  </td>
-                                  <td>
-                                  @php
-                                    $empFirstName;
-                                    $empLastName;
-                                  @endphp
-                                    @foreach($employees as $employee)
-                                      @if($employee->id == $deploymentDetail->employees_id)
-                                        {{ $employee->first_name }}  {{ $employee->last_name }}
-                                        @php
-                                          $empFirstName = $employee->first_name;
-                                          $empLastName = $employee->last_name;
-                                        @endphp
-                                      @endif
-                                    @endforeach <br> <b>Shift: </b>
-                                    From: {{ $deploymentDetail->shift_from }}  To: {{ $deploymentDetail->shift_to }}
-                                    <br> <b>Role: </b>
-                                      {{ $deploymentDetail->role }}
-                                  </td>
-                                  
-                                  <td>
-                                    <textarea id="{{ $ctr }}" name="text{{ $ctr }}" class="form-control" rows="3" placeholder="Reasons for replacing {{ $empFirstName }}  {{ $empLastName }}"></textarea>
-                                  </td>
-                                  <td>
-                                    <input class="selectGuard" type="checkbox" name="{{ $ctr }}" value="{{ $deploymentDetail->employees_id }}" onchange="func()">
-                                  </td>
-                                </tr>
-                                @endif
-                              @endif
-                            @endif
-                          @endforeach
-                        @endif
-                      @endforeach
-                    @endforeach
+                <tbody class="guard-table-body">
+                  
+                    
+                      
                 </tbody>
               </thead>
             </table>
-            <input type="hidden" name="numGuards" value="{{ $ctr}}">
+            <input type="hidden" name="numGuards" value="">
             <div class="modal-footer">
-              <button type="button" id="edd" data-target="#replaceGuards" data-toggle="modal" data-dismiss="modal" class="btn btn-info waves-effect waves-light" >Submit</button>
+              <button type="button" id="guardReplacementModal" data-dismiss="modal" class="btn btn-info waves-effect waves-light" disabled>Submit</button>
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
             </div>
-          </form>
+          
         </div>
       </div>    <!-- /.modal-content -->
     </div>     <!-- modal-dialog -->
@@ -495,76 +453,8 @@
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h4 class="modal-title" id="myLargeModalLabel"><center><strong style="color: white;">Are you sure you really want to replace these Guards??</strong></center></h4>
         </div>
-        <div class="modal-body">
-          <form data-toggle="validator">
-            {!! csrf_field() !!}
-            <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-              <thead>
-                <tr id="earl">
-                  <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="100px" ></th>
-                  <th>Guard's Name</th>
-                  <th>Action</th>
-                  
-                </tr>
-                <tbody>
-                 @php
-                    $ctr = 0;
-                  @endphp
-                    @foreach($deploymentDetails as $deploymentDetail)
-                      @foreach($deployments as $deployment)
-                        @if($deploymentDetail->deployments_id == $deployment->id)
-                          @foreach($serviceRequests as $serviceRequest)
-                            @if($deployment->service_requests_id == $serviceRequest->id)
-                              @if($serviceRequest->establishments_id == $establishment->id)
-                                @if($deploymentDetail->status == 'active')
-                                @php
-                                  $ctr = $ctr+1;
-                                @endphp
-                                <tr id="{{ $deploymentDetail->employees_id }}">
-                                  <td>
-                                    <div class="el-card-item">
-                                      <div class="el-card-avatar el-overlay-1">
-                                        <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-                                        <div class="el-overlay">
-                                          <ul class="el-info">
-                                              <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
-                                          </ul>
-                                        </div>
-                                      </div>
-                                   </div>
-                                  </td>
-                                  <td>
-                                  
-                                    @foreach($employees as $employee)
-                                      @if($employee->id == $deploymentDetail->employees_id)
-                                        {{ $employee->first_name }}  {{ $employee->last_name }}
-                                        
-                                      @endif
-                                    @endforeach <br> <b>Shift: </b>
-                                    
-                                  </td>
-                                  
-                                  
-                                  <td>
-                                    <button type="button" class="btn btn-info waves-effect waves-light" >Don't Replace</button>
-                                  </td>
-                                </tr>
-                                @endif
-                              @endif
-                            @endif
-                          @endforeach
-                        @endif
-                      @endforeach
-                    @endforeach
-                </tbody>
-              </thead>
-            </table>
-            <input type="hidden" name="numGuards" value="{{ $ctr}}">
-            <div class="modal-footer">
-              <button type="submit" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
-              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-            </div>
-          </form>
+        <div class="modal-body replaceGuard-content">
+          
         </div>
       </div>    <!-- /.modal-content -->
     </div>     <!-- modal-dialog -->
@@ -631,9 +521,41 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-      function setEnable(gunID){
-        alert(gunID);
+      guardIDs = [];
+      establishment_id = '';
+      contract_id = '';
+      guardCount = 0;
+
+      function func(id,estabID,contractID){
+        establishment_id = estabID;
+        contract_id = contractID;
+        guardIDs.push(id);
+
+        $('#'+id).removeAttr("disabled");
+        $('#guardReplacementModal').removeAttr("disabled");
       }
+      $('#guardReplacementModal').on('click',function(){
+        
+        $.ajax({
+          url : 'guardReplacementModal',
+          type : 'GET',
+          data : {guardIDs:guardIDs,establishment_id:establishment_id,contract_id:contract_id},
+          success : function(data){
+            $('.replaceGuard-content').text('');
+            $('.replaceGuard-content').append(data);
+            $('#replaceGuards').modal('show');
+          }
+        });
+      });
+      function func_dont_replace(id,ctr){
+        guardCount = guardCount + 1;
+        //alert($('#'+id).val());
+        if(guardCount == ctr){
+          $('#replaceBtn').attr("disabled", "disabled"); 
+        }
+        $('#dnt'+id).hide();
+      }
+      
       function getGuns(id){
         $.ajax({
           url : "{{route('getGuns')}}",
@@ -690,6 +612,44 @@
           });
       });
 
+  </script>
+  <script type="text/javascript">
+    reasons = [];
+      secuIDs = [];
+      contract_ID = '';
+      function func_replace(){
+        $.each($(".secuIDs"), function(){
+          reasons.push($('#'+$(this).val()).val());
+         // alert($(this).val());
+          secuIDs.push($(this).val());
+
+          
+        });
+        $.ajax({
+          type : 'GET',
+          url: '/guardReplacement-submit',
+          data : {reasons:reasons,secuIDs:secuIDs,clientID:$('#clientID').val(),contractID:contract_ID},
+          success:function(data){
+            console.log(data);
+            location.reload();
+          }
+        });
+      }
+
+      function func_getGuards(id){
+        contract_ID = id;
+       // alert(id);
+       $.ajax({
+        url : '/guardReplacement-getGuards',
+        type :'GET',
+        data : {contractID:id},
+        success : function(data){
+          console.log(data);
+          $('.guard-table-body').text('');
+          $('.guard-table-body').append(data);
+        }
+       });
+      }
   </script>
 @endsection
 @section('script')

@@ -389,7 +389,7 @@ class RegisterControl extends Controller
 
       $all = DB::table('employees')
       ->join('security_license', 'employees.id', '=', 'security_license.employee_id')
-      ->select('employees.image as image','employees.first_name as f', 'employees.middle_name as m', 'employees.last_name as l', 'security_license.license_num as licensenum', 'security_license.class as class', 'security_license.date_issued as date_issued', 'security_license.date_expired as date_expired' )
+      ->select('employees.id as empid','employees.image as image','employees.first_name as f', 'employees.middle_name as m', 'employees.last_name as l', 'security_license.license_num as licensenum', 'security_license.class as class', 'security_license.date_issued as date_issued', 'security_license.date_expired as date_expired' )
       ->where('employees.status',"!=","pending")
       ->where('employees.status',"!=","deleted")
       ->get();

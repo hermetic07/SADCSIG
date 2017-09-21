@@ -13,7 +13,7 @@ class GuardMessagesInbox extends Model
 		'subject',
 		'content',
 		'created_at',
-		'updated_at',
+		'updated_at'
     ];
     protected $primaryKey = 'guard_messages_ID';
     public $incrementing = false; 

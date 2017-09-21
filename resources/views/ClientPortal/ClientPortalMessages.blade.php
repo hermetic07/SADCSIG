@@ -307,6 +307,57 @@
 
           </div>
 
+          <div class="white-box">
+          <h3>Swap Requests</h3>
+          <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+          <thead>
+            <tr>
+              <th width="10%">Image</th>
+              <th>Guard Name</th>
+              <th>Establishment</th>
+              <th>Establishment Address</th>
+              <th width="15%" >Status</th>
+              <th width="20%"data-sort-ignore="true" >Actions</th>
+            </tr>
+          </thead>
+          <div class="form-inline padding-bottom-15">
+            <div class="row">
+              <div class="col-sm-6"></div>
+              <div class="col-sm-6 text-right m-b-20">
+                <div class="form-group">
+                  <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+               autocomplete="off">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <tbody>
+          @foreach($swap as $r)
+            <tr>
+              <td><img src='{{ asset("uploads/$r->image")}}' alt="user-img" width="100" class="img-circle"></td>
+              <td>{{$r->fname}} {{$r->lname}}</td>
+              <td>{{$r->estab}}</td>
+              <td>{{$r->address}}</td>
+              <td class="text-center"><p class="label label-rouded label-info center">PENDING</p></td>
+              <td><button id="info" class="btn btn-info" onclick="swap_info('{{$r->empid}}')">View</button> <button id="accept" class="btn btn-success" onclick="swap_accept('{{$r->id}}')">ACCEPT</button> <button id="reject" class="btn btn-danger" onclick="swap_reject('{{$r->id}}')">REJECT</button></td>
+            </tr>
+            @endforeach
+
+          </tbody>
+          <tfoot>
+           <tr>
+             <td colspan="6"></td>
+           </tr>
+          </tfoot>
+          </table>  
+
+        <div class="text-right">
+          <ul class="pagination">
+          </ul>
+        </div>
+
+          </div>
 
          </div>
 
@@ -345,6 +396,41 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    </div>
+                  </form>
+                 </div>
+               </div>
+               <!-- /.modal-content -->
+             </div>
+             <!-- /.modal-dialog -->
+           </div>
+
+<!-- Inbox -->
+<div id="guardSwap" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+             <div class="modal-dialog">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                   <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Swap Request</strong></center></h4>
+                 </div>
+                 <div class="modal-body">
+                   <form data-toggle="validator">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="form-group col-sm-12 text-center">
+                          <label class="control-label text-center">Content:</label>
+                          <p class="form-control-static"> An employee wants to switch places with one of your guards. Click the link below to view the information of the guard who requested</p>
+                          <br>
+                          <center class="guardlink">
+                            
+                            
+                          </center>
+                        </div>
+                      </div>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="modal-footer">
+                      
                     </div>
                   </form>
                  </div>
@@ -393,8 +479,53 @@
   </script>
 
   <script>
+  function swap_info(id)
+  {
+      $('.guardlink').html("<a href='/SecuProfile/"+id+"' target='_blank'>View Info</a>");
+      
+      $('#guardSwap').modal('show');
+  }
+
+  function swap_accept(id)
+  {
+    $.ajaxSetup({
+        headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+    }); 
+    $.ajax({
+      type: 'post',
+      url: '/Client-Accept-Swap',
+      data: {
+          'id':id,
+      },
+      success: function(data){
+        alert(data);
+        location.reload();
+      }
+    });
+  }
+  function swap_reject(id)
+  {
+    $.ajaxSetup({
+        headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+    }); 
+    $.ajax({
+      type: 'post',
+      url: '/Client-Reject-Swap',
+      data: {
+          'id':id,
+      },
+      success: function(data){
+        alert(data);
+        location.reload();
+      }
+    });
+  }
     function fun_download(id) {
-      $.ajaxSetup({
+    $.ajaxSetup({
         headers: {
          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }

@@ -138,7 +138,7 @@ class AdditionalGuardRequesController extends Controller
                     return "Ear";
                 }
                 //Employee::findOrFail($request->employeeID)->update(['status'=>'deployed']);
-                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$addGuardRequest->contract]);
+                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$addGuardRequest->contract,'role'=>$request->role]);
 
                 $addGuardRequest->guardDeployed = $guardDeployedctr;
                 $addGuardRequest->save();
