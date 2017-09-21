@@ -276,7 +276,7 @@
                                             {{$guard_replacement_requests->dateRequested}}
                                         </td>
                                         <td>
-                                            {{$guard_replacement_requests->status}}
+                                            <a href="/GuardRepl-DeployStatus-{{$guard_replacement_requests->requestCode}}">{{$guard_replacement_requests->status}}</a>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-info guardRepView" value="{{$guard_replacement_requests->requestCode}}">View</button>
