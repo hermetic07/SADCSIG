@@ -148,10 +148,15 @@
                   </td>
                   <td>Ernest john maskarino</td>
                   <td>{{$inbox->created_at}}</td>
-                  <td>DEPLOYMENT</td>
+                  <td>{{$inbox->subject}}</td>
                   <td>   &nbsp;
-                    <button type="button" class="btn btn-info btn-circle" onclick="func_open_msg('{{$inbox->contractID}}','{{$inbox->establishment_id}}','{{$inbox->guard_id}}')" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                    @if($inbox->subject == "REPLACEMENT")
+                      <button type="button" class="btn btn-info btn-circle" onclick="func_open_RPLCmsg('{{$inbox->contractID}}','{{$inbox->establishment_id}}','{{$inbox->guard_id}}')" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
                     <button class="btn btn-danger" onclick="func_delete_messege('{{$inbox->messageID}}')"><i class="fa fa-times"></i></button>
+                    @else
+                      <button type="button" class="btn btn-info btn-circle" onclick="func_open_msg('{{$inbox->contractID}}','{{$inbox->establishment_id}}','{{$inbox->guard_id}}')" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                    <button class="btn btn-danger" onclick="func_delete_messege('{{$inbox->messageID}}')"><i class="fa fa-times"></i></button>
+                    @endif
                   </td>
                 </tr>
             @endforeach
@@ -549,6 +554,21 @@ function reject(e)
       }
     });
   }
+
+  function func_open_RPLCmsg(contractID, establishment_id,guard_id){
+    //alert(contractID+','+establishment_id);
+    $.ajax({
+      url : '/openInbox-rplc',
+      type : 'get',
+      data : {contractID:contractID,establishment_id:establishment_id,guard_id:guard_id},
+      success:function(data){
+        $('.inboxModal-content').empty();
+        $('.inboxModal-content').html(data);
+        $('#inboxModal').modal('show');
+      }
+    });
+  }
+  
   function func_delete_messege(messageID){
    // alert(messageID);
     swal({
