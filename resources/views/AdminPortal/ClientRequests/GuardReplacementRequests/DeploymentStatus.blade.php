@@ -334,7 +334,7 @@
             success:function(data){
               alert(data);
               console.log(data);
-              location.reload();
+              //location.reload();
             }
           });
 

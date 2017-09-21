@@ -132,7 +132,7 @@ class GuardReplacementController extends Controller
         //return $tempDeployments;
     }
     
-    public function deploy(Request $request){
+    public function deploy2(Request $request){
         
          if($request->ajax()){
 
@@ -197,10 +197,18 @@ class GuardReplacementController extends Controller
                         $emp3['status'] = 'waiting';
                         $emp3->save();
 
-                        $esatabGuards = EstabGuards::where('contractID',$guardReplacementRequests->contractID)->where('strGuardID',$request->employeeID)
+                        $esatabGuards = EstabGuards::where('contractID',$guardReplacementRequests->contractID)->where('strGuardID',$guardReplacementRequestsDetail->employees_id)
                                         ->update(['isReplaced'=>'1']);
-                       
-                    
+                       $guardInbox = new GuardMessagesInbox();
+                        $guardInbox['guard_messages_ID'] = 'GRDINBX-'.GuardMessagesInbox::get()->count();
+                        $guardInbox['guard_id'] = $guardReplacementRequestsDetail->employees_id;
+                        $guardInbox['subject'] = 'REPLACEMENT';
+                        $guardInbox['content'] = '';
+                        $guardInbox['status'] = 'active';
+                        $guardInbox['created_at'] = Carbon::now();
+                        $guardInbox['updated_at'] = Carbon::now();
+                        $guardInbox->save();
+                        
 
                     }
                     // $esatabGuards = EstabGuards::where(['contractID'=>$guardReplacementRequests->contractID,'strGuardID'=>$request->employeeID]);
@@ -219,5 +227,39 @@ class GuardReplacementController extends Controller
                     return response($guardDeployedctr);
                 }
         }
+    }
+
+    public function deploy(Request $request){
+        
+         if($request->ajax()){
+
+            
+            
+            $guardReplacementRequests = GuardReplacement::findOrFail($request->guardReplID);
+        $guardReplacementRequestsDetails = DB::table('replacement_requests_details')
+                                                    ->where('replacement_requests_details.replacement_requests_id','=',$guardReplacementRequests->requestID)
+                                                    ->get();
+                    foreach($guardReplacementRequestsDetails as $guardReplacementRequestsDetail){
+                        $emp3 = Employee::findOrFail($guardReplacementRequestsDetail->employees_id);
+                        $emp3['deployed'] = '0';
+                        $emp3['status'] = 'waiting';
+                        $emp3->save();
+
+                        $esatabGuards = EstabGuards::where('contractID',$guardReplacementRequests->contractID)->where('strGuardID',$guardReplacementRequestsDetail->employees_id)
+                                        ->update(['isReplaced'=>'1']);
+                       $guardInbox = new GuardMessagesInbox();
+                        $guardInbox['guard_messages_ID'] = 'GRDINBX-'.GuardMessagesInbox::get()->count();
+                        $guardInbox['guard_id'] = $guardReplacementRequestsDetail->employees_id;
+                        $guardInbox['subject'] = 'REPLACEMENT';
+                        $guardInbox['content'] = '';
+                        $guardInbox['status'] = 'active';
+                        $guardInbox['created_at'] = Carbon::now();
+                        $guardInbox['updated_at'] = Carbon::now();
+                        if($guardInbox->save()){
+                            return response($guardInbox);
+                        }
+
+                    }
+    }
     }
 }

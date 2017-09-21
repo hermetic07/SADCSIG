@@ -134,22 +134,7 @@
                                 <div class="col-md-6 col-sm-6 text-center">
                                     <p class="text-danger"><a href="/ClientPortalGuardsDTR-{{$client->id}}"><h3><b style="color: firebrick;">Guards</b></h4></a></i></p>
                                     <h1><a href="/ClientPortalGuardsDTR-{{$client->id}}">
-                                    @php
-                                      $ctr = 0;
-                                    @endphp
-                                      
-                                        @foreach($deployments as $deployment)
-                                          @if($deployment->clients_id == $client->id)
-                                            @foreach($deploymentDetails as $deploymentDetail)
-                                              @if($deploymentDetail->deployments_id == $deployment->id)
-                                                @php
-                                                  $ctr++;
-                                                @endphp
-                                              @endif
-                                            @endforeach
-                                          @endif
-                                        @endforeach
-                                      {{ $ctr }}
+                                     {{$guards}}
                                       </a>
                                     </h1> </div>
 

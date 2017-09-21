@@ -528,6 +528,7 @@ class AdminController extends Controller
                             $join->on('tblestabGuards.strEstablishmentID','=','establishments.id')
                                  ->on('tblestabGuards.contractID','=','contracts.id');
                         })
+                        ->where('tblestabGuards.isReplaced','=','0')
                         ->join('employees','tblestabGuards.strGuardID','=','employees.id')
                         ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo')
                         ->get();

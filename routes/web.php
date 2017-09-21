@@ -574,6 +574,7 @@ Route::post('/saveGuardResponse','EmployeeControl@saveResponse')->name('save.gua
 Route::post('/saveGuardReject','EmployeeControl@guardReject')->name('guard.reject');
 Route::get('/getReason','EmployeeControl@getReason')->name('getreason');
 Route::get('/openInbox','EmployeeControl@openInbox');
+Route::get('/openInbox-rplc','EmployeeControl@openInboxReplace');
 Route::post('/deleteMessage','EmployeeControl@deleteMessage');
 // -- end Earl :D ----------------------------------------------------------------
 Route::get('/SecurityGuardsPortalSettings', 'EmployeeControl@settings')->middleware('auth:employee');

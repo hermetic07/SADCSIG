@@ -58,6 +58,21 @@ class ClientPortalHomeController extends Controller
                         ->get();
       $gunDeliveriesCtr = $gunDeliveries2->count();
 
+      $guards = DB::table('client_registrations')
+                        ->where('client_registrations.client_id','=',$id)
+                        ->join('contracts','contracts.id','=','client_registrations.contract_id')
+                        
+                        
+                        ->join('tblestabGuards',function($join){
+                            $join->on('tblestabGuards.strEstablishmentID','=','contracts.strEstablishmentID')
+                                 ->on('tblestabGuards.contractID','=','contracts.id');
+                        })
+                        ->where('tblestabGuards.isReplaced','=','0')
+                        ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
+                        ->join('employees','tblestabGuards.strGuardID','=','employees.id')
+                        ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','establishments.name as establishment','tblestabGuards.role','establishments.id as estabID','contracts.id as contractID')
+                        ->get();
+
       $value = $request->session()->get('client');
       if ($value!=="") {
         $Services = Service::all();
@@ -82,9 +97,9 @@ class ClientPortalHomeController extends Controller
         $areas = Area::all();
         $provinces = Province::all();
 
-
+//return count($guards);
         return view('ClientPortal.ClientPortalHome
-          ')->with('services',$Services)->with('client',$client)->with('guns',$guns)->with('contracts',$contracts)->with('establishments',$establishments)->with('serviceRequests',$serviceRequests)->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('areas',$areas)->with('provinces',$provinces)->with('clientRegistrations',$clientRegistrations)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails)->with('clientPic',$clientPic)->with('gunDeliveriesCtr',$gunDeliveriesCtr);
+          ')->with('services',$Services)->with('client',$client)->with('guns',$guns)->with('contracts',$contracts)->with('establishments',$establishments)->with('serviceRequests',$serviceRequests)->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('areas',$areas)->with('provinces',$provinces)->with('clientRegistrations',$clientRegistrations)->with('gunRequests',$gunRequests)->with('gunDeliveries',$gunDeliveries)->with('gunDeliveryDetails',$gunDeliveryDetails)->with('gunRequestsDetails',$gunRequestsDetails)->with('clientPic',$clientPic)->with('gunDeliveriesCtr',$gunDeliveriesCtr)->with('guards',count($guards));
       }
    }
 
@@ -101,6 +116,21 @@ class ClientPortalHomeController extends Controller
     $establishments = Establishments::all();
     $estabGuards = EstabGuards::all();
 
+    $guards = DB::table('client_registrations')
+                        ->where('client_registrations.client_id','=',$id)
+                        ->join('contracts','contracts.id','=','client_registrations.contract_id')
+                        
+                        
+                        ->join('tblestabGuards',function($join){
+                            $join->on('tblestabGuards.strEstablishmentID','=','contracts.strEstablishmentID')
+                                 ->on('tblestabGuards.contractID','=','contracts.id');
+                        })
+                        ->where('tblestabGuards.isReplaced','=','0')
+                        ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
+                        ->join('employees','tblestabGuards.strGuardID','=','employees.id')
+                        ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','establishments.name as establishment','tblestabGuards.role','establishments.id as estabID','contracts.id as contractID')
+                        ->get();
+
     return view('ClientPortal.ClientPortalGuardsDTR')
             ->with('deployments',$deployments)
             ->with('deploymentDetails',$deploymentDetails)
@@ -112,7 +142,8 @@ class ClientPortalHomeController extends Controller
             ->with('clientRegistrations',$clientRegistrations)
             ->with('estabGuards',$estabGuards)
             ->with('establishments',$establishments)
-            ->with('estabGuards',$estabGuards);
+            ->with('estabGuards',$estabGuards)
+            ->with('guards',$guards);
   }
 
   public function gunDeliveries($id,Request $request){

@@ -260,6 +260,35 @@ class EmployeeControl extends Controller
                 ->with('tblestabguards',$tblestabguards);
       }
     }
+    public function openInboxReplace(Request $request){
+      if($request->ajax()){
+        $tblestabguards = DB::table('tblestabguards')
+                        ->where('tblestabguards.strEstablishmentID','=',$request->establishment_id)
+                        ->where('tblestabguards.contractID','=',$request->contractID)
+                        ->where('tblestabguards.strGuardID','=',$request->guard_id)
+                        ->join('establishments','establishments.id','=','tblestabguards.strEstablishmentID')
+                        ->join('areas','areas.id','=','establishments.areas_id')
+                        ->join('provinces','provinces.id','=','areas.provinces_id')
+                        ->join('natures','natures.id','=','establishments.natures_id')
+                        ->select('tblestabguards.contractID as contractID',
+                          'tblestabguards.dtmDateDeployed as dateDeployed',
+                          'tblestabguards.shiftFrom',
+                          'tblestabguards.shiftTo',
+                          'establishments.id as estabID',
+                          'establishments.image',
+                          'establishments.loc_image',
+                          'establishments.pic_fname',
+                          'establishments.pic_lname',
+                          'establishments.pic_mname',
+                          'establishments.name as establishment',
+                          'establishments.address as address',
+                          'areas.name as area',
+                          'provinces.name as province','natures.name as nature')
+                        ->get()[0];
+        return view('SecurityGuardsPortal.replacement_inbox_modal')
+                ->with('tblestabguards',$tblestabguards);
+      }
+    }
     public function deleteMessage(Request $request){
       if($request->ajax()){
          $id = $request -> messageID;

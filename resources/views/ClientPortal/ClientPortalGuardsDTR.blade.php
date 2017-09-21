@@ -61,62 +61,41 @@
               </div>
           </div>
           <tbody>
-         @foreach($deployments as $deployment)
-          @foreach($establishments as $establishment)
-            @if($establishment->id == $deployment->establishment_id)
-              @php
-                $estabID = $establishment->id;
-                $estabName = $establishment->name;
-              @endphp
-            @endif
-          @endforeach
-            @if($deployment->clients_id == $client->id)
-              @foreach($deploymentDetails as $deploymentDetail)
-                @if($deploymentDetail->deployments_id == $deployment->id)
-                  @php
-                    $shifts = $deploymentDetail->shift_from."-".$deploymentDetail->shift_to;
-                  @endphp
-                  @foreach($employees as $employee)
-                    @if($employee->id == $deploymentDetail->employees_id)
+              @foreach($guards as $guard)
                           <tr>
                               <td>                
                                 <div class="el-card-item">
                                   <div class="el-card-avatar el-overlay-1">
-                                    <a href="uploads/{{$employee->image}}"><img src="uploads/{{$employee->image}}" alt="user"  class="img-circle img-responsive"></a>
+                                    <a href="uploads/{{$guard->image}}"><img src="uploads/{{$guard->image}}" alt="user"  class="img-circle img-responsive"></a>
                                     <div class="el-overlay">
                                       <ul class="el-info">
-                                        <li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$employee->id)}}" target="_blank"><i class="fa fa-info"></i></a></li>
+                                        <li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$guard->id)}}" target="_blank"><i class="fa fa-info"></i></a></li>
                                       </ul>
                                     </div>
                                   </div>
                                 </div>
                               </td>
                               <td>
-                                {{$employee->first_name}}, {{$employee->last_name}}
+                                {{$guard->first_name}} {{$guard->middle_name}} {{$guard->last_name}}
                               </td>
                               <td>
-                               {{$shifts}}
+                               From: {{$guard->shiftFrom}}  To: {{$guard->shiftTo}} 
                               </td>
                               <td>
-                                <a href="/ClientsDetails-{{$client->id}}+{{$estabID}}" target="_blank">{{$estabName}}</a>
+                                <a href="/ClientsDetails-{{$client->id}}+{{$estabID}}" target="_blank">{{$guard->establishment}}</a>
                               </td>
                               <td>
-                                {{ $deploymentDetail->role }}
+                                {{$guard->role}}
                               </td>
                               <td>
-                                {{ $deploymentDetail->created_at }}
+                                {{ $guard->dtmDateDeployed }}
                               </td>
                               <td>
                                 <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-calendar"></i> Show DTR </button>
                               </td>
                             </tr>
-                        @endif
-                  @endforeach
-                @endif
-              @endforeach
-            @endif
-          @endforeach
-
+                        
+            @endforeach
           
           </tbody>
           <tfoot>
