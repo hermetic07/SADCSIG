@@ -69,7 +69,7 @@
       <br>
       <div class="modal-footer">
        
-          <button type="button" class="btn btn-info" >Replace</button>
+          <button type="button" class="btn btn-info" onclick="location.href='Deploy-GuardReplacement-{{$guardReplacementDetails->requestCode}}'">Replace</button>
        
         
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

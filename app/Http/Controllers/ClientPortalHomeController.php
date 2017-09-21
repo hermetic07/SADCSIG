@@ -603,7 +603,10 @@ class ClientPortalHomeController extends Controller
     }
     public function guardReplacementSubmit(Request $requests){
       if($requests->ajax()){
-        
+
+        $secuIDs = Input::get('secuIDs');
+        $reasons = Input::get('reasons');
+
         $guardReplacement = new GuardReplacement();
         $guardReplacement['requestID'] = 'GRDRPLCMNT-'.GuardReplacement::get()->count();
         $guardReplacement['clients_id'] = $requests->clientID;
@@ -611,15 +614,15 @@ class ClientPortalHomeController extends Controller
         $guardReplacement['status'] = 'active';
         $guardReplacement['contractID'] = $requests->contractID;
         $guardReplacement['read'] = '1';
+        $guardReplacement['no_guards'] = count($secuIDs);
+        $guardReplacement['guards_deployed'] = '0';
         $guardReplacement['created_at'] = Carbon::now();
         $guardReplacement['updated_at'] = Carbon::now();
 
         if($guardReplacement->save()){
           //return $guardReplacement;
         }
-        $secuIDs = Input::get('secuIDs');
-        $reasons = Input::get('reasons');
-
+        
 
         
         for($ctr = 0; $ctr < count($secuIDs); $ctr++){
