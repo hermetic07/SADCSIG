@@ -283,8 +283,19 @@
         success : function(data){
           //alert(data);
           if(data == 0){
-            alert("Delivery Sent Successfully!!");
-            window.location.href = '/Pickups-'+delCode;
+            $('#Delgun').modal('hide');
+            swal({
+                title: 'Delivery Sent.',
+                text: "Delivery has been sent successfully to the Client.",
+                type: 'success',
+                
+                confirmButtonColor: '#3085d6',
+                
+                confirmButtonText: 'Ok'
+              },function(){
+                window.location.href = '/Pickups-'+delCode;
+              });
+            
             console.log(data);
           }
           

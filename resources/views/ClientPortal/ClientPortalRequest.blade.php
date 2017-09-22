@@ -631,7 +631,19 @@
           data : {reasons:reasons,secuIDs:secuIDs,clientID:$('#clientID').val(),contractID:contract_ID},
           success:function(data){
             console.log(data);
-            location.reload();
+            $('#replaceGuards').hide(1000);
+            swal({
+                title: 'Request Sent.',
+                text: "Yor request has been sent successfully",
+                type: 'success',
+                
+                confirmButtonColor: '#3085d6',
+                
+                confirmButtonText: 'Ok'
+              },function(){
+                location.reload();
+              });
+            
           }
         });
       }

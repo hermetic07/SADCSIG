@@ -48,6 +48,7 @@ class GuardReplacementController extends Controller
                         			->join('provinces','provinces.id','=','areas.provinces_id')
                         			->orderBy('guard_replacement_requests.created_at','desc')
                         			->select('guard_replacement_requests.requestID as requestCode',
+                                            'guard_replacement_requests.status as status',
                         					'contracts.id as contract',
                         					'establishments.name as establishment',
                         					'establishments.address as estabAddress',
