@@ -249,7 +249,7 @@
                               <th>Client's name</th>
                               <th>Date Requested</th> 
                               <th>Status</th>    
-                              <th data-sort-ignore="true" width="200px">Actions</th>
+                              <th data-sort-ignore="true" width="170px">Actions</th>
                             </tr>
                           </thead>
                           <div class="form-inline padding-bottom-15">
@@ -265,24 +265,44 @@
                                </div>
                             </div>
                           <tbody>
-                                @foreach($guard_replacement_requests as $guard_replacement_requests)
-                                    <tr>
+                                @foreach($guard_replacement_requests as $guard_replacement_request)
+                                  @if($guard_replacement_request->status == "done")
+                                    <tr style="background-color: gray">
                                         <td>
-                                            <a href="{{route('admin.client.estab',$guard_replacement_requests->client_id)}}">
-                                                {{$guard_replacement_requests->client_fname}},{{$guard_replacement_requests->client_mname}},{{$guard_replacement_requests->client_lname}}
+                                            <a href="{{route('admin.client.estab',$guard_replacement_request->client_id)}}">
+                                                {{$guard_replacement_request->client_fname}},{{$guard_replacement_request->client_mname}},{{$guard_replacement_request->client_lname}}
                                               </a>
                                         </td>
                                         <td>
-                                            {{$guard_replacement_requests->dateRequested}}
+                                            {{$guard_replacement_request->dateRequested}}
                                         </td>
                                         <td>
-                                            <a href="/GuardRepl-DeployStatus-{{$guard_replacement_requests->requestCode}}">{{$guard_replacement_requests->status}}</a>
+                                            <a href="/GuardRepl-DeployStatus-{{$guard_replacement_request->requestCode}}">{{$guard_replacement_request->status}}</a>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-info guardRepView" value="{{$guard_replacement_requests->requestCode}}">View</button>
+                                            <button type="button" class="btn btn-info guardRepView" value="{{$guard_replacement_request->requestCode}}">View</button>
                                             <button type="button" class="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
+                                  @else
+                                    <tr>
+                                        <td>
+                                            <a href="{{route('admin.client.estab',$guard_replacement_request->client_id)}}">
+                                                {{$guard_replacement_request->client_fname}},{{$guard_replacement_request->client_mname}},{{$guard_replacement_request->client_lname}}
+                                              </a>
+                                        </td>
+                                        <td>
+                                            {{$guard_replacement_request->dateRequested}}
+                                        </td>
+                                        <td>
+                                            <a href="/GuardRepl-DeployStatus-{{$guard_replacement_request->requestCode}}">{{$guard_replacement_request->status}}</a>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info guardRepView btn-block" value="{{$guard_replacement_request->requestCode}}">View</button>
+                                            
+                                        </td>
+                                    </tr>
+                                  @endif
                                 @endforeach
                           </tbody>
                           </table>
