@@ -291,6 +291,19 @@ class ContractController extends Controller
       $day = explode('-',$date)[2];
       $month = '';
       $year = explode('-',$date)[0];
+      $client = DB::table('Contracts')
+                        ->where('Contracts.id','=',$contractID)
+                        ->join('client_registrations','client_registrations.contract_id','=','Contracts.id')
+                        ->join('clients','clients.id','=','client_registrations.client_id')
+                        ->get();
+      $establishment = DB::table('contracts')
+                        ->where('Contracts.id','=',$contractID)
+                        ->join('establishments','contracts.strEstablishmentID','=','establishments.id')
+                        ->join('areas','areas.id','=','establishments.areas_id')
+                        ->join('natures','natures.id','=','establishments.natures_id')
+                        ->join('provinces','provinces.id','=','areas.provinces_id')
+                        ->select('establishments.name','establishments.pic_fname','establishments.pic_mname','establishments.pic_lname','establishments.address','areas.name as area','provinces.name as province','natures.name as nature')
+                        ->get();
       switch (explode('-',$date)[1]) {
         case '1':
           $month = 'January';
@@ -307,7 +320,9 @@ class ContractController extends Controller
                       'contract'=>$contract,
                       'day'=>$day,
                       'month'=>$month,
-                      'year'=>$year
+                      'year'=>$year,
+                      'client'=>$client[0],
+                      'establishment'=>$establishment[0]
                     ]);
       return $contractPDF->stream('Contract.pdf');
     }
