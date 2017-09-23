@@ -204,7 +204,7 @@ class GunDeliveryController extends Controller
                // GunDeliveryDetails::create(['strGunDeliveryDetailsID'=>$strGunDelivDetailsID,'strGunDeliveryID'=>$gunDeliveryID,'strGunID'=>$gunIDs[$ctr],'qtyOrdered'=>$qtyOrdered[0]->qtyOrdered,'quantity'=>$qtyToBeDel[$ctr]]);
                 
             }
-            GunRequest::findOrFail($request->gunReqstID)->update(['status'=>'ONDELIVERY']);
+            GunRequest::findOrFail($request->gunReqstID)->update(['status'=>'DELIVERED']);
             if($request->deliveryID != ''){
                 GunDelivery::findOrFail($request->deliveryID)->update(['status'=>'REDELIVERED']);
             }
