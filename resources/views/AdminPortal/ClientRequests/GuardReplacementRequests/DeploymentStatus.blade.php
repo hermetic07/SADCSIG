@@ -33,7 +33,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">Client's approval</div>
 
-<form method="GET" action="{{ url('/AddGuard-ChangeGuards') }}">
+<form method="GET" action="{{ url('/Replace-ChangeGuards') }}">
   <div class="panel-wrapper p-b-10 collapse in">
     <div class="row  el-element-overlay">
 <div id="client" class="owl-carousel owl-theme ">
@@ -133,7 +133,7 @@
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">Security guard's approval</div>
-<form method="GET" action="{{ url('/AddGuard-ChangeGuards') }}">
+<form method="GET" action="{{ url('/Replace-ChangeGuards') }}">
 <div class="panel-wrapper p-b-10 collapse in">
     <div class="row  el-element-overlay">
 <div id="secus" class="owl-carousel owl-theme ">
@@ -334,7 +334,7 @@
             success:function(data){
               alert(data);
               console.log(data);
-              //location.reload();
+              location.reload();
             }
           });
 

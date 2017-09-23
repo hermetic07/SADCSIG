@@ -624,6 +624,8 @@ class ClientPortalHomeController extends Controller
         $estabGuards = DB::table('tblestabGuards')
                           ->where('tblestabGuards.strEstablishmentID','=',$contract->strEstablishmentID)
                           ->where('tblestabGuards.contractID','=',$requests->contractID)
+                          ->join('contracts','contracts.id','=','tblestabGuards.contractID')
+                          ->where('contracts.status','=','active')
                           ->join('employees','tblestabGuards.strGuardID','=','employees.id')
                           ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
                           ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','tblestabGuards.role','establishments.name as establishment','establishments.id as estabID','tblestabGuards.contractID as contractID')

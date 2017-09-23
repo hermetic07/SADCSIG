@@ -151,7 +151,7 @@ class DeploymentController extends Controller
                     return "Ear";
                 }
                 //Employee::findOrFail($request->employeeID)->update(['status'=>'deployed']);
-                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$request->contractID,'role'=>$request->role]);
+                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$request->contractID,'role'=>$request->role,'isReplaced'=>'0']);
 
                 $contract->guardDeployed = $guardDeployedctr;
                 $contract->save();

@@ -1,4 +1,4 @@
-@foreach($estabGuards as $estabGuard)
+@forelse($estabGuards as $estabGuard)
 	<tr>
       <td>
         <div class="el-card-item">
@@ -27,4 +27,8 @@
         <input class="selectGuard" type="checkbox" name="" value="" onchange="func('{{$estabGuard->id}}','{{$estabGuard->estabID}}','{{$estabGuard->contractID}}')">
       </td>
     </tr>
-@endforeach
+    @empty
+    <tr>
+      <td colspan="4">No Active Contracts Yet</td>
+    </tr>
+@endforelse
