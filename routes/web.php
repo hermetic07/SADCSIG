@@ -258,6 +258,7 @@ Route::post('/delete-addguardrequests','AdditionalGuardRequesController@remove')
 	Route::get('/Deploy-GuardReplacement-{guardReplacementID}','GuardReplacementController@deployReplacement');
 	Route::get('/GuardRepl-DeployStatus-{guardReplacementID}','GuardReplacementController@deploymentStatus');
 	Route::get('/GuardReplacement-deploy','GuardReplacementController@deploy');
+	Route::get('/Replace-ChangeGuards','GuardReplacementController@changeRejectedGuards');
 
 /**-------------------------     Guard-Replacement Start    ---------------------*/
 

@@ -30,7 +30,7 @@
   <div class="col-lg-12 ">
     <div class="white-box">
       <div class="row  el-element-overlay white-box">
-        <h4><center><strong>Security guards</strong></center></h4>
+        <h4><center><strong>Gun Deliveries</strong></center></h4>
         <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
           <thead>
             <tr>
