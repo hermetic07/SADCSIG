@@ -37,8 +37,9 @@
                                   <td>
                                     <button type="button" onclick="func_dont_replace('{{$estabGuard->id}}','{{$totalGuards}}')" class="btn btn-danger waves-effect waves-light" ><i class="glyphicon glyphicon-remove"></i> Don't Replace</button>
                                   </td>
+                                  <input type="hidden" class="secuIDs" value="{{$estabGuard->id}}">
                                 </tr>
-                                <input type="hidden" class="secuIDs" value="{{$estabGuard->id}}">
+                                
                                 @endif
                                 @endforeach
                                @endfor

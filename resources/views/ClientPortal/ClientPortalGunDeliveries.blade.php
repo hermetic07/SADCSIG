@@ -31,91 +31,234 @@
     <div class="white-box">
       <div class="row  el-element-overlay white-box">
         <h4><center><strong>Gun Deliveries</strong></center></h4>
-        <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-          <thead>
-            <tr>
-                <th>Order number</th>
-                <th>Date and time Delivered</th>
-                <th>Deliver by</th>               
-                <th>Status</th>
-                <th data-sort-ignore="true" width="340px">Actions</th>
-            </tr>
-          </thead>
-          <div class="form-inline padding-bottom-15">
-            <div class="row">
-              <div class="col-sm-6"></div>
-                <div class="col-sm-6 text-right m-b-20">
-                  <div class="form-group">
-                    <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
-                autocomplete="off">
-                  </div>
+        <ul class="nav nav-tabs nav-justified">
+          <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">ALL DELIVERIES</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">CLAIMED</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#panel3" role="tab">PARTIAL CLAIMED</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#panel3" role="tab">UNCLAIMED</a>
+          </li>
+      </ul>
+      <!-- Tab panels -->
+      <div class="tab-content card">
+          <!--Panel 1-->
+          <div class="tab-pane fade in show active" id="panel1" role="tabpanel">
+              <br>
+              <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                <thead>
+                  <tr>
+                      <th>Order number</th>
+                      <th>Date and time Delivered</th>
+                      <th>Deliver by</th>               
+                      <th>Status</th>
+                      <th data-sort-ignore="true" width="340px">Actions</th>
+                  </tr>
+                </thead>
+                <div class="form-inline padding-bottom-15">
+                  <div class="row">
+                    <div class="col-sm-6"></div>
+                      <div class="col-sm-6 text-right m-b-20">
+                        <div class="form-group">
+                          <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                      autocomplete="off">
+                        </div>
+                      </div>
+                    </div>
                 </div>
-              </div>
+                <tbody>
+                  @foreach($gunDeliveryDetails as $gunDeliveryDetail)
+                    @if($gunDeliveryDetail->deliveryStatus == "CLAIMED" || $gunDeliveryDetail->deliveryStatus == "PARTIALCLAIMED" || $gunDeliveryDetail->deliveryStatus == "REDELIVERED")
+                      <tr style="background-color: gray;">
+                          <td> 
+                            {{$gunDeliveryDetail->deliveryCode}}
+                          </td>
+                          <td>
+                          {{$gunDeliveryDetail->dateDelivered}}
+                          </td>
+                          <td>
+                          {{$gunDeliveryDetail->deliveryPerson}}
+                          </td>
+                          <td>
+                          {{$gunDeliveryDetail->deliveryStatus}}
+                          
+                          </td>
+                          
+                            <td>
+                              <button class="btn btn-info view" type="button" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View Delivery slip</button>
+                              <button type="button" class="btn btn-danger" onclick="func_delete('{{$gunDeliveryDetail->deliveryCode}}')"><i class="fa fa-times"></i></button>
+                             
+                            </td>
+                          </tr>
+                    @else
+                    <tr>
+                          <td> 
+                            {{$gunDeliveryDetail->deliveryCode}}
+                          </td>
+                          <td>
+                          {{$gunDeliveryDetail->dateDelivered}}
+                          </td>
+                          <td>
+                          {{$gunDeliveryDetail->deliveryPerson}}
+                          </td>
+                          <td>
+                          {{$gunDeliveryDetail->deliveryStatus}}
+                          
+                          </td>
+                          
+                            <td>
+                              <button class="btn btn-info view" type="button" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View Delivery slip</button>
+                              <button class="btn btn-success claimDel" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Claim Delivery</button>
+                             
+                            </td>
+                          </tr>
+                    @endif
+                    
+                  @endforeach
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan=5></td>
+                </tr>
+              </tfoot>
+            </table>
           </div>
-          <tbody>
-            @foreach($gunDeliveryDetails as $gunDeliveryDetail)
-              @if($gunDeliveryDetail->deliveryStatus == "CLAIMED" || $gunDeliveryDetail->deliveryStatus == "PARTIALCLAIMED" || $gunDeliveryDetail->deliveryStatus == "REDELIVERED")
-                <tr style="background-color: gray;">
-                    <td> 
-                      {{$gunDeliveryDetail->deliveryCode}}
-                    </td>
-                    <td>
-                    {{$gunDeliveryDetail->dateDelivered}}
-                    </td>
-                    <td>
-                    {{$gunDeliveryDetail->deliveryPerson}}
-                    </td>
-                    <td>
-                    {{$gunDeliveryDetail->deliveryStatus}}
-                    
-                    </td>
-                    
-                      <td>
-                        <button class="btn btn-info view" type="button" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View Delivery slip</button>
-                        <button type="button" class="btn btn-danger" onclick="func_delete('{{$gunDeliveryDetail->deliveryCode}}')"><i class="fa fa-times"></i></button>
-                       
-                      </td>
-                    </tr>
-              @else
-              <tr>
-                    <td> 
-                      {{$gunDeliveryDetail->deliveryCode}}
-                    </td>
-                    <td>
-                    {{$gunDeliveryDetail->dateDelivered}}
-                    </td>
-                    <td>
-                    {{$gunDeliveryDetail->deliveryPerson}}
-                    </td>
-                    <td>
-                    {{$gunDeliveryDetail->deliveryStatus}}
-                    
-                    </td>
-                    
-                      <td>
-                        <button class="btn btn-info view" type="button" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View Delivery slip</button>
-                        <button class="btn btn-success claimDel" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-truck"></i> Claim Delivery</button>
-                       
-                      </td>
-                    </tr>
-              @endif
+          <!--/.Panel 1-->
+          <!--Panel 2-->
+          <div class="tab-pane fade" id="panel2" role="tabpanel">
               
-            @endforeach
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan=5></td>
-          </tr>
-        </tfoot>
-      </table>
+              <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                  <thead>
+                    <tr>
+                        <th>Order number</th>
+                        <th>Date and time Delivered</th>
+                        <th>Deliver by</th>               
+                        <th>Status</th>
+                        <th data-sort-ignore="true" width="340px">Actions</th>
+                    </tr>
+                  </thead>
+                  <div class="form-inline padding-bottom-15">
+                    <div class="row">
+                      <div class="col-sm-6"></div>
+                        <div class="col-sm-6 text-right m-b-20">
+                          <div class="form-group">
+                            <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                        autocomplete="off">
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  <tbody>
+                    @foreach($gunDeliveryDetails as $gunDeliveryDetail)
+                      @if($gunDeliveryDetail->deliveryStatus == "CLAIMED")
+                        <tr >
+                            <td> 
+                              {{$gunDeliveryDetail->deliveryCode}}
+                            </td>
+                            <td>
+                            {{$gunDeliveryDetail->dateDelivered}}
+                            </td>
+                            <td>
+                            {{$gunDeliveryDetail->deliveryPerson}}
+                            </td>
+                            <td>
+                            {{$gunDeliveryDetail->deliveryStatus}}
+                            
+                            </td>
+                            
+                              <td>
+                                <button class="btn btn-info view" type="button" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View Delivery slip</button>
+                                <button type="button" class="btn btn-danger" onclick="func_delete('{{$gunDeliveryDetail->deliveryCode}}')"><i class="fa fa-times"></i></button>
+                               
+                              </td>
+                            </tr>
+                      
+                      @endif
+                      
+                    @endforeach
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan=5></td>
+                  </tr>
+                </tfoot>
+              </table>
+          </div>
+          <!--/.Panel 2-->
+          <!--Panel 3-->
+          <div class="tab-pane fade" id="panel3" role="tabpanel">
+              <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                  <thead>
+                    <tr>
+                        <th>Order number</th>
+                        <th>Date and time Delivered</th>
+                        <th>Deliver by</th>               
+                        <th>Status</th>
+                        <th data-sort-ignore="true" width="340px">Actions</th>
+                    </tr>
+                  </thead>
+                  <div class="form-inline padding-bottom-15">
+                    <div class="row">
+                      <div class="col-sm-6"></div>
+                        <div class="col-sm-6 text-right m-b-20">
+                          <div class="form-group">
+                            <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                        autocomplete="off">
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  <tbody>
+                    @foreach($gunDeliveryDetails as $gunDeliveryDetail)
+                      @if($gunDeliveryDetail->deliveryStatus == "PARTIALCLAIMED")
+                        <tr >
+                            <td> 
+                              {{$gunDeliveryDetail->deliveryCode}}
+                            </td>
+                            <td>
+                            {{$gunDeliveryDetail->dateDelivered}}
+                            </td>
+                            <td>
+                            {{$gunDeliveryDetail->deliveryPerson}}
+                            </td>
+                            <td>
+                            {{$gunDeliveryDetail->deliveryStatus}}
+                            
+                            </td>
+                            
+                              <td>
+                                <button class="btn btn-info view" type="button" value="{{$gunDeliveryDetail->deliveryCode}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View Delivery slip</button>
+                                <button type="button" class="btn btn-danger" onclick="func_delete('{{$gunDeliveryDetail->deliveryCode}}')"><i class="fa fa-times"></i></button>
+                               
+                              </td>
+                            </tr>
+                      
+                      @endif
+                      
+                    @endforeach
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan=5></td>
+                  </tr>
+                </tfoot>
+              </table>
+          </div>
+          <!--/.Panel 3-->
+      </div>
+        
 
-            <div class="text-right">
-              <ul class="pagination">
-              </ul>
-            </div>
+      <div class="text-right">
+        <ul class="pagination">
+        </ul>
+      </div>
+      </div>
     </div>
-    </div>
-    
   </div>
 </div>
 

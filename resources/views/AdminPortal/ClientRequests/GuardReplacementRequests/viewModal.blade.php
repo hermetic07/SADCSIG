@@ -68,7 +68,7 @@
        </div> 
       <br>
       <div class="modal-footer">
-        @if($guardReplacementDetails->status == "done")
+        @if($guardReplacementDetails->status == "done" || $guardReplacementDetails->read == '1')
           <button disabled type="button" class="btn btn-info" onclick="location.href='Deploy-GuardReplacement-{{$guardReplacementDetails->requestCode}}'">Replace</button>
         @else
           <button type="button" class="btn btn-info" onclick="location.href='Deploy-GuardReplacement-{{$guardReplacementDetails->requestCode}}'">Replace</button>

@@ -62,7 +62,8 @@ class GuardReplacementController extends Controller
                         					'clients.first_name as c_fname',
                         					'clients.middle_name as c_mname',
                         					'employees.image',
-                        					'replacement_requests_details.reasons')
+                        					'replacement_requests_details.reasons',
+                                            'guard_replacement_requests.read')
     								->get();
     		return view('AdminPortal\ClientRequests\GuardReplacementRequests.viewModal')
     				->with('guardReplacementDetails',$guardReplacementDetails[0])
@@ -75,6 +76,9 @@ class GuardReplacementController extends Controller
         $guardReplacementRequests = DB::table('guard_replacement_requests')
                                     ->where('guard_replacement_requests.requestID','=',$guardReplacementID)
                                     ->get();
+        $guardReplcReqst = GuardReplacement::findOrFail($guardReplacementID);
+        $guardReplcReqst['read'] = '1';
+        $guardReplcReqst->save();
         $contract = Contracts::findOrFail($guardReplacementRequests[0]->contractID);
         $employees = Employees::all();
         $roles = Role::all();

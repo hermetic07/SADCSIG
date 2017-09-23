@@ -553,7 +553,7 @@
         if(guardCount == ctr){
           $('#replaceBtn').attr("disabled", "disabled"); 
         }
-        $('#dnt'+id).hide();
+        $('#dnt'+id).remove();
       }
       
       function getGuns(id){
