@@ -626,6 +626,7 @@ class ClientPortalHomeController extends Controller
                           ->where('tblestabGuards.contractID','=',$requests->contractID)
                           ->join('contracts','contracts.id','=','tblestabGuards.contractID')
                           ->where('contracts.status','=','active')
+                          ->where('tblestabGuards.isReplaced','=','0')
                           ->join('employees','tblestabGuards.strGuardID','=','employees.id')
                           ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
                           ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','tblestabGuards.role','establishments.name as establishment','establishments.id as estabID','tblestabGuards.contractID as contractID')
