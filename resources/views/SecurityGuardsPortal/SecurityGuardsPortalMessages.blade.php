@@ -151,7 +151,7 @@
                   <td>{{$inbox->subject}}</td>
                   <td>   &nbsp;
                     @if($inbox->subject == "REPLACEMENT")
-                      <button type="button" class="btn btn-info btn-circle" onclick="func_open_RPLCmsg('{{$inbox->contractID}}','{{$inbox->establishment_id}}','{{$inbox->guard_id}}')" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                      <button type="button"  class="btn btn-info btn-circle" onclick="func_open_RPLCmsg('{{$inbox->contractID}}','{{$inbox->establishment_id}}','{{$inbox->guard_id}}')" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
                     <button class="btn btn-danger" onclick="func_delete_messege('{{$inbox->messageID}}')"><i class="fa fa-times"></i></button>
                     @else
                       <button type="button" class="btn btn-info btn-circle" onclick="func_open_msg('{{$inbox->contractID}}','{{$inbox->establishment_id}}','{{$inbox->guard_id}}')" data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>

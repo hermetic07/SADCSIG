@@ -10,7 +10,14 @@
         </div>
 
         <div class="row">
-            <p>Pogi ni Earl . hahahaha</p>
+            <p>
+                @forelse($reasons as $reason)
+                    <h3>{{$reason}}</h3>
+                    @empty
+                        <h3>No Reasons Provided. </h3>
+                @endforelse
+
+            </p>
         </div>
     </div>     
         
