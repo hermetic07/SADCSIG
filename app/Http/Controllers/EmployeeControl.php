@@ -285,8 +285,17 @@ class EmployeeControl extends Controller
                           'areas.name as area',
                           'provinces.name as province','natures.name as nature')
                         ->get()[0];
+        $replacement_request = DB::table('guard_replacement_requests')
+                                ->where('guard_replacement_requests.contractID','=',$request->contractID)
+                                
+                                ->join('replacement_requests_details','replacement_requests_details.replacement_requests_id','=','guard_replacement_requests.requestID')
+                                ->where('replacement_requests_details.employees_id','=',$request->guard_id)
+                                ->select('replacement_requests_details.reasons')
+                                ->get();
+                              //  return count($replacement_request);
         return view('SecurityGuardsPortal.replacement_inbox_modal')
-                ->with('tblestabguards',$tblestabguards);
+                ->with('tblestabguards',$tblestabguards)
+                ->with('reasons',$replacement_request[0]);
       }
     }
     public function deleteMessage(Request $request){
