@@ -647,7 +647,7 @@ class ClientPortalHomeController extends Controller
         $guardReplacement['contractID'] = $requests->contractID;
         $guardReplacement['status'] = 'active';
         $guardReplacement['contractID'] = $requests->contractID;
-        $guardReplacement['read'] = '1';
+        $guardReplacement['read'] = '0';
         $guardReplacement['no_guards'] = count($secuIDs);
         $guardReplacement['guards_deployed'] = '0';
         $guardReplacement['created_at'] = Carbon::now();
