@@ -42,6 +42,7 @@ use App\GuardReplacement;
 use App\GuardReplacementDetails;
 use Carbon\Carbon;
 use App\ClientSentRequests;
+use Charts;
 
 class ClientPortalHomeController extends Controller
 {
@@ -681,9 +682,16 @@ class ClientPortalHomeController extends Controller
       $clientSentRequests = DB::table('client_sent_requests')
                               ->where('client_sent_requests.clientID','=',$clientID)
                               ->get();
+      $chart = Charts::create('pie', 'highcharts')
+    ->title('My nice chart')
+    ->labels(['First', 'Second', 'Third'])
+    ->values([5,10,20])
+    ->dimensions(1000,500)
+    ->responsive(false);
       //return $clientSentRequests->toArray();
       return view('ClientPortal.sentRequests')
               ->with('client',$client)
+              ->with('chart',$chart)
               ->with('clientSentRequests',$clientSentRequests);
     }
 }

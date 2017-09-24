@@ -26,12 +26,16 @@
 
 @section('content')
 
-	<div class="row">
-        <div class="col-lg-12 ">
-
+<div class="row">
+  <div class="col-lg-12 ">
     <div class="white-box">
-             <div class="row  el-element-overlay">
-  <h4><center><strong>Sent Requests to Agency</strong></center></h4>
+     <div class="row  el-element-overlay">
+        <h4><center><strong>Sent Requests to Agency</strong></center></h4>
+        <div class="app">
+            <center>
+                {!! $chart->html() !!}
+            </center>
+        </div>
       <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
         <thead>
           <tr>
@@ -96,4 +100,6 @@
 
      </div>
        </div>
+       {!! Charts::scripts() !!}
+        {!! $chart->script() !!}
 @endsection
