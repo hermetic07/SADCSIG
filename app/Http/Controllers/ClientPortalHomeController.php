@@ -676,10 +676,15 @@ class ClientPortalHomeController extends Controller
 
       }
     }
-    public function sentRequests($clientID){
-      $clientSentRequests = DB::table('ClientSentRequests')
-                              ->where();
+    public function sentRequest($clientID){
+      $client = Clients::findOrFail($clientID);
+      $clientSentRequests = DB::table('client_sent_requests')
+                              ->where('client_sent_requests.clientID','=',$clientID)
                               ->get();
+      //return $clientSentRequests->toArray();
+      return view('ClientPortal.sentRequests')
+              ->with('client',$client)
+              ->with('clientSentRequests',$clientSentRequests);
     }
 }
 // for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){

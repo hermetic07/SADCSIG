@@ -1,20 +1,31 @@
 @extends('ClientPortal.master3')
+
 @section('Title') Sent Requests @endsection
-
-
-@section('mtitle') Sent Requests  @endsection
-
-@section('mtitle2')
-
-                         <li class="active"><a href="{{url('/Request-sent')}}">  Sent Requests  </a></li>  @endsection
-
-@section('Dep')<a href="javascript:void(0);" class="waves-effect"> @endsection
-  @section('Cli')<a href="javascript:void(0);" class="waves-effect"> @endsection
-    @section('Sec')<a href="javascript:void(0);" class="waves-effect"> @endsection
-      @section('Del')<a href="javascript:void(0);" class="waves-effect"> @endsection
-
+@section('clientName')
+   {{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}
+@endsection
+@section('link_rqst')
+  href="/Request-{{$client->id}}"
+@endsection
+@section('link_guardsDTR')
+  href="/ClientPortalGuardsDTR-{{$client->id}}"
+@endsection
+@section('link_estab')
+   href="/ClientPortalEstablishments-{{$client->id}}"
+@endsection
+@section('link_home')
+  href="/ClientPortalHome-{{$client->id}}"
+@endsection
+@section('link_messages')
+  href="/ClientPortalMessages-{{$client->id}}"
+@endsection
+@section('mtitle') Sent Requests @endsection
+@section('adminPic')
+  src = "uploads/{{$client->image}}"
+@endsection
 
 @section('content')
+
 	<div class="row">
         <div class="col-lg-12 ">
 
@@ -24,11 +35,12 @@
       <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
         <thead>
           <tr>
-          <th data-sort-initial="true" data-toggle="true" data-sort-ignore="true"  width="100px"></th>
+          
             <th>Request ID</th>
-    <th data-hide="phone, tablet" >Subject</th>
-      <th >Status</th>
-            <th data-sort-ignore="true" width="260px">Actions</th>
+            <th data-hide="phone, tablet" >Subject</th>
+            <th >Date Sent</th>
+            <th >Status</th>
+            <th data-sort-ignore="true" width="330px">Actions</th>
           </tr>
         </thead>
           <div class="form-inline padding-bottom-15">
@@ -45,7 +57,28 @@
           </div>
           
         <tbody>
-          
+          @forelse($clientSentRequests as $clientSentRequest)
+            <tr>
+              <td>
+                {{$clientSentRequest->requestID}}
+              </td>
+              <td>
+                {{$clientSentRequest->requestType}}
+              </td>
+              <td>
+                {{$clientSentRequest->changeTime}}
+              </td>
+              <td>
+                {{$clientSentRequest->trans_status}}
+              </td>
+              <td>
+                <button type="button" class="btn btn-info"><i class="glyphicon glyphicon-th-list"></i> View Details</button>
+                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-ban-circle"></i> Cancel Request</button>
+              </td>
+            </tr>
+            @empty
+              <tr>No transactions yet</tr>
+          @endforelse
         </tbody>
         <tfoot>
           <tr>
