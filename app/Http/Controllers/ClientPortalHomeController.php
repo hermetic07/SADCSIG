@@ -41,6 +41,7 @@ use App\Agencyfee;
 use App\GuardReplacement;
 use App\GuardReplacementDetails;
 use Carbon\Carbon;
+use App\ClientSentRequests;
 
 class ClientPortalHomeController extends Controller
 {
@@ -674,6 +675,11 @@ class ClientPortalHomeController extends Controller
         
 
       }
+    }
+    public function sentRequests($clientID){
+      $clientSentRequests = DB::table('ClientSentRequests')
+                              ->where();
+                              ->get();
     }
 }
 // for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){

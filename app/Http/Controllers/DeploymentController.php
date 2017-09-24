@@ -174,4 +174,69 @@ class DeploymentController extends Controller
                 
         }
     }
+    public function history(){
+        $deployments_hist = DB::table('deployments')
+                        ->join('deployment_details','deployment_details.deployments_id','=','deployments.id')
+                        ->join('employees','employees.id','=','deployment_details.employees_id')
+                        
+                        ->join('establishments','establishments.id','=','deployments.establishment_id')
+                        ->join('clients','clients.id','=','deployments.clients_id')
+                        ->join('areas','areas.id','=','establishments.areas_id')
+                        ->join('provinces','provinces.id','=','areas.provinces_id')
+                        
+                        ->select('deployments.created_at as dateDeployed',
+                                 'deployments.id as deploymentID',
+                                 'employees.id as employeeID',
+                                 'establishments.name as establishment',
+                                 'establishments.address as address',
+                                 'establishments.id as estabID',
+                                 'areas.name as area',
+                                'provinces.name as province',
+                                'clients.first_name as c_fname',
+                                'clients.middle_name as c_mname',
+                                'clients.last_name as c_lname',
+                                'clients.id as c_id')
+                        ->orderBy('deployments.created_at','desc')
+                        ->get();
+                        //return $deployments_hist->toArray();
+                        return view('AdminPortal.Deployments.Deployment_history')
+                                ->with('deployments_hist',$deployments_hist);
+    }
+    public function historyView(Request $request){
+        if($request->ajax()){
+            $deployments_hist = DB::table('deployments')
+                        ->where('deployments.id','=',$request->deploymentID)
+                        ->join('deployment_details','deployment_details.deployments_id','=','deployments.id')
+                        ->join('employees','employees.id','=','deployment_details.employees_id')
+                        
+                        ->join('establishments','establishments.id','=','deployments.establishment_id')
+                        ->join('clients','clients.id','=','deployments.clients_id')
+                        ->join('areas','areas.id','=','establishments.areas_id')
+                        ->join('provinces','provinces.id','=','areas.provinces_id')
+                        
+                        ->select('deployments.created_at as dateDeployed',
+                                 'deployments.id as deploymentID',
+                                 'deployments.num_guards as numGuards',
+                                 'employees.id as employeeID',
+                                 'employees.image as emp_image',
+                                 'employees.first_name as emp_fname',
+                                 'employees.middle_name as emp_mname',
+                                 'employees.last_name as emp_lname',
+                                 'establishments.name as establishment',
+                                 'establishments.address as address',
+                                 'establishments.id as estabID',
+                                 'areas.name as area',
+                                'provinces.name as province',
+                                'clients.first_name as c_fname',
+                                'clients.middle_name as c_mname',
+                                'clients.last_name as c_lname',
+                                'clients.id as c_id')
+                        ->orderBy('deployments.created_at','desc')
+                        ->get();
+                        //return $deployments_hist->toArray();
+                        return view('AdminPortal.Deployments.depl_history_viewModal')
+                                ->with('deployments_hist',$deployments_hist[0])
+                                ->with('guards',$deployments_hist);
+        }
+    }
 }

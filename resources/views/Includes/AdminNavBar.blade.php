@@ -63,6 +63,9 @@
               </li>
                 <li> <a href="{{url('/Swap')}}" class="waves-effect">Swap</a>
               </li>
+              </li>
+                <li> <a href="{{url('/DeploymentHistory')}}" class="waves-effect">History</a>
+              </li>
                 </ul>
               </li>
 
