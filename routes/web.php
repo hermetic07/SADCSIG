@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/Request-sent','LastControl@viewSentReq');
+Route::get('/Sent-requests','LastControl@viewSentReq');
 Route::get('/', function () {
 	return view('welcome');
 });
@@ -308,6 +308,8 @@ Route::get('/ClientEstablishment-{contractID}','AdminController@activeClientDeta
 Route::get('/ClientsDetails-{id}+{estabID}','AdminController@estabDetails')
 							->name('admin.estab.details');
 
+Route::get('/DeploymentHistory','DeploymentController@history');
+Route::get('/DeploymentHistory-view','DeploymentController@historyView');
 
 Route::post('GunDelivery-remove', 'GunDeliveryController@remove');
 Route::post('GunRequest-remove', 'GunRequestController@remove');

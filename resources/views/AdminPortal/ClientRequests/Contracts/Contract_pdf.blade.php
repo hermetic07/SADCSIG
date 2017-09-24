@@ -64,6 +64,9 @@
 				</p>
 				<p>a.  College level of good moral characters and reputation, courteous, alert and without any criminal or police records. </p>
 				<p>b.  Physically and mentally fit and npt less than 22 but not more than 45 years of age and at least five feet seven inches in height </p>
+				<p>c.  Dully licensed and properly screened and cleared by the PNP, NBI, Police and other government offices issuing clearances for employment. </p>
+				<p>d.  In proper uniform and armed with riffle, shot-gun, revolver, with sufficient ammunitions at all times during his hour of duty.  </p>
+				<p>d.  In possesion of such other qualifications as required by the Republic Act No. 5487, as amended. </p>
 				<br>
 			</div>
 		</div>

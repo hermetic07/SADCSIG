@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class ClientSentRequests extends Model
 {
     protected $fillable =  [
-    	'id','requestID'
+    	'id',
+		'changeType',
+		'changeTime',
+		'requestType',
+		'trans_status',
+		'requestID'
     ];
 }
