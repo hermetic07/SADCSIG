@@ -24,10 +24,9 @@
 @endsection
 
 @section('content')
-<form class="form-horizontal" method="GET" action="{{ url('/Request-sent') }}">
   
-  <button type="submit" class="btn btn-info pull-right">View Sent Request</button>
-</form>
+  <button type="button" class="btn btn-info pull-right" onclick="location.href='/Sent-requests-{{$client->id}}'">View Sent Request</button>
+
    <!-- Page Content -->
   <div id="page-wrapper">
     <div class="container-fluid">

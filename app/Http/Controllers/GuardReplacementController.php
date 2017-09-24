@@ -157,7 +157,7 @@ class GuardReplacementController extends Controller
             $deployment['clients_id'] = $guardReplacementRequests->clients_id;
             $deployment['establishment_id'] = $request->estabID;
             $deployment['num_guards'] = $request->num_guards;
-            $deployment->save();
+           // $deployment->save();
 
             $dep = Deployments::latest('created_at')->get();
              $deploymentDetails = new DeploymentDetails();
@@ -167,12 +167,12 @@ class GuardReplacementController extends Controller
                 $deploymentDetails['shift_to'] = $guardDetails[0]->shiftTo;
                 $deploymentDetails['role'] = $request->role;
                 $deploymentDetails['status'] = "active";
-                if($deploymentDetails->save()){
-                     //return response("sucess");
-                    $guardDeployedctr++;
-                }else{
-                    return response("OOOPS Something went wrong!");
-                }
+                // if($deploymentDetails->save()){
+                //      //return response("sucess");
+                //     $guardDeployedctr++;
+                // }else{
+                //     return response("OOOPS Something went wrong!");
+                // }
             
             //return response($dep);
                 $ac = AcceptedGuards::where('guard_id',$request->employeeID)->update(['guard_reponse'=>'deployed']);
@@ -185,7 +185,7 @@ class GuardReplacementController extends Controller
                     return "Ear";
                 }
                 //Employee::findOrFail($request->employeeID)->update(['status'=>'deployed']);
-                EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$guardReplacementRequests->contractID,'role'=>$request->role,'isReplaced'=>'0']);
+                // EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$guardReplacementRequests->contractID,'role'=>$request->role,'isReplaced'=>'0']);
 
                 $guardReplacementRequests->guards_deployed = $guardDeployedctr;
                 $guardReplacementRequests->save();
