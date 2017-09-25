@@ -82,7 +82,7 @@
                                From: {{$guard->shiftFrom}}  To: {{$guard->shiftTo}} 
                               </td>
                               <td>
-                                <a href="/ClientsDetails-{{$client->id}}+{{$estabID}}" target="_blank">{{$guard->establishment}}</a>
+                                <a href="/ClientPortalEstablishmentsDetails-{{$client->id}}+{{$guard->estabID}}" target="_blank">{{$guard->establishment}}</a>
                               </td>
                               <td>
                                 {{$guard->role}}

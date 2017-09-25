@@ -43,6 +43,7 @@ use App\GuardReplacementDetails;
 use Carbon\Carbon;
 use App\ClientSentRequests;
 
+
 class ClientPortalHomeController extends Controller
 {
     public function clientImage(Request $request){
@@ -681,6 +682,7 @@ class ClientPortalHomeController extends Controller
       $clientSentRequests = DB::table('client_sent_requests')
                               ->where('client_sent_requests.clientID','=',$clientID)
                               ->get();
+      
       //return $clientSentRequests->toArray();
       return view('ClientPortal.sentRequests')
               ->with('client',$client)

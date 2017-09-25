@@ -55,10 +55,7 @@ Route::get('/Ammunition', function () {
 });
 
 
-Route::get('/Reports', function () {
-	return view('AdminPortal/Reports');
-});
-
+Route::get('/Reports','ReportsController@index');
 Route::get('/IncidentReports', function () {
 	return view('AdminPortal/IncidentReports');
 });
