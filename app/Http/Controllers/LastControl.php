@@ -101,9 +101,9 @@ class LastControl extends Controller
      
       $explod = explode('/',$request->meetSched);
       $meetDt = "$explod[2]-$explod[0]-$explod[1]";
-
+      $service_request_id = 'SERVREQ-'.ServiceRequest::get()->count();
       
-      ServiceRequest::create(['client_id'=>$id,'services_id'=>$request->service,'desc_of_service'=>$request->servDesc,'date_start'=>Carbon::now(),'meetingPlace'=>$request->meeting,'meetingSchedule'=>$meetDt,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+      ServiceRequest::create(['id'=>$service_request_id,'client_id'=>$id,'services_id'=>$request->service,'desc_of_service'=>$request->servDesc,'date_start'=>Carbon::now(),'meetingPlace'=>$request->meeting,'meetingSchedule'=>$meetDt,'status'=>'active','read'=>'1','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
       return redirect('Request-'.$id);
       //return $request->toArray();
@@ -147,6 +147,7 @@ class LastControl extends Controller
       $shifts = explode(',',$request->shifts);
       $shift_start = $shifts[0];
       $shif_end =  $shifts[1];
+      $add_guard_reques_id = 'ADDGUARDREQ-'.AddGuardRequests::get()->count();
        AddGuardRequests::create(['client_id'=>$id,'establishments_id'=>$request->establishment_id,'no_guards'=>$request->no_guards,'shift_start'=>$shift_start,'shift_end'=>$shif_end,'date_needed'=>$request->date_needed,'status'=>'active','created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'contract'=>$request->contracts]);
        return redirect('Request-'.$id);
     }

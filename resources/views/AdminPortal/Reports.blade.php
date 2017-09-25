@@ -69,9 +69,39 @@
               </nav>
               <div class="content-wrap">
                 <section id="section-shape-1"><p>It contains the information about the guards dispose in the respective client.</p>
-
-
-      </section>
+                  <div class="app">
+                      <center>
+                          {!! $chart->html() !!}
+                      </center>
+                  </div>
+                                <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                      <thead>
+                        <tr>
+                        
+                          <th>Guard Name</th>
+                          <th data-hide="phone, tablet" >Client</th>
+                          <th >Establishment</th>
+                          <th >Address</th>
+                          <th data-sort-ignore="true" width="330px">Date Deployed</th>
+                        </tr>
+                      </thead>
+                        <div class="form-inline padding-bottom-15">
+                          <div class="row">
+                    <div class="col-sm-6">
+                    </div>
+                              <div class="col-sm-6 text-right m-b-20">
+                              <div class="form-group">
+                                  <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                        autocomplete="off">
+                     </div>
+                               </div>
+                           </div>
+                        </div>
+                        
+                      <tbody>
+                       </tbody>
+                     </table>   
+                </section>
                 <section id="section-shape-2"><p>History of Client Payments.</p></section>
                 <section id="section-shape-3"><p>it contains the information regarding the number of newly employed</p></section>
                 <section id="section-shape-4"><p>Contains the attendance of security guards at their respective posts.</p></section>
@@ -88,7 +118,8 @@
 
 
       </div>
-
+      {!! Charts::scripts() !!}
+        {!! $chart->script() !!}
   @endsection
 
   @section('script')

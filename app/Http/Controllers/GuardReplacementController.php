@@ -167,12 +167,12 @@ class GuardReplacementController extends Controller
                 $deploymentDetails['shift_to'] = $guardDetails[0]->shiftTo;
                 $deploymentDetails['role'] = $request->role;
                 $deploymentDetails['status'] = "active";
-                // if($deploymentDetails->save()){
-                //      //return response("sucess");
-                //     $guardDeployedctr++;
-                // }else{
-                //     return response("OOOPS Something went wrong!");
-                // }
+                if($deploymentDetails->save()){
+                     //return response("sucess");
+                    $guardDeployedctr++;
+                }else{
+                    return response("OOOPS Something went wrong!");
+                }
             
             //return response($dep);
                 $ac = AcceptedGuards::where('guard_id',$request->employeeID)->update(['guard_reponse'=>'deployed']);
@@ -185,7 +185,7 @@ class GuardReplacementController extends Controller
                     return "Ear";
                 }
                 //Employee::findOrFail($request->employeeID)->update(['status'=>'deployed']);
-                // EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$guardReplacementRequests->contractID,'role'=>$request->role,'isReplaced'=>'0']);
+                 EstabGuards::create(['strEstablishmentID'=>$request->estabID,'strGuardID'=>$request->employeeID,'dtmDateDeployed'=>Carbon::now(),'status'=>'active','shiftFrom'=>$request->shiftFrom,'shiftTo'=>$request->shiftTo,'contractID'=>$guardReplacementRequests->contractID,'role'=>$request->role,'isReplaced'=>'0']);
 
                 $guardReplacementRequests->guards_deployed = $guardDeployedctr;
                 $guardReplacementRequests->save();
@@ -226,10 +226,10 @@ class GuardReplacementController extends Controller
                 $guardInbox['status'] = 'active';
                 $guardInbox['created_at'] = Carbon::now();
                 $guardInbox['updated_at'] = Carbon::now();
-
-                if($guardInbox->save()){
+                $guardInbox->save();
+               
                     return response($guardDeployedctr);
-                }
+                
         }
     }
 

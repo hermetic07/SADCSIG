@@ -31,11 +31,7 @@
     <div class="white-box">
      <div class="row  el-element-overlay">
         <h4><center><strong>Sent Requests to Agency</strong></center></h4>
-        <div class="app">
-            <center>
-                {!! $chart->html() !!}
-            </center>
-        </div>
+        
       <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
         <thead>
           <tr>
@@ -77,7 +73,7 @@
               </td>
               <td>
                 <button type="button" class="btn btn-info"><i class="glyphicon glyphicon-th-list"></i> View Details</button>
-                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-ban-circle"></i> Cancel Request</button>
+                <button type="button" class="btn btn-danger" onclick="func_show_cancel_swal('{{$clientSentRequest->requestID}}')"><i class="glyphicon glyphicon-ban-circle"></i> Cancel Request</button>
               </td>
             </tr>
             @empty
@@ -100,6 +96,46 @@
 
      </div>
        </div>
-       {!! Charts::scripts() !!}
-        {!! $chart->script() !!}
+       
+@endsection
+@section('script')
+  <script type="text/javascript">
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    function func_show_cancel_swal(reqestID){
+      swal({
+        title: "Awww. We do understand",
+        text: "What will be the problem?",
+        type: "input",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        animation: "slide-from-top",
+        inputPlaceholder: "Write something"
+      },
+      function(inputValue){
+        if (inputValue === false) return false;
+
+        if (inputValue === "") {
+          swal.showInputError("You need to write something!");
+          return false
+        }
+        $.ajax({
+          url : '',
+          type : '',
+          data : {},
+          success: function(data){
+
+
+        
+            swal("Thank you!", "Your reason: " + inputValue, "success");
+            location.reload();
+          }
+        });
+
+      });
+    }
+  </script>
 @endsection
