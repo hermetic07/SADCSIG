@@ -148,7 +148,7 @@ class LastControl extends Controller
       $shift_start = $shifts[0];
       $shif_end =  $shifts[1];
       $add_guard_reques_id = 'ADDGUARDREQ-'.AddGuardRequests::get()->count();
-       AddGuardRequests::create(['client_id'=>$id,'establishments_id'=>$request->establishment_id,'no_guards'=>$request->no_guards,'shift_start'=>$shift_start,'shift_end'=>$shif_end,'date_needed'=>$request->date_needed,'status'=>'active','created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'contract'=>$request->contracts]);
+       AddGuardRequests::create(['id'=>$add_guard_reques_id,'client_id'=>$id,'establishments_id'=>$request->establishment_id,'no_guards'=>$request->no_guards,'shift_start'=>$shift_start,'shift_end'=>$shif_end,'date_needed'=>$request->date_needed,'status'=>'active','created_at'=>Carbon::now(),'updated_at'=>Carbon::now(),'contract'=>$request->contracts]);
        return redirect('Request-'.$id);
     }
 

@@ -365,7 +365,7 @@ $(document).ready(function(){
                       <div class="modal-body">
                         <div class="row  el-element-overlay">
                           <center><h5 class="box-title fw-500">List of guards</h5></center> 
-                          <center><h5>Guards deployed: 2</h5></center> 
+                          
                           <br> 
                             <form id="deploy" data-toggle="validator" method="POST" action="{{ route('deployment.save') }}">
                             {!! csrf_field() !!}

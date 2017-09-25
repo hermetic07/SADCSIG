@@ -8,11 +8,16 @@
                   
                 </tr>
                 <tbody>
-                  
+                  @php
+                    $guardID = "";
+                  @endphp
                  @for($ctr = 0; $ctr < count($guards); $ctr++)
                    @foreach($estabGuards as $estabGuard)
-                      @if($estabGuard->id == $guards[$ctr])
-                                <tr id="dnt{{$estabGuard->id}}">
+                      @if($estabGuard->id == $guards[$ctr]) 
+                        @if($estabGuard->id == $guardID)
+                          @break
+                        @else
+                          <tr id="dnt{{$estabGuard->id}}">
                                   <td>
                                     <div class="el-card-item">
                                       <div class="el-card-avatar el-overlay-1">
@@ -39,8 +44,13 @@
                                   </td>
                                   <input type="hidden" class="secuIDs" value="{{$estabGuard->id}}">
                                 </tr>
+                        @endif
+                                
                                 
                                 @endif
+                                @php
+                                  $guardID = $estabGuard->id;
+                                @endphp
                                 @endforeach
                                @endfor
                                

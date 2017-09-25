@@ -21,7 +21,8 @@
                                <th  data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="100px" ></th>
                               <th>Name</th> 
                               <th>Reasons</th>    
-                              <th data-sort-ignore="true" width="200px">Actions</th>
+                              <th>Role</th>
+                              <th>Shifts</th>
                             </tr>
                           </thead>
                           <div class="form-inline padding-bottom-15">
@@ -36,10 +37,17 @@
                                    </div>
                                </div>
                             </div>
+                            @php
+                              $guardID = "";
+                            @endphp
                           <tbody>
                             @foreach($guards as $guard)
-                              <tr>
+                              @if($guard->empID == $guardID)
+                               
+                              @else
+                                <tr>
                                 <td>
+                                  
                                   <div class="el-card-item">
                                       <div class="el-card-avatar el-overlay-1">
                                         <a href="uploads/{{$guard->image}}"><img src="uploads/{{$guard->image}}" alt="user"  class="img-circle img-responsive"></a>
@@ -50,6 +58,7 @@
                                         </div>
                                       </div>
                                    </div>
+                                  
                                 </td>
                                 <td>
                                   {{$guard->first_name}},{{$guard->middle_name}},{{$guard->last_name}}
@@ -58,9 +67,17 @@
                                   {{$guard->reasons}}
                                 </td>
                                 <td>
-                                  
+                                  {{$guard->role}}
+                                </td>
+                                <td>
+                                  {{$guard->shiftFrom}} - {{$guard->shiftTo}}
                                 </td>
                               </tr>
+                              @endif
+                              
+                              @php
+                                $guardID = $guard->empID;
+                              @endphp
                             @endforeach
                           </tbody>
                           </table>  

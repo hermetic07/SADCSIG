@@ -681,6 +681,7 @@ class ClientPortalHomeController extends Controller
       $client = Clients::findOrFail($clientID);
       $clientSentRequests = DB::table('client_sent_requests')
                               ->where('client_sent_requests.clientID','=',$clientID)
+                              ->orderBy('client_sent_requests.changeTime','desc')
                               ->get();
       
       //return $clientSentRequests->toArray();
