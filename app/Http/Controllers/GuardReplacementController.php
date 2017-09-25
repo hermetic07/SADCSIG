@@ -44,6 +44,11 @@ class GuardReplacementController extends Controller
     								->join('clients','clients.id','=','guard_replacement_requests.clients_id')
     								->join('contracts','contracts.id','=','guard_replacement_requests.contractID')
     								->join('establishments','establishments.id','=','contracts.strEstablishmentID')
+                                    ->join('tblestabGuards',function($join){
+                                            $join->on('tblestabGuards.strEstablishmentID','=','establishments.id')
+                                                 ->on('tblestabGuards.contractID','=','guard_replacement_requests.contractID')
+                                                 ->on('tblestabGuards.strGuardID','=','replacement_requests_details.employees_id');
+                                        })
     								->join('areas','areas.id','=','establishments.areas_id')
                         			->join('provinces','provinces.id','=','areas.provinces_id')
                         			->orderBy('guard_replacement_requests.created_at','desc')
@@ -63,8 +68,12 @@ class GuardReplacementController extends Controller
                         					'clients.middle_name as c_mname',
                         					'employees.image',
                         					'replacement_requests_details.reasons',
-                                            'guard_replacement_requests.read')
+                                            'guard_replacement_requests.read',
+                                            'tblestabGuards.role',
+                                            'tblestabGuards.shiftFrom',
+                                            'tblestabGuards.shiftTo')
     								->get();
+              //  return $guardReplacementDetails->toArray();
     		return view('AdminPortal\ClientRequests\GuardReplacementRequests.viewModal')
     				->with('guardReplacementDetails',$guardReplacementDetails[0])
     				->with('guards',$guardReplacementDetails);
