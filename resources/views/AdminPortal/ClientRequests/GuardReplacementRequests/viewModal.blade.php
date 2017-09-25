@@ -5,6 +5,11 @@
         </div>
         <div class="modal-body" >
           <div class="row">
+            @if($guardReplacementDetails->status == "c_cancel")
+              <h2 style="background-color: firebrick; color:white">This request was canceled by the client.</h2>
+            @elseif($guardReplacementDetails->status == "a_cancel")
+              <h2>This request was canceled by the management</h2>
+            @endif
             <div class="form-group">
               <label>Request Code: {{$guardReplacementDetails->requestCode}}</label>
             </div>
@@ -85,7 +90,7 @@
        </div> 
       <br>
       <div class="modal-footer">
-        @if($guardReplacementDetails->status == "done" || $guardReplacementDetails->read == '1')
+        @if($guardReplacementDetails->status == "done" || $guardReplacementDetails->read == '1' || $guardReplacementDetails->status == "c_cancel" || $guardReplacementDetails->status == "a_cancel")
           <button disabled type="button" class="btn btn-info" onclick="location.href='Deploy-GuardReplacement-{{$guardReplacementDetails->requestCode}}'">Replace</button>
         @else
           <button type="button" class="btn btn-info" onclick="location.href='Deploy-GuardReplacement-{{$guardReplacementDetails->requestCode}}'">Replace</button>

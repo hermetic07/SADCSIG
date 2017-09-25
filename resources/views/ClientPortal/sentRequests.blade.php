@@ -38,7 +38,7 @@
           
             <th>Request ID</th>
             <th data-hide="phone, tablet" >Subject</th>
-            <th >Date Sent</th>
+            <th >Date Updated</th>
             <th >Status</th>
             <th data-sort-ignore="true" width="330px">Actions</th>
           </tr>
@@ -73,7 +73,7 @@
               </td>
               <td>
                 <button type="button" class="btn btn-info"><i class="glyphicon glyphicon-th-list"></i> View Details</button>
-                <button type="button" class="btn btn-danger" onclick="func_show_cancel_swal('{{$clientSentRequest->requestID}}')"><i class="glyphicon glyphicon-ban-circle"></i> Cancel Request</button>
+                <button type="button" class="btn btn-danger" onclick="func_show_cancel_swal('{{$clientSentRequest->requestID}}','{{$clientSentRequest->requestType}}')"><i class="glyphicon glyphicon-ban-circle"></i> Cancel Request</button>
               </td>
             </tr>
             @empty
@@ -105,37 +105,64 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-    function func_show_cancel_swal(reqestID){
-      swal({
-        title: "Awww. We do understand",
-        text: "What will be the problem?",
-        type: "input",
-        showCancelButton: true,
-        closeOnConfirm: false,
-        animation: "slide-from-top",
-        inputPlaceholder: "Write something"
-      },
-      function(inputValue){
-        if (inputValue === false) return false;
+    function func_show_cancel_swal(id,type){
+     // alert(y);
+      $.ajax({
+        url : '/cancel-Request',
+        type : 'GET',
+        data : {requestID:id,requestType:type},
+        success : function(data){
+          //alert(data);
+          if(data == 'done' || data == 'c_cancel' || data == 'a_cancel'){
+            swal({
+                title: 'Already canceled',
+                text: "This request was already canceld.",
+               
+                
+                confirmButtonColor: '#3085d6',
+                
+                confirmButtonText: 'Ok'
+              },function(){
+                
+              });
+          }else{
+            swal({
+              title: "Awww. We do understand",
+              text: "What will be the problem?",
+              type: "input",
+              showCancelButton: true,
+              closeOnConfirm: false,
+              animation: "slide-from-top",
+              inputPlaceholder: "Write something"
+            },
+            function(inputValue){
+              if (inputValue === false) return false;
 
-        if (inputValue === "") {
-          swal.showInputError("You need to write something!");
-          return false
-        }
-        $.ajax({
-          url : '',
-          type : '',
-          data : {},
-          success: function(data){
+              if (inputValue === "") {
+                swal.showInputError("You need to write something!");
+                return false
+              }
+              $.ajax({
+                url : '/cancel-Request',
+                type : 'GET',
+                data : {requestID:id,requestType:type},
+                success: function(data){
 
 
-        
-            swal("Thank you!", "Your reason: " + inputValue, "success");
-            location.reload();
+              
+                  swal("Thank you!", "Your reason: " + inputValue, "success");
+                  location.reload();
+                }
+              });
+
+            });
+              
           }
-        });
 
-      });
+        }
+          
+            //alert(id);
+      }); 
     }
   </script>
 @endsection
