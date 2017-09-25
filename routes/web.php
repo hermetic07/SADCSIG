@@ -11,6 +11,7 @@
 |
 */
 Route::get('/Sent-requests-{clientID}','ClientPortalHomeController@sentRequest');
+Route::get('/cancel-Request','ClientPortalHomeController@cancelRequest');
 Route::get('/', function () {
 	return view('welcome');
 });

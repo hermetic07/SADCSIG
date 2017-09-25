@@ -683,11 +683,36 @@ class ClientPortalHomeController extends Controller
                               ->where('client_sent_requests.clientID','=',$clientID)
                               ->orderBy('client_sent_requests.changeTime','desc')
                               ->get();
-      
+      // $clientSentRequests = DB::table('clients')
+      //                       ->where('clients.id','=',$clientID)
+      //                       ->join('service_requests','service_requests.client_id','=','clients.id')
+      //                       ->join('add_guard_requests','add_guard_requests.client_id','=','clients.id')
+      //                       ->join('tblGunRequests','tblGunRequests.strClientID','=','clients.id')
+      //                       ->join('guard_replacement_requests','guard_replacement_requests.clients_id','=','clients.id')
+      //                       ->get();
+
+      //return $clientSentRequests->toArray();
       //return $clientSentRequests->toArray();
       return view('ClientPortal.sentRequests')
               ->with('client',$client)
               ->with('clientSentRequests',$clientSentRequests);
+    }
+
+    public function cancelRequest(Request $request){
+      if($request->ajax()){
+        
+        if($request->requestType == 'GUARD REPLACEMENT'){
+          $guard_replacement_requests = GuardReplacement::findOrFail($request->requestID);
+          if($guard_replacement_requests->status != 'active'){
+            return response($guard_replacement_requests->status);
+          }else{
+            $guard_replacement_requests = GuardReplacement::findOrFail($request->requestID)
+                                        ->update(['status'=>'c_cancel']);
+          }
+          
+        }
+        
+      }
     }
 }
 // for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){

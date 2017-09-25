@@ -267,6 +267,7 @@
                           <tbody>
                                 @foreach($guard_replacement_requests as $guard_replacement_request)
                                   @if($guard_replacement_request->status == "done")
+
                                     <tr style="background-color: gray">
                                         <td>
                                             <a href="{{route('admin.client.estab',$guard_replacement_request->client_id)}}">
@@ -278,6 +279,25 @@
                                         </td>
                                         <td>
                                             <a href="/GuardRepl-DeployStatus-{{$guard_replacement_request->requestCode}}">{{$guard_replacement_request->status}}</a>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info guardRepView" value="{{$guard_replacement_request->requestCode}}">View</button>
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                  @elseif($guard_replacement_request->status == "c_cancel")
+                                    
+                                    <tr style="background-color: pink">
+                                        <td>
+                                            <a href="{{route('admin.client.estab',$guard_replacement_request->client_id)}}">
+                                                {{$guard_replacement_request->client_fname}},{{$guard_replacement_request->client_mname}},{{$guard_replacement_request->client_lname}}
+                                              </a>
+                                        </td>
+                                        <td>
+                                            {{$guard_replacement_request->dateRequested}}
+                                        </td>
+                                        <td>
+                                            CANCELED
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-info guardRepView" value="{{$guard_replacement_request->requestCode}}">View</button>
