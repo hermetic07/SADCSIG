@@ -23,7 +23,7 @@ class ReportsController extends Controller
     	$client_arry = [];
     	$ctr = 0;
     	$provinces = DB::table('provinces')
-    					->select('provinces.name')
+    					
     					->get();
     	foreach($provinces as $province){
     		$provinces_arry[$prov_ctr] = $province->name;

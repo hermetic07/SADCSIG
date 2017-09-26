@@ -55,7 +55,7 @@
                  </div>
              </div>
           </div>
-          
+       
         <tbody>
           @forelse($clientSentRequests as $clientSentRequest)
             <tr>
@@ -72,7 +72,7 @@
                 {{$clientSentRequest->trans_status}}
               </td>
               <td>
-                <button type="button" class="btn btn-info"><i class="glyphicon glyphicon-th-list"></i> View Details</button>
+                <button type="button" class="btn btn-info" onclick="func_view('{{$clientSentRequest->requestID}}','{{$clientSentRequest->requestType}}')"><i class="glyphicon glyphicon-th-list"></i> View Details</button>
                 <button type="button" class="btn btn-danger" onclick="func_show_cancel_swal('{{$clientSentRequest->requestID}}','{{$clientSentRequest->requestType}}')"><i class="glyphicon glyphicon-ban-circle"></i> Cancel Request</button>
               </td>
             </tr>
@@ -87,6 +87,7 @@
         </tfoot>
     </table>
 
+
       <div class="text-right">
         <ul class="pagination">
         </ul>
@@ -95,8 +96,12 @@
         </div>
 
      </div>
-       </div>
-       
+    </div>
+    <div id="viewSentRequest" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog viewSentReq">
+                
+      </div>
+    </div>
 @endsection
 @section('script')
   <script type="text/javascript">
@@ -163,6 +168,21 @@
           
             //alert(id);
       }); 
+    }
+    function func_view(requestID,type){
+      //alert(type);
+      $.ajax({
+        url : '/view-sentRequest',
+        type : 'GET',
+        data : {requestID:requestID,type:type},
+        success : function(data){
+         // alert(data);
+         $('.viewSentReq').text('');
+         $('.viewSentReq').append(data);
+         $('#viewSentRequest').modal('show');
+        }
+
+      });
     }
   </script>
 @endsection

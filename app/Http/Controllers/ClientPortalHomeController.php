@@ -714,6 +714,17 @@ class ClientPortalHomeController extends Controller
         
       }
     }
+    public function viewSentRequest(Request $request){
+      if($request->ajax()){
+       // return $request->type;
+        if($request->type == 'GUARD REPLACEMENT'){
+          $guard_replacement_requests = GuardReplacement::findOrFail($request->requestID);
+          return view('ClientPortal.formcomponents.view_sentRequest_modal')
+                      ->with('request',$guard_replacement_requests);
+        }
+        
+      }
+    }
 }
 // for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){
 //             $notifResponse['guard_id'] = $guards_accepted[$ctr];
