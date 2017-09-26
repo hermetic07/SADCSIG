@@ -710,6 +710,14 @@ class ClientPortalHomeController extends Controller
                                         ->update(['status'=>'c_cancel']);
           }
           
+        }else if($request->requestType == 'SERVICE REQUEST'){
+          $service_requests = ServiceRequest::findOrFail($request->requestID);
+          if($service_requests->status != 'active'){
+            return response($service_requests->status);
+          }else{
+            $service_requests = ServiceRequest::findOrFail($request->requestID)
+                                        ->update(['status'=>'c_cancel']);
+          }
         }
         
       }
@@ -721,6 +729,10 @@ class ClientPortalHomeController extends Controller
           $guard_replacement_requests = GuardReplacement::findOrFail($request->requestID);
           return view('ClientPortal.formcomponents.view_sentRequest_modal')
                       ->with('request',$guard_replacement_requests);
+        } else if($request->type == 'SERVICE REQUEST'){
+          $service_requests = ServiceRequest::findOrFail($request->requestID);
+          return view('ClientPortal.formcomponents.view_sentRequest_modal')
+                      ->with('request',$service_requests);
         }
         
       }
