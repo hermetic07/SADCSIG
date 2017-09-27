@@ -13,6 +13,7 @@
       <h2>This request was already done.</h2>
     @elseif($request->status == "c_cancel")
       <h2 style="background-color: firebrick; color : white;">You canceled this request for the following reasons:</h2>
+      <p>{{$client_canceled_request->reasons}}</p>
     @elseif($request->status == "a_cancel")
     <h2 style="background-color: firebrick; color : white;">The management cancel this request for the following reasons:</h2>
     @endif
