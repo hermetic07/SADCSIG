@@ -168,7 +168,74 @@
             </div>
         @endif
     @endforeach
-   
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 content" >
+                <div class="white-box p-0 pro-box pro-horizontal" style="border: 1px solid black;">
+                    <div class="col-sm-4 pro-list-img" style="background: url("public\plugins\images\Clients\establishments\pup.jpg") center center / cover no-repeat;">
+                        <span class="pro-label label label-inverse">
+                            <a class="text-white"  href="">
+                                <i class="icon-info"></i>&nbsp;&nbsp;More info
+                            </a>
+                        </span> 
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="pro-content">
+                            <div class="pro-list-details col-sm-6">
+                                <h4 class="p-t-10">
+                                    <a class="text-dark" href="javascript:void(0)">PUP</a>
+                                </h4>
+                                <h4 class="text-danger">
+                                    University
+                                </h4>
+                            </div>
+                            <div class="pro-list-info col-sm-6">
+                                <ul class="pro-info text-muted m-b-0">
+                                    <li>
+                                        <span><img src="plugins/images/Clients/Active/security-guard.png"></span>
+                                        <span>Security guards needed</span>
+                                        <span class="pull-right text-inverse">
+                                            5
+                                        </span>
+                                    </li>
+                                    
+                                    <br>
+                                    <div class="progress progress-md">
+                                        <button id="1" class="progress-bar progress-bar-info active progress-bar-striped" value="5" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: 100%" role="progressbar">5/5
+                                        </button>
+                             
+                                        
+                                    </div>
+                                    <center><a id="deployedGuards" href="/SampleGunTagging" name=""> <small> Deployment Status (Ready for gun tagging)</small></a> </center>
+                                </ul>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="pro-agent">
+                                        <div class="agent-img">
+                                            <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src=""></a>
+                                        </div>
+                                        <div class="agent-name">
+                                            <h5 class="m-b-0"></h5> <small class="text-muted">Client</small>
+                                        </div>
+                                        <div class="agent-img">
+                                            <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src=""></a>
+                                        </div>
+                                        <div class="agent-name">
+                                            <h5 class="m-b-0"></h5> <small class="text-muted">Person in charge</small>
+                                        </div>
+                                    </div>
+                                    <div class="pro-location hidden-xs hidden-xs hidden-xs">
+                                        <span class="pull-right text-muted">
+                                            <i class="fa fa-map-marker text-danger m-r-10" aria-hidden="true"></i>
+                                          
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
     <div class="row">
         <div class="col-md-12 text-center">
             <ul class="pagination pagination-split">

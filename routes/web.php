@@ -71,6 +71,10 @@ Route::get('/Announcements', function () {
 	return view('AdminPortal/Announcements');
 });
 
+Route::get('/SampleGunTagging', function () {
+	return view('AdminPortal/SampleGunTagging');
+});
+
 
 
 
