@@ -7,7 +7,7 @@
   
 
   <div class="form-group">
-    <label>Request ID:</label> {{$request->requestID}} <br>
+    <label>Request ID:</label> {{$requestID}} <br>
     <label>Date Requested: </label> {{$request->created_at}}
     @if($request->status == "done")
       <h2>This request was already done.</h2>
