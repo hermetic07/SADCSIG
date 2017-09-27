@@ -39,7 +39,7 @@
             <th>Request ID</th>
             <th data-hide="phone, tablet" >Subject</th>
             <th >Date Updated</th>
-            <th >Status</th>
+            <th >Action Taken</th>
             <th data-sort-ignore="true" width="330px">Actions</th>
           </tr>
         </thead>
@@ -102,6 +102,7 @@
                 
       </div>
     </div>
+    <input type="hidden" id="clientID" value="{{$client->id}}">
 @endsection
 @section('script')
   <script type="text/javascript">
@@ -118,7 +119,7 @@
         data : {requestID:id,requestType:type},
         success : function(data){
           //alert(data);
-          if(data == 'done' || data == 'c_cancel' || data == 'a_cancel'){
+          if(data == 'c_cancel' || data == 'a_cancel'){
             swal({
                 title: 'Already canceled',
                 text: "This request was already canceld.",
@@ -130,7 +131,20 @@
               },function(){
                 
               });
-          }else{
+          }else if(data == 'done'){
+            swal({
+                title: 'Already done',
+                text: "This request was already done.",
+               
+                
+                confirmButtonColor: '#3085d6',
+                
+                confirmButtonText: 'Ok'
+              },function(){
+                
+              });
+          }
+          else{
             swal({
               title: "Awww. We do understand",
               text: "What will be the problem?",
@@ -148,9 +162,9 @@
                 return false
               }
               $.ajax({
-                url : '/cancel-Request',
-                type : 'GET',
-                data : {requestID:id,requestType:type},
+                url : '/cancel-Request-save',
+                type : 'POST',
+                data : {requestID:id,requestType:type,reasons:inputValue,clientID:$('#clientID').val()},
                 success: function(data){
 
 

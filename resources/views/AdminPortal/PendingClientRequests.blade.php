@@ -54,6 +54,43 @@
                             </div>
                           <tbody>
                                 @foreach($service_requests as $service_request)
+                                  @if($service_request->status == 'done')
+                                    <tr style="background-color: gray;">
+                                        <td>
+                                            <a href="{{route('admin.client.estab',$service_request->client_id)}}">
+                                                {{$service_request->client_fname}},{{$service_request->client_mname}},{{$service_request->client_lname}}
+                                              </a>
+                                        </td>
+                                        <td>
+                                            {{$service_request->dateRequested}}
+                                        </td>
+                                        <td>
+                                            {{$service_request->status}}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info servReView" value="{{$service_request->requestCode}}">View</button>
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                  @elseif($service_request->status == 'c_cancel' || $service_request->status == 'a_cancel')
+                                    <tr style="background-color: firebrick;">
+                                        <td>
+                                            <a href="{{route('admin.client.estab',$service_request->client_id)}}">
+                                                {{$service_request->client_fname}},{{$service_request->client_mname}},{{$service_request->client_lname}}
+                                              </a>
+                                        </td>
+                                        <td>
+                                            {{$service_request->dateRequested}}
+                                        </td>
+                                        <td>
+                                            CANCELED
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info servReView" value="{{$service_request->requestCode}}">View</button>
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                  @elseif($service_request->status == 'active')
                                     <tr>
                                         <td>
                                             <a href="{{route('admin.client.estab',$service_request->client_id)}}">
@@ -71,6 +108,7 @@
                                             <button type="button" class="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
+                                  @endif
                                 @endforeach
                           </tbody>
                           </table>
@@ -285,9 +323,9 @@
                                             <button type="button" class="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
-                                  @elseif($guard_replacement_request->status == "c_cancel")
+                                  @elseif($guard_replacement_request->status == "c_cancel" || $guard_replacement_request->status == "a_cancel")
                                     
-                                    <tr style="background-color: pink">
+                                    <tr style="background-color: firebrick">
                                         <td>
                                             <a href="{{route('admin.client.estab',$guard_replacement_request->client_id)}}">
                                                 {{$guard_replacement_request->client_fname}},{{$guard_replacement_request->client_mname}},{{$guard_replacement_request->client_lname}}
