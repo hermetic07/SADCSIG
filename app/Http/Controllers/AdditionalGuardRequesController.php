@@ -29,6 +29,7 @@ use App\DeploymentDetails;
 use App\EstabGuards;
 use Carbon\Carbon;
 use App\GuardMessagesInbox;
+use App\ClientCancelRequests;
 
 class AdditionalGuardRequesController extends Controller
 {
@@ -182,9 +183,10 @@ class AdditionalGuardRequesController extends Controller
                                 'areas.name as area',
                                 'provinces.name as province')
                             ->get();
-           
+           $clientCancelRequest = ClientCancelRequests::where('requestID',$request->id)->get();
             return view('AdminPortal.ClientRequests.AddGuardRequests.viewModal')
-                    ->with('add_guard_request',$add_guard_requests[0]);
+                    ->with('add_guard_request',$add_guard_requests[0])
+                    ->with('clientCancelRequest',$clientCancelRequest);
         }
     }
 

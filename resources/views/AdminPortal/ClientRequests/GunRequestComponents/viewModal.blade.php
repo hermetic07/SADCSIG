@@ -6,7 +6,19 @@
                   <div class="modal-body">
                   
 
-                  
+                  @if($gunRequest->status == "c_cancel")
+                    <h2 style="background-color: firebrick; color:white">This request was canceled by the client.</h2> <br>
+                    <label>Reasons:</label> <br>
+                    <p>
+                       @foreach($clientCancelRequest as $client_canceled_req)
+                        {{$client_canceled_req->reasons}}
+                      @endforeach
+                    </p>
+                  @elseif($gunRequest->status == "a_cancel")
+                    <h2>This request was canceled by the management</h2>
+                  @elseif($gunRequest->status == "done")
+                    <h2>This request was already done</h2>
+                  @endif
                     <form data-toggle="validator">
                     <div class="form-group">
                     <div class="row">  
@@ -56,7 +68,7 @@
                 </div>
                  </div>
           <div class="modal-footer">
-            @if($gunRequest->status == "DELIVERED")
+            @if($gunRequest->status == "DELIVERED" || $gunRequest->status=="done" || $gunRequest->status=="a_cancel" || $gunRequest->status=="c_cancel")
 
             <button disabled type="button" class="btn btn-info waves-effect waves-light" onClick="window.location='/DeliverGuns-{{$gunRequest->strGunReqID}}';" >Process Delivery</button>
               <button disabled type="button" class="btn btn-danger waves-effect waves-light" onclick="reject();" >Reject request</button>

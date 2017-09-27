@@ -15,6 +15,7 @@ use App\Contracts;
 use App\ClientRegistration;
 use App\GunDelivery;
 use App\ClaimedDelivery;
+use App\ClientCancelRequests;
 class GunRequestController extends Controller
 {
     
@@ -44,10 +45,11 @@ class GunRequestController extends Controller
                                 ->join('guns','guns.id','=','tblGunReqDetails.strGunID')
                                 ->select('tblGunRequests.strGunReqID as orderNo','tblGunReqDetails.quantity','guns.name as gun')
                                 ->get();
-            
+            $clientCancelRequest = ClientCancelRequests::where('requestID',$request->gunReqstID)->get();
             return view('AdminPortal.ClientRequests.GunRequestComponents.viewModal')
                     ->with('gunRequest',$gunRequest)
-                    ->with('gunRequestDetails',$gunRequestDetails);
+                    ->with('gunRequestDetails',$gunRequestDetails)
+                    ->with('clientCancelRequest',$clientCancelRequest);
         }
     }
     public function deliveryStats(Request $request){
