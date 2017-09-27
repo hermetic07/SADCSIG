@@ -347,6 +347,7 @@
                   <th data-sort-ignore="true"  data-sort-initial="true" data-toggle="true">Shift</th>
                   <th data-sort-ignore="true" >From</th>
                   <th data-sort-ignore="true" >to</th>
+                  <th data-sort-ignore="true"  width="150px"> </th>
                   <th data-sort-ignore="true" class="min-width" width="50px">Delete</th>
                 </tr>
               </thead>
@@ -379,6 +380,13 @@
               <input type="time" class="form-control shiftend" name="noblank2"/><span class="input-group-addon"  >
                 <span class="glyphicon glyphicon-time"></span></span></div>
           </td>
+           <td>
+                    <div class="checkbox checkbox-inverse checkbox-circle">
+                  <input class="shft" type="checkbox" >
+                  <label > Night shift</label>
+                </div>
+
+          </td>
           <td>
           </td>
 
@@ -402,8 +410,11 @@
                       </select>
                     </div>
                    <label class="col-xs-1 control-label">Age</label>
-                      <div class="col-xs-4">
-                         <input type="number" class="form-control" id="pref_age" name="noblank">
+                      <div class="col-xs-2">
+                         <input type="number" class="form-control" id="pref_age" name="noblank" placeholder="from">
+                    </div> -
+                       <div class="col-xs-2">
+                         <input type="number" class="form-control" id="pref_ageto" name="noblank"  placeholder="to">
                     </div>
                   </div>
 
@@ -729,7 +740,7 @@ $('#firstcal').removeAttr("disabled");
     ctr++;
 
     //build up the row we are wanting to add
-    var newRow = '<tr><td class="count"></td><<td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control shiftstart" name="noblank"><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control shiftend" name="noblank2" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+    var newRow = '<tr><td class="count"></td><<td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control shiftstart" name="noblank"><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><div class="input-group" data-placement="left" data-align="top" data-autoclose="true"><input type="time" class="form-control shiftend" name="noblank2" ><span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span></span></div></td><td><div class="checkbox checkbox-inverse checkbox-circle"><input class="shft" type="checkbox" ><label>Night shift</label></div></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
 
 
     //add it

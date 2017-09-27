@@ -75,6 +75,8 @@ Route::get('/Announcements', function () {
 
 
 
+
+
 Route::get('/BillingPeriod', "BillingControl@index");
 Route::post('/GetBilling', "BillingControl@getRecord");
 Route::get('/ClientPayment',"BillingControl@allSOA" );
