@@ -179,7 +179,7 @@ Route::get('/getContractPDF-{contractID}','ContractController@getContractPDF');
 Route::get('/GunRequest','GunRequestController@index');     
 Route::get('/GetGunsTable','GunRequestController@getGuns')
 							->name('getGuns')
-							->middleware('auth');
+							->middleware('auth:client');
 Route::get('/GunRequest-view','GunRequestController@viewGunRequest')
 							->name('view.gunRequest')
 							->middleware('auth');

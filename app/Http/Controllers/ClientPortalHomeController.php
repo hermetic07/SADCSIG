@@ -42,6 +42,7 @@ use App\GuardReplacement;
 use App\GuardReplacementDetails;
 use Carbon\Carbon;
 use App\ClientSentRequests;
+use App\AddGuardRequests;
 
 
 class ClientPortalHomeController extends Controller
@@ -710,6 +711,30 @@ class ClientPortalHomeController extends Controller
                                         ->update(['status'=>'c_cancel']);
           }
           
+        }else if($request->requestType == 'SERVICE REQUEST'){
+          $service_requests = ServiceRequest::findOrFail($request->requestID);
+          if($service_requests->status != 'active'){
+            return response($service_requests->status);
+          }else{
+            $service_requests = ServiceRequest::findOrFail($request->requestID)
+                                        ->update(['status'=>'c_cancel']);
+          }
+        }else if($request->requestType == 'ADDGUARD REQUEST'){
+          $add_guard_request = AddGuardRequests::findOrFail($request->requestID);
+          if($add_guard_request->status != 'active'){
+            return response($add_guard_request->status);
+          }else{
+            $add_guard_request = AddGuardRequests::findOrFail($request->requestID)
+                                        ->update(['status'=>'c_cancel']);
+          }
+        }else if($request->requestType == 'ADDGUN REQUEST'){
+          $gun_request = GunRequest::findOrFail($request->requestID);
+          if($gun_request->status != 'active'){
+            return response($gun_request->status);
+          }else{
+            $gun_request = GunRequest::findOrFail($request->requestID)
+                                        ->update(['status'=>'c_cancel']);
+          }
         }
         
       }
@@ -720,9 +745,26 @@ class ClientPortalHomeController extends Controller
         if($request->type == 'GUARD REPLACEMENT'){
           $guard_replacement_requests = GuardReplacement::findOrFail($request->requestID);
           return view('ClientPortal.formcomponents.view_sentRequest_modal')
-                      ->with('request',$guard_replacement_requests);
+                      ->with('request',$guard_replacement_requests)
+                      ->with('requestID',$guard_replacement_requests->requestID);
+        } else if($request->type == 'SERVICE REQUEST'){
+          $service_requests = ServiceRequest::findOrFail($request->requestID);
+          return view('ClientPortal.formcomponents.view_sentRequest_modal')
+                      ->with('request',$service_requests)
+                      ->with('requestID',$service_requests->id);
         }
-        
+        else if($request->type == 'ADDGUARD REQUEST'){
+          $add_guard_request = AddGuardRequests::findOrFail($request->requestID);
+          return view('ClientPortal.formcomponents.view_sentRequest_modal')
+                      ->with('request',$add_guard_request)
+                      ->with('requestID',$add_guard_request->id);
+        }
+        else if($request->type == 'ADDGUN REQUEST'){
+          $gun_request = GunRequest::findOrFail($request->requestID);
+          return view('ClientPortal.formcomponents.view_sentRequest_modal')
+                      ->with('request',$gun_request)
+                      ->with('requestID',$gun_request->strGunReqID);
+        }
       }
     }
 }
