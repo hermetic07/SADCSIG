@@ -4,6 +4,11 @@
         <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Request details</strong></center></h4>
     </div>
     <div class="modal-body">
+        @if($serviceRequests->status == "c_cancel")
+          <h2 style="background-color: firebrick; color:white">This request was canceled by the client.</h2>
+        @elseif($serviceRequests->status == "a_cancel")
+          <h2>This request was canceled by the management</h2>
+        @endif
         <div class="form-group">
             <label class="col-md-4">Request Code:</label>
             <h4>{{$serviceRequests->id}}</h4>
@@ -27,8 +32,15 @@
     </div>     
         
     <div class="modal-footer">
-          <button type="button" class="btn btn-info waves-effect waves-light">Accept</button>
-          <button type="submit" class="btn btn-danger waves-effect waves-light">Reject</button>
-          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+          @if($serviceRequests->status == "c_cancel" || $serviceRequests->status == "a_cancel" || $serviceRequests->status == "done")
+              <button type="button" disabled class="btn btn-info waves-effect waves-light">Accept</button>
+              <button type="button" disabled class="btn btn-danger waves-effect waves-light">Reject</button>
+              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+          @else
+              <button type="button" class="btn btn-info waves-effect waves-light">Accept</button>
+              <button type="button" class="btn btn-danger waves-effect waves-light">Reject</button>
+              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+          @endif
+          
     </div>
 </div>
