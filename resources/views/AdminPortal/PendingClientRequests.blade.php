@@ -144,7 +144,7 @@
               <tbody>
                  
                   @foreach($gunRequests as $gunRequest)
-                    @if($gunRequest->isRead == 1)
+                    @if($gunRequest->isRead == 1 || $gunRequest->status == "DELIVERED")
                   <tr style="background-color: gray;">
                     <td>{{$gunRequest->created_at}}</td>
                               <td>{{$gunRequest->client_fname}},{{$gunRequest->client_mname}},{{$gunRequest->client_lname}}</td>
@@ -157,6 +157,21 @@
                                 <button class="btn btn-info viewReq" type="button" value="{{$gunRequest->strGunReqID}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
                                 <button type="button" class="btn btn-danger" onclick="func_delete('{{$gunRequest->strGunReqID}}','gunrequests')"><i class="fa fa-times"></i> Delete</button>
                               </td>
+                  
+                              </tr>
+                      @elseif($gunRequest->status == 'c_cancel' || $gunRequest->status == "a_cancel")
+                        <tr style="background-color: firebrick">
+                          <td>{{$gunRequest->created_at}}</td>
+                                    <td>{{$gunRequest->client_fname}},{{$gunRequest->client_mname}},{{$gunRequest->client_lname}}</td>
+                                    <td>{{$gunRequest->establishment}}</td>
+                                    <td>{{$gunRequest->address}},{{$gunRequest->area}},{{$gunRequest->province}}</td>
+                                    <td>
+                                      CANCELED
+                                    </td>
+                                    <td>
+                                      <button class="btn btn-info viewReq" type="button" value="{{$gunRequest->strGunReqID}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View request</button>
+                                      <button type="button" class="btn btn-danger" onclick="func_delete('{{$gunRequest->strGunReqID}}','gunrequests')"><i class="fa fa-times"></i> Delete</button>
+                                    </td>
                   
                               </tr>
                       @else
@@ -229,6 +244,37 @@
                       <td> -->
                       <td>
                         <a href="/AddGuards-DeployStatus-{{$add_guard_request->id}}">{{$add_guard_request->status}}</a>
+                      </td>
+                        
+                      <td>
+                        <button type="button" class="btn btn-primary addGuardView" value="{{$add_guard_request->id}}">View Details</button>
+                        <button type="button" class="btn btn-danger" onclick="func_delete('{{$add_guard_request->id}}','addguardrequests')"><i class="fa fa-times"></i> Delete</button>
+                      </td>
+                    </tr>
+                  @elseif($add_guard_request->status == "c_cancel" || $add_guard_request->status == "a_cancel")
+                    <tr style="background-color: firebrick">
+                      <td>
+                        <a href="{{route('admin.client.estab',$add_guard_request->client_id)}}">
+                          {{$add_guard_request->client_fname}},{{$add_guard_request->client_mname}},{{$add_guard_request->client_lname}}
+                        </a>
+                      </td>
+                      <td>
+                        <a href="/ClientsDetails-{{$add_guard_request->client_id}}+{{$add_guard_request->establishmentID}}">
+                          {{$add_guard_request->establishment}}
+                        </a>
+                      </td>
+                      <td>
+                        {{$add_guard_request->no_guards}}
+                      </td>
+                      <td>
+                        {{$add_guard_request->created_at}}
+                      </td>
+                      
+                      
+                      <!-- <td>{{$add_guard_request->address}},{{$add_guard_request->area}},{{$add_guard_request->province}}</td>
+                      <td> -->
+                      <td>
+                        CANCELED
                       </td>
                         
                       <td>
@@ -364,7 +410,10 @@
                                 @endforeach
                           </tbody>
                           </table>
-
+                        <div class="text-right">
+                          <ul class="pagination">
+                          </ul>
+                        </div>
                    </div>
                 </div>
     </section>
@@ -460,7 +509,7 @@
 }
   
   function func_delete(id,route){
-   // alert(id+','+route);
+    //alert(id+','+route);
     swal({
           title: "Are you sure?",
           text: "Delete this item?",

@@ -143,6 +143,30 @@
               },function(){
                 
               });
+          } else if(data == '1'){
+            swal({
+                title: 'Sorry. Cannot cancel this request.',
+                text: "This request was being processed.",
+               
+                
+                confirmButtonColor: '#3085d6',
+                
+                confirmButtonText: 'Ok'
+              },function(){
+                
+              });
+          }else if(data == "DELIVERED"){
+            swal({
+                title: 'Already Delivered',
+                text: "This request was already done.",
+               
+                
+                confirmButtonColor: '#3085d6',
+                
+                confirmButtonText: 'Ok'
+              },function(){
+                
+              });
           }
           else{
             swal({

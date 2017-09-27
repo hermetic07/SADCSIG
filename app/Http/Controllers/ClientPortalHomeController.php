@@ -707,7 +707,10 @@ class ClientPortalHomeController extends Controller
           $guard_replacement_requests = GuardReplacement::findOrFail($request->requestID);
           if($guard_replacement_requests->status != 'active'){
             return response($guard_replacement_requests->status);
-          }else{
+          }else if($guard_replacement_requests->status == 'active' && $guard_replacement_requests->read == 1){
+            return response($guard_replacement_requests->read);
+          }
+          else{
             
           }
           
@@ -729,7 +732,10 @@ class ClientPortalHomeController extends Controller
           $gun_request = GunRequest::findOrFail($request->requestID);
           if($gun_request->status != 'active'){
             return response($gun_request->status);
-          }else{
+          }else if($gun_request->status == 'active' && $gun_request->isRead == 1){
+            return response($gun_request->isRead);
+          }
+          else{
             
           }
         }
@@ -753,19 +759,23 @@ class ClientPortalHomeController extends Controller
          
           return view('ClientPortal.formcomponents.view_sentRequest_modal')
                       ->with('request',$service_requests)
-                      ->with('client_canceled_request',$client_canceled_request[0])
+                      ->with('client_canceled_request',$client_canceled_request)
                       ->with('requestID',$service_requests->id);
         }
         else if($request->type == 'ADDGUARD REQUEST'){
+          $client_canceled_request = ClientCancelRequests::where('requestID',$request->requestID)->get();
           $add_guard_request = AddGuardRequests::findOrFail($request->requestID);
           return view('ClientPortal.formcomponents.view_sentRequest_modal')
                       ->with('request',$add_guard_request)
+                      ->with('client_canceled_request',$client_canceled_request)
                       ->with('requestID',$add_guard_request->id);
         }
         else if($request->type == 'ADDGUN REQUEST'){
+          $client_canceled_request = ClientCancelRequests::where('requestID',$request->requestID)->get();
           $gun_request = GunRequest::findOrFail($request->requestID);
           return view('ClientPortal.formcomponents.view_sentRequest_modal')
                       ->with('request',$gun_request)
+                      ->with('client_canceled_request',$client_canceled_request)
                       ->with('requestID',$gun_request->strGunReqID);
         }
       }

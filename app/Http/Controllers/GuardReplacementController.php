@@ -27,6 +27,7 @@ use App\DeploymentDetails;
 use App\EstabGuards;
 use Carbon\Carbon;
 use App\GuardMessagesInbox;
+use App\ClientCancelRequests;
 
 class GuardReplacementController extends Controller
 {
@@ -73,10 +74,12 @@ class GuardReplacementController extends Controller
                                             'tblestabGuards.shiftFrom',
                                             'tblestabGuards.shiftTo')
     								->get();
+                $clientCancelRequest = ClientCancelRequests::where('requestID',$requests->reqID)->get();
               //  return $guardReplacementDetails->toArray();
     		return view('AdminPortal\ClientRequests\GuardReplacementRequests.viewModal')
     				->with('guardReplacementDetails',$guardReplacementDetails[0])
-    				->with('guards',$guardReplacementDetails);
+    				->with('guards',$guardReplacementDetails)
+                    ->with('clientCancelRequest',$clientCancelRequest);
     	}
     }	
 

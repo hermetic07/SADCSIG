@@ -6,9 +6,17 @@
         <div class="modal-body" >
           <div class="row">
             @if($guardReplacementDetails->status == "c_cancel")
-              <h2 style="background-color: firebrick; color:white">This request was canceled by the client.</h2>
+              <h2 style="background-color: firebrick; color:white">This request was canceled by the client.</h2><br>
+              <label>Reasons:</label> <br>
+              <p>
+                 @foreach($clientCancelRequest as $client_canceled_req)
+                  {{$client_canceled_req->reasons}}
+                @endforeach
+              </p>
             @elseif($guardReplacementDetails->status == "a_cancel")
               <h2>This request was canceled by the management</h2>
+            @elseif($guardReplacementDetails->status == "done")
+              <h2>This request was already done.</h2>
             @endif
             <div class="form-group">
               <label>Request Code: {{$guardReplacementDetails->requestCode}}</label>

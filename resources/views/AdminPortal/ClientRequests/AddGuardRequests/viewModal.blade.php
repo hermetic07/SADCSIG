@@ -4,6 +4,19 @@
           <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Add Guard Request Details</strong></center></h4>
         </div>
         <div class="modal-body" >
+          @if($add_guard_request->status == "c_cancel")
+              <h2 style="background-color: firebrick; color:white">This request was canceled by the client.</h2> <br>
+              <label>Reasons:</label> <br>
+              <p>
+                 @foreach($clientCancelRequest as $client_canceled_req)
+                  {{$client_canceled_req->reasons}}
+                @endforeach
+              </p>
+            @elseif($add_guard_request->status == "a_cancel")
+              <h2>This request was canceled by the management</h2>
+            @elseif($add_guard_request->status == "done")
+              <h2>This request was already done</h2>
+            @endif
           <div class="form-group">
             <label class="control-lable col-md-3">Request Code</label>
             <div class="col-md-9">
@@ -40,7 +53,7 @@
       </div>
       <br>
       <div class="modal-footer">
-        @if($add_guard_request->status == "done")
+        @if($add_guard_request->status == "done" || $add_guard_request->status == "a_cancel" || $add_guard_request->status == "c_cancel")
           <button disabled type="button" class="btn btn-info" onclick="location.href='Deploy-AddGuards-{{$add_guard_request->id}}'">Deployment</button>
         @else
           <button type="button" class="btn btn-info" onclick="location.href='Deploy-AddGuards-{{$add_guard_request->id}}'">Deployment</button>

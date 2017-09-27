@@ -55,7 +55,7 @@ class ServiceRequestController extends Controller
             return view('AdminPortal.ClientRequests.ServiceRequestsComponents.viewModal')
                     ->with('serviceRequests',$serviceRequests)
                     ->with('client',$client)
-                    ->with('clientCancelRequest',$clientCancelRequest[0]);
+                    ->with('clientCancelRequest',$clientCancelRequest);
         }
     }
 
