@@ -23,6 +23,7 @@ use App\PrefBasic;
 use App\PrefAttrib;
 use App\PrefLicense;
 use App\PrefRequirement;
+use App\ClientCancelRequests;
 
 class ServiceRequestController extends Controller
 {
@@ -47,11 +48,14 @@ class ServiceRequestController extends Controller
     }
     public function viewModal(Request $request){
         if($request->ajax()){
+
             $serviceRequests = ServiceRequest::findOrFail($request->serviceRequestID);
+            $clientCancelRequest = ClientCancelRequests::where('requestID',$serviceRequests->id)->get();
             $client = Clients::findOrFail($serviceRequests->client_id);
             return view('AdminPortal.ClientRequests.ServiceRequestsComponents.viewModal')
                     ->with('serviceRequests',$serviceRequests)
-                    ->with('client',$client);
+                    ->with('client',$client)
+                    ->with('clientCancelRequest',$clientCancelRequest[0]);
         }
     }
 

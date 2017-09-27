@@ -742,13 +742,18 @@ class ClientPortalHomeController extends Controller
         if($request->type == 'GUARD REPLACEMENT'){
           $guard_replacement_requests = GuardReplacement::findOrFail($request->requestID);
           //$client_canceled_request = ClientCancelRequests::where()
+          $client_canceled_request = ClientCancelRequests::where('requestID',$request->requestID)->get();
           return view('ClientPortal.formcomponents.view_sentRequest_modal')
                       ->with('request',$guard_replacement_requests)
+                      ->with('client_canceled_request',$client_canceled_request)
                       ->with('requestID',$guard_replacement_requests->requestID);
         } else if($request->type == 'SERVICE REQUEST'){
+          $client_canceled_request = ClientCancelRequests::where('requestID',$request->requestID)->get();
           $service_requests = ServiceRequest::findOrFail($request->requestID);
+         
           return view('ClientPortal.formcomponents.view_sentRequest_modal')
                       ->with('request',$service_requests)
+                      ->with('client_canceled_request',$client_canceled_request[0])
                       ->with('requestID',$service_requests->id);
         }
         else if($request->type == 'ADDGUARD REQUEST'){

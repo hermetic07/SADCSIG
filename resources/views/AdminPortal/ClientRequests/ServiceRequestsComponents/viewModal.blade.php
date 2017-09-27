@@ -5,9 +5,12 @@
     </div>
     <div class="modal-body">
         @if($serviceRequests->status == "c_cancel")
-          <h2 style="background-color: firebrick; color:white">This request was canceled by the client.</h2>
+          <h2 style="background-color: firebrick; color:white">This request was canceled by the client for the following reasons:</h2>
+          <p>
+            {{$clientCancelRequest->reasons}}
+          </p>
         @elseif($serviceRequests->status == "a_cancel")
-          <h2>This request was canceled by the management</h2>
+          <h2 style="background-color: firebrick; color:white">This request was canceled by the management</h2>
         @endif
         <div class="form-group">
             <label class="col-md-4">Request Code:</label>
