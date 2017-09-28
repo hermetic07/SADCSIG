@@ -96,8 +96,8 @@
     <div class="user-btm-box">
                         <!-- .row -->
                         <div class="row text-center m-t-10">
-                            <div class="col-md-6 b-r"><strong>Client</strong>
-                                <p>none</p>
+                            <div class="col-md-6 b-r"><strong>Online Stub</strong>
+                                <p>{{$employee->onlinestub or "none"}}</p>
                             </div>
                             <div class="col-md-6"><strong>Designation</strong>
                                 <p>Security guard</p>

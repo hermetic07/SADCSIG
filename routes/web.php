@@ -183,7 +183,7 @@ Route::get('/getContractPDF-{contractID}','ContractController@getContractPDF');
 
 
 /**-------------------------     Gun Request(old)    ---------------------*/
-Route::get('/GunRequest','GunRequestController@index');     
+Route::get('/GunRequest','GunRequestController@index');
 Route::get('/GetGunsTable','GunRequestController@getGuns')
 							->name('getGuns')
 							->middleware('auth:client');
@@ -201,7 +201,7 @@ Route::get('/DeliverGuns-index','GunDeliveryController@index2');
 
 Route::get('/DeliverGuns-table','GunDeliveryController@table')
 							->name('gun.delivery.table')
-							->middleware('auth');               
+							->middleware('auth');
 Route::get('/DeliverGuns-view','GunDeliveryController@view')
 							->name('gun.delivery.view')
 							->middleware('auth');
@@ -213,7 +213,7 @@ Route::get('/DeliverGuns-deliverModal','GunDeliveryController@deliverModal')
 							->middleware('auth');
 Route::get('/DeliverGuns-{gunRequestID}','GunDeliveryController@index');
 Route::post('/GunDelivery/Save','GunDeliveryController@saveDelivery')
-							->name('gun.delivery.save');  
+							->name('gun.delivery.save');
 Route::get('/Pickups','PickupsController@index2')
 							->name('pickups.index2')
 					        ->middleware('auth');
@@ -227,7 +227,7 @@ Route::get('/Pickups-{gunDeliveryId}','PickupsController@index')
 							->name('pickups.index')
 							->middleware('auth');
 Route::get('/Pickups-redelivery','PickupsController@redelivery')
-							
+
 							->middleware('auth');
 
 
@@ -236,14 +236,14 @@ Route::post('/delete-gundelivery','GunDeliveryController@remove');
 Route::post('/cdelete-gundelivery','GunDeliveryController@client_delete');
 
 Route::get('/AddGuardRequests','AdditionalGuardRequesController@index2')
-							->middleware('auth'); 
+							->middleware('auth');
 
 /**-------------------------     Gun Request(new)    ---------------------*/
 
 
 /**-------------------------     Add Guard Requests    ---------------------*/
 
-Route::get('/AddGuardRequests-view','AdditionalGuardRequesController@view')	
+Route::get('/AddGuardRequests-view','AdditionalGuardRequesController@view')
 							->name('addGuard.view')
 							->middleware('auth');
 Route::get('/Deploy-AddGuards-{addGuardReqID}','AdditionalGuardRequesController@deployAddGuards');
@@ -251,14 +251,14 @@ Route::get('/AddGuards-DeployStatus-{addGuardReqID}','AdditionalGuardRequesContr
 Route::get('/AddGuard-deploy','AdditionalGuardRequesController@deploy');
 
 Route::get('/AddGuard-ChangeGuards','AdditionalGuardRequesController@changeRejectedGuards')
-							
+
 							->middleware('auth');
 
 Route::post('/delete-addguardrequests','AdditionalGuardRequesController@remove');
 
 
 /**-------------------------     Add Guard Requests-end    ---------------------*/
-	
+
 /**-------------------------     Guard-Replacement Start    ---------------------*/
 	Route::get('guard-ReplacementRequest-view','GuardReplacementController@view');
 	Route::get('/Deploy-GuardReplacement-{guardReplacementID}','GuardReplacementController@deployReplacement');
@@ -597,6 +597,7 @@ Route::post('/Applicant','RegisterControl@saveImage');
 //admin guard (evander)
 Route::post('/HireEmployee','RegisterControl@approve');
 Route::post('/HireEmployee2','RegisterControl@approve2');
+Route::post('/HireOnlineEmployee','OnlineRegisterControl@approve');
 Route::post('/RemoveApplicant','RegisterControl@remove');
 Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
 
@@ -621,3 +622,10 @@ Route::post('/Client-Reject-Swap','SwapControl@clientreject');
 Route::post('/Guard-Reject-Swap','SwapControl@guardreject');
 Route::post('/Send-License-Warning','RenewLicenseControl@sendWarning');
 Route::post('/Update-License-Info','RenewLicenseControl@update');
+
+
+//Public routes, no auths needed
+Route::get('/OnlineRegistration', 'OnlineRegisterControl@index6');
+Route::get ( '/OnlineRegisterImage', 'OnlineRegisterControl@test' );
+Route::post('/OnlineApplicant','OnlineRegisterControl@saveImage');
+Route::post('/OnlineApplicantRegister','OnlineRegisterControl@employeeReg');
