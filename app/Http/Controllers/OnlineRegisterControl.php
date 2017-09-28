@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \Crypt;
 use App\Employee;
 use App\SecurityLicense;
 use App\EmployeeAttributes;
@@ -13,6 +14,11 @@ use App\EmployeeMilitary;
 use App\EmployeeSeminar;
 use App\EmployeeRequirements;
 use App\EmployeeSkills;
+use App\Attribute;
+use App\License;
+use App\Requirement;
+use App\Rank;
+use App\Military;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
@@ -21,7 +27,7 @@ use Illuminate\Support\Facades\File;
 use Mail;
 use Illuminate\Support\Facades\DB;
 use Exception;
-class RegisterControl extends Controller
+class OnlineRegisterControl extends Controller
 {
 
 
@@ -256,13 +262,18 @@ class RegisterControl extends Controller
       return "Registration Complete. Pls wait for the company to contact you";
     }
 
-     public function view(Request $request)
+     public function index6()
      {
-         return view('last.secus');
+       $a = Attribute::all();
+       $r = Requirement::all();
+       $l = License::all();
+       $ra = Rank::all();
+       $m = Military::all();
+       return view('OnlineRegistration')->with('a',$a)->with('r',$r)->with('l',$l)->with('ra',$ra)->with('m',$m);
      }
 
      public function test(){
-       return view('test');
+       return view('OnlinePic');
      }
 
      public function saveImage(Request $request){
@@ -288,7 +299,7 @@ class RegisterControl extends Controller
        $request->session()->forget('key');
        $value2 = $request->session()->get('email');
        $request->session()->forget('email');
-       return redirect('/Applicants');
+       echo "Registration Success, wait for the agency to email or contact you";
 
      }
 
@@ -308,10 +319,11 @@ class RegisterControl extends Controller
      {
        $employee = Employee::find($request->id);
        $employee->status = "waiting"; //because when hired, they are automatically waiting  for a client
+       $employee->onlinestub = $request->stub;
        $employee->save();
        $data = [
                   'email'   => $employee->email,
-                  'pw'   => "password",
+                  'pw'   => "'password'" . " Confirmation Code: " . $request->stub,
                   'fname' => $employee->first_name,
                   'mname' => $employee->middle_name,
                   'lname' => $employee->last_name
@@ -330,7 +342,8 @@ class RegisterControl extends Controller
                    'fname' => $employee->first_name,
                    'mname' => $employee->middle_name,
                    'lname' => $employee->last_name,
-                   'picture' => $employee->image
+                   'picture' => $employee->image,
+                   'stub' => $request->stub,
 
                ];
 
@@ -353,7 +366,7 @@ class RegisterControl extends Controller
 
         $data2 = [
                    'email'   => $employee->email,
-                   'pw'   => "password",
+                   'pw'   => $employee->password,
                    'fname' => $employee->first_name,
                    'mname' => $employee->middle_name,
                    'lname' => $employee->last_name,
@@ -394,5 +407,10 @@ class RegisterControl extends Controller
       ->where('employees.status',"!=","deleted")
       ->get();
       return view('AdminPortal/GuardLicenses')->with("all",$all);
+     }
+
+     public function testwew(){
+       $value = Crypt::decrypt('$2y$10$tOOQoZhE3UgoRrTdO8fw8eXW/S/3u6i64SNsWXoJ.0nKdKd48qdxS');
+       echo $value;
      }
 }

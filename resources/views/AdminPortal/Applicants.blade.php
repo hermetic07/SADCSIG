@@ -221,8 +221,8 @@
                                               text: "is now officially hired. \n\n"+ "Email: " + result.email + " Password: " + result.pw,
                                               imageUrl: "uploads/"+result.picture
                                             }, function(){
-                window.location.href = "/Applicants";
-              });
+                                            window.location.href = "/Applicants";
+                                          });
 
 
 
@@ -305,9 +305,41 @@
                   swal.showInputError("You need to write something!");
                   return false
                 }
+                if(inputValue !==""){
+                  $.ajaxSetup({
+                     headers: {
+                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                  });
+                  $.ajax({
+                        url: '/HireOnlineEmployee',
+                        type:"POST",
+                         data: {
 
-                swal("Nice!", "You wrote: " + inputValue, "success");
-              });
+                           "id":id,
+                           "stub":inputValue,
+
+                        },
+                        success: function(result){
+
+                            swal({
+                                title: result.fname ,
+                                text: "is now officially hired. \n\n"+ "Email: " + result.email + " Password: " + result.pw + " Confirmation Code: " + result.stub,
+                                imageUrl: "uploads/"+result.picture
+                              }, function(){
+                                window.location.href = "/Applicants";
+                              });
+
+
+
+                         }
+                       });
+                }
+
+              },
+
+            );
+
                   }
               ]
           });
