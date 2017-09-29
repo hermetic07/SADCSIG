@@ -59,6 +59,10 @@ Route::get('/Ammunition', function () {
 
 
 Route::get('/Reports','ReportsController@index');
+
+Route::get('/DispositionReports-pdf','ReportsController@dispositionReportPdf');
+
+
 Route::get('/IncidentReports', function () {
 	return view('AdminPortal/IncidentReports');
 });
