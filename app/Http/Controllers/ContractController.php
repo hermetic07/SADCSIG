@@ -13,7 +13,7 @@ use App\Shifts;
 use App\Nature;
 use App\Service;
 use App\Contracts;
-use App\License;
+use App\License; 
 use App\Attribute;
 use App\ClientsPic;
 use App\Requirement;
@@ -304,6 +304,7 @@ class ContractController extends Controller
                         ->join('provinces','provinces.id','=','areas.provinces_id')
                         ->select('establishments.name','establishments.pic_fname','establishments.pic_mname','establishments.pic_lname','establishments.address','areas.name as area','provinces.name as province','natures.name as nature')
                         ->get();
+      
       switch (explode('-',$date)[1]) {
         case '1':
           $month = 'January';
