@@ -109,21 +109,13 @@
            </ul>
           </li>
 
-
+          <li> <a href="{{url('/Admin-Queries')}}" class="waves-effect"><i class="fa fa-search fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Queries</span></a>
+          </li>
 
           <li> <a href="{{url('/Reports')}}" class="waves-effect"><i class="fa fa-file-text fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Reports</span></a>
           </li>
 
-          <li> <a href="#" class="waves-effect"><i class="fa fa-search fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Queries</span><span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-              <li> <a href="#" class="waves-effect">Clients</a>
-              </li>
-              <li> <a href="#" class="waves-effect">Security guards</a>
-              </li>
-                <li> <a href="#" class="waves-effect">Recapitulation</a>
-              </li>
-                </ul>
-          </li>
+
 
 
           <li> <a href="{{url('/Tax')}} " class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw p-r-10"></i> <span class="hide-menu">Utilities</span></a>

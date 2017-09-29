@@ -623,6 +623,8 @@ Route::post('/Guard-Reject-Swap','SwapControl@guardreject');
 Route::post('/Send-License-Warning','RenewLicenseControl@sendWarning');
 Route::post('/Update-License-Info','RenewLicenseControl@update');
 
+Route::get('/Admin-Queries',"EmployeeQuery@index");
+Route::post('/Admin-Queries-Employee',"EmployeeQuery@get");
 
 //Public routes, no auths needed
 Route::get('/OnlineRegistration', 'OnlineRegisterControl@index6');
