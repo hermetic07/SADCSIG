@@ -11,6 +11,7 @@
 |
 */
 Route::get('/Sent-requests-{clientID}','ClientPortalHomeController@sentRequest');
+Route::get('/Sent-request-{clientID}-{transID}','ClientPortalHomeController@sentRequest2');
 Route::get('/cancel-Request','ClientPortalHomeController@cancelRequest');
 Route::post('/cancel-Request-save','ClientPortalHomeController@cancelRequestSave');
 Route::get('/view-sentRequest','ClientPortalHomeController@viewSentRequest');

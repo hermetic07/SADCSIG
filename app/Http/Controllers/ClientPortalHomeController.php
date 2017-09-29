@@ -700,6 +700,18 @@ class ClientPortalHomeController extends Controller
               ->with('clientSentRequests',$clientSentRequests);
     }
 
+    public function sentRequest2($clientID,$transID){
+      $client = Clients::findOrFail($clientID);
+      $clientSentRequests = DB::table('client_sent_requests')
+                              ->where('client_sent_requests.clientID','=',$clientID)
+                              ->orderBy('client_sent_requests.changeTime','desc')
+                              ->get();
+      return view('ClientPortal.sentRequests2')
+              ->with('client',$client)
+              ->with('transID',$transID)
+              ->with('clientSentRequests',$clientSentRequests);
+    }
+
     public function cancelRequest(Request $request){
       if($request->ajax()){
         //return $request->toArray();
