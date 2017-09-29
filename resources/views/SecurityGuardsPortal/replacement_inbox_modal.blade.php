@@ -1,12 +1,12 @@
 <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Deployment details</strong></center></h4>
+        <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Replacement details</strong></center></h4>
     </div>
     <div class="modal-body">
 
         <div class="form-group">
-            <p>Greetings! Sorry to tell you that your client: {{$tblestabguards->pic_fname}},{{$tblestabguards->pic_mname}},{{$tblestabguards->pic_lname}} at {{$tblestabguards->establishment}} replaced you for these reasons: .</p>
+            <p>Greetings! Sorry to tell you that our client: {{$tblestabguards->pic_fname}},{{$tblestabguards->pic_mname}},{{$tblestabguards->pic_lname}} at {{$tblestabguards->establishment}} replaced you for these reasons: .</p>
         </div>
 
         <div class="row">

@@ -474,7 +474,7 @@ class ClientPortalHomeController extends Controller
           $shift2 = $shift2.'<option value="'.$shift->start.','.$shift->end.'">From: '.$shift->start.' - To:'.$shift->end.'</option>'.' ';
         }
         foreach($contracts as $contract){
-          $contracts2 = $contracts2.'<li>'.$contract->id.' '.'<input type="radio" name="contracts" value="'.$contract->id.'"></li> '.' ';
+          $contracts2 = $contracts2.'<li>'.$contract->id.' '.'<input type="radio" name="contracts" value="'.$contract->id.'" required></li> '.' ';
           $count = $count + 1;
         }
         //return view('ClientPortal.select')->with('shifts',$shifts);
@@ -697,6 +697,18 @@ class ClientPortalHomeController extends Controller
       //return $clientSentRequests->toArray();
       return view('ClientPortal.sentRequests')
               ->with('client',$client)
+              ->with('clientSentRequests',$clientSentRequests);
+    }
+
+    public function sentRequest2($clientID,$transID){
+      $client = Clients::findOrFail($clientID);
+      $clientSentRequests = DB::table('client_sent_requests')
+                              ->where('client_sent_requests.clientID','=',$clientID)
+                              ->orderBy('client_sent_requests.changeTime','desc')
+                              ->get();
+      return view('ClientPortal.sentRequests2')
+              ->with('client',$client)
+              ->with('transID',$transID)
               ->with('clientSentRequests',$clientSentRequests);
     }
 

@@ -321,7 +321,7 @@
                       <div class="form-group">
                         <label class="control-label col-md-3">Establishments</label>
                         <div class="col-md-8">
-                          <select class="form-control"  name="establishment_id" onchange="getShifts(this.value)">
+                          <select class="form-control"  name="establishment_id" onchange="getShifts(this.value)" required=>
                           <option value="" disabled="" selected="">---</option>
                             @php
                               $e = 0;
@@ -354,7 +354,7 @@
                     <div class="form-group">
                       <label for="shifts" class="control-label col-md-3">Shifts</label>
                       <div class="col-md-8">
-                        <select class="form-control" name="shifts" id="shifts">
+                        <select class="form-control" name="shifts" id="shifts" required>
                           <option value="">~~ Guard Shifts ~~</option>
                         </select>
                       </div>
