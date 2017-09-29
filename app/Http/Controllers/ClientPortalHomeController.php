@@ -474,7 +474,7 @@ class ClientPortalHomeController extends Controller
           $shift2 = $shift2.'<option value="'.$shift->start.','.$shift->end.'">From: '.$shift->start.' - To:'.$shift->end.'</option>'.' ';
         }
         foreach($contracts as $contract){
-          $contracts2 = $contracts2.'<li>'.$contract->id.' '.'<input type="radio" name="contracts" value="'.$contract->id.'"></li> '.' ';
+          $contracts2 = $contracts2.'<li>'.$contract->id.' '.'<input type="radio" name="contracts" value="'.$contract->id.'" required></li> '.' ';
           $count = $count + 1;
         }
         //return view('ClientPortal.select')->with('shifts',$shifts);
