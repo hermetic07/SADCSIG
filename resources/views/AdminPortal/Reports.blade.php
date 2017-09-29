@@ -74,32 +74,75 @@
                           {!! $chart->html() !!}
                       </center>
                   </div>
-                                <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                  <br>
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#reportRange"><i class="fa fa-list"></i> Get PDF</button>
+                  <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
                       <thead>
                         <tr>
                         
-                          <th>Guard Name</th>
-                          <th data-hide="phone, tablet" >Client</th>
-                          <th >Establishment</th>
-                          <th >Address</th>
-                          <th data-sort-ignore="true" width="330px">Date Deployed</th>
+                          <th>Establishment</th>
+                          <th data-hide="phone, tablet" >Address</th>
+                          <th >Guard</th>
+                          <th >Education</th>
+                          <th>License</th>
+                          <th>Expire date</th>
                         </tr>
                       </thead>
-                        <div class="form-inline padding-bottom-15">
-                          <div class="row">
-                    <div class="col-sm-6">
-                    </div>
-                              <div class="col-sm-6 text-right m-b-20">
-                              <div class="form-group">
-                                  <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
-                        autocomplete="off">
-                     </div>
-                               </div>
-                           </div>
+                      <div class="form-inline padding-bottom-15">
+                        <div class="row">
+                          <div class="col-sm-6">
                         </div>
+                        <div class="col-sm-6 text-right m-b-20">
+                          <div class="form-group">
+                            <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                        autocomplete="off">
+                            </div>
+                           </div>
+                         </div>
+                      </div>
                         
                       <tbody>
-                       </tbody>
+                        @foreach($dispositions as $disposition)
+                          <tr>
+                            <td>{{$disposition->establishment}}</td>
+                            <td>
+                              {{$disposition->address}} {{$disposition->area}},{{$disposition->province}}
+                            </td>
+                            <td>
+                              {{$disposition->first_name}} {{$disposition->middle_name}} {{$disposition->last_name}}
+                            </td>
+                            <td>
+                              @php
+                                $ctr = 0;
+                              @endphp
+                              @foreach($employee_educations as $employee_education)
+                                @if($employee_education->employees_id == $disposition->empID)
+                                  @php
+
+                                    $ctr++;
+
+                                  @endphp
+                                @endif
+                              @endforeach
+
+                              @if($ctr == 0)
+
+                              @elseif($ctr == 2)
+                                HS Grad
+                              @elseif($ctr == 3)
+                                College level
+                              @endif
+                            </td>
+                            <td>
+                              {{$disposition->license_num}}
+                            </td>
+                            <td>
+                              {{$disposition->date_expired}}
+                            </td>
+                          </tr>
+                          
+                        @endforeach
+                      </tbody>
                      </table>   
                 </section>
                 <section id="section-shape-2"><p>History of Client Payments.</p></section>
@@ -118,12 +161,48 @@
 
 
       </div>
+
+      <div id="reportRange" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Date Range</strong></center></h4>
+            </div>
+            <div class="modal-body">
+             <form method="GET" action="{{ url('/DispositionReports-pdf') }}">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Starts From:</label>
+                  <input type="date" class="form-control" name="startFrom" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Ends To:</label>
+                  <input type="date" class="form-control" name="endTo" required>
+                </div>
+              </div>
+              <br><br>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-info">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+             </form>
+            </div>
+            
+            
+          </div> 
+        </div> <!-- /.modal-dialog -->
+      </div> <!-- View Modal -->
+
       {!! Charts::scripts() !!}
-        {!! $chart->script() !!}
+      {!! $chart->script() !!}
   @endsection
 
   @section('script')
   <script type="text/javascript">
+        
         (function() {
 
                   [].slice.call( document.querySelectorAll( '.sttabs' ) ).forEach( function( el ) {
