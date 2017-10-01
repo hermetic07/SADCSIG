@@ -526,8 +526,11 @@ class ClientPortalHomeController extends Controller
       return view('ClientPortal/ClientPortalMessages')->with('swap',$swap)->with('all',$collection)->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic);
     }
     public function messagesModal(Request $request,$messageID){
+      
+      // $clientInbox = ClientDeploymentNotif::findOrFail($messageID);
+      // return $clientInbox;
       if($request->ajax()){
-        $clientInbox = ClientDeploymentNotif::findOrFail($messageID)->get();
+        $clientInbox = ClientDeploymentNotif::findOrFail($messageID);
 
         return response($clientInbox);
       }

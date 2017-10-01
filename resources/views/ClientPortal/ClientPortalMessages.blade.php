@@ -30,7 +30,7 @@
   $estabImage = "";
   $clientPicture = "";
 @endphp -->
-
+<input type="hidden" id="clientID" value="{{$client->id}}">
 <!-- /.row -->    
 <div class="row">
   <div class="col-lg-12	">
@@ -117,7 +117,7 @@
                   @endforeach
                 </td>
                 <td>   &nbsp;
-                  <button disabled type="button" data-target="#{{$clientInboxMessage->notif_id}}" data-toggle="modal" class="btn btn-info btn-circle viewMessage"  data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                  <button disabled  type="button" onclick="showMessage('{{$tempDeploymentID}}','{{$clientInboxMessage->client_deloyment_notif_id}}')" class="btn btn-info btn-circle viewMessage"  data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
                 </td>
               </tr>
               @else
@@ -180,47 +180,10 @@
                   @endforeach
                 </td>
                 <td>   &nbsp;
-                  <button type="button" data-target="#{{$clientInboxMessage->notif_id}}" data-toggle="modal" class="btn btn-info btn-circle viewMessage"  data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                  <button type="button" onclick="showMessage('{{$tempDeploymentID}}','{{$clientInboxMessage->client_deloyment_notif_id}}')" class="btn btn-info btn-circle viewMessage"  data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
                 </td>
               </tr>
-<div id="{{$clientInboxMessage->notif_id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-             <div class="modal-dialog">
-               <div class="modal-content">
-                 <div class="modal-header">
-                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                   <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Message</strong></center></h4>
-                 </div>
-                 <div class="modal-body">
-                   <form data-toggle="validator">
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="form-group col-sm-12">
-                          <label class="control-label">Subject:</label>
-                          <p class="form-control-static">Guard's pool</p>
-                          <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group col-sm-12 ">
-                          <label class="control-label">Content:</label>
-                          <p class="form-control-static"> Good morning! We got you the best of our security team! Select guards and we will deploy them to you.</p>
-                          <br>
-                          <center>
-                            <button  type="button" onclick="location.href='/GuardPool+'+'{{$tempDeploymentID}}+'+'{{$client->id}}'+'+{{$client_notif_id}}'" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button>
-                          </center>
-                          <div class="help-block with-errors"></div>
-                        </div>
-                      </div>
-                      <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                    </div>
-                  </form>
-                 </div>
-               </div>
-               <!-- /.modal-content -->
-             </div>
-             <!-- /.modal-dialog -->
-           </div>
+
               @endif
             @endforeach
             
@@ -439,6 +402,48 @@
              </div>
              <!-- /.modal-dialog -->
            </div>
+
+
+           <div id="messageInboxModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+             <div class="modal-dialog">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                   <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Message</strong></center></h4>
+                 </div>
+                 <div class="modal-body">
+                   <form data-toggle="validator">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="form-group col-sm-12">
+                          <label class="control-label">Subject:</label>
+                          <p class="form-control-static">Guard's pool</p>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group col-sm-12 ">
+                          <label class="control-label">Content:</label>
+                          <p class="form-control-static"> Good morning! We got you the best of our security team! Select guards and we will deploy them to you.</p>
+                          <br>
+                          <center>
+                           <div class="selectGuard">
+                              
+                           </div>
+                          </center>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    </div>
+                  </form>
+                 </div>
+               </div>
+               <!-- /.modal-content -->
+             </div>
+             <!-- /.modal-dialog -->
+           </div>
 @endsection
 
 
@@ -471,10 +476,24 @@
       //     type : 'GET',
       //     url : '/ClientPortalMessages/modal/'+this.id,
       //     success : function(data){
-      //      $('#guardPool').modal('show');
+      //      $('#messageInboxModal').modal('show');
       //     }
       //   });
       //  });
+      function showMessage(tempDeploymentID,notif_id){
+       // alert('<button  type="button" onclick="location.href="'+'/GuardPool+'+tempDeploymentID+'+'+$('#clientID').val()+'+'+notif_id+'" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button>');
+       //alert(notif_id.split('-')[1]+"");
+       var urlLink = tempDeploymentID+'+'+$('#clientID').val()+'+'+notif_id;
+        $.ajax({
+          
+          type : 'GET',
+          url : '/ClientPortalMessages/modal/'+notif_id,
+          success : function(data){
+            $('.selectGuard').append('<button  type="button" onclick="location.href=\''+'/GuardPool+'+urlLink+'\'" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button>');
+           $('#messageInboxModal').modal('show');
+          }
+        });
+      }
     
   </script>
 
