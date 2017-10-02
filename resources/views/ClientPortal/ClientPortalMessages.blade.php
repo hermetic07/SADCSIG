@@ -420,6 +420,11 @@
                           <p class="form-control-static">Guard's pool</p>
                           <div class="help-block with-errors"></div>
                         </div>
+                        <div class="form-group col-sm-12">
+                          <label class="control-label">Your Request:</label>
+                          <p class="form-control-static yourRequest"></p>
+                          <div class="help-block with-errors"></div>
+                        </div>
                         <div class="form-group col-sm-12 ">
                           <label class="control-label">Content:</label>
                           <p class="form-control-static"> Good morning! We got you the best of our security team! Select guards and we will deploy them to you.</p>
@@ -444,6 +449,7 @@
              </div>
              <!-- /.modal-dialog -->
            </div>
+
 @endsection
 
 
@@ -481,15 +487,21 @@
       //   });
       //  });
       function showMessage(tempDeploymentID,notif_id){
+       // alert(notif_id//);
        // alert('<button  type="button" onclick="location.href="'+'/GuardPool+'+tempDeploymentID+'+'+$('#clientID').val()+'+'+notif_id+'" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button>');
-       //alert(notif_id.split('-')[1]+"");
+       var transID = notif_id.split('-')[1]+"-"+notif_id.split('-')[2];
+       var transLink = '<a id="requestLink" href="">'+transID+'</a>';
        var urlLink = tempDeploymentID+'+'+$('#clientID').val()+'+'+notif_id;
         $.ajax({
           
           type : 'GET',
           url : '/ClientPortalMessages/modal/'+notif_id,
           success : function(data){
+            $('.yourRequest').append(transLink);
+            $('#requestLink').attr("href", "http://localhost:8000/Sent-request-"+$('#clientID').val()+"-"+transID);
+            $('.selectGuard').html("");
             $('.selectGuard').append('<button  type="button" onclick="location.href=\''+'/GuardPool+'+urlLink+'\'" class="fcbtn btn btn-info btn-outline btn-1e">Select guards</button>');
+ +           $('#messageInboxModal').modal('show');
            $('#messageInboxModal').modal('show');
           }
         });
