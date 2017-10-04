@@ -17,6 +17,7 @@
 
 @section('content')
 <h1>TWO WEEK NALANG ! -_-</h1>
+<h1>Di AKO MAKAPAGPUSH  ! -_-</h1>
 <div class="row">
     <div class="sttabs tabs-style-linetriangle white-box">
         <nav>
