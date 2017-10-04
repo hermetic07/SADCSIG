@@ -15,6 +15,8 @@ Route::get('/Sent-request-{clientID}-{transID}','ClientPortalHomeController@sent
 Route::get('/cancel-Request','ClientPortalHomeController@cancelRequest');
 Route::post('/cancel-Request-save','ClientPortalHomeController@cancelRequestSave');
 Route::get('/view-sentRequest','ClientPortalHomeController@viewSentRequest');
+Route::post('/cancel-Request-admin','AdminController@cancelRequestSave');
+
 Route::get('/', function () {
 	return view('welcome');
 });

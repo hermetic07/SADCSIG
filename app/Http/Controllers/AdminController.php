@@ -32,6 +32,8 @@ use App\DeploymentDetails;
 use App\ClientsPic;
 use App\EstabGuards;
 use App\Role;
+use App\ClientCancelRequests;
+use App\GuardReplacement;
 
 
 class AdminController extends Controller
@@ -555,5 +557,34 @@ class AdminController extends Controller
         }
     }
 
-    
+    public function cancelRequestSave(Request $request){
+      if($request->ajax()){
+          $client_canceled_requestID = 'CLNT-CNCLD-REQ-'.ClientCancelRequests::get()->count();             
+            $client_canceled_request = new ClientCancelRequests();
+            $client_canceled_request['canceled_requests_id'] = $client_canceled_requestID;
+            $client_canceled_request['trans_type'] = $request->requestType;
+            $client_canceled_request['client_id'] = $request->clientID;
+            $client_canceled_request['reasons'] = $request->reasons;
+            $client_canceled_request['requestID'] = $request->requestID;
+            $client_canceled_request['created_at'] = Carbon::now();
+            $client_canceled_request['updated_at'] = Carbon::now();
+            $client_canceled_request->save();
+            //return $request->requestID;
+            if($request->requestType== 'GUARD REPLACEMENT'){
+              $guard_replacement_requests = GuardReplacement::findOrFail($request->requestID)
+                                        ->update(['status'=>'a_cancel']);
+            }else if($request->requestType == 'SERVICE REQUEST'){
+
+              $service_requests = ServiceRequest::findOrFail($request->requestID)
+                                        ->update(['status'=>'a_cancel']);
+            }else if($request->requestType == 'ADDGUARD REQUEST'){
+              $add_guard_request = AddGuardRequests::findOrFail($request->requestID)
+                                        ->update(['status'=>'a_cancel']);
+            }else if($request->requestType == 'ADDGUN REQUEST'){
+              $gun_request = GunRequest::findOrFail($request->requestID)
+                                        ->update(['status'=>'a_cancel']);
+            }
+            
+      }
+    }
 }
