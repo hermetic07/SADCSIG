@@ -69,7 +69,7 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-info servReView" value="{{$service_request->requestCode}}">View</button>
-                                            <button type="button" class="btn btn-danger">Delete</button>
+                                            <button type="button" class="btn btn-danger" onclick="func_delete('{{$service_request->requestCode}}','servicerequest')">Delet>Delete</button>
                                         </td>
                                     </tr>
                                   @elseif($service_request->status == 'c_cancel' || $service_request->status == 'a_cancel')
@@ -87,7 +87,7 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-info servReView" value="{{$service_request->requestCode}}">View</button>
-                                            <button type="button" class="btn btn-danger">Delete</button>
+                                            <button type="button" class="btn btn-danger" onclick="func_delete('{{$service_request->requestCode}}','servicerequest')">Delete</button>
                                         </td>
                                     </tr>
                                   @elseif($service_request->status == 'active')
@@ -366,7 +366,7 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-info guardRepView" value="{{$guard_replacement_request->requestCode}}">View</button>
-                                            <button type="button" class="btn btn-danger">Delete</button>
+                                            <button type="button" class="btn btn-danger" onclick="func_delete('{{$guard_replacement_request->requestCode}}','guardrep')">Delete</button>
                                         </td>
                                     </tr>
                                   @elseif($guard_replacement_request->status == "c_cancel" || $guard_replacement_request->status == "a_cancel")
@@ -385,10 +385,10 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-info guardRepView" value="{{$guard_replacement_request->requestCode}}">View</button>
-                                            <button type="button" class="btn btn-danger">Delete</button>
+                                            <button type="button" class="btn btn-danger" onclick="func_delete('{{$guard_replacement_request->requestCode}}','guardrep')">Delete</button>
                                         </td>
                                     </tr>
-                                  @else
+                                  @elseif($guard_replacement_request->status != "deleted")
                                     <tr>
                                         <td>
                                             <a href="{{route('admin.client.estab',$guard_replacement_request->client_id)}}">
