@@ -309,4 +309,15 @@ class GuardReplacementController extends Controller
                 ;
         //return $request->clientID;
     }
+    public function remove(Request $request)
+     {
+         $id = $request -> id;
+         $data = GuardReplacement::findOrFail($id);
+         $data->status = "deleted";
+         $response = $data -> save();
+         if($response)
+             echo "Record Removed successfully.";
+         else
+             echo "There was a problem. Please try again later.";
+     }
 }

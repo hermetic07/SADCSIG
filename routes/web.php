@@ -161,6 +161,7 @@ Route::post('/Admin-update-daytwo', 'UtilitiesControl@daytwoupdate');
 Route::group(['prefix'=>''], function(){
 	Route::get('ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');
 	Route::get('ServiceRequest/viewModal','ServiceRequestController@viewModal')->name('serviceRequest.viewModal');
+	Route::post('/delete-servicerequest','ServiceRequestController@remove');
 });
 
 //Route::get('/ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');  // All services requested from clients
@@ -272,6 +273,8 @@ Route::post('/delete-addguardrequests','AdditionalGuardRequesController@remove')
 	Route::get('/GuardRepl-DeployStatus-{guardReplacementID}','GuardReplacementController@deploymentStatus');
 	Route::get('/GuardReplacement-deploy','GuardReplacementController@deploy');
 	Route::get('/Replace-ChangeGuards','GuardReplacementController@changeRejectedGuards');
+
+	Route::post('/delete-guardrep','GuardReplacementController@remove');
 
 /**-------------------------     Guard-Replacement Start    ---------------------*/
 
