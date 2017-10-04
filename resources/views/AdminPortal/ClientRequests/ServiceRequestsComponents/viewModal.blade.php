@@ -46,7 +46,8 @@
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
           @else
               <button type="button" class="btn btn-info waves-effect waves-light">Accept</button>
-              <button type="button" class="btn btn-danger waves-effect waves-light">Reject</button>
+              
+              <button type="button" class="btn btn-danger waves-effect waves-light" onclick="func_show_cancel_swal('{{$serviceRequests->id}}','SERVICE REQUEST','{{$serviceRequests->client_id}}')">Reject</button>
               <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
           @endif
           

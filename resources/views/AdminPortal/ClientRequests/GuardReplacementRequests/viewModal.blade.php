@@ -14,7 +14,7 @@
                 @endforeach
               </p>
             @elseif($guardReplacementDetails->status == "a_cancel")
-              <h2>This request was canceled by the management</h2>
+              <h2 style="background-color: firebrick; color:white">This request was canceled by the management</h2>
             @elseif($guardReplacementDetails->status == "done")
               <h2>This request was already done.</h2>
             @endif
@@ -102,6 +102,7 @@
           <button disabled type="button" class="btn btn-info" onclick="location.href='Deploy-GuardReplacement-{{$guardReplacementDetails->requestCode}}'">Replace</button>
         @else
           <button type="button" class="btn btn-info" onclick="location.href='Deploy-GuardReplacement-{{$guardReplacementDetails->requestCode}}'">Replace</button>
+          <button type="button" class="btn btn-danger waves-effect waves-light" onclick="func_show_cancel_swal('{{$guardReplacementDetails->requestCode}}','GUARD REPLACEMENT','{{$guardReplacementDetails->clientID}}')" >Reject request</button>
         @endif
           
        

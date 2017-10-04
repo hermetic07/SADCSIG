@@ -20,6 +20,11 @@
       </p>
     @elseif($request->status == "a_cancel")
     <h2 style="background-color: firebrick; color : white;">The management cancel this request for the following reasons:</h2>
+    <p>
+        @foreach($client_canceled_request as $client_canceled_req)
+          {{$client_canceled_req->reasons}}
+        @endforeach
+      </p>
     @endif
   </div>
   

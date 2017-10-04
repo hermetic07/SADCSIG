@@ -601,5 +601,50 @@ jQuery(document).ready(function($){
         }
       });
     });
+
+    function func_cancel(transID,requestType){
+      //alert(transID+"--"+requestType);
+      $.ajax({
+        url : 'cancel-Request-admin',
+        type : 'POST',
+        data: {requestID:transID,requestType:requestType},
+        success : function(data){
+          console.log(data);
+        }
+      });
+    }
+    function func_show_cancel_swal(transID,requestType,client_id){
+      $('#modalview').modal('hide');
+      swal({
+              title: "Cancel Request",
+              text: "What will be the problem?",
+              type: "input",
+              showCancelButton: true,
+              closeOnConfirm: false,
+              animation: "slide-from-top",
+              inputPlaceholder: "Write something"
+            },
+            function(inputValue){
+              if (inputValue === false) return false;
+
+              if (inputValue === "") {
+                swal.showInputError("You need to write something!");
+                return false
+              }
+              $.ajax({
+                url : '/cancel-Request-admin',
+                type : 'POST',
+                data : {requestID:transID,requestType:requestType,reasons:inputValue,clientID:client_id},
+                success: function(data){
+
+
+              
+                  swal("Thank you!", "Your reason: " + inputValue, "success");
+                  location.reload();
+                }
+              });
+
+            });
+    }
 </script>
   @endsection

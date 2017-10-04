@@ -64,6 +64,7 @@ class GuardReplacementController extends Controller
                         					'employees.first_name',
                         					'employees.middle_name',
                         					'employees.last_name',
+                                            'clients.id as clientID',
                         					'clients.last_name as c_lname',
                         					'clients.first_name as c_fname',
                         					'clients.middle_name as c_mname',

@@ -34,7 +34,7 @@ class ReportsController extends Controller
     	
 
     					//return $provinces_arry;
-    	$chart = Charts::create('pie', 'highcharts')
+    	$chart = Charts::create('donut', 'highcharts')
 		    ->title('Disposition Report Chart')
 		    ->labels($provinces_arry)
 		    ->values([5,10,20])

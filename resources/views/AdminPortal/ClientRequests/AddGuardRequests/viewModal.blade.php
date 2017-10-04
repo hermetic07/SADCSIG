@@ -13,7 +13,7 @@
                 @endforeach
               </p>
             @elseif($add_guard_request->status == "a_cancel")
-              <h2>This request was canceled by the management</h2>
+              <h2 style="background-color: firebrick; color:white">This request was canceled by the management</h2>
             @elseif($add_guard_request->status == "done")
               <h2>This request was already done</h2>
             @endif
@@ -57,6 +57,7 @@
           <button disabled type="button" class="btn btn-info" onclick="location.href='Deploy-AddGuards-{{$add_guard_request->id}}'">Deployment</button>
         @else
           <button type="button" class="btn btn-info" onclick="location.href='Deploy-AddGuards-{{$add_guard_request->id}}'">Deployment</button>
+          <button type="button" class="btn btn-danger waves-effect waves-light" onclick="func_show_cancel_swal('{{$add_guard_request->id}}','ADDGUARD REQUEST','{{$add_guard_request->client_id}}')" >Reject request</button>
         @endif
         
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
