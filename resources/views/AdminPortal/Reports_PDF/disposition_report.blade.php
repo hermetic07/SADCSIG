@@ -16,6 +16,7 @@
 		    height: 50px;
 		}
 	</style>
+	<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container-fluid">
@@ -38,18 +39,9 @@
 		<br>
 		<center>
 			<table style="border: 1">
-				<thead>
-					<tr>
-						<th>Clients</th>
-						<th>Address</th>
-						<th>Guards</th>
-						<th>Education</th>
-						<th>License</th>
-						<th>Expire Date</th>
-					</tr>
-				</thead>
+				
 				<tbody>
-                @foreach($dispositions as $disposition)
+                <!-- @foreach($dispositions as $disposition)
                   <tr>
                     <td>{{$disposition->establishment}}</td>
                     <td>
@@ -88,7 +80,83 @@
                     </td>
                   </tr>
                   
+                @endforeach -->
+                @foreach($clients as $client)
+                <tr>
+                	<td>
+                		<b>Client:</b> <h3>{{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}</h3>
+                		Establishment:
+		                	@foreach($dispositions as $disposition)
+		                		@if($disposition->client_id == $client->id)
+		                			{{$disposition->establishment}} @break
+		                		@endif
+		                	@endforeach
+		                	<br> 
+		                	Deployed Guard(s)
+		                	<br>
+		                	<ol>
+		                		@foreach($dispositions as $disposition)
+			                		@if($disposition->client_id == $client->id)
+			                			<li><div class="row">
+			                				<div class="col-md-4">
+			                					{{$disposition->first_name}} {{$disposition->middle_name}} {{$disposition->last_name}}
+			                				</div>
+			                				<div class="col-md-4">
+			                					@php
+							                        $ctr = 0;
+							                      @endphp
+							                      @foreach($employee_educations as $employee_education)
+							                        @if($employee_education->employees_id == $disposition->empID)
+							                          @php
+
+							                            $ctr++;
+
+							                          @endphp
+							                        @endif
+							                      @endforeach
+
+							                      @if($ctr == 0)
+
+							                      @elseif($ctr == 2)
+							                        HS Grad
+							                      @elseif($ctr == 3)
+							                        College level
+							                      @endif
+			                				</div>
+			                			</div></li><br>
+			                		@endif
+			                	@endforeach
+		                	</ol>
+		                	
+		                
+            		</td>
+            	</tr>
                 @endforeach
+
+
+
+                 <!-- @foreach($dispositions as $disposition)
+                  <tr>
+                    <td>
+                    	{{$disposition->establishment}} <br>
+                    	{{$disposition->address}} {{$disposition->area}},{{$disposition->province}}<br>
+                    	<table>
+                    		<thead>
+                    			<tr>
+                    				<th>Guard</th>
+                    			</tr>
+                    		</thead>
+                    		<tbody>
+                    			<tr>
+                    				
+                    			</tr>
+                    		</tbody>
+                    	</table>
+                    </td>
+                    
+                  </tr>
+                  
+                @endforeach -->
               </tbody>
 			</table>
 		</center>
