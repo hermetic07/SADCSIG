@@ -161,7 +161,9 @@ Route::post('/Admin-update-daytwo', 'UtilitiesControl@daytwoupdate');
 Route::group(['prefix'=>''], function(){
 	Route::get('ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');
 	Route::get('ServiceRequest/viewModal','ServiceRequestController@viewModal')->name('serviceRequest.viewModal');
+	Route::post('/accept-servicerequest','AdminController@accept_serv_req');
 	Route::post('/delete-servicerequest','ServiceRequestController@remove');
+	Route::get('/open-servicerequest','ClientPortalHomeController@openServReqNotif');
 });
 
 //Route::get('/ServiceRequest','ServiceRequestController@index')->name('serviceRequest.index');  // All services requested from clients
@@ -593,6 +595,7 @@ Route::post('/saveGuardResponse','EmployeeControl@saveResponse')->name('save.gua
 Route::post('/saveGuardReject','EmployeeControl@guardReject')->name('guard.reject');
 Route::get('/getReason','EmployeeControl@getReason')->name('getreason');
 Route::get('/openInbox','EmployeeControl@openInbox');
+
 Route::get('/openInbox-rplc','EmployeeControl@openInboxReplace');
 Route::post('/deleteMessage','EmployeeControl@deleteMessage');
 // -- end Earl :D ----------------------------------------------------------------

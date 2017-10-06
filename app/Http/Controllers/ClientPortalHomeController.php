@@ -522,8 +522,13 @@ class ClientPortalHomeController extends Controller
       ->where('tblswaprequest.clientstatus','pending')
       ->where('tblswaprequest.employeestatus','pending')
       ->get();
-
-      return view('ClientPortal/ClientPortalMessages')->with('swap',$swap)->with('all',$collection)->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic);
+      $accepted_serv_req = DB::table('service_requests')
+                              ->where('status','accepted')
+                              ->where('client_id',$id)
+                              ->orderBy('created_at','desc')
+                              ->get();
+                              //return $accepted_serv_req->toArray();
+      return view('ClientPortal/ClientPortalMessages')->with('swap',$swap)->with('all',$collection)->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic)->with('accepted_serv_req',$accepted_serv_req);
     }
     public function messagesModal(Request $request,$messageID){
       
@@ -531,10 +536,17 @@ class ClientPortalHomeController extends Controller
       // return $clientInbox;
       if($request->ajax()){
         $clientInbox = ClientDeploymentNotif::findOrFail($messageID);
-
         return response($clientInbox);
       }
       
+    }
+    public function openServReqNotif(Request $request){
+      if($request->ajax()){
+        $service_requests = ServiceRequest::findOrFail($request->servReqID);
+        return view('ClientPortal.formcomponents.serv_req_notif_modal')
+                ->with('service_requests',$service_requests)
+                ->with('clientID',$request->clientID);
+      }
     }
     public function guardPool($tempDeploymentID,$clientID,$client_notif_id){
       $client = Clients::findOrFail($clientID);

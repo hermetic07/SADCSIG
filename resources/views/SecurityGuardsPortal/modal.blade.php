@@ -9,7 +9,7 @@
       <label class="control-label">Content:</label>
       <br>
       <div class="col-md-12"><br>
-        <h3>PolyTechnic university of the philippines</h3>
+        <h3>{{$establishment->name}}</h3>
         <div class="text-muted"><span class="m-r-10">{{$clientDeploymentNotif->created_at}}</span></div>
         <br>
         <p>Hello! we are proudly to announce you that our client selects you to be part of their security team! A great oppurtunity indeed. Now once you accept this offer, you must report to our office as soon as possible to process this job order. Thank you and have a good day!</p><br>

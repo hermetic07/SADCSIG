@@ -34,6 +34,7 @@ use App\EstabGuards;
 use App\Role;
 use App\ClientCancelRequests;
 use App\GuardReplacement;
+use App\AcceptedServRequests;
 
 
 class AdminController extends Controller
@@ -586,5 +587,24 @@ class AdminController extends Controller
             }
             
       }
+    }
+    public function accept_serv_req(Request $request){
+        // $strServiceRequestsNotifID = 'SERV-REQ-NOTIF-'.AcceptedServRequests::get()->count();
+        // if($request->ajax()){
+        //     $accepted_serv_req = new AcceptedServRequests();
+        //     $accepted_serv_req['strServiceRequestsNotif'] = $strServiceRequestsNotifID;
+        //     $accepted_serv_req['strAdmin'] = 'Earl Macho';
+        //     $accepted_serv_req['strServiceRequestID'] = $request->transID;
+        //     $accepted_serv_req['created_at'] = Carbon::now();
+        //     $accepted_serv_req['updated_at'] = Carbon::now();
+        //     if($accepted_serv_req->save()){
+        //         
+        //     }
+            //return $request->toArray();
+        //}
+        if(ServiceRequest::findOrFail($request->transID)
+                                        ->update(['status'=>'accepted'])){
+            return '0';
+        }
     }
 }
