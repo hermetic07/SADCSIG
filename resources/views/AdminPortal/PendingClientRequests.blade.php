@@ -91,7 +91,7 @@
                                             <button type="button" class="btn btn-danger" onclick="func_delete('{{$service_request->requestCode}}','servicerequest')">Delete</button>
                                         </td>
                                     </tr>
-                                  @elseif($service_request->status == 'active')
+                                  @elseif($service_request->status == 'active' || $service_request->status == "accepted")
                                     <tr>
                                         <td>
                                             <a href="{{route('admin.client.estab',$service_request->client_id)}}">
@@ -646,6 +646,20 @@ jQuery(document).ready(function($){
               });
 
             });
+    }
+    function func_accept(transID){
+      //alert(transID);
+      $.ajax({
+        url : 'accept-servicerequest',
+        type : 'POST',
+        data : {transID:transID},
+        success : function(data){
+          //console.log(data);
+          if(data == 0){
+            location.reload();
+          }
+        }
+      });
     }
 </script>
   @endsection

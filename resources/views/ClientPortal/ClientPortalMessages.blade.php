@@ -186,6 +186,39 @@
 
               @endif
             @endforeach
+            @foreach($accepted_serv_req as $serv_req)
+              <tr>
+                <td>
+                  <center>
+                    <div class="el-card-item" style="padding-bottom: 5px;" >
+                      <div class="el-card-avatar el-overlay-1" style="width: 65%;">
+                        <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg"  alt="user"  class="img-circle img-responsive"></a>
+                        <div class="el-overlay">
+                          <ul class="el-info">
+                            <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="label label-table label-danger">Agency</span>        
+                  </center>
+                </td>
+                <td>
+                  Earl Pogi
+                </td>
+                <td>
+                  {{$serv_req->updated_at}}
+                </td>
+                <td>
+                  SERVICE REQUEST
+                </td>
+                <td>
+                  &nbsp;
+                  <button type="button" onclick="showServReqMessage('{{$serv_req->id}}','{{$clientInboxMessage->client_deloyment_notif_id}}')" class="btn btn-info btn-circle viewMessage"  data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                </td>
+              </tr>
+
+            @endforeach
             
           </tbody>
           <tfoot>
@@ -328,6 +361,12 @@
 
 @endsection
 @section('modals')
+  <div id="servReqModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog serv-req-modal-content">
+                
+              <!-- /.modal-dialog -->
+      </div>
+  </div>
        <!-- Inbox -->
  <div id="guardPool" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
              <div class="modal-dialog">
@@ -573,6 +612,21 @@
       }
     });
     }
+     function showServReqMessage(servReqID){
+      //alert(servReqID);
+      $.ajax({
+        url : '/open-servicerequest',
+        type : 'GET',
+        data : {servReqID:servReqID,clientID:$('#clientID').val()},
+        success : function(data){
+          console.log(data);
+          $('.serv-req-modal-content').html('');
+          $('.serv-req-modal-content').append(data);
+          $('#servReqModal').modal('show');
+
+        }
+      });
+     }
   </script>
  @endsection
 <!-- @section('adminPic')
