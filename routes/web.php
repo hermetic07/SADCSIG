@@ -613,7 +613,7 @@ Route::post('/HireEmployee2','RegisterControl@approve2');
 Route::post('/HireOnlineEmployee','OnlineRegisterControl@approve');
 Route::post('/RemoveApplicant','RegisterControl@remove');
 Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
-
+Route::post('/SaveIncidentReport','EmployeeControl@incident');
 //
 Route::get('send','sendEmail@send');
 //log In

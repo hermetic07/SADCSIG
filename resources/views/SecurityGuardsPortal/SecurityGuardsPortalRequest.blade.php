@@ -23,13 +23,30 @@
               @if($employee->deployed===1)
               <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10"  data-toggle="modal" data-target="#leave"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" >Request</a>
               @else
-              <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button> 
+              <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button>
               @endif
             </div>
           </div>
         </div>
       </div>
 
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
+<div class="panel panel-default">
+<div class="panel-heading"><i class="fa fa-info-circle"></i> Send a Incident Report</div>
+<div class="panel-wrapper collapse in">
+  <div class="panel-body">
+
+    <p>Send an Incident Report to the agency</p>
+          @if($employee->deployed===1)
+          <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" > Compose Report</a>
+          @else
+          <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button>
+          @endif
+  </div>
+
+</div>
+</div>
+</div>
 
 
 
@@ -43,7 +60,7 @@
                     @if($employee->deployed===1)
                     <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" href="/SwapRequest" >Request</a>
                     @else
-                    <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button> 
+                    <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button>
                     @endif
             </div>
 
@@ -63,7 +80,7 @@
                     @if($employee->deployed===1)
                     <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#resign"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" > Request</a>
                     @else
-                    <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button> 
+                    <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button>
                     @endif
             </div>
 
@@ -80,7 +97,7 @@
                     @if($employee->deployed===1)
                     <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#ammo"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" > Request</a>
                     @else
-                    <label class="col-xs-5 control-label"></label> <button class="btn btn-info m-t-10" disabled>You are not yet deployed</button> 
+                    <label class="col-xs-5 control-label"></label> <button class="btn btn-info m-t-10" disabled>You are not yet deployed</button>
                     @endif
             </div>
 
@@ -165,80 +182,29 @@
           </div>
 <!-- /leave -->
 
-   <!-- swap Modal -->
+   <!-- incident Modal -->
 <div id="swap" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-       <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Swap request</strong></center></h4>
+       <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Incident Report</strong></center></h4>
       </div>
       <div class="modal-body">
-        <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
-          <thead>
-            <tr>
-			        <th data-sort-ignore="true" data-sort-initial="true" data-toggle="true" width="100px" >Guard</th>
-              <th>Guard's name</th>
-              <th data-sort-ignore="true">Client</th>
-              <th data-sort-ignore="true">action</th>
-            </tr>
-          </thead>
-          <div class="form-inline padding-bottom-15">
-           <div class="row">
-					    <div class="col-sm-6"></div>
-               	<div class="col-sm-6 text-right m-b-20">
-              	  <div class="form-group">
-                		<input id="demo-input-search2" type="text" placeholder="Search" class="form-control" autocomplete="off">
-					        </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <tbody>
-				  	<tr>  
-              <td>
-                <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  width="100px" class="img-circle img-responsive"></a>
-							</td>
-              <td>Abel mandap</td>
-					    <td> P.U.P	</td>
-              <td>  
-                 <div class="radio radio-info">
-                  <input type="radio" name="radio" id="radio1" value="option1">
-                  <label for="radio1"> swap </label>
-                 </div> 
-              </td>
-             </tr>
-				     <tr>
-              <td>
-                <a href="SecurityGuardsProfile.html"><img src="plugins/images/SecurityGuards/2x2%202.jpg" width="100px" alt="user"  class="img-circle img-responsive"></a>
-						 	</td>
-              <td>Earl dixon geraldez</td>
-					    <td> U.P. </td>
-					 		<td>   
-                 <div class="radio radio-info">
-                   <input type="radio" name="radio" id="radio1" value="option1">
-                   <label for="radio1"> Swap</label>
-                 </div> 
-              </td>
-             </tr>				
-          </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="4"></td>
-                </tr>
-              </tfoot>
-        </table>
-            <div class="text-right">
-              <ul class="pagination">
-              </ul>
-            </div>      
-   
- </div>
+        <label for="">Date if Incident</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="repcal">
+        </div>
+        <label for="">Compose your report here:</label>
+        <textarea rows="10"  style="overflow:auto;resize:none" id="increport" class="col-sm-12"></textarea>
+        <br>
+        <br>
+
+      </div>
 
 
            <div class="modal-footer">
-       <button type="button" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
+            <button type="button" id="reportsub" class="btn btn-info waves-effect waves-light" >Submit</button>
             <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
            </div>
           </form>
@@ -270,7 +236,7 @@
                     </div>
                     <div class="help-block with-errors"></div>
                  </div>
-               
+
                   <div class="form-group col-sm-12	">
                     <label class="control-label">Reason:</label>
                     <textarea class="form-control" rows="5" required></textarea>
@@ -340,7 +306,7 @@
 						 			<select class="form-control" >
 												<option></option>
 												<option>Pistiol</option>
-												<option>Rifle</option>					
+												<option>Rifle</option>
 											</select>
                        <div class="help-block with-errors"></div>
                     </div>
@@ -349,7 +315,7 @@
                        			<select class="form-control" >
 												<option></option>
 												<option>Dessert eagle</option>
-												<option>Glock 49</option>					
+												<option>Glock 49</option>
 											</select>
                       <div class="help-block with-errors"></div>
                    </div>
@@ -437,10 +403,32 @@ $("#leaves").change(function(){
      $(".secondcal").datepicker({
          dateFormat: "mm/dd/yy"
      });
+     $(".repcal").datepicker({
+         dateFormat: "mm/dd/yy"
+     });
      $(".thirdcal").datepicker({
          dateFormat: "mm/dd/yy"
      });
+     $("#reportsub").click(function(){
+       $.ajaxSetup({
+         headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+       });
 
+       $.ajax({
+         url: "/SaveIncidentReport",
+         type:"POST",
+         data: {
+           "data":$('#increport').val(),
+           "date":$('#repcal').val(),
+         },
+         success: function(result){
+           alert(result);
+           location.reload();
+         }
+       });
+      });
      $(".thirdcal").datepicker().datepicker("setDate", new Date());
 
  });
@@ -458,6 +446,7 @@ $("#leaves").change(function(){
 
 
 <script type="text/javascript">
+
 function save(id)
 {
   $.ajaxSetup({
@@ -485,6 +474,8 @@ function save(id)
     }
   });
 }
+
+
 
 </script>
  @endsection
