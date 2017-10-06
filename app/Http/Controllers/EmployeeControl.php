@@ -202,7 +202,7 @@ class EmployeeControl extends Controller
           ->where('tblswaprequest.clientstatus','accepted')
           ->where('tblswaprequest.employeestatus','pending')
           ->get();
-          
+
           $inboxs = DB::table('guard_messages_inbox')
                  ->where('guard_messages_inbox.status','!=','deleted')
                  ->where('guard_messages_inbox.guard_id','=',$u->id)
@@ -288,7 +288,7 @@ class EmployeeControl extends Controller
                         ->get()[0];
         $replacement_request = DB::table('guard_replacement_requests')
                                 ->where('guard_replacement_requests.contractID','=',$request->contractID)
-                                
+
                                 ->join('replacement_requests_details','replacement_requests_details.replacement_requests_id','=','guard_replacement_requests.requestID')
                                 ->where('replacement_requests_details.employees_id','=',$request->guard_id)
                                 ->select('replacement_requests_details.reasons')
@@ -477,7 +477,7 @@ class EmployeeControl extends Controller
                       ->join('employees', 'employees.id', '=', 'leave_request.employees_id')
                       ->select('leave_request.id as id',  'employees.first_name as fname', 'employees.last_name as lname', 'employees.cellphone as cp', 'employees.telephone as telephone', 'employees.street as street', 'employees.city as city', 'employees.barangay as barangay', 'employees.image as image', 'leave_request.reason as reason' , 'leave_request.notif_date as ndate', 'leave_request.start_date as sdate', 'leave_request.end_date as edate', 'leave_request.status as status' )
                       ->get();
-                      
+
       return view('AdminPortal.PendingGuardRequests')->with('leavelist',$leavelist);
     }
 
@@ -485,7 +485,7 @@ class EmployeeControl extends Controller
     {
       $leavelist =  LeaveRequest::find( $r->id );
       $collection = collect([$leavelist->employees_id]);
-      $secus = DB::table('employees')      
+      $secus = DB::table('employees')
           ->whereNotIn('id', $collection)
           ->where('status','waiting')
           ->get();
@@ -555,7 +555,7 @@ class EmployeeControl extends Controller
         $leavelist =  LeaveRequest::find( $leave->leave_request_id );
         $leavelist->status="denied";
         $leavelist->save();
-        
+
         return "Leave Rejected";
       } catch (Exception $e) {
         return $e;
@@ -594,7 +594,7 @@ class EmployeeControl extends Controller
     public function viewLeave2(Request $r)
     {
       try {
-        
+
         $leave =  LeaveRequest::find( $r->id );
         $emp = Employee::find($leave->employees_id);
         $img = "<img src='uploads/$emp->image' alt=''>";
@@ -607,7 +607,7 @@ class EmployeeControl extends Controller
           'reason'=>$leave->reason,
         ];
         return $data;
-        
+
       } catch (Exception $e) {
         return $e;
       }
@@ -616,7 +616,7 @@ class EmployeeControl extends Controller
     public function endLeave(Request $r)
     {
       try {
-        
+
         $leavelist =  LeaveRequest::find( $r->id );
         $leavelist->status="ended";
         $leavelist->save();
@@ -628,6 +628,28 @@ class EmployeeControl extends Controller
         $emp->status="waiting";
         $emp->save();
         return "Leave Ended";
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
+    public function incident(Request $r)
+    {
+      try {
+        $value = $r->session()->get('user');
+        $estab=DB::table('tblestabguards')
+            ->select('strEstablishmentID')
+            ->where('strGuardID',$value)
+            ->first();
+        $nature=DB::table('establishments')
+            ->select('natures_id')
+            ->where('id',$estab->strEstablishmentID)
+            ->first();
+
+        DB::table('tblincident')->insert(
+          ['emp_id' => $value, 'estab_id' => $estab->strEstablishmentID, 'estabtype_id' => $nature->natures_id, 'report' => $r->data, 'date' => $r->date,]
+        );
+        return "Report Sent";
       } catch (Exception $e) {
         return $e;
       }
