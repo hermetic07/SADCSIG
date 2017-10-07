@@ -1,43 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Contract</title>
-	<style>
-		table, td, th {
-		    border: 1px solid black;
-		}
+@extends('AdminPortal.Reports_PDF.report_layout')
 
-		table {
-		    border-collapse: collapse;
-		    width: 100%;
-		}
+@section('start_date')
+	{{$start}}
+@endsection
 
-		th {
-		    height: 50px;
-		}
-	</style>
-	<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-	<div class="container-fluid">
-		<center><h3 class="text-center" style="font-size: 25px"><b>JUBECER SECURITY SERVICE,INC.</b>
-		</h3></center>
-		<center>RM 301 SUJECO BLDG, 1754 E.RODRIGUEZ SR AVE, BRGY. IMAACULATE CONCEPTION, CUBAO, QUEZON CITY</h4></center>
-		<center><b>Tel Nos:</b> 654-9284/415-6804</center>
-		<center>LTO PSA-T-000121-2016</center>
-		<center><b>Expiry Date:</b> 654-9284/415-6804</center>
-		<center><b>email address:</b>cerbitojudy@yahoo.com</center>
-		<br>
-		<div class="col-md-3">
-			<b>To:  </b>Chief,SOSIA<br>
-			<b>Thru:  </b>Police Chief Inspector <br>	 Chief, Records Section <br>
-			<b>Subject:  </b>Disposition Report
-			
-		<br>
-		<center><h4>Disposition Report</h4></center>
-		<center><b>From: </b>{{$start}}<b>To: </b>{{$end}}</center>
-		<br>
-		<center>
+@section('end_date')
+	{{$end}}
+@endsection
+
+@section('content')
+	<center>
 			<table style="border: 1">
 				
 				<tbody>
@@ -94,39 +66,75 @@
 		                	<br> 
 		                	Deployed Guard(s)
 		                	<br>
-		                	<ol>
-		                		@foreach($dispositions as $disposition)
-			                		@if($disposition->client_id == $client->id)
-			                			<li><div class="row">
-			                				<div class="col-md-4">
-			                					{{$disposition->first_name}} {{$disposition->middle_name}} {{$disposition->last_name}}
-			                				</div>
-			                				<div class="col-md-4">
-			                					@php
-							                        $ctr = 0;
-							                      @endphp
-							                      @foreach($employee_educations as $employee_education)
-							                        @if($employee_education->employees_id == $disposition->empID)
-							                          @php
+		                		<table>
+		                			<thead>
+		                				<tr>
+		                					<th></th>
+		                					<th><center>Name</center></th>
+		                					<th><center>Education</center></th>
+		                					<th><center>License</center></th>
+		                					<th><center>Exp Date</center></th>
+		                				</tr>
+		                			</thead>
+		                			<tbody>
+		                				@php
+		                					$rowCtr = 1;
+		                				@endphp
+		                				@foreach($dispositions as $disposition)
+								           	@if($disposition->client_id == $client->id)
+								           		<tr>
+								           			<td>
+								           				<center>{{$rowCtr}}</center>
+								           			</td>
+				                					<td>
+				                						<center>
+				                							{{$disposition->first_name}} {{$disposition->middle_name}} {{$disposition->last_name}}
+				                						</center>
+				                					</td>
+				                					<td>
+				                						<center>
+				                							@php
+									                        $ctr = 0;
+									                      @endphp
+									                      @foreach($employee_educations as $employee_education)
+									                        @if($employee_education->employees_id == $disposition->empID)
+									                          @php
 
-							                            $ctr++;
+									                            $ctr++;
 
-							                          @endphp
-							                        @endif
-							                      @endforeach
+									                          @endphp
+									                        @endif
+									                      @endforeach
 
-							                      @if($ctr == 0)
+									                      @if($ctr == 0)
 
-							                      @elseif($ctr == 2)
-							                        HS Grad
-							                      @elseif($ctr == 3)
-							                        College level
-							                      @endif
-			                				</div>
-			                			</div></li><br>
-			                		@endif
-			                	@endforeach
-		                	</ol>
+									                      @elseif($ctr == 2)
+									                        HS Grad
+									                      @elseif($ctr == 3)
+									                        College level
+									                      @endif
+				                						</center>
+				                					</td>
+				                					<td>
+				                						<center>
+				                							{{$disposition->license_num}}
+				                						</center>
+				                					</td>
+				                					<td>
+				                						<center>
+				                							{{$disposition->date_expired}}
+				                						</center>
+				                					</td>
+				                				</tr>
+				                				@php
+				                					$rowCtr++;
+				                				@endphp
+											@endif
+								        @endforeach
+		                				
+		                			</tbody>
+		                		</table>
+		                	<br>
 		                	
 		                
             		</td>
@@ -160,9 +168,4 @@
               </tbody>
 			</table>
 		</center>
-		
-	</div>
-	
-	
-	</body>
-</html>
+@endsection
