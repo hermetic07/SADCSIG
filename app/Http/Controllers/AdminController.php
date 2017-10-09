@@ -464,6 +464,21 @@ class AdminController extends Controller
       ->join('gunType','gunType.id','=','guns.guntype_id')
       ->select('guns.name as gun','gunType.name as gunType','tblClaimeddelivery.serialNo')
       ->get();
+
+      $guards = DB::table('client_registrations')
+                        ->where('client_registrations.client_id','=',$id)
+                        ->join('contracts','contracts.id','=','client_registrations.contract_id')
+                        
+                        
+                        ->join('tblestabGuards',function($join){
+                            $join->on('tblestabGuards.strEstablishmentID','=','contracts.strEstablishmentID')
+                                 ->on('tblestabGuards.contractID','=','contracts.id');
+                        })
+                        ->where('tblestabGuards.isReplaced','=','0')
+                        ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
+                        ->join('employees','tblestabGuards.strGuardID','=','employees.id')
+                        ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','establishments.name as establishment','tblestabGuards.role','establishments.id as estabID','contracts.id as contractID','employees.status','employees.telephone','employees.cellphone')
+                        ->get();
      // return $es->contract_id;
       return view('AdminPortal.ClientsDetails')
             ->with('estabID',$estabID)
@@ -485,7 +500,7 @@ class AdminController extends Controller
             ->with('clientGuns',$clientGuns)
             ->with('estabGuards',$estabGuards)
             ->with('guardDeployed',$guardDeployed)
-            ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic);
+            ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic)->with('guards',$guards);;
     }
 
     public function contracts($id,$estabID){

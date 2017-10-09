@@ -147,32 +147,28 @@
 
       <tbody>
          
-    @foreach($estabGuards as $estabGuard)
-      @if($estabGuard->strEstablishmentID == $estabID)
-        @foreach($employees as $employee)
-          @if($employee->id == $estabGuard->strGuardID)
+    @foreach($guards as $guard)
+      
             <tr>
               <td>
                 <div class="el-card-item">
                   <div class="el-card-avatar el-overlay-1">
-                    <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-circle img-responsive"></a>
+                    <a href="SecurityGuardsProfile.html"><img src="uploads/{{$guard->image}}" alt="user"  class="img-circle img-responsive"></a>
                     <div class="el-overlay">
                       <ul class="el-info">
-                        <li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$employee->id)}}" target="_blank"><i class="fa fa-info"></i></a></li>
+                        <li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$guard->id)}}" target="_blank"><i class="fa fa-info"></i></a></li>
                       </ul>
                     </div>
                 </div>
               </div>
               </td>
-              <td>{{$employee->first_name}}, {{$employee->last_name}}</td>
-              <td>{{$estabGuard->shiftFrom}} am -{{$estabGuard->shiftTo}} pm</td>
-              <td>{{$employee->telephone}}</td>
-              <td>{{$employee->cellphone}} </td>
-              <td><span class="label label-table label-success">{{$employee->status}}</span> </td>
+              <td>{{$guard->first_name}}, {{$guard->last_name}}</td>
+              <td>{{$guard->shiftFrom}} am -{{$guard->shiftTo}} pm</td>
+              <td>{{$guard->telephone}}</td>
+              <td>{{$guard->cellphone}} </td>
+              <td><span class="label label-table label-success">{{$guard->status}}</span> </td>
             </tr>
-          @endif
-        @endforeach
-      @endif
+         
     @endforeach     
       
      

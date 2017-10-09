@@ -107,7 +107,7 @@ class SwapControl extends Controller
         }
         $s->save();
         $notif = new swapnotif();
-        $notif->emp_id = $emp1;
+        $notif->emp_id = $s->emp_id;
         $notif->message = "Congratulations your swap request has been approved, report to the agency to finalize your request";
         $notif->status = "accepted";
         $notif->save();
@@ -119,7 +119,7 @@ class SwapControl extends Controller
         $s->clientstatus = "rejected";
         $s->save();
         $notif = new swapnotif();
-        $notif->emp_id = $emp1;
+        $notif->emp_id = $s->emp_id;
         $notif->message = "Sorry but your request has been rejected by the guard's employer";
         $notif->status = "rejected";
         $notif->save();
