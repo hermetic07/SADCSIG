@@ -45,7 +45,7 @@
                 </div>
                   <tbody>
                         @foreach($all as $a)
-                          <tr> 
+                          <tr>
                               <td>{{$a->first}} {{$a->last}}</td>
                               <td> {{$a->cid}} </td>
 					 		                <td> {{$a->due}} </td>
@@ -119,6 +119,21 @@
                   <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group col-sm-6">
+                  <label class="control-label">Day Shift Total</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span><input class="form-control" type="number" id="days" value="">
+                  </div>
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <label class="control-label">Night Shift Total</label>
+                  <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span><input class="form-control" type="number" id="nights" value="">
+                  </div>
+                  <div class="help-block with-errors"></div>
+                </div>
+
+                <div class="form-group col-sm-6">
                   <label class="control-label">Service period from</label>
                   <div class="input-group">
                     <span class="input-group-addon"><i class="icon-calender"></i>   </span> <input type="text" class="form-control firstcal" id="firstcal" placeholder="yyyy/mm/dd" name="from"  required />
@@ -130,8 +145,9 @@
                       <p class="form-control-static" id="st"> </p>
                   <div class="help-block with-errors"></div>
                 </div>
-					  								<div class="col-xs-12">
-														    
+
+					  		<div class="col-xs-12">
+
                   <button class="btn btn-block btn-success"  onclick="fun_soa()" ><i class="ti-receipt"></i> CREATE SOA</button>
 							    </div>
 
@@ -155,7 +171,7 @@
 
 
   @endsection
-  
+
   @section('script')
   <script>
     function fun_submit(params) {
@@ -184,6 +200,8 @@
       var con =$( "#con_id" ).val();
       var cli =$( "#cli_id" ).val();
       var col =$( "#col_id" ).val();
+      var days =$( "#days" ).val();
+      var nights =$( "#nights" ).val();
       var date1 = $( "#firstcal" ).val();
       var date2 = $( "#st" ).html();
       var diff =  Math.floor(( Date.parse(date2) - Date.parse(date1) ) / 86400000);
@@ -193,16 +211,16 @@
       var today = new Date();
       var mm = today.getMonth()+1;
       if(day<10) {
-          day = '0'+dd
-      } 
-      
+          day = '0'+day;
+      }
+
       if(mm<10) {
-            mm = '0'+mm
-      } 
+            mm = '0'+mm;
+      }
       var date = today.getFullYear()+'-'+mm+'-'+day;
 
-      var ur = '/SOA/'+con+'/'+col+'/'+cli+'/'+diff+'/'+date+'/'+date1+'/'+date2;
-      window.open(ur,"_blank");    
+      var ur = '/SOA/'+con+'/'+col+'/'+cli+'/'+diff+'/'+date+'/'+date1+'/'+date2+'/'+days+'/'+nights;
+      window.open(ur,"_blank");
     }
 
     function fun_view(contract,client,collection,bill){
@@ -235,15 +253,15 @@
     }
   </script>
   <script>
-  
+
   $(function() {
 
 
      $(".firstcal").datepicker({
          dateFormat: "yy-mm-dd",
-         
+
      });
-     
+
  });
   </script>
   <script>

@@ -34,43 +34,41 @@
                   <p><b>Due Date :</b>  {{$col->strbillingId}}</p>
                 </div>
             </div>
-                
+
          <div class="row">
          <br>
               <p>Payments for security services <br>
               detailed at {{$es->name}} located at {{$area->name}}, {{$prov->name}}. <br>
-              period of {{$date1}} to {{$date2}}. 
+              period of {{$date1}} to {{$date2}}.
                </p>
                <br>
                <br>
-               </br>  
+               </br>
          </div>
-              
+
         <div class="row">
-            
+
                 <table class="table" width="100%">
                     <thead>
                       <tr>
-                        <th class="text-center">Monthly CP (per guard)</th>
-                        <th class="text-center">Total No. guards</th>
-                        <th class="text-center">Total No. of days work</th>
-                 
-                 
+                        <th class="text-center">Day Shift Fee</th>
+                        <th class="text-center">Night Shift Fee</th>
+
+
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td class="text-center">{{number_format($month, 2, '.', ',')}} php</td>
-                        <td class="text-center">{{$con->guard_count}}</td>
-                        <td class="text-center">{{$diff}}</td>
+                        <td class="text-center">{{number_format($day, 2, '.', ',')}} php</td>
+                        <td class="text-center">{{number_format($night, 2, '.', ',')}} php</td>
                       </tr>
 
                     </tbody>
               </table>
-        </div>   
-                  
-               
-              
+        </div>
+
+
+
               <div class="row">
               </br>
               </br>
@@ -80,16 +78,15 @@
                 <p> <b>Sub-Total amount:</b>  {{number_format($subtotal, 2, '.', ',')}} php</p>
                 </br>
                 <p>EWT({{$ewt->value}}% of Agency Fee) : {{number_format($totalewt, 2, '.', ',')}} php</p>
-                <h4><b>Total (per guard) :</b> {{number_format($sumtotal, 2, '.', ',')}} php</h4>
+                <h4><b>Total:</b> {{number_format($sumtotal, 2, '.', ',')}} php</h4>
                   <hr>
                   </br>
-                  
-                  <h3><b>Sum Total ({{$con->guard_count}} Guard/s) :</b> {{number_format($total, 2, '.', ',')}} php</h3>
+
                 </div>
                 <div class=""></div>
                 <hr>
               </div>
-            
+
 
 
 
@@ -117,7 +114,7 @@
 		       // iframe.setAttribute('style', 'position:absolute;top:0;right:0;height:100%; width:100%');
 		       // document.body.appendChild(iframe);
 		        //iframe.src = pdf.output('datauristring');
-				//pdf.save('doc.pdf');	
+				//pdf.save('doc.pdf');
 		       //var div = document.createElement('pre');
 		       //div.innerText=pdf.output();
 		       //document.body.appendChild(div);
