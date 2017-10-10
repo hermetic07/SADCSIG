@@ -31,7 +31,7 @@
   $clientPicture = "";
 @endphp -->
 <input type="hidden" id="clientID" value="{{$client->id}}">
-<!-- /.row -->    
+<!-- /.row -->
 <div class="row">
   <div class="col-lg-12	">
     <div class="white-box">
@@ -84,7 +84,7 @@
                         </div>
                       </div>
                     </div>
-                    <span class="label label-table label-danger">Agency</span>        
+                    <span class="label label-table label-danger">Agency</span>
                   </center>
                 </td>
                 <td>
@@ -134,7 +134,7 @@
                         </div>
                       </div>
                     </div>
-                    <span class="label label-table label-danger">Agency</span>        
+                    <span class="label label-table label-danger">Agency</span>
                   </center>
                 </td>
                 <td>
@@ -148,7 +148,7 @@
                         @if($tempDeployment->messages_ID == $adminMessage->notif_id)
                           @php
                             $tempDeploymentID = $tempDeployment->temp_deployment_id;
-                            
+
                           @endphp
                           @foreach($contracts as $contract)
                              @if($contract->id == $tempDeployment->contract_ID)
@@ -157,7 +157,7 @@
                                     @php
                                         $estabImage = $clientP->stringestablishment;
                                         $clientPicture = $clientP->stringpic;
-                                        
+
                                     @endphp
                                 @endif
                             @endforeach -->
@@ -200,7 +200,7 @@
                         </div>
                       </div>
                     </div>
-                    <span class="label label-table label-danger">Agency</span>        
+                    <span class="label label-table label-danger">Agency</span>
                   </center>
                 </td>
                 <td>
@@ -219,7 +219,7 @@
               </tr>
 
             @endforeach
-            
+
           </tbody>
           <tfoot>
             <tr>
@@ -238,11 +238,11 @@
           </div>
             </div>
             <input type="hidden" id="client_notif_id" value="{{$client_notif_id}}">
-    
+
             <div class="col-lg-12	">
 
       <div class="white-box">
-         
+
         <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
           <thead>
             <tr>
@@ -284,7 +284,7 @@
                           <td>{{$a->strbillingId}}</td>
                           <td>
                              <button class="btn btn-success"  onclick="fun_download({{$a->intid}})" ><i class="ti-receipt"></i> Download SOA</button>
-                              
+
                           </td>
                       </tr>
                       @endforeach
@@ -346,7 +346,7 @@
              <td colspan="6"></td>
            </tr>
           </tfoot>
-          </table>  
+          </table>
 
         <div class="text-right">
           <ul class="pagination">
@@ -363,7 +363,7 @@
 @section('modals')
   <div id="servReqModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
       <div class="modal-dialog serv-req-modal-content">
-                
+
               <!-- /.modal-dialog -->
       </div>
   </div>
@@ -424,15 +424,15 @@
                           <p class="form-control-static"> An employee wants to switch places with one of your guards. Click the link below to view the information of the guard who requested</p>
                           <br>
                           <center class="guardlink">
-                            
-                            
+
+
                           </center>
                         </div>
                       </div>
                       <div class="help-block with-errors"></div>
                     </div>
                     <div class="modal-footer">
-                      
+
                     </div>
                   </form>
                  </div>
@@ -470,7 +470,7 @@
                           <br>
                           <center>
                            <div class="selectGuard">
-                              
+
                            </div>
                           </center>
                           <div class="help-block with-errors"></div>
@@ -517,7 +517,7 @@
       //   //var client_notif_id = $('#client_notif_id').val();
       //   //alert(client_notif_id);
       //   $.ajax({
-          
+
       //     type : 'GET',
       //     url : '/ClientPortalMessages/modal/'+this.id,
       //     success : function(data){
@@ -532,7 +532,7 @@
        var transLink = '<a id="requestLink" href="">'+transID+'</a>';
        var urlLink = tempDeploymentID+'+'+$('#clientID').val()+'+'+notif_id;
         $.ajax({
-          
+
           type : 'GET',
           url : '/ClientPortalMessages/modal/'+notif_id,
           success : function(data){
@@ -545,14 +545,14 @@
           }
         });
       }
-    
+
   </script>
 
   <script>
   function swap_info(id)
   {
       $('.guardlink').html("<a href='/SecuProfile/"+id+"' target='_blank'>View Info</a>");
-      
+
       $('#guardSwap').modal('show');
   }
 
@@ -607,7 +607,8 @@
           'id':id,
       },
       success: function(data){
-        var ur = '/SOA/'+data.con+'/'+data.col+'/'+data.cli+'/'+data.diff+'/'+data.date+'/'+data.date1+'/'+data.date2;
+        console.log(data);
+        var ur = '/SOA2/'+data.con+'/'+data.col+'/'+data.cli+'/'+data.diff+'/'+data.date+'/'+data.date1+'/'+data.date2+'/'+data.day+'/'+data.night+'/'+data.vat+'/'+data.ewt+'/'+data.ac;
         window.open(ur,"_blank");
       }
     });

@@ -137,7 +137,8 @@ Route::get('/Penalty', function () {
 
 
 
-Route::get('/SOA/{con}/{col}/{cli}/{diff}/{date}/{date1}/{date2}', 'BillingControl@soa');
+Route::get('/SOA/{con}/{col}/{cli}/{diff}/{date}/{date1}/{date2}/{day}/{night}', 'BillingControl@soa');
+Route::get('/SOA2/{con}/{col}/{cli}/{diff}/{date}/{date1}/{date2}/{day}/{night}/{vat}/{ewt}/{ac}', 'BillingControl@soa2');
 Route::post('/Submit-Billing', 'BillingControl@submitSOA');
 Route::post('/GetPaymentInfo', 'BillingControl@paymentInfo');
 Route::post('/PaymentPaid', 'BillingControl@paymentPaid');

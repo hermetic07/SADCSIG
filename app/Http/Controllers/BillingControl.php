@@ -53,7 +53,7 @@ class BillingControl extends Controller
     public function submitSOA(Request $r)
     {
       $collection = Collections::where('intid',$r->id)->first();
-      if($collection->decTotal!==null&&$collection->decTotal!==""){
+      if($collection->decDay!==null||$collection->decNight!==null){
         $collection->strStatus = "sent";
         $collection->save();
         return "SOA SENT";
@@ -71,9 +71,10 @@ class BillingControl extends Controller
     public function paymentInfo(Request $r){
         $all = Collections::find($r->id);
         $con = Contracts::find($all->strContractId);
+        $total = $all->decDay + $all->decNight + $all->decVat - $all->decEwt + $all->decAc  ;
         $data = [
             'guards'=>$con->guard_count,
-            'amount'=>number_format($all->decTotal, 2, '.', ',')
+            'amount'=>number_format($total, 2, '.', ',')
         ];
         return $data;
     }
@@ -94,6 +95,11 @@ class BillingControl extends Controller
         $date = $col->dateInvoice;
         $date1 = $col->dateFrom;
         $date2 = $col->strbillingId;
+        $day = $col->decDay;
+        $night = $col->decNight;
+        $vat = $col->decVat;
+        $ewt= $col->decEwt;
+        $ac= $col->decAc;
         $data = [
             'con'=>$con,
             'col'=>$r->id,
@@ -102,10 +108,15 @@ class BillingControl extends Controller
             'date'=>$date,
             'date1'=>$date1,
             'date2'=>$date2,
+            'day' => $day,
+            'night' => $night,
+            'vat' => $vat,
+            'ewt'=> $ewt,
+            'ac'=> $ac,
         ];
         return $data;
     }
-    public function soa($con,$col,$cli,$diff,$date,$date1,$date2){
+    public function soa($con,$col,$cli,$diff,$date,$date1,$date2,$day,$night){
         $client = Clients::find($cli);
         $contract = Contracts::find($con);
         $estab = Establishments::where('contract_id',$con)->first();
@@ -114,25 +125,27 @@ class BillingControl extends Controller
         $collection = Collections::where('intid',$col)->first();
         $ac = Agencyfee::all()->first();
         $vat = vat::all()->first();
-        $vattotal = $ac->value*($vat->value/100); 
+        $vattotal = $ac->value*($vat->value/100);
         $ewt = ewt::all()->first();
-        $subtotal = (($contract->monthlyCP+$ac->value+$vattotal)/30*$diff);
+        $subtotal = $day + $night + $vattotal + $ac->value;
         $month = $contract->monthlyCP+$ac->value+$vattotal;
         $ewttotal = $ac->value*($ewt->value/100);
-        $sumtotal = $subtotal - $ewttotal;
-        $total = $sumtotal*$contract->guard_count;
+        $sumtotal = $subtotal  - $ewttotal;
         $collection->intdays = $diff;
         $collection->dateInvoice = $date;
         $collection->dateFrom = $date1;
-        $collection->decTotal = $sumtotal;
+        $collection->decDay = $day;
+        $collection->decNight = $night;
+        $collection->decVat = $vattotal;
+        $collection->decEwt = $ewttotal;
+        $collection->decAc = $ac->value;
         $collection->save();
         $pdf = PDF::loadView('StatementOA', [
-            'total'=>$total,
             'sumtotal'=>$sumtotal,
             'subtotal'=>$subtotal,
             'es'=>$estab,
             'vat'=>$vat,
-            'ac'=>$ac,
+            'ac'=>$ac->value,
             'month'=>$month,
             'totalvat'=>$vattotal,
             'ewt'=>$ewt,
@@ -146,11 +159,62 @@ class BillingControl extends Controller
             'date1'=>$date1,
             'date2'=>$date2,
             'date'=>$date,
+            'day'=>$day,
+            'night'=>$night,
           ]);
-                  
+
           return $pdf->stream('Statement.pdf');
 
-       
+
+    }
+
+    public function soa2($con,$col,$cli,$diff,$date,$date1,$date2,$day,$night,$vat,$ewt,$ac){
+        try {
+          $client = Clients::find($cli);
+          $contract = Contracts::find($con);
+          $estab = Establishments::where('contract_id',$con)->first();
+          $area = Area::find($estab->areas_id);
+          $prov = Province::find($estab->province_id);
+          $collection = Collections::where('intid',$col)->first();
+          $actotal = $ac ;
+
+          $vattotal = $vat;
+
+          $subtotal = $day + $night + $vattotal + $actotal;
+
+          $ewttotal = $ewt;
+          $sumtotal = $subtotal  - $ewttotal;
+
+          $pdf = PDF::loadView('StatementOA', [
+              'sumtotal'=>$sumtotal,
+              'subtotal'=>$subtotal,
+              'es'=>$estab,
+              'vat'=>$vat,
+              'ac'=>$actotal,
+
+              'totalvat'=>$vattotal,
+              'ewt'=>$ewt,
+              'totalewt'=>$ewttotal,
+              'area'=>$area,
+              'prov'=>$prov,
+              'con'=>$contract,
+              'col'=>$collection,
+              'cli'=>$client,
+              'diff'=>$diff,
+              'date1'=>$date1,
+              'date2'=>$date2,
+              'date'=>$date,
+              'day'=>$day,
+              'night'=>$night,
+            ]);
+
+            return $pdf->stream('Statement.pdf');
+        } catch (Exception $e) {
+          return $e;
+        }
+
+
+
     }
 
     public function BillingPeriod(Request $req){
@@ -175,7 +239,7 @@ class BillingControl extends Controller
                 return "Billing Period Started";
             }
         }
-        
+
     }
 
     public function getNature(Request $r){

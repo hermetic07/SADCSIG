@@ -22,7 +22,7 @@
           <div class="col-lg-12	">
 
       <div class="white-box">
-         
+
         <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
           <thead>
             <tr>
@@ -49,23 +49,35 @@
           <tbody>
                       @foreach($all as $a)
                       <tr>
-                          <td>{{$a->intid}}</td>
-                          <td>
-                            @if($a->strStatus==="sent")
-                            <span class="label label-rouded label-info">SOA SENT</span>
-                            @elseif($a->strStatus==="paid")
-                            <span class="label label-rouded label-success">Paid</span>
-                            @else
-                            <span class="label label-rouded label-danger">{{$a->strStatus}}</span>
-                            @endif
-                          </td>
-                          <td>{{$a->strContractId}}</td>
-                          <td>{{$a->dateFrom}} - {{$a->strbillingId}}</td>
-                          <td>{{$a->strbillingId}}</td>
-                          <td>
-                             <button class="btn btn-success"  onclick=" window.open('{{url('/SOA')}}','_blank')" ><i class="ti-receipt"></i> View SOA</button>
-                              <button class="btn  btn-info" onclick="fun_view({{$a->intid}})"   type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-list"></i> View details</button>
-                          </td>
+                        @if($a->strStatus==="sent")
+                        <td>{{$a->intid}}</td>
+                        <td><span class="label label-rouded label-info">SOA SENT</span></td>
+                        <td>{{$a->strContractId}}</td>
+                        <td>{{$a->dateFrom}} to {{$a->strbillingId}}</td>
+                        <td>{{$a->strbillingId}}</td>
+                        <td>
+                           <button class="btn btn-success"  onclick=" fun_download({{$a->intid}})" ><i class="ti-receipt"></i> View SOA</button>
+                            <button class="btn  btn-info" onclick="fun_view({{$a->intid}})"   type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="ti-list"></i> View details</button>
+                        </td>
+                        @elseif($a->strStatus==="paid")
+                        <td>{{$a->intid}}</td>
+                        <td><span class="label label-rouded label-success">Paid</span></td>
+                        <td>{{$a->strContractId}}</td>
+                        <td>{{$a->dateFrom}} to {{$a->strbillingId}}</td>
+                        <td>{{$a->strbillingId}}</td>
+                        <td>
+                           <button class="btn btn-success col-sm-12"  onclick=" fun_download({{$a->intid}})" ><i class="ti-receipt"></i> View SOA</button>
+                        </td>
+                        @else
+                        <td>{{$a->intid}}</td>
+                        <td><span class="label label-rouded label-danger">{{$a->strStatus}}</span></td>
+                        <td>{{$a->strContractId}}</td>
+                        <td>{{$a->dateFrom}} to {{$a->strbillingId}}</td>
+                        <td>{{$a->strbillingId}}</td>
+                        <td>
+                           <button class="btn btn-success col-sm-12"  onclick="fun_download({{$a->intid}})" ><i class="ti-receipt"></i> View SOA</button>
+                        </td>
+                        @endif
                       </tr>
                       @endforeach
           </tbody>
@@ -122,7 +134,7 @@
                   <div class="help-block with-errors"></div>
                </div>
 
- 
+
                <div class="help-block with-errors"></div>
             </div>
         </div>
@@ -173,7 +185,7 @@
                   <div class="help-block with-errors"></div>
                </div>
 
- 
+
                <div class="help-block with-errors"></div>
             </div>
         </div>
@@ -195,9 +207,9 @@
 
      $(".firstcal").datepicker({
          dateFormat: "yy-mm-dd",
-         
+
      });
-     
+
  });
   </script>
   <script>
@@ -237,13 +249,32 @@
               'date':$( "#firstcal" ).val(),
           },
           success: function(data){
-            
+
             alert(data);
             if(data==="Billing mark as paid"){
               location.reload();
             }
           }
         });
+    }
+    function fun_download(id) {
+    $.ajaxSetup({
+        headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+    }); 
+    $.ajax({
+      type: 'post',
+      url: '/Client-download-soa',
+      data: {
+          'id':id,
+      },
+      success: function(data){
+        console.log(data);
+        var ur = '/SOA2/'+data.con+'/'+data.col+'/'+data.cli+'/'+data.diff+'/'+data.date+'/'+data.date1+'/'+data.date2+'/'+data.day+'/'+data.night+'/'+data.vat+'/'+data.ewt+'/'+data.ac;
+        window.open(ur,"_blank");
+      }
+    });
     }
   </script>
   @endsection
