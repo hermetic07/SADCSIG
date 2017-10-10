@@ -71,9 +71,10 @@ class BillingControl extends Controller
     public function paymentInfo(Request $r){
         $all = Collections::find($r->id);
         $con = Contracts::find($all->strContractId);
+        $total = $all->decDay + $all->decNight + $all->decVat - $all->decEwt + $all->decAc  ;
         $data = [
             'guards'=>$con->guard_count,
-            'amount'=>number_format($all->decTotal, 2, '.', ',')
+            'amount'=>number_format($total, 2, '.', ',')
         ];
         return $data;
     }
