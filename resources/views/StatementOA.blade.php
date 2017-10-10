@@ -73,11 +73,11 @@
               </br>
               </br>
                 <div class="">
-                <p>Agency fee  : {{number_format($ac->value, 2, '.', ',')}} php</p>
-                <p>VAT ({{$vat->value}}%) : {{number_format($totalvat, 2, '.', ',')}} php</p>
+                <p>Agency fee  : {{number_format($ac, 2, '.', ',')}} php</p>
+                <p>VAT  : {{number_format($totalvat, 2, '.', ',')}} php</p>
                 <p> <b>Sub-Total amount:</b>  {{number_format($subtotal, 2, '.', ',')}} php</p>
                 </br>
-                <p>EWT({{$ewt->value}}% of Agency Fee) : {{number_format($totalewt, 2, '.', ',')}} php</p>
+                <p>EWT : {{number_format($totalewt, 2, '.', ',')}} php</p>
                 <h4><b>Total:</b> {{number_format($sumtotal, 2, '.', ',')}} php</h4>
                   <hr>
                   </br>

@@ -94,6 +94,11 @@ class BillingControl extends Controller
         $date = $col->dateInvoice;
         $date1 = $col->dateFrom;
         $date2 = $col->strbillingId;
+        $day = $col->decDay;
+        $night = $col->decNight;
+        $vat = $col->decVat;
+        $ewt= $col->decEwt;
+        $ac= $col->decAc;
         $data = [
             'con'=>$con,
             'col'=>$r->id,
@@ -102,6 +107,11 @@ class BillingControl extends Controller
             'date'=>$date,
             'date1'=>$date1,
             'date2'=>$date2,
+            'day' => $day,
+            'night' => $night,
+            'vat' => $vat,
+            'ewt'=> $ewt,
+            'ac'=> $ac,
         ];
         return $data;
     }
@@ -134,7 +144,7 @@ class BillingControl extends Controller
             'subtotal'=>$subtotal,
             'es'=>$estab,
             'vat'=>$vat,
-            'ac'=>$ac,
+            'ac'=>$ac->value,
             'month'=>$month,
             'totalvat'=>$vattotal,
             'ewt'=>$ewt,
@@ -153,6 +163,55 @@ class BillingControl extends Controller
           ]);
 
           return $pdf->stream('Statement.pdf');
+
+
+    }
+
+    public function soa2($con,$col,$cli,$diff,$date,$date1,$date2,$day,$night,$vat,$ewt,$ac){
+        try {
+          $client = Clients::find($cli);
+          $contract = Contracts::find($con);
+          $estab = Establishments::where('contract_id',$con)->first();
+          $area = Area::find($estab->areas_id);
+          $prov = Province::find($estab->province_id);
+          $collection = Collections::where('intid',$col)->first();
+          $actotal = $ac ;
+
+          $vattotal = $vat;
+
+          $subtotal = $day + $night + $vattotal + $actotal;
+
+          $ewttotal = $ewt;
+          $sumtotal = $subtotal  - $ewttotal;
+
+          $pdf = PDF::loadView('StatementOA', [
+              'sumtotal'=>$sumtotal,
+              'subtotal'=>$subtotal,
+              'es'=>$estab,
+              'vat'=>$vat,
+              'ac'=>$actotal,
+
+              'totalvat'=>$vattotal,
+              'ewt'=>$ewt,
+              'totalewt'=>$ewttotal,
+              'area'=>$area,
+              'prov'=>$prov,
+              'con'=>$contract,
+              'col'=>$collection,
+              'cli'=>$client,
+              'diff'=>$diff,
+              'date1'=>$date1,
+              'date2'=>$date2,
+              'date'=>$date,
+              'day'=>$day,
+              'night'=>$night,
+            ]);
+
+            return $pdf->stream('Statement.pdf');
+        } catch (Exception $e) {
+          return $e;
+        }
+
 
 
     }
