@@ -294,13 +294,14 @@ class RegisterControl extends Controller
 
      public function hire(Request $request)
      {
-        $employees = Employee::where("status" , "pending" )->get();
-        return view('AdminPortal/Applicants')->with('employee',$employees);
+        $employees = Employee::where("status" , "interview" )->get();
+        $employees1 = Employee::where("status" , "pending" )->get();
+        return view('AdminPortal/Applicants')->with('employee',$employees)->with('employee1',$employees1);
      }
 
      public function guards(Request $request)
      {
-        $employees = Employee::where("status" ,"!=" , "deleted" )->where("status" ,"!=" , "pending" )->get();
+        $employees = Employee::where("status" ,"!=" , "deleted" )->where("status" ,"!=" , "pending" )->where("status" ,"!=" , "interview" )->get();
         return view('AdminPortal/SecurityGuards')->with('employee',$employees);
      }
 
@@ -335,6 +336,44 @@ class RegisterControl extends Controller
                ];
 
         return $data2 ;
+     }
+
+     public function interview(Request $request)
+     {
+       $employee = Employee::find($request->id);
+       $employee->status = "interview";
+       $employee->save();
+       $data = [
+                  'email'   => $employee->email,
+
+                  'fname' => $employee->first_name,
+                  'mname' => $employee->middle_name,
+                  'lname' => $employee->last_name
+
+              ];
+
+        try {
+          Mail::send('mailInterview', $data, function($message) use ($data)
+          {
+                  $message->to($data['email']);
+                  $message->subject($data['fname']);
+          });
+        } catch (Exception $e) {
+          return "Email not sent because there is no internet connection but the status in the database has been updated";
+        }
+
+
+        $data2 = [
+                   'email'   => $employee->email,
+
+                   'fname' => $employee->first_name,
+                   'mname' => $employee->middle_name,
+                   'lname' => $employee->last_name,
+                   'picture' => $employee->image
+
+               ];
+
+        return "Email Sent" ;
      }
 
      public function approve2(Request $request)
@@ -392,6 +431,7 @@ class RegisterControl extends Controller
       ->select('employees.id as empid','employees.image as image','employees.first_name as f', 'employees.middle_name as m', 'employees.last_name as l', 'security_license.license_num as licensenum', 'security_license.class as class', 'security_license.date_issued as date_issued', 'security_license.date_expired as date_expired' )
       ->where('employees.status',"!=","pending")
       ->where('employees.status',"!=","deleted")
+      ->where('employees.status',"!=","interview")
       ->get();
       return view('AdminPortal/GuardLicenses')->with("all",$all);
      }

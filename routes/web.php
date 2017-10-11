@@ -610,6 +610,7 @@ Route::post('/RegisterEmployee','RegisterControl@employeeReg');
 Route::post('/Applicant','RegisterControl@saveImage');
 //admin guard (evander)
 Route::post('/HireEmployee','RegisterControl@approve');
+Route::post('/SendInterview','RegisterControl@interview');
 Route::post('/HireEmployee2','RegisterControl@approve2');
 Route::post('/HireOnlineEmployee','OnlineRegisterControl@approve');
 Route::post('/RemoveApplicant','RegisterControl@remove');
