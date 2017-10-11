@@ -291,7 +291,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
 
                         <tbody>
                           @foreach($contracts as $contract)
-                          @if($contract->status != "active")
+                          @if($contract->status == "pending")
                            @foreach($establishments as $establishment)
                               @if($establishment->id == $contract->strEstablishmentID)
                                 @php

@@ -41,7 +41,7 @@
                     <a href="#section-shape-2">
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                      <span>Client's payment report</span>
+                      <span>Number of Guns</span>
                     </a>
                   </li>
                   
@@ -59,12 +59,14 @@
                       <span>Guard's Daily time record</span>
                     </a>
                   </li>
+
          <li>
                     <a href="#section-shape-6">
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
                       <span>Incident reports</span>
                     </a>
                   </li>
+                  
                 </ul>
               </nav>
               <div class="content-wrap">
@@ -145,11 +147,48 @@
                       </tbody>
                      </table>   
                 </section>
-                <section id="section-shape-2"><p>History of Client Payments.</p></section>
+                <section id="section-shape-2"><p>History of Client Payments.</p>
+                  <div class="app">
+                      <center>
+                          {!! $number_of_guns_chart->html() !!}
+                      </center>
+                  </div>
+                  <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                      <thead>
+                        <tr>
+                        
+                          <th>Gun Name</th>
+                          <th data-hide="phone, tablet" >Type</th>
+                          <th>License</th>
+                          <th>Expire date</th>
+                          <th >Establishment</th>
+                          <th >Date Deployed</th>
+                          
+                        </tr>
+                      </thead>
+                      <div class="form-inline padding-bottom-15">
+                        <div class="row">
+                          <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6 text-right m-b-20">
+                          <div class="form-group">
+                            <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                        autocomplete="off">
+                            </div>
+                           </div>
+                         </div>
+                      </div>
+                        
+                      <tbody>
+                      </tbody>
+                    </table>
+
+                </section>
                 <section id="section-shape-3"><p>it contains the information regarding the number of newly employed</p></section>
                 <section id="section-shape-4"><p>Contains the attendance of security guards at their respective posts.</p></section>
                 <section id="section-shape-5"><p>Contains the records of incidents during the Guard post duty.</p></section>
-      <section id="section-shape-6"><h2>Tabbing 6</h2></section>
+                <section id="section-shape-6"><h2>Tabbing 6</h2></section>
+                
               </div><!-- /content -->
             </div><!-- /tabs -->
 
@@ -198,6 +237,7 @@
 
       {!! Charts::scripts() !!}
       {!! $chart->script() !!}
+      {!! $number_of_guns_chart->script() !!}
   @endsection
 
   @section('script')

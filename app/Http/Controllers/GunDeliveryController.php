@@ -247,4 +247,36 @@ class GunDeliveryController extends Controller
          else
              echo "There was a problem. Please try again later.";
      }
+     public function initialGunDelv($contractID){
+        $contract_guns = DB::table('contract_guns')
+            ->where('contract_id','=',$contractID)
+            ->get();
+        return $contract_guns->toArray();
+       $gunRequest = GunRequest::findOrFail($gunRequestID);
+        $gunRequest['isRead'] = 1;
+        $gunRequests = DB::table('tblGunRequests')
+                        //->where('isRead','=','1')
+                        ->join('clients','clients.id','=','tblGunRequests.strClientID')
+                        ->join('establishments','establishments.id','=','tblGunRequests.establishments_id')
+                        ->join('areas','areas.id','=','establishments.areas_id')
+                        ->join('provinces','provinces.id','=','areas.provinces_id')
+                        ->select('tblGunRequests.strGunReqID',
+                            'tblGunRequests.status','tblGunRequests.created_at',
+                            'clients.first_name as client_fname',
+                            'clients.middle_name as client_mname',
+                            'clients.last_name as client_lname',
+                            'establishments.name as establishment',
+                            'establishments.address as address',
+                            'areas.name as area',
+                            'provinces.name as province')
+                        ->orderBy('tblGunRequests.created_at','desc')
+                        ->get();
+        if($gunRequest->save()){
+            return view('AdminPortal/DeliverGuns')
+                ->with('gunRequestID',$gunRequest->strGunReqID)
+                ->with('gunRequests',$gunRequests);
+        }else{
+            return "Earl Pogi- Something Went wrong!!";
+        }
+    }
 }

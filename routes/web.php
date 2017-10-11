@@ -188,6 +188,8 @@ Route::get('/ClientContracts-{id}+{estabID}','AdminController@contracts')
 Route::get('/Contract-View','AdminController@viewContract')->name('contract.view');
 
 Route::get('/getContractPDF-{contractID}','ContractController@getContractPDF');
+
+Route::get('/ContractGuns-{contractID}','GunDeliveryController@initialGunDelv');
 /**-------------------------     Contracts-End    ---------------------*/
 
 
