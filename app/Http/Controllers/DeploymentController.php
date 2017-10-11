@@ -156,7 +156,7 @@ class DeploymentController extends Controller
                 $contract->guardDeployed = $guardDeployedctr;
                 $contract->save();
                 if($contract->guard_count == $contract->guardDeployed){
-                    $contract->status = "active";
+                    $contract->status = "processing";
                     $contract->save();
                 }
                 $guardInbox = new GuardMessagesInbox();

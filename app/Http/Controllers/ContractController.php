@@ -26,6 +26,8 @@ use Exception;
 use DB;
 use Illuminate\Support\Facades\Input;
 use PDF;
+use App\ContractGuns;
+
 class ContractController extends Controller
 {
     public function register(){
@@ -103,6 +105,13 @@ class ContractController extends Controller
 
         Establishments::create(['id'=>$establishment_id,'contract_id'=>$request->contract_code,'name'=>$request->estab_name,'pic_fname'=>$request->firstName,'pic_mname'=>$request->middleName,'pic_lname'=>$request->lastName,'contactNo'=>$request->pic_no,'email'=>$request->pic_email,'address'=>$request->street_add,'natures_id'=>$request->nature,'areas_id'=>$request->area,'province_id'=>$request->province,'operating_hrs'=>$request->operating_hrs,'area_size'=>$request->area_size,'population'=>$request->population]);
 
+        $contract_guns = new ContractGuns();
+        $contract_guns_ID = "INIT-GUNS-".ContractGuns::get()->count();
+        $contract_guns['contract_guns_ID'] = $contract_guns_ID ;
+        $contract_guns['contract_id'] = $request->contract_code;
+        $contract_guns['gun_id'] = '3';
+        $contract_guns['quantity'] = '2';
+        $contract_guns->save();
         ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
 
         $index1 = 0;
@@ -327,4 +336,6 @@ class ContractController extends Controller
                     ]);
       return $contractPDF->stream('Contract.pdf');
     }
+
+    
 }
