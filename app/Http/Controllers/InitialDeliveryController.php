@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use App\Contracts;
 use App\ContractGuns;
+use App\GunType;
 
 class InitialDeliveryController extends Controller
 {
@@ -120,6 +121,18 @@ class InitialDeliveryController extends Controller
     		}else{
     			return response('1');
     		}
+    	}
+    }
+
+    public function showGunList(Request $request){
+    	if($request->ajax()){
+    		$gunType = GunType::findOrFail($request->guntypeID);
+    		$guns = Gun::where('guntype_id',$request->guntypeID)->get();
+    		$gunlist = "";
+    		foreach($guns as $gun){
+    			$gunlist = $gunlist. '<li><label for="gun">'.$gun->name.'</label> <input type="checkbox" onclick="get_guns(\''.$gun->name.','.$gunType->name.'\')" name="gun" ></li> ';
+    		}
+    		return response($gunlist);
     	}
     }
 }

@@ -335,6 +335,70 @@
                       </div>
                       <span class="font-13 text-muted">per month<span>
                       </div>
+
+
+
+
+                      <br>
+                      <br><br>
+                      <br>
+                      <b><hr width="100%" style="background-color: black"></b>
+                      
+                      <center><h3>Guns</h3></center><br>
+                      <div class="col-md-12 form-group" style="border: 5px">
+                        <label class="col-xs-2 control-label">Gun Type</label>
+                          <div class="col-xs-4">
+                          <select class="form-control"  name="noblank" onchange="get_gun_list(this.value)">
+                            <option disabled> ~~ Choose Gun Type ~~</option>
+                            @foreach($gunTypes as $gunType)
+                              <option value="{{$gunType->id}}">{{$gunType->name}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <label class="col-xs-2 control-label">Guns</label>
+                          <div class="col-xs-4">
+                          <ul>
+                            <div class="form-group gun-list">
+                              <!-- <li><label for="gun">Gun 1</label> <input type="checkbox" onclick="get_guns('gun1,Gun Type 1')" name="gun" value="Gun 1,Gun Type 1"></li>  -->
+                            </div>
+                          </ul>
+                        </div>
+                        <br>
+                        <br>
+                        
+                        <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                            <thead>
+                              <tr>
+                                <th>Gun Name</th>
+                                <th>Gun Type</th>
+                                <th>Quantity</th>   
+                                <th>Action</th>     
+                              
+                              </tr>
+                            </thead>
+                              
+                            <tbody id="gun-table-body">
+                              <!-- <tr id="gun2">
+                                <td>
+                                  Gun 2
+                                </td>
+                                <td>
+                                  Gun Type 2
+                                </td>
+                                <td>
+                                  <input type="text" name="gunquantity">
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-danger"><i class="fa fa-times" onclick="func_remove('gun2')"></i></button>
+                                </td>
+                              </tr> -->
+                            </tbody>
+                           </table> 
+                      </div>
+
+
+
+
                     </div>
                   </div>
               </div>
@@ -613,8 +677,35 @@
 
 
  <script>
-
-  
+  function get_gun_list(guntypeID){
+    //alert(guntypeID);
+    $.ajax({
+      url : '/showGunList',
+      type : 'GET',
+      data : {guntypeID:guntypeID},
+      success : function(data){
+        //console.log(data);
+        $('.gun-list').html('');
+        $('.gun-list').append(data);
+      }
+    });
+  }
+  function get_guns(id){
+    //$(this).attr("disabled", "disabled");
+    //alert(id.split(",")[0]);
+    if($(this).is(':checked') == false){
+      //alert("Checkbox is checked." )
+      $('#gun-table-body').append('<tr id="'+id.split(",")[0]+'"><td>'+id.split(",")[0]+'</td><td>'+id.split(",")[1]+'</td><td><input type="text" name=""></td><td><button type="button" class="btn btn-danger" onclick="func_remove('+'"'+'gun1'+'"'+')"><i class="fa fa-times"></i></button></td></tr>')
+    }else if($(this).prop('checked', true)){
+     // alert("Checkbox is unchecked." )
+    }else{
+      alert("knhgbhujk is checked." )
+    }
+  }
+  function func_remove(id){
+    alert(id);
+    console.log(id);
+  }
 
 
  $('.clockpicker').clockpicker({
