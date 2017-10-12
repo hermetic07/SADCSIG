@@ -16,16 +16,15 @@
 
 
 @section('content')
-<h1>TWO WEEK NALANG ! -_-</h1>
-<h1>Di AKO MAKAPAGPUSH  ! -_-</h1>
+
 <div class="row">
     <div class="sttabs tabs-style-linetriangle white-box">
         <nav>
             <ul>
-              <li><a href="#section-linetriangle-1"><span>Service</span></a></li>
-              <li><a href="#section-linetriangle-2"><span>Additional guns</span></a></li>
-              <li><a href="#section-linetriangle-3"><span>Additional guards</span></a></li>
-              <li><a href="#section-linetriangle-3"><span>Guard replacement</span></a></li>
+              <li><a href="#section-linetriangle-1"><span>Service Requests</span></a></li>
+              <li><a href="#section-linetriangle-2"><span>Gun Requests</span></a></li>
+              <li><a href="#section-linetriangle-3"><span>Guard Requests</span></a></li>
+              <li><a href="#section-linetriangle-3"><span>Guard Replacement</span></a></li>
             </ul>
           </nav>
             <div class="content-wrap">

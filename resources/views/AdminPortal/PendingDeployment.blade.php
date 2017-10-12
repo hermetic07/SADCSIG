@@ -263,7 +263,7 @@
                                         @endphp
                                         
                                     </div>
-                                    <center><a id="deployedGuards" href="/ContractGuns-{{$contract->id}}" name="{{$contract->id}}"> <small> Proceed to Gun Delivery </small></a> </center>
+                                    <center><button id="deployedGuards" onclick="proceed_to_delivery('{{$contract->id}}')" name="{{$contract->id}}"> <small><b> Proceed to Gun Delivery </b></small></button> </center>
 
                                     
                                 </ul>
@@ -355,5 +355,21 @@
              $('#'+contractIDs[i]).css('width',percent);
         }
        });
+
+      function proceed_to_delivery(contractID){
+        //alert(contractID);
+        $.ajax({
+            url : '/updateContractStats',
+            type : 'GET',
+            data : {contractID:contractID},
+            success : function(data){
+                if(data == 0){
+                    window.location.href = "/PendingClientRequests";
+                }else{
+                    alert("OOOppps!! Something went wrong.");
+                }
+            }
+        });
+      }
   </script>
   @endsection

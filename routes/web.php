@@ -190,10 +190,13 @@ Route::get('/Contract-View','AdminController@viewContract')->name('contract.view
 
 Route::get('/getContractPDF-{contractID}','ContractController@getContractPDF');
 
-Route::get('/ContractGuns-{contractID}','GunDeliveryController@initialGunDelv');
+Route::get('/ContractGuns-{contractID}','InitialDeliveryController@initialGunDelv');
 
-Route::get('/initialGunDelv','GunDeliveryController@initialDelivery');
-Route::get('/initialGunDelv-view','GunDeliveryController@viewInitDelivery');
+Route::get('/initialGunDelv','InitialDeliveryController@initialDelivery');
+Route::get('/initialGunDelv-view','InitialDeliveryController@viewInitDelivery');
+Route::get('/initialGunDelv-deliveryModal','InitialDeliveryController@deliverModal');
+Route::get('/updateContractStats','InitialDeliveryController@updateContractStats');
+/**-------------------------     Contracts-End    ---------------------*/
 /**-------------------------     Contracts-End    ---------------------*/
 
 
