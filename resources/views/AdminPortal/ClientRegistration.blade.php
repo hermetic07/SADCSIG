@@ -705,7 +705,7 @@
   function func_remove(id){
      alert('#'+id);
     // console.log(id);
-    $('#'+id).hide();
+    $('#'+id).remove();
   }
   function func_test(){
     $gunIDs = [];
