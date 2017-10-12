@@ -204,6 +204,17 @@
                       </div>
                       <div>
                     <button type="button" class="btn btn-block btn-outline btn-rounded btn-success" id="deploy" value="{{$employee->id}}">Deploy</button>
+                    <form method="GET" action="{{ url('/ChangeGuards2') }}">
+                      <input type="hidden" name="rejectedIDs" value="{{$rejectID}}">
+                      <input type="hidden" name="accepted" value="{{$accepted}}">
+                      <input type="hidden" name="rejectedCtr" value="{{$rejectCtr}}">
+                      <input type="hidden" id="contractID" name="contractID" value="{{$contractID}}">
+                      <input type="hidden" name="clientID" value="{{$client->id}}">
+                      <input type="hidden" name="changeID" value="{{$changeID}}">
+                      <input type="hidden" name="refuse_ID" value=",.{{$employee->id}}">
+                      <input type="hidden" name="refuseCtr" id="refuseCtr" value="1">
+                      <button type="submit" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
+                    </form>
                   </div>
                 </div>
                 @foreach($tempDeploymentDetails as $tempDeploymentDetail)

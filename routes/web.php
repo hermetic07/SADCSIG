@@ -327,6 +327,9 @@ Route::get('/DeploymentStatus+{contractID}','AdminController@deploymentStatus')
 Route::get('/ChangeGuards','AdminController@changeRejectedGuards')
 							->name('change.rejected')
 							->middleware('auth');
+Route::get('/ChangeGuards2','AdminController@changeRejectedGuards2')
+							->name('change.rejected')
+							->middleware('auth');
 Route::post('/ChangeGuards-save','AdminController@saveChangedGuards')
 							->name('save.changes');
 

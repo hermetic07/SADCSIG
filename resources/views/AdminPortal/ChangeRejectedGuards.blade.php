@@ -478,7 +478,7 @@ $(document).ready(function(){
                               </table>
                               <input type="hidden" name="avGuards" value="{{ $ctr }}">
                              <input type="hidden" name="establishmentID" name="establishmentID" value="{{$establishmentID}}">
-                             <input type="hidden" name="contractID" value="{{$contractID}}">
+                             <input type="hidden" name="contractID" value="{{$contract_ID}}">
                              <input type="hidden" id="clientID" name="clientID" value="{{$clientID}}">
                              <input type="hidden" name="rejects" id="rejects" value="{{$rejects}}">
                              <input type="hidden" name="rejectCtr" id="rejectCtr" value="{{$rejectCtr}}">

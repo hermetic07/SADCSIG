@@ -279,6 +279,34 @@ class AdminController extends Controller
         //return $tempDeployments;
     }
     public function changeRejectedGuards(Request $request){
+        //return $request->toArray();
+        $employees = Employee::all();
+        $shifts = Shifts::all();
+        $establishments = Establishments::all();
+        $empCtr = 0;
+        $roles = Role::all();
+        foreach($employees as $employee){
+            $empCtr = $empCtr + 1;
+        }
+        return view('AdminPortal.ChangeRejectedGuards')
+                ->with('employees',$employees)
+                ->with('rejects',$request->rejectedIDs)
+                ->with('rejectCtr',$request->rejectedCtr)
+                ->with('empCtr',$empCtr)
+                ->with('contract_ID',$request->contractID)
+                ->with('clientID',$request->clientID)
+                ->with('establishments',$establishments)
+                ->with('shifts',$shifts)
+                ->with('accepted',$request->accepted)
+                ->with('changeID',$request->changeID)
+                ->with('refuseID',$request->refuseID)
+                ->with('roles',$roles)
+                ->with('refuseCtr',$request->refuseCtr)
+                ;
+        //return $request->clientID;
+    }
+    public function changeRejectedGuards2(Request $request){
+        return $request->toArray();
         $employees = Employee::all();
         $shifts = Shifts::all();
         $establishments = Establishments::all();
@@ -305,13 +333,14 @@ class AdminController extends Controller
         //return $request->clientID;
     }
     public function saveChangedGuards(Request $request){
+        return explode(',.', $request->refuseID);
         $notif_id = 'NOTIF'.DeploymentNotifForClient::get()->count().'-'.$request->contractID;
         $temp_deployment_id = 'TMPDPLY'.TempDeployments::get()->count().'-'.$request->contractID;
         $temp_deployment_details_id ='';
         $client_inbox_id = '';
         //return $message_ID;
         DeploymentNotifForClient::create(['notif_id'=>$notif_id,'trans_id'=>$request->contractID,'sender'=>'Admin','receiver'=>$request->clientID,'subject'=>'DEPLOYMENT','status'=>'active']);
-
+ 
 
         $l = $request->avGuards;
         $ctr2 = 0;
