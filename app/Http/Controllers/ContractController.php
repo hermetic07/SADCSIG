@@ -29,6 +29,8 @@ use PDF;
 use App\ContractGuns;
 use App\GunRequest;
 use App\GunRequestsDetails;
+use App\Gun;
+use App\GunType;
 
 class ContractController extends Controller
 {
@@ -40,9 +42,23 @@ class ContractController extends Controller
         $licenses = License::all();
         $attributes = Attribute::all();
         $requirements = Requirement::all();
+        $guns = Gun::all();
+        $gunTypes = GunType::all();
         $count1 = "CONTRACT".Contracts::get()->count();
         $count2 = "CLIENTz".Clients::get()->count();
-        return view('AdminPortal.ClientRegistration')->with('requirements',$requirements)->with('attributes',$attributes)->with('licenses',$licenses)->with('areas',$areas)->with('provinces',$provinces)->with('natures',$natures)->with('services',$services)->with('clcode',$count2)->with('cncode',$count1);
+        return view('AdminPortal.ClientRegistration')
+                ->with('requirements',$requirements)
+                ->with('attributes',$attributes)
+                ->with('licenses',$licenses)
+                ->with('areas',$areas)
+                ->with('provinces',$provinces)
+                ->with('natures',$natures)
+                ->with('services',$services)
+                ->with('clcode',$count2)
+                ->with('cncode',$count1)
+                ->with('cncode',$count1)
+                ->with('guns',$guns)
+                ->with('gunTypes',$gunTypes);
     }
 
     public function login(Request $request){
