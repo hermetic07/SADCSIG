@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Input;
 use App\Contracts;
 use App\ContractGuns;
 use App\GunType;
+use App\GunRequestsDetails;
 
 class InitialDeliveryController extends Controller
 {
@@ -130,9 +131,40 @@ class InitialDeliveryController extends Controller
     		$guns = Gun::where('guntype_id',$request->guntypeID)->get();
     		$gunlist = "";
     		foreach($guns as $gun){
-    			$gunlist = $gunlist. '<li><label for="gun">'.$gun->name.'</label> <input type="checkbox" onclick="get_guns(\''.$gun->name.','.$gunType->name.'\')" name="gun" ></li> ';
+    			$gunlist = $gunlist. '<li><label for="gun">'.$gun->name.'</label> <input type="checkbox" onclick="get_guns(\''.$gun->id.','.$gun->name.','.$gunType->name.'\')" name="gun" ></li> ';
     		}
     		return response($gunlist);
+    	}
+    }
+    public function testRoute(Request $request){
+    	if($request->ajax()){
+
+    		$ctr = 0;
+    		$gunIDs = Input::get('gunIDs');
+    		$qtys = Input::get('qtys');
+
+    		$gunReqID = "GUNREQ-".GunRequest::get()->count();
+	        $gun_request = new GunRequest();
+	        $gun_request['strGunReqID'] = $gunReqID;
+	        $gun_request['strAdmin'] = "Earl";
+	        $gun_request['strClientID'] = 'CLIENTz4';
+	        $gun_request['establishments_id'] = 'ESTAB-CLIENTz4';
+	        $gun_request['status'] = 'active';
+	        $gun_request->save();
+
+	        
+
+    		for($i = 0; $i < count($gunIDs); $i++){
+    			$strGunReqDetailsID = "GUNREQDTLS-".GunRequestsDetails::get()->count();
+		        $gun_request_details = new GunRequestsDetails();
+		        $gun_request_details['strGunReqDetailsID'] = $strGunReqDetailsID;
+		        $gun_request_details['strGunReqID'] = $gunReqID;
+		        $gun_request_details['strGunID'] = $gunIDs[$i];
+		        $gun_request_details['quantity'] = $qtys[$i];
+		        $gun_request_details['status'] = 'active';
+		        $gun_request_details->save();
+		        
+    		}
     	}
     }
 }
