@@ -197,6 +197,7 @@ Route::get('/initialGunDelv','InitialDeliveryController@initialDelivery');
 Route::get('/initialGunDelv-view','InitialDeliveryController@viewInitDelivery');
 Route::get('/initialGunDelv-deliveryModal','InitialDeliveryController@deliverModal');
 Route::get('/updateContractStats','InitialDeliveryController@updateContractStats');
+Route::get('/testRoute','InitialDeliveryController@testRoute');
 /**-------------------------     Contracts-End    ---------------------*/
 /**-------------------------     Contracts-End    ---------------------*/
 

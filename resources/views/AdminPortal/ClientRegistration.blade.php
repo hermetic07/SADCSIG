@@ -395,7 +395,7 @@
                             </tbody>
                            </table> 
                       </div>
-
+                      <!-- <button class="btn btn-info" onclick="func_test()">Click Me</button> -->
 
 
 
@@ -695,7 +695,7 @@
     //alert(id.split(",")[0]);
     if($(this).is(':checked') == false){
       //alert("Checkbox is checked." )
-      $('#gun-table-body').append('<tr id="'+id.split(",")[0]+'"><td>'+id.split(",")[0]+'</td><td>'+id.split(",")[1]+'</td><td><input type="text" name=""></td><td><button type="button" class="btn btn-danger" onclick="func_remove('+'"'+'gun1'+'"'+')"><i class="fa fa-times"></i></button></td></tr>')
+      $('#gun-table-body').append('<tr id="'+id.split(",")[0]+'"><td>'+id.split(",")[1]+'</td><td>'+id.split(",")[2]+'</td><td><input type="text" class="gunQty" id="gun-'+id.split(",")[0]+'"></td><td><button type="button" class="btn btn-danger" onclick="func_remove(\''+id.split(",")[0]+'\')"><i class="fa fa-times"></i></button></td></tr>')
     }else if($(this).prop('checked', true)){
      // alert("Checkbox is unchecked." )
     }else{
@@ -703,10 +703,29 @@
     }
   }
   function func_remove(id){
-    alert(id);
-    console.log(id);
+     alert('#'+id);
+    // console.log(id);
+    $('#'+id).hide();
   }
-
+  function func_test(){
+    $gunIDs = [];
+    $qtys = [];
+    $.each($(".gunQty"), function(){
+        alert(this.value);
+        $gunIDs.push(this.id.split('-')[1]);
+        $qtys.push(this.value);
+    });
+    $.ajax({
+      url : '/testRoute',
+      type : 'GET',
+      data : {gunIDs: $gunIDs,qtys:$qtys},
+      success : function(data){
+        if(data == 1){
+          alert("success");
+        }
+      }
+    });
+  }
 
  $('.clockpicker').clockpicker({
     donetext: 'Done',
@@ -1023,6 +1042,13 @@ $("#nature").change(function(){
                   $.each($(".shiftend"), function(){
                       allend.push($(this).val());
                   });
+                  $gunIDs = [];
+                  $qtys = [];
+                  $.each($(".gunQty"), function(){
+                      //alert(this.value);
+                      $gunIDs.push(this.id.split('-')[1]);
+                      $qtys.push(this.value);
+                  });
                   $.ajax({
                     type: 'post',
                     url: '/ClientRegistration-Save',
@@ -1066,7 +1092,9 @@ $("#nature").change(function(){
                         exp_date:$('#exp_date').val(),
                         operating_hrs:$('input[name=operating_hrs]').val(),
                         mcp:$('#mcp').val(),
-                        tp:$('#tp').val()
+                        tp:$('#tp').val(),
+                        gunIDs: $gunIDs,
+                        qtys:$qtys
                     },
                     success: function(data){
                       if(data==="Success")
