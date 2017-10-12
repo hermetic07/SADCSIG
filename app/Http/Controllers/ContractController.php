@@ -133,29 +133,32 @@ class ContractController extends Controller
 
         $gunIDs = Input::get('gunIDs');
         $qtys = Input::get('qtys');
+        
+        if($gunIDs[0] != ""){
+           $gunReqID = "GUNREQ-".GunRequest::get()->count();
+            $gun_request = new GunRequest();
+            $gun_request['strGunReqID'] = $gunReqID;
+            $gun_request['strAdmin'] = "Earl";
+            $gun_request['strClientID'] = $request->client_code;
+            $gun_request['establishments_id'] = $establishment_id;
+            $gun_request['status'] = 'active';
+            $gun_request->save();
 
-        $gunReqID = "GUNREQ-".GunRequest::get()->count();
-          $gun_request = new GunRequest();
-          $gun_request['strGunReqID'] = $gunReqID;
-          $gun_request['strAdmin'] = "Earl";
-          $gun_request['strClientID'] = $request->client_code;
-          $gun_request['establishments_id'] = $establishment_id;
-          $gun_request['status'] = 'active';
-          $gun_request->save();
-
-          
-
-        for($i = 0; $i < count($gunIDs); $i++){
-          $strGunReqDetailsID = "GUNREQDTLS-".GunRequestsDetails::get()->count();
-            $gun_request_details = new GunRequestsDetails();
-            $gun_request_details['strGunReqDetailsID'] = $strGunReqDetailsID;
-            $gun_request_details['strGunReqID'] = $gunReqID;
-            $gun_request_details['strGunID'] = $gunIDs[$i];
-            $gun_request_details['quantity'] = $qtys[$i];
-            $gun_request_details['status'] = 'active';
-            $gun_request_details->save();
             
+
+          for($i = 0; $i < count($gunIDs); $i++){
+            $strGunReqDetailsID = "GUNREQDTLS-".GunRequestsDetails::get()->count();
+              $gun_request_details = new GunRequestsDetails();
+              $gun_request_details['strGunReqDetailsID'] = $strGunReqDetailsID;
+              $gun_request_details['strGunReqID'] = $gunReqID;
+              $gun_request_details['strGunID'] = $gunIDs[$i];
+              $gun_request_details['quantity'] = $qtys[$i];
+              $gun_request_details['status'] = 'active';
+              $gun_request_details->save();
+              
+          }
         }
+         
 
         ClientRegistration::create(['admin'=>"EarlPogi",'contract_id'=>$request->contract_code,'client_id'=>$request->client_code]);
 
