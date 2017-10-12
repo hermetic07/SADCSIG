@@ -219,7 +219,7 @@
     }
     //alert(quantity.length)
     $.ajax({
-      url : '{{route("gun.delivery.deliverModal")}}',
+      url : '/initialGunDelv-deliveryModal',
       type : 'GET',
       data : {
               gunReqstID:gunReqstID,
