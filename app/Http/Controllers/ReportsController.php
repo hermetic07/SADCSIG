@@ -161,10 +161,39 @@ class ReportsController extends Controller
       return $dispostionReportPDF->stream('Disposition Report.pdf');
     }
     public function number_of_guns(Request $request){
+        $clientGuns = DB::table('tblGunRequests')
+                      //->where('tblGunRequests.establishments_id','=',$estabID)
+                     // ->join()
+                      ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
+                      ->join('tblClaimeddelivery','tblClaimeddelivery.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
+                      ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
+                      ->join('gunType','gunType.id','=','guns.guntype_id')
+                      ->select('guns.name as gun',
+                        'gunType.name as gunType',
+                        'tblClaimeddelivery.serialNo',
+                        'tblGunRequests.establishments_id',
+                        'tblGunDeliveries.created_at as deliveryDate',
+                        'tblGunDeliveries.deliveryPerson')
+                      ->whereBetween('tblGunDeliveries.created_at', [$request->startFrom, $request->endTo])
+                      ->get();
+        $establishments = DB::table('establishments')
+                            ->join('areas','areas.id','=','establishments.areas_id')
+                            ->join('provinces','provinces.id','=','areas.provinces_id')
+                            ->select('establishments.name as estabName',
+                                      'establishments.address as address',
+                                      'areas.name as area',
+                                      'provinces.name as province',
+                                      'establishments.id'
+                                    )
+                            ->get();
+
+       // return $establishments->toArray();
          $number_of_guns_report = PDF::loadView('AdminPortal.Reports_PDF.number_of_guns',
                     [
-                      'start' => '000-000-000',
-                      'end' => '000-000-000'
+                      'start' => $request->startFrom,
+                      'end' => $request->endTo,
+                      'clientGuns' => $clientGuns,
+                      'establishments' => $establishments,
                     ])->setPaper('a4', 'landscape');
       return $number_of_guns_report->stream('Number of Guns.pdf');
     }
