@@ -1,5 +1,7 @@
 @extends('AdminPortal.Reports_PDF.report_layout')
-
+@section('title')
+	Dispostion Report
+@endsection
 @section('start_date')
 	{{$start}}
 @endsection
@@ -10,7 +12,7 @@
 
 @section('content')
 	<center>
-			<table style="border: 1">
+			<table >
 				
 				<tbody>
                 <!-- @foreach($dispositions as $disposition)
@@ -53,45 +55,74 @@
                   </tr>
                   
                 @endforeach -->
+                @php
+                	$ctr = 0;
+                	$estabAddress = "";
+                	$totalGuards = 0;
+                @endphp
                 @foreach($clients as $client)
+                @php
+                	$ctr++;
+                @endphp
                 <tr>
                 	<td>
-                		<b>Client:</b> <h3>{{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}</h3>
+                		{{$ctr}}.) <b>Client:</b> <b style="font-size: 14px">{{$client->first_name}} {{$client->middle_name}} {{$client->last_name}}</b> <br>
                 		Establishment:
 		                	@foreach($dispositions as $disposition)
 		                		@if($disposition->client_id == $client->id)
+		                			@php
+					                	
+					                	$estabAddress = $disposition->address." ".$disposition->area." ".$disposition->province." ";
+					                @endphp
 		                			{{$disposition->establishment}} @break
 		                		@endif
 		                	@endforeach
-		                	<br> 
-		                	Deployed Guard(s)
 		                	<br>
-		                		<table>
+		                	Location : {{$estabAddress}}
+		                	<br> 
+		                	<center>Deployed Guard(s)</center>
+		                	<br>
+		                	
+		                		<table style="border: 1px solid black;">
 		                			<thead>
-		                				<tr>
+		                				<tr style="border: 1px solid black;">
 		                					<th></th>
-		                					<th><center>Name</center></th>
-		                					<th><center>Education</center></th>
-		                					<th><center>License</center></th>
-		                					<th><center>Exp Date</center></th>
+		                					<th style="border: 1px solid black;"><center>Name</center></th>
+		                					<th style="border: 1px solid black;"><center>Address</center></th>
+		                					<th style="border: 1px solid black;"><center>Role</center></th>
+		                					<th style="border: 1px solid black;"><center>Education</center></th>
+		                					<th style="border: 1px solid black;"><center>License</center></th>
+		                					<th style="border: 1px solid black;"><center>Exp Date</center></th>
 		                				</tr>
 		                			</thead>
 		                			<tbody>
 		                				@php
+				                			
 		                					$rowCtr = 1;
 		                				@endphp
 		                				@foreach($dispositions as $disposition)
 								           	@if($disposition->client_id == $client->id)
-								           		<tr>
-								           			<td>
+
+								           		<tr style="border: 1px solid black;">
+								           			<td style="border: 1px solid black;">
 								           				<center>{{$rowCtr}}</center>
 								           			</td>
-				                					<td>
+				                					<td style="border: 1px solid black;">
 				                						<center>
 				                							{{$disposition->first_name}} {{$disposition->middle_name}} {{$disposition->last_name}}
 				                						</center>
 				                					</td>
-				                					<td>
+				                					<td style="border: 1px solid black;">
+				                						<center>
+				                							{{$disposition->street}}, {{$disposition->barangay}}, {{$disposition->city}}
+				                						</center>
+				                					</td>
+				                					<td style="border: 1px solid black;">
+				                						<center>
+				                							{{$disposition->role}}
+				                						</center>
+				                					</td>
+				                					<td style="border: 1px solid black;">
 				                						<center>
 				                							@php
 									                        $ctr = 0;
@@ -115,19 +146,21 @@
 									                      @endif
 				                						</center>
 				                					</td>
-				                					<td>
+				                					<td style="border: 1px solid black;">
 				                						<center>
 				                							{{$disposition->license_num}}
 				                						</center>
 				                					</td>
-				                					<td>
+				                					<td style="border: 1px solid black;">
 				                						<center>
 				                							{{$disposition->date_expired}}
 				                						</center>
 				                					</td>
+				                					
 				                				</tr>
 				                				@php
 				                					$rowCtr++;
+				                					$totalGuards++;
 				                				@endphp
 											@endif
 								        @endforeach
@@ -135,10 +168,11 @@
 		                			</tbody>
 		                		</table>
 		                	<br>
-		                	
+		                	<hr>
 		                
             		</td>
             	</tr>
+            	
                 @endforeach
 
 
@@ -167,5 +201,12 @@
                 @endforeach -->
               </tbody>
 			</table>
+			<div class="pull-right">
+				<b>Total No. of Clients:</b> <b style="font-size: 18px">{{$ctr}}</b><br>
+				<b>Total Guards. Deployed:</b> <b style="font-size: 18px">{{$totalGuards}}</b><br>
+			</div>
 		</center>
+		<br>
+		<br>
+
 @endsection

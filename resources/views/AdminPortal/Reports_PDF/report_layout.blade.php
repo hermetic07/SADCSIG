@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Contract</title>
+	<title>
+		@yield('title')
+	</title>
 	<style>
 		table, td, th {
-		    border: 1px solid black;
+		    border: 0px;
 		}
 
 		table {
@@ -20,9 +22,10 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<center><h3 class="text-center" style="font-size: 25px"><b>JUBECER SECURITY SERVICE,INC.</b>
+		<span><img src="plugins/images/LandingPage/JUCEBER.png" height="200" width="200" align="left"></span>
+		<center><h3 class="text-center" style="font-size: 27px"><b>JUBECER SECURITY SERVICE,INC.</b>
 		</h3></center>
-		<center>RM 301 SUJECO BLDG, 1754 E.RODRIGUEZ SR AVE, BRGY. IMAACULATE CONCEPTION, CUBAO, QUEZON CITY</h4></center>
+		<center>RM 301 SUJECO BLDG, 1754 E.RODRIGUEZ SR AVE,<br> BRGY. IMACULATE CONCEPTION, CUBAO, QUEZON CITY</h4></center>
 		<center><b>Tel Nos:</b> 654-9284/415-6804</center>
 		<center>LTO PSA-T-000121-2016</center>
 		<center><b>Expiry Date:</b> 654-9284/415-6804</center>
@@ -31,7 +34,7 @@
 		<div class="col-md-3">
 			<b>To:  </b>Chief,SOSIA<br>
 			<b>Thru:  </b>Police Chief Inspector <br>	 Chief, Records Section <br>
-			<b>Subject:  </b>Disposition Report
+			 <center><b style="font-size: 20px">Disposition Report</b></center> 
 		</div>
 		<br>
 		<center><h4>@yield('report_title')</h4></center>
@@ -40,6 +43,20 @@
 		
 		<br>
 		@yield('content')
-	</div>	
+		<p>
+			I HEREBY CERTIFY the correctness disposition report for the month of <u></u>
+			<br>
+			<br>
+			<div align="left">
+				<center>Felix Cerbito</center><br>
+				<center><b>Asst. General Manager</b></center>
+			</div>
+			<div align="center">
+				<center>Juel Mar Cerbito</center><br>
+				<center><b>General Manager</b></center>
+			</div>
+		</p>
+	</div>
+	
 </body>
 </html>	
