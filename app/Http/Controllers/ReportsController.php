@@ -15,6 +15,7 @@ use PDF;
 use App\EmployeeEducation;
 use App\EstabGuards;
 use App\Contracts;
+use App\Employees;
 
 class ReportsController extends Controller
 {
@@ -88,6 +89,17 @@ class ReportsController extends Controller
             ->dimensions(1000,500)
             ;
 
+        $gains_employees = DB::table('employees')
+                              ->where('employees.status','=','deployed')
+                              ->join('tblestabguards','tblestabguards.strGuardID','=','employees.id')
+                              ->get();
+        $gain_chart = Charts::create('bar', 'highcharts')
+            ->title('Gains')
+            ->labels($provinces_arry)
+            ->values([5,10,20])
+            ->dimensions(1000,500)
+            ;
+
     	return view('AdminPortal/Reports')
     			->with('chart',$chart)
                 ->with('number_of_guns_chart',$number_of_guns_chart)
@@ -95,7 +107,9 @@ class ReportsController extends Controller
                 ->with('dispositions',$dispositions)
                 ->with('clientGuns',$clientGuns)
                 ->with('establishments',$establishments)
-                ->with('totalClients',$totalClients);
+                ->with('totalClients',$totalClients)
+                ->with('gains_employees',$gains_employees)
+                ->with('gain_chart',$gain_chart);
     }
 
     public function dispositionReportPdf(Request $request){
@@ -196,5 +210,15 @@ class ReportsController extends Controller
                       'establishments' => $establishments,
                     ])->setPaper('a4', 'landscape');
       return $number_of_guns_report->stream('Number of Guns.pdf');
+    }
+
+    public function gains(Request $request){
+      $gains_report = PDF::loadView('AdminPortal.Reports_PDF.gains_report',
+                    [
+                      'start' => $request->startFrom,
+                      'end' => $request->endTo
+                      
+                    ])->setPaper('a4', 'landscape');
+      return $gains_report->stream('Gains.pdf');
     }
 }

@@ -34,7 +34,7 @@
                   <li>
                     <a href="#section-shape-1">
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                      <span>Disposition report</span>
+                      <span>Guard Designation report</span>
                     </a>
                   </li>
                   <li>
@@ -44,12 +44,18 @@
                       <span>Number of Guns</span>
                     </a>
                   </li>
-                  
+                  <li>
+                    <a href="#section-shape-3">
+                      <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+                      <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+                      <span>Gains</span>
+                    </a>
+                  </li>
                   <li>
                     <a href="#section-shape-4">
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                      <span>Gains and Losses Report</span>
+                      <span>Loses</span>
                     </a>
                   </li>
                   <li>
@@ -233,7 +239,76 @@
                       Total Guns Delivered : {{$totalGunDelivered}}
                     </div>
                 </section>
-                <section id="section-shape-3"><p>it contains the information regarding the number of newly employed</p></section>
+                <section id="section-shape-3"><p>it contains the information regarding the number of newly employed</p>
+                  <div class="app">
+                      <center>
+                          {!! $gain_chart->html() !!}
+                      </center>
+                  </div>
+                  <br>
+                  <button type="button" class="btn btn-success" onclick="func_change_route('/Gains-pdf')"><i class="fa fa-list"></i> Get PDF</button>
+                  <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Guard Name</th>
+                          <th data-hide="phone, tablet" >Address</th>
+                          <th>Contact</th>
+                          <th>Email Address</th>
+                          <th >Date Hired</th>
+                          
+                          
+                        </tr>
+                      </thead>
+                      <div class="form-inline padding-bottom-15">
+                        <div class="row">
+                          <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6 text-right m-b-20">
+                          <div class="form-group">
+                            <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                        autocomplete="off">
+                            </div>
+                           </div>
+                         </div>
+                      </div>
+                        
+                      <tbody>
+                        @php
+                          $gains = 0;
+                        @endphp
+                       
+                        @foreach($gains_employees as $employee)
+                         @php
+                          $gains++;
+                        @endphp
+                            <tr>
+                              <td>
+                                {{$gains}}
+                              </td>
+                              <td>
+                                {{$employee->first_name}}, {{$employee->last_name}}, {{$employee->middle_name}}
+                              </td>
+                              <td>
+                                {{$employee->street}}, {{$employee->barangay}}, {{$employee->city}}
+                              </td>
+                              <td>
+                                {{$employee->cellphone}}
+                              </td>
+                              <td>
+                                {{$employee->email}}
+                              </td>
+                              <td>
+                                {{$employee->updated_at}}
+                              </td>
+                            </tr>
+                        @endforeach
+                      </tbody>
+                    </table>    
+                  <div class="pull-right">
+                      Total Guards : {{$gains}}
+                    </div>
+                </section>
                 <section id="section-shape-4"><p>Contains the attendance of security guards at their respective posts.</p></section>
                 <section id="section-shape-5"><p>Contains the records of incidents during the Guard post duty.</p></section>
                 <section id="section-shape-6"><h2>Tabbing 6</h2></section>
@@ -287,6 +362,7 @@
       {!! Charts::scripts() !!}
       {!! $chart->script() !!}
       {!! $number_of_guns_chart->script() !!}
+      {!! $gain_chart->script() !!}
   @endsection
 
   @section('script')
@@ -300,7 +376,7 @@
 
               })();
         function func_change_route(newroute){
-          $('#date-range-form').attr('action', '/Numberofguns-pdf')
+          $('#date-range-form').attr('action', newroute)
           $('#reportRange').modal('show');
         }
   </script>
