@@ -113,7 +113,11 @@ class ReportsController extends Controller
                             'establishments.address as address',
                             'areas.name as area',
                             'provinces.name as province',
-                            'clients.id as client_id'
+                            'clients.id as client_id',
+                            'tblestabguards.role',
+                            'employees.street',
+                            'employees.barangay',
+                            'employees.city'
                             )
                     ->whereBetween('tblestabguards.created_at', [$request->startFrom, $request->endTo])
                     ->get();
@@ -146,7 +150,7 @@ class ReportsController extends Controller
                       'establishments' => $establishments,
                       'estabGuards' => $estabGuards,
                       'contracts' => $contracts
-                    ]);
+                    ])->setPaper('a4', 'landscape');
       return $dispostionReportPDF->stream('Disposition Report.pdf');
     }
     public function gun_deployed_report(Request $request){
