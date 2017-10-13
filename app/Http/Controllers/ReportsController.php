@@ -21,6 +21,7 @@ class ReportsController extends Controller
     public function index(Request $request){
 
     	$clients = Clients::all();
+      $totalClients = Clients::get()->count();
     	$establishments = Establishments::all();
     	$provinces_arry = [];
     	$prov_ctr = 0;
@@ -72,9 +73,13 @@ class ReportsController extends Controller
                       ->join('tblClaimeddelivery','tblClaimeddelivery.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
                       ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
                       ->join('gunType','gunType.id','=','guns.guntype_id')
-                      ->select('guns.name as gun','gunType.name as gunType','tblClaimeddelivery.serialNo')
+                      ->select('guns.name as gun',
+                        'gunType.name as gunType',
+                        'tblClaimeddelivery.serialNo',
+                        'tblGunRequests.establishments_id',
+                        'tblGunDeliveries.created_at as deliveryDate')
                       ->get();
-                    //return $disposition->toArray();
+                    //return $clientGuns->toArray();
 
         $number_of_guns_chart = Charts::create('line', 'highcharts')
             ->title('Disposition Report Chart')
@@ -87,8 +92,10 @@ class ReportsController extends Controller
     			->with('chart',$chart)
                 ->with('number_of_guns_chart',$number_of_guns_chart)
                 ->with('employee_educations',$employee_educations)
-                ->with('dispositions',$dispositions);
-                // ->with('clientGuns',$clientGuns);
+                ->with('dispositions',$dispositions)
+                ->with('clientGuns',$clientGuns)
+                ->with('establishments',$establishments)
+                ->with('totalClients',$totalClients);
     }
 
     public function dispositionReportPdf(Request $request){
@@ -153,14 +160,12 @@ class ReportsController extends Controller
                     ])->setPaper('a4', 'landscape');
       return $dispostionReportPDF->stream('Disposition Report.pdf');
     }
-    public function gun_deployed_report(Request $request){
-         // $clientGuns = DB::table('tblGunRequests')
-         //              ->where('tblGunRequests.establishments_id','=',$estabID)
-         //              ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
-         //              ->join('tblClaimeddelivery','tblClaimeddelivery.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
-         //              ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
-         //              ->join('gunType','gunType.id','=','guns.guntype_id')
-         //              ->select('guns.name as gun','gunType.name as gunType','tblClaimeddelivery.serialNo')
-         //              ->get();
+    public function number_of_guns(Request $request){
+         $number_of_guns_report = PDF::loadView('AdminPortal.Reports_PDF.number_of_guns',
+                    [
+                      'start' => '000-000-000',
+                      'end' => '000-000-000'
+                    ])->setPaper('a4', 'landscape');
+      return $number_of_guns_report->stream('Number of Guns.pdf');
     }
 }
