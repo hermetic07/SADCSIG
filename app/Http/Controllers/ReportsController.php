@@ -213,10 +213,15 @@ class ReportsController extends Controller
     }
 
     public function gains(Request $request){
+      $gains_employees = DB::table('employees')
+                              ->where('employees.status','=','deployed')
+                              ->join('tblestabguards','tblestabguards.strGuardID','=','employees.id')
+                              ->get();
       $gains_report = PDF::loadView('AdminPortal.Reports_PDF.gains_report',
                     [
                       'start' => $request->startFrom,
-                      'end' => $request->endTo
+                      'end' => $request->endTo,
+                      'gains_employees' => $gains_employees
                       
                     ])->setPaper('a4', 'landscape');
       return $gains_report->stream('Gains.pdf');
