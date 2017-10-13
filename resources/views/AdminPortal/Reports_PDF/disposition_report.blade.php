@@ -10,6 +10,10 @@
 	{{$end}}
 @endsection
 
+@section('report_title')
+	Disposition Report
+@endsection
+
 @section('content')
 	<center>
 			<table >
