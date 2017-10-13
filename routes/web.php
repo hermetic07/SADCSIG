@@ -653,7 +653,7 @@ Route::post('/Update-License-Info','RenewLicenseControl@update');
 
 Route::get('/Admin-Queries',"EmployeeQuery@index");
 Route::post('/Admin-Queries-Employee',"EmployeeQuery@get");
-
+Route::post('importExcel', 'DTR@importExcel');
 //Public routes, no auths needed
 Route::get('/OnlineRegistration', 'OnlineRegisterControl@index6');
 Route::get ( '/OnlineRegisterImage', 'OnlineRegisterControl@test' );
