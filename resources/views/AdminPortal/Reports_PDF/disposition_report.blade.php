@@ -1,6 +1,6 @@
 @extends('AdminPortal.Reports_PDF.report_layout')
 @section('title')
-	Dispostion Report
+	Guard Designation
 @endsection
 @section('start_date')
 	{{$start}}
@@ -11,7 +11,7 @@
 @endsection
 
 @section('report_title')
-	Disposition Report
+	Guard Designation
 @endsection
 
 @section('content')
