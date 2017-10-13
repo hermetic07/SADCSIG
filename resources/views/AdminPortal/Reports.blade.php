@@ -104,7 +104,13 @@
                       </div>
                         
                       <tbody>
+                        @php
+                          $total_guards_deployed = 0;
+                        @endphp
                         @foreach($dispositions as $disposition)
+                         @php
+                          $total_guards_deployed++;
+                        @endphp
                           <tr>
                             <td>{{$disposition->establishment}}</td>
                             <td>
@@ -145,7 +151,13 @@
                           
                         @endforeach
                       </tbody>
-                     </table>   
+                     </table>
+                     <br>
+                     <br>
+                     <div class="pull-right">
+                      Total No. of Clients : <b>{{$totalClients}}</b><br>
+                       Total Guards Deployed: <b>{{$total_guards_deployed}}</b>
+                     </div>   
                 </section>
                 <section id="section-shape-2"><p>History of Client Payments.</p>
                   <div class="app">
@@ -153,16 +165,18 @@
                           {!! $number_of_guns_chart->html() !!}
                       </center>
                   </div>
+                  <br>
+                  <button type="button" class="btn btn-success" onclick="func_change_route('/Numberofguns-pdf')"><i class="fa fa-list"></i> Get PDF</button>
                   <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
                       <thead>
                         <tr>
                         
                           <th>Gun Name</th>
                           <th data-hide="phone, tablet" >Type</th>
-                          <th>License</th>
-                          <th>Expire date</th>
+                          <th>Serial No.</th>
+                          
                           <th >Establishment</th>
-                          <th >Date Deployed</th>
+                          <th >Date Delivered</th>
                           
                         </tr>
                       </thead>
@@ -180,9 +194,44 @@
                       </div>
                         
                       <tbody>
+                        @php
+                          $totalGunDelivered = 0;
+                        @endphp
+                        @foreach($clientGuns as $clientGun)
+                        @php
+                          $totalGunDelivered++;
+                        @endphp
+                          <tr>
+                            <td>
+                              {{$clientGun->gun}}
+                            </td>
+                            <td>
+                              {{$clientGun->gunType}}
+                            </td>
+                            <td>
+                              {{$clientGun->serialNo}}
+                            </td>
+                            
+                            <td>
+                              @foreach($establishments as $establishment)
+                                @if($establishment->id == $clientGun->establishments_id)
+                                  {{$establishment->name}}
+                                @endif
+                              @endforeach
+                            </td>
+                            <td>
+                              {{$clientGun->deliveryDate}}
+                            </td>
+                          
+                          </tr>
+                        @endforeach
                       </tbody>
                     </table>
-
+                    <br>
+                    <br>
+                    <div class="pull-right">
+                      Total Guns Delivered : {{$totalGunDelivered}}
+                    </div>
                 </section>
                 <section id="section-shape-3"><p>it contains the information regarding the number of newly employed</p></section>
                 <section id="section-shape-4"><p>Contains the attendance of security guards at their respective posts.</p></section>
@@ -209,7 +258,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Date Range</strong></center></h4>
             </div>
             <div class="modal-body">
-             <form method="GET" action="{{ url('/DispositionReports-pdf') }}">
+             <form id="date-range-form" method="GET" action="{{ url('/DispositionReports-pdf') }}">
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Starts From:</label>
@@ -250,5 +299,9 @@
                   });
 
               })();
+        function func_change_route(newroute){
+          $('#date-range-form').attr('action', '/Numberofguns-pdf')
+          $('#reportRange').modal('show');
+        }
   </script>
   @endsection

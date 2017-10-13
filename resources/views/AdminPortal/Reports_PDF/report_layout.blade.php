@@ -47,13 +47,18 @@
 			I HEREBY CERTIFY the correctness disposition report for the month of <u></u>
 			<br>
 			<br>
-			<div align="left">
-				<center>Felix Cerbito</center><br>
-				<center><b>Asst. General Manager</b></center>
-			</div>
-			<div align="center">
-				<center>Juel Mar Cerbito</center><br>
-				<center><b>General Manager</b></center>
+			<div class="row">
+				<p>Prepared by:</p>
+				<div class="col-md-4">
+					<h4>Felix Cerbito</h4>
+					Asst. General Manager
+				</div>
+				<br>
+				<p>Approved by:</p>
+				<div class="col-md-4">
+					<h4>Juel Mar Cerbito</h4>
+					General Manager
+				</div>
 			</div>
 		</p>
 	</div>
