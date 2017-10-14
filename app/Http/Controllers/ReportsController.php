@@ -16,6 +16,7 @@ use App\EmployeeEducation;
 use App\EstabGuards;
 use App\Contracts;
 use App\Employees;
+use App\ClaimedDelivery;
 
 class ReportsController extends Controller
 {
@@ -29,10 +30,12 @@ class ReportsController extends Controller
     	$client_ctr = 0;
     	$client_arry = [];
     	$ctr = 0;
-    	$provinces = DB::table('provinces')
+    	$provinces = DB::table('provinces')->get();
+      $client_per_province = [];
     					
-    					->get();
+    					
     	foreach($provinces as $province){
+        $client_per_province[$prov_ctr] = Area::where('provinces_id','=',$province->id)->get()->count();
     		$provinces_arry[$prov_ctr] = $province->name;
     		$prov_ctr++;
     	}
@@ -42,7 +45,7 @@ class ReportsController extends Controller
     	$chart = Charts::create('donut', 'highcharts')
 		    ->title('Disposition Report Chart')
 		    ->labels($provinces_arry)
-		    ->values([5,10,20])
+		    ->values($client_per_province)
 		    ->dimensions(1000,500)
 		    ;
         $dispositions = DB::table('employees')
@@ -80,12 +83,29 @@ class ReportsController extends Controller
                         'tblGunRequests.establishments_id',
                         'tblGunDeliveries.created_at as deliveryDate')
                       ->get();
-                    //return $clientGuns->toArray();
+                   // return $clientGuns->count();
+        $guns_per_client = [];
 
-        $number_of_guns_chart = Charts::create('line', 'highcharts')
+        $estab_arry = [];
+        $estab_ctr = 0;
+        foreach($establishments as $establishment){
+          $guns_per_client[$estab_ctr] = DB::table('tblGunRequests')
+                      ->where('tblGunRequests.establishments_id','=',$establishment->id)
+                      ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
+                      ->join('tblClaimeddelivery','tblClaimeddelivery.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
+                      ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
+                      ->join('gunType','gunType.id','=','guns.guntype_id')
+                      ->select('guns.name as gun','gunType.name as gunType','tblClaimeddelivery.serialNo')
+                      ->get()
+                      ->count();
+          $estab_arry[$estab_ctr] = $establishment->name;
+          $estab_ctr++;
+        }
+        $delivered_guns = $clientGuns->count();
+        $number_of_guns_chart = Charts::create('bar', 'highcharts')
             ->title('Disposition Report Chart')
-            ->labels($provinces_arry)
-            ->values([5,10,20])
+            ->labels($estab_arry)
+            ->values($guns_per_client)
             ->dimensions(1000,500)
             ;
 
@@ -93,10 +113,31 @@ class ReportsController extends Controller
                               ->where('employees.status','=','deployed')
                               ->join('tblestabguards','tblestabguards.strGuardID','=','employees.id')
                               ->get();
-        $gain_chart = Charts::create('bar', 'highcharts')
+        $employees = Employees::all();
+        $created_at = [];
+        $i = 0;
+        foreach($employees as $employee){
+          $month = explode("-", $employee->created_at)[1];
+          $created_at[$i] = $month;
+          $i++;
+        }
+        $emp_arr = [];
+        $k = 0;
+        for($i = 1; $i<= 12; $i++){
+          for($j = 0; $j < count($created_at); $j++){
+            if($created_at[$j] == $i){
+              $k++;
+              $emp_arr[$i-1] = $k;
+            }else{
+              $emp_arr[$i-1] = 0;
+            }
+          }
+          
+        }
+        $gain_chart = Charts::create('line', 'highcharts')
             ->title('Gains')
-            ->labels($provinces_arry)
-            ->values([5,10,20])
+            ->labels(['January','February','March','April','May','June','July','August','September','October','November','December'])
+            ->values($emp_arr)
             ->dimensions(1000,500)
             ;
 

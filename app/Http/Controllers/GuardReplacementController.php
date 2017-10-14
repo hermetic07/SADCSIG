@@ -287,16 +287,17 @@ class GuardReplacementController extends Controller
         $guardReplacementRequests = GuardReplacement::findOrFail($request->contractID);
         $establishments = Establishments::all();
         $empCtr = 0;
+        //return $request->clientID;
         $roles = Role::all();
         foreach($employees as $employee){
             $empCtr = $empCtr + 1;
         }
-        return view('AdminPortal.ChangeRejectedGuards')
+        return view('AdminPortal.ClientRequests.GuardReplacementRequests.change_rejected')
                 ->with('employees',$employees)
                 ->with('rejects',$request->rejectedIDs)
                 ->with('rejectCtr',$request->rejectedCtr)
                 ->with('empCtr',$empCtr)
-                ->with('contract_ID',$addGuardRequest->contract)
+                ->with('contract_ID',$guardReplacementRequests->contractID)
                 ->with('clientID',$request->clientID)
                 ->with('establishments',$establishments)
                 ->with('shifts',$shifts)
