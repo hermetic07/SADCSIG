@@ -9,18 +9,18 @@ use Auth;
 use App\Clients;
 class ClientAuthControl extends Controller
 {
-    
+
     protected $redirectTo = 'Login';
 
-    
+
 
     public function login(Request $request)
     {
-        
+
 
         if (Auth::guard('client')->attempt(['email'=>$request->client_username,'password'=>$request->client_password])) {
             $count = Clients::where('email','=',$request->client_username)->count();
-                
+
             if ($count===1) {
                 $key="";
                 $employee = Clients::where('email','=',$request->client_username)->get();
@@ -34,7 +34,7 @@ class ClientAuthControl extends Controller
                 $stat = 1;
                 return view('clientloginform')->with('stat',$stat);
             }
-            
+
         }
 
         return redirect()->back();

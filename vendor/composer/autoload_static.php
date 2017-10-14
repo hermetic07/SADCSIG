@@ -340,6 +340,10 @@ class ComposerStaticInit0c67443a19260e0f8b2dcc8258700844
             array (
                 0 => __DIR__ . '/..' . '/mockery/mockery/library',
             ),
+            'MaddHatter\\LaravelFullcalendar' => 
+            array (
+                0 => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src',
+            ),
             'Maatwebsite\\Excel\\' => 
             array (
                 0 => __DIR__ . '/..' . '/maatwebsite/excel/src',
@@ -427,6 +431,7 @@ class ComposerStaticInit0c67443a19260e0f8b2dcc8258700844
         'App\\Http\\Controllers\\ClientPortalHomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClientPortalHomeController.php',
         'App\\Http\\Controllers\\ContractController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContractController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DTR' => __DIR__ . '/../..' . '/app/Http/Controllers/DTR.php',
         'App\\Http\\Controllers\\DeployControl' => __DIR__ . '/../..' . '/app/Http/Controllers/DeployControl.php',
         'App\\Http\\Controllers\\DeploymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/DeploymentController.php',
         'App\\Http\\Controllers\\EmployeeAuthControl' => __DIR__ . '/../..' . '/app/Http/Controllers/EmployeeAuthControl.php',
@@ -2019,6 +2024,13 @@ class ComposerStaticInit0c67443a19260e0f8b2dcc8258700844
         'Maatwebsite\\Excel\\Readers\\LaravelExcelReader' => __DIR__ . '/..' . '/maatwebsite/excel/src/Maatwebsite/Excel/Readers/LaravelExcelReader.php',
         'Maatwebsite\\Excel\\Writers\\CellWriter' => __DIR__ . '/..' . '/maatwebsite/excel/src/Maatwebsite/Excel/Writers/CellWriter.php',
         'Maatwebsite\\Excel\\Writers\\LaravelExcelWriter' => __DIR__ . '/..' . '/maatwebsite/excel/src/Maatwebsite/Excel/Writers/LaravelExcelWriter.php',
+        'MaddHatter\\LaravelFullcalendar\\Calendar' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/Calendar.php',
+        'MaddHatter\\LaravelFullcalendar\\Event' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/Event.php',
+        'MaddHatter\\LaravelFullcalendar\\EventCollection' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/EventCollection.php',
+        'MaddHatter\\LaravelFullcalendar\\Facades\\Calendar' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/Facades/Calendar.php',
+        'MaddHatter\\LaravelFullcalendar\\IdentifiableEvent' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/IdentifiableEvent.php',
+        'MaddHatter\\LaravelFullcalendar\\ServiceProvider' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/ServiceProvider.php',
+        'MaddHatter\\LaravelFullcalendar\\SimpleEvent' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/SimpleEvent.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',

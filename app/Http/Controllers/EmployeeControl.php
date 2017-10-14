@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 use App\Employee;
+use App\Attendance;
 use App\EmployeeAttributes;
 use App\EmployeeDegree;
 use App\EmployeeEducation;
@@ -399,7 +401,25 @@ class EmployeeControl extends Controller
         $value = $request->session()->get('user');
         if ($value!==null) {
           $u = Employee::find($value);
-          return view('SecurityGuardsPortal/SecurityGuardsPortalAttendance')->with('employee',$u);
+          $events = [];
+          $value = $request->session()->get('user');
+          $data = Attendance::all()->where('secu_id',$value);
+          if($data->count()) {
+              foreach ($data as $key => $value) {
+                  $events[] = Calendar::event(
+                      $value->description,
+                      true,
+                      new \DateTime($value->date),
+                      new \DateTime($value->date.' +1 day'),
+                      null,
+                      // Add color and link on event
+                   [
+                       'color' => '#1A5276',
+                   ]              );
+              }
+          }
+          $calendar = Calendar::addEvents($events);
+          return view('SecurityGuardsPortal/SecurityGuardsPortalAttendance', compact('calendar'))->with('employee',$u);
         }
       } catch (Exception $e) {
           $stat= 0;

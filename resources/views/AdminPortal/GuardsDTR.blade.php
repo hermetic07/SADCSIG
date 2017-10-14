@@ -86,39 +86,30 @@
                   </div>
                </div>
              <tbody>
-                <tr>
-                             <td>								<div class="el-card-item">
-                 <div class="el-card-avatar el-overlay-1">
-                                  <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2.jpg" alt="user"  class="img-circle img-responsive"></a>
-                       <div class="el-overlay">
-                         <ul class="el-info">
-                                                     <li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                           </ul>
-                       </div>
-                 </div>
-               </div></td>
-                             <td>Daisy ronquillo</td>
+              @foreach($emp as $e)
+                        <tr>
                              <td>
-                 <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-calendar"></i> Show DTR </button>
-
-                             </td>
-                         </tr>
-        <tr>
-                             <td>					<div class="el-card-item">
-                 <div class="el-card-avatar el-overlay-1">
-                                  <a href="{{url('/SecuProfile')}}"><img src="plugins/images/SecurityGuards/2x2 2.jpg" alt="user"  class="img-circle img-responsive"></a>
-                       <div class="el-overlay">
-                         <ul class="el-info">
-                                                     <li><a class="btn default btn-outline" href="{{url('/SecuProfile')}}" target="_blank"><i class="fa fa-info"></i></a></li>
-                                           </ul>
-                       </div>
-                 </div>
-               </div></td>
-                             <td>Luigi lacsina</td>
+                               <div class="el-card-item">
+                                 <div class="el-card-avatar el-overlay-1">
+                                                  <a href="{{URL('/SecuProfile',$e->id)}}"><img src="uploads/{{$e->image}}" alt="image"  class="img-circle img-responsive"></a>
+                                       <div class="el-overlay">
+                                         <ul class="el-info">
+                                            <li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$e->id)}}" target="_blank"><i class="fa fa-info"></i></a></li>
+                                          </ul>
+                                       </div>
+                                 </div>
+                               </div>
+                              </td>
+                             <td>{{$e->first_name}} {{$e->middle_name}} {{$e->last_name}}</td>
                              <td>
-       <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-calendar"></i> Show DTR </button>
+                               <form class="" action="/Admin-View-DTR" method="post">
+                                 {{csrf_field()}}
+                                    <input type="hidden"  name="id" id="id" value="{{$e->id}}">
+                                   <button type="submit"class="btn btn-info" ><i class="fa fa-calendar"></i> Show DTR </button>
+                               </form>
                              </td>
-                         </tr>
+                        </tr>
+                @endforeach
              </tbody>
              <tfoot>
                <tr>
