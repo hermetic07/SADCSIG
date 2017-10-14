@@ -133,7 +133,7 @@
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">Security guard's approval</div>
-<form method="GET" action="{{ url('/ChangeGuards') }}">
+<form method="GET" id="change-form" action="{{ url('/ChangeGuards') }}">
 <div class="panel-wrapper p-b-10 collapse in">
     <div class="row  el-element-overlay">
 <div id="secus" class="owl-carousel owl-theme ">
@@ -204,7 +204,7 @@
                       </div>
                       <div>
                     <button type="button" class="btn btn-block btn-outline btn-rounded btn-success" id="deploy" value="{{$employee->id}}">Deploy</button>
-                    <form method="GET" action="{{ url('/ChangeGuards2') }}">
+                    <!-- <form method="GET" action="{{ url('/ChangeGuards2') }}">
                       <input type="hidden" name="rejectedIDs" value="{{$rejectID}}">
                       <input type="hidden" name="accepted" value="{{$accepted}}">
                       <input type="hidden" name="rejectedCtr" value="{{$rejectCtr}}">
@@ -213,8 +213,9 @@
                       <input type="hidden" name="changeID" value="{{$changeID}}">
                       <input type="hidden" name="refuse_ID" value=",.{{$employee->id}}">
                       <input type="hidden" name="refuseCtr" id="refuseCtr" value="1">
-                      <button type="submit" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
-                    </form>
+                      <button type="button" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
+                    </form> -->
+                    <button type="button" onclick="submit_form(',.{{$employee->id}}')" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
                   </div>
                 </div>
                 @foreach($tempDeploymentDetails as $tempDeploymentDetail)
@@ -244,7 +245,7 @@
           <input type="hidden" id="contractID" name="contractID" value="{{$contractID}}">
           <input type="hidden" name="clientID" value="{{$client->id}}">
           <input type="hidden" name="changeID" value="{{$changeID}}">
-          <input type="hidden" name="refuseID" value="{{$refuseID}}">
+          <input type="hidden" id="refuseID" name="refuseID" value="{{$refuseID}}">
           <input type="hidden" name="refuseCtr" id="refuseCtr" value="{{$refuseCtr}}">
         </div>
       </div>
@@ -375,5 +376,13 @@
           }
         });
       });
+
+      function submit_form(emp_id){
+        $('#refuseID').attr('value',emp_id);
+        $('#refuseCtr').attr('value','1')
+
+        $('#change-form').submit();
+        //alert($('#refuseCtr').val());
+      }
     </script>
   @endsection
