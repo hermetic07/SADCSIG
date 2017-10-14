@@ -208,6 +208,7 @@ class AdditionalGuardRequesController extends Controller
     }
 
     public function changeRejectedGuards(Request $request){
+       // return $request->contractID;
         $employees = Employee::all();
         $shifts = Shifts::all();
         $addGuardRequest = AddGuardRequests::findOrFail($request->contractID);
@@ -217,7 +218,7 @@ class AdditionalGuardRequesController extends Controller
         foreach($employees as $employee){
             $empCtr = $empCtr + 1;
         }
-        return view('AdminPortal.ChangeRejectedGuards')
+        return view('AdminPortal.ClientRequests.AddGuardRequests.change_rejected')
                 ->with('employees',$employees)
                 ->with('rejects',$request->rejectedIDs)
                 ->with('rejectCtr',$request->rejectedCtr)

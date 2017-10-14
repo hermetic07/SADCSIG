@@ -333,7 +333,7 @@ class AdminController extends Controller
     //     //return $request->clientID;
     // }
     public function saveChangedGuards(Request $request){
-        //return explode(',.', $request->refuseID);
+        //return $request->contractID;
         $notif_id = 'NOTIF'.DeploymentNotifForClient::get()->count().'-'.$request->contractID;
         $temp_deployment_id = 'TMPDPLY'.TempDeployments::get()->count().'-'.$request->contractID;
         $temp_deployment_details_id ='';
