@@ -76,8 +76,8 @@
                                           </div>
                                           <div class="pro-list-info-3-col">
                                               <ul class="pro-info text-muted m-b-0">
-                                                  <li> <span><img src="plugins/images/Clients/Active/building.png"></span> <span>Contracts</span><span class="pull-right text-inverse">{{$c->count}}</span></li>
-                                                  <li> <span><img src="plugins/images/SecurityGuards/phone.png"></span> <span>Contact Number</span><span class="pull-right text-inverse">{{$c->contact}}</span></li>
+                                                  <li> <span><img src="plugins/images/Clients/Active/building.png"></span> <span><a href='/ClientEstablishment-{{"$c->id"}}'>Establishments</a></span></li>
+                                                  <li> <span><img src="plugins/images/SecurityGuards/phone.png"></span> <span>Contact Number</span><span class="pull-right text-inverse">{{$c->contactNo}}</span></li>
                                                   <li> <span><img src="plugins/images/SecurityGuards/email.png"></span> <span>Email address</span><span class="pull-right text-inverse"> {{$c->email}}</span></li>
                                               </ul>
                                           </div>

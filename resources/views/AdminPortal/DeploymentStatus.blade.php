@@ -215,7 +215,7 @@
                       <input type="hidden" name="refuseCtr" id="refuseCtr" value="1">
                       <button type="button" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
                     </form> -->
-                    <button type="button" onclick="submit_form(',.{{$employee->id}}')" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
+                    <!-- <button type="button" onclick="submit_form(',.{{$employee->id}}')" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button> -->
                   </div>
                 </div>
                 @foreach($tempDeploymentDetails as $tempDeploymentDetail)
