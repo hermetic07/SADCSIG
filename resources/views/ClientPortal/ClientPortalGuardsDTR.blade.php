@@ -63,7 +63,7 @@
           <tbody>
               @foreach($guards as $guard)
                           <tr>
-                              <td>                
+                              <td>
                                 <div class="el-card-item">
                                   <div class="el-card-avatar el-overlay-1">
                                     <a href="uploads/{{$guard->image}}"><img src="uploads/{{$guard->image}}" alt="user"  class="img-circle img-responsive"></a>
@@ -79,7 +79,7 @@
                                 {{$guard->first_name}} {{$guard->middle_name}} {{$guard->last_name}}
                               </td>
                               <td>
-                               From: {{$guard->shiftFrom}}  To: {{$guard->shiftTo}} 
+                               From: {{$guard->shiftFrom}}  To: {{$guard->shiftTo}}
                               </td>
                               <td>
                                 <a href="/ClientPortalEstablishmentsDetails-{{$client->id}}+{{$guard->estabID}}" target="_blank">{{$guard->establishment}}</a>
@@ -91,12 +91,16 @@
                                 {{ $guard->dtmDateDeployed }}
                               </td>
                               <td>
-                                <button type="button" class="btn btn-block btn-info show" ><i class="fa fa-calendar"></i> Show DTR </button>
+                                <form class="" action="/Client-View-DTR" method="post">
+                                  {{csrf_field()}}
+                                     <input type="hidden"  name="id" id="id" value="{{$guard->id}}">
+                                    <button type="submit"class="btn btn-info" ><i class="fa fa-calendar"></i> Show DTR </button>
+                                </form>
                               </td>
                             </tr>
-                        
+
             @endforeach
-          
+
           </tbody>
           <tfoot>
             <tr>

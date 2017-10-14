@@ -162,7 +162,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-		
+		    Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -178,9 +178,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-		Barryvdh\DomPDF\ServiceProvider::class,
+		    Barryvdh\DomPDF\ServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
 
     ],
 
@@ -229,8 +230,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-		'PDF' => Barryvdh\DomPDF\Facade::class,
+		    'PDF' => Barryvdh\DomPDF\Facade::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

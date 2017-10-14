@@ -13,7 +13,6 @@
 
   <!-- title -->
   <title>@yield('Title')</title>
-
  <!-- Bootstrap Core CSS -->
   <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
  <!-- Footable CSS -->

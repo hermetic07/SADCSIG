@@ -77,11 +77,9 @@
             <div class="panel-body">
 
               <p>Request for a resignation to notify the agency that you will leave and state your reason then visit the agency for you to process it.</p>
-                    @if($employee->deployed===1)
-                    <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#resign"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" > Request</a>
-                    @else
-                    <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button>
-                    @endif
+
+                    <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10"   type="button" onclick="resignbtn()" > Request</a>
+
             </div>
 
         </div>
@@ -409,6 +407,9 @@ $("#leaves").change(function(){
      $(".thirdcal").datepicker({
          dateFormat: "mm/dd/yy"
      });
+     $(".fourthcal").datepicker({
+         dateFormat: "yy/mm/dd"
+     });
      $("#reportsub").click(function(){
        $.ajaxSetup({
          headers: {
@@ -474,7 +475,9 @@ function save(id)
     }
   });
 }
-
+function resignbtn(){
+  $('#resign').modal('show');
+}
 
 
 </script>

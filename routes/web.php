@@ -49,9 +49,7 @@ Route::get('/Swap','GuardReplacementController@index');
 Route::get('/GuardLicenses', 'RegisterControl@guardslicense');
 
 
-Route::get('/GuardsDTR', function () {
-	return view('AdminPortal/GuardsDTR');
-});
+Route::get('/GuardsDTR', 'DTR@index');
 
 Route::get('/Applicants', 'RegisterControl@hire');
 Route::get('/SecurityGuards', 'RegisterControl@guards');
@@ -654,9 +652,11 @@ Route::post('/Guard-Reject-Swap','SwapControl@guardreject');
 Route::post('/Send-License-Warning','RenewLicenseControl@sendWarning');
 Route::post('/Update-License-Info','RenewLicenseControl@update');
 
-Route::get('/Admin-Queries',"EmployeeQuery@index");
-Route::post('/Admin-Queries-Employee',"EmployeeQuery@get");
-
+Route::get('/Admin-Queries',"EmployeeQuery@index")->middleware('auth');
+Route::post('/Admin-Queries-Employee',"EmployeeQuery@get")->middleware('auth');
+Route::post('importExcel', 'DTR@importExcel')->middleware('auth');
+Route::post('/Admin-View-DTR', 'DTR@adminview')->middleware('auth');
+Route::post('/Client-View-DTR', 'DTR@clientview')->middleware('auth:client');
 //Public routes, no auths needed
 Route::get('/OnlineRegistration', 'OnlineRegisterControl@index6');
 Route::get ( '/OnlineRegisterImage', 'OnlineRegisterControl@test' );
