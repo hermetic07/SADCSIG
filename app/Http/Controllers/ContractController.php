@@ -31,9 +31,54 @@ use App\GunRequest;
 use App\GunRequestsDetails;
 use App\Gun;
 use App\GunType;
+use App\ContractTerminations;
 
 class ContractController extends Controller
 {
+    public function allContracts(){
+      $contracts = DB::table('contracts')
+                      ->join('client_registrations','client_registrations.contract_id','=','Contracts.id')
+                      ->join('establishments','establishments.id','=','contracts.strEstablishmentID')
+                      ->join('clients','clients.id','=','client_registrations.client_id')
+                      ->select(
+                          'contracts.id as contract_code',
+                          'contracts.start_date',
+                          'contracts.end_date',
+                          'contracts.status',
+                          'clients.first_name',
+                          'clients.middle_name',
+                          'clients.last_name',
+                          'clients.first_name',
+                          'establishments.name as establishment'
+                        )
+                      ->get();
+      return view('AdminPortal.ClientRequests.Contracts.AllContracts')
+              ->with('contracts',$contracts);
+    }
+
+    public function contractTerminationNotifs(){
+      $contract_termin8_notifs = DB::table('contract_terminations')
+                      ->join('contracts','contracts.id','=','contract_terminations.contract_id')
+                      ->join('client_registrations','client_registrations.contract_id','=','Contracts.id')
+                      ->join('establishments','establishments.id','=','contracts.strEstablishmentID')
+                      ->join('clients','clients.id','=','client_registrations.client_id')
+                      ->select(
+                          'contracts.id as contract_code',
+                          'contracts.start_date',
+                          'contracts.end_date',
+                          'contracts.status',
+                          'clients.first_name',
+                          'clients.middle_name',
+                          'clients.last_name',
+                          'clients.first_name',
+                          'establishments.name as establishment',
+                          'contract_terminations.created_at'
+                        )
+                      ->get();
+      return view('AdminPortal.ClientRequests.Contracts.ContractTermination')
+              ->with('contract_termin8_notifs',$contract_termin8_notifs);
+    }
+
     public function register(){
       $areas = Area::all();
         $provinces = Province::all();

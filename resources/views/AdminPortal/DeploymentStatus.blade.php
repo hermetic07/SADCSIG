@@ -337,14 +337,14 @@
           shiftTo = $('#shifts').val().split(",")[1];
           role = $('#role').val();
           employeeID = this.value;
-          alert(contractID);
+         // alert(contractID);
 
           $.ajax({
             url: '{{route("deploy")}}',
             type:'GET',
             data:{clientID:clientID,contractID:contractID,estabID:estabID,num_guards:num_guards,shiftFrom:shiftFrom,shiftTo:shiftTo,role:role,employeeID:employeeID},
             success:function(data){
-              alert(data);
+              //alert(data);
               console.log(data);
               location.reload();
             }
