@@ -6,7 +6,7 @@
     <div class="modal-body">
 
         <div class="form-group">
-            <p>Good Day! You are already deployed! If you see this messsage.Please immediately report to the Agency. Thank you.</p>
+            <p>Good Day! You are already deployed! Here are the deployment details:</p>
         </div>
 
         <div class="form-group">

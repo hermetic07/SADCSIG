@@ -45,20 +45,62 @@
           headers: {
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-    }); 
-    $.ajax({
-          type: 'post',
-          url: '/Terminate',
-          data: {
-              'id':id,
-          },
-          success: function(data){
-              if(data!==null&&data!==""){
-                alert(data);
-                location.reload();
-              }
+    });  
+    // $.ajax({
+    //       type: 'post',
+    //       url: '/Terminate',
+    //       data: {
+    //           'id':id,
+    //       },
+    //       success: function(data){
+    //           if(data!==null&&data!==""){
+    //             alert(data);
+    //             location.reload();
+    //           }
+    //       }
+    // });
+    // $('#ClaimDel').modal('hide');
+      swal({
+        title: "Terminate Contract",
+        text: "This will send a 30 days notification to the Cclient prior to termination of contract.",
+         type: "input",
+        html: true,
+          showCancelButton: true,
+          closeOnConfirm: false,
+          animation: "slide-from-top",
+          inputPlaceholder: "Your Reason"
+        },
+        function(inputValue){
+          if (inputValue === false) return false;
+          if (inputValue === "") {
+            swal.showInputError("You need to write something!");
+            return false
           }
-    });
+             
+                 
+                  $.ajax({
+                    url:"/Contract-Terminnation-"+id,
+                    type : 'POST',
+                    data : {
+                            contractID:id,
+                            reasons:inputValue
+                          },
+                    success : function(data){
+                       if(data == 0)
+                       {
+                        swal("Notification Sent!", "Thank you for your efforts!", "success");
+                        location.reload();
+                       }
+                       else
+                       {
+                        swal("OOOoooppss!!", "Something went wrong! Please try again", "warning");
+                      // location.reload();
+                       }
+                    }
+                  });
+            
+          
+      });
   }
   </script>
 @endsection

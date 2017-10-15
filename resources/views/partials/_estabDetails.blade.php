@@ -82,8 +82,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-block  btn-info" ><i class="fa fa-edit"></i> </i>Edit info</button>
-                   <button type="button" class="btn btn-block  btn-danger" ><i class="ti-close"></i> </i>Terminate</button>
+                    <!-- <button type="button" class="btn btn-block  btn-info" ><i class="fa fa-edit"></i> </i>Edit info</button>
+                   <button type="button" class="btn btn-block  btn-danger" ><i class="ti-close"></i> </i>Terminate</button> -->
                 </div>
 
             </div>
