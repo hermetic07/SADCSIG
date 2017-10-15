@@ -489,7 +489,6 @@
 
             },
             success: function(result){
-              alert(result);
               $('#foot').html(result);
              }
            });
