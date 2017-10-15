@@ -44,6 +44,7 @@ use Carbon\Carbon;
 use App\ClientSentRequests;
 use App\AddGuardRequests;
 use App\ClientCancelRequests;
+use App\ContractTerminations;
 
 
 class ClientPortalHomeController extends Controller
@@ -311,6 +312,7 @@ class ClientPortalHomeController extends Controller
       $clientContracts = DB::table('client_registrations')
                        ->where('client_registrations.client_id','=',$id)
                        ->join('contracts','contracts.id','=','client_registrations.contract_id')
+                       ->where('contracts.status','=','active')
                        ->select('contracts.id as contractCode')
                        ->get(); 
       $guards = DB::table('client_registrations')
@@ -480,7 +482,9 @@ class ClientPortalHomeController extends Controller
     public function shifts(Request $request,$id){
       if($request->ajax()){
         $shifts = Shifts::where('estab_id',$id)->get();
-        $contracts = Contracts::where('strEstablishmentID',$id)->get();
+        $contracts = Contracts::where('strEstablishmentID',$id)
+                              ->where('status','=','active')
+                              ->get();
         $contracts2 = "";
         $shift2 = "";
         $count = 0;
@@ -528,7 +532,29 @@ class ClientPortalHomeController extends Controller
                               ->orderBy('created_at','desc')
                               ->get();
                               //return $accepted_serv_req->toArray();
-      return view('ClientPortal/ClientPortalMessages')->with('swap',$swap)->with('all',$collection)->with('client',$client)->with('clientInboxMessages',$clientInbox)->with('adminMessages',$adminMessages)->with('tempDeployments',$tempDeployment)->with('tempDeploymentDetails',$tempDeploymentDetails)->with('contracts',$contracts)->with('clientPic',$clientPic)->with('accepted_serv_req',$accepted_serv_req);
+      $termination_message = DB::table('Contract_Terminations')
+                                
+                                ->join('client_Registrations','client_Registrations.contract_id','=','Contract_Terminations.contract_id')
+                                ->join('clients','clients.id','=','client_Registrations.client_id')
+                                ->select('Contract_Terminations.created_at as date_sent',
+                                          'Contract_Terminations.termination_id',
+                                          'Contract_Terminations.reasons'
+                                        )
+                                ->orderBy('Contract_Terminations.created_at','desc')
+                                ->get();
+      //return $termination_message->toArray();
+      return view('ClientPortal/ClientPortalMessages')
+              ->with('swap',$swap)
+              ->with('all',$collection)
+              ->with('client',$client)
+              ->with('clientInboxMessages',$clientInbox)
+              ->with('adminMessages',$adminMessages)
+              ->with('tempDeployments',$tempDeployment)
+              ->with('tempDeploymentDetails',$tempDeploymentDetails)
+              ->with('contracts',$contracts)
+              ->with('clientPic',$clientPic)
+              ->with('accepted_serv_req',$accepted_serv_req)
+              ->with('termination_message',$termination_message);
     }
     public function messagesModal(Request $request,$messageID){
       

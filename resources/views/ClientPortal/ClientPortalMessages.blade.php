@@ -68,6 +68,37 @@
 
           @endphp
           <tbody>
+            @foreach($termination_message as $message)
+              <tr>
+                <td>
+                  <center>
+                    <div class="el-card-item" style="padding-bottom: 5px;" >
+                      <div class="el-card-avatar el-overlay-1" style="width: 65%;">
+                        <a href="SecurityGuardsProfile.html"><img src="plugins/images/Clients/Active/ernest.jpg"  alt="user"  class="img-circle img-responsive"></a>
+                        <div class="el-overlay">
+                          <ul class="el-info">
+                            <li><a class="btn default btn-outline" href="ClientsEstablishment.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="label label-table label-danger">Agency</span>
+                  </center>
+                </td>
+                <td>
+                  Management
+                </td>
+                <td>
+                  {{$message->date_sent}}
+                </td>
+                <td>
+                  Contract Termination
+                </td>
+                <td>   &nbsp;
+                  <button  type="button" onclick="alert('{{$message->termination_id}}')" class="btn btn-info btn-circle viewMessage"  data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                </td>
+              </tr>
+            @endforeach
             @foreach($clientInboxMessages as $clientInboxMessage)
 
               @if($clientInboxMessage->status == "done")
