@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ContractTerminations;
+use App\Contracts;
 
 class ContractTerminationController extends Controller
 {
@@ -17,7 +18,11 @@ class ContractTerminationController extends Controller
 			$contract_termin8['contract_id'] = $request->contractID;
 			$contract_termin8['reasons'] = $request->reasons;
 			$contract_termin8['status'] = 'active';
+
+			$contract = Contracts::findOrFail($request->contractID);
+			$contract->update(['status'=>'disabled']);
 			if($contract_termin8->save()){
+
 				return '0';
 			}
 			else
