@@ -300,6 +300,32 @@ class RegisterControl extends Controller
         return view('AdminPortal/Applicants')->with('employee',$employees)->with('employee1',$employees1)->with('employee2',$employees2);
      }
 
+     public function changelist(Request $r){
+       $button="";
+       $count = DB::table('employee_requirements')->where('employees_id',$r->emp)->where('requirement',$r->id)->count();
+       if ($count==1) {
+         DB::table('employee_requirements')->where('employees_id',$r->emp)->where('requirement',$r->id)->delete();
+
+       }
+       else {
+         $e = new EmployeeRequirements();
+         $e->employees_id = $r->emp;
+         $e->requirement = $r->id;
+         $e->save();
+       }
+
+       $count1= DB::table('requirements')->count();
+       $count2=  DB::table('employee_requirements')->where('employees_id',$r->emp)->count();
+       if ($count1===$count2) {
+         $button =" <button type='button' onclick=\"fun_hire('$r->emp')\" class='btn btn-success col-sm-12' data-dismiss='modal'>Finalize</button>";
+       } else {
+         $button =" <button type='button' onclick=\"fun_hire('$r->emp')\" class='btn btn-success col-sm-12' data-dismiss='modal' disabled>Finalize</button>";
+       }
+
+
+       return $button;
+
+     }
      public function checklist(Request $request)
      {
         $collection = collect();
@@ -308,9 +334,9 @@ class RegisterControl extends Controller
         $count1= DB::table('requirements')->count();
         $count2=  DB::table('employee_requirements')->where('employees_id',$request->id)->count();
         if ($count1===$count2) {
-          $button =" <button type='button' onclick='fun_hire('$request->id')' class='btn btn-success col-sm-12' data-dismiss='modal'>Finalize</button>";
+          $button =" <button type='button' onclick=\"fun_hire('$request->id')\" class='btn btn-success col-sm-12' data-dismiss='modal'>Finalize</button>";
         } else {
-          $button =" <button type='button' onclick='fun_hire('$request->id')' class='btn btn-success col-sm-12' data-dismiss='modal' disabled>Finalize</button>";
+          $button =" <button type='button' onclick=\"fun_hire('$request->id')\" class='btn btn-success col-sm-12' data-dismiss='modal' disabled>Finalize</button>";
         }
 
         foreach($has as $h)
@@ -322,7 +348,7 @@ class RegisterControl extends Controller
                     ->get();
         $data="";
         foreach ($unchecked as $u) {
-          $data .="<input type='checkbox' value='$u->name' onclick='fun_update('$u->name')'> <label>$u->name</label><br>";
+          $data .="<input type='checkbox' value='$u->name' onclick=\"change('$u->name')\"> <label>$u->name</label><br>";
         }
 
 
@@ -330,8 +356,14 @@ class RegisterControl extends Controller
         $all = [
           'checkbox'=>$data,
           'button'=> $button,
+          'emp'=>$request->id,
         ];
         return $all;
+     }
+
+     public function change(Request $r)
+     {
+
      }
 
      public function guards(Request $request)

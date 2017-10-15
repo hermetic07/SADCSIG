@@ -630,6 +630,7 @@ Route::post('/Checklist','RegisterControl@Checklist');
 Route::post('/HireEmployee2','RegisterControl@approve2');
 Route::post('/HireOnlineEmployee','OnlineRegisterControl@approve');
 Route::post('/RemoveApplicant','RegisterControl@remove');
+Route::post('/ChecklistChange','RegisterControl@changelist');
 Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
 Route::post('/SaveIncidentReport','EmployeeControl@incident');
 //

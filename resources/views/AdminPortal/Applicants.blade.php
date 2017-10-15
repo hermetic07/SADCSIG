@@ -455,6 +455,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" id="guardname">Missing Requirements</h4>
+        <input type="hidden" id="emplist" >
       </div>
       <div class="modal-body" id="checklistbody">
 
@@ -470,14 +471,30 @@
 
 
 
-    $(document).ready(function()
-    {
-       $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-         }
-       });
-    })();
+
+
+    function change(id){
+      $.ajaxSetup({
+         headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({
+            url: '/ChecklistChange',
+            type:"POST",
+             data: {
+
+               "id":id,
+               "emp": $('#emplist').val(),
+
+            },
+            success: function(result){
+              alert(result);
+              $('#foot').html(result);
+             }
+           });
+    }
+
     function fun_view(id){
         $.ajaxSetup({
            headers: {
@@ -495,7 +512,9 @@
               success: function(result){
                 $('#checklistbody').html(result.checkbox);
                 $('#foot').html(result.button);
+                $('#emplist').val(result.emp);
                 $('#checklist').modal('show');
+
                }
              });
 
