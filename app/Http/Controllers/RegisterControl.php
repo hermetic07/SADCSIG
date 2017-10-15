@@ -296,7 +296,42 @@ class RegisterControl extends Controller
      {
         $employees = Employee::where("status" , "interview" )->get();
         $employees1 = Employee::where("status" , "pending" )->get();
-        return view('AdminPortal/Applicants')->with('employee',$employees)->with('employee1',$employees1);
+        $employees2 = Employee::where("status" , "finalization" )->get();
+        return view('AdminPortal/Applicants')->with('employee',$employees)->with('employee1',$employees1)->with('employee2',$employees2);
+     }
+
+     public function checklist(Request $request)
+     {
+        $collection = collect();
+        $button="";
+        $has = EmployeeRequirements::All()->where('employees_id',$request->id);
+        $count1= DB::table('requirements')->count();
+        $count2=  DB::table('employee_requirements')->where('employees_id',$request->id)->count();
+        if ($count1===$count2) {
+          $button =" <button type='button' onclick='fun_hire('$request->id')' class='btn btn-success col-sm-12' data-dismiss='modal'>Finalize</button>";
+        } else {
+          $button =" <button type='button' onclick='fun_hire('$request->id')' class='btn btn-success col-sm-12' data-dismiss='modal' disabled>Finalize</button>";
+        }
+
+        foreach($has as $h)
+        {
+          $collection->push($h->requirement);
+        }
+        $unchecked = DB::table('requirements')
+                    ->whereNotIn('name', $collection)
+                    ->get();
+        $data="";
+        foreach ($unchecked as $u) {
+          $data .="<input type='checkbox' value='$u->name' onclick='fun_update('$u->name')'> <label>$u->name</label><br>";
+        }
+
+
+
+        $all = [
+          'checkbox'=>$data,
+          'button'=> $button,
+        ];
+        return $all;
      }
 
      public function guards(Request $request)
@@ -338,6 +373,13 @@ class RegisterControl extends Controller
         return $data2 ;
      }
 
+     public function finalize(Request $request)
+     {
+       $employee = Employee::find($request->id);
+       $employee->status = "finalization";
+       $employee->save();
+       return "This applicant is now on his/her final step to become registered" ;
+     }
      public function interview(Request $request)
      {
        $employee = Employee::find($request->id);
