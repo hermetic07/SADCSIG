@@ -77,7 +77,13 @@
             </li>
             <li> <a href="{{url('/PendingClientRequests')}}" class="waves-effect">Pending Request<span class="label label-rouded label-info pull-right">4</span></a>
             </li>
+            <li> <a href="javascript:void(0)" class="waves-effect">Contracts <span class="fa arrow"></span></a>
+              <ul class="nav nav-third-level">
+                  <li> <a href="/AllContracts">All Contracts</a></li>
+                  <li> <a href="/ContractTerminationNotifs">Terminations</a> </li>
 
+              </ul>
+            </li>
 
            </ul>
           </li>

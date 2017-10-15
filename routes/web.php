@@ -201,6 +201,9 @@ Route::get('/updateContractStats','InitialDeliveryController@updateContractStats
 Route::get('/testRoute','InitialDeliveryController@testRoute');
 
 Route::post('/Contract-Terminnation-{contractID}','ContractTerminationController@save');
+
+Route::get('/AllContracts','ContractController@allContracts');
+Route::get('/ContractTerminationNotifs','ContractController@contractTerminationNotifs');
 /**-------------------------     Contracts-End    ---------------------*/
 /**-------------------------     Contracts-End    ---------------------*/
 
