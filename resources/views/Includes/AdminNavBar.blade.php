@@ -52,6 +52,8 @@
               </li>
               <li> <a href="{{url('/Guard-Registration')}}" class="waves-effect">Security guards</a>
               </li>
+              <li> <a href="{{url('/Admin-Create')}}" class="waves-effect">Create Admin</a>
+              </li>
                   </ul>
           </li>
 

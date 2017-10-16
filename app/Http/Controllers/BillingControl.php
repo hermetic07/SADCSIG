@@ -14,7 +14,7 @@ use App\vat;
 use App\ewt;
 use App\Agencyfee;
 use App\Contracts;
-
+use App\Billingday;
 use App\Collections;
 use App\Billings;
 use PDF;
@@ -46,6 +46,17 @@ class BillingControl extends Controller
           "add"=>$estab->address,
           "gd"=>$contract->guard_count,
           "cd"=>$contract->start_date,
+      ];
+      return $data;
+    }
+
+    public function getbillingdays(Request $r)
+    {
+      $day1 = Billingday::find(1);
+      $day2 = Billingday::find(2);
+      $data = [
+        'day1'=> $day1->day,
+        'day2'=> $day2->day,
       ];
       return $data;
     }

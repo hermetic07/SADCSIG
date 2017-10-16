@@ -38,7 +38,7 @@
 
     <p>Send an Incident Report to the agency</p>
           @if($employee->deployed===1)
-          <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" data-toggle="modal" data-target="#swap"  type="button" data-toggle="modal" data-target=".bs-example-modal-lg" > Compose Report</a>
+          <label class="col-xs-6 control-label"></label>	<a class="btn btn-info m-t-10" onclick="inc()"  type="button" > Compose Report</a>
           @else
           <label class="col-xs-5 control-label"></label><button class="btn btn-info m-t-10" disabled>You are not yet deployed</button>
           @endif
@@ -191,7 +191,7 @@
       <div class="modal-body">
         <label for="">Date if Incident</label>
         <div class="input-group">
-          <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control" id="repcal">
+         <span class="input-group-addon"><i class="icon-calender"></i></span> <input type="text" class="form-control fourthcal" id="repcal" placeholder="yyyy/mm/dd" />
         </div>
         <label for="">Compose your report here:</label>
         <textarea rows="10"  style="overflow:auto;resize:none" id="increport" class="col-sm-12"></textarea>
@@ -237,7 +237,7 @@
 
                   <div class="form-group col-sm-12	">
                     <label class="control-label">Reason:</label>
-                    <textarea class="form-control" rows="5" required></textarea>
+                    <textarea class="form-control" id="resreason" rows="5" required></textarea>
                     <div class="help-block with-errors"></div>
                   </div>
                </div>
@@ -245,7 +245,7 @@
               </div>
           </div>
            <div class="modal-footer">
-       <button type="button" id="edd" class="btn btn-info waves-effect waves-light" >Submit</button>
+       <button type="button" id="edd" onclick="sendResign()" class="btn btn-info waves-effect waves-light" >Submit</button>
             <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
            </div>
           </form>
@@ -402,7 +402,7 @@ $("#leaves").change(function(){
          dateFormat: "mm/dd/yy"
      });
      $(".repcal").datepicker({
-         dateFormat: "mm/dd/yy"
+         dateFormat: "yy/mm/dd"
      });
      $(".thirdcal").datepicker({
          dateFormat: "mm/dd/yy"
@@ -470,15 +470,48 @@ function save(id)
 
     },
     success: function(result){
-      alert(result);
-      location.reload();
+      swal({
+          title: "Success" ,
+          text: "Leave Request Sent",
+        }, function(){
+          location.reload();
+        });
+
     }
   });
+}
+function inc(){
+  $('#swap').modal('show');
 }
 function resignbtn(){
   $('#resign').modal('show');
 }
+function sendResign(){
+  $.ajaxSetup({
+    headers: {
+     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+     }
+  });
 
+  $.ajax({
+    url: "/SendResignRequest",
+    type:"POST",
+    data: {
+
+      "date":$('#fourthcal').val(),
+      "reason":$('#resreason').val(),
+
+    },
+    success: function(result){
+      swal({
+          title: "Success" ,
+          text: "Resignation Request Sent",
+        }, function(){
+          location.reload();
+        });
+    }
+  });
+}
 
 </script>
  @endsection

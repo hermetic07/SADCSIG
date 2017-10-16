@@ -32,7 +32,7 @@ Route::get('/ChangeGuards', function () {
 });
 Route::post('/Terminate','ContractController@terminate');
 Route::post('/GetNatureValue','BillingControl@getNature');
-
+Route::get('/Get-Billing-Days','BillingControl@getbillingdays')->middleware('auth');
 Route::get('/Replace', function () {
 	return view('AdminPortal/Replace');
 });
@@ -601,6 +601,11 @@ Route::get ( '/SwapRequest', 'SwapControl@index' )->middleware('auth:employee');
 Route::get ( '/SwapRequestStepTwo/{id}', 'SwapControl@two' )->middleware('auth:employee');
 Route::post ( '/RequestSwap', 'SwapControl@three' )->middleware('auth:employee');
 Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
+Route::post('/SendResignRequest', 'EmployeeControl@sendResign')->middleware('auth:employee');
+
+Route::post('/Admin-Resign-Accept', 'EmployeeControl@acceptResign')->middleware('auth');
+Route::post('/Admin-Resign-Reject', 'EmployeeControl@rejectResign')->middleware('auth');
+
 Route::get('/Admin-Guard-Leave', 'EmployeeControl@allLeave');
 Route::post('/Guard-Leave-View', 'EmployeeControl@viewLeave2');
 Route::post('/Admin-Leave-Accept', 'EmployeeControl@acceptLeave');
@@ -628,16 +633,19 @@ Route::post ( '/GetProvinceAreas', 'AreaControl@getArea' );
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
 Route::post('/Applicant','RegisterControl@saveImage');
 //admin guard (evander)
-Route::post('/HireEmployee','RegisterControl@approve');
-Route::post('/SendInterview','RegisterControl@interview');
-Route::post('/Finalize','RegisterControl@finalize');
-Route::post('/Checklist','RegisterControl@Checklist');
-Route::post('/HireEmployee2','RegisterControl@approve2');
-Route::post('/HireOnlineEmployee','OnlineRegisterControl@approve');
-Route::post('/RemoveApplicant','RegisterControl@remove');
-Route::post('/ChecklistChange','RegisterControl@changelist');
+Route::post('/HireEmployee','RegisterControl@approve')->middleware('auth');
+Route::post('/SendInterview','RegisterControl@interview')->middleware('auth');
+Route::post('/Finalize','RegisterControl@finalize')->middleware('auth');
+Route::post('/Checklist','RegisterControl@Checklist')->middleware('auth');
+Route::post('/HireEmployee2','RegisterControl@approve2')->middleware('auth');
+Route::post('/HireOnlineEmployee','OnlineRegisterControl@approve')->middleware('auth');
+Route::post('/RemoveApplicant','RegisterControl@remove')->middleware('auth');
+Route::post('/ChecklistChange','RegisterControl@changelist')->middleware('auth');
 Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
 Route::post('/SaveIncidentReport','EmployeeControl@incident');
+Route::get('/Admin-Get-Employee', 'RegisterControl@editProfile');
+Route::post('/Admin-Save-Employee', 'RegisterControl@saveProfile')->middleware('auth');
+Route::post('/Admin-Resign-Employee', 'RegisterControl@resign')->middleware('auth');
 //
 Route::get('send','sendEmail@send');
 //log In
@@ -651,6 +659,9 @@ Route::get('/AdminLogIn', function () {
 });
 
 Auth::routes();
+Route::get('/Admin-Create', function () {
+	return view('auth.adminregister');
+})->middleware('auth');
 
 Route::get('/home', 'HomeController@index');
 Route::post('/Client-Accept-Swap','SwapControl@clientaccept');

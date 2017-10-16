@@ -493,12 +493,18 @@ class EmployeeControl extends Controller
 
     public function allLeave()
     {
+      $resignations =  DB::table('resignation')
+                      ->join('employees', 'employees.id', '=', 'resignation.secu_id')
+                      ->select('resignation.id as id', 'employees.id as empid', 'employees.first_name as fname', 'employees.last_name as lname', 'employees.cellphone as cp', 'employees.telephone as telephone', 'employees.street as street', 'employees.city as city', 'employees.barangay as barangay', 'employees.image as image', 'resignation.reason as reason' , 'resignation.date as date','resignation.status as status')
+                      ->where('resignation.status','pending')
+                      ->get();
+
       $leavelist =  DB::table('leave_request')
                       ->join('employees', 'employees.id', '=', 'leave_request.employees_id')
                       ->select('leave_request.id as id',  'employees.first_name as fname', 'employees.last_name as lname', 'employees.cellphone as cp', 'employees.telephone as telephone', 'employees.street as street', 'employees.city as city', 'employees.barangay as barangay', 'employees.image as image', 'leave_request.reason as reason' , 'leave_request.notif_date as ndate', 'leave_request.start_date as sdate', 'leave_request.end_date as edate', 'leave_request.status as status' )
                       ->get();
 
-      return view('AdminPortal.PendingGuardRequests')->with('leavelist',$leavelist);
+      return view('AdminPortal.PendingGuardRequests')->with('leavelist',$leavelist)->with('res',$resignations);
     }
 
     public function viewLeave(Request $r)
@@ -675,4 +681,37 @@ class EmployeeControl extends Controller
       }
 
     }
+
+    public function sendResign(Request $r)
+    {
+      try {
+        $value = $r->session()->get('user');
+        DB::table('resignation')->insert(
+          ['secu_id' => $value, 'reason' => $r->reason, 'date' => $r->date, 'status' => "pending",]
+        );
+        return "Success";
+      } catch (Exception $e) {
+        return $e;
+      }
+
+    }
+
+    public function acceptResign(Request $r){
+      DB::table('resignation')
+            ->where('secu_id', $r->id)
+            ->update(['status' => "accepted"]);
+
+      $employee = Employee::find($r->id);
+      $employee->status = "deleted";
+      $employee->save();
+      return "Success";
+    }
+
+    public function rejectResign(Request $r){
+      DB::table('resignation')
+            ->where('secu_id', $r->id)
+            ->update(['status' => "rejected"]);
+      return "Success";
+    }
+
 }

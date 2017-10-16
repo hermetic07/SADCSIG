@@ -206,7 +206,7 @@
 
 
        <!-- Admin account-->
-             <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/users/admin.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Ernest</b> <small>(Admin)</small>  </a>
+             <li class="dropdown"> <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="plugins/images/users/admin.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{ Auth::user()->name }}</b> <small>(Admin)</small>  </a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
                     <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
                     <li role="separator" class="divider"></li>
@@ -397,41 +397,54 @@ console.log(query);
  <script type="text/javascript">
 
     window.onload = function() {
-      var d = new Date();
-      var day = d.getDate();
-      if (day===9||day===27) {
-        $( ".notifs" ).append("<span class='heartbit'></span><span class='point'></span>");
-        $( ".inner" ).append( "<a href='#'><div class='user-img'> <img src='plugins\\images\\Clients\\Active\\evander.jpg' alt='user' class='img-circle'>  </div><div class='mail-contnet'><h5>SYSTEM</h5><span class='mail-desc'>Billing Period on going</span> <span class='time'>9:10 AM</span> </div> </a>" );
-        var today = new Date();
-        var mm = today.getMonth()+1;
-        day = day + 3;
-        if(day<10) {
-          day = '0'+dd
-        }
 
-        if(mm<10) {
-            mm = '0'+mm
-        }
-        var date = today.getFullYear()+'-'+mm+'-'+day;
-        $.ajaxSetup({
-          headers: {
-           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      $.ajax({
+        type: 'GET',
+        url: '/Get-Billing-Days',
+        success: function(data){
+          console.log(data.day1);
+          var d1 = data.day1 ;
+          var d2 = data.day2 ;
+          console.log(d1);
+          var d = new Date();
+          var day = d.getDate();
+          if (day===d1||day===d2) {
+            $( ".notifs" ).append("<span class='heartbit'></span><span class='point'></span>");
+            $( ".inner" ).append( "<a href='#'><div class='user-img'> <img src='plugins\\images\\Clients\\Active\\evander.jpg' alt='user' class='img-circle'>  </div><div class='mail-contnet'><h5>SYSTEM</h5><span class='mail-desc'>Billing Period on going</span> <span class='time'>9:10 AM</span> </div> </a>" );
+            var today = new Date();
+            var mm = today.getMonth()+1;
+            day = day + 3;
+            if(day<10) {
+              day = '0'+dd
             }
-        }); 
-        $.ajax({
-          type: 'post',
-          url: '/Billing-Start',
-          data: {
-              'id':date,
-          },
-          success: function(data){
-              if(data!==null&&data!==""){
-                alert(data);
-              }
-          }
-        });
 
-      }
+            if(mm<10) {
+                mm = '0'+mm
+            }
+            var date = today.getFullYear()+'-'+mm+'-'+day;
+            $.ajaxSetup({
+              headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            }); 
+            $.ajax({
+              type: 'post',
+              url: '/Billing-Start',
+              data: {
+                  'id':date,
+              },
+              success: function(data){
+                  if(data!==null&&data!==""){
+                    alert(data);
+                  }
+              }
+            });
+
+          }
+        }
+      });
+
+
 
     };
   </script>
