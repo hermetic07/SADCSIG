@@ -32,11 +32,22 @@ class SwapControl extends Controller
     public function index(Request $request){
         $value = $request->session()->get('user');
         $u = Employee::find($value);
-        $Establishments = DB::table('establishments')
-        ->join('areas', 'areas.id', '=', 'establishments.areas_id')
-        ->join('provinces', 'provinces.id', '=', 'establishments.province_id')
-        ->select('establishments.id as id', 'establishments.name as name', 'establishments.address as address', 'provinces.name as pname', 'areas.name as aname')
-        ->get();
+        $estabid =  DB::table('tblestabguards')->where('strGuardID',$value)->first();
+        try {
+          $Establishments = DB::table('establishments')
+          ->join('areas', 'areas.id', '=', 'establishments.areas_id')
+          ->join('provinces', 'provinces.id', '=', 'establishments.province_id')
+          ->select('establishments.id as id', 'establishments.name as name', 'establishments.address as address', 'provinces.name as pname', 'areas.name as aname')
+          ->where('establishments.id','!=',$estabid->strEstablishmentID)
+          ->get();
+        } catch (Exception $e) {
+          $Establishments = DB::table('establishments')
+          ->join('areas', 'areas.id', '=', 'establishments.areas_id')
+          ->join('provinces', 'provinces.id', '=', 'establishments.province_id')
+          ->select('establishments.id as id', 'establishments.name as name', 'establishments.address as address', 'provinces.name as pname', 'areas.name as aname')
+          ->get();
+        }
+
         return view("SecurityGuardsPortal.Swap")->with('employee',$u)->with('es',$Establishments);
     }
 
@@ -86,7 +97,7 @@ class SwapControl extends Controller
     public function guardaccept(Request $request){
         $s = Swap::find($request->id);
         $s->employeestatus = "accepted";
-        
+
         $emp1 = $s->emp_id;
         $emp2 = $s->swap_emp_id;
         $estab1 = $s->establishment_from;
