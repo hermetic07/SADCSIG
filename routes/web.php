@@ -601,6 +601,11 @@ Route::get ( '/SwapRequest', 'SwapControl@index' )->middleware('auth:employee');
 Route::get ( '/SwapRequestStepTwo/{id}', 'SwapControl@two' )->middleware('auth:employee');
 Route::post ( '/RequestSwap', 'SwapControl@three' )->middleware('auth:employee');
 Route::post('/SaveLeaveRequest', 'EmployeeControl@saveLeave');
+Route::post('/SendResignRequest', 'EmployeeControl@sendResign')->middleware('auth:employee');
+
+Route::post('/Admin-Resign-Accept', 'EmployeeControl@acceptResign')->middleware('auth');
+Route::post('/Admin-Resign-Reject', 'EmployeeControl@rejectResign')->middleware('auth');
+
 Route::get('/Admin-Guard-Leave', 'EmployeeControl@allLeave');
 Route::post('/Guard-Leave-View', 'EmployeeControl@viewLeave2');
 Route::post('/Admin-Leave-Accept', 'EmployeeControl@acceptLeave');
@@ -639,7 +644,8 @@ Route::post('/ChecklistChange','RegisterControl@changelist')->middleware('auth')
 Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
 Route::post('/SaveIncidentReport','EmployeeControl@incident');
 Route::get('/Admin-Get-Employee', 'RegisterControl@editProfile');
-Route::post('/Admin-Save-Employee', 'RegisterControl@saveProfile');
+Route::post('/Admin-Save-Employee', 'RegisterControl@saveProfile')->middleware('auth');
+Route::post('/Admin-Resign-Employee', 'RegisterControl@resign')->middleware('auth');
 //
 Route::get('send','sendEmail@send');
 //log In

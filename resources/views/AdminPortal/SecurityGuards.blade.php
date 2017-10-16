@@ -106,7 +106,7 @@
                             </br>
 
                               <button type="button" class="btn btn-block btn-info" onclick="edit('{{$e->id}}')"><i class="icon-user-follow"></i> </i> Edit Info </button>
-                              <button type="button" class="btn btn-block btn-info" ><i class="icon-user-unfollow"></i> </i> Resign </button>
+                              <button type="button" class="btn btn-block btn-info" onclick="resign('{{$e->id}}')"><i class="icon-user-unfollow"></i> </i> Resign </button>
 
                         </div>
 
@@ -174,6 +174,31 @@
 
   </div>
 </div>
+    <!-- Modal -->
+<div id="myModalresign" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title">Terminate Employee</h4>
+      </div>
+      <div class="modal-body text-center">
+        <input type="hidden" id="resid" value="">
+        Are you sure you want to terminate <br>
+        <h3 id="empname"></h3>
+      </div>
+      <div class="modal-footer ">
+        <div class="form-group">
+          <button type="button" onclick="yes()" class="btn btn-warning col-sm-12">Yes</button> <br>
+          <button type="button" class="btn btn-danger col-sm-12" data-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
   @endsection
 
   @section('script')
@@ -203,6 +228,21 @@
     });
 
   }
+  function resign(id){
+    $.ajax({
+      type: 'GET',
+      url: '/Admin-Get-Employee',
+      data: {
+          'id':id,
+      },
+      success: function(data){
+        var name = data.first_name + " " +data.middle_name+" "+data.last_name;
+        $('#resid').val(data.id);
+        $('#empname').html(name);
+        $('#myModalresign').modal('show');
+      }
+    });
+  }
   function save(){
     $.ajaxSetup({
       headers: {
@@ -231,6 +271,29 @@
           swal({
               title: "Success" ,
               text: "Guard Information has been updated",
+            }, function(){
+              window.location.href = "/SecurityGuards";
+            });
+
+      }
+    });
+  }
+  function yes(){
+    $.ajaxSetup({
+      headers: {
+       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    }); 
+    $.ajax({
+      type: 'post',
+      url: '/Admin-Resign-Employee',
+      data: {
+          'id':$('#resid').val(),
+      },
+      success: function(data){
+          swal({
+              title: "Success" ,
+              text: "Guard Has Benn Terminated",
             }, function(){
               window.location.href = "/SecurityGuards";
             });

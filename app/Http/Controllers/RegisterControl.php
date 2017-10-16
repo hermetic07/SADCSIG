@@ -485,6 +485,14 @@ class RegisterControl extends Controller
         return "Applicant has been remove";
      }
 
+     public function resign(Request $request)
+     {
+        $employee = Employee::find($request->id);
+        $employee->status = "deleted";
+        $employee->save();
+        return "Success";
+     }
+
      public function editProfile(Request $request)
      {
         $employee = Employee::find($request->id);
