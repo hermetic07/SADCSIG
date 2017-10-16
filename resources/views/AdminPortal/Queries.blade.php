@@ -87,7 +87,38 @@
                     </tbody>
                   </table>
                 </section>
-                <section id="section-shape-2"></section>
+                <section id="section-shape-2">
+
+                    <div class="col-sm-12">
+                      <div class="row">
+                        <label for="cfirst" class="col-sm-1">First Name</label><input type="text" id="cfirst" value="" class="col-sm-3">
+                        <label for="cmid" class="col-sm-1">Middle Name</label><input type="text" id="cmid" value="" class="col-sm-3">
+                        <label for="clast" class="col-sm-1">Last Name</label><input type="text" id="clast" value="" class="col-sm-3">
+                      </div>
+                      <div class="row">
+                        <label for="cstreet" class="col-sm-1">Address</label><input type="text" id="cstreet" value="" class="col-sm-3">
+                        <label for="ccity" class="col-sm-1">City</label><input type="text" id="ccity" value="" class="col-sm-3">
+                        <label for="cemail" class="col-sm-1">Email</label><input type="text" id="cemail" value="" class="col-sm-3">
+                      </div>
+                      <br>
+                      <div class="row">
+                        <input type="button" class="btn btn-success col-sm-12" id="cgo" value="GO">
+                      </div>
+                      <br>
+                    </div>
+                    <table id="table" class="table table-bordered table-hover toggle-circle color-bordered-table muted-bordered-table">
+                      <thead>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Cellphone</th>
+                        <th>Telephone</th>
+                      </thead>
+                      <tbody id="ctablebody">
+
+                      </tbody>
+                    </table>
+
                 <section id="section-shape-3"></section>
               </div><!-- /content -->
             </div><!-- /tabs -->
@@ -136,6 +167,28 @@
         },
         success: function(data){
             $("#tablebody").html(data);
+        }
+      });
+    });
+    $("#cgo").click(function() {
+      $.ajaxSetup({
+        headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      }); 
+      $.ajax({
+        type: 'post',
+        url: '/Admin-Queries-Client',
+        data: {
+            'first':$("#cfirst").val(),
+            'mid': $("#cmid").val(),
+            'last': $("#clast").val(),
+            'street': $("#cstreet").val(),
+            'city': $("#ccity").val(),
+            'email': $("#cemail").val(),
+        },
+        success: function(data){
+            $("#ctablebody").html(data);
         }
       });
     });
