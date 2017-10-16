@@ -86,7 +86,7 @@
           </li>
       <li> <a @yield('link_guardsDTR') class="waves-effect"><i class="fa fa-calendar-o fa-2x fa-fw"></i> <span class="hide-menu"> Guard's DTR </span></a>
           </li>
-        <li> <a href="{{url('/ClientPortalSettings')}}" class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw"></i> <span class="hide-menu"> Settings </span></a>
+        <li> <a @yield('link_settings') class="waves-effect"><i class="fa fa-cogs fa-2x fa-fw"></i> <span class="hide-menu"> Settings </span></a>
           </li>
 
 

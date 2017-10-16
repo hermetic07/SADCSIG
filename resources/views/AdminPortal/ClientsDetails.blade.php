@@ -18,6 +18,6 @@
 
 @section('content')
 
-@include('partials._estabDetails',['clientName'=>$client->first_name.' '.$client->middle_name.' '.$client->last_name,'route'=>'ClientContracts'])
+@include('partials._estabDetails',['clientName'=>$client->first_name.' '.$client->middle_name.' '.$client->last_name,'route'=>'ClientContracts','clientID'=>''])
 
 @endsection

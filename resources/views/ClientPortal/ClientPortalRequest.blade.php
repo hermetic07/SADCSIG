@@ -23,6 +23,10 @@
   src = "uploads/{{$client->image}}"
 @endsection
 
+@section('link_settings')
+  href="/ClientPortalSettings-{{$client->id}}"
+@endsection
+
 @section('content')
   
   <button type="button" class="btn btn-info pull-right" onclick="location.href='/Sent-requests-{{$client->id}}'">View Sent Request</button>

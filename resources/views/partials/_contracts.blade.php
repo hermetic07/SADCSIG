@@ -11,7 +11,7 @@
                 
                 <th>Date Created</th>
                 <th>Status</th>
-                <th data-sort-ignore="true" width="400px">Actions</th>
+                <th data-sort-ignore="true" width="250px">Actions</th>
             </tr>
           </thead>
           <div class="form-inline padding-bottom-15">
