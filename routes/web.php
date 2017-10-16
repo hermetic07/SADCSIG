@@ -651,6 +651,9 @@ Route::get('/AdminLogIn', function () {
 });
 
 Auth::routes();
+Route::get('/Admin-Create', function () {
+	return view('auth.adminregister');
+})->middleware('auth');
 
 Route::get('/home', 'HomeController@index');
 Route::post('/Client-Accept-Swap','SwapControl@clientaccept');
