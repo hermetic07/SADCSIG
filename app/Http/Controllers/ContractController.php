@@ -51,6 +51,7 @@ class ContractController extends Controller
                           'clients.first_name',
                           'establishments.name as establishment'
                         )
+                      ->orderBy('contracts.start_date','desc')
                       ->get();
       return view('AdminPortal.ClientRequests.Contracts.AllContracts')
               ->with('contracts',$contracts);
@@ -74,6 +75,7 @@ class ContractController extends Controller
                           'establishments.name as establishment',
                           'contract_terminations.created_at'
                         )
+                      ->orderBy('contract_terminations.created_at','desc')
                       ->get();
       return view('AdminPortal.ClientRequests.Contracts.ContractTermination')
               ->with('contract_termin8_notifs',$contract_termin8_notifs);
