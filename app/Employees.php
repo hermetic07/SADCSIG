@@ -8,4 +8,7 @@ class Employees extends Model
 {
     
     public $incrementing = false;
+    protected $fillable =  [
+    	'status'
+    ];
 }

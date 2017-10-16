@@ -78,10 +78,10 @@
                 </td>
                 <td>
                   <button type="button" class="btn btn-info servReView" value="">View Details</button>
-                  @if($contract->status == 'disabled')
-                    <button type="button" class="btn btn-danger" >Terminate</button>
+                  @if($contract->status != 'terminated')
+                    <button type="button" class="btn btn-danger" onclick="func_terminate_contract('{{$contract->contract_code}}')">Terminate</button>
                   @else
-                    <button type="button" class="btn btn-danger" >Terminate</button>
+                    <button type="button" disabled class="btn btn-danger" onclick="func_terminate_contract('{{$contract->contract_code}}')">Terminate</button>
                   @endif
                 </td>
               </tr>
@@ -112,4 +112,39 @@
   @endsection
 @section('modals')
 
+@endsection
+
+@section('script')
+  <script type="text/javascript">
+    $.ajaxSetup({
+            headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+        }); 
+    function func_terminate_contract(contract_id){
+      alert(contract_id);
+      $.ajax({
+        url : '/contract-terminate-'+contract_id,
+        type : 'GET',
+        data : {
+          contract_id:contract_id
+        },
+        success : function(data){
+          if(data == "success"){
+            swal({
+                title: 'Contract Terminated.',
+                text: "Contract Terminated.",
+                type: 'success',
+                
+                confirmButtonColor: '#3085d6',
+                
+                confirmButtonText: 'Ok'
+              },function(){
+                location.reload();
+              });
+          }
+        }
+      });
+    }
+  </script>
 @endsection

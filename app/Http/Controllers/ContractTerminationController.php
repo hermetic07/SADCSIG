@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ContractTerminations;
 use App\Contracts;
+use App\EstabGuards;
+use App\Employees;
 
 class ContractTerminationController extends Controller
 {
@@ -32,5 +34,24 @@ class ContractTerminationController extends Controller
 			//return response($request->toArray());
 		}
 	}
+	public function terminate_contract(Request $request){
+		if($request->ajax()){
+			$contract = Contracts::findOrFail($request->contract_id);
+			$employees = Employees::all();
+			$estab_guards = EstabGuards::where('contractID',$request->contract_id)->get();
+			//return $estab_guards->toArray();
+			foreach ($estab_guards as $estab_guard) {
+				foreach ($employees as $employee) {
+					if($estab_guard->strGuardID == $employee->id){
 
+						$employee->update(['status'=>'waiting']);
+					}
+				}
+			}
+
+			if($contract->update(['status'=>'terminated'])){
+				return "success";
+			}
+		}
+	}
 }

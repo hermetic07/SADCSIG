@@ -204,6 +204,7 @@ Route::post('/Contract-Terminnation-{contractID}','ContractTerminationController
 
 Route::get('/AllContracts','ContractController@allContracts');
 Route::get('/ContractTerminationNotifs','ContractController@contractTerminationNotifs');
+Route::get('/contract-terminate-{contractID}','ContractTerminationController@terminate_contract');
 /**-------------------------     Contracts-End    ---------------------*/
 /**-------------------------     Contracts-End    ---------------------*/
 

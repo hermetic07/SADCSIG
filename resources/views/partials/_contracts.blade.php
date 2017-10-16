@@ -51,9 +51,11 @@
               <td>
                 <button class="btn btn-info view" type="button" value="{{$contract->id}}" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> View details</button>
                 <button class="btn btn-success"  onclick="location.href='/getContractPDF-{{$contract->id}}'" target="_blank" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> PDF</button>
-                @if($contract->status!=="terminated")
+                <!-- @if($contract->status != "terminated")
+                <button class="btn btn-danger" disabled onclick="fun_terminate('{{$contract->id}}')" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> Terminate</button>
+                @else
                 <button class="btn btn-danger"  onclick="fun_terminate('{{$contract->id}}')" type="button" data-target=".bs-example-modal-lg"><i class="fa fa-list"></i> Terminate</button>
-                @endif
+                @endif -->
               </td>
               
             </tr>
