@@ -32,7 +32,7 @@ Route::get('/ChangeGuards', function () {
 });
 Route::post('/Terminate','ContractController@terminate');
 Route::post('/GetNatureValue','BillingControl@getNature');
-
+Route::get('/Get-Billing-Days','BillingControl@getbillingdays')->middleware('auth');
 Route::get('/Replace', function () {
 	return view('AdminPortal/Replace');
 });
