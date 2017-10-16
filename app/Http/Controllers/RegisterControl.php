@@ -485,6 +485,30 @@ class RegisterControl extends Controller
         return "Applicant has been remove";
      }
 
+     public function editProfile(Request $request)
+     {
+        $employee = Employee::find($request->id);
+        return $employee;
+     }
+
+     public function saveProfile(Request $request)
+     {
+        $employee = Employee::find($request->id);
+        $employee->first_name = $request->f ;
+        $employee->middle_name = $request->m ;
+        $employee->last_name = $request->l ;
+
+        $employee->cellphone = $request->cp ;
+        $employee->telephone = $request->t ;
+        $employee->email = $request->e ;
+
+        $employee->street = $request->s ;
+        $employee->city = $request->ct ;
+        $employee->barangay = $request->b ;
+        $employee->save();
+        return "Information Updated";
+     }
+
      public function secuProfile($id)
      {
         $employee = Employee::find($id);

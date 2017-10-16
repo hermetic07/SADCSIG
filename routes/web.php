@@ -628,16 +628,18 @@ Route::post ( '/GetProvinceAreas', 'AreaControl@getArea' );
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
 Route::post('/Applicant','RegisterControl@saveImage');
 //admin guard (evander)
-Route::post('/HireEmployee','RegisterControl@approve');
-Route::post('/SendInterview','RegisterControl@interview');
-Route::post('/Finalize','RegisterControl@finalize');
-Route::post('/Checklist','RegisterControl@Checklist');
-Route::post('/HireEmployee2','RegisterControl@approve2');
-Route::post('/HireOnlineEmployee','OnlineRegisterControl@approve');
-Route::post('/RemoveApplicant','RegisterControl@remove');
-Route::post('/ChecklistChange','RegisterControl@changelist');
+Route::post('/HireEmployee','RegisterControl@approve')->middleware('auth');
+Route::post('/SendInterview','RegisterControl@interview')->middleware('auth');
+Route::post('/Finalize','RegisterControl@finalize')->middleware('auth');
+Route::post('/Checklist','RegisterControl@Checklist')->middleware('auth');
+Route::post('/HireEmployee2','RegisterControl@approve2')->middleware('auth');
+Route::post('/HireOnlineEmployee','OnlineRegisterControl@approve')->middleware('auth');
+Route::post('/RemoveApplicant','RegisterControl@remove')->middleware('auth');
+Route::post('/ChecklistChange','RegisterControl@changelist')->middleware('auth');
 Route::get('/SecuProfile/{id}', 'RegisterControl@secuProfile');
 Route::post('/SaveIncidentReport','EmployeeControl@incident');
+Route::get('/Admin-Get-Employee', 'RegisterControl@editProfile');
+Route::post('/Admin-Save-Employee', 'RegisterControl@saveProfile');
 //
 Route::get('send','sendEmail@send');
 //log In

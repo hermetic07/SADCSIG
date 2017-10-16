@@ -90,7 +90,7 @@
                             @elseif($e->status==="reliever")
                             <hr class="m-0"> <span class="label pro-col-label label label-table label-danger">{{$e->status}}</span>
                             @else
-                            <hr class="m-0"><p class="label pro-col-label text-center label-rouded label-info">{{$e->status}}</p>
+                            <hr class="m-0"><span class="label pro-col-label text-center label-rouded label-info">{{$e->status}}</span>
                             @endif
                             <div class="pro-list-info-3-col">
                                 <ul class="pro-info text-muted m-b-0">
@@ -100,35 +100,14 @@
                                     <li> <span><img src="plugins/images/SecurityGuards/email.png"></span> <span>Email address</span><span class="pull-right text-inverse"> {{$e->email}}</span></li>
                                 </ul>
                             </div>
-                            <hr class="m-0">
-                            @if ($e->status == "waiting")
-                            <div class="pro-agent-col-3">
-                                <div class="agent-img">
-                                    <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="plugins/images/Clients/establishment.jpg"></a>
-                                </div>
-                                <div class="agent-name">
-                                    <h5 class="m-b-0">Stand by</h5> <small class="text-muted">Client</small> </div>
-                            </div>
-                            @elseif ($e->status == "reliever")
-                            <div class="pro-agent-col-3">
-                                <div class="agent-img">
-                                    <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src="plugins/images/Clients/establishment.jpg"></a>
-                                </div>
-                                <div class="agent-name">
-                                    <h5 class="m-b-0">Stand by</h5> <small class="text-muted">Client</small> </div>
-                            </div>
-                            @else
-                            <div class="pro-agent-col-3">
-                                <div class="agent-img">
-                                    <a href="javascript:void(0)"><img alt="img" class="thumb-md img-circle" src=""><!--Client's establishments --></a>
-                                </div>
-                                <div class="agent-name">
-                                    <h5 class="m-b-0"><!-- Client's name --></h5> <small class="text-muted">Client</small> </div>
-                            </div>\
-                            @endif
+
+
                             <div class="clearfix"></div>
                             </br>
-            <button type="button" class="btn btn-block btn-info" ><i class="icon-user-unfollow"></i> </i> Resign </button>
+
+                              <button type="button" class="btn btn-block btn-info" onclick="edit('{{$e->id}}')"><i class="icon-user-follow"></i> </i> Edit Info </button>
+                              <button type="button" class="btn btn-block btn-info" ><i class="icon-user-unfollow"></i> </i> Resign </button>
+
                         </div>
 
 
@@ -157,4 +136,107 @@
         </div> </div>
   <!-- /.row -->
     </div>
+    <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Guard Information</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input type="hidden" id="empid">
+          <h4>Name</h4>
+          <input type="text" id="first" placeholder="first name">
+          <input type="text" id="middle" placeholder="middle name">
+          <input type="text" id="last" placeholder="lastname">
+        </div>
+        <div class="form-group">
+          <h4>Contact</h4>
+          <input type="text" id="cp" placeholder="Cellphone">
+          <input type="text" id="tel" placeholder="Telephone">
+          <input type="text" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <h4>Address</h4>
+          <input type="text" id="st" placeholder="Street">
+          <input type="text" id="bar" placeholder="Barangay">
+          <input type="text" id="city" placeholder="City">
+        </div>
+      </div>
+      <div class="modal-footer ">
+        <button type="button" onclick="save()" class="btn btn-success col-sm-12">Update</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+  @endsection
+
+  @section('script')
+  <script type="text/javascript">
+  function edit(id){
+    $.ajax({
+      type: 'GET',
+      url: '/Admin-Get-Employee',
+      data: {
+          'id':id,
+      },
+      success: function(data){
+        $('#empid').val(data.id);
+        $('#first').val(data.first_name);
+        $('#middle').val(data.middle_name);
+        $('#last').val(data.last_name);
+
+        $('#cp').val(data.cellphone);
+        $('#tel').val(data.telephone);
+        $('#email').val(data.email);
+
+        $('#st').val(data.street);
+        $('#bar').val(data.barangay);
+        $('#city').val(data.city);
+        $('#myModal').modal('show');
+      }
+    });
+
+  }
+  function save(){
+    $.ajaxSetup({
+      headers: {
+       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    }); 
+    $.ajax({
+      type: 'post',
+      url: '/Admin-Save-Employee',
+      data: {
+          'id':$('#empid').val(),
+          'f':$('#first').val(),
+          'm':$('#middle').val(),
+          'l':$('#last').val(),
+
+          'cp':$('#cp').val(),
+          't':$('#tel').val(),
+          'e':$('#email').val(),
+
+          's':$('#st').val(),
+          'b':$('#bar').val(),
+          'ct':$('#city').val(),
+
+      },
+      success: function(data){
+          swal({
+              title: "Success" ,
+              text: "Guard Information has been updated",
+            }, function(){
+              window.location.href = "/SecurityGuards";
+            });
+
+      }
+    });
+  }
+  </script>
   @endsection
