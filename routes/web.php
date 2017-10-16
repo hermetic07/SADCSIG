@@ -632,6 +632,7 @@ Route::get('/SecurityGuardsPortalAttendance', 'EmployeeControl@attendance')->mid
 Route::get('Guard-Registration','LastControl@index6');
 Route::post ( '/GetProvinceAreas', 'AreaControl@getArea' );
 Route::post('/RegisterEmployee','RegisterControl@employeeReg');
+Route::post('/RegisterAdmin','RegisterControl@createAdmin');
 Route::post('/Applicant','RegisterControl@saveImage');
 //admin guard (evander)
 Route::post('/HireEmployee','RegisterControl@approve')->middleware('auth');
@@ -674,6 +675,7 @@ Route::post('/Update-License-Info','RenewLicenseControl@update');
 
 Route::get('/Admin-Queries',"EmployeeQuery@index")->middleware('auth');
 Route::post('/Admin-Queries-Employee',"EmployeeQuery@get")->middleware('auth');
+Route::post('/Admin-Queries-Client',"EmployeeQuery@cget")->middleware('auth');
 Route::post('importExcel', 'DTR@importExcel')->middleware('auth');
 Route::post('/Admin-View-DTR', 'DTR@adminview')->middleware('auth');
 Route::post('/Client-View-DTR', 'DTR@clientview')->middleware('auth:client');

@@ -343,7 +343,7 @@
                       <br><br>
                       <br>
                       <b><hr width="100%" style="background-color: black"></b>
-                      
+
                       <center><h3>Guns</h3></center><br>
                       <div class="col-md-12 form-group" style="border: 5px">
                         <label class="col-xs-2 control-label">Gun Type</label>
@@ -365,18 +365,18 @@
                         </div>
                         <br>
                         <br>
-                        
+
                         <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
                             <thead>
                               <tr>
                                 <th>Gun Name</th>
                                 <th>Gun Type</th>
-                                <th>Quantity</th>   
-                                <th>Action</th>     
-                              
+                                <th>Quantity</th>
+                                <th>Action</th>
+
                               </tr>
                             </thead>
-                              
+
                             <tbody id="gun-table-body">
                               <!-- <tr id="gun2">
                                 <td>
@@ -393,7 +393,7 @@
                                 </td>
                               </tr> -->
                             </tbody>
-                           </table> 
+                           </table>
                       </div>
                       <!-- <button class="btn btn-info" onclick="func_test()">Click Me</button> -->
 
@@ -699,11 +699,11 @@
     }else if($(this).prop('checked', true)){
      // alert("Checkbox is unchecked." )
     }else{
-      alert("knhgbhujk is checked." )
+      //alert("knhgbhujk is checked." )
     }
   }
   function func_remove(id){
-     alert('#'+id);
+     //alert('#'+id);
     // console.log(id);
     $('#'+id).remove();
   }
@@ -711,7 +711,7 @@
     $gunIDs = [];
     $qtys = [];
     $.each($(".gunQty"), function(){
-        alert(this.value);
+        //alert(this.value);
         $gunIDs.push(this.id.split('-')[1]);
         $qtys.push(this.value);
     });
@@ -871,7 +871,7 @@ $("#nature").change(function(){
          id:$('#nature').val(),
      },
      success: function(data){
-         alert(data);
+         //alert(data);
          $('#mcp').val(data);
      }
    });
@@ -963,7 +963,7 @@ $("#nature").change(function(){
             message: 'Invalid contact number'
         }
 
-             
+
                               }
                           },
                                                         cp: {
@@ -976,7 +976,7 @@ $("#nature").change(function(){
             message: 'Invalid contact number'
         }
 
-             
+
                               }
                           },
                                  bday: {

@@ -13,6 +13,7 @@ use App\EmployeeMilitary;
 use App\EmployeeSeminar;
 use App\EmployeeRequirements;
 use App\EmployeeSkills;
+use App\User;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
@@ -540,5 +541,14 @@ class RegisterControl extends Controller
       ->where('employees.status',"!=","interview")
       ->get();
       return view('AdminPortal/GuardLicenses')->with("all",$all);
+     }
+
+     public function createAdmin(Request $r){
+       $u = new User();
+       $u->name =$r->name;
+       $u->email =$r->email;
+       $u->password = bcrypt($r->password);
+       $u->save();
+        return redirect()->back();
      }
 }
