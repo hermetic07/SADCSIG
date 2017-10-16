@@ -24,6 +24,10 @@
   src = "uploads/{{$client->image}}"
 @endsection
 
+@section('link_settings')
+  href="/ClientPortalSettings-{{$client->id}}"
+@endsection
+
 @section('content')
   @include('partials._contracts')
 

@@ -878,6 +878,12 @@ class ClientPortalHomeController extends Controller
             
       }
     }
+
+    public function client_portal_setting($clientID){
+      $client = Clients::findOrFail($clientID);
+      return view('ClientPortal.ClientPortalSettings')
+              ->with('client',$client);
+    }
 }
 // for($ctr = 0; $ctr < sizeof($guards_accepted); $ctr++){
 //             $notifResponse['guard_id'] = $guards_accepted[$ctr];

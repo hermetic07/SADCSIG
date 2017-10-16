@@ -82,7 +82,12 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- <button type="button" class="btn btn-block  btn-info" ><i class="fa fa-edit"></i> </i>Edit info</button>
+                    <!-- <h1>{{$clientID}}</h1> -->
+                    @if($clientID != '')
+                      <button type="button" class="btn btn-block  btn-info" data-target="#edit-modal" data-toggle="modal"><i class="fa fa-edit"></i> </i>Edit info</button>
+                    @else
+                    @endif
+                    <!-- 
                    <button type="button" class="btn btn-block  btn-danger" ><i class="ti-close"></i> </i>Terminate</button> -->
                 </div>
 

@@ -67,6 +67,10 @@ Route::get('/Numberofguns-pdf','ReportsController@number_of_guns');
 
 Route::get('/Gains-pdf','ReportsController@gains');
 
+Route::get('/Loses-pdf','ReportsController@loses');
+
+Route::get('/Incidents-pdf','ReportsController@incidents');
+
 Route::get('/IncidentReports', function () {
 	return view('AdminPortal/IncidentReports');
 });
@@ -111,9 +115,7 @@ Route::get('/ClientPortalMessages', function () {
 
 Route::get('/ClientPortalGuardsDTR','ClientPortalHomeController@guardDtr');
 
-Route::get('/ClientPortalSettings', function () {
-	return view('ClientPortal/ClientPortalSettings');
-});
+Route::get('/ClientPortalSettings-{clientID}','ClientPortalHomeController@client_portal_setting');
 
 Route::get('/ClientPortalDetails', function () {
 	return view('ClientPortal/ClientPortalDetails');

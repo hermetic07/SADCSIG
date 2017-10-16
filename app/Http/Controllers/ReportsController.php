@@ -267,4 +267,8 @@ class ReportsController extends Controller
                     ])->setPaper('a4', 'landscape');
       return $gains_report->stream('Gains.pdf');
     }
+
+    public function loses(Request $request){
+
+    }
 }
