@@ -528,6 +528,7 @@ class AdminController extends Controller
 
       $clientGuns = DB::table('tblGunRequests')
       ->where('tblGunRequests.establishments_id','=',$estabID)
+      ->where('tblGunRequests.status','!=','TERMINATED')
       ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
       ->join('tblClaimeddelivery','tblClaimeddelivery.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
       ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
@@ -545,6 +546,7 @@ class AdminController extends Controller
                                  ->on('tblestabGuards.contractID','=','contracts.id');
                         })
                         ->where('tblestabGuards.isReplaced','=','0')
+                        ->where('tblestabGuards.status','!=','TERMINATED')
                         ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
                         ->join('employees','tblestabGuards.strGuardID','=','employees.id')
                         ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','establishments.name as establishment','tblestabGuards.role','establishments.id as estabID','contracts.id as contractID','employees.status','employees.telephone','employees.cellphone')
@@ -614,6 +616,7 @@ class AdminController extends Controller
                                  ->on('tblestabGuards.contractID','=','contracts.id');
                         })
                         ->where('tblestabGuards.isReplaced','=','0')
+                        ->where('tblestabGuards.status','!=','TERMINATED')
                         ->join('employees','tblestabGuards.strGuardID','=','employees.id')
                         ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo')
                         ->get();

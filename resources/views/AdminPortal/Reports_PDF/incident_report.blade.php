@@ -23,7 +23,7 @@
 				<th style="border: 1px solid black;"><center>Post</center></th>
 				<th style="border: 1px solid black;"><center>Location</center></th>
 				<th style="border: 1px solid black;"><center>Date</center></th>
-				<th style="border: 1px solid black;"><center>Date Hired</center></th>
+				<th style="border: 1px solid black;"><center>Incident Type</center></th>
 				
 			</tr>
 		</thead>
@@ -56,7 +56,7 @@
            				<center>{{$incident->date}}</center>
            			</td>
 					<td style="border: 1px solid black;">
-           				<center>{{$ctr}}</center>
+           				<center> {{$incident->incident_type}}</center>
            			</td>
 				</tr>
 			@endforeach

@@ -77,7 +77,7 @@
                   {{$contract->status}}
                 </td>
                 <td>
-                  <button type="button" class="btn btn-info servReView" value="">View Details</button>
+                  <button type="button" class="btn btn-info" onclick="location.href='/getContractPDF-{{$contract->contract_code}}'" target="_blank" value="">View Details</button>
                   @if($contract->status != 'terminated')
                     <button type="button" class="btn btn-danger" onclick="func_terminate_contract('{{$contract->contract_code}}')">Terminate</button>
                   @else
@@ -122,7 +122,7 @@
               }
         }); 
     function func_terminate_contract(contract_id){
-      alert(contract_id);
+     // alert(contract_id);
       $.ajax({
         url : '/contract-terminate-'+contract_id,
         type : 'GET',

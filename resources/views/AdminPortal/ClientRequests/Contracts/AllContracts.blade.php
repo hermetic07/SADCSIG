@@ -71,11 +71,11 @@
                   {{$contract->status}}
                 </td>
                 <td>
-                  <button type="button" class="btn btn-info servReView" value="">View Details</button>
+                  <button type="button" class="btn btn-info servReView" onclick="location.href='/getContractPDF-{{$contract->contract_code}}'" target="_blank">View Details</button>
                   @if($contract->status != 'terminated')
-                    <button type="button" class="btn btn-danger" >Terminate</button>
+                    <button type="button" class="btn btn-danger" onclick="fun_terminate('{{$contract->contract_code}}')">Terminate</button>
                   @else
-                    <button type="button" disabled class="btn btn-danger" onclick="fun_terminate('{{$contract->contract_code}}')">Terminate</button>
+                    <button type="button" disabled class="btn btn-danger" >Terminate</button>
                   @endif
                 </td>
               </tr>

@@ -73,6 +73,7 @@ class ClientPortalHomeController extends Controller
                                  ->on('tblestabGuards.contractID','=','contracts.id');
                         })
                         ->where('tblestabGuards.isReplaced','=','0')
+                        ->where('tblestabGuards.status','!=','TERMINATED')
                         ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
                         ->join('employees','tblestabGuards.strGuardID','=','employees.id')
                         ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','establishments.name as establishment','tblestabGuards.role','establishments.id as estabID','contracts.id as contractID')
@@ -131,6 +132,7 @@ class ClientPortalHomeController extends Controller
                                  ->on('tblestabGuards.contractID','=','contracts.id');
                         })
                         ->where('tblestabGuards.isReplaced','=','0')
+                        ->where('tblestabGuards.status','!=','TERMINATED')
                         ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
                         ->join('employees','tblestabGuards.strGuardID','=','employees.id')
                         ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','establishments.name as establishment','tblestabGuards.role','establishments.id as estabID','contracts.id as contractID')
@@ -425,6 +427,7 @@ class ClientPortalHomeController extends Controller
 
       $clientGuns = DB::table('tblGunRequests')
                       ->where('tblGunRequests.establishments_id','=',$estabID)
+                      ->where('tblGunRequests.status','!=','TERMINATED')
                       ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
                       ->join('tblClaimeddelivery','tblClaimeddelivery.strGunDeliveryID','=','tblGunDeliveries.strGunDeliveryID')
                       ->join('guns','guns.id','=','tblClaimeddelivery.strGunID')
@@ -441,6 +444,7 @@ class ClientPortalHomeController extends Controller
                                  ->on('tblestabGuards.contractID','=','contracts.id');
                         })
                         ->where('tblestabGuards.isReplaced','=','0')
+                        ->where('tblestabGuards.status','!=','TERMINATED')
                         ->join('establishments','tblestabGuards.strEstablishmentID','=','establishments.id')
                         ->join('employees','tblestabGuards.strGuardID','=','employees.id')
                         ->select('employees.id','employees.first_name','employees.middle_name','employees.last_name','employees.image','tblestabGuards.dtmDateDeployed','tblestabGuards.shiftFrom','tblestabGuards.shiftTo','establishments.name as establishment','tblestabGuards.role','establishments.id as estabID','contracts.id as contractID','employees.status','employees.telephone','employees.cellphone')
@@ -554,6 +558,7 @@ class ClientPortalHomeController extends Controller
                                         )
                                 ->orderBy('Contract_Terminations.created_at','desc')
                                 ->get();
+      $contract_termination_notifs = ContractTerminations::all();
       //return $termination_message->toArray();
       return view('ClientPortal/ClientPortalMessages')
               ->with('swap',$swap)
@@ -566,7 +571,8 @@ class ClientPortalHomeController extends Controller
               ->with('contracts',$contracts)
               ->with('clientPic',$clientPic)
               ->with('accepted_serv_req',$accepted_serv_req)
-              ->with('termination_message',$termination_message);
+              ->with('termination_message',$termination_message)
+              ->with('contract_termination_notifs',$contract_termination_notifs);
     }
     public function messagesModal(Request $request,$messageID){
       

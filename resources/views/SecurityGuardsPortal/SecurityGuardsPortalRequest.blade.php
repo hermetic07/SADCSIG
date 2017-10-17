@@ -85,7 +85,7 @@
         </div>
       </div>
    </div>
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
+          <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-r-10 m-t-10" style="border: 2px solid black;">
         <div class="panel panel-default">
           <div class="panel-heading"><i class="fa fa-info-circle"></i> Request for Ammunition</div>
           <div class="panel-wrapper collapse in">
@@ -101,7 +101,7 @@
 
         </div>
       </div>
-   </div>
+   </div> -->
 
       <!-- Leave Modal -->
 <div id="leave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -197,7 +197,23 @@
         <textarea rows="10"  style="overflow:auto;resize:none" id="increport" class="col-sm-12"></textarea>
         <br>
         <br>
-
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-4">
+                <select required id="incident_type" class="form-control">
+                  <option value="trespassing">trespassing</option>
+                  <option value="usurpation">usurpation</option>
+                  <option value="theft">theft</option>
+                  
+                  <option value="robbery">robbery</option>
+                  <option value="arson">arson</option>
+                  <option value="assault">assault</option>
+                  <option value="harassment">harassment</option>
+                </select>
+              </div>
+            
+          </div>
+        </div>
       </div>
 
 
@@ -423,6 +439,7 @@ $("#leaves").change(function(){
          data: {
            "data":$('#increport').val(),
            "date":$('#repcal').val(),
+           "incident_type" : $('#incident_type').val()
          },
          success: function(result){
            swal({
@@ -504,6 +521,7 @@ function sendResign(){
 
       "date":$('#fourthcal').val(),
       "reason":$('#resreason').val(),
+      
 
     },
     success: function(result){

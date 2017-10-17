@@ -99,9 +99,38 @@
                   Contract Termination
                 </td>
                 <td>   &nbsp;
-                  <button  type="button" onclick="alert('{{$message->termination_id}}')" class="btn btn-info btn-circle viewMessage"  data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
+                  <button  type="button" data-toggle="modal" data-target="#terminate-modal" class="btn btn-info btn-circle viewMessage"  data-target=".bs-example-modal-lg"><i class="fa fa-envelope-o"></i> </button>
                 </td>
               </tr>
+
+
+              <div id="terminate-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog  modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h4 class="modal-title" id="myLargeModalLabel"><center><strong>Termination Notif</strong></center></h4>
+                    </div>
+                    <div class="modal-body">
+                      <h3>The Management wants to terminate your contract because of the following reasons:</h3>
+                        @foreach($contract_termination_notifs as $notif)
+                          @if($notif->termination_id == $message->termination_id)
+                            <p>
+                              {{$notif->reasons}}
+                            </p>
+                          @endif
+                        @endforeach
+                    
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+             </div>
+
+
             @endforeach
             @foreach($clientInboxMessages as $clientInboxMessage)
 

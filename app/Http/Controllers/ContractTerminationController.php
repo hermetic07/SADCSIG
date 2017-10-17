@@ -8,6 +8,7 @@ use App\ContractTerminations;
 use App\Contracts;
 use App\EstabGuards;
 use App\Employees;
+use App\GunRequest;
 
 class ContractTerminationController extends Controller
 {
@@ -45,10 +46,14 @@ class ContractTerminationController extends Controller
 					if($estab_guard->strGuardID == $employee->id){
 
 						$employee->update(['status'=>'waiting']);
+						$estab_guard->where('contractID','=',$request->contract_id)
+									
+									->update(['status'=>'terminated']);
 					}
 				}
 			}
-
+			$gun_request = GunRequest::where('establishments_id','=',$contract->strEstablishmentID)
+				->update(['status'=>'TERMINATED']);
 			if($contract->update(['status'=>'terminated'])){
 				return "success";
 			}
