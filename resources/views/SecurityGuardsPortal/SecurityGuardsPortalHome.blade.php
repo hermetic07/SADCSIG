@@ -18,44 +18,23 @@
 			  <center>  <h1> <i class="fa fa-bullhorn text-danger"></i> Announcement </h1></center>
 			  </br>
 					<div class="steamline">
+            @foreach($a as $a)
+                  <div class="sl-item">
+                    <div class="sl-left"> <img src="plugins/images/users/admin.jpg" alt="user" class="img-circle"/> </div>
+                    <div class="sl-right">
+                      <div class="m-l-40"><a href="#" class="text-info">{{$a->subject}}</a> <span  class="sl-date">{{$a->created_at}}</span>
+                        <p class="m-t-10"> {{$a->details}} </p>
+                      </div>
+                    </div>
+                  </div>
+            @endforeach
 
-                  <div class="sl-item">
-                    <div class="sl-left"> <img src="plugins/images/users/admin.jpg" alt="user" class="img-circle"/> </div>
-                    <div class="sl-right">
-                      <div class="m-l-40"><a href="#" class="text-info">Ernest (Admin)</a> <span  class="sl-date">5 minutes ago</span>
-                        <p class="m-t-10"> Pogi ni papa ernest <3 </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="sl-item">
-                    <div class="sl-left"> <img src="plugins/images/users/admin.jpg" alt="user" class="img-circle"/> </div>
-                    <div class="sl-right">
-                      <div class="m-l-40"><a href="#" class="text-info">Ernest (Admin)</a> <span  class="sl-date">5 minutes ago</span>
-                        <p class="m-t-10"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.  Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper </p>
-                      </div>
-                    </div>
-                  </div>
+
 				  <div class="sl-item">
                     <div class="sl-left"> <img src="plugins/images/users/admin.jpg" alt="user" class="img-circle"/> </div>
                     <div class="sl-right">
-                      <div class="m-l-40"><a href="#" class="text-info">Ernest (Admin)</a> <span  class="sl-date">5 minutes ago</span>
-                        <p class="m-t-10"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.  Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper </p>
-                      </div>
-                    </div>
-                  </div>
-				  <div class="sl-item">
-                    <div class="sl-left"> <img src="plugins/images/users/admin.jpg" alt="user" class="img-circle"/> </div>
-                    <div class="sl-right">
-                      <div class="m-l-40"><a href="#" class="text-info">Ernest (Admin)</a> <span  class="sl-date">5 minutes ago</span>
-                        <p class="m-t-10"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.  Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper </p>
-                      </div>
-                    </div>
-                  </div>
-				  <div class="sl-item">
-                    <div class="sl-left"> <img src="plugins/images/users/admin.jpg" alt="user" class="img-circle"/> </div>
-                    <div class="sl-right">
-                      <div class="m-l-40"><a href="#" class="text-info">Ernest (Admin)</a> <span  class="sl-date">5 minutes ago</span>
-                        <p class="m-t-10"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.  Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper </p>
+                      <div class="m-l-40"><a href="#" class="text-info">(Admin)</a> <span  class="sl-date"></span>
+                        <p class="m-t-10"> End Of Announcements</p>
                       </div>
                     </div>
 

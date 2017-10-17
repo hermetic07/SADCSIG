@@ -37,14 +37,27 @@ use App\ClientCancelRequests;
 use App\GuardReplacement;
 use App\AcceptedServRequests;
 use App\SecurityLicense;
-
+use App\Announcements;
 class AdminController extends Controller
 {
     public function shit(Request $request){
         return "jhhj";
     }
+    public function AllIncidents(Request $request){
+        $i = DB::table('tblincident')
+                           ->join('employees','employees.id','=','tblincident.emp_id')
+                           ->join('establishments','establishments.id','=','tblincident.estab_id')
+                           ->select('employees.first_name as f',
+                            'employees.last_name as l',
+                            'establishments.name as name',
+                            'tblincident.report as report',
+                            'tblincident.date as date')
+                           ->orderBy('tblincident.date','desc')
+                           ->get();
+        return view('AdminPortal.Incidents')->with('a',$i);
+    }
     public function dashboardIndex(){
-      $license = SecurityLicense::All()->count();
+      $license = DB::table('tblincident')->count();
       $billing = Collections::where('strstatus','notsent')->count();
       $billing2 = Collections::where('strstatus','sent')->count();
       $emp = Employee::where('status','pending')->count();
@@ -59,6 +72,19 @@ class AdminController extends Controller
                                           ->with('billing2',$billing2)
                                           ->with('guard',$guard);
     }
+
+    public function AnnouncementIndex(){
+      $a = Announcements::All();
+    	return view('AdminPortal.Announcements')->with('a',$a);
+    }
+    public function AnnouncementCreate(Request $req){
+      $a = new Announcements;
+      $a->subject = $req->subjects;
+      $a->details = $req->details;
+      $a->save();
+    	return back();
+    }
+
     public function manualDeploy(){
      	$contracts = Contracts::latest('created_at')->get();
         $services = Service::all();

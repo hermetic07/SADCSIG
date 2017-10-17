@@ -34,7 +34,7 @@ use App\LeaveRequest;
 use App\LeaveResponse;
 use Illuminate\Support\Facades\DB;
 use App\GuardMessagesInbox;
-
+use App\Announcements;
 class EmployeeControl extends Controller
 {
 
@@ -72,7 +72,10 @@ class EmployeeControl extends Controller
       try {
         $value = $request->session()->get('user');
         $u = Employee::find($value);
-        return view('SecurityGuardsPortal/SecurityGuardsPortalHome')->with('employee',$u);
+        $a = DB::table('announcement')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        return view('SecurityGuardsPortal/SecurityGuardsPortalHome')->with('employee',$u)->with('a',$a);
       } catch (Exception $e) {
           $stat= 0;
           return view('clientloginform')->with('stat',$stat);

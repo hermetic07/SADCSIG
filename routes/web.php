@@ -25,7 +25,9 @@ Route::get('/home', function () {
 });
 //Admin portal
 Route::get('/Dashboard','AdminController@dashboardIndex')->name('dashboard')->middleware('auth');
-
+Route::get('/Announcement','AdminController@AnnouncementIndex')->middleware('auth');
+Route::post('/Announcement-Create','AdminController@AnnouncementCreate')->middleware('auth');
+Route::get('/Admin-Incidents','AdminController@AllIncidents')->middleware('auth');
 Route::get('/Notifications','AdminController@notifications')->middleware('auth');
 Route::get('/ChangeGuards', function () {
 	return view('AdminPortal/ChangeRejectedGuards');
