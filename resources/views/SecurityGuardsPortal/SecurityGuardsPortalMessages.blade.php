@@ -278,7 +278,7 @@
                   </div>
 
                     </div>
-                
+
           </div>
             </div>
   <!-- message info -->
@@ -344,7 +344,7 @@
 
 <div id="inboxModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
               <div class="modal-dialog inboxModal-content">
-                
+
               <!-- /.modal-dialog -->
             </div>
           </div>
@@ -383,7 +383,7 @@ function reject(e)
       success: function(data){
 
 
-    
+
         swal("Thank you!", "Your reason: " + inputValue, "success");
         location.reload();
       }
@@ -489,8 +489,13 @@ function reject(e)
           'id':id,
       },
       success: function(data){
-        alert(data);
-        location.reload();
+        swal({
+            title: "Success" ,
+            text: data,
+            imageUrl: "uploads/"+result.picture
+          }, function(){
+            location.reload();
+          });
       }
     });
   }
@@ -568,7 +573,7 @@ function reject(e)
       }
     });
   }
-  
+
   function func_delete_messege(messageID){
    // alert(messageID);
     swal({
@@ -590,7 +595,7 @@ function reject(e)
                           title: "Deleted",
                           text: "This item has been successfully deleted",
                           type: "success"
-                      
+
                     });
                     location.reload();
                   }
