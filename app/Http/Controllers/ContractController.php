@@ -432,5 +432,24 @@ class ContractController extends Controller
       return $contractPDF->stream('Contract.pdf');
     }
 
-    
+    public function updateContract(Request $request){
+      if($request->ajax()){
+        $establishment = Establishments::findOrFail($request->estabID);
+        $establishment->update([
+          'name'=>$request->estabName,
+          'natures_id'=>$request->natures,
+          'pic_fname'=>$request->pic_fname,
+          'pic_mname'=>$request->pic_mname,
+          'pic_lname'=>$request->pic_lname,
+          'contactNo'=>$request->contactNo,
+          'email'=>$request->pic_email,
+          'address'=>$request->address,
+          'areas_id'=>$request->area,
+          'province_id'=>$request->province,
+          'population'=>$request->population,
+          'area_size'=>$request->area_size
+        ]);
+        return '1';
+      }
+    }
 }
