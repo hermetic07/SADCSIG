@@ -367,7 +367,7 @@
 
                             </td>
                             <td>
-                              {{$incident->incident_type}}
+                              {{$incident->date}}
 
                             </td>
                             <td>
