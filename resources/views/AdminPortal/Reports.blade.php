@@ -72,7 +72,7 @@
                       <span>Incident reports</span>
                     </a>
                   </li>
-                  
+
                 </ul>
               </nav>
               <div class="content-wrap">
@@ -87,7 +87,7 @@
                   <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
                       <thead>
                         <tr>
-                        
+
                           <th>Establishment</th>
                           <th data-hide="phone, tablet" >Address</th>
                           <th >Guard</th>
@@ -108,7 +108,7 @@
                            </div>
                          </div>
                       </div>
-                        
+
                       <tbody>
                         @php
                           $total_guards_deployed = 0;
@@ -154,7 +154,7 @@
                               {{$disposition->date_expired}}
                             </td>
                           </tr>
-                          
+
                         @endforeach
                       </tbody>
                      </table>
@@ -163,9 +163,9 @@
                      <div class="pull-right">
                       Total No. of Clients : <b>{{$totalClients}}</b><br>
                        Total Guards Deployed: <b>{{$total_guards_deployed}}</b>
-                     </div>   
+                     </div>
                 </section>
-                <section id="section-shape-2"><p>History of Client Payments.</p>
+                <section id="section-shape-2"><p>History of Guns Delivered</p>
                   <div class="app">
                       <center>
                           {!! $number_of_guns_chart->html() !!}
@@ -176,14 +176,14 @@
                   <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
                       <thead>
                         <tr>
-                        
+
                           <th>Gun Name</th>
                           <th data-hide="phone, tablet" >Type</th>
                           <th>Serial No.</th>
-                          
+
                           <th >Establishment</th>
                           <th >Date Delivered</th>
-                          
+
                         </tr>
                       </thead>
                       <div class="form-inline padding-bottom-15">
@@ -198,7 +198,7 @@
                            </div>
                          </div>
                       </div>
-                        
+
                       <tbody>
                         @php
                           $totalGunDelivered = 0;
@@ -217,7 +217,7 @@
                             <td>
                               {{$clientGun->serialNo}}
                             </td>
-                            
+
                             <td>
                               @foreach($establishments as $establishment)
                                 @if($establishment->id == $clientGun->establishments_id)
@@ -228,7 +228,7 @@
                             <td>
                               {{$clientGun->deliveryDate}}
                             </td>
-                          
+
                           </tr>
                         @endforeach
                       </tbody>
@@ -256,8 +256,8 @@
                           <th>Contact</th>
                           <th>Email Address</th>
                           <th >Date Hired</th>
-                          
-                          
+
+
                         </tr>
                       </thead>
                       <div class="form-inline padding-bottom-15">
@@ -272,12 +272,12 @@
                            </div>
                          </div>
                       </div>
-                        
+
                       <tbody>
                         @php
                           $gains = 0;
                         @endphp
-                       
+
                         @foreach($gains_employees as $employee)
                          @php
                           $gains++;
@@ -304,7 +304,7 @@
                             </tr>
                         @endforeach
                       </tbody>
-                    </table>    
+                    </table>
                   <div class="pull-right">
                       Total Guards : {{$gains}}
                     </div>
@@ -329,8 +329,8 @@
                           <th>Location</th>
                           <th>Date</th>
                           <th >Incident Type</th>
-                          
-                          
+
+
                         </tr>
                       </thead>
                       <div class="form-inline padding-bottom-15">
@@ -374,17 +374,17 @@
                               {{$incident_ctr}}
 
                             </td>
-                            
+
                           </tr>
                           @php
                             $incident_ctr++;
                           @endphp
                         @endforeach
                       </tbody>
-                     </table> 
+                     </table>
 
                 </section>
-                
+
               </div><!-- /content -->
             </div><!-- /tabs -->
 
@@ -425,9 +425,9 @@
               </div>
              </form>
             </div>
-            
-            
-          </div> 
+
+
+          </div>
         </div> <!-- /.modal-dialog -->
       </div> <!-- View Modal -->
 
@@ -440,7 +440,7 @@
 
   @section('script')
   <script type="text/javascript">
-        
+
         (function() {
 
                   [].slice.call( document.querySelectorAll( '.sttabs' ) ).forEach( function( el ) {
