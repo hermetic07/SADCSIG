@@ -311,7 +311,79 @@
                 </section>
                 <section id="section-shape-4"><p>Contains the attendance of security guards at their respective posts.</p></section>
                 <section id="section-shape-5"><p>Contains the records of incidents during the Guard post duty.</p></section>
-                <section id="section-shape-6"><h2>Tabbing 6</h2></section>
+                <section id="section-shape-6">
+                  <p>Contains the records of incidents during the Guard post duty.</p>
+                  <div class="app">
+                      <center>
+                          {!! $incident_chart->html() !!}
+                      </center>
+                  </div>
+                  <br>
+                  <button type="button" class="btn btn-success" onclick="func_change_route('/Incidents-pdf')"><i class="fa fa-list"></i> Get PDF</button>
+                  <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle color-bordered-table warning-bordered-table" data-page-size="10">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Sender</th>
+                          <th data-hide="phone, tablet" >Post</th>
+                          <th>Location</th>
+                          <th>Date</th>
+                          <th >Incident Type</th>
+                          
+                          
+                        </tr>
+                      </thead>
+                      <div class="form-inline padding-bottom-15">
+                        <div class="row">
+                          <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6 text-right m-b-20">
+                          <div class="form-group">
+                            <input id="demo-input-search2" type="text" placeholder="Search" class="form-control"
+                        autocomplete="off">
+                            </div>
+                           </div>
+                         </div>
+                      </div>
+                      @php
+                        $incident_ctr = 1;
+                      @endphp
+                      <tbody>
+                        @foreach($incidents as $incident)
+                          <tr>
+                            <td>
+                              {{$incident_ctr}}
+
+                            </td>
+                            <td>
+                              {{$incident->first_name}} {{$incident->middle_name}} {{$incident->last_name}}
+                            </td>
+                            <td>
+                              {{$incident->estabName}}
+
+                            </td>
+                            <td>
+                              {{$incident->address}}, {{$incident->area}}, {{$incident->province}}
+
+                            </td>
+                            <td>
+                              {{$incident->date}}
+
+                            </td>
+                            <td>
+                              {{$incident_ctr}}
+
+                            </td>
+                            
+                          </tr>
+                          @php
+                            $incident_ctr++;
+                          @endphp
+                        @endforeach
+                      </tbody>
+                     </table> 
+
+                </section>
                 
               </div><!-- /content -->
             </div><!-- /tabs -->
@@ -363,6 +435,7 @@
       {!! $chart->script() !!}
       {!! $number_of_guns_chart->script() !!}
       {!! $gain_chart->script() !!}
+      {!! $incident_chart->script() !!}
   @endsection
 
   @section('script')

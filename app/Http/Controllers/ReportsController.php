@@ -110,8 +110,9 @@ class ReportsController extends Controller
             ;
 
         $gains_employees = DB::table('employees')
-                              ->where('employees.status','=','deployed')
-                              ->join('tblestabguards','tblestabguards.strGuardID','=','employees.id')
+                              ->where('employees.status','=','waiting')
+                              ->orWhere('employees.status','=','deployed')
+                              // ->join('tblestabguards','tblestabguards.strGuardID','=','employees.id')
                               ->get();
         $employees = Employees::all();
         $created_at = [];
@@ -141,6 +142,41 @@ class ReportsController extends Controller
             ->dimensions(1000,500)
             ;
 
+        $incidents = DB::table('tblincident')
+                    ->join('establishments','establishments.id','=','tblincident.estab_id')
+                    ->join('employees','employees.id','=','tblincident.emp_id')
+                    ->join('areas','areas.id','=','establishments.areas_id')
+                            ->join('provinces','provinces.id','=','areas.provinces_id')
+                            ->select('establishments.name as estabName',
+                                      'establishments.address as address',
+                                      'areas.name as area',
+                                      'provinces.name as province',
+                                      'establishments.id',
+                                      'employees.id as emp_id',
+                                      'employees.first_name',
+                                      'employees.last_name',
+                                      'employees.middle_name',
+                                      'tblincident.date'
+                                    )
+                    ->orderBy('tblincident.date','desc')
+                    ->get();
+      $incident_per_province = [];
+      $incdnt_ctr = 0;
+      foreach($establishments as $establishment){
+        $incident_per_province[$incdnt_ctr] = DB::table('tblincident')
+                                                ->where('tblincident.estab_id','=',$establishment->id)
+                                                ->get()
+                                                ->count();
+        $incdnt_ctr++;
+      }
+                    //return $incident_per_province;
+      $incident_chart = Charts::create('bar', 'highcharts')
+            ->title('Incident Report')
+            ->labels($provinces_arry)
+            ->values($incident_per_province)
+            ->dimensions(1000,500)
+            ;
+
     	return view('AdminPortal/Reports')
     			->with('chart',$chart)
                 ->with('number_of_guns_chart',$number_of_guns_chart)
@@ -150,7 +186,9 @@ class ReportsController extends Controller
                 ->with('establishments',$establishments)
                 ->with('totalClients',$totalClients)
                 ->with('gains_employees',$gains_employees)
-                ->with('gain_chart',$gain_chart);
+                ->with('gain_chart',$gain_chart)
+                ->with('incidents',$incidents)
+                ->with('incident_chart',$incident_chart);
     }
 
     public function dispositionReportPdf(Request $request){
@@ -255,8 +293,9 @@ class ReportsController extends Controller
 
     public function gains(Request $request){
       $gains_employees = DB::table('employees')
-                              ->where('employees.status','=','deployed')
-                              ->join('tblestabguards','tblestabguards.strGuardID','=','employees.id')
+                              ->where('employees.status','=','waiting')
+                              ->orWhere('employees.status','=','deployed')
+                              // ->join('tblestabguards','tblestabguards.strGuardID','=','employees.id')
                               ->get();
       $gains_report = PDF::loadView('AdminPortal.Reports_PDF.gains_report',
                     [
@@ -269,6 +308,38 @@ class ReportsController extends Controller
     }
 
     public function loses(Request $request){
+
+    }
+    public function incidents(Request $request){
+      $incidents = DB::table('tblincident')
+                    ->join('establishments','establishments.id','=','tblincident.estab_id')
+                    ->join('employees','employees.id','=','tblincident.emp_id')
+                    ->join('areas','areas.id','=','establishments.areas_id')
+                            ->join('provinces','provinces.id','=','areas.provinces_id')
+                            ->select('establishments.name as estabName',
+                                      'establishments.address as address',
+                                      'areas.name as area',
+                                      'provinces.name as province',
+                                      'establishments.id',
+                                      'employees.id as emp_id',
+                                      'employees.first_name',
+                                      'employees.last_name',
+                                      'employees.middle_name',
+                                      'tblincident.date'
+                                    )
+                    ->orderBy('tblincident.date','desc')
+                    ->whereBetween('tblincident.date', [$request->startFrom, $request->endTo])
+                      
+                    ->get();
+                   // return $incidents->toArray();
+                  $incident_report = PDF::loadView('AdminPortal.Reports_PDF.incident_report',
+                    [
+                      'start' => $request->startFrom,
+                      'end' => $request->endTo,
+                      'incidents' => $incidents
+                      
+                    ])->setPaper('a4', 'landscape');
+                  return $incident_report->stream('Incident Reports.pdf');
 
     }
 }

@@ -43,7 +43,10 @@
 		
 		<br>
 		@yield('content')
-		<p>
+		<br>
+		<br>
+		<div style="position:relative;">
+		<p style="position: absolute; bottom: 0">
 			I HEREBY CERTIFY the correctness disposition report for the month of <u></u>
 			<br>
 			<br>
@@ -61,6 +64,7 @@
 				</div>
 			</div>
 		</p>
+	</div>
 	</div>
 	
 </body>
