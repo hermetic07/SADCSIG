@@ -16,6 +16,7 @@ use App\Province;
 use App\Contracts;
 use App\ServiceRequest;
 use App\Employee;
+use App\Collections;
 use App\ClientRegistration;
 use App\GunRequest;
 use App\Shifts;
@@ -35,7 +36,7 @@ use App\Role;
 use App\ClientCancelRequests;
 use App\GuardReplacement;
 use App\AcceptedServRequests;
-
+use App\SecurityLicense;
 
 class AdminController extends Controller
 {
@@ -43,9 +44,20 @@ class AdminController extends Controller
         return "jhhj";
     }
     public function dashboardIndex(){
+      $license = SecurityLicense::All()->count();
+      $billing = Collections::where('strstatus','notsent')->count();
+      $billing2 = Collections::where('strstatus','sent')->count();
+      $emp = Employee::where('status','pending')->count();
+      $guard = Employee::whereIn('status', ['deployed', 'waiting', 'leave','reliever'])->count();
     	$serviceRequests = ServiceRequest::latest('created_at')->get();
     	$gunRequests = GunRequest::latest('created_at')->get();
-    	return view('AdminPortal.Dashboard')->with('serviceRequests',$serviceRequests)->with('gunRequests',$gunRequests);
+    	return view('AdminPortal.Dashboard')->with('serviceRequests',$serviceRequests)
+                                          ->with('gunRequests',$gunRequests)
+                                          ->with('applicants',$emp)
+                                          ->with('licenses',$license)
+                                          ->with('billing',$billing)
+                                          ->with('billing2',$billing2)
+                                          ->with('guard',$guard);
     }
     public function manualDeploy(){
      	$contracts = Contracts::latest('created_at')->get();
@@ -59,7 +71,7 @@ class AdminController extends Controller
         $shifts = Shifts::all();
         $clientPic = ClientsPic::all();
         $roles = Role::all();
-    
+
         return view('AdminPortal.Deploy')
                 ->with('clients',$clients)
                 ->with('contracts',$contracts)
@@ -76,26 +88,26 @@ class AdminController extends Controller
     public function view(Request $request){
         if($request->ajax()){
             $clientBodyPreferences = DB::table('tbl_clientbodypreference')
-                               ->where('tbl_clientbodypreference.stringContractId','=',$request->contractID) 
+                               ->where('tbl_clientbodypreference.stringContractId','=',$request->contractID)
                                ->join('attributes','attributes.id','=','tbl_clientbodypreference.intAttributeId')
                                ->select('attributes.name as attribute',
                                 'attributes.measurement as measurement',
                                 'tbl_clientbodypreference.intLowest as low',
                                 'tbl_clientbodypreference.intGreatest as high')
-                               ->get();  
+                               ->get();
             $clientLicensePreferences = DB::table('tbl_clientlicensepreference')
                                      ->where('tbl_clientlicensepreference.stringContractId','=',$request->contractID)
                                      ->join('licences','licences.id','=','tbl_clientlicensepreference.intLicenseId')
                                      ->select('licences.name as license')
-                                     ->get();   
+                                     ->get();
             $clientPeferences = DB::table('tbl_clientpreference')
                                     ->where('tbl_clientpreference.stringContractId','=',$request->contractID)
-                                  ->get(); 
+                                  ->get();
             $tbl_clientrequirementpreferences = DB::table('tbl_clientrequirementpreference')
                                         ->where('tbl_clientrequirementpreference.stringContractId','=',$request->contractID)
                                         ->join('requirements','requirements.id','=','tbl_clientrequirementpreference.intRequirementId')
                                         ->select('requirements.name as requirement')
-                                               ->get();                       
+                                               ->get();
             return view('AdminPortal.Deployments.viewModal')
                         ->with('clientBodyPreferences',$clientBodyPreferences)
                         ->with('clientPeferences',$clientPeferences)
@@ -105,13 +117,13 @@ class AdminController extends Controller
     }
     public function selectShifts(Request $request){
         if($request->ajax()){
-           
+
             $contract = Contracts::findOrFail($request->contractID);
             $establishment = Establishments::findOrFail($contract->strEstablishmentID);
             $shifts = Shifts::where('estab_id',$establishment->id)->get();
             return view('AdminPortal.selectShifts')
                     ->with('shifts',$shifts);
-                    
+
             //return response($request->employeeID);
         }
     }
@@ -143,7 +155,7 @@ class AdminController extends Controller
                 ->with('clientPic',$clientPic)
                 ->with('clientRegistrations',$clientRegistrations)
                 ->with('clients',$clients);
-                
+
 
     }
     public function pending_client_requests(){
@@ -182,9 +194,9 @@ class AdminController extends Controller
                         ->join('clients','clients.id','=','service_requests.client_id')
                         ->join('services','services.id','=','service_requests.services_id')
                         ->select('service_requests.id as requestCode',
-                                 'service_requests.status as status', 
+                                 'service_requests.status as status',
                                  'service_requests.client_id as client_id',
-                                 'service_requests.created_at as dateRequested', 
+                                 'service_requests.created_at as dateRequested',
                                  'service_requests.meetingPlace',
                                  'service_requests.meetingSchedule',
                                  'clients.id as client_id',
@@ -193,15 +205,15 @@ class AdminController extends Controller
                                  'clients.last_name as client_lname',
                                  'services.name' )
                          ->orderBy('service_requests.created_at','desc')
-                        ->get(); 
+                        ->get();
 
     $guard_replacement_requests = DB::table('guard_replacement_requests')
                                 ->join('clients','clients.id','=','guard_replacement_requests.clients_id')
                                 ->join('contracts','contracts.id','=','guard_replacement_requests.contractID')
                                 ->select('guard_replacement_requests.requestID as requestCode',
-                                         'guard_replacement_requests.status as status', 
+                                         'guard_replacement_requests.status as status',
                                          'guard_replacement_requests.clients_id as client_id',
-                                         'guard_replacement_requests.created_at as dateRequested', 
+                                         'guard_replacement_requests.created_at as dateRequested',
                                          'guard_replacement_requests.contractID',
                                          'clients.id as client_id',
                                          'clients.first_name as client_fname',
@@ -235,7 +247,7 @@ class AdminController extends Controller
                 ->with('service_requests',$service_requests)
                 ->with('guard_replacement_requests',$guard_replacement_requests)
                 ->with('add_guard_requests',$add_guard_requests);
-                
+
 
     }
 
@@ -259,7 +271,7 @@ class AdminController extends Controller
         $shifts = Shifts::where('estab_id',$establishment->id)->get();
         $area = Area::findOrFail($establishment->areas_id);
         $province = Province::findOrFail($area->provinces_id);
-        $completeAdd = $establishment->address.",".$area->name." ,".$province->name;       
+        $completeAdd = $establishment->address.",".$area->name." ,".$province->name;
 
         return view('AdminPortal.DeploymentStatus')
                     ->with('tempDeployments',$tempDeployments)
@@ -340,7 +352,7 @@ class AdminController extends Controller
         $client_inbox_id = '';
         //return $message_ID;
         DeploymentNotifForClient::create(['notif_id'=>$notif_id,'trans_id'=>$request->contractID,'sender'=>'Admin','receiver'=>$request->clientID,'subject'=>'DEPLOYMENT','status'=>'active']);
- 
+
 
         $l = $request->avGuards;
         $ctr2 = 0;
@@ -370,9 +382,9 @@ class AdminController extends Controller
 
             }
         }
-        
+
          ClientDeploymentNotif::create(['client_deloyment_notif_id'=>$client_inbox_id,'client_id'=>$request->clientID,'notif_id'=>$notif_id,'date_received'=>Carbon::now()]);
-                
+
 
         $rejected = explode(',.',$request->rejects);
         for($c = 0; $c < sizeof($rejected); $c++){
@@ -390,7 +402,7 @@ class AdminController extends Controller
          return redirect('/PendingClientRequests');
     }
     public function notifications(Request $request){
-       
+
         $notifications = DB::table('contracts')
                            ->join('client_registrations','contracts.id','=','client_registrations.contract_id')
                            ->join('clients','client_registrations.client_id','=','clients.id')
@@ -408,7 +420,7 @@ class AdminController extends Controller
                            //->where('contracts.status','=','pending')
                            ->orderBy('contracts.updated_at','desc')
                           // ->orderBy('contracts.updated_at','asc')
-                           ->get(); 
+                           ->get();
         return view('AdminPortal.notification')
                 ->with('notifications',$notifications);
     }
@@ -500,8 +512,8 @@ class AdminController extends Controller
       $guards = DB::table('client_registrations')
                         ->where('client_registrations.client_id','=',$id)
                         ->join('contracts','contracts.id','=','client_registrations.contract_id')
-                        
-                        
+
+
                         ->join('tblestabGuards',function($join){
                             $join->on('tblestabGuards.strEstablishmentID','=','contracts.strEstablishmentID')
                                  ->on('tblestabGuards.contractID','=','contracts.id');
@@ -583,13 +595,13 @@ class AdminController extends Controller
             return view('AdminPortal.ClientRequests.Contracts.viewModal')
                     ->with('contract',$contract[0])
                     ->with('guards',$guards);
-            
+
         }
     }
 
     public function cancelRequestSave(Request $request){
       if($request->ajax()){
-          $client_canceled_requestID = 'CLNT-CNCLD-REQ-'.ClientCancelRequests::get()->count();             
+          $client_canceled_requestID = 'CLNT-CNCLD-REQ-'.ClientCancelRequests::get()->count();
             $client_canceled_request = new ClientCancelRequests();
             $client_canceled_request['canceled_requests_id'] = $client_canceled_requestID;
             $client_canceled_request['trans_type'] = $request->requestType;
@@ -614,7 +626,7 @@ class AdminController extends Controller
               $gun_request = GunRequest::findOrFail($request->requestID)
                                         ->update(['status'=>'a_cancel']);
             }
-            
+
       }
     }
     public function accept_serv_req(Request $request){
@@ -627,7 +639,7 @@ class AdminController extends Controller
         //     $accepted_serv_req['created_at'] = Carbon::now();
         //     $accepted_serv_req['updated_at'] = Carbon::now();
         //     if($accepted_serv_req->save()){
-        //         
+        //
         //     }
             //return $request->toArray();
         //}
