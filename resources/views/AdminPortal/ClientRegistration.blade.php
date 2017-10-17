@@ -1099,13 +1099,9 @@ $("#nature").change(function(){
                     success: function(data){
                       if(data==="Success")
                       {
-                        swal({
-                            title: "Registration Success" ,
-                            text: "Will now proceed to uploading of your pictures ",
-                            imageUrl: "uploads/"+result.picture
-                          }, function(){
-                            window.location.href = "/Applicants";
-                          });
+                        alert("Registration Success Will now proceed to uploading of your pictures ");
+                        window.location.href = "/UploadPics";
+
                       }
                       else {
                         alert(data);
