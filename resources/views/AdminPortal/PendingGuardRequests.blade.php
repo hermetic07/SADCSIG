@@ -343,7 +343,7 @@
         success: function(data){
               swal({
                   title: "Success" ,
-                  text: "Resignation Rejected",
+                  text: "Resignation Accepted",
                 }, function(){
                   window.location.href = "/Admin-Guard-Leave";
                 });
