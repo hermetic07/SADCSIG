@@ -425,8 +425,12 @@ $("#leaves").change(function(){
            "date":$('#repcal').val(),
          },
          success: function(result){
-           alert(result);
-           location.reload();
+           swal({
+               title: "Success" ,
+               text: result,
+             }, function(){
+               location.reload();
+             });
          }
        });
       });

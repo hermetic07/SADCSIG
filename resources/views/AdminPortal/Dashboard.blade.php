@@ -40,10 +40,10 @@
 				            <div class="col-lg-3 col-sm-6 row-in-br">
                 <div class="col-in row">
                   <div class="col-md-6 col-sm-6 col-xs-6"> <img src="plugins/images/icons/quotation.png"></i>
-                    <h5 class="text-muted vb">Quotation request</h5>
+                    <h5 class="text-muted vb">Announcements</h5>
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-6">
-                    <h3 class="counter text-right m-t-15 text-danger">5</h3>
+                    <h3 class="counter text-right m-t-15 text-danger"></h3>
                   </div>
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="progress">
@@ -51,7 +51,7 @@
                     </div>
                   </div>
                 </div>
-            <center><a href="{{url('/Quotation')}}"><button class="btn btn-info btn-rounded waves-effect waves-light" >See all</button></a></center>
+            <center><a href="{{url('/Announcement')}}"><button class="btn btn-info btn-rounded waves-effect waves-light" >See all</button></a></center>
               </div>
               <div class="col-lg-3 col-sm-6 row-in-br">
                 <div class="col-in row">
@@ -165,7 +165,7 @@
               <div class="col-lg-3 col-sm-6 row-in-br">
                 <div class="col-in row">
                   <div class="col-md-6 col-sm-6 col-xs-6"> <img src="plugins/images/icons/glicencse.png"></i>
-                    <h5 class="text-muted vb">Guard licenses</h5>
+                    <h5 class="text-muted vb">Incident Reports</h5>
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-6">
                     <h3 class="counter text-right m-t-15 text-danger">{{$licenses}}</h3>
@@ -176,7 +176,7 @@
                     </div>
                   </div>
                 </div>
-   <center><a href="{{url('/GuardLicenses')}}"><button class="btn btn-info btn-rounded waves-effect waves-light" >See all</button></a></center>
+   <center><a href="{{url('/Admin-Incidents')}}"><button class="btn btn-info btn-rounded waves-effect waves-light" >See all</button></a></center>
               </div>
 
 
