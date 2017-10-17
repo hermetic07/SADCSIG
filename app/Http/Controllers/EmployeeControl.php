@@ -477,16 +477,20 @@ class EmployeeControl extends Controller
 
       try {
         $value = $request->session()->get('user');
-        if ($value!==null) {
+        if ($value!==null&&$value!=="") {
           $u = Employee::find($value);
-          if ($u->password===$request->oldp) {
-            $u->password=$request->oldp;
-            $u->save();
-            return "Password Has Been Changed";
-          }
-          else {
-            return "Old password doesn't match";
-          }
+            if ($request->newp!==null&&$request->newp!=="") {
+              $u->password=bcrypt($request->newp);
+              $u->save();
+              return "Password Has Been Changed";
+            }
+            else {
+              return "password cannot be blank";
+            }
+
+        }
+        else {
+          return "password cannot be blank";
         }
       } catch (Exception $e) {
         return $e;

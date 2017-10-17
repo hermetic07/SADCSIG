@@ -44,13 +44,9 @@
       <div class="col-md-12">
         <div class="white-box"  style="border: 2px solid black;">
         </br>
-               <form class="form-horizontal form-material">
+               <div class="form-horizontal form-material">
                 <div class="form-group">
                     <div class="row">
-                      <label class="col-md-1">Old Password</label>
-                      <div class="col-md-3">
-                        <input type="password" name="old_pass" value="{{$employee->password}}" class="form-control form-control-line">
-                      </div>
                       <label class="col-md-1">New Password</label>
                       <div class="col-md-3">
                         <input type="password" name="new_pass" class="form-control form-control-line">
@@ -63,10 +59,10 @@
                 </div>
                 <div class="form-group">
                   <div class="col-sm-5">
-                    <button id="updatepass" class="btn btn-success">Change Password</button>
+                    <button  onclick="updatepass()" class="btn btn-success">Change Password</button>
                   </div>
                 </div>
-              </form>
+              </div>
         </div>
       </div>
      </div>
@@ -99,34 +95,41 @@ $('#updateprofile').on('click', function(e){
   });
 })
 
-$('#updatepass').on('click', function(e){
 
-  $.ajaxSetup({
-     headers: {
-       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
-
-  var newp = $('input[name=new_pass]').val();
-  var confp = $('input[name=confirm_pass]').val();
-  if (newp===confp) {
-    $.ajax({
-      type: 'post',
-      url: '/EmployeeUpdatePassword',
-      data: {
-          '_token': $('input[name=_token]').val(),
-          oldp:$('input[name=old_pass]').val(),
-          newp:$('input[name=new_pass]').val(),
-      },
-      success: function(data){
-          alert(data);
-      }
-    });
-  }
-  else {
-    alert("Confirm Password doest not match");
-  }
-})
 </script>
+<script type="text/javascript">
+  function updatepass(){
+    $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
 
+    var newp = $('input[name=new_pass]').val();
+    var confp = $('input[name=confirm_pass]').val();
+    if (newp===confp) {
+      $.ajax({
+        type: 'post',
+        url: '/EmployeeUpdatePassword',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'newp':$('input[name=new_pass]').val(),
+        },
+        success: function(data){
+
+            swal({
+                title: "Update Password" ,
+                text: data,
+              }, function(){
+                $('input[name=new_pass]').val("");
+                $('input[name=confirm_pass]').val("");
+              });
+        }
+      });
+    }
+    else {
+      alert("Confirm Password doest not match");
+    }
+  }
+</script>
  @endsection
