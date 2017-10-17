@@ -51,23 +51,23 @@
                       <span>Gains</span>
                     </a>
                   </li>
-                  <li>
+                 <!--  <li>
                     <a href="#section-shape-4">
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
                       <span>Loses</span>
                     </a>
-                  </li>
-                  <li>
+                  </li> -->
+                  <!-- <li>
                     <a href="#section-shape-5">
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
           <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
                       <span>Guard's Daily time record</span>
                     </a>
-                  </li>
+                  </li> -->
 
          <li>
-                    <a href="#section-shape-6">
+                    <a href="#section-shape-4">
                       <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
                       <span>Incident reports</span>
                     </a>
@@ -309,9 +309,9 @@
                       Total Guards : {{$gains}}
                     </div>
                 </section>
-                <section id="section-shape-4"><p>Contains the attendance of security guards at their respective posts.</p></section>
-                <section id="section-shape-5"><p>Contains the records of incidents during the Guard post duty.</p></section>
-                <section id="section-shape-6">
+                <!-- <section id="section-shape-4"><p>Contains the attendance of security guards at their respective posts.</p></section>
+                <section id="section-shape-5"><p>Contains the records of incidents during the Guard post duty.</p></section> -->
+                <section id="section-shape-4">
                   <p>Contains the records of incidents during the Guard post duty.</p>
                   <div class="app">
                       <center>
@@ -367,11 +367,11 @@
 
                             </td>
                             <td>
-                              {{$incident->date}}
+                              {{$incident->incident_type}}
 
                             </td>
                             <td>
-                              {{$incident_ctr}}
+                              {{$incident->incident_type}}
 
                             </td>
                             

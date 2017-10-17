@@ -668,6 +668,7 @@ class EmployeeControl extends Controller
     }
     public function incident(Request $r)
     {
+      //return $r->toArray();
       try {
         $value = $r->session()->get('user');
         $estab=DB::table('tblestabguards')
@@ -680,7 +681,7 @@ class EmployeeControl extends Controller
             ->first();
 
         DB::table('tblincident')->insert(
-          ['emp_id' => $value, 'estab_id' => $estab->strEstablishmentID, 'estabtype_id' => $nature->natures_id, 'report' => $r->data, 'date' => $r->date,]
+          ['emp_id' => $value, 'estab_id' => $estab->strEstablishmentID, 'estabtype_id' => $nature->natures_id, 'report' => $r->data, 'date' => $r->date,'incident_type'=>$r->incident_type]
         );
         return "Report Sent";
       } catch (Exception $e) {

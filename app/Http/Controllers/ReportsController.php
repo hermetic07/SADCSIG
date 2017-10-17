@@ -156,7 +156,8 @@ class ReportsController extends Controller
                                       'employees.first_name',
                                       'employees.last_name',
                                       'employees.middle_name',
-                                      'tblincident.date'
+                                      'tblincident.date',
+                                      'tblincident.incident_type'
                                     )
                     ->orderBy('tblincident.date','desc')
                     ->get();
@@ -325,7 +326,8 @@ class ReportsController extends Controller
                                       'employees.first_name',
                                       'employees.last_name',
                                       'employees.middle_name',
-                                      'tblincident.date'
+                                      'tblincident.date',
+                                      'tblincident.incident_type'
                                     )
                     ->orderBy('tblincident.date','desc')
                     ->whereBetween('tblincident.date', [$request->startFrom, $request->endTo])
