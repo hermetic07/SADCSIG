@@ -277,6 +277,7 @@ class OnlineRegisterControl extends Controller
      }
 
      public function saveImage(Request $request){
+
        $count =0;
        $value = $request->session()->get('key');
        $employee = Employee::find($value);
@@ -299,7 +300,7 @@ class OnlineRegisterControl extends Controller
        $request->session()->forget('key');
        $value2 = $request->session()->get('email');
        $request->session()->forget('email');
-       echo "Registration Success, wait for the agency to email or contact you";
+       return view('onlincesuccess');
 
      }
 

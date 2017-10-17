@@ -94,7 +94,6 @@
                             @endif
                             <div class="pro-list-info-3-col">
                                 <ul class="pro-info text-muted m-b-0">
-                                    <li> <span><img src="plugins/images/SecurityGuards/license.png"></span> <span>Security license</span><span class="pull-right text-inverse">12345678910</span></li>
                                     <li> <span><img src="plugins/images/SecurityGuards/phone.png"></span> <span>Contact Number (Mobile)</span><span class="pull-right text-inverse">{{$e->cellphone}}</span></li>
                                     <li> <span><img src="plugins/images/SecurityGuards/tele.png"></span> <span>Contact Number (Landline)</span><span class="pull-right text-inverse"> {{$e->telephone}}</span></li>
                                     <li> <span><img src="plugins/images/SecurityGuards/email.png"></span> <span>Email address</span><span class="pull-right text-inverse"> {{$e->email}}</span></li>

@@ -107,12 +107,18 @@ class SwapControl extends Controller
         $tblestab2 = swapestab::All()->where('strEstablishmentID',$estab2)->where('strGuardID',$emp2)->first();
 
         try{
-            $swap1 = swapestab::find($tblestab1->strEstablishmentID)->where('strGuardID',$emp1)->first();
-            $swap2 = swapestab::find($tblestab2->strEstablishmentID)->where('strGuardID',$emp2)->first();
-            $swap1->strGuardID = $emp2;
-            $swap1->save();
-            $swap2->strGuardID = $emp1;
-            $swap2->save();
+
+            $swap1 = swapestab::where('strGuardID',$emp1)->first();
+            $swap2 = swapestab::where('strGuardID',$emp2)->first();
+            DB::table('tblestabguards')->where('strGuardID', '=', $emp1)->delete();
+            DB::table('tblestabguards')->where('strGuardID', '=',$emp2)->delete();
+            DB::table('tblestabguards')->insert(
+                ['strEstablishmentID'=>$swap1->strEstablishmentID, 'contractID'=>$swap1->contractID, 'strGuardID'=>$emp2, 'dtmDateDeployed'=>$swap1->dtmDateDeployed, 'role'=>$swap1->role, 'status'=>$swap1->status, 'shiftFrom'=>$swap1->shiftFrom, 'shiftTo'=>$swap1->shiftTo, 'isReplaced'=>$swap1->isReplaced, 'created_at'=>$swap1->created_at, 'updated_at'=>$swap1->updated_at ]
+            );
+            DB::table('tblestabguards')->insert(
+                ['strEstablishmentID'=>$swap2->strEstablishmentID, 'contractID'=>$swap2->contractID, 'strGuardID'=>$emp1, 'dtmDateDeployed'=>$swap2->dtmDateDeployed, 'role'=>$swap2->role, 'status'=>$swap2->status, 'shiftFrom'=>$swap2->shiftFrom, 'shiftTo'=>$swap2->shiftTo, 'isReplaced'=>$swap2->isReplaced, 'created_at'=>$swap2->created_at , 'updated_at'=>$swap2->updated_at ]
+            );
+
         }catch(Exception $e){
             return $e;
         }
