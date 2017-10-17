@@ -132,7 +132,7 @@
                               <li> 
                                 <span><img src="plugins/images/Clients/Active/security-guard.png"></span> <span>Security guards</span><span class="pull-right text-inverse">
                                 @foreach($estabGuards as $estabGuard)
-                                  @if($estabGuard->strEstablishmentID == $arr[$f])
+                                  @if($estabGuard->strEstablishmentID == $arr[$f] && $estabGuard->isReplaced == '0')
                                     @php
                                       $guardsDeployed++;
                                     @endphp

@@ -419,6 +419,10 @@ class ClientPortalHomeController extends Controller
       $area_name = $areas->name;
       $provinces = Province::where('id',$provinces_id)->get();
 
+      $areas2 = Area::all();
+      $provinces2 = Province::all();
+      $natures2 = Nature::all();
+
       $clientGuns = DB::table('tblGunRequests')
                       ->where('tblGunRequests.establishments_id','=',$estabID)
                       ->join('tblGunDeliveries','tblGunDeliveries.strGunReqID','=','tblGunRequests.strGunReqID')
@@ -460,9 +464,17 @@ class ClientPortalHomeController extends Controller
             ->with('area_size',$area_size)
             ->with('population',$population)
             ->with('clientGuns',$clientGuns)
+            ->with('areas2',$areas2)
+            ->with('provinces2',$provinces2)
+            ->with('natures2',$natures2)
             ->with('estabGuards',$estabGuards)
+            ->with('provinces',$provinces[0])
             ->with('guardDeployed',$guardDeployed)
-            ->with('deployments',$deployments)->with('deploymentDetails',$deploymentDetails)->with('employees',$employees)->with('clientPic',$clientPic)
+            ->with('deployments',$deployments)
+            ->with('deploymentDetails',$deploymentDetails)
+            ->with('employees',$employees)
+            ->with('clientPic',$clientPic)
+            ->with('establishment2',$es)
             ->with('guards',$guards);
           
     }

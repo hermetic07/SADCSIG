@@ -204,6 +204,9 @@ Route::get('/initialGunDelv-deliveryModal','InitialDeliveryController@deliverMod
 Route::get('/updateContractStats','InitialDeliveryController@updateContractStats');
 Route::get('/testRoute','InitialDeliveryController@testRoute');
 
+
+Route::get('/UpdateContract','ContractController@updateContract');
+
 Route::post('/Contract-Terminnation-{contractID}','ContractTerminationController@save');
 
 Route::get('/AllContracts','ContractController@allContracts');
