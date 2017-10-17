@@ -61,10 +61,6 @@
             <ul class="nav nav-second-level">
               <li> <a href="{{route('manual.deployment')}}" class="waves-effect">Deploy</a>
               </li>
-              <li> <a href="{{url('/Replace')}}" class="waves-effect">Replace</a>
-              </li>
-                <li> <a href="{{url('/Swap')}}" class="waves-effect">Swap</a>
-              </li>
               </li>
                 <li> <a href="{{url('/DeploymentHistory')}}" class="waves-effect">History</a>
               </li>
