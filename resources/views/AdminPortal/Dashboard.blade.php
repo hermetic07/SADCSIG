@@ -34,6 +34,8 @@
 @section('GunReqstCnt') {{ $gunviceReqsCtr }} @endsection
 @section('content')
       <div class="row">
+      	<h1>kugbhjnlklkjhbj</h1>
+      	<h1>kugbhjnlklkjhbj</h1>
         <div class="col-md-12 col-lg-12 col-sm-12">
           <div class="white-box">
             <div class="row row-in">
