@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use App\AddGuardRequests;
 use App\Clients;
@@ -98,12 +99,13 @@ class AdminController extends Controller
     }
     public function selectShifts(Request $request){
         if($request->ajax()){
+            $employeesID = Input::get('employeesID');
             $contract = Contracts::findOrFail($request->contractID);
             $establishment = Establishments::findOrFail($contract->strEstablishmentID);
             $shifts = Shifts::where('estab_id',$establishment->id)->get();
             return view('AdminPortal.selectShifts')
                     ->with('shifts',$shifts)
-                    ->with('employeeID',$request->employeeID);
+                    ->with('employeesID',$employeesID);
             //return response($request->employeeID);
         }
     }
