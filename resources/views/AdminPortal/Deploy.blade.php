@@ -354,7 +354,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                               </td>
                               <td>
                                 <div class="radio radio-info">
-                                <input type="radio" id="{{ $contract->id }}" class="radioBtn" value="{{ $contract->id }},{{ $establishmentID }},{{ $contract->guard_count }},{{$client_id}}">
+                                <input type="radio" id="{{ $contract->id }}" class="radioBtn" name="all-clients" value="{{ $contract->id }},{{ $establishmentID }},{{ $contract->guard_count }},{{$client_id}}">
                                   <label for="select1"> Select</label>
                                 </div>
                               </td>
