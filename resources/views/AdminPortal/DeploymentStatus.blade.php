@@ -215,7 +215,7 @@
                       <input type="hidden" name="refuseCtr" id="refuseCtr" value="1">
                       <button type="button" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
                     </form> -->
-                    <!-- <button type="button" onclick="submit_form(',.{{$employee->id}}')" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button> -->
+                    <button type="button" onclick="submit_form(',.{{$employee->id}}')" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
                   </div>
                 </div>
                 @foreach($tempDeploymentDetails as $tempDeploymentDetail)
@@ -259,7 +259,7 @@
 </div>
 </div>
 </div></div>
-<button type="button" value="{{$acceptedGuard->client_deployment_notif_id}},{{$acceptedGuard->guard_id}}" class="btn btn-block btn-outline btn-rounded btn-danger reason">Reason</button>
+<!-- <button type="button" value="{{$acceptedGuard->client_deployment_notif_id}},{{$acceptedGuard->guard_id}}" class="btn btn-block btn-outline btn-rounded btn-danger reason">Reason</button> -->
 
 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 <div class="white-box">
@@ -297,7 +297,7 @@
     </tbody>
 </table>
 </div>
-<!-- <button type="button" class="btn btn-block  btn-info" ><i class="fa fa-edit"></i> </i><a href="/ClientsDetails-{{$client->id}}+{{$establishment->id}}">More info</a></button> -->
+<button type="button" class="btn btn-block  btn-info" ><i class="fa fa-edit"></i> </i><a href="/ClientsDetails-{{$client->id}}+{{$establishment->id}}">More info</a></button>
 </div>
 
 </div>
@@ -401,11 +401,12 @@
       });
 
       function submit_form(emp_id){
+
         $('#refuseID').attr('value',emp_id);
         $('#refuseCtr').attr('value','1')
 
         $('#change-form').submit();
-        //alert($('#refuseCtr').val());
+        //alert(emp_id);
       }
     </script>
   @endsection
