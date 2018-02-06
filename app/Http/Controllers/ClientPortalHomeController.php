@@ -552,6 +552,7 @@ class ClientPortalHomeController extends Controller
                                 
                                 ->join('client_Registrations','client_Registrations.contract_id','=','Contract_Terminations.contract_id')
                                 ->join('clients','clients.id','=','client_Registrations.client_id')
+                                ->where('clients.id','=',$client->id)
                                 ->select('Contract_Terminations.created_at as date_sent',
                                           'Contract_Terminations.termination_id',
                                           'Contract_Terminations.reasons'
@@ -560,7 +561,7 @@ class ClientPortalHomeController extends Controller
                                 ->get();
       $contract_termination_notifs = ContractTerminations::all();
       //return $termination_message->toArray();
-      return view('ClientPortal/ClientPortalMessages')
+      return view('ClientPortal/ClientPortalMessages') 
               ->with('swap',$swap)
               ->with('all',$collection)
               ->with('client',$client)

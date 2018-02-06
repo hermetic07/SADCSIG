@@ -410,6 +410,8 @@ Route::get('/ClientLogin','LastControl@clientAuth');
 Route::post('/Client-auth','LastControl@authenticate');
 Route::post('/Client-Qoute','ClientPortalHomeController@qout');
 
+
+Route::get('guardFiltering','DeploymentController@filterGuards');
 //Route::get('/Request','LastControl@login');
 //Route::get('/Request-view','ServiceRequestController@view');
 

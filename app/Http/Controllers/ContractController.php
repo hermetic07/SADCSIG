@@ -51,7 +51,7 @@ class ContractController extends Controller
                           'clients.first_name',
                           'establishments.name as establishment'
                         )
-                      ->orderBy('contracts.start_date','desc')
+                      ->orderBy('contracts.created_at','desc')
                       ->get();
       return view('AdminPortal.ClientRequests.Contracts.AllContracts')
               ->with('contracts',$contracts);

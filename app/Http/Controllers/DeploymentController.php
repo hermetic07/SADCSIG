@@ -239,4 +239,13 @@ class DeploymentController extends Controller
                                 ->with('guards',$deployments_hist);
         }
     }
+
+    public function filterGuards(Request $request){
+        if($request->ajax()){
+            $employees = Employee::all();
+           // return $employees->toArray();
+            return view('AdminPortal.Deployments.qualified_guards')
+                    ->with('employees',$employees);
+        }
+    }
 }

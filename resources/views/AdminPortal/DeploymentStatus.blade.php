@@ -215,7 +215,7 @@
                       <input type="hidden" name="refuseCtr" id="refuseCtr" value="1">
                       <button type="button" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
                     </form> -->
-                    <!-- <button type="button" onclick="submit_form(',.{{$employee->id}}')" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button> -->
+                    <button type="button" onclick="submit_form(',.{{$employee->id}}')" class="btn btn-block btn-outline btn-rounded btn-danger">Change</button>
                   </div>
                 </div>
                 @foreach($tempDeploymentDetails as $tempDeploymentDetail)
@@ -259,6 +259,7 @@
 </div>
 </div>
 </div></div>
+<!-- <button type="button" value="{{$acceptedGuard->client_deployment_notif_id}},{{$acceptedGuard->guard_id}}" class="btn btn-block btn-outline btn-rounded btn-danger reason">Reason</button> -->
 
 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 <div class="white-box">
@@ -309,7 +310,25 @@
 <input type="hidden" id="role" value="{{$role}}">
 
 
-
+<div id="reaon-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: firebrick; color:white;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myLargeModalLabel" style="color:white;"><center><strong>Guard Reason</strong></center></h4>
+      </div>
+      <div class="modal-body reason-modal-content">
+        
+        
+      </div>
+      <br>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div> <!-- /.modal-dialog -->
+</div>
   @endsection
   @section('script')
     <script type="text/javascript">
@@ -372,17 +391,22 @@
           type : 'GET',
           data : {secuID:secuID,client_deployment_notif_id:client_deployment_notif_id},
           success:function(data){
-            alert(data);
+
+            $('.reason-modal-content').html('');
+            $('.reason-modal-content').append(data);
+            $("#reaon-modal").modal('show');
+           // alert(data);
           }
         });
       });
 
       function submit_form(emp_id){
+
         $('#refuseID').attr('value',emp_id);
         $('#refuseCtr').attr('value','1')
 
         $('#change-form').submit();
-        //alert($('#refuseCtr').val());
+        //alert(emp_id);
       }
     </script>
   @endsection

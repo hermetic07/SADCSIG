@@ -317,7 +317,7 @@ class AdminController extends Controller
         //return $tempDeployments;
     }
     public function changeRejectedGuards(Request $request){
-        //return $request->toArray();
+        return $request->toArray();
         $employees = Employee::all();
         $shifts = Shifts::all();
         $establishments = Establishments::all();

@@ -154,12 +154,14 @@ $(document).ready(function(){
     $("tr").show();
   });
   $(".radioBtn").click(function(){
+
+    
     var radioVal;
     //guardsReq =  this.id;
     radioVal = this.value.split(",");
     guardsReq = radioVal[2];
     //alert("#"+this.id);
-$(".sel").text( " Please select " + guardsReq + " guards to deploy to the client.");
+    $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client.");
     $('#establishmentID').val(radioVal[1]);
     $('#numGuards').val(radioVal[2]);
     $('#contractID').val(radioVal[0]);
@@ -167,9 +169,22 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
     //alert(radioVal[3]);
     var notRadio = "#"+this.id;
    // alert(notRadio);
-    $(".radioBtn:not("+notRadio+")").prop('checked', false);
+   // $(".radioBtn:not("+notRadio+")").prop('checked', false);
     //alert(".radioBtn:not("+notRadio+")");
    //var radioVal = this.value.toArray();
+
+   $.ajax({
+      url : 'guardFiltering',
+      type : 'GET',
+      data : {
+        contractID : radioVal[0]
+      },
+      success : function(data){
+        //console.log(data);
+        $('.qualified-quards').html('');
+        $('.qualified-quards').append(data);
+      }
+    });
 
   });
 });
@@ -354,7 +369,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
                               </td>
                               <td>
                                 <div class="radio radio-info">
-                                <input type="radio" id="{{ $contract->id }}" class="radioBtn" value="{{ $contract->id }},{{ $establishmentID }},{{ $contract->guard_count }},{{$client_id}}">
+                                <input type="radio" id="{{ $contract->id }}" class="radioBtn" name="all-clients" value="{{ $contract->id }},{{ $establishmentID }},{{ $contract->guard_count }},{{$client_id}}">
                                   <label for="select1"> Select</label>
                                 </div>
                               </td>
@@ -437,7 +452,7 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
             @endphp
                   <div class="col-md-4 col-sm-4 staff-container">
                     <div class="white-box">
-                      <div class="row">
+                      <div class="row" id="qualified-quards">
                         <div class="col-md-4 col-sm-4 text-center guard_details">
                            <div class="el-card-item">
                              <div class="el-card-avatar el-overlay-1">
@@ -496,6 +511,9 @@ $(".sel").text( " Please select " + guardsReq + " guards to deploy to the client
               @endif
             @endif
           @endforeach
+          <div class="qualified-quards">
+            
+          </div>
             <input type="hidden" name="exceeds" value="{{ $ctr2 }}">
         <!-- Add training, seminars, exams Modal -->
                 <div id="Addtse" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
