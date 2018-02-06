@@ -5,8 +5,10 @@
       <ul class="nav" id="side-menu">
 
                     <li class="user-pro">
-                        <a href="#" class="waves-effect"><img src="plugins/images/LandingPage/JUCEBER.png" alt="user-img" class="img-circle"><span class="hide-menu text-white">Jubecer security</span>
+                        <center>
+                          <a href="#" class="waves-effect"><img src="plugins/images/users/logoicon2.png" alt="user-img" class="img-circle"><span class="hide-menu text-white">C.S.G.M.S</span>
                         </a>
+                        </center>
                     </li>
 
         <li> <a href="{{url('/Dashboard')}}" class="waves-effect"><i class="fa fa-dashboard fa-2x fa-fw p-r-10"></i> <span class="hide-menu"> Dashboard </span> </a>
