@@ -51,7 +51,14 @@
         @if($Area->status !== "deleted")
         <tr class="item{{$Area->id}}">
            <td>{!!$Area->name!!}</td>
-           <td>{!!$Area->provinces->name!!}</td>
+           
+            @foreach($Provinces as $prov)
+              @if($Area->provinces_id == $prov->id)
+                <td>{!!$Area->name!!}</td>
+              @endif
+            @endforeach
+           
+           
            <td>
              @if($Area->status === "active")
              <div class="onoffswitch2">

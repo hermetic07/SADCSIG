@@ -91,8 +91,8 @@ class ContractController extends Controller
         $requirements = Requirement::all();
         $guns = Gun::all();
         $gunTypes = GunType::all();
-        $count1 = "CONTRACT".Contracts::get()->count();
-        $count2 = "CLIENTz".Clients::get()->count();
+        $count1 = "CONTRACT-00".Contracts::get()->count();
+        $count2 = "CLIENT-00".Clients::get()->count();
         return view('AdminPortal.ClientRegistration')
                 ->with('requirements',$requirements)
                 ->with('attributes',$attributes)

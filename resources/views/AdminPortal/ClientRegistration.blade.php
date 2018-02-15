@@ -11,7 +11,7 @@
 
   <link rel="icon" type="image/png" href="plugins/images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="plugins/images/favicon-16x16.png" sizes="16x16" />
-
+  <link href="js/Alert/swalExtend.css" rel="stylesheet" type="text/css">
   <!-- title -->
   <title>Client registration</title>
 
@@ -643,6 +643,8 @@
 <!-- jQuery and switch -->
 
 <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
+<script src="js/Alert/swalExtend.js"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Form Wizard JavaScript -->
@@ -677,6 +679,7 @@
 
 
  <script>
+
   function get_gun_list(guntypeID){
     //alert(guntypeID);
     $.ajax({
@@ -1101,8 +1104,20 @@ $("#nature").change(function(){
                       {
                         alert("Registration Success Will now proceed to uploading of your pictures ");
                         window.location.href = "/UploadPics";
+                       // swal("Registration Success!", "Will now proceed to uploading of your pictures.", "success");
+                      //   swal({
+                      //           title: 'Registration Success!',
+                      //           text: "Will now proceed to uploading of your pictures.",
+                      //           type: 'success',
+                                
+                      //           confirmButtonColor: '#3085d6',
+                                
+                      //           confirmButtonText: 'Ok'
+                      //         },function(){
+                      //           window.location.href = "/UploadPics";
+                      //         });
 
-                      }
+                      // }
                       else {
                         alert(data);
                       }
@@ -1113,7 +1128,7 @@ $("#nature").change(function(){
             });
 
 
-        })();
+        });
 </script>
 <script>
 

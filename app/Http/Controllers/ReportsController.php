@@ -298,6 +298,7 @@ class ReportsController extends Controller
                               ->orWhere('employees.status','=','deployed')
                               // ->join('tblestabguards','tblestabguards.strGuardID','=','employees.id')
                               ->get();
+      // dd($gains_employees);
       $gains_report = PDF::loadView('AdminPortal.Reports_PDF.gains_report',
                     [
                       'start' => $request->startFrom,
