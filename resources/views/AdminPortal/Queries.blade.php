@@ -52,6 +52,15 @@
                 <section id="section-shape-1">
                   <div class="col-sm-12">
                     <div class="row">
+                      <label  class="col-sm-1">Employee ID</label>
+                        <input type="text" name="Employee-id" id="emp-id" list="emp-list" class="col-sm-3" >
+                        <datalist id="emp-list">
+                          @foreach($employees as $employee)
+                            <option value="{{$employee->id}}">{{$employee->id}}</option>
+                          @endforeach
+                        </datalist>
+                    </div>
+                    <div class="row">
                       <label for="first" class="col-sm-1">First Name</label><input type="text" id="first" value="" class="col-sm-3">
                       <label for="mid" class="col-sm-1">Middle Name</label><input type="text" id="mid" value="" class="col-sm-3">
                       <label for="last" class="col-sm-1">Last Name</label><input type="text" id="last" value="" class="col-sm-3">
@@ -91,6 +100,16 @@
 
                     <div class="col-sm-12">
                       <div class="row">
+                        <label  class="col-sm-1">Client ID</label>
+                        <input type="text" name="Client-id" id="client-id" list="client-list" class="col-sm-3" >
+                        <datalist id="client-list">
+                          @foreach($clients as $client)
+                            <option value="{{$client->id}}">{{$client->id}}</option>
+                          @endforeach
+                        </datalist>
+                      </div>
+                      <br>
+                      <div class="row">
                         <label for="cfirst" class="col-sm-1">First Name</label><input type="text" id="cfirst" value="" class="col-sm-3">
                         <label for="cmid" class="col-sm-1">Middle Name</label><input type="text" id="cmid" value="" class="col-sm-3">
                         <label for="clast" class="col-sm-1">Last Name</label><input type="text" id="clast" value="" class="col-sm-3">
@@ -108,6 +127,7 @@
                     </div>
                     <table id="table" class="table table-bordered table-hover toggle-circle color-bordered-table muted-bordered-table">
                       <thead>
+                        <th>Client ID</th>
                         <th>Name</th>
                         <th>Address</th>
                         <th>Email</th>
@@ -145,16 +165,23 @@
               })();
   </script>
   <script type="text/javascript">
+    // $("input[name='Employee-id']").on('input', function(e){
+    //     var selected = $(this).val();
+    //     alert(selected);
+    // });
     $("#go").click(function() {
+     //alert($("input[name='Employee-id']").val());
       $.ajaxSetup({
         headers: {
          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
       }); 
+      
       $.ajax({
         type: 'post',
         url: '/Admin-Queries-Employee',
         data: {
+            'id':$("input[name='Employee-id']").val(),
             'first':$("#first").val(),
             'mid': $("#mid").val(),
             'last': $("#last").val(),
@@ -166,7 +193,17 @@
             'status': $("#status").val(),
         },
         success: function(data){
+          //alert("Panget ni Ernest!! Walang Leeg...");
+         // alert(data);
+          
+          if (data == 1) {
+            alert("Panget ni Ernest!! Walang Leeg...");
+            swal("No Record Found", "Please try to input other values.", "error");
+          }
+          else
+          {
             $("#tablebody").html(data);
+          }
         }
       });
     });
@@ -180,6 +217,7 @@
         type: 'post',
         url: '/Admin-Queries-Client',
         data: {
+            'id':$("input[name='Client-id']").val(),
             'first':$("#cfirst").val(),
             'mid': $("#cmid").val(),
             'last': $("#clast").val(),
@@ -188,7 +226,14 @@
             'email': $("#cemail").val(),
         },
         success: function(data){
+          if (data == 1) {
+            alert("Panget ni Ernest!! Walang Leeg...");
+            swal("No Record Found", "Please try to input other values.", "error");
+          }
+          else
+          {
             $("#ctablebody").html(data);
+          }
         }
       });
     });

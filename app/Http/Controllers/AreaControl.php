@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers; 
 
 use Illuminate\Http\Request;
 use App\Area;
@@ -16,6 +16,15 @@ class AreaControl extends Controller
     {
       $Areas = Area::all();
       $Provinces = Province::all();
+
+      // $prov = Province::findOrFail(5);
+
+      // return $prov->name;
+
+    // foreach ($prov->area as $a)
+    //     echo $a->name ;
+
+     
       return view('maintenance.Area')->with('Areas',$Areas)->with('Provinces',$Provinces);
     }
 

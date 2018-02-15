@@ -57,6 +57,7 @@ class AdminController extends Controller
         return view('AdminPortal.Incidents')->with('a',$i);
     }
     public function dashboardIndex(){
+      
       $license = DB::table('tblincident')->count();
       $billing = Collections::where('strstatus','notsent')->count();
       $billing2 = Collections::where('strstatus','sent')->count();

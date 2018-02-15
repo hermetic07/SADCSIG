@@ -8,15 +8,22 @@ use Validator;
 use Response;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use App\Clients;
 class EmployeeQuery extends Controller
 {
     public function index()
     {
-      return view("AdminPortal.Queries");
+      $employees = Employee::all();
+      $clients = Clients::all();
+      return view("AdminPortal.Queries")
+              ->with("employees",$employees)
+              ->with("clients",$clients);
     }
     public function get(Request $req)
     {
-      $all = Employee::where('first_name', 'LIKE', "%$req->first%")
+      $checker = 0;
+      $all = Employee::where('id', 'LIKE', "%$req->id")
+                      ->where('first_name', 'LIKE', "%$req->first%")
                       ->where('middle_name', 'LIKE', "%$req->mid%")
                       ->where('last_name', 'LIKE', "%$req->last%")
                       ->where('street', 'LIKE', "%$req->street%")
@@ -29,8 +36,9 @@ class EmployeeQuery extends Controller
                       ->get();
       $data = "";
       foreach ($all as $a) {
+        $checker++;
         $data.="<tr>";
-            $data.="<td>$a->id</td>";
+            $data.="<td><a href="."SecuProfile/$a->id"." target=\"_blank\">$a->id</a></td>";
             $data.="<td>$a->first_name $a->middle_name $a->last_name</td>";
             $data.="<td>$a->street $a->barangay $a->city</td>";
             $data.="<td>$a->gender</td>";
@@ -38,14 +46,24 @@ class EmployeeQuery extends Controller
             $data.="<td>$a->status</td>";
         $data.="</tr>";
       }
-      return $data;
+      if($checker == 0)
+      {
+        return 1;
+      }
+      else
+      {
+        return $data;
+      }
     }
 
     public function cget(Request $req)
     {
+      $checker = 0;
+
       $all = DB::table('clients')
       ->join('areas', 'areas.id', '=', 'clients.areas_id')
-      ->select('clients.last_name as last_name','clients.middle_name as middle_name','clients.first_name as first_name', 'clients.address as address', 'clients.email as email', 'areas.name as area', 'clients.cellphoneNo as cellphone' , 'clients.contactNo as tellephone' )
+      ->select('clients.last_name as last_name','clients.middle_name as middle_name','clients.first_name as first_name', 'clients.address as address', 'clients.email as email', 'areas.name as area', 'clients.cellphoneNo as cellphone' , 'clients.contactNo as tellephone', 'clients.id as id ' )
+                      ->where('clients.id', 'LIKE', "%$req->id")
                       ->where('first_name', 'LIKE', "%$req->first%")
                       ->where('clients.middle_name', 'LIKE', "%$req->mid%")
                       ->where('clients.last_name', 'LIKE', "%$req->last%")
@@ -57,7 +75,10 @@ class EmployeeQuery extends Controller
 
       $data = "";
       foreach ($all as $a) {
+        $checker++;
+
         $data.="<tr>";
+            $data.="<td><a href="."/ClientEstablishment-".$a->id." target=\"_blank\">$a->id</a></td>";
             $data.="<td>$a->first_name $a->middle_name $a->last_name</td>";
             $data.="<td>$a->address $a->area</td>";
             $data.="<td>$a->email</td>";
@@ -65,6 +86,13 @@ class EmployeeQuery extends Controller
             $data.="<td>$a->tellephone</td>";
         $data.="</tr>";
       }
-      return $data;
+      if($checker == 0)
+      {
+        return 1;
+      }
+      else
+      {
+        return $data;
+      }
     }
 }

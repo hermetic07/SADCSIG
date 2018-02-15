@@ -71,7 +71,8 @@
                     <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
                       <div class="el-overlay">
                         <ul class="el-info">
-                          <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          <!-- <li><a class="btn default btn-outline" href="{{URL('/SecuProfile',$employee->id)}}" target="_blank"><i class="fa fa-info"></i></a></li> -->
+                          <li><a class="btn default btn-outline image-popup-vertical-fit" href="uploads/{{$employee->image}}"><i class="icon-magnifier"></i></a></li>
                           <li>
                             {{$employee->first_name}}
                           </li>
@@ -96,7 +97,7 @@
                         <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
                           <div class="el-overlay">
                             <ul class="el-info">
-                              <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                              <li><a class="btn default btn-outline" href="uploads/{{$employee->image}}" target="_blank"><i class="fa fa-info"></i></a></li>
                               <li>
                             {{$employee->first_name}}
                           </li>
@@ -153,7 +154,7 @@
                     <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
                       <div class="el-overlay">
                         <ul class="el-info">
-                          <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          <li><a class="btn default btn-outline" href="uploads/{{$employee->image}}" target="_blank"><i class="fa fa-info"></i></a></li>
                           <li>
                             {{$employee->first_name}}
                           </li>
@@ -175,7 +176,7 @@
                     <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
                       <div class="el-overlay">
                         <ul class="el-info">
-                          <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                          <li><a class="btn default btn-outline" href="uploads/{{$employee->image}}" target="_blank"><i class="fa fa-info"></i></a></li>
                           <li>
                             {{$employee->first_name}}
                           </li>
@@ -195,7 +196,7 @@
                       <a href="SecurityGuardsProfile.html"><img src="uploads/{{$employee->image}}" alt="user"  class="img-responsive"></a>
                         <div class="el-overlay">
                           <ul class="el-info">
-                            <li><a class="btn default btn-outline" href="SecurityGuardsProfile.html" target="_blank"><i class="fa fa-info"></i></a></li>
+                            <li><a class="btn default btn-outline" href="uploads/{{$employee->image}}" target="_blank"><i class="fa fa-info"></i></a></li>
                             <li>
                             {{$employee->first_name}}
                           </li>
