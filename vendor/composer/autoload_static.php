@@ -8,12 +8,12 @@ class ComposerStaticInit0c67443a19260e0f8b2dcc8258700844
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
-        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
-        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
@@ -126,8 +126,8 @@ class ComposerStaticInit0c67443a19260e0f8b2dcc8258700844
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'jlawrence\\eos\\' => 
         array (
@@ -376,7 +376,9 @@ class ComposerStaticInit0c67443a19260e0f8b2dcc8258700844
         'App\\AddGuardRequests' => __DIR__ . '/../..' . '/app/AddGuardRequests.php',
         'App\\AdminCancelRequests' => __DIR__ . '/../..' . '/app/AdminCancelRequests.php',
         'App\\Agencyfee' => __DIR__ . '/../..' . '/app/Agencyfee.php',
+        'App\\Announcements' => __DIR__ . '/../..' . '/app/Announcements.php',
         'App\\Area' => __DIR__ . '/../..' . '/app/Area.php',
+        'App\\Attendance' => __DIR__ . '/../..' . '/app/Attendance.php',
         'App\\Attribute' => __DIR__ . '/../..' . '/app/Attribute.php',
         'App\\Billingday' => __DIR__ . '/../..' . '/app/Billingday.php',
         'App\\Billings' => __DIR__ . '/../..' . '/app/Billings.php',
@@ -390,6 +392,7 @@ class ComposerStaticInit0c67443a19260e0f8b2dcc8258700844
         'App\\Collections' => __DIR__ . '/../..' . '/app/Collections.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\ContractGuns' => __DIR__ . '/../..' . '/app/ContractGuns.php',
+        'App\\ContractTerminations' => __DIR__ . '/../..' . '/app/ContractTerminations.php',
         'App\\Contracts' => __DIR__ . '/../..' . '/app/Contracts.php',
         'App\\Deployment' => __DIR__ . '/../..' . '/app/Deployment.php',
         'App\\DeploymentDetails' => __DIR__ . '/../..' . '/app/DeploymentDetails.php',
@@ -430,6 +433,7 @@ class ComposerStaticInit0c67443a19260e0f8b2dcc8258700844
         'App\\Http\\Controllers\\ClientAuthControl' => __DIR__ . '/../..' . '/app/Http/Controllers/ClientAuthControl.php',
         'App\\Http\\Controllers\\ClientPortalHomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClientPortalHomeController.php',
         'App\\Http\\Controllers\\ContractController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContractController.php',
+        'App\\Http\\Controllers\\ContractTerminationController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContractTerminationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DTR' => __DIR__ . '/../..' . '/app/Http/Controllers/DTR.php',
         'App\\Http\\Controllers\\DeployControl' => __DIR__ . '/../..' . '/app/Http/Controllers/DeployControl.php',
