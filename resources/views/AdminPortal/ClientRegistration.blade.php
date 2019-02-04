@@ -650,7 +650,7 @@
 <!-- Form Wizard JavaScript -->
 <script src="plugins/bower_components/jquery-wizard-master/dist/jquery-wizard.min.js"></script>
 <!-- FormValidation -->
-<link rel="stylesheet" href="plugins/bower_components/jquery-wizard-master/libs/formvalidation/ formValidation.min.css">
+<link rel="stylesheet" href="plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.css">
 <!-- FormValidation plugin and the class supports validating Bootstrap form -->
 <script src="plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.js"></script>
 <script src="plugins/bower_components/jquery-wizard-master/libs/formvalidation/bootstrap.min.js"></script>
@@ -1117,7 +1117,7 @@ $("#nature").change(function(){
                       //           window.location.href = "/UploadPics";
                       //         });
 
-                      // }
+                       }
                       else {
                         alert(data);
                       }
