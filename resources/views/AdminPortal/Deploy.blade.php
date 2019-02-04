@@ -640,11 +640,11 @@ $(document).ready(function(){
 </div> <!-- /Add military service modal -->
 
 <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+
 <!--slimscroll JavaScript -->
 <script src="js/jquery.slimscroll.js"></script>
-
+<!-- Bootstrap Core JavaScript -->
+<script src="bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Magnific popup JavaScript -->
 <script src="plugins/bower_components/Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
 <script src="plugins/bower_components/Magnific-Popup-master/dist/jquery.magnific-popup-init.js"></script>
