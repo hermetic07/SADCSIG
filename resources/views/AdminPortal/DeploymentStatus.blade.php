@@ -44,6 +44,7 @@
   $changeID = "";
   $rejectID = "";
   $accepted = "";
+  $isAcceptedGuards = false;
   $totalGuardsDeployed = 0;
   $shiftTo = "";
   $shiftFrom = "";
@@ -52,6 +53,13 @@
   $refuseID = "";
 
 @endphp
+
+@foreach($acceptedGuards as $acceptedGuard) 
+  @php
+    $isAcceptedGuards = true;
+  @endphp
+@endforeach
+
 @foreach($tempDeployments as $tempDeployment)
   @if($tempDeployment->contract_ID == $contract->id)
   @foreach($clientDeploymentNotifs as $clientDeploymentNotif)
@@ -139,6 +147,7 @@
     <div class="row  el-element-overlay">
 <div id="secus" class="owl-carousel owl-theme ">
 
+@if($isAcceptedGuards)
 @foreach($tempDeployments as $tempDeployment)
   @if($tempDeployment->contract_ID == $contract->id)
   @foreach($clientDeploymentNotifs as $clientDeploymentNotif)
@@ -237,6 +246,7 @@
   @endforeach
   @endif
 @endforeach
+@endif
 
             </div>
           </div>
@@ -260,7 +270,6 @@
 </div>
 </div>
 </div></div>
-<!-- <button type="button" value="{{$acceptedGuard->client_deployment_notif_id}},{{$acceptedGuard->guard_id}}" class="btn btn-block btn-outline btn-rounded btn-danger reason">Reason</button> -->
 
 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 <div class="white-box">

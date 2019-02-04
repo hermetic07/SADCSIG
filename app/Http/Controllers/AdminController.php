@@ -293,13 +293,14 @@ class AdminController extends Controller
         //$client_deployment_notif_id = $clientDeploymentNotifs[0]->client_deloyment_notif_id;
         $notif_response = NotifResponse::all();
         $acceptedGuards = AcceptedGuards::all();
+
         $employees = Employee::all();
         $natures = Nature::findOrFail($establishment->natures_id);
         $shifts = Shifts::where('estab_id',$establishment->id)->get();
         $area = Area::findOrFail($establishment->areas_id);
         $province = Province::findOrFail($area->provinces_id);
         $completeAdd = $establishment->address.",".$area->name." ,".$province->name;
-
+ 
         return view('AdminPortal.DeploymentStatus')
                     ->with('tempDeployments',$tempDeployments)
                     ->with('tempDeploymentDetails',$tempDeploymentDetails)
